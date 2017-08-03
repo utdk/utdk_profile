@@ -16,7 +16,7 @@ packages needed for the distribution. The Drupal docroot will be copied into the
 /web directory (and you will need to point your server to this directory).
 2. `cp web/sites/example.settings.local.php web/sites/default/settings.local.php`
 3. Add database credentials to settings.local.php
-4. `cd web/ && `drush si -y`
+4. `cd web/ && drush si -y`
 5. You should now have a Drupal site installed, with the 'standard' profile!
 6. Additional themes/modules, such as `layout_per_node` and `bootstrap` are
 currently added but not enabled. Give 'em a try
