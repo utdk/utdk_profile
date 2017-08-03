@@ -9,7 +9,7 @@
           "name": "Mark Fullmer",
           "email": "mark.writecrow@gmail.com",
           "homepage": "https://markfullmer.com",
-          "role": "Senior Developer"
+          "role": "Developer"
       },
       {
           "name": "Tyler Fahey",
@@ -20,7 +20,7 @@
   ],
   "support": {
       "email": "drupal-kit-support@utlists.utexas.edu",
-      "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared",
+      "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared/issues",
       "source": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared"
   },
   "repositories": [
@@ -56,7 +56,6 @@
     "jcalderonzumba/mink-phantomjs-driver": "^0.3.1",
     "drupal/drupal-extension": "^3.1",
     "drush-ops/behat-drush-endpoint": "^0.0.4",
-    "pantheon-systems/quicksilver-pushback": "~1",
     "phpunit/phpunit": "^4.8",
     "symfony/css-selector": "^2.8"
   },
@@ -65,11 +64,6 @@
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
-  "autoload": {
-    "classmap": [
-      "scripts/composer/ScriptHandler.php"
-    ]
-  },
   "extra": {
     "installer-paths": {
       "web/core": ["type:drupal-core"],
