@@ -27,4 +27,4 @@ repository's composer.json file. Updating the `$settings['install_profile']` in
 settings.php to this installation profile will make it execute on a
 `drush si -y`.
 2. Determine whether contributed and custom modules provided by this
-composer.json should be placed in the profiles/<custom-profile>/ directory.
+composer.json should be placed in the profiles/`<custom-profile>`/ directory.
