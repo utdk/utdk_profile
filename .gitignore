@@ -10,6 +10,12 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 
+# Ignore custom modules (this may change)
+/web/modules/custom
+
+# Ignore site configuration (appropriate for distro, not for individual site)
+/web/sites/default/config
+
 # Ignore scaffold files
 web/.csslintrc
 web/.editorconfig
@@ -24,6 +30,7 @@ web/sites/default/default.services.pantheon.preproduction.yml
 web/sites/default/default.services.yml
 web/sites/default/default.settings.php
 web/sites/default/settings.pantheon.php
+web/sites/default/settings.local.php
 web/sites/development.services.yml
 web/sites/example.settings.local.php
 web/sites/example.sites.php
