@@ -42,8 +42,11 @@
     "webflo/drupal-core-strict": "^8",
     "drupal/console": "^1.0.0-rc8",
     "drush/drush": "~8",
+    "drupal/responsive_tables_filter": "^1.1",
+    "drupal/twitter_profile_widget": "^1.4",
     "drupal/bootstrap": "^3.3",
     "drupal/adminimal_theme": "^1.3",
+    "oomphinc/composer-installers-extender": "^1.1",
     "utexas/layout_per_node": "dev-master"
   },
   "require-dev": {
@@ -64,7 +67,24 @@
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "autoload": {
+    "classmap": [
+      "scripts/composer/ScriptHandler.php"
+    ]
+  },
+  "scripts": {
+    "build-assets": [
+      "composer install --optimize-autoloader"
+    ],
+    "post-install-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+    ],
+    "post-update-cmd": [
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+    ]
+  },
   "extra": {
+    "installer-types": ["utexas-module"],
     "installer-paths": {
       "web/core": ["type:drupal-core"],
       "web/modules/custom/{$name}": ["type:utexas-module"],

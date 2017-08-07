@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "69272e94a4146d834683b5066de776d4",
+    "content-hash": "4272daa160bee72dc7651c18a26e6a08",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1172,16 +1172,16 @@
         },
         {
             "name": "drupal/console",
-            "version": "1.0.0-rc26",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hechoendrupal/drupal-console.git",
-                "reference": "17892babb5589e17ca1af06f1c4e2c7333967fad"
+                "reference": "387d3945463c3fbdb7b3a27e2efbeb363d900946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hechoendrupal/drupal-console/zipball/17892babb5589e17ca1af06f1c4e2c7333967fad",
-                "reference": "17892babb5589e17ca1af06f1c4e2c7333967fad",
+                "url": "https://api.github.com/repos/hechoendrupal/drupal-console/zipball/387d3945463c3fbdb7b3a27e2efbeb363d900946",
+                "reference": "387d3945463c3fbdb7b3a27e2efbeb363d900946",
                 "shasum": ""
             },
             "require": {
@@ -1189,7 +1189,7 @@
                 "composer/installers": "~1.0",
                 "doctrine/annotations": "^1.2",
                 "doctrine/collections": "^1.3",
-                "drupal/console-core": "1.0.0-rc26",
+                "drupal/console-core": "1.0.0",
                 "drupal/console-dotenv": "~0",
                 "drupal/console-extend-plugin": "~0",
                 "gabordemooij/redbean": "~4.3",
@@ -1247,25 +1247,25 @@
                 "drupal",
                 "symfony"
             ],
-            "time": "2017-07-28T09:06:18+00:00"
+            "time": "2017-08-05T22:36:15+00:00"
         },
         {
             "name": "drupal/console-core",
-            "version": "1.0.0-rc26",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hechoendrupal/drupal-console-core.git",
-                "reference": "90bd569822a923347d6b5ab49d2b31ad5603bb14"
+                "reference": "f6eadee809ef0c9ba2a18f5275417c09caa623cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hechoendrupal/drupal-console-core/zipball/90bd569822a923347d6b5ab49d2b31ad5603bb14",
-                "reference": "90bd569822a923347d6b5ab49d2b31ad5603bb14",
+                "url": "https://api.github.com/repos/hechoendrupal/drupal-console-core/zipball/f6eadee809ef0c9ba2a18f5275417c09caa623cb",
+                "reference": "f6eadee809ef0c9ba2a18f5275417c09caa623cb",
                 "shasum": ""
             },
             "require": {
                 "dflydev/dot-access-configuration": "^1.0",
-                "drupal/console-en": "1.0.0-rc26",
+                "drupal/console-en": "1.0.0",
                 "php": "^5.5.9 || ^7.0",
                 "stecman/symfony-console-completion": "~0.7",
                 "symfony/config": "~2.8|~3.0",
@@ -1328,7 +1328,7 @@
                 "drupal",
                 "symfony"
             ],
-            "time": "2017-07-28T08:50:09+00:00"
+            "time": "2017-08-05T22:02:42+00:00"
         },
         {
             "name": "drupal/console-dotenv",
@@ -1371,16 +1371,16 @@
         },
         {
             "name": "drupal/console-en",
-            "version": "1.0.0-rc26",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hechoendrupal/drupal-console-en.git",
-                "reference": "1d9e6248b337e5d63deb79c3d11c7ba457f52e56"
+                "reference": "9db52478c5870d535f2e507f51142c7ed1a17098"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hechoendrupal/drupal-console-en/zipball/1d9e6248b337e5d63deb79c3d11c7ba457f52e56",
-                "reference": "1d9e6248b337e5d63deb79c3d11c7ba457f52e56",
+                "url": "https://api.github.com/repos/hechoendrupal/drupal-console-en/zipball/9db52478c5870d535f2e507f51142c7ed1a17098",
+                "reference": "9db52478c5870d535f2e507f51142c7ed1a17098",
                 "shasum": ""
             },
             "type": "drupal-console-language",
@@ -1421,7 +1421,7 @@
                 "drupal",
                 "symfony"
             ],
-            "time": "2017-07-24T07:09:16+00:00"
+            "time": "2017-08-02T13:46:40+00:00"
         },
         {
             "name": "drupal/console-extend-plugin",
@@ -1648,6 +1648,96 @@
             ],
             "description": "Drupal is an open source content management platform powering millions of websites and applications.",
             "time": "2017-08-02T15:27:39+00:00"
+        },
+        {
+            "name": "drupal/responsive_tables_filter",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/responsive_tables_filter",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/responsive_tables_filter-8.x-1.1.zip",
+                "reference": null,
+                "shasum": "71bdc8efc5030a25d0ebb66405a18252b9868e73"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1497035643"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "mark_fullmer",
+                    "homepage": "https://www.drupal.org/user/2612816"
+                }
+            ],
+            "description": "Make tables in WYSIWYG fields responsive",
+            "homepage": "https://www.drupal.org/project/responsive_tables_filter",
+            "support": {
+                "source": "http://cgit.drupalcode.org/responsive_tables_filter"
+            }
+        },
+        {
+            "name": "drupal/twitter_profile_widget",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/twitter_profile_widget",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/twitter_profile_widget-8.x-1.4.zip",
+                "reference": null,
+                "shasum": "87fd7b2d1e3fbd4d6143f66a77a57e1d2c1fdd7e"
+            },
+            "require": {
+                "drupal/core": "^8.1"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1500827942"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Spleshka",
+                    "homepage": "https://www.drupal.org/user/810676"
+                },
+                {
+                    "name": "mark_fullmer",
+                    "homepage": "https://www.drupal.org/user/2612816"
+                }
+            ],
+            "description": "Provides Twitter feeds to a site via configuration entities.",
+            "homepage": "https://www.drupal.org/project/twitter_profile_widget",
+            "support": {
+                "source": "http://cgit.drupalcode.org/twitter_profile_widget"
+            }
         },
         {
             "name": "drush/drush",
@@ -2331,6 +2421,48 @@
                 "php"
             ],
             "time": "2017-07-28T14:45:09+00:00"
+        },
+        {
+            "name": "oomphinc/composer-installers-extender",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oomphinc/composer-installers-extender.git",
+                "reference": "ca1c4b16b0905c81d1e77e608f36a2eff1a56f56"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oomphinc/composer-installers-extender/zipball/ca1c4b16b0905c81d1e77e608f36a2eff1a56f56",
+                "reference": "ca1c4b16b0905c81d1e77e608f36a2eff1a56f56",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "composer/installers": "^1.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "OomphInc\\ComposerInstallersExtender\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "OomphInc\\ComposerInstallersExtender\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Beemsterboer",
+                    "email": "stephen@oomphinc.com",
+                    "homepage": "https://github.com/balbuf"
+                }
+            ],
+            "description": "Extend the composer/installers plugin to accept any arbitrary package type.",
+            "homepage": "http://www.oomphinc.com/",
+            "time": "2017-03-31T16:57:39+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4556,12 +4688,18 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/layout_per_node.git",
-                "reference": "b68e1306eeb7989c6ba2fc5401f898d743e23424"
+                "reference": "dbb672149fc0b91de02f7ee43820790a94400965"
             },
             "require": {
-                "composer/installers": "^1.0.20"
+                "composer/installers": "^1.0.20",
+                "oomphinc/composer-installers-extender": "^1.1"
             },
             "type": "utexas-module",
+            "extra": {
+                "installer-types": [
+                    "utexas-module"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4574,7 +4712,7 @@
                 }
             ],
             "description": "A drag-and-drop node layout editor.",
-            "time": "2017-08-03 21:18:28"
+            "time": "2017-08-07 21:02:57"
         },
         {
             "name": "vlucas/phpdotenv",
