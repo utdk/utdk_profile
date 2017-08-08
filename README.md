@@ -23,6 +23,19 @@ this directory).
 6. Additional themes/modules, such as `layout_per_node` and `bootstrap` are
 currently added but not enabled. Give 'em a try
 
+# Making changes to composer.json / composer.lock (Distribution maintainers only)
+To allow individual developers to define their own Composer elements, we do not
+commit composer.json & composer.lock. Instead, we commit equivalent "example"
+files (which are converted to "real" files during the `setup.sh` script).
+Changes you want to introduce to the Composer files must be copied back
+to the "example" equivalents. For example, after you run `composer require panels`
+you would then need to run:
+
+`cp composer.json example.composer.json`
+`cp composer.lock example.composer.lock`
+
+After this, `git status` will show Composer modifications you made in the
+example files, and this is what you would commit to the repository
 # Road Map
 1. Create an installation profile in a separate repo and pull it in via this
 repository's composer.json file. Updating the `$settings['install_profile']` in
