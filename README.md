@@ -11,7 +11,8 @@ rather than having to maintain separate local Drupal instances or do multiple
 git clones.
 
 # Development Setup
-1. In the root directory, run `composer install`. This will retrieve all
+0. Run `sh setup.sh`
+1. Run `composer install`. This will retrieve all
 packages needed for the distribution. The Drupal docroot will be copied into the
 /web directory (and you will need to point your server to this directory).
 2. `cp web/sites/example.settings.local.php web/sites/default/settings.local.php`
