@@ -11,10 +11,11 @@ rather than having to maintain separate local Drupal instances or do multiple
 git clones.
 
 # Development Setup
-0. Run `sh setup.sh`
-1. Run `composer install`. This will retrieve all
-packages needed for the distribution. The Drupal docroot will be copied into the
-/web directory (and you will need to point your server to this directory).
+0. Run `sh setup.sh`. This will copy the "example" files from the root into
+respective usable files. It will then run `composer install`, which will
+retrieve all packages needed for the distribution. The Drupal docroot will be
+copied into the /web directory (and you will need to point your server to
+this directory).
 2. `cp web/sites/example.settings.local.php web/sites/default/settings.local.php`
 3. Add database credentials to settings.local.php
 4. `cd web/ && drush si -y`

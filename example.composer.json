@@ -73,13 +73,16 @@
     ]
   },
   "scripts": {
+    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "build-assets": [
       "composer install --optimize-autoloader"
     ],
     "post-install-cmd": [
+      "@drupal-scaffold",
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "post-update-cmd": [
+      "@drupal-scaffold",
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ]
   },

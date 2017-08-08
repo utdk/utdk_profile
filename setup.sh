@@ -9,3 +9,4 @@ cp example.composer.json composer.json
 cp example.composer.lock composer.lock
 cp example.pantheon.yml pantheon.yml
 cp example.circle.yml circle.yml
+composer install
