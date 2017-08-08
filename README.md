@@ -46,6 +46,7 @@ to the "example" equivalents. For example, after you run `composer require panel
 you would then need to run:
 
 `cp composer.json example.composer.json`
+
 `cp composer.lock example.composer.lock`
 
 After this, `git status` will show Composer modifications you made in the
