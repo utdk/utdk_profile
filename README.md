@@ -37,9 +37,8 @@ you would then need to run:
 After this, `git status` will show Composer modifications you made in the
 example files, and this is what you would commit to the repository
 # Road Map
-1. Create an installation profile in a separate repo and pull it in via this
-repository's composer.json file. Updating the `$settings['install_profile']` in
+1. Create an installation profile within this repository. Updating the `$settings['install_profile']` in
 settings.php to this installation profile will make it execute on a
 `drush si -y`.
-2. Determine whether contributed and custom modules provided by this
+2. Determine which contributed and custom modules provided by this
 composer.json should be placed in the profiles/`<custom-profile>`/ directory.
