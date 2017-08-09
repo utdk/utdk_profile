@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4272daa160bee72dc7651c18a26e6a08",
+    "content-hash": "f2925b578b0bd79e33efd54e97051c61",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4712,7 +4712,33 @@
                 }
             ],
             "description": "A drag-and-drop node layout editor.",
-            "time": "2017-08-07 21:02:57"
+            "time": "2017-08-07T21:02:57+00:00"
+        },
+        {
+            "name": "utexas/utexas_qualtrics_filter",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git",
+                "reference": "85f9df817ff9493fd44035ed9334ba4d225c05ce"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "utexas-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Custom text filter to allow Qualtrics forms into WYSIWYG fields",
+            "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "issues": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter/issues",
+                "source": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter"
+            },
+            "time": "2017-08-08T20:13:18+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5756,32 +5782,32 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.1.0",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
-                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": ">=5.3,<8.0-DEV"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpunit/phpunit": "^6.2.3",
-                "squizlabs/php_codesniffer": "^3.0.2"
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -5806,7 +5832,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2017-07-22T11:58:36+00:00"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "drupal/drupal-driver",
@@ -7149,7 +7175,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "utexas/layout_per_node": 20
+        "utexas/layout_per_node": 20,
+        "utexas/utexas_qualtrics_filter": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
