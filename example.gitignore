@@ -16,9 +16,9 @@ circle.yml
 /web/themes/contrib/
 /web/profiles/contrib/
 
-# Ignore custom modules (this may change)
+# Ignore custom modules and themes (this may change)
 /web/modules/custom
-
+/web/themes/custom
 # Ignore site configuration (appropriate for distro, not for individual site)
 /web/sites/default/config
 
