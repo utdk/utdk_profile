@@ -4744,7 +4744,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "488a75304743b2387e9a24778d5aec0df62fe020"
+                "reference": "bbd06c9cb718769c5cfd558c02511584279b7f61"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -4761,7 +4761,7 @@
                 }
             ],
             "description": "A UTexas branded Drupal theme.",
-            "time": "2017-08-11 18:07:53"
+            "time": "2017-08-11 18:59:38"
         },
         {
             "name": "utexas/layout_per_node",
