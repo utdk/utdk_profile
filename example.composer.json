@@ -35,6 +35,10 @@
     {
       "type": "vcs",
       "url":  "git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git"
+    },
+    {
+      "type": "vcs",
+      "url":  "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git"
     }
   ],
   "require": {
@@ -52,7 +56,8 @@
     "drupal/adminimal_theme": "^1.3",
     "oomphinc/composer-installers-extender": "^1.1",
     "utexas/layout_per_node": "dev-master",
-    "utexas/utexas_qualtrics_filter": "dev-master"
+    "utexas/utexas_qualtrics_filter": "dev-master",
+    "utexas/forty_acres": "dev-master"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
@@ -92,13 +97,14 @@
     ]
   },
   "extra": {
-    "installer-types": ["utexas-module"],
+    "installer-types": ["utexas-module", "utexas-theme"],
     "installer-paths": {
       "web/core": ["type:drupal-core"],
       "web/modules/custom/{$name}": ["type:utexas-module"],
       "web/modules/contrib/{$name}": ["type:drupal-module"],
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
       "web/themes/contrib/{$name}": ["type:drupal-theme"],
+      "web/themes/custom/{$name}": ["type:utexas-theme"],
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
     "build-env": {
