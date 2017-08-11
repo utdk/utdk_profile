@@ -16,6 +16,11 @@
           "email": "tfahey@austin.utexas.edu",
           "homepage": "https://tylerfahey.com",
           "role": "Developer"
+      },
+      {
+          "name": "Michael Marsello",
+          "email": "mmarsello@austin.utexas.edu",
+          "role": "Developer"
       }
   ],
   "support": {
@@ -57,7 +62,8 @@
     "oomphinc/composer-installers-extender": "^1.1",
     "utexas/layout_per_node": "dev-master",
     "utexas/utexas_qualtrics_filter": "dev-master",
-    "utexas/forty_acres": "dev-master"
+    "utexas/forty_acres": "dev-master",
+    "drupal/twig_tweak": "^1.8"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
