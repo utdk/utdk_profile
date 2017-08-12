@@ -44,6 +44,10 @@
     {
       "type": "vcs",
       "url":  "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git"
+    },
+    {
+      "type": "vcs",
+      "url":  "git@github.austin.utexas.edu:eis1-wcs/utexas_event_8.x.git"
     }
   ],
   "require": {
@@ -63,7 +67,8 @@
     "utexas/layout_per_node": "dev-master",
     "utexas/utexas_qualtrics_filter": "dev-master",
     "utexas/forty_acres": "dev-master",
-    "drupal/twig_tweak": "^1.8"
+    "drupal/twig_tweak": "^1.8",
+    "utexas/content_type_utdk_events": "dev-master"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",

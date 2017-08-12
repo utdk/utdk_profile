@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "05c4d51acd667a6c4459c352dd01b4df",
-    "content-hash": "34dc192c114d96c9f567e244189f1463",
+    "hash": "67cea745982955575bf188ac3490c67b",
+    "content-hash": "8424d97428ae807e4f6b546e067e351d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1082,7 +1082,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/adminimal_theme-8.x-1.3.zip",
-                "reference": "8.x-1.3",
+                "reference": null,
                 "shasum": "bb9f280bcdbd7e4d384a925c685a2aa1feed8419"
             },
             "require": {
@@ -1128,7 +1128,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://ftp.drupal.org/files/projects/bootstrap-8.x-3.5.zip",
-                "reference": "8.x-3.5",
+                "reference": null,
                 "shasum": "569f8a243ad6a2e04a86123a0b2a594783a09860"
             },
             "require": {
@@ -4739,6 +4739,27 @@
             "time": "2016-09-21 23:05:12"
         },
         {
+            "name": "utexas/content_type_utdk_events",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_event_8.x.git",
+                "reference": "24cb5eacccdfb47b887e0d06bbb1e332b42ff819"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "utexas-module",
+            "authors": [
+                {
+                    "name": "twfahey",
+                    "email": "tfahey@austin.utexas.edu"
+                }
+            ],
+            "description": "UTexas Events Content content_type_utdk_events",
+            "time": "2017-08-04 14:10:15"
+        },
+        {
             "name": "utexas/forty_acres",
             "version": "dev-master",
             "source": {
@@ -7258,7 +7279,8 @@
     "stability-flags": {
         "utexas/layout_per_node": 20,
         "utexas/utexas_qualtrics_filter": 20,
-        "utexas/forty_acres": 20
+        "utexas/forty_acres": 20,
+        "utexas/content_type_utdk_events": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
