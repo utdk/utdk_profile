@@ -739,7 +739,7 @@ $settings['file_scan_ignore_directories'] = [
   'bower_components',
 ];
 
-$settings['install_profile'] = 'standard';
+$settings['install_profile'] = 'utexas';
 
 /**
  * Include the Pantheon-specific settings file.

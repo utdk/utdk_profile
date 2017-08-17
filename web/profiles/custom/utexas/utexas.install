@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install UTDK for Drupal 8.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function utexas_install() {
+}
