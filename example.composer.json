@@ -68,7 +68,8 @@
     "utexas/utexas_qualtrics_filter": "dev-master",
     "utexas/forty_acres": "dev-master",
     "drupal/twig_tweak": "^1.8",
-    "utexas/content_type_utdk_events": "dev-master"
+    "utexas/content_type_utdk_events": "dev-master",
+    "drupal/features": "@stable"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
