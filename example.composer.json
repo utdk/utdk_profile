@@ -5,28 +5,28 @@
   "keywords": ["Drupal", "UTexas"],
   "license": "MIT",
   "authors": [
-      {
-          "name": "Mark Fullmer",
-          "email": "jfullmer@austin.utexas.edu",
-          "homepage": "https://markfullmer.com",
-          "role": "Developer"
-      },
-      {
-          "name": "Tyler Fahey",
-          "email": "tfahey@austin.utexas.edu",
-          "homepage": "https://tylerfahey.com",
-          "role": "Developer"
-      },
-      {
-          "name": "Michael Marsello",
-          "email": "mmarsello@austin.utexas.edu",
-          "role": "Developer"
-      }
+    {
+      "name": "Mark Fullmer",
+      "email": "jfullmer@austin.utexas.edu",
+      "homepage": "https://markfullmer.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Tyler Fahey",
+      "email": "tfahey@austin.utexas.edu",
+      "homepage": "https://tylerfahey.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Michael Marsello",
+      "email": "mmarsello@austin.utexas.edu",
+      "role": "Developer"
+    }
   ],
   "support": {
-      "email": "drupal-kit-support@utlists.utexas.edu",
-      "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared/issues",
-      "source": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared"
+    "email": "drupal-kit-support@utlists.utexas.edu",
+    "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared/issues",
+    "source": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared"
   },
   "repositories": [
     {
@@ -47,24 +47,24 @@
     }
   ],
   "require": {
-    "composer/installers": "^1.0.20",
-    "rvtraveller/qs-composer-installer": "^1.1",
-    "drupal-composer/drupal-scaffold": "^2.0.1",
-    "cweagans/composer-patches": "^1.0",
-    "drupal/core": "^8",
-    "webflo/drupal-core-strict": "^8",
-    "drupal/console": "^1.0.0-rc8",
+    "composer/installers": "1.2.0",
+    "rvtraveller/qs-composer-installer": "1.1",
+    "drupal-composer/drupal-scaffold": "2.0.1",
+    "cweagans/composer-patches": "1.0",
+    "drupal/core": "8.3.6",
+    "webflo/drupal-core-strict": "8.3.6",
+    "drupal/console": "1.0.0-rc8",
     "drush/drush": "~8",
-    "drupal/responsive_tables_filter": "^1.1",
-    "drupal/twitter_profile_widget": "^1.4",
-    "drupal/bootstrap": "^3.3",
-    "drupal/adminimal_theme": "^1.3",
-    "oomphinc/composer-installers-extender": "^1.1",
+    "drupal/responsive_tables_filter": "1.1",
+    "drupal/twitter_profile_widget": "1.4",
+    "drupal/bootstrap": "3.5",
+    "drupal/adminimal_theme": "1.3",
+    "oomphinc/composer-installers-extender": "1.1.2",
     "utexas/layout_per_node": "dev-master",
     "utexas/utexas_qualtrics_filter": "dev-master",
     "utexas/forty_acres": "dev-master",
-    "drupal/twig_tweak": "^1.8",
-    "drupal/features": "@stable"
+    "drupal/twig_tweak": "1.8",
+    "drupal/features": "3.5"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
@@ -129,6 +129,7 @@
       ],
       "excludes": [
         ".csslintrc",
+        ".eslintrc",
         ".editorconfig",
         ".eslintignore",
         ".eslintrc.json",
