@@ -5,28 +5,28 @@
   "keywords": ["Drupal", "UTexas"],
   "license": "MIT",
   "authors": [
-      {
-          "name": "Mark Fullmer",
-          "email": "jfullmer@austin.utexas.edu",
-          "homepage": "https://markfullmer.com",
-          "role": "Developer"
-      },
-      {
-          "name": "Tyler Fahey",
-          "email": "tfahey@austin.utexas.edu",
-          "homepage": "https://tylerfahey.com",
-          "role": "Developer"
-      },
-      {
-          "name": "Michael Marsello",
-          "email": "mmarsello@austin.utexas.edu",
-          "role": "Developer"
-      }
+    {
+      "name": "Mark Fullmer",
+      "email": "jfullmer@austin.utexas.edu",
+      "homepage": "https://markfullmer.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Tyler Fahey",
+      "email": "tfahey@austin.utexas.edu",
+      "homepage": "https://tylerfahey.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Michael Marsello",
+      "email": "mmarsello@austin.utexas.edu",
+      "role": "Developer"
+    }
   ],
   "support": {
-      "email": "drupal-kit-support@utlists.utexas.edu",
-      "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared/issues",
-      "source": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared"
+    "email": "drupal-kit-support@utlists.utexas.edu",
+    "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared/issues",
+    "source": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared"
   },
   "repositories": [
     {
@@ -85,7 +85,7 @@
     "symfony/css-selector": "^2.8"
   },
   "conflict": {
-      "drupal/drupal": "*"
+    "drupal/drupal": "*"
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
