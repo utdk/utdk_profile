@@ -3,3 +3,6 @@ type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
 core: 8.x
 version: '8.x-1.0'
+
+dependencies:
+  - utexas_qualtrics_filter
