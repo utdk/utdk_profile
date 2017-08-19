@@ -19,7 +19,8 @@ circle.yml
 # Ignore custom modules and themes (this may change)
 /web/modules/custom
 /web/themes/custom
-/web/profiles/utexas/modules
+/web/profiles/utexas/modules/contrib
+/web/profiles/utexas/modules/composer_modules
 # Ignore site configuration (appropriate for distro, not for individual site)
 /web/sites/default/config
 
