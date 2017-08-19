@@ -107,7 +107,7 @@
     "installer-types": ["utexas-module", "utexas-theme"],
     "installer-paths": {
       "web/core": ["type:drupal-core"],
-      "web/modules/custom/{$name}": ["type:utexas-module"],
+      "web/profiles/custom/utexas/modules/custom/{$name}": ["type:utexas-module"],
       "web/modules/contrib/{$name}": ["type:drupal-module"],
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
       "web/themes/contrib/{$name}": ["type:drupal-theme"],
