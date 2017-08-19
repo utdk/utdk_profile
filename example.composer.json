@@ -69,7 +69,7 @@
     "utexas/forty_acres": "dev-master",
     "drupal/twig_tweak": "1.8",
     "drupal/features": "3.5",
-    "utexas/content_type_utdk_events": "dev-master"
+    "utexas/utexas_event": "dev-master"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
