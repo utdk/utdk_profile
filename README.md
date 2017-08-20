@@ -32,7 +32,7 @@ $databases['default']['default'] = [
 ];
 ```
 
-4. `cd web/ && drush si utexas -y`
+4. `cd web/ && drush si -y`
 5. You should now have a Drupal site installed, with the 'utexas' profile!
 6. Additional themes/modules, such as `layout_per_node` and `bootstrap` are
 currently added but not enabled. Give 'em a try
