@@ -15,7 +15,7 @@ use Drupal\Core\Form\FormStateInterface;
  * Allows the profile to alter the site configuration form.
  */
 function utexas_form_install_configure_form_alter(&$form, FormStateInterface $form_state) {
-  $form['install_default_option'] = [
+  $form['install_forty_acres_theme_option'] = [
     '#type' => 'checkbox',
     '#title' => 'Install Forty Acres default theme?',
     '#description' => 'Check this option to have the Forty Acres theme installed.'
@@ -28,7 +28,7 @@ function utexas_form_install_configure_form_alter(&$form, FormStateInterface $fo
  * Submission handler to sync the contact.form.feedback recipient.
  */
 function utexas_form_install_configure_submit($form, FormStateInterface $form_state) {
-  $enable_forty_acres_theme = $form_state->getValue('install_default_option');
+  $enable_forty_acres_theme = $form_state->getValue('install_forty_acres_theme_option');
   if ($enable_forty_acres_theme == '1') {
     // Install default theme.
     \Drupal::service('theme_installer')->install(['forty_acres']);
@@ -36,5 +36,11 @@ function utexas_form_install_configure_submit($form, FormStateInterface $form_st
       ->getEditable('system.theme')
       ->set('default', 'forty_acres')
       ->save();
+  }
+}
+
+function utexas_form_alter(&$form, FormStateInterface $form_state) {
+  if ($form['#id'] == 'install-configure-form') {
+    $form['#submit'][] = 'Drupal\\utexas_installer\\UTexasInstallerFormSubmit::doSubmit';
   }
 }

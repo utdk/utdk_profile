@@ -5,6 +5,7 @@ core: 8.x
 version: '8.x-1.0'
 
 dependencies:
+  - utexas_installer
   - node
   - history
   - block
