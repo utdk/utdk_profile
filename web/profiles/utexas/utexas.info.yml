@@ -32,5 +32,4 @@ dependencies:
   - views
   - tour
   - automated_cron
-  - twig_tweak
   - utexas_qualtrics_filter

@@ -25,6 +25,7 @@ function utexas_form_install_configure_form_alter(&$form, FormStateInterface $fo
 }
 
 /**
+ * Implements hook_form_submit().
  * Submission handler to configure our installation.
  */
 function utexas_form_install_configure_submit($form, FormStateInterface $form_state) {
