@@ -25,9 +25,13 @@ function utexas_form_install_configure_form_alter(&$form, FormStateInterface $fo
 }
 
 /**
- * Submission handler to sync the contact.form.feedback recipient.
+ * Submission handler to configure our installation.
  */
 function utexas_form_install_configure_submit($form, FormStateInterface $form_state) {
+  $theme_option_from_drush = drush_get_option("default-forty-acres");
+  if ($theme_option_from_drush == "true") {
+    $form_state->setValue('install_forty_acres_theme_option', 1);
+  }
   $enable_forty_acres_theme = $form_state->getValue('install_forty_acres_theme_option');
   if ($enable_forty_acres_theme == '1') {
     // Install default theme.
@@ -36,11 +40,5 @@ function utexas_form_install_configure_submit($form, FormStateInterface $form_st
       ->getEditable('system.theme')
       ->set('default', 'forty_acres')
       ->save();
-  }
-}
-
-function utexas_form_alter(&$form, FormStateInterface $form_state) {
-  if ($form['#id'] == 'install-configure-form') {
-    $form['#submit'][] = 'Drupal\\utexas_installer\\UTexasInstallerFormSubmit::doSubmit';
   }
 }
