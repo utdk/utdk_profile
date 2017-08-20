@@ -13,13 +13,4 @@
  * @see system_install()
  */
 function utexas_install() {
-  // First, do everything in standard profile.
-  include_once DRUPAL_ROOT . '/core/profiles/standard/standard.install';
-  standard_install();
-  // Install default theme.
-  \Drupal::service('theme_installer')->install(['forty_acres']);
-  \Drupal::configFactory()
-    ->getEditable('system.theme')
-    ->set('default', 'forty_acres')
-    ->save();
 }
