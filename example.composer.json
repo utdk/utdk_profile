@@ -111,7 +111,7 @@
       "web/modules/contrib/{$name}": ["type:drupal-module"],
       "web/profiles/contrib/{$name}": ["type:drupal-profile"],
       "web/themes/contrib/{$name}": ["type:drupal-theme"],
-      "web/themes/custom/{$name}": ["type:utexas-theme"],
+      "web/profiles/utexas/themes/{$name}": ["type:utexas-theme"],
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
     "build-env": {
