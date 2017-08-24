@@ -1,5 +1,7 @@
 <?php
+
 namespace Drupal\utexas\Form;
+
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Extension\InfoParserInterface;
 use Drupal\Core\ProxyClass\Extension\ModuleInstaller;
@@ -7,19 +9,13 @@ use Drupal\Core\Extension\ThemeInstaller;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslationInterface;
-use Drupal\utexas\Extender;
-use Drupal\utexas\FormHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /**
  * Defines a form for selecting which UTexas extensions to install.
  */
 class ExtensionSelectForm extends FormBase {
-  /**
-   * The UTexas extender configuration object.
-   *
-   * @var \Drupal\utexas\Extender
-   */
-  protected $extender;
+
   /**
    * The Drupal application root.
    *
@@ -32,12 +28,7 @@ class ExtensionSelectForm extends FormBase {
    * @var \Drupal\Core\Extension\InfoParserInterface
    */
   protected $infoParser;
-  /**
-   * The form helper.
-   *
-   * @var \Drupal\utexas\FormHelper
-   */
-  protected $formHelper;
+
   /**
    * The theme install helper.
    *
@@ -57,26 +48,21 @@ class ExtensionSelectForm extends FormBase {
    * @var \Drupal\Core\Extension\ModuleInstaller
    */
   protected $moduleInstaller;
+
   /**
    * ExtensionSelectForm constructor.
    *
-   * @param \Drupal\utexas\Extender $extender
-   *   The UTexas extender configuration object.
    * @param string $root
    *   The Drupal application root.
    * @param \Drupal\Core\Extension\InfoParserInterface $info_parser
    *   The info parser service.
    * @param \Drupal\Core\StringTranslation\TranslationInterface $translator
    *   The string translation service.
-   * @param \Drupal\utexas\FormHelper $form_helper
-   *   The form helper.
    */
-  public function __construct(Extender $extender, $root, InfoParserInterface $info_parser, TranslationInterface $translator, FormHelper $form_helper, ThemeInstaller $themeInstaller, ConfigFactory $configFactory, ModuleInstaller $moduleInstaller) {
-    $this->extender = $extender;
+  public function __construct($root, InfoParserInterface $info_parser, TranslationInterface $translator, ThemeInstaller $themeInstaller, ConfigFactory $configFactory, ModuleInstaller $moduleInstaller) {
     $this->root = $root;
     $this->infoParser = $info_parser;
     $this->stringTranslation = $translator;
-    $this->formHelper = $form_helper;
     $this->themeInstaller = $themeInstaller;
     $this->configFactory = $configFactory;
     $this->moduleInstaller = $moduleInstaller;
@@ -87,16 +73,15 @@ class ExtensionSelectForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('utexas.extender'),
       $container->get('app.root'),
       $container->get('info_parser'),
       $container->get('string_translation'),
-      $container->get('utexas.form_helper'),
       $container->get('theme_installer'),
       $container->get('config.factory'),
       $container->get('module_installer')
     );
   }
+
   /**
    * {@inheritdoc}
    */
@@ -117,7 +102,7 @@ class ExtensionSelectForm extends FormBase {
     $form['install_forty_acres_theme_option'] = [
       '#type' => 'checkbox',
       '#title' => 'Install Forty Acres default theme?',
-      '#description' => 'Check this option to have the Forty Acres theme installed.'
+      '#description' => 'Check this option to have the Forty Acres theme installed.',
     ];
     $form['actions'] = [
       'continue' => [
@@ -138,7 +123,7 @@ class ExtensionSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Enable forty_acres if selected
+    // Enable forty_acres if selected.
     $enable_forty_acres_theme = $form_state->getValue('install_forty_acres_theme_option');
     if ($enable_forty_acres_theme == '1') {
       // Install default theme.
@@ -150,4 +135,5 @@ class ExtensionSelectForm extends FormBase {
       $this->moduleInstaller->install(['twig_tweak']);
     }
   }
+
 }

@@ -1,14 +1,16 @@
 <?php
+
 /**
  * @file
  * Enables modules and site configuration for a standard site installation.
  *
  * The profilename.profile file has access to almost everything a normal Drupal
- * modulename.module file does because Drupal is fully bootstrapped before almost anything
- * in the profile runs.
+ * modulename.module file does because Drupal is fully bootstrapped before
+ * almost anything in the profile runs.
  */
-use Drupal\Core\Form\FormStateInterface;
+
 use Drupal\utexas\Form\ExtensionSelectForm;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_install_tasks().
@@ -20,7 +22,7 @@ function utexas_install_tasks() {
       'display' => TRUE,
       'type' => 'form',
       'function' => ExtensionSelectForm::class,
-    )
+    ),
   );
 }
 
@@ -38,11 +40,10 @@ function utexas_install_tasks_alter(array &$tasks, array $install_state) {
  *   The current install state.
  *
  * @return array
- *   A renderable array with a success message and a redirect header, if the
- *   extender is configured with one.
+ *   A renderable array with a success message and a redirect header.
  */
 function utexas_post_install_redirect(array &$install_state) {
-  $redirect = \Drupal::service('utexas.extender')->getRedirect();
+  $redirect = get_installer_redirect();
 
   $output = [
     '#title' => t('Ready to rock'),
@@ -71,4 +72,19 @@ function utexas_post_install_redirect(array &$install_state) {
 
   return $output;
 
+}
+
+/**
+ * Helper function to return a redirect object to the homepage.
+ */
+function get_installer_redirect() {
+  $path = '<front>';
+  $redirect = Url::fromUri('internal:/' . $path);
+  // Explicitly set the base URL, if not previously set, to prevent weird
+  // redirection snafus.
+  $base_url = $redirect->getOption('base_url');
+  if (empty($base_url)) {
+    $redirect->setOption('base_url', $GLOBALS['base_url']);
+  }
+  return $redirect->setOption('absolute', TRUE)->toString();
 }
