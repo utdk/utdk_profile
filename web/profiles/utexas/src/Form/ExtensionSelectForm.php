@@ -2,6 +2,7 @@
 namespace Drupal\utexas\Form;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Extension\InfoParserInterface;
+use Drupal\Core\ProxyClass\Extension\ModuleInstaller;
 use Drupal\Core\Extension\ThemeInstaller;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -38,17 +39,24 @@ class ExtensionSelectForm extends FormBase {
    */
   protected $formHelper;
   /**
-   * The form helper.
+   * The theme install helper.
    *
-   * @var \Drupal\utexas\FormHelper
+   * @var \Drupal\Core\Extension\ThemeInstaller
    */
   protected $themeInstaller;
   /**
-   * The form helper.
+   * The config update helper.
    *
-   * @var \Drupal\utexas\FormHelper
+   * @var \Drupal\Core\Config\ConfigFactory
    */
   protected $configFactory;
+
+  /**
+   * The module install helper.
+   *
+   * @var \Drupal\Core\Extension\ModuleInstaller
+   */
+  protected $moduleInstaller;
   /**
    * ExtensionSelectForm constructor.
    *
@@ -63,7 +71,7 @@ class ExtensionSelectForm extends FormBase {
    * @param \Drupal\utexas\FormHelper $form_helper
    *   The form helper.
    */
-  public function __construct(Extender $extender, $root, InfoParserInterface $info_parser, TranslationInterface $translator, FormHelper $form_helper, ThemeInstaller $themeInstaller, ConfigFactory $configFactory) {
+  public function __construct(Extender $extender, $root, InfoParserInterface $info_parser, TranslationInterface $translator, FormHelper $form_helper, ThemeInstaller $themeInstaller, ConfigFactory $configFactory, ModuleInstaller $moduleInstaller) {
     $this->extender = $extender;
     $this->root = $root;
     $this->infoParser = $info_parser;
@@ -71,6 +79,7 @@ class ExtensionSelectForm extends FormBase {
     $this->formHelper = $form_helper;
     $this->themeInstaller = $themeInstaller;
     $this->configFactory = $configFactory;
+    $this->moduleInstaller = $moduleInstaller;
   }
 
   /**
@@ -84,7 +93,8 @@ class ExtensionSelectForm extends FormBase {
       $container->get('string_translation'),
       $container->get('utexas.form_helper'),
       $container->get('theme_installer'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('module_installer')
     );
   }
   /**
@@ -132,11 +142,12 @@ class ExtensionSelectForm extends FormBase {
     $enable_forty_acres_theme = $form_state->getValue('install_forty_acres_theme_option');
     if ($enable_forty_acres_theme == '1') {
       // Install default theme.
-      $this->themeInstaller->install(['forty_acres']);
+      $this->themeInstaller->install(['forty_acres'], TRUE);
       $this->configFactory
         ->getEditable('system.theme')
         ->set('default', 'forty_acres')
         ->save();
+      $this->moduleInstaller->install(['twig_tweak']);
     }
   }
 }
