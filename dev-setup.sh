@@ -16,5 +16,5 @@ rm composer.lock
 cp example.pantheon.yml pantheon.yml
 cp example.circle.yml circle.yml
 composer install
-cp composer.local example.composer.lock
+cp composer.lock example.composer.lock
 echo "Updated example.composer.lock."
