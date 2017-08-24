@@ -20,12 +20,7 @@ function utexas_install_tasks() {
       'display' => TRUE,
       'type' => 'form',
       'function' => ExtensionSelectForm::class,
-    ),
-    'utexas_install_extensions' => array(
-      'display_name' => t('Install extensions'),
-      'display' => TRUE,
-      'type' => 'batch',
-    ),
+    )
   );
 }
 
@@ -34,33 +29,6 @@ function utexas_install_tasks() {
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
   $tasks['install_finished']['function'] = 'utexas_post_install_redirect';
-}
-
-/**
- * Install task callback; prepares a batch job to install UTexas extensions.
- *
- * @param array $install_state
- *   The current install state.
- *
- * @return array
- *   The batch job definition.
- */
-function utexas_install_extensions(array &$install_state) {
-  $batch = array();
-  foreach ($install_state['utexas']['modules'] as $module) {
-    $batch['operations'][] = ['utexas_install_module', (array) $module];
-  }
-  return $batch;
-}
-
-/**
- * Batch API callback. Installs a module.
- *
- * @param string|array $module
- *   The name(s) of the module(s) to install.
- */
-function utexas_install_module($module) {
-  \Drupal::service('module_installer')->install((array) $module);
 }
 
 /**
