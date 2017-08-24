@@ -1,0 +1,29 @@
+/*To generate gradient:*/
+/*https://www.cssmatic.com/gradient-generator*/
+/*This gradient:*/
+/*https://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28242\%2C169\%2C0\%2C1\%29\%200\%25\%2C\%20rgba\%28191\%2C87\%2C0\%2C1\%29\%2017\%25\%2C\%20rgba\%28191\%2C87\%2C0\%2C1\%29\%2085\%25\%2C\%20rgba\%28242\%2C169\%2C0\%2C1\%29\%20100\%25\%29\%3B'*/
+body.install-page {
+    background: rgba(242,169,0,1);
+    background: -moz-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(242,169,0,1)), color-stop(17%, rgba(191,87,0,1)), color-stop(85%, rgba(191,87,0,1)), color-stop(100%, rgba(242,169,0,1)));
+    background: -webkit-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
+    background: -o-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
+    background: -ms-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
+    background: linear-gradient(to right, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2a900', endColorstr='#f2a900', GradientType=1 );
+}
+h1.page-title {
+    color:#bf5700;
+}
+
+body .button--primary, body .button--primary:hover {
+    background-image:linear-gradient(to bottom, #bf5700, #803900);
+}
+
+header {
+    background-image: url(../logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    margin: 20px;
+}
