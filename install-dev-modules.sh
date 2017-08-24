@@ -11,7 +11,6 @@ if [ -z "$1" ]
     DRUSH_ALIAS="@self"
 else
     DRUSH_ALIAS=$1
-    echo $DRUSH_ALIAS
 fi
 cd web
 drush $DRUSH_ALIAS en features_ui -y
