@@ -103,6 +103,7 @@ class ExtensionSelectForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => 'Install Forty Acres default theme?',
       '#description' => 'Check this option to have the Forty Acres theme installed.',
+      '#default_value' => TRUE,
     ];
     $form['actions'] = [
       'continue' => [
