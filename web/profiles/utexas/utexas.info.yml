@@ -31,6 +31,5 @@ dependencies:
   - file
   - rdf
   - views
-  - tour
   - automated_cron
   - utexas_qualtrics_filter

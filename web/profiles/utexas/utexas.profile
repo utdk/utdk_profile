@@ -8,34 +8,99 @@
  * in the profile runs.
  */
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas\Form\ExtensionSelectForm;
 
 /**
- * Implements hook_form_FORM_ID_alter() for install_configure_form().
- *
- * Allows the profile to alter the site configuration form.
+ * Implements hook_install_tasks().
  */
-function utexas_form_install_configure_form_alter(&$form, FormStateInterface $form_state) {
-  $form['install_forty_acres_theme_option'] = [
-    '#type' => 'checkbox',
-    '#title' => 'Install Forty Acres default theme?',
-    '#description' => 'Check this option to have the Forty Acres theme installed.'
-  ];
-
-  $form['#submit'][] = 'utexas_form_install_configure_submit';
+function utexas_install_tasks() {
+  return array(
+    'utexas_select_extensions' => array(
+      'display_name' => t('Choose UTexas extensions'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => ExtensionSelectForm::class,
+    ),
+    'utexas_install_extensions' => array(
+      'display_name' => t('Install extensions'),
+      'display' => TRUE,
+      'type' => 'batch',
+    ),
+  );
 }
 
 /**
- * Implements hook_form_submit().
- * Submission handler to configure our installation.
+ * Implements hook_install_tasks_alter().
  */
-function utexas_form_install_configure_submit($form, FormStateInterface $form_state) {
-  $enable_forty_acres_theme = $form_state->getValue('install_forty_acres_theme_option');
-  if ($enable_forty_acres_theme == '1') {
-    // Install default theme.
-    \Drupal::service('theme_installer')->install(['forty_acres']);
-    \Drupal::configFactory()
-      ->getEditable('system.theme')
-      ->set('default', 'forty_acres')
-      ->save();
+function utexas_install_tasks_alter(array &$tasks, array $install_state) {
+  $tasks['install_finished']['function'] = 'utexas_post_install_redirect';
+}
+
+/**
+ * Install task callback; prepares a batch job to install UTexas extensions.
+ *
+ * @param array $install_state
+ *   The current install state.
+ *
+ * @return array
+ *   The batch job definition.
+ */
+function utexas_install_extensions(array &$install_state) {
+  $batch = array();
+  foreach ($install_state['utexas']['modules'] as $module) {
+    $batch['operations'][] = ['utexas_install_module', (array) $module];
   }
+  return $batch;
+}
+
+/**
+ * Batch API callback. Installs a module.
+ *
+ * @param string|array $module
+ *   The name(s) of the module(s) to install.
+ */
+function utexas_install_module($module) {
+  \Drupal::service('module_installer')->install((array) $module);
+}
+
+/**
+ * Redirects the user to a particular URL after installation.
+ *
+ * @param array $install_state
+ *   The current install state.
+ *
+ * @return array
+ *   A renderable array with a success message and a redirect header, if the
+ *   extender is configured with one.
+ */
+function utexas_post_install_redirect(array &$install_state) {
+  $redirect = \Drupal::service('utexas.extender')->getRedirect();
+
+  $output = [
+    '#title' => t('Ready to rock'),
+    'info' => [
+      '#markup' => t('Congratulations, you installed UT Drupal Kit! If you are not redirected in 5 seconds, <a href="@url">click here</a> to proceed to your site.', [
+        '@url' => $redirect,
+      ]),
+    ],
+    '#attached' => [
+      'http_header' => [
+        ['Cache-Control', 'no-cache'],
+      ],
+    ],
+  ];
+
+  // The installer doesn't make it easy (possible?) to return a redirect
+  // response, so set a redirection META tag in the output.
+  $meta_redirect = [
+    '#tag' => 'meta',
+    '#attributes' => [
+      'http-equiv' => 'refresh',
+      'content' => '0;url=' . $redirect,
+    ],
+  ];
+  $output['#attached']['html_head'][] = [$meta_redirect, 'meta_redirect'];
+
+  return $output;
+
 }

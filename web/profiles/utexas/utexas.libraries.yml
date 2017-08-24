@@ -1,0 +1,5 @@
+utexas-install:
+  version: VERSION
+  css:
+    theme:
+      css/utexas.css: {}

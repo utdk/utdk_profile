@@ -1,0 +1,19 @@
+body.install-page {
+    background-color:#bf5700;
+    background-image:none;
+}
+h1.page-title {
+    color:#bf5700;
+}
+
+body .button--primary, body .button--primary:hover {
+    background-image:linear-gradient(to bottom, #bf5700, #803900);
+}
+
+header {
+    background-image: url(../logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    margin: 20px;
+}
