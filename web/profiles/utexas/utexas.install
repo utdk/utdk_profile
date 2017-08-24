@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install and uninstall functions for the Lightning installation profile.
+ * Install and uninstall functions for the UTexas profile.
  */
 
 use Drupal\user\Entity\User;
