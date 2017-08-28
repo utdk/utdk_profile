@@ -14,7 +14,8 @@ circle.yml
 /web/core/
 /web/modules/contrib/
 /web/themes/contrib/
-/web/profiles/contrib/
+web/profiles/utexas/modules/composer_managed/
+web/profiles/utexas/themes/composer_managed/
 
 # Ignore custom modules and themes (this may change)
 /web/modules/custom
