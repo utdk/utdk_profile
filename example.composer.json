@@ -67,6 +67,7 @@
     "utexas/layout_per_node": "dev-8.x-1.x",
     "utexas/utexas_qualtrics_filter": "dev-master",
     "utexas/forty_acres": "dev-master",
+    "drupal/pathauto": "1.0",
     "drupal/twig_tweak": "1.8",
     "drupal/features": "3.5",
     "utexas/utexas_event": "dev-master"
