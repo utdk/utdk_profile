@@ -10,3 +10,7 @@ cp example.composer.lock composer.lock
 cp example.pantheon.yml pantheon.yml
 cp example.circle.yml circle.yml
 composer install
+if [ ! -d "web/sites/default/config" ]; then
+  mkdir web/sites/default/config
+fi
+
