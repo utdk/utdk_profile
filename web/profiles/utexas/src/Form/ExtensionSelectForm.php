@@ -105,6 +105,16 @@ class ExtensionSelectForm extends FormBase {
       '#description' => 'Check this option to have the Forty Acres theme installed.',
       '#default_value' => TRUE,
     ];
+    $form['install_forty_acres_content_type'] = [
+      '#type' => 'fieldset',
+      '#title' => 'Content Types'
+    ];
+    $form['install_forty_acres_content_type']['utexas_event'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Event',
+      '#description' => 'Check this option to have the Event content type installed.',
+      '#default_value' => TRUE,
+    ];
     $form['actions'] = [
       'continue' => [
         '#type' => 'submit',
@@ -135,6 +145,16 @@ class ExtensionSelectForm extends FormBase {
         ->save();
       $this->moduleInstaller->install(['twig_tweak']);
     }
+    $content_types_to_potentially_enable = [
+      'utexas_event' => $form_state->getValue('utexas_event'),
+    ];
+    $content_types_to_enable = [];
+    foreach ($content_types_to_potentially_enable as $content_type_to_enable => $should_enable)
+    if ($should_enable == '1') {
+      $content_types_to_enable[] = $content_type_to_enable;
+    }
+    $this->moduleInstaller->install($content_types_to_enable, TRUE);
+
   }
 
 }
