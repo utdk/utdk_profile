@@ -7,30 +7,26 @@ distribution:
   name: UTexas
 dependencies:
   # Core
-  - node
-  - history
   - block
   - breakpoint
+  - block_content
   - ckeditor
   - config
-  - comment
   - contextual
-  - menu_link_content
   - datetime
-  - block_content
-  - quickedit
   - editor
   - image
+  - menu_link_content
   - menu_ui
+  - node
   - options
-  - path
   - page_cache
+  - path
   - dynamic_page_cache
   - taxonomy
   - dblog
   - toolbar
   - file
-  - rdf
   - views
   - automated_cron
   # Custom
