@@ -107,7 +107,7 @@ class ExtensionSelectForm extends FormBase {
     ];
     $form['install_forty_acres_content_type'] = [
       '#type' => 'fieldset',
-      '#title' => 'Content Types'
+      '#title' => 'Content Types',
     ];
     $form['install_forty_acres_content_type']['utexas_event'] = [
       '#type' => 'checkbox',
@@ -149,11 +149,12 @@ class ExtensionSelectForm extends FormBase {
       'utexas_event' => $form_state->getValue('utexas_event'),
     ];
     $content_types_to_enable = [];
-    foreach ($content_types_to_potentially_enable as $content_type_to_enable => $should_enable)
-    if ($should_enable == '1') {
-      $content_types_to_enable[] = $content_type_to_enable;
+    foreach ($content_types_to_potentially_enable as $content_type_to_enable => $should_enable) {
+      if ($should_enable == '1') {
+        $content_types_to_enable[] = $content_type_to_enable;
+      }
+      $this->moduleInstaller->install($content_types_to_enable, TRUE);
     }
-    $this->moduleInstaller->install($content_types_to_enable, TRUE);
 
   }
 
