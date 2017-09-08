@@ -18,7 +18,7 @@ use Drupal\Core\Url;
 function utexas_install_tasks() {
   return array(
     'utexas_select_extensions' => array(
-      'display_name' => t('Choose UTexas extensions'),
+      'display_name' => t('Flavors of Texas'),
       'display' => TRUE,
       'type' => 'form',
       'function' => ExtensionSelectForm::class,

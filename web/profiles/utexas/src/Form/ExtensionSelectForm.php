@@ -118,7 +118,7 @@ class ExtensionSelectForm extends FormBase {
     $form['install_forty_acres_content_type']['utexas_event'] = [
       '#type' => 'checkbox',
       '#title' => 'Events',
-      '#description' => 'Check this option to have the Event content type installed.',
+      '#description' => 'Use for timely content, with single-page & listing views.',
       '#default_value' => FALSE,
     ];
     $form['actions'] = [
