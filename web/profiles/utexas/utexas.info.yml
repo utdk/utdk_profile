@@ -6,6 +6,7 @@ version: '8.x-1.0'
 distribution:
   name: UTexas
 dependencies:
+  # Core
   - node
   - history
   - block
@@ -32,4 +33,5 @@ dependencies:
   - rdf
   - views
   - automated_cron
+  # Custom
   - utexas_qualtrics_filter
