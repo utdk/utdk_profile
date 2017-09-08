@@ -103,7 +103,7 @@ class ExtensionSelectForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => 'Install Forty Acres default theme?',
       '#description' => 'Check this option to have the Forty Acres theme installed.',
-      '#default_value' => TRUE,
+      '#default_value' => FALSE,
     ];
     $form['install_forty_acres_content_type'] = [
       '#type' => 'fieldset',
@@ -113,7 +113,7 @@ class ExtensionSelectForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => 'Event',
       '#description' => 'Check this option to have the Event content type installed.',
-      '#default_value' => TRUE,
+      '#default_value' => FALSE,
     ];
     $form['actions'] = [
       'continue' => [
@@ -144,6 +144,13 @@ class ExtensionSelectForm extends FormBase {
         ->set('default', 'forty_acres')
         ->save();
       $this->moduleInstaller->install(['twig_tweak']);
+    }
+    else {
+      $this->themeInstaller->install(['bartik'], TRUE);
+      $this->configFactory
+        ->getEditable('system.theme')
+        ->set('default', 'bartik')
+        ->save();
     }
     $content_types_to_potentially_enable = [
       'utexas_event' => $form_state->getValue('utexas_event'),
