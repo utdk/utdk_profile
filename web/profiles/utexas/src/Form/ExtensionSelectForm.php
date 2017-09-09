@@ -102,13 +102,13 @@ class ExtensionSelectForm extends FormBase {
     $form['install_forty_acres_theme_option'] = [
       '#type' => 'checkbox',
       '#title' => 'Install Forty Acres theme',
-      '#description' => 'Accessible, University-branded look and feel.',
+      '#description' => 'Accessible, University-branded look & feel.',
       '#default_value' => FALSE,
     ];
     $form['layout_per_node'] = [
       '#type' => 'checkbox',
       '#title' => 'Install Layout Editor',
-      '#description' => 'Drag-and-drop interface for arranging content on pages.',
+      '#description' => 'Drag-and-drop content to create customized pages.',
       '#default_value' => TRUE,
     ];
     $form['install_forty_acres_content_type'] = [
@@ -118,7 +118,7 @@ class ExtensionSelectForm extends FormBase {
     $form['install_forty_acres_content_type']['utexas_event'] = [
       '#type' => 'checkbox',
       '#title' => 'Events',
-      '#description' => 'Use for timely content, with single-page & listing views.',
+      '#description' => 'Timely content with single-page & listing views.',
       '#default_value' => FALSE,
     ];
     $form['actions'] = [
