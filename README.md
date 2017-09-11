@@ -1,14 +1,11 @@
 # UT Drupal Kit 8.x-1.x-dev
-This is (currently) a proof-of-concept for Composer-based package management of
-a Drupal 8 distribution that dynamically pulls in the Drupal 8 codebase and
-contributed projects from Packagist, as well as custom projects from Github
-repositories.
+This is Composer-based Drupal 8 distribution that dynamically retrieves the
+Drupal 8 codebase and contributed projects, as well as custom projects from
+Github repositories.
 
-It is meant to be a tool for collaborative development of custom functionality
-that is housed in *other* repositories. Developers can use this repository to
-install a single site that orchestrates these actively developed projects,
-rather than having to maintain separate local Drupal instances or do multiple
-git clones.
+Separate from its distribution kernel, it is meant to be a tool for
+collaborative development of custom functionality that is housed in *other* repositories. Developers can use this repository to install a single site that orchestrates these actively developed projects, rather than having to maintain
+separate local Drupal instances or do multiple git clones.
 
 # Development Setup
 0. Run `sh setup.sh`. This will copy the "example" files from the root into
@@ -33,9 +30,14 @@ $databases['default']['default'] = [
 ```
 
 4. `cd web/ && drush si -y`
-5. You should now have a Drupal site installed, with the 'utexas' profile!
-6. Additional themes/modules, such as `layout_per_node` and `bootstrap` are
-currently added but not enabled. Give 'em a try
+5. You should now have a Drupal site installed, with the 'UTexas' profile!
+
+Currently, the 'UTexas' profile will install:
+* `Basic Page` content type
+* `Basic HTML` text format
+* `Basic block` entity
+* Bartik theme + Adminimal theme, plus block region configuration
+* Layout Per Node
 
 # Making changes to composer.json / composer.lock (Distribution maintainers only)
 To allow individual developers to define their own Composer elements, we do not
