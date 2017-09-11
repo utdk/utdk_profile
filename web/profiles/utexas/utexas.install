@@ -5,9 +5,6 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
-use Drupal\user\Entity\User;
-use Drupal\user\RoleInterface;
-
 /**
  * Implements hook_preprocess_install_page().
  */
@@ -29,49 +26,18 @@ function utexas_install() {
     ->getEditable('system.site')
     ->set('page.front', '/node')
     ->save(TRUE);
-
   // Restrict user registration to admin role creation.
   \Drupal::configFactory()
     ->getEditable('user.settings')
     ->set('register', USER_REGISTER_ADMINISTRATORS_ONLY)
     ->save(TRUE);
-
-  // Assign user 1 the "administrator" role.
-  $user = User::load(1);
-  $user->roles[] = 'administrator';
-  $user->save();
-
-  // Allow authenticated users to use shortcuts.
-  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['access shortcuts']);
-
-  // Set the default and admin theme.
+  // Set the admin theme.
   \Drupal::configFactory()
     ->getEditable('system.theme')
-    ->set('default', 'forty_acres')
     ->set('admin', 'adminimal_theme')
     ->save(TRUE);
-
-  // Enable the admin theme.
   \Drupal::configFactory()
     ->getEditable('node.settings')
     ->set('use_admin_theme', TRUE)
-    ->save(TRUE);
-
-  // Set the path to the logo, favicon and README file based on install
-  // directory.
-  $utexas_path = drupal_get_path('profile', 'utexas');
-  \Drupal::configFactory()
-    ->getEditable('system.theme.global')
-    ->set('logo', [
-      'path' => $utexas_path . '/logo.png',
-      'url' => '',
-      'use_default' => FALSE,
-    ])
-    ->set('favicon', [
-      'mimetype' => 'image/vnd.microsoft.icon',
-      'path' => $utexas_path . '/favicon.ico',
-      'url' => '',
-      'use_default' => FALSE,
-    ])
     ->save(TRUE);
 }

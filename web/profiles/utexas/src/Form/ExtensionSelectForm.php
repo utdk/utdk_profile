@@ -101,19 +101,25 @@ class ExtensionSelectForm extends FormBase {
     ];
     $form['install_forty_acres_theme_option'] = [
       '#type' => 'checkbox',
-      '#title' => 'Install Forty Acres default theme?',
-      '#description' => 'Check this option to have the Forty Acres theme installed.',
+      '#title' => 'Install Forty Acres theme',
+      '#description' => 'Accessible, University-branded look & feel.',
+      '#default_value' => FALSE,
+    ];
+    $form['layout_per_node'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Install Layout Editor',
+      '#description' => 'Drag-and-drop content to create customized pages.',
       '#default_value' => TRUE,
     ];
     $form['install_forty_acres_content_type'] = [
       '#type' => 'fieldset',
-      '#title' => 'Content Types'
+      '#title' => 'Content Types',
     ];
     $form['install_forty_acres_content_type']['utexas_event'] = [
       '#type' => 'checkbox',
-      '#title' => 'Event',
-      '#description' => 'Check this option to have the Event content type installed.',
-      '#default_value' => TRUE,
+      '#title' => 'Events',
+      '#description' => 'Timely content with single-page & listing views.',
+      '#default_value' => FALSE,
     ];
     $form['actions'] = [
       'continue' => [
@@ -134,10 +140,9 @@ class ExtensionSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Enable forty_acres if selected.
-    $enable_forty_acres_theme = $form_state->getValue('install_forty_acres_theme_option');
-    if ($enable_forty_acres_theme == '1') {
-      // Install default theme.
+    $values = $form_state->getValues();
+    if ($values['install_forty_acres_theme_option'] == 1) {
+      // Enable forty_acres if selected.
       $this->themeInstaller->install(['forty_acres'], TRUE);
       $this->configFactory
         ->getEditable('system.theme')
@@ -145,15 +150,27 @@ class ExtensionSelectForm extends FormBase {
         ->save();
       $this->moduleInstaller->install(['twig_tweak']);
     }
-    $content_types_to_potentially_enable = [
-      'utexas_event' => $form_state->getValue('utexas_event'),
-    ];
-    $content_types_to_enable = [];
-    foreach ($content_types_to_potentially_enable as $content_type_to_enable => $should_enable)
-    if ($should_enable == '1') {
-      $content_types_to_enable[] = $content_type_to_enable;
+    else {
+      // Default to Bartik.
+      $this->themeInstaller->install(['bartik'], TRUE);
+      $this->configFactory
+        ->getEditable('system.theme')
+        ->set('default', 'bartik')
+        ->save();
     }
-    $this->moduleInstaller->install($content_types_to_enable, TRUE);
+
+    // Install module options that are defined in the form.
+    $modules = [
+      'layout_per_node',
+      'utexas_event',
+    ];
+    $modules_to_enable = [];
+    foreach ($modules as $name) {
+      if ($values[$name] == 1) {
+        $modules_to_enable[] = $name;
+      }
+    }
+    $this->moduleInstaller->install($modules_to_enable, TRUE);
 
   }
 

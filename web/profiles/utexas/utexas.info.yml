@@ -6,30 +6,31 @@ version: '8.x-1.0'
 distribution:
   name: UTexas
 dependencies:
-  - node
-  - history
+  # Core
   - block
   - breakpoint
+  - block_content
   - ckeditor
   - config
-  - comment
   - contextual
-  - menu_link_content
   - datetime
-  - block_content
-  - quickedit
   - editor
   - image
+  - menu_link_content
   - menu_ui
+  - node
   - options
-  - path
   - page_cache
+  - path
   - dynamic_page_cache
   - taxonomy
   - dblog
   - toolbar
   - file
-  - rdf
   - views
   - automated_cron
+  # Custom
   - utexas_qualtrics_filter
+themes:
+  - bartik
+  - adminimal_theme

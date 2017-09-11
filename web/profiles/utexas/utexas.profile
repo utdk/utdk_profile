@@ -18,7 +18,7 @@ use Drupal\Core\Url;
 function utexas_install_tasks() {
   return array(
     'utexas_select_extensions' => array(
-      'display_name' => t('Choose UTexas extensions'),
+      'display_name' => t('Flavors of Texas'),
       'display' => TRUE,
       'type' => 'form',
       'function' => ExtensionSelectForm::class,
@@ -46,7 +46,7 @@ function utexas_post_install_redirect(array &$install_state) {
   $redirect = get_installer_redirect();
 
   $output = [
-    '#title' => t('Ready to rock'),
+    '#title' => t("Hook 'em!"),
     'info' => [
       '#markup' => t('Congratulations, you installed UT Drupal Kit! If you are not redirected in 5 seconds, <a href="@url">click here</a> to proceed to your site.', [
         '@url' => $redirect,
