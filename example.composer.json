@@ -70,7 +70,8 @@
     "drupal/pathauto": "1.0",
     "drupal/twig_tweak": "1.8",
     "drupal/features": "3.5",
-    "utexas/utexas_event": "dev-master"
+    "utexas/utexas_event": "dev-master",
+    "drupal/paragraphs": "1.1"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
