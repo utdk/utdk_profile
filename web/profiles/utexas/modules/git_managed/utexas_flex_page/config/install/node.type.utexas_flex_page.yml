@@ -10,7 +10,7 @@ third_party_settings:
     parent: 'main:'
 name: 'Flex Page'
 type: utexas_flex_page
-description: ''
+description: 'Provides many content widgets, with display configuration, and the ability to arrange layout with a drag-and-drop tool.'
 help: ''
 new_revision: true
 preview_mode: 1
