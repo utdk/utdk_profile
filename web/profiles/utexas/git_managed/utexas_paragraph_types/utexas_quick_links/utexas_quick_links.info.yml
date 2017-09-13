@@ -9,3 +9,4 @@ dependencies:
   - paragraphs
   - text
 version: 8.x-1.0
+description: 'UTexas Quick Links'
