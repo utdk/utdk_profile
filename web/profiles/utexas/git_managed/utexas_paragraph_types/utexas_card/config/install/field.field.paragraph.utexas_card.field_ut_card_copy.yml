@@ -10,7 +10,7 @@ id: paragraph.utexas_card.field_ut_card_copy
 field_name: field_ut_card_copy
 entity_type: paragraph
 bundle: utexas_card
-label: 'UT Card Copy'
+label: 'Copy text'
 description: ''
 required: false
 translatable: false

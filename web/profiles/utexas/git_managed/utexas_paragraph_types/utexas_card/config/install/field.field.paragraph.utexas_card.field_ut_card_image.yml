@@ -10,7 +10,7 @@ id: paragraph.utexas_card.field_ut_card_image
 field_name: field_ut_card_image
 entity_type: paragraph
 bundle: utexas_card
-label: 'UT Card Image'
+label: 'Image'
 description: ''
 required: false
 translatable: false

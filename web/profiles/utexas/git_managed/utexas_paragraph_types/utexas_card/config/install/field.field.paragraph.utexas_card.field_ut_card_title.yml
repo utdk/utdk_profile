@@ -8,7 +8,7 @@ id: paragraph.utexas_card.field_ut_card_title
 field_name: field_ut_card_title
 entity_type: paragraph
 bundle: utexas_card
-label: 'UT Card Title'
+label: 'Title'
 description: ''
 required: false
 translatable: false
