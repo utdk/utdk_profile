@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.utexas_quick_links.field_ut_ql_copy
+    - field.field.paragraph.utexas_quick_links.field_ut_ql_headline
+    - field.field.paragraph.utexas_quick_links.field_ut_ql_link
+    - paragraphs.paragraphs_type.utexas_quick_links
+  module:
+    - field_layout
+    - layout_discovery
+    - link
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: paragraph.utexas_quick_links.default
+targetEntityType: paragraph
+bundle: utexas_quick_links
+mode: default
+content:
+  field_ut_ql_copy:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_ut_ql_headline:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_ut_ql_link:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
