@@ -1,0 +1,147 @@
+<?php
+
+/**
+ * @file
+ * UTexas Beacon module.
+ *
+ * This module collects data from an installation of the UTexas distribution
+ * and sends it to stewards daily on cron runs.
+ */
+
+/**
+ * URI of endpoint for site data.
+ */
+ 
+define('UTEXAS_BEACON_ENDPOINT_URI', \Drupal::state()->get('utexas_beacon_endpoint_uri') ?: 'https://drupal-beacon.its.utexas.edu/beacon-end.php');
+
+/**
+ * Email recipient for site data.
+ */
+define('UTEXAS_BEACON_EMAIL_RECIPIENT', \Drupal::state()->get('utexas_beacon_email_recipient') ?: 'drupal-kit-beacon@utlists.utexas.edu');
+
+/**
+ * Implements hook_mail().
+ *
+ * Prepare a message based on parameters; called from drupal_mail().
+ */
+function utexas_beacon_mail($key, &$message, $email_params) {
+  switch ($key) {
+    case 'information':
+      $message['subject'] = $email_params['subject'];
+      $message['headers']['Content-Type'] = 'text/plain; charset=UTF-8; format=flowed';
+      $message['body'][] = $email_params['body'];
+      break;
+  }
+}
+
+/**
+ * Builds array of site info.
+ */
+function _utexas_beacon_prepare_data() {
+
+  // Site information.
+  $site_config = \Drupal::config('system.site');
+  $site_data = array();
+  $site_data['site_name'] = $site_config->get('name');
+  $site_data['base_url'] = $GLOBALS['base_url'];
+  $site_data['ip_address'] = Drupal::request()->getClientIp();
+  $site_data['hostname'] = gethostname();
+  $site_data['admin_email'] = $site_config->get('mail');
+  $site_data['drupal_version'] = Drupal::VERSION;
+  $site_data['php_version'] = phpversion();
+  //$site_data['cron_last'] = Drupal::state()->get('system.cron_last');
+  //$beacon_key = \Drupal::config('utexas_beacon.settings');
+  //$site_data['key'] = $beacon_key->get('utexas_beacon_key');
+  $site_data['page_builder_enabled'] = 0;
+  $site_data['utlogin_enabled'] = 0;
+
+  // Installation profile information.
+  $site_data['active_installation_profile'] = Drupal::installProfile('name');
+  $site_data['active_installation_profile_distribution_name'] = \Drupal::installProfile('distribution_name');
+  $site_data['active_installation_profile_version'] = \Drupal::installProfile('version');
+  
+  // TODO: Update theme and custom module information when these are finalized.  
+  // Theme information.
+  $site_data['current_theme'] = Drupal::configFactory()->getEditable('system.theme')->get('default', 'machine_name');
+  if ($site_data['current_theme'] == 'forty_acres') {
+    $forty_acres_info = system_get_info('theme', 'forty_acres');
+    $site_data['forty_acres_version'] = $forty_acres_info['version'];
+  }
+  
+  // Custom module information.
+  $moduleHandler = Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists('utexas_page_builder')) {
+    $site_data['page_builder_enabled'] = 1;
+    $page_builder_info = system_get_info('module', 'utexas_page_builder');
+    $site_data['page_builder_version'] = $page_builder_info['version'];
+  }
+  if ($moduleHandler->moduleExists('utlogin')) {
+    $site_data['utlogin_enabled'] = 1;
+    $utlogin_info = system_get_info('module', 'utlogin');
+    $site_data['utlogin_version'] = $utlogin_info['version'];
+  }
+  if ($moduleHandler->moduleExists('utexas_google_cse')) {
+    $site_data['google_cse_id'] = variable_get('utexas_google_cse_id', '');
+  }
+  if ($moduleHandler->moduleExists('utexas_google_tag_manager')) {
+    $site_data['google_tag_manager_code'] = variable_get('utexas_google_tag_manager_gtm_code', '');
+  }
+  return $site_data;
+}
+
+
+/**
+ * Implements hook_cron().
+ *
+ * Prepares info and posts data via drupal_http_request() or sends email via
+ * drupal_mail() once a day.
+ */
+function utexas_beacon_cron() {
+  // Variable for determining whether to email site data to stewards.
+  $send_email = FALSE;
+  // Retrieve time of last cron run, or default to timestamp of 1 day in past.
+  $cron_las = Drupal::state()->get('system.cron_last', time() - 24 * 60 * 60);
+  // $cron_day is the midnight-time of the day that the last cron ran.
+  $cron_day = strtotime('0:00', $cron_last);
+  // $today is the midnight-time of the current day.
+  $today = strtotime('0:00', time());
+  //if ($cron_last && $today > $cron_day) {
+    // Prepare the data.
+    $site_data_for_post = _utexas_beacon_prepare_data();
+    //Drupal::logger('utexas_beacon')->notice(print_r($site_data_for_post));
+ //}
+    // Conditionally send email with site data.
+    if ($send_email == TRUE) {
+      $email_params = array(
+        'subject' => 'Utexas distribution installed at ' . $site_data_for_mail['base_url'] . ' phoning home.',
+      );
+      $email_params['body'] = '';
+      foreach ($site_data_for_mail as $key => $value) {
+        $email_params['body'] .= $key . ': ';
+        $email_params['body'] .= $value . "\r\n";
+      }
+      // Send the email.
+      drupal_mail('utexas_beacon', 'information', UTEXAS_BEACON_EMAIL_RECIPIENT, language_default(), $email_params, $from = NULL, $send = TRUE);
+    }
+
+    // Defaults to POSTing data to beacon endpoint.
+    else {
+      $encoded_data = \Drupal\Component\Serialization\Json::encode($site_data_for_post);
+      $utexas_beacon_settings = \Drupal::config('utexas_beacon.settings');
+      $headers = [
+        'X-UTexas-Beacon-Key' => $utexas_beacon_settings->get('utexas_beacon_key'),
+        'Content-Type' => 'application/json',
+      ];
+      
+      $client = \Drupal::httpClient();
+      try {
+        $request = $client->post(UTEXAS_BEACON_ENDPOINT_URI, ['debug' => true, 'headers' => $headers , 'body' => $encoded_data ]);
+        $response = $request->getBody();
+        \Drupal::logger('utexas_beacon')->notice('Beacon data logged to ITS Drupal Team.');
+      }
+      catch (RequestException $e) {
+        \Drupal::logger('utexas_beacon')->error($e);
+      }
+    }
+
+}
