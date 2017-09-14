@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_card
-label: 'UTexas Card'
+label: 'Card'
 icon_uuid: null
 description: ''
 behavior_plugins: {  }
