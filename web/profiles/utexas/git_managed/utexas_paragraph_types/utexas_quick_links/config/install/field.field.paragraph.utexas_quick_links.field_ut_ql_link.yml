@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ut_ql_link
+    - paragraphs.paragraphs_type.utexas_quick_links
+  module:
+    - link
+id: paragraph.utexas_quick_links.field_ut_ql_link
+field_name: field_ut_ql_link
+entity_type: paragraph
+bundle: utexas_quick_links
+label: Links
+description: "More than one link can be added. \r\nLink Text field is optional. If no text is entered into the Link Text field, just the URL field will show as the link."
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link
