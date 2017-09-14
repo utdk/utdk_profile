@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ut_card_copy
+    - paragraphs.paragraphs_type.utexas_card
+  module:
+    - text
+id: paragraph.utexas_card.field_ut_card_copy
+field_name: field_ut_card_copy
+entity_type: paragraph
+bundle: utexas_card
+label: 'UT Card Copy'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

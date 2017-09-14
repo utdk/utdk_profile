@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ut_card_cta
+    - paragraphs.paragraphs_type.utexas_card
+  module:
+    - link
+id: paragraph.utexas_card.field_ut_card_cta
+field_name: field_ut_card_cta
+entity_type: paragraph
+bundle: utexas_card
+label: 'UT Card CTA'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link
