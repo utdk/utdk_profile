@@ -86,7 +86,6 @@ function _utexas_beacon_prepare_data() {
   return $site_data;
 }
 
-
 /**
  * Implements hook_cron().
  *
@@ -97,14 +96,14 @@ function utexas_beacon_cron() {
   // Variable for determining whether to email site data to stewards.
   $send_email = FALSE;
   // Retrieve time of last cron run, or default to timestamp of 1 day in past.
-  $cron_las = \Drupal::state()->get('system.cron_last', time() - 24 * 60 * 60);
+  $cron_last = \Drupal::state()->get('system.cron_last', time() - 24 * 60 * 60);
   // $cron_day is the midnight-time of the day that the last cron ran.
   $cron_day = strtotime('0:00', $cron_last);
   // $today is the midnight-time of the current day.
   $today = strtotime('0:00', time());
   
-  //if ($cron_last && $today > $cron_day) {
-  
+  // Only send data once a day.
+  if ($cron_last && $today > $cron_day) {
     $site_data_for_post = _utexas_beacon_prepare_data();
      // Conditionally send email with site data.
     if ($send_email == TRUE) {
@@ -142,5 +141,5 @@ function utexas_beacon_cron() {
         \Drupal::logger('utexas_beacon')->error($e);
       }
     }
-
+  }
 }
