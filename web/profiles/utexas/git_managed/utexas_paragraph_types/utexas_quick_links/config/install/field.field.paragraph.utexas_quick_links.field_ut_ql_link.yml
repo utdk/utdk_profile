@@ -11,7 +11,7 @@ field_name: field_ut_ql_link
 entity_type: paragraph
 bundle: utexas_quick_links
 label: Links
-description: 'More than one link can be added.'
+description: "More than one link can be added. \r\nLink Text field is optional. If no text is entered into the Link Text field, just the URL field will show as the link."
 required: false
 translatable: false
 default_value: {  }
