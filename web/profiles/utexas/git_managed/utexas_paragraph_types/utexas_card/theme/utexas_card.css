@@ -1,0 +1,38 @@
+.field--item.col-sm-12.col-md-6:nth-child(2n+3) {
+  clear: left; }
+
+.field--name-field-ut-card-image {
+  margin-bottom: 15px; }
+  .field--name-field-ut-card-image img {
+    width: 100%; }
+
+.field--name-field-ut-card-title {
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 18px; }
+
+.field--name-field-ut-card-copy {
+  margin-bottom: 15px; }
+
+.field--name-field-ut-card-links {
+  margin-bottom: 30px; }
+  .field--name-field-ut-card-links .field--item {
+    margin-bottom: 10px; }
+  .field--name-field-ut-card-links .flex-content-link {
+    color: #BF5700;
+    text-decoration: none; }
+    .field--name-field-ut-card-links .flex-content-link:after {
+      font-family: 'UT_icons';
+      speak: none;
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      /* Better Font Rendering =========== */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "\f100";
+      padding-left: 10px; }
+    .field--name-field-ut-card-links .flex-content-link span:hover {
+      text-decoration: underline; }

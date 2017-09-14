@@ -1,0 +1,43 @@
+// Core variables and mixins
+@import "../../../../themes/custom/forty_acres/bower_components/bootstrap/scss/functions";
+@import "../../../../themes/custom/forty_acres/bower_components/bootstrap/scss/variables";
+@import "../../../../themes/custom/forty_acres/bower_components/bootstrap/scss/mixins";
+@import "../../../../themes/custom/forty_acres/scss/settings";
+@import "../../../../themes/custom/forty_acres/scss/mixins/icons";
+@import "../../../../themes/custom/forty_acres/scss/mixins/responsive";
+
+
+  .field--item.col-sm-12.col-md-6:nth-child(2n+3) {
+    clear: left;
+  }
+  .field--name-field-ut-card-image {
+    margin-bottom: 15px;
+    img {
+      width: 100%;
+    }
+  }
+  .field--name-field-ut-card-title {
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .field--name-field-ut-card-copy {
+    margin-bottom: 15px;
+  }
+  .field--name-field-ut-card-links {
+    margin-bottom: 30px;
+    .field--item {
+      margin-bottom: 10px;
+    }
+    .flex-content-link {
+      color: $burntOrange;
+      text-decoration: none;
+      &:after {
+        @include icon(links);
+        padding-left: 10px;
+      }
+      span:hover {
+        text-decoration: underline;
+      }
+    }
+  }
