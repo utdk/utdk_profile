@@ -1,0 +1,13 @@
+name: UTexas Card
+type: module
+description: Flexible display of Bootstrap card widgets
+core: 8.x
+package: UTexas
+version: 8.x-1.0
+dependencies:
+  - field
+  - field_layout
+  - layout_discovery
+  - link
+  - paragraphs
+  - text
