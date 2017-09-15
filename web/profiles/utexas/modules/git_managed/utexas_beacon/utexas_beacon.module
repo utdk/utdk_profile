@@ -12,7 +12,7 @@
  * URI of endpoint for site data.
  */
  
-use  \Drupal\Component\Serialization\Json;
+use \Drupal\Component\Serialization\Json;
  
 define('UTEXAS_BEACON_ENDPOINT_URI', \Drupal::state()->get('utexas_beacon_endpoint_uri') ?: 'https://drupal-beacon.its.utexas.edu/beacon-end.php');
 
