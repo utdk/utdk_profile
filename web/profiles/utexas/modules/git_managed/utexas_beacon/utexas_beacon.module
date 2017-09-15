@@ -41,7 +41,7 @@ function _utexas_beacon_prepare_data() {
 
   // Site information.
   $site_config = \Drupal::config('system.site');
-  $site_data = array();
+  $site_data = [];
   $site_data['site_name'] = $site_config->get('name');
   $site_data['base_url'] = $GLOBALS['base_url'];
   $site_data['ip_address'] = \Drupal::request()->getClientIp();
@@ -105,7 +105,7 @@ function utexas_beacon_cron() {
   // Only send data once a day.
   if ($cron_last && $today > $cron_day) {
     $site_data_for_post = _utexas_beacon_prepare_data();
-     // Conditionally send email with site data.
+    // Conditionally send email with site data.
     if ($send_email == TRUE) {
       $email_params = [
         'subject' => 'Utexas distribution installed at ' . $site_data_for_mail['base_url'] . ' phoning home.',
@@ -122,7 +122,7 @@ function utexas_beacon_cron() {
     // Defaults to POSTing data to beacon endpoint.
     else {
       // Prepare the data.
-      $encoded_data = \Drupal\Component\Serialization\Json::encode($site_data_for_post);
+      $encoded_data = json_encode($site_data_for_post);
       $utexas_beacon_settings = \Drupal::config('utexas_beacon.settings');
       $headers = [
         'X-UTexas-Beacon-Key' => $utexas_beacon_settings->get('utexas_beacon_key'),
@@ -133,7 +133,7 @@ function utexas_beacon_cron() {
       $client = \Drupal::httpClient();
       try {
         // Use 'debug' => true for more info.
-        $request = $client->post(UTEXAS_BEACON_ENDPOINT_URI, ['headers' => $headers , 'body' => $encoded_data ]);
+        $request = $client->post(UTEXAS_BEACON_ENDPOINT_URI, ['headers' => $headers, 'body' => $encoded_data]);
         $response = $request->getBody();
         \Drupal::logger('utexas_beacon')->notice('Beacon data logged to ITS Drupal Team.');
       }
