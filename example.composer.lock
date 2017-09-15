@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e22894514203e49369d5deb4b643400",
+    "content-hash": "90b3f2821279e496585409933f3dfd9d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1092,11 +1092,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.3",
-                    "datestamp": "1480507083",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
+                    "datestamp": "1480507083"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1142,11 +1138,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.5",
-                    "datestamp": "1506357844",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
+                    "datestamp": "1495040301"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1844,60 +1836,6 @@
             }
         },
         {
-            "name": "drupal/layout_per_node",
-            "version": "dev-1.x",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/layout_per_node",
-                "reference": "fee479406f283c53d56cdd8aaa71a5f0827eeed8"
-            },
-            "require": {
-                "composer/installers": "^1.0.20",
-                "drupal/core": "~8.0",
-                "drupal/field_layout": "*"
-            },
-            "type": "utexas-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.x-dev",
-                    "datestamp": "1507136945",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Dev releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Fullmer",
-                    "homepage": "https://markfullmer.com",
-                    "email": "jfullmer@austin.utexas.edu",
-                    "role": "Developer"
-                },
-                {
-                    "name": "mark_fullmer",
-                    "homepage": "https://www.drupal.org/user/2612816"
-                },
-                {
-                    "name": "twfahey",
-                    "homepage": "https://www.drupal.org/user/3403722"
-                }
-            ],
-            "description": "A drag-and-drop node layout editor.",
-            "homepage": "https://www.drupal.org/project/layout_per_node",
-            "support": {
-                "source": "http://cgit.drupalcode.org/layout_per_node"
-            },
-            "time": "2017-10-04 17:01:58"
-        },
-        {
             "name": "drupal/paragraphs",
             "version": "1.1.0",
             "source": {
@@ -1930,7 +1868,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1505802544",
+                    "datestamp": "1487331784",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2054,11 +1992,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1497035643",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
+                    "datestamp": "1497035643"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2171,7 +2105,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.8",
-                    "datestamp": "1505464444",
+                    "datestamp": "1495984083",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2223,11 +2157,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.4",
-                    "datestamp": "1500827942",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
+                    "datestamp": "1500827942"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5197,6 +5127,32 @@
             "time": "2017-09-26 20:43:32"
         },
         {
+            "name": "utexas/layout_per_node",
+            "version": "dev-8.x-1.x",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/layout_per_node.git",
+                "reference": "adacaa35fb5a89de406a778e12aa9ef13c848ab2"
+            },
+            "require": {
+                "composer/installers": "^1.0.20"
+            },
+            "type": "utexas-module",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Fullmer",
+                    "email": "jfullmer@austin.utexas.edu",
+                    "homepage": "https://markfullmer.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A drag-and-drop node layout editor.",
+            "time": "2017-09-15 15:00:19"
+        },
+        {
             "name": "utexas/utexas_event",
             "version": "dev-master",
             "source": {
@@ -7592,6 +7548,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "utexas/layout_per_node": 20,
         "utexas/utexas_qualtrics_filter": 20,
         "utexas/forty_acres": 20,
         "utexas/utexas_event": 20
@@ -7599,5 +7556,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "5.5.9"
+    }
 }
