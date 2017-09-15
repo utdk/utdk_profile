@@ -12,6 +12,8 @@
  * URI of endpoint for site data.
  */
  
+use  \Drupal\Component\Serialization\Json;
+ 
 define('UTEXAS_BEACON_ENDPOINT_URI', \Drupal::state()->get('utexas_beacon_endpoint_uri') ?: 'https://drupal-beacon.its.utexas.edu/beacon-end.php');
 
 /**
@@ -122,7 +124,7 @@ function utexas_beacon_cron() {
     // Defaults to POSTing data to beacon endpoint.
     else {
       // Prepare the data.
-      $encoded_data = json_encode($site_data_for_post);
+      $encoded_data = Json::encode($site_data_for_post);
       $utexas_beacon_settings = \Drupal::config('utexas_beacon.settings');
       $headers = [
         'X-UTexas-Beacon-Key' => $utexas_beacon_settings->get('utexas_beacon_key'),
