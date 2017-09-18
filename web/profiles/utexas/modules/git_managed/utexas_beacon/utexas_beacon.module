@@ -13,7 +13,7 @@
  */
   
 use Drupal\Component\Serialization\Json;
- 
+
 define('UTEXAS_BEACON_ENDPOINT_URI', \Drupal::state()->get('utexas_beacon_endpoint_uri') ?: 'https://drupal-beacon.its.utexas.edu/beacon-end.php');
 
 /**
@@ -66,7 +66,7 @@ function _utexas_beacon_prepare_data() {
     $forty_acres_info = system_get_info('theme', 'forty_acres');
     $site_data['forty_acres_version'] = $forty_acres_info['version'];
   }
-  
+
   // Custom module information.
   $moduleHandler = \Drupal::service('module_handler');
   if ($moduleHandler->moduleExists('utexas_page_builder')) {
@@ -103,7 +103,7 @@ function utexas_beacon_cron() {
   $cron_day = strtotime('0:00', $cron_last);
   // $today is the midnight-time of the current day.
   $today = strtotime('0:00', time());
-  
+
   // Only send data once a day.
   if ($cron_last && $today > $cron_day) {
     $site_data_for_post = _utexas_beacon_prepare_data();
@@ -130,7 +130,7 @@ function utexas_beacon_cron() {
         'X-UTexas-Beacon-Key' => $utexas_beacon_settings->get('utexas_beacon_key'),
         'Content-Type' => 'application/json',
       ];
-            
+       
       // Post the site data.
       $client = \Drupal::httpClient();
       try {
