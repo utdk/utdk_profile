@@ -11,8 +11,8 @@
 /**
  * URI of endpoint for site data.
  */
- 
-use \Drupal\Component\Serialization\Json;
+  
+use Drupal\Component\Serialization\Json;
  
 define('UTEXAS_BEACON_ENDPOINT_URI', \Drupal::state()->get('utexas_beacon_endpoint_uri') ?: 'https://drupal-beacon.its.utexas.edu/beacon-end.php');
 
@@ -59,7 +59,7 @@ function _utexas_beacon_prepare_data() {
   $site_data['active_installation_profile_distribution_name'] = \Drupal::installProfile('distribution_name');
   $site_data['active_installation_profile_version'] = \Drupal::installProfile('version');
   
-  // TODO: Update theme and custom module information when these are finalized.  
+  // TODO: Update theme and custom module information when these are finalized.
   // Theme information.
   $site_data['current_theme'] = \Drupal::configFactory()->getEditable('system.theme')->get('default', 'machine_name');
   if ($site_data['current_theme'] == 'forty_acres') {
@@ -130,7 +130,7 @@ function utexas_beacon_cron() {
         'X-UTexas-Beacon-Key' => $utexas_beacon_settings->get('utexas_beacon_key'),
         'Content-Type' => 'application/json',
       ];
-      
+            
       // Post the site data.
       $client = \Drupal::httpClient();
       try {
