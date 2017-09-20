@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Copy this file to "path-includes" in this directory.
+# Adjust paths to phpcs and Drupal ruleset as needed.
+#
+PHPCS_BIN=~/.composer/vendor/bin/phpcs
+RULESET=~/.composer/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml
