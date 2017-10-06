@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aeaa6974a0c0409a5f32e8985fbeb356",
+    "content-hash": "6e22894514203e49369d5deb4b643400",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -282,16 +282,16 @@
         },
         {
             "name": "consolidation/annotated-command",
-            "version": "2.4.13",
+            "version": "2.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/annotated-command.git",
-                "reference": "abb685e42c83d0b698b4e22059e5d505588f7d3c"
+                "reference": "07d3c88a5de4bdd2f4aba7193387b75389dea642"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/abb685e42c83d0b698b4e22059e5d505588f7d3c",
-                "reference": "abb685e42c83d0b698b4e22059e5d505588f7d3c",
+                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/07d3c88a5de4bdd2f4aba7193387b75389dea642",
+                "reference": "07d3c88a5de4bdd2f4aba7193387b75389dea642",
                 "shasum": ""
             },
             "require": {
@@ -330,7 +330,7 @@
                 }
             ],
             "description": "Initialize Symfony Console commands from annotated command class methods.",
-            "time": "2017-08-28T20:16:37+00:00"
+            "time": "2017-10-05T20:48:16+00:00"
         },
         {
             "name": "consolidation/output-formatters",
@@ -1092,7 +1092,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.3",
-                    "datestamp": "1480507083"
+                    "datestamp": "1480507083",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1138,7 +1142,11 @@
                 },
                 "drupal": {
                     "version": "8.x-3.5",
-                    "datestamp": "1495040301"
+                    "datestamp": "1506357844",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -1170,17 +1178,17 @@
         },
         {
             "name": "drupal/config_update",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/config_update",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_update-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "4fc57add91c090ea3c9ed4848579b450253b1eed"
+                "url": "https://ftp.drupal.org/files/projects/config_update-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "0de82ba4aa7caf054711ab16ad038765215a489d"
             },
             "require": {
                 "drupal/core": "*"
@@ -1191,8 +1199,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.3",
-                    "datestamp": "1484770683",
+                    "version": "8.x-1.4",
+                    "datestamp": "1505755744",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1836,6 +1844,60 @@
             }
         },
         {
+            "name": "drupal/layout_per_node",
+            "version": "dev-1.x",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/layout_per_node",
+                "reference": "fee479406f283c53d56cdd8aaa71a5f0827eeed8"
+            },
+            "require": {
+                "composer/installers": "^1.0.20",
+                "drupal/core": "~8.0",
+                "drupal/field_layout": "*"
+            },
+            "type": "utexas-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.x-dev",
+                    "datestamp": "1507136945",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Fullmer",
+                    "homepage": "https://markfullmer.com",
+                    "email": "jfullmer@austin.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "mark_fullmer",
+                    "homepage": "https://www.drupal.org/user/2612816"
+                },
+                {
+                    "name": "twfahey",
+                    "homepage": "https://www.drupal.org/user/3403722"
+                }
+            ],
+            "description": "A drag-and-drop node layout editor.",
+            "homepage": "https://www.drupal.org/project/layout_per_node",
+            "support": {
+                "source": "http://cgit.drupalcode.org/layout_per_node"
+            },
+            "time": "2017-10-04 17:01:58"
+        },
+        {
             "name": "drupal/paragraphs",
             "version": "1.1.0",
             "source": {
@@ -1868,7 +1930,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1487331784",
+                    "datestamp": "1505802544",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1992,7 +2054,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.1",
-                    "datestamp": "1497035643"
+                    "datestamp": "1497035643",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2105,7 +2171,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.8",
-                    "datestamp": "1495984083",
+                    "datestamp": "1505464444",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2157,7 +2223,11 @@
                 },
                 "drupal": {
                     "version": "8.x-1.4",
-                    "datestamp": "1500827942"
+                    "datestamp": "1500827942",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -2182,16 +2252,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "8.1.13",
+            "version": "8.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "f93fc2bed05ba58cf65fb65f799429bf6354b205"
+                "reference": "b1f1e421185da5468eedfd25eeb5b51e705d3cef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/f93fc2bed05ba58cf65fb65f799429bf6354b205",
-                "reference": "f93fc2bed05ba58cf65fb65f799429bf6354b205",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/b1f1e421185da5468eedfd25eeb5b51e705d3cef",
+                "reference": "b1f1e421185da5468eedfd25eeb5b51e705d3cef",
                 "shasum": ""
             },
             "require": {
@@ -2283,7 +2353,7 @@
             ],
             "description": "Drush is a command line shell and scripting interface for Drupal, a veritable Swiss Army knife designed to make life easier for those of us who spend some of our working hours hacking away at the command prompt.",
             "homepage": "http://www.drush.org",
-            "time": "2017-08-22T17:28:25+00:00"
+            "time": "2017-10-03T16:20:45+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
@@ -3565,16 +3635,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "0b8541d18507d10204a08384640ff6df3c739ebe"
+                "reference": "1dbeaa8e2db4b29159265867efff075ad961558c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/0b8541d18507d10204a08384640ff6df3c739ebe",
-                "reference": "0b8541d18507d10204a08384640ff6df3c739ebe",
+                "url": "https://api.github.com/repos/symfony/config/zipball/1dbeaa8e2db4b29159265867efff075ad961558c",
+                "reference": "1dbeaa8e2db4b29159265867efff075ad961558c",
                 "shasum": ""
             },
             "require": {
@@ -3617,7 +3687,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T14:07:15+00:00"
+            "time": "2017-10-04T18:56:36+00:00"
         },
         {
             "name": "symfony/console",
@@ -3682,16 +3752,16 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
-                "reference": "ba3204654efa779691fac9e948a96b4a7067e4ab"
+                "reference": "ef01ca1352deb0c029cf496a89a6b175659c1ec3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ba3204654efa779691fac9e948a96b4a7067e4ab",
-                "reference": "ba3204654efa779691fac9e948a96b4a7067e4ab",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ef01ca1352deb0c029cf496a89a6b175659c1ec3",
+                "reference": "ef01ca1352deb0c029cf496a89a6b175659c1ec3",
                 "shasum": ""
             },
             "require": {
@@ -3731,7 +3801,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01T14:31:55+00:00"
+            "time": "2017-10-01T21:00:16+00:00"
         },
         {
             "name": "symfony/debug",
@@ -3855,16 +3925,16 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "2d902344b9902a0189408ab5d9e84fa4b233fcfc"
+                "reference": "6433e25f338ff174dc9429283354faf06df05f67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/2d902344b9902a0189408ab5d9e84fa4b233fcfc",
-                "reference": "2d902344b9902a0189408ab5d9e84fa4b233fcfc",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/6433e25f338ff174dc9429283354faf06df05f67",
+                "reference": "6433e25f338ff174dc9429283354faf06df05f67",
                 "shasum": ""
             },
             "require": {
@@ -3907,7 +3977,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-15T13:30:53+00:00"
+            "time": "2017-10-01T21:00:16+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3971,16 +4041,16 @@
         },
         {
             "name": "symfony/expression-language",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/expression-language.git",
-                "reference": "2b8394d92f012fe3410e55e28c24fd90c9864a01"
+                "reference": "dd950b4e038821a5d7fff4d338f90dd704296241"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/expression-language/zipball/2b8394d92f012fe3410e55e28c24fd90c9864a01",
-                "reference": "2b8394d92f012fe3410e55e28c24fd90c9864a01",
+                "url": "https://api.github.com/repos/symfony/expression-language/zipball/dd950b4e038821a5d7fff4d338f90dd704296241",
+                "reference": "dd950b4e038821a5d7fff4d338f90dd704296241",
                 "shasum": ""
             },
             "require": {
@@ -4016,20 +4086,20 @@
             ],
             "description": "Symfony ExpressionLanguage Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-01T20:52:29+00:00"
+            "time": "2017-10-01T21:00:16+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "714b1036010c354ae2b25d7f9ca27e14e265e9f2"
+                "reference": "5e3af878f144089faddd4060a48cadae4fc44dee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/714b1036010c354ae2b25d7f9ca27e14e265e9f2",
-                "reference": "714b1036010c354ae2b25d7f9ca27e14e265e9f2",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/5e3af878f144089faddd4060a48cadae4fc44dee",
+                "reference": "5e3af878f144089faddd4060a48cadae4fc44dee",
                 "shasum": ""
             },
             "require": {
@@ -4065,20 +4135,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-11T07:12:11+00:00"
+            "time": "2017-10-02T08:46:46+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "4f4e84811004e065a3bb5ceeb1d9aa592630f9ad"
+                "reference": "a945724b201f74d543e356f6059c930bb8d10c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/4f4e84811004e065a3bb5ceeb1d9aa592630f9ad",
-                "reference": "4f4e84811004e065a3bb5ceeb1d9aa592630f9ad",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/a945724b201f74d543e356f6059c930bb8d10c92",
+                "reference": "a945724b201f74d543e356f6059c930bb8d10c92",
                 "shasum": ""
             },
             "require": {
@@ -4114,7 +4184,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-01T20:52:29+00:00"
+            "time": "2017-10-01T21:00:16+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -4925,16 +4995,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v2.8.27",
+            "version": "v2.8.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "83ebf3e92c0b2231fa63b8e584a2a3d3cd9876ef"
+                "reference": "3e34c94f44d7bf8db1569b4bcb4b45065ccf388e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/83ebf3e92c0b2231fa63b8e584a2a3d3cd9876ef",
-                "reference": "83ebf3e92c0b2231fa63b8e584a2a3d3cd9876ef",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3e34c94f44d7bf8db1569b4bcb4b45065ccf388e",
+                "reference": "3e34c94f44d7bf8db1569b4bcb4b45065ccf388e",
                 "shasum": ""
             },
             "require": {
@@ -4989,7 +5059,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2017-08-27T14:29:03+00:00"
+            "time": "2017-09-15T16:59:28+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -5107,7 +5177,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "0aa5a89033f00f2d396f66d5bdf1be0fbdce9e23"
+                "reference": "e3082e535d904b3aecab574c46964f54bbdded49"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5124,33 +5194,7 @@
                 }
             ],
             "description": "A UTexas branded Drupal theme.",
-            "time": "2017-09-01T17:37:11+00:00"
-        },
-        {
-            "name": "utexas/layout_per_node",
-            "version": "dev-8.x-1.x",
-            "source": {
-                "type": "git",
-                "url": "git@github.austin.utexas.edu:eis1-wcs/layout_per_node.git",
-                "reference": "cd7f95ba97767803b82cc686a5fe6b868ce2207b"
-            },
-            "require": {
-                "composer/installers": "^1.0.20"
-            },
-            "type": "utexas-module",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Fullmer",
-                    "email": "jfullmer@austin.utexas.edu",
-                    "homepage": "https://markfullmer.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A drag-and-drop node layout editor.",
-            "time": "2017-09-13T18:21:49+00:00"
+            "time": "2017-09-26 20:43:32"
         },
         {
             "name": "utexas/utexas_event",
@@ -5171,7 +5215,7 @@
                 }
             ],
             "description": "UTexas Event Content Type",
-            "time": "2017-08-19T15:21:38+00:00"
+            "time": "2017-08-19 15:21:38"
         },
         {
             "name": "utexas/utexas_qualtrics_filter",
@@ -5197,7 +5241,7 @@
                 "issues": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter/issues",
                 "source": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter"
             },
-            "time": "2017-08-08T20:13:18+00:00"
+            "time": "2017-08-08 20:13:18"
         },
         {
             "name": "webflo/drupal-core-strict",
@@ -5649,16 +5693,16 @@
     "packages-dev": [
         {
             "name": "behat/behat",
-            "version": "v3.4.0",
+            "version": "v3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Behat/Behat.git",
-                "reference": "7de1a2207735fe7e2c06373dea3fd64c27c367fc"
+                "reference": "cb51d4b0b11ea6d3897f3589a871a63a33632692"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Behat/zipball/7de1a2207735fe7e2c06373dea3fd64c27c367fc",
-                "reference": "7de1a2207735fe7e2c06373dea3fd64c27c367fc",
+                "url": "https://api.github.com/repos/Behat/Behat/zipball/cb51d4b0b11ea6d3897f3589a871a63a33632692",
+                "reference": "cb51d4b0b11ea6d3897f3589a871a63a33632692",
                 "shasum": ""
             },
             "require": {
@@ -5728,7 +5772,7 @@
                 "symfony",
                 "testing"
             ],
-            "time": "2017-09-10T11:21:07+00:00"
+            "time": "2017-09-18T11:10:28+00:00"
         },
         {
             "name": "behat/gherkin",
@@ -6155,32 +6199,32 @@
         },
         {
             "name": "doctrine/instantiator",
-            "version": "1.1.0",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
-                "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/8e884e78f9f0eb1329e445619e04456e64d8051d",
+                "reference": "8e884e78f9f0eb1329e445619e04456e64d8051d",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1"
+                "php": ">=5.3,<8.0-DEV"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1.8",
                 "ext-pdo": "*",
                 "ext-phar": "*",
-                "phpunit/phpunit": "^6.2.3",
-                "squizlabs/php_codesniffer": "^3.0.2"
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -6205,7 +6249,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2017-07-22T11:58:36+00:00"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "drupal/drupal-driver",
@@ -7489,16 +7533,16 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v3.3.9",
+            "version": "v3.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "aee7120b058c268363e606ff5fe8271da849a1b5"
+                "reference": "317d5bdf0127f06db7ea294186132b4f5b036839"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/aee7120b058c268363e606ff5fe8271da849a1b5",
-                "reference": "aee7120b058c268363e606ff5fe8271da849a1b5",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/317d5bdf0127f06db7ea294186132b4f5b036839",
+                "reference": "317d5bdf0127f06db7ea294186132b4f5b036839",
                 "shasum": ""
             },
             "require": {
@@ -7542,13 +7586,12 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2017-07-29T21:54:42+00:00"
+            "time": "2017-10-02T06:42:24+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "utexas/layout_per_node": 20,
         "utexas/utexas_qualtrics_filter": 20,
         "utexas/forty_acres": 20,
         "utexas/utexas_event": 20
