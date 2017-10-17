@@ -63,7 +63,7 @@ class ExtensionSelectForm extends FormBase {
    * @param \Drupal\Core\Config\ConfigFactory $configFactory
    *   The configuration service.
    * @param \Drupal\Core\ProxyClass\Extension\ModuleInstaller $moduleInstaller
-   *   The module installer service.  
+   *   The module installer service.
    */
   public function __construct($root, InfoParserInterface $info_parser, TranslationInterface $translator, ThemeInstaller $themeInstaller, ConfigFactory $configFactory, ModuleInstaller $moduleInstaller) {
     $this->root = $root;

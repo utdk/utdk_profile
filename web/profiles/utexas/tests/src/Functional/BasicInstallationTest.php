@@ -24,5 +24,5 @@ class BasicInstallationTest extends BrowserTestBase {
   public function testBootstrap() {
     $this->assertTrue(1 === 1);
   }
-  
+
 }
