@@ -29,6 +29,7 @@ dependencies:
   - file
   - views
   - automated_cron
+  - admin_toolbar
   # Custom
   - utexas_qualtrics_filter
 themes:
