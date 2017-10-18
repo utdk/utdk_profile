@@ -1,8 +1,7 @@
-name: 'UTexas Flex Page'
+name: 'UTexas Content Type Flex Page'
+description: 'Flex Page Content Type feature.'
 type: module
 core: 8.x
-package: UTexas
-version: 1.0
 dependencies:
   - field_layout
   - layout_discovery
