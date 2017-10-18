@@ -29,8 +29,5 @@ dependencies:
   - file
   - views
   - automated_cron
-  # Custom
-  - utexas_qualtrics_filter
 themes:
   - bartik
-  - adminimal_theme
