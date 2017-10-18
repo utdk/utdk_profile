@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_flex_page_editor
+label: 'Flex Page Editor'
+weight: 2
+is_admin: null
+permissions: {  }

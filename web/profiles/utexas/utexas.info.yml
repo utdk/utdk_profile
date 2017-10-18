@@ -31,8 +31,5 @@ dependencies:
   - automated_cron
   # Contrib
   - admin_toolbar
-  # Custom
-  - utexas_qualtrics_filter
 themes:
   - bartik
-  - adminimal_theme
