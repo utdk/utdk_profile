@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "76d1e83de788222cb3657c083b052276",
+    "content-hash": "c4892867bace16b0d3d3eda7596f7698",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1068,60 +1068,6 @@
             "time": "2016-05-25T21:59:48+00:00"
         },
         {
-            "name": "drupal/bootstrap",
-            "version": "3.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/bootstrap",
-                "reference": "8.x-3.5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/bootstrap-8.x-3.5.zip",
-                "reference": "8.x-3.5",
-                "shasum": "569f8a243ad6a2e04a86123a0b2a594783a09860"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-theme",
-            "extra": {
-                "branch-alias": {
-                    "dev-3.x": "3.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-3.5",
-                    "datestamp": "1495040301"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "markcarver",
-                    "homepage": "https://www.drupal.org/user/501638"
-                },
-                {
-                    "name": "neardark",
-                    "homepage": "https://www.drupal.org/user/661076"
-                },
-                {
-                    "name": "sylus",
-                    "homepage": "https://www.drupal.org/user/339714"
-                },
-                {
-                    "name": "wundo",
-                    "homepage": "https://www.drupal.org/user/25523"
-                }
-            ],
-            "homepage": "https://www.drupal.org/project/bootstrap",
-            "support": {
-                "source": "http://cgit.drupalcode.org/bootstrap"
-            }
-        },
-        {
             "name": "drupal/config_update",
             "version": "1.4.0",
             "source": {
@@ -1976,49 +1922,6 @@
             }
         },
         {
-            "name": "drupal/responsive_tables_filter",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/responsive_tables_filter",
-                "reference": "8.x-1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/responsive_tables_filter-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "71bdc8efc5030a25d0ebb66405a18252b9868e73"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1497035643"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "mark_fullmer",
-                    "homepage": "https://www.drupal.org/user/2612816"
-                }
-            ],
-            "description": "Make tables in WYSIWYG fields responsive",
-            "homepage": "https://www.drupal.org/project/responsive_tables_filter",
-            "support": {
-                "source": "http://cgit.drupalcode.org/responsive_tables_filter"
-            }
-        },
-        {
             "name": "drupal/token",
             "version": "1.0.0",
             "source": {
@@ -2083,108 +1986,6 @@
             "homepage": "https://www.drupal.org/project/token",
             "support": {
                 "source": "http://cgit.drupalcode.org/token"
-            }
-        },
-        {
-            "name": "drupal/twig_tweak",
-            "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/twig_tweak",
-                "reference": "8.x-1.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/twig_tweak-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "2cf63537214e77a5c0d2697d8062604113980228"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "suggest": {
-                "symfony/var-dumper": "better dump() function for debugging Twig variables"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1495984083",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Chi",
-                    "homepage": "https://www.drupal.org/user/556138"
-                }
-            ],
-            "description": "A Twig extension with some useful functions and filters for Drupal development.",
-            "homepage": "https://www.drupal.org/project/twig_tweak",
-            "keywords": [
-                "Drupal",
-                "Twig"
-            ],
-            "support": {
-                "source": "http://cgit.drupalcode.org/twig_tweak",
-                "issues": "https://www.drupal.org/project/issues/twig_tweak"
-            }
-        },
-        {
-            "name": "drupal/twitter_profile_widget",
-            "version": "1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/twitter_profile_widget",
-                "reference": "8.x-1.4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/twitter_profile_widget-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "87fd7b2d1e3fbd4d6143f66a77a57e1d2c1fdd7e"
-            },
-            "require": {
-                "drupal/core": "^8.1"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1500827942"
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Spleshka",
-                    "homepage": "https://www.drupal.org/user/810676"
-                },
-                {
-                    "name": "mark_fullmer",
-                    "homepage": "https://www.drupal.org/user/2612816"
-                }
-            ],
-            "description": "Provides Twitter feeds to a site via configuration entities.",
-            "homepage": "https://www.drupal.org/project/twitter_profile_widget",
-            "support": {
-                "source": "http://cgit.drupalcode.org/twitter_profile_widget"
             }
         },
         {
@@ -5114,32 +4915,6 @@
             "time": "2016-09-21T23:05:12+00:00"
         },
         {
-            "name": "utexas/utexas_qualtrics_filter",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git",
-                "reference": "85f9df817ff9493fd44035ed9334ba4d225c05ce"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "utexas-module",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "description": "Custom text filter to allow Qualtrics forms into WYSIWYG fields",
-            "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "issues": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter/issues",
-                "source": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter"
-            },
-            "time": "2017-08-08T20:13:18+00:00"
-        },
-        {
             "name": "webflo/drupal-core-strict",
             "version": "8.3.6",
             "source": {
@@ -7487,9 +7262,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "utexas/utexas_qualtrics_filter": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
