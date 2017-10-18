@@ -29,5 +29,7 @@ dependencies:
   - file
   - views
   - automated_cron
+  # Contrib
+  - admin_toolbar
 themes:
   - bartik
