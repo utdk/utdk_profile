@@ -3,6 +3,7 @@ description: 'Flex Page Content Type feature.'
 type: module
 core: 8.x
 dependencies:
+  - layout_per_node
   - field_layout
   - layout_discovery
   - menu_ui
