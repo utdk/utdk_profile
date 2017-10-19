@@ -33,3 +33,4 @@ dependencies:
   - adminimal_admin_toolbar
 themes:
   - bartik
+  - adminimal_theme
