@@ -30,6 +30,6 @@ dependencies:
   - views
   - automated_cron
   # Contrib
-  - admin_toolbar
+  - adminimal_admin_toolbar
 themes:
   - bartik
