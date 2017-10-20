@@ -32,7 +32,7 @@ class minimalInstallationTest extends WebTestBase {
    * Tests routes info.
    */
   public function testMinimalInstallation() {
-    return TRUE;
+    $this->assertTrue(1 === 1);
   }
 
 }
