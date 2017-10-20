@@ -1,10 +1,10 @@
 body.install-page {
-    background: #f0e3c3;
+    background: #f4eee1;
 }
 .layout-container {
     border-radius: 0;
     border: 2px solid #bf5700;
-    box-shadow: 0 6px 12px #bf5700;
+    box-shadow: 0;
 }
 h1.page-title {
     color:#bf5700;
@@ -36,5 +36,13 @@ header {
 @media (max-width: 48em) {
     header {
         background-image: none;
+    }
+    .layout-container {
+        margin: 0!important;
+        border: none;
+        padding: 0 20px!important;
+        min-height: calc(100vh - 20px);
+        padding-top: 20px!important;
+        border-radius: 0;
     }
 }
