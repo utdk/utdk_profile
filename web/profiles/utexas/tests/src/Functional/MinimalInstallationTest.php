@@ -9,7 +9,7 @@ use Drupal\simpletest\WebTestBase;
  *
  * @group utexas
  */
-class fullInstallationTest extends WebTestBase {
+class MinimalInstallationTest extends WebTestBase {
 
   /**
    * Use the 'utexas' installation profile.
@@ -31,7 +31,7 @@ class fullInstallationTest extends WebTestBase {
   /**
    * Tests routes info.
    */
-  public function testFullInstallation() {
+  public function testMinimalInstallation() {
     $this->assertTrue(1 === 1);
   }
 
