@@ -100,10 +100,17 @@ class ExtensionSelectForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
     $form['#title'] = $this->t('Custom Functionality');
+    $form['utexas_enable_flex_page_content_type'] = array(
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Flex Page content type?'),
+      '#default_value' => 1,
+      '#weight' => -10,
+    );
     $form['utexas_enable_fp_editor_role'] = array(
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Flex Page Editor role?'),
       '#default_value' => 0,
+      '#weight' => -9,
     );
     $form['actions'] = [
       'continue' => [
@@ -120,6 +127,9 @@ class ExtensionSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    if ($form['utexas_enable_flex_page_content_type']['#value'] == 1) {
+      $this->moduleInstaller->install(['utexas_content_type_flex_page'], TRUE);
+    }
     if ($form['utexas_enable_fp_editor_role']['#value'] == 1) {
       $this->moduleInstaller->install(['utexas_role_flex_page_editor'], TRUE);
     }
@@ -130,5 +140,4 @@ class ExtensionSelectForm extends FormBase {
       ->set('default', 'bartik')
       ->save();
   }
-
 }
