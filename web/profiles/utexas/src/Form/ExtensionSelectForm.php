@@ -121,7 +121,7 @@ class ExtensionSelectForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     if ($form['utexas_enable_flex_page_content_type']['#value'] == 1) {
-      $this->moduleInstaller->Install(['utexas_content_type_flex_page'], TRUE);
+      $this->moduleInstaller->install(['utexas_content_type_flex_page'], TRUE);
     }
     // Default to Bartik.
     $this->themeInstaller->install(['bartik'], TRUE);
