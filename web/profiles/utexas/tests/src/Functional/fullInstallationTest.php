@@ -9,7 +9,7 @@ use Drupal\simpletest\WebTestBase;
  *
  * @group utexas
  */
-class LayoutPerNodeSelectedTest extends WebTestBase {
+class fullInstallationTest extends WebTestBase {
 
   /**
    * Use the 'utexas' installation profile.
@@ -23,7 +23,8 @@ class LayoutPerNodeSelectedTest extends WebTestBase {
    */
   protected function installParameters() {
     $parameters = parent::installParameters();
-    $parameters['forms']['utexas_select_extensions']['layout_per_node_enabled'] = 1;
+    // Add specific installation form parameters here, e.g.:
+    // $parameters['forms']['utexas_select_extensions']['flex_page_enabled'] = 1;
     return $parameters;
   }
 
@@ -32,8 +33,8 @@ class LayoutPerNodeSelectedTest extends WebTestBase {
    */
   public function testLayoutPerNodeEnabled() {
     // Assert that LPN is enabled.
-    $lpn_enabled = \Drupal::moduleHandler()->moduleExists('layout_per_node');
-    $this->assertTrue($lpn_enabled);
+     $lpn_enabled = \Drupal::moduleHandler()->moduleExists('layout_per_node');
+     $this->assertTrue($lpn_enabled);
   }
 
 }
