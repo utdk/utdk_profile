@@ -1,29 +1,48 @@
-/*To generate gradient:*/
-/*https://www.cssmatic.com/gradient-generator*/
-/*This gradient:*/
-/*https://www.cssmatic.com/gradient-generator#'\-moz\-linear\-gradient\%28left\%2C\%20rgba\%28242\%2C169\%2C0\%2C1\%29\%200\%25\%2C\%20rgba\%28191\%2C87\%2C0\%2C1\%29\%2017\%25\%2C\%20rgba\%28191\%2C87\%2C0\%2C1\%29\%2085\%25\%2C\%20rgba\%28242\%2C169\%2C0\%2C1\%29\%20100\%25\%29\%3B'*/
 body.install-page {
-    background: rgba(242,169,0,1);
-    background: -moz-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(242,169,0,1)), color-stop(17%, rgba(191,87,0,1)), color-stop(85%, rgba(191,87,0,1)), color-stop(100%, rgba(242,169,0,1)));
-    background: -webkit-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
-    background: -o-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
-    background: -ms-linear-gradient(left, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
-    background: linear-gradient(to right, rgba(242,169,0,1) 0%, rgba(191,87,0,1) 17%, rgba(191,87,0,1) 85%, rgba(242,169,0,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2a900', endColorstr='#f2a900', GradientType=1 );
+    background: #f4eee1;
+}
+.layout-container {
+    border-radius: 0;
+    border: 2px solid #bf5700;
+    box-shadow: 0;
 }
 h1.page-title {
     color:#bf5700;
 }
-
-body .button--primary, body .button--primary:hover {
-    background-image:linear-gradient(to bottom, #bf5700, #803900);
+.site-version {
+    display: block;
 }
-
+.site-version::before {
+    content: "Version: ";
+}
+.button.button--primary {
+    background-color: #bf5700;
+    background-image: none;
+    border: none;
+    border-radius: 10px;
+    transition: background-color .1s ease-in-out;
+}
+.button.button--primary:hover {
+    background-color: #a04400;
+    background-image: none;
+}
 header {
     background-image: url(../logo.png);
-    background-size: contain;
+    background-size: 200px;
     background-repeat: no-repeat;
-    background-position: right;
-    margin: 20px;
+    background-position-x: calc(35% + 8.7em);
+    background-position-y: 20px;
+}
+@media (max-width: 48em) {
+    header {
+        background-image: none;
+    }
+    .layout-container {
+        margin: 0!important;
+        border: none;
+        padding: 0 20px!important;
+        min-height: calc(100vh - 20px);
+        padding-top: 20px!important;
+        border-radius: 0;
+    }
 }
