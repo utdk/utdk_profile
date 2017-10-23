@@ -5,7 +5,7 @@ namespace Drupal\Tests\utexas\Functional;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Verifies minimal installation complies with nothing enabled while installing.
+ * Verifies minimal installation completes with nothing enabled.
  *
  * @group utexas
  */

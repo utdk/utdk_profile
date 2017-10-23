@@ -5,7 +5,7 @@ namespace Drupal\Tests\utexas\Functional;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Verifies full installation complies with everything enabled while installing.
+ * Verifies full installation completes with everything enabled.
  *
  * @group utexas
  */
@@ -32,7 +32,7 @@ class FullInstallationTest extends WebTestBase {
   /**
    * Verifies that all installation options are checked.
    *
-   * When all installation options are checked, all components an optional
+   * When all installation options are checked, all components and optional
    * components are subsequently enabled.
    */
   public function testFullInstallation() {
