@@ -1,0 +1,76 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/site_build
+    docker:
+      - image: circleci/php:7.1-apache-browsers
+        environment:
+          - MYSQL_HOST=127.0.0.1
+      - image: mysql:5.7
+        environment:
+          - MYSQL_USER=root
+          - MYSQL_ROOT_PASSWORD=ubuntu
+          - MYSQL_PASSWORD=
+          - MYSQL_ALLOW_EMPTY_PASSWORD=true
+          - MYSQL_DATABASE=circle_test
+          - MYSQL_ROOT_HOST=%
+    steps:
+      - checkout
+      # Run apt-get update before installing any packages with apt.
+      # Install required dependencies. 
+      - run:
+          name: Apt Get Update
+          command: sudo apt-get update
+      - run:
+          name: Install PHP extensions
+          command: sudo docker-php-ext-install pdo_mysql
+      - run:
+          name: Install libpng extension
+          command: sudo apt-get install -y libpng-dev
+      - run:
+          name: Install PHP Extensions
+          command: sudo docker-php-ext-install gd
+      - run:
+          name: Install Composer
+          command: 'curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer'
+      - run:
+          name: Install mysql-client
+          command: sudo apt-get install mysql-client
+          
+      - run:
+          name: Configure shell
+          command: |
+            echo -e "Host github.austin.utexas.edu\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+            echo 'export PATH=/home/circleci/site_build/vendor/bin:$PATH' >> $BASH_ENV
+           
+      - run: 
+          name: Configure Vhost
+          command: | 
+            sudo cp .circleci/fixtures/circle-vhost.conf /etc/apache2/sites-available
+            sudo a2ensite circle-vhost.conf
+            sudo a2enmod rewrite
+            sudo service apache2 restart
+          
+      - run: 
+          name: Configure Drush
+          command: |
+            mkdir ~/.drush
+            cp .circleci/fixtures/aliases.drushrc.php ~/.drush/aliases.drushrc.php
+            
+      - run: 
+          name: Set up and install Drupal
+          command: |
+            bash /home/circleci/site_build/setup.sh
+            cp .circleci/fixtures/settings.php /home/circleci/site_build/web/sites/default/settings.local.php
+            drush @test si utexas --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks" -y
+            drush @test en simpletest -y
+      
+      - run:
+          name: Run tests
+          command: |
+            mkdir -p /tmp/test-results
+            php /home/circleci/site_build/web/core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://test.dev --module utexas --verbose --color --xml /tmp/test-results
+          
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: prefix
