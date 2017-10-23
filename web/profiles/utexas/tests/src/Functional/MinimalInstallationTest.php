@@ -30,7 +30,10 @@ class MinimalInstallationTest extends WebTestBase {
   }
 
   /**
-   * Verifies no modules are enabled when doing a site installation.
+   * Verifies that all installation options are unchecked.
+   *
+   * When all installation options are unchecked, no components or optional
+   * components are subsequently enabled.
    */
   public function testMinimalInstallation() {
     $modules = [

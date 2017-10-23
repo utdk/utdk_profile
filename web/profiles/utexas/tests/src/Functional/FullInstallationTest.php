@@ -30,7 +30,10 @@ class FullInstallationTest extends WebTestBase {
   }
 
   /**
-   * Verifies all modules are enabled when doing a site installation.
+   * Verifies that all installation options are checked.
+   *
+   * When all installation options are checked, all components an optional
+   * components are subsequently enabled.
    */
   public function testFullInstallation() {
     $modules = [
