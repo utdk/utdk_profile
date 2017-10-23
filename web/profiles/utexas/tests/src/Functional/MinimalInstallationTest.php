@@ -5,7 +5,7 @@ namespace Drupal\Tests\utexas\Functional;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Ensures that tests for the UTexas installation profile can run.
+ * Verifies minimal installation complies with nothing enabled while installing.
  *
  * @group utexas
  */
@@ -30,7 +30,7 @@ class MinimalInstallationTest extends WebTestBase {
   }
 
   /**
-   * Tests routes info.
+   * Verifies no modules are enabled when doing a site installation.
    */
   public function testMinimalInstallation() {
     $modules = [

@@ -5,7 +5,7 @@ namespace Drupal\Tests\utexas\Functional;
 use Drupal\simpletest\WebTestBase;
 
 /**
- * Ensures that tests for the UTexas installation profile can run.
+ * Verifies full installation complies with everything enabled while installing.
  *
  * @group utexas
  */
@@ -30,7 +30,7 @@ class FullInstallationTest extends WebTestBase {
   }
 
   /**
-   * Tests routes info.
+   * Verifies all modules are enabled when doing a site installation.
    */
   public function testFullInstallation() {
     $modules = [
