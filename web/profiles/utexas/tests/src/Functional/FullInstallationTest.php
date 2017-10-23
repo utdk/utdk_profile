@@ -33,15 +33,15 @@ class FullInstallationTest extends WebTestBase {
    * Tests routes info.
    */
   public function testFullInstallation() {
-    // Assert that Flex Page role is enabled.
-    $fp_role = \Drupal::moduleHandler()->moduleExists('utexas_role_flex_page_editor');
-    $this->assertTrue($fp_role);
-    // Assert that Flex Page CT is enabled.
-    $fp_ct = \Drupal::moduleHandler()->moduleExists('utexas_content_type_flex_page');
-    $this->assertTrue($fp_ct);
-    // Assert that LPN is enabled.
-    $lpn = \Drupal::moduleHandler()->moduleExists('layout_per_node');
-    $this->assertTrue($lpn);
+    $modules = [
+      'utexas_role_flex_page_editor',
+      'utexas_content_type_flex_page',
+      'layout_per_node',
+    ];
+    foreach ($modules as $module) {
+      $module_enabled = \Drupal::moduleHandler()->moduleExists($module);
+      $this->assertTrue($module_enabled);
+    }
   }
 
 }
