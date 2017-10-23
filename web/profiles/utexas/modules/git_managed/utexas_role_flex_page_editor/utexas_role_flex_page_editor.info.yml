@@ -4,5 +4,6 @@ description: Defines a role and permissions for editing the Flex Page Content Ty
 core: 8.x
 package: UTexas
 dependencies:
-  - user
+  - drupal:user
+  - utexas_content_type_flex_page:utexas_content_type_flex_page
 version: 8.x-1.0

@@ -105,10 +105,23 @@ class ExtensionSelectForm extends FormBase {
       '#title' => $this->t('Enable Flex Page content type?'),
       '#default_value' => 1,
       '#weight' => -10,
+      '#states' => [
+        'checked' => [
+          ':input[name="utexas_enable_fp_editor_role"]' => [
+            'checked' => TRUE,
+          ],
+        ],
+        'disabled' => [
+          ':input[name="utexas_enable_fp_editor_role"]' => [
+            'checked' => TRUE,
+          ],
+        ],
+      ],
     ];
     $form['utexas_enable_fp_editor_role'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Enable Flex Page Editor role?'),
+      '#description' => $this->t('Requires the Flex Page content type.'),
       '#default_value' => 0,
       '#weight' => -9,
     ];
