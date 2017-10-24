@@ -111,6 +111,11 @@ class ExtensionSelectForm extends FormBase {
             'checked' => TRUE,
           ],
         ],
+        'unchecked' => [
+          ':input[name="utexas_enable_flex_page_content_type"]' => [
+            'checked' => FALSE,
+          ],
+        ],
         'disabled' => [
           ':input[name="utexas_enable_fp_editor_role"]' => [
             'checked' => TRUE,
