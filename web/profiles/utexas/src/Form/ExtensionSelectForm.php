@@ -23,7 +23,7 @@ class ExtensionSelectForm extends FormBase {
    * ExtensionSelectForm constructor.
    * *
    * @param \Drupal\Core\State\State $stateFactory
-   *   The module installer service.
+   *   The module state service.
    */
   public function __construct(State $stateFactory) {
     $this->stateFactory = $stateFactory;
