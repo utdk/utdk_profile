@@ -10,81 +10,84 @@
  */
 
 use Drupal\utexas\Form\ExtensionSelectForm;
-use Drupal\Core\Url;
+use Drupal\utexas\Form\InstallationComplete;
 
 /**
  * Implements hook_install_tasks().
  */
 function utexas_install_tasks() {
-  return array(
-    'utexas_select_extensions' => array(
+  return [
+    'utexas_select_extensions' => [
       'display_name' => t('Flavors of Texas'),
       'display' => TRUE,
       'type' => 'form',
       'function' => ExtensionSelectForm::class,
-    ),
-  );
+    ],
+    'utexas_install_batch_processing' => [
+      'display_name' => t('Apply flavoring'),
+      'display' => TRUE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
+    'utexas_finish_installation' => [
+      'display_name' => t('Installation complete'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => InstallationComplete::class,
+    ],
+  ];
+}
+
+/**
+ * Custom installation batch process.
+ *
+ * This will enable modules and do configuration via batch.
+ *
+ * This creates an operations array defining what batch should do, including
+ * what it should do when it's finished.
+ */
+function utexas_install_batch_processing(&$install_state) {
+  $modules_to_install = \Drupal::state()->get('utexas-install.modules_to_enable', []);
+  $operations = [];
+  // Each of the modules set in previous step will be enabled.
+  foreach ($modules_to_install as $module) {
+    $operations[] = [
+      'utexas_enable_module', [$module],
+    ];
+  }
+
+  // Add theme installation options to batch.
+  $operations[] = ['utexas_install_theme', ['bartik']];
+
+  $batch = [
+    'title' => t('Adding UTexas flavors...'),
+    'operations' => $operations,
+    'error_message' => t('The installation has encountered an error.'),
+  ];
+  return $batch;
+}
+
+/**
+ * Helper batch callback to enable a module.
+ */
+function utexas_enable_module($module) {
+  \Drupal::service('module_installer')->install([$module], TRUE);
+}
+
+/**
+ * Helper batch callback to configure and enable theme.
+ */
+function utexas_install_theme($theme) {
+  // Default to Bartik.
+  \Drupal::service('theme_installer')->install([$theme], TRUE);
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', $theme)
+    ->save();
 }
 
 /**
  * Implements hook_install_tasks_alter().
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
-  $tasks['install_finished']['function'] = 'utexas_post_install_redirect';
-}
-
-/**
- * Redirects the user to a particular URL after installation.
- *
- * @param array $install_state
- *   The current install state.
- *
- * @return array
- *   A renderable array with a success message and a redirect header.
- */
-function utexas_post_install_redirect(array &$install_state) {
-  $redirect = get_installer_redirect();
-
-  $output = [
-    '#title' => t("Hook 'em!"),
-    'info' => [
-      '#markup' => t('Congratulations, you installed UT Drupal Kit! If you are not redirected in 5 seconds, <a href="@url">click here</a> to proceed to your site.', [
-        '@url' => $redirect,
-      ]),
-    ],
-    '#attached' => [
-      'http_header' => [
-        ['Cache-Control', 'no-cache'],
-      ],
-    ],
-  ];
-
-  // The installer doesn't make it easy (possible?) to return a redirect
-  // response, so set a redirection META tag in the output.
-  $meta_redirect = [
-    '#tag' => 'meta',
-    '#attributes' => [
-      'http-equiv' => 'refresh',
-      'content' => '0;url=' . $redirect,
-    ],
-  ];
-  $output['#attached']['html_head'][] = [$meta_redirect, 'meta_redirect'];
-
-  return $output;
-
-}
-
-/**
- * Helper function to return a redirect object to the homepage.
- */
-function get_installer_redirect() {
-  $path = '<front>';
-  $redirect = Url::fromUri('internal:/' . $path);
-  // Explicitly set the base URL, if not previously set, to prevent weird
-  // redirection snafus.
-  $base_url = $redirect->getOption('base_url');
-  if (empty($base_url)) {
-    $redirect->setOption('base_url', $GLOBALS['base_url']);
-  }
-  return $redirect->setOption('absolute', TRUE)->toString();
 }
