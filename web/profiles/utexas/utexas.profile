@@ -16,7 +16,7 @@ use Drupal\utexas\Form\InstallationComplete;
  * Implements hook_install_tasks().
  */
 function utexas_install_tasks() {
-  return array(
+  return [
     'utexas_select_extensions' => [
       'display_name' => t('Flavors of Texas'),
       'display' => TRUE,
@@ -34,8 +34,8 @@ function utexas_install_tasks() {
       'display' => TRUE,
       'type' => 'form',
       'function' => InstallationComplete::class,
-    ]
-  );
+    ],
+  ];
 }
 
 /**
@@ -57,7 +57,7 @@ function utexas_install_batch_processing(&$install_state) {
   }
 
   // Add theme installation options to batch.
-  $operations[] = ['utexas_install_theme', []];
+  $operations[] = ['utexas_install_theme', ['bartik']];
 
   $batch = [
     'title' => t('Adding UTexas flavors...'),
@@ -67,16 +67,22 @@ function utexas_install_batch_processing(&$install_state) {
   return $batch;
 }
 
+/**
+ * Helper batch callback to enable a module.
+ */
 function utexas_enable_module($module) {
   \Drupal::service('module_installer')->install([$module], TRUE);
 }
 
-function utexas_install_theme() {
+/**
+ * Helper batch callback to configure and enable theme.
+ */
+function utexas_install_theme($theme) {
   // Default to Bartik.
-  \Drupal::service('theme_installer')->install(['bartik'], TRUE);
+  \Drupal::service('theme_installer')->install([$theme], TRUE);
   \Drupal::configFactory()
     ->getEditable('system.theme')
-    ->set('default', 'bartik')
+    ->set('default', $theme)
     ->save();
 }
 
