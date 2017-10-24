@@ -23,19 +23,21 @@ class InstallationComplete extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
+    $redirect = $this->get_installer_redirect();
+
     $form['#title'] = $this->t('Hook em!');
     $form['message'] = [
-      '#markup' => 'Congrats, you are all set to start using your Drupal Kit!',
-    ];
-    $form['actions'] = [
-      'continue' => [
-        '#type' => 'submit',
-        '#value' => $this->t('Visit your new site'),
+      'info' => [
+        '#markup' => t('Congratulations, you installed UT Drupal Kit! If you are not redirected in 5 seconds, <a href="@url">click here</a> to proceed to your site.', [
+          '@url' => $redirect,
+        ]),
       ],
-      '#type' => 'actions',
-      '#weight' => 0,
+      '#attached' => [
+        'http_header' => [
+          ['Cache-Control', 'no-cache'],
+        ],
+      ],
     ];
-    $redirect = $this->get_installer_redirect();
     // The installer doesn't make it easy (possible?) to return a redirect
     // response, so set a redirection META tag in the output.
     $meta_redirect = [
