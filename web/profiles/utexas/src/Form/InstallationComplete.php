@@ -22,7 +22,7 @@ class InstallationComplete extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
-    $form['#title'] = $this->t('All set!');
+    $form['#title'] = $this->t('Hook em!');
     $form['message'] = [
       '#markup' => 'Congrats, you are all set to start using your Drupal Kit!',
     ];
