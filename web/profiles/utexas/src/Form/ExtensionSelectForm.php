@@ -21,7 +21,7 @@ class ExtensionSelectForm extends FormBase {
 
   /**
    * ExtensionSelectForm constructor.
-   * *
+   *
    * @param \Drupal\Core\State\State $stateFactory
    *   The module state service.
    */
@@ -91,6 +91,5 @@ class ExtensionSelectForm extends FormBase {
     // Set the form state for the batch process to know what's enabled.
     $this->stateFactory->set('utexas-install.modules_to_enable', $modules_to_install);
   }
-
 
 }

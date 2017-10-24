@@ -23,7 +23,7 @@ class InstallationComplete extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
-    $redirect = $this->get_installer_redirect();
+    $redirect = $this->getInstallerRedirect();
 
     $form['#title'] = $this->t('Hook em!');
     $form['message'] = [
@@ -57,11 +57,11 @@ class InstallationComplete extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     return new RedirectResponse(\Drupal::urlGenerator()->generateFromRoute('<front>'));
   }
+
   /**
    * Helper function to return a redirect object to the homepage.
-   * Implements hook_install_tasks_alter().
    */
-  public function get_installer_redirect() {
+  public function getInstallerRedirect() {
     $path = '<front>';
     $redirect = Url::fromUri('internal:/' . $path);
     // Explicitly set the base URL, if not previously set, to prevent weird
