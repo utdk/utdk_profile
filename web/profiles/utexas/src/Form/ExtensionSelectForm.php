@@ -21,18 +21,8 @@ class ExtensionSelectForm extends FormBase {
 
   /**
    * ExtensionSelectForm constructor.
-   *
-   * @param string $root
-   *   The Drupal application root.
-   * @param \Drupal\Core\Extension\InfoParserInterface $info_parser
-   *   The info parser service.
-   * @param \Drupal\Core\StringTranslation\TranslationInterface $translator
-   *   The string translation service.
-   * @param \Drupal\Core\Extension\ThemeInstaller $themeInstaller
-   *   The theme installer service.
-   * @param \Drupal\Core\Config\ConfigFactory $configFactory
-   *   The configuration service.
-   * @param \Drupal\Core\ProxyClass\Extension\ModuleInstaller $moduleInstaller
+   * *
+   * @param \Drupal\Core\State\State $stateFactory
    *   The module installer service.
    */
   public function __construct(State $stateFactory) {
