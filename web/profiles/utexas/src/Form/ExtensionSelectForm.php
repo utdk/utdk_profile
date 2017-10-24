@@ -127,19 +127,20 @@ class ExtensionSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    // We build an array of module machine names to be installed.
+    // This array is passed to state, where it can be processed in
+    // the next installation step.
     $values = $form_state->getValues();
+    $modules_to_install = [];
     if ($values['utexas_enable_flex_page_content_type'] == 1) {
-      $this->moduleInstaller->install(['utexas_content_type_flex_page'], TRUE);
+      $modules_to_install[] = 'utexas_content_type_flex_page';
     }
     if ($values['utexas_enable_fp_editor_role'] == 1) {
-      $this->moduleInstaller->install(['utexas_role_flex_page_editor'], TRUE);
+      $modules_to_install[] = 'utexas_role_flex_page_editor';
     }
-    // Default to Bartik.
-    $this->themeInstaller->install(['bartik'], TRUE);
-    $this->configFactory
-      ->getEditable('system.theme')
-      ->set('default', 'bartik')
-      ->save();
+    // Set the form state for the batch process to know what's enabled.
+    \Drupal::state()->set('utexas-install.modules_to_enable', $modules_to_install);
   }
+
 
 }
