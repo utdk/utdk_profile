@@ -21,10 +21,10 @@ class InstallationComplete extends FormBase {
   protected $urlGenerator;
 
   /**
-   * ExtensionSelectForm constructor.
+   * InstallationComplete form constructor.
    *
    * @param \Drupal\Core\Routing\UrlGeneratorInterface $urlGenerator
-   *   The module state service.
+   *   The module URL Generator service.
    */
   public function __construct(UrlGeneratorInterface $urlGenerator) {
     $this->urlGenerator = $urlGenerator;
