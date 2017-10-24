@@ -49,7 +49,7 @@ function utexas_install_tasks() {
 function utexas_install_batch_processing(&$install_state) {
   $modules_to_install = \Drupal::state()->get('utexas-install.modules_to_enable', []);
   $operations = [];
-  // Each of the modules set in previous step will be queued up in batch to be enabled.
+  // Each of the modules set in previous step will be enabled.
   foreach ($modules_to_install as $module) {
     $operations[] = [
       'utexas_enable_module', [$module],
