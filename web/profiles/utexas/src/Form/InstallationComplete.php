@@ -4,13 +4,40 @@ namespace Drupal\utexas\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\UrlGeneratorInterface;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a form for selecting which UTexas extensions to install.
  */
 class InstallationComplete extends FormBase {
+  /**
+   * The URL Generator helper.
+   *
+   * @var \Drupal\Core\Routing\UrlGeneratorInterface
+   */
+  protected $urlGenerator;
+
+  /**
+   * ExtensionSelectForm constructor.
+   *
+   * @param \Drupal\Core\Routing\UrlGeneratorInterface $urlGenerator
+   *   The module state service.
+   */
+  public function __construct(UrlGeneratorInterface $urlGenerator) {
+    $this->urlGenerator = $urlGenerator;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('url_generator')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -55,7 +82,7 @@ class InstallationComplete extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    return new RedirectResponse(\Drupal::urlGenerator()->generateFromRoute('<front>'));
+    return new RedirectResponse($this->urlGenerator->generateFromRoute('<front>'));
   }
 
   /**
