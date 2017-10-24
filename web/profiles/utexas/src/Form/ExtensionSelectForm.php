@@ -2,13 +2,9 @@
 
 namespace Drupal\utexas\Form;
 
-use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Extension\InfoParserInterface;
-use Drupal\Core\ProxyClass\Extension\ModuleInstaller;
-use Drupal\Core\Extension\ThemeInstaller;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslationInterface;
+use Drupal\Core\State\State;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,37 +13,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ExtensionSelectForm extends FormBase {
 
   /**
-   * The Drupal application root.
-   *
-   * @var string
-   */
-  protected $root;
-  /**
-   * The info parser service.
-   *
-   * @var \Drupal\Core\Extension\InfoParserInterface
-   */
-  protected $infoParser;
-
-  /**
-   * The theme install helper.
-   *
-   * @var \Drupal\Core\Extension\ThemeInstaller
-   */
-  protected $themeInstaller;
-  /**
-   * The config update helper.
-   *
-   * @var \Drupal\Core\Config\ConfigFactory
-   */
-  protected $configFactory;
-
-  /**
-   * The module install helper.
+   * The state helper.
    *
    * @var \Drupal\Core\Extension\ModuleInstaller
    */
-  protected $moduleInstaller;
+  protected $stateFactory;
 
   /**
    * ExtensionSelectForm constructor.
@@ -65,13 +35,8 @@ class ExtensionSelectForm extends FormBase {
    * @param \Drupal\Core\ProxyClass\Extension\ModuleInstaller $moduleInstaller
    *   The module installer service.
    */
-  public function __construct($root, InfoParserInterface $info_parser, TranslationInterface $translator, ThemeInstaller $themeInstaller, ConfigFactory $configFactory, ModuleInstaller $moduleInstaller) {
-    $this->root = $root;
-    $this->infoParser = $info_parser;
-    $this->stringTranslation = $translator;
-    $this->themeInstaller = $themeInstaller;
-    $this->configFactory = $configFactory;
-    $this->moduleInstaller = $moduleInstaller;
+  public function __construct(State $stateFactory) {
+    $this->stateFactory = $stateFactory;
   }
 
   /**
@@ -79,12 +44,7 @@ class ExtensionSelectForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('app.root'),
-      $container->get('info_parser'),
-      $container->get('string_translation'),
-      $container->get('theme_installer'),
-      $container->get('config.factory'),
-      $container->get('module_installer')
+      $container->get('state')
     );
   }
 
@@ -139,7 +99,7 @@ class ExtensionSelectForm extends FormBase {
       $modules_to_install[] = 'utexas_role_flex_page_editor';
     }
     // Set the form state for the batch process to know what's enabled.
-    \Drupal::state()->set('utexas-install.modules_to_enable', $modules_to_install);
+    $this->stateFactory->set('utexas-install.modules_to_enable', $modules_to_install);
   }
 
 
