@@ -91,3 +91,11 @@ function utexas_install_theme($theme) {
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id) {
+  // Unsetting Country and Timezone selects from installation form.
+  unset($form['regional_settings']);
+}
