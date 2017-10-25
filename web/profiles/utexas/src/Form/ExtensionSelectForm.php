@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\State;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactory;
 
 /**
  * Defines a form for selecting which UTexas extensions to install.
@@ -25,8 +26,17 @@ class ExtensionSelectForm extends FormBase {
    * @param \Drupal\Core\State\State $stateFactory
    *   The module state service.
    */
-  public function __construct(State $stateFactory) {
+
+  /**
+   * Drupal\Core\Config\ConfigFactory definition.
+   *
+   * @var \Drupal\Core\Config\ConfigFactory
+   */
+  protected $configFactory;
+
+  public function __construct(State $stateFactory, ConfigFactory $config_factory) {
     $this->stateFactory = $stateFactory;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -34,7 +44,8 @@ class ExtensionSelectForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('state')
+      $container->get('state'),
+      $container->get('config.factory')
     );
   }
 
@@ -88,10 +99,7 @@ class ExtensionSelectForm extends FormBase {
       '#type' => 'actions',
       '#weight' => 0,
     ];
-    // Setting default country and timezone.
-    $system_date = \Drupal::configFactory()->getEditable('system.date');
-    $system_date->set('timezone.default', 'America/Chicago')
-      ->set('country.default', 'US')->save();
+
     return $form;
   }
 
@@ -112,6 +120,11 @@ class ExtensionSelectForm extends FormBase {
     }
     // Set the form state for the batch process to know what's enabled.
     $this->stateFactory->set('utexas-install.modules_to_enable', $modules_to_install);
+
+    // Setting default country and timezone.
+    $system_date = $this->configFactory->getEditable('system.date');
+    $system_date->set('timezone.default', 'America/Chicago')
+      ->set('country.default', 'US')->save();
   }
 
 }
