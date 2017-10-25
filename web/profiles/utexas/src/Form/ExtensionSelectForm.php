@@ -34,6 +34,9 @@ class ExtensionSelectForm extends FormBase {
    */
   protected $configFactory;
 
+  /**
+   * Constructor.
+   */
   public function __construct(State $stateFactory, ConfigFactory $config_factory) {
     $this->stateFactory = $stateFactory;
     $this->configFactory = $config_factory;
