@@ -88,6 +88,10 @@ class ExtensionSelectForm extends FormBase {
       '#type' => 'actions',
       '#weight' => 0,
     ];
+    // Setting default country and timezone.
+    $system_date = \Drupal::configFactory()->getEditable('system.date');
+    $system_date->set('timezone.default', 'America/Chicago')
+      ->set('country.default', 'US')->save();
     return $form;
   }
 
