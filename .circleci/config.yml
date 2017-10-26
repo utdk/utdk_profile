@@ -62,7 +62,7 @@ jobs:
           command: |
             bash /home/circleci/site_build/setup.sh
             cp .circleci/fixtures/settings.php /home/circleci/site_build/web/sites/default/settings.local.php
-            drush @test si utexas --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks" -y
+            drush @test si utexas --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks" standard install_configure_form.enable_update_status_module=NULL -y
             drush @test en simpletest -y
       
       - run:
