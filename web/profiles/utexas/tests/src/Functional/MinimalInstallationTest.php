@@ -3,6 +3,7 @@
 namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\simpletest\WebTestBase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Verifies minimal installation completes with nothing enabled.
@@ -45,6 +46,18 @@ class MinimalInstallationTest extends WebTestBase {
       $module_enabled = \Drupal::moduleHandler()->moduleExists($module);
       $this->assertFalse($module_enabled);
     }
+    // Assert country and timezone set to US and America/Chicago.
+    $timezone = $this->config('system.date')->get('timezone.default');
+    $country = $this->config('system.date')->get('country.default');
+    $this->assertEqual($timezone, 'America/Chicago');
+    $this->assertEqual($country, 'US');
+
+  }
+
+  /**
+   * Using trait from FunctionalTestSetupTrait.php.
+   */
+  protected function initConfig(ContainerInterface $container) {
   }
 
 }
