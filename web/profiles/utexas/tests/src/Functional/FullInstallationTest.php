@@ -51,6 +51,11 @@ class FullInstallationTest extends WebTestBase {
     $country = $this->config('system.date')->get('country.default');
     $this->assertEqual($timezone, 'America/Chicago');
     $this->assertEqual($country, 'US');
+    // Assert default language set to English.
+    $language = $this->config('system.site')->get('langcode');
+    $this->assertEqual($language, 'en');
+    $default_language = $this->config('system.site')->get('default_langcode');
+    $this->assertEqual($default_language, 'en');
 
   }
 
