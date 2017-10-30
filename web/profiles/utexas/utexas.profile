@@ -90,6 +90,7 @@ function utexas_install_theme($theme) {
  * Implements hook_install_tasks_alter().
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
+  unset($tasks['install_select_language']);
 }
 
 /**
