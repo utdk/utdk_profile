@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_ut_card_links
-    - paragraphs.paragraphs_type.utexas_card
+    - field.storage.paragraph.field_utexas_fca_links
+    - paragraphs.paragraphs_type.flex_content_area
   module:
     - link
-id: paragraph.utexas_card.field_ut_card_links
-field_name: field_ut_card_links
+id: paragraph.flex_content_area.field_utexas_fca_links
+field_name: field_utexas_fca_links
 entity_type: paragraph
-bundle: utexas_card
-label: 'Links'
+bundle: flex_content_area
+label: Links
 description: ''
 required: false
 translatable: false

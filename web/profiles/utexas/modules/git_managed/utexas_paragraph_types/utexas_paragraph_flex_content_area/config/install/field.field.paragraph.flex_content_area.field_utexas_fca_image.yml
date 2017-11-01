@@ -2,23 +2,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_ut_card_image
-    - paragraphs.paragraphs_type.utexas_card
+    - field.storage.paragraph.field_utexas_fca_image
+    - paragraphs.paragraphs_type.flex_content_area
   module:
     - image
-id: paragraph.utexas_card.field_ut_card_image
-field_name: field_ut_card_image
+id: paragraph.flex_content_area.field_utexas_fca_image
+field_name: field_utexas_fca_image
 entity_type: paragraph
-bundle: utexas_card
-label: 'Image'
-description: ''
+bundle: flex_content_area
+label: Image
+description: 'Images will be automatically scaled and cropped to 500 x 333. Use an image with an aspect ratio equal to 500 x 333 to avoid cropping.'
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: '[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'png gif jpg jpeg'
+  file_directory: flex_content_area
+  file_extensions: 'png gif jpg jpeg bmp'
   max_filesize: ''
   max_resolution: ''
   min_resolution: ''

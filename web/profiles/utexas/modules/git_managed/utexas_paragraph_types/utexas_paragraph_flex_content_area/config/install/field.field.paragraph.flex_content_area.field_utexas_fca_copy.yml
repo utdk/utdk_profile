@@ -2,15 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_ut_card_copy
-    - paragraphs.paragraphs_type.utexas_card
+    - field.storage.paragraph.field_utexas_fca_copy
+    - paragraphs.paragraphs_type.flex_content_area
   module:
     - text
-id: paragraph.utexas_card.field_ut_card_copy
-field_name: field_ut_card_copy
+id: paragraph.flex_content_area.field_utexas_fca_copy
+field_name: field_utexas_fca_copy
 entity_type: paragraph
-bundle: utexas_card
-label: 'Copy text'
+bundle: flex_content_area
+label: Copy
 description: ''
 required: false
 translatable: false

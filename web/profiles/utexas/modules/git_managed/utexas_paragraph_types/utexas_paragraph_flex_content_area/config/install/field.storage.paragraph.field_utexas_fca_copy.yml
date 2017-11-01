@@ -3,15 +3,13 @@ status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_ut_card_title
-field_name: field_ut_card_title
+    - text
+id: paragraph.field_utexas_fca_copy
+field_name: field_utexas_fca_copy
 entity_type: paragraph
-type: string
-settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

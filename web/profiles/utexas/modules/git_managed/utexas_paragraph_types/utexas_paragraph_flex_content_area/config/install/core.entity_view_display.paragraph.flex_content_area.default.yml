@@ -2,12 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.utexas_card.field_ut_card_copy
-    - field.field.paragraph.utexas_card.field_ut_card_cta
-    - field.field.paragraph.utexas_card.field_ut_card_image
-    - field.field.paragraph.utexas_card.field_ut_card_links
-    - field.field.paragraph.utexas_card.field_ut_card_title
-    - paragraphs.paragraphs_type.utexas_card
+    - field.field.paragraph.flex_content_area.field_utexas_fca_copy
+    - field.field.paragraph.flex_content_area.field_utexas_fca_cta
+    - field.field.paragraph.flex_content_area.field_utexas_fca_headline
+    - field.field.paragraph.flex_content_area.field_utexas_fca_image
+    - field.field.paragraph.flex_content_area.field_utexas_fca_links
+    - paragraphs.paragraphs_type.flex_content_area
   module:
     - field_layout
     - image
@@ -18,19 +18,19 @@ third_party_settings:
   field_layout:
     id: layout_onecol
     settings: {  }
-id: paragraph.utexas_card.default
+id: paragraph.flex_content_area.default
 targetEntityType: paragraph
-bundle: utexas_card
+bundle: flex_content_area
 mode: default
 content:
-  field_ut_card_copy:
-    weight: 2
+  field_utexas_fca_copy:
+    weight: 1
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
-  field_ut_card_cta:
+  field_utexas_fca_cta:
     weight: 4
     label: hidden
     settings:
@@ -42,8 +42,16 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  field_ut_card_image:
-    weight: 1
+  field_utexas_fca_headline:
+    weight: 0
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_utexas_fca_image:
+    weight: 2
     label: hidden
     settings:
       image_style: ''
@@ -51,7 +59,7 @@ content:
     third_party_settings: {  }
     type: image
     region: content
-  field_ut_card_links:
+  field_utexas_fca_links:
     weight: 3
     label: hidden
     settings:
@@ -62,13 +70,5 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
-    region: content
-  field_ut_card_title:
-    weight: 0
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
     region: content
 hidden: {  }

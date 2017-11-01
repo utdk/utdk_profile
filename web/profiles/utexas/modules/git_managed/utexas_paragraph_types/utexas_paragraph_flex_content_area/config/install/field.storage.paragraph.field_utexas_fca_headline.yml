@@ -2,14 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - link
     - paragraphs
-id: paragraph.field_ut_card_cta
-field_name: field_ut_card_cta
+id: paragraph.field_utexas_fca_headline
+field_name: field_utexas_fca_headline
 entity_type: paragraph
-type: link
-settings: {  }
-module: link
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
 locked: false
 cardinality: 1
 translatable: true
