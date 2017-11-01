@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.utexas_image_style_500x333
+    - image.style.utexas_image_style_640x426
+id: utexas_responsive_image_style_flex_content_area
+label: 'UTexas Responsive Image Style Flex Content Area'
+image_style_mappings:
+  -
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+    image_mapping_type: sizes
+    image_mapping:
+      sizes: '(max-width:640px) 100vw, (min-width:641px) 500px'
+      sizes_image_styles:
+        - utexas_image_style_500x333
+        - utexas_image_style_640x426
+breakpoint_group: responsive_image
+fallback_image_style: utexas_image_style_640x426
