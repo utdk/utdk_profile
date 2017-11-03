@@ -51,7 +51,10 @@ class MinimalInstallationTest extends WebTestBase {
     $country = $this->config('system.date')->get('country.default');
     $this->assertEqual($timezone, 'America/Chicago');
     $this->assertEqual($country, 'US');
-
+    // Assert basic html elements are default values.
+    $allowed_tags = $this->config('filter.format.basic_html')->get('filters.filter_html.settings.allowed_html');
+    $tags_to_test = '<a> <abbr> <address> <article> <aside> <blockquote> <br> <button> <caption> <cite> <code> <del> <details> <dl> <dt> <dd> <div> <em> <figure> <figcaption> <img> <i> <input> <hr> <h1> <h2> <h3> <h4> <h5> <h6> <ul> <ol> <li> <mark> <nav> <p> <pre> <sub> <sup> <table> <th> <tr> <td> <thead> <tbody> <tfoot> <section> <span> <source> <strong> <time> <track> <video>';
+    $this->assertEqual($allowed_tags, $tags_to_test);
   }
 
   /**

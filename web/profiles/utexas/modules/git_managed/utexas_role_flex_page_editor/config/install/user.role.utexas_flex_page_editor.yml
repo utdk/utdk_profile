@@ -5,4 +5,7 @@ id: utexas_flex_page_editor
 label: 'Flex Page Editor'
 weight: 2
 is_admin: null
-permissions: {  }
+permissions:  
+  - 'create utexas_flex_page content'
+  - 'edit any utexas_flex_page content'
+  - 'delete any utexas_flex_page content'
