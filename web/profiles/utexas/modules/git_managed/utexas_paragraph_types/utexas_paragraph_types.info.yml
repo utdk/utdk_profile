@@ -3,5 +3,6 @@ type: module
 description: 'Provides "shell" module for managing paragraph types via dependencies of this module.'
 core: 8.x
 dependencies:
+ - utexas_paragraph_image_link
 version: 1.0
 package: 'UTexas'

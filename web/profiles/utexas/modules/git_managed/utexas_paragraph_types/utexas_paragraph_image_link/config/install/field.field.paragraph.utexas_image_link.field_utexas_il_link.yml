@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_il_link
+    - paragraphs.paragraphs_type.utexas_image_link
+  module:
+    - link
+id: paragraph.utexas_image_link.field_utexas_il_link
+field_name: field_utexas_il_link
+entity_type: paragraph
+bundle: utexas_image_link
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link
