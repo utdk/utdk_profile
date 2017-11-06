@@ -36,6 +36,18 @@ filters:
     status: true
     weight: 9
     settings: {  }
+  filter_url:
+    id: filter_url
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
+  filter_autop:
+    id: filter_autop
+    provider: filter
+    status: true
+    weight: 0
+    settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
