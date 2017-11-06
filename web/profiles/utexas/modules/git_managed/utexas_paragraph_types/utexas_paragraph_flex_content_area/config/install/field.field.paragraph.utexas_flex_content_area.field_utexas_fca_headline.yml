@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - field.storage.paragraph.field_utexas_fca_headline
-    - paragraphs.paragraphs_type.flex_content_area
-id: paragraph.flex_content_area.field_utexas_fca_headline
+    - paragraphs.paragraphs_type.utexas_flex_content_area
+id: paragraph.utexas_flex_content_area.field_utexas_fca_headline
 field_name: field_utexas_fca_headline
 entity_type: paragraph
-bundle: flex_content_area
+bundle: utexas_flex_content_area
 label: Headline
 description: ''
 required: false

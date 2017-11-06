@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.utexas_flex_page.field_flex_page_fca_a
+    - field.field.node.utexas_flex_page.field_flex_page_fca_b
     - node.type.utexas_flex_page
   module:
     - field_layout
@@ -20,4 +22,6 @@ content:
   links:
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  field_flex_page_fca_a: true
+  field_flex_page_fca_b: true

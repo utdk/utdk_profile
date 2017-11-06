@@ -2,10 +2,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.utexas_flex_page.field_flex_page_fca_a
+    - field.field.node.utexas_flex_page.field_flex_page_fca_b
     - node.type.utexas_flex_page
   module:
     - field_layout
     - layout_discovery
+    - paragraphs
     - path
 third_party_settings:
   field_layout:
@@ -22,6 +25,30 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_flex_page_fca_a:
+    type: entity_reference_paragraphs
+    weight: 31
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_flex_page_fca_b:
+    type: entity_reference_paragraphs
+    weight: 32
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
   path:
     type: path
     weight: 30

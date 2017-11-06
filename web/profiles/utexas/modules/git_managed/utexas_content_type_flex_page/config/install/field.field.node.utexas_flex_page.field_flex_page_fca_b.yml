@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flex_page_fca_b
+    - node.type.utexas_flex_page
+    - paragraphs.paragraphs_type.utexas_flex_content_area
+  module:
+    - entity_reference_revisions
+id: node.utexas_flex_page.field_flex_page_fca_b
+field_name: field_flex_page_fca_b
+entity_type: node
+bundle: utexas_flex_page
+label: 'Flex Content Area B'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      utexas_flex_content_area: utexas_flex_content_area
+    target_bundles_drag_drop:
+      utexas_flex_content_area:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions

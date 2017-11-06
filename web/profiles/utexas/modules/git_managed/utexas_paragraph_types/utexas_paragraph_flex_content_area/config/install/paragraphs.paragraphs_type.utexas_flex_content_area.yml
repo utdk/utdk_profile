@@ -1,6 +1,6 @@
 langcode: en
 status: true
 dependencies: {  }
-id: flex_content_area
+id: utexas_flex_content_area
 label: 'Flex Content Area'
 behavior_plugins: {  }
