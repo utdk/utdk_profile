@@ -60,6 +60,12 @@ class MinimalInstallationTest extends WebTestBase {
     $filter_url_status = $this->config('filter.format.basic_html')->get('filters.filter_url.status');
     $this->assertTrue($filter_autop_status);
     $this->assertTrue($filter_url_status);
+
+    // Assert default language set to English.
+    $language = $this->config('system.site')->get('langcode');
+    $this->assertEqual($language, 'en');
+    $default_language = $this->config('system.site')->get('default_langcode');
+    $this->assertEqual($default_language, 'en');
   }
 
   /**
