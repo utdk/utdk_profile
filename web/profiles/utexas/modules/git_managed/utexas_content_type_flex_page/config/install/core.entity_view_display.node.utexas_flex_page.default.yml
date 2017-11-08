@@ -2,8 +2,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.utexas_flex_page.field_flex_page_fca_a
+    - field.field.node.utexas_flex_page.field_flex_page_fca_b
     - node.type.utexas_flex_page
   module:
+    - entity_reference_revisions
     - field_layout
     - layout_discovery
     - user
@@ -16,6 +19,24 @@ targetEntityType: node
 bundle: utexas_flex_page
 mode: default
 content:
+  field_flex_page_fca_a:
+    type: entity_reference_revisions_entity_view
+    weight: 101
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_flex_page_fca_b:
+    type: entity_reference_revisions_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
   links:
     weight: 100
     region: content

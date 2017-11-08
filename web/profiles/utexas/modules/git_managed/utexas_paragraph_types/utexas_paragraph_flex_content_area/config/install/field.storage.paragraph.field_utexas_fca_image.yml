@@ -5,8 +5,8 @@ dependencies:
     - file
     - image
     - paragraphs
-id: paragraph.field_ut_card_image
-field_name: field_ut_card_image
+id: paragraph.field_utexas_fca_image
+field_name: field_utexas_fca_image
 entity_type: paragraph
 type: image
 settings:
