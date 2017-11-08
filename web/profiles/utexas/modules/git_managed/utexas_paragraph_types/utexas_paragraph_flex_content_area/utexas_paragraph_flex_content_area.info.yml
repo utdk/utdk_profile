@@ -1,0 +1,17 @@
+name: 'UTexas Paragraph : Flex Content Area'
+description: 'Defines a single paragraph type with image, headline, copy, links and call to action'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - field_layout
+  - file
+  - image
+  - layout_discovery
+  - link
+  - paragraphs
+  - responsive_image
+  - text
+  - utexas_responsive_image_style_flex_content_area
+version: 8.x-1.0
+package: UTexas

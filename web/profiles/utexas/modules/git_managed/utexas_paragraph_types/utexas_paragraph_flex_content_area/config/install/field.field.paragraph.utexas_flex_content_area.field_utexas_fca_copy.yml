@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_fca_copy
+    - paragraphs.paragraphs_type.utexas_flex_content_area
+  module:
+    - text
+id: paragraph.utexas_flex_content_area.field_utexas_fca_copy
+field_name: field_utexas_fca_copy
+entity_type: paragraph
+bundle: utexas_flex_content_area
+label: Copy
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

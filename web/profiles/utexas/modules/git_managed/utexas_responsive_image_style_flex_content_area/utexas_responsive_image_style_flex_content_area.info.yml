@@ -1,0 +1,9 @@
+name: 'UTexas Responsive Image Style Flex Content Area'
+description: 'The responsive image style used for the Flex Content Area image and the image styles it uses.'
+type: module
+core: 8.x
+dependencies:
+  - image
+  - responsive_image
+version: 8.x-1.0
+package: UTexas

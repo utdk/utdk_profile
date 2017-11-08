@@ -1,8 +1,6 @@
 langcode: en
 status: true
 dependencies: {  }
-id: utexas_card
-label: 'Card'
-icon_uuid: null
-description: ''
+id: utexas_flex_content_area
+label: 'Flex Content Area'
 behavior_plugins: {  }
