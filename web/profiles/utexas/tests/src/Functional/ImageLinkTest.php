@@ -116,4 +116,5 @@ class ImageLinkTest extends BrowserTestBase {
     // Sign out!
     $this->drupalLogout();
   }
+
 }
