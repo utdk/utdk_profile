@@ -44,6 +44,7 @@ class ImageLinkTest extends BrowserTestBase {
    */
   protected function setUp() {
     parent::setUp();
+    // $this->initializeFlexPageEditor();
     $permissions = [
       "create utexas_flex_page content",
       "edit any utexas_flex_page content",
@@ -63,8 +64,10 @@ class ImageLinkTest extends BrowserTestBase {
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 2. Verify the correct field schemae exist.
     $fields = [
-      'edit-field-flex-page-il-0-subform-field-utexas-il-image-0-upload',
-      'edit-field-flex-page-il-0-subform-field-utexas-il-link-0-uri',
+      'edit-field-flex-page-il-a-0-subform-field-utexas-il-image-0-upload',
+      'edit-field-flex-page-il-a-0-subform-field-utexas-il-link-0-uri',
+      'edit-field-flex-page-il-b-0-subform-field-utexas-il-image-0-upload',
+      'edit-field-flex-page-il-b-0-subform-field-utexas-il-link-0-uri',
     ];
     foreach ($fields as $field) {
       $assert->fieldExists($field);
@@ -78,7 +81,7 @@ class ImageLinkTest extends BrowserTestBase {
     // Submit an image with no alt text.
     $edit = [
       'title[0][value]' => 'Flex Page Test',
-      'files[field_flex_page_il_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_il_a_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
     ];
     $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
     // Images must have alt text.
@@ -91,26 +94,33 @@ class ImageLinkTest extends BrowserTestBase {
   public function testOutput() {
     $edit = [
       'title[0][value]' => 'Image Link Test',
-      'files[field_flex_page_il_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il[0][subform][field_utexas_il_link][0][uri]' => 'https://markfullmer.com',
+      'files[field_flex_page_il_a_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
+      'field_flex_page_il_a[0][subform][field_utexas_il_link][0][uri]' => 'https://markfullmer.com',
+      'files[field_flex_page_il_b_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
+      'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => 'https://google.com',
     ];
     $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
     // Verify we can add a second Image Link instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-add-more-add-more-button-utexas-image-link')->click();
+    // $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
 
     // Alt text must be submitted *after* the image has been added.
     $this->drupalPostForm(NULL, [
-      'field_flex_page_il[0][subform][field_utexas_il_image][0][alt]' => 'Alt 1',
-      'files[field_flex_page_il_1_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il[1][subform][field_utexas_il_link][0][uri]' => 'https://genderedtextproject.com',
-      'field_flex_page_il[1][subform][field_utexas_il_image][0][alt]' => 'Alt 2',
+      'field_flex_page_il_a[0][subform][field_utexas_il_image][0][alt]' => 'Alt A',
+      // Setting Image Link B.
+      // 'files[field_flex_page_il_b_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
+      'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => 'https://genderedtextproject.com',
+      'field_flex_page_il_b[0][subform][field_utexas_il_image][0][alt]' => 'Alt B',
+      // Setting Image Link A-2.
+      // 'files[field_flex_page_il_a_1_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
+      // 'field_flex_page_il_a[1][subform][field_utexas_il_link][0][uri]' => 'https://genderedtextproject.com',
+      // 'field_flex_page_il_a[1][subform][field_utexas_il_link][0][alt]' => 'Alt A-2',
     ],
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Image Link Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
     // Verify Image Link, delta 0, is present.
-    $this->assertRaw('<img src="' . drupal_realpath($this->testImage) . '" width="1191" height="670" alt="Alt 1">');
+    $this->assertRaw('<img src="' . drupal_realpath($this->testImage) . '" width="40" height="20" alt="Alt A">');
     $this->assertRaw('<div class="field field--name-field-utexas-il-link field--type-link field--label-hidden field__item">https://markfullmer.com</div>');
     // Verify Image Link, delta 1, is present.
     // Sign out!
