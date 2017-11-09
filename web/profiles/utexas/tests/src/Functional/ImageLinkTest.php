@@ -63,8 +63,8 @@ class ImageLinkTest extends BrowserTestBase {
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 2. Verify the correct field schemae exist.
     $fields = [
-      'edit-field-image-link-0-subform-field-utexas-il-image-0-upload',
-      'edit-field-image-link-0-subform-field-utexas-il-link-0-uri',
+      'edit-field-flex-page-il-0-subform-field-utexas-il-image-0-upload',
+      'edit-field-flex-page-il-0-subform-field-utexas-il-link-0-uri',
     ];
     foreach ($fields as $field) {
       $assert->fieldExists($field);
@@ -92,18 +92,18 @@ class ImageLinkTest extends BrowserTestBase {
     $edit = [
       'title[0][value]' => 'Image Link Test',
       'files[field_flex_page_il_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il[0][subform][field_utexas_il_links][0][uri]' => 'https://markfullmer.com',
+      'field_flex_page_il[0][subform][field_utexas_il_link][0][uri]' => 'https://markfullmer.com',
     ];
     $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
     // Verify we can add a second Image Link instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-image-link-add-more-add-more-button-utexas-image-link')->click();
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-add-more-add-more-button-utexas-image-link')->click();
 
     // Alt text must be submitted *after* the image has been added.
     $this->drupalPostForm(NULL, [
       'field_flex_page_il[0][subform][field_utexas_il_image][0][alt]' => 'Alt 1',
       'files[field_flex_page_il_1_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il[0][subform][field_utexas_il_links][1][uri]' => 'https://genderedtextproject.com',
-      'field_flex_page_il[0][subform][field_utexas_il_image][1][alt]' => 'Alt 2',
+      'field_flex_page_il[1][subform][field_utexas_il_link][0][uri]' => 'https://genderedtextproject.com',
+      'field_flex_page_il[1][subform][field_utexas_il_image][0][alt]' => 'Alt 2',
     ],
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Image Link Test');
