@@ -5,11 +5,12 @@ dependencies:
     - field.field.paragraph.utexas_image_link.field_utexas_il_image
     - field.field.paragraph.utexas_image_link.field_utexas_il_link
     - paragraphs.paragraphs_type.utexas_image_link
+    - responsive_image.styles.utexas_responsive_image_style_1800_640
   module:
     - field_layout
-    - image
     - layout_discovery
     - link
+    - responsive_image
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -23,10 +24,10 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: ''
+      responsive_image_style: utexas_responsive_image_style_1800_640
       image_link: ''
     third_party_settings: {  }
-    type: image
+    type: responsive_image
     region: content
   field_utexas_il_link:
     weight: 1

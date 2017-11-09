@@ -10,6 +10,16 @@ id: utexas_responsive_image_style_1800_640
 label: 'UTexas Responsive Image Style 1800/640'
 image_style_mappings:
   -
+    breakpoint_id: bartik.wide
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_1800w
+  -
+    breakpoint_id: bartik.narrow
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_1800w
+  -
     breakpoint_id: bartik.mobile
     multiplier: 1x
     image_mapping_type: image_style
