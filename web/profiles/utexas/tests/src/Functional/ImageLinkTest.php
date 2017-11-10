@@ -100,29 +100,23 @@ class ImageLinkTest extends BrowserTestBase {
       'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => 'https://google.com',
     ];
     $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
-    // Verify we can add a second Image Link instance.
-    // $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
 
     // Alt text must be submitted *after* the image has been added.
     $this->drupalPostForm(NULL, [
       'field_flex_page_il_a[0][subform][field_utexas_il_image][0][alt]' => 'Alt A',
-      // Setting Image Link B.
-      // 'files[field_flex_page_il_b_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => 'https://genderedtextproject.com',
       'field_flex_page_il_b[0][subform][field_utexas_il_image][0][alt]' => 'Alt B',
-      // Setting Image Link A-2.
-      // 'files[field_flex_page_il_a_1_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      // 'field_flex_page_il_a[1][subform][field_utexas_il_link][0][uri]' => 'https://genderedtextproject.com',
-      // 'field_flex_page_il_a[1][subform][field_utexas_il_link][0][alt]' => 'Alt A-2',
     ],
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Image Link Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    // Verify Image Link, delta 0, is present.
-    $this->assertRaw('<img src="' . drupal_realpath($this->testImage) . '" width="40" height="20" alt="Alt A">');
+    // Verify Image Link A is present.
+    global $base_url;
+    $url = file_create_url($this->testImage);
+    $url = str_replace($base_url . '/', '', $url);
+    $this->assertRaw('<img src="/' . $url . '" width="40" height="20" alt="Alt A">');
     $this->assertRaw('<div class="field field--name-field-utexas-il-link field--type-link field--label-hidden field__item">https://markfullmer.com</div>');
-    // Verify Image Link, delta 1, is present.
+
     // Sign out!
     $this->drupalLogout();
   }
