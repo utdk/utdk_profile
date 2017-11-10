@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.field.node.utexas_flex_page.field_flex_page_fca_a
     - field.field.node.utexas_flex_page.field_flex_page_fca_b
+    - field.field.node.utexas_flex_page.field_flex_page_il_a
+    - field.field.node.utexas_flex_page.field_flex_page_il_b
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - node.type.utexas_flex_page
   module:
@@ -53,6 +55,30 @@ content:
   field_flex_page_ql:
     type: entity_reference_paragraphs
     weight: 31
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_flex_page_il_a:
+    type: entity_reference_paragraphs
+    weight: 33
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_flex_page_il_b:
+    type: entity_reference_paragraphs
+    weight: 34
     settings:
       title: Paragraph
       title_plural: Paragraphs
