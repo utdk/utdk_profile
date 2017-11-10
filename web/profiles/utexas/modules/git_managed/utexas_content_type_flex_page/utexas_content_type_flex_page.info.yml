@@ -4,10 +4,13 @@ type: module
 core: 8.x
 package: UTexas
 dependencies:
+  - 'drupal:entity_reference_revisions'
+  - 'drupal:field'
   - 'drupal:field_layout'
   - 'drupal:layout_discovery'
   - 'drupal:menu_ui'
   - 'drupal:node'
+  - 'drupal:paragraphs'
   - 'drupal:path'
   - 'drupal:user'
   - entity_reference_revisions
@@ -21,4 +24,7 @@ dependencies:
   - path
   - user
   - utexas_paragraph_flex_content_area
+  - 'utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area'
+  - utexas_paragraph_quick_links
+  - 'utexas_paragraph_quick_links:utexas_paragraph_quick_links'
 version: 8.x-1.0
