@@ -44,13 +44,7 @@ class ImageLinkTest extends BrowserTestBase {
    */
   protected function setUp() {
     parent::setUp();
-    // $this->initializeFlexPageEditor();
-    $permissions = [
-      "create utexas_flex_page content",
-      "edit any utexas_flex_page content",
-      "delete any utexas_flex_page content",
-    ];
-    $this->testUser = $this->drupalCreateUser($permissions);
+    $this->initializeFlexPageEditor();
     $this->drupalLogin($this->testUser);
     $this->testImage = $this->createTestImage();
   }
@@ -111,12 +105,13 @@ class ImageLinkTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
     // Verify Image Link A is present.
-    global $base_url;
-    $url = file_create_url($this->testImage);
-    $url = str_replace($base_url . '/', '', $url);
-    $this->assertRaw('<img src="/' . $url . '" width="40" height="20" alt="Alt A">');
-    $this->assertRaw('<div class="field field--name-field-utexas-il-link field--type-link field--label-hidden field__item">https://markfullmer.com</div>');
-
+    $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test.png');
+    $this->assertRaw('<a href="https://markfullmer.com"');
+    $this->assertRaw('alt="Alt A"');
+    // Verify Image Link B is present.
+    $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test_0.png');
+    $this->assertRaw('<a href="https://google.com"');
+    $this->assertRaw('alt="Alt B"');
     // Sign out!
     $this->drupalLogout();
   }
