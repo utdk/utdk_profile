@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - link
     - paragraphs
-id: paragraph.field_ut_ql_link
-field_name: field_ut_ql_link
+    - text
+id: paragraph.field_utexas_ql_copy
+field_name: field_utexas_ql_copy
 entity_type: paragraph
-type: link
+type: text_long
 settings: {  }
-module: link
+module: text
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false

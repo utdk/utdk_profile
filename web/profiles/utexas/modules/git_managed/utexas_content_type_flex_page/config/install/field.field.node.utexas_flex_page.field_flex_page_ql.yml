@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flex_page_ql
+    - node.type.utexas_flex_page
+    - paragraphs.paragraphs_type.utexas_quick_links
+  module:
+    - entity_reference_revisions
+id: node.utexas_flex_page.field_flex_page_ql
+field_name: field_flex_page_ql
+entity_type: node
+bundle: utexas_flex_page
+label: 'Quick Links'
+description: 'The Quick Links widget provides the ability to display a headline, copy, and list of one or more links. The headline and copy are optional.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      utexas_quick_links: utexas_quick_links
+    target_bundles_drag_drop:
+      utexas_quick_links:
+        enabled: true
+        weight: 2
+field_type: entity_reference_revisions
