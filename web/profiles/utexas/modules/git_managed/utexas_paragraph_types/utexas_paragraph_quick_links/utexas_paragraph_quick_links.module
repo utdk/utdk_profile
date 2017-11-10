@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Defines simple utexas_paragraph_quick_links field type.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_paragraph_quick_links_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__utexas_quick_links' => [
+      'base hook' => 'paragraph',
+      'template' => 'paragraph--utexas-quick-links',
+    ],
+    'field__field_utexas_ql_links' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-ql-links',
+    ],
+  ];
+}

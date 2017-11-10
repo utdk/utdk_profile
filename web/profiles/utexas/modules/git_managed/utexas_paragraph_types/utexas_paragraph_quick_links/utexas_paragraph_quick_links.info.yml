@@ -1,4 +1,5 @@
-name: 'Utexas Quick Links'
+name: 'UTexas Paragraph : Quick Links'
+description: 'Defines a single paragraph type with headline, copy, and links.'
 type: module
 core: 8.x
 dependencies:
@@ -9,4 +10,4 @@ dependencies:
   - paragraphs
   - text
 version: 8.x-1.0
-description: 'UTexas Quick Links'
+package: UTexas

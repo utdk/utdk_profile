@@ -2,17 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_ut_ql_headline
+    - field.storage.paragraph.field_utexas_ql_copy
     - paragraphs.paragraphs_type.utexas_quick_links
-id: paragraph.utexas_quick_links.field_ut_ql_headline
-field_name: field_ut_ql_headline
+  module:
+    - text
+id: paragraph.utexas_quick_links.field_utexas_ql_copy
+field_name: field_utexas_ql_copy
 entity_type: paragraph
 bundle: utexas_quick_links
-label: Headline
+label: Copy
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: text_long

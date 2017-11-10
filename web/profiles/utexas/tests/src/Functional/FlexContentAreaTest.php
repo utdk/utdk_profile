@@ -129,7 +129,7 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-0-subform-field-utexas-fca-links-add-more')->click();
     // Verify we can add a second Flex Content Area A instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
-    
+
     // Alt text must be submitted *after* the image has been added.
     $this->drupalPostForm(NULL, [
       'field_flex_page_fca_a[0][subform][field_utexas_fca_image][0][alt]' => 'Alt text',
@@ -141,7 +141,7 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][uri]' => 'https://grammark.org',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][title]' => 'FCA A #2 Link 1',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][uri]' => 'https://corporaproject.org',
-      'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'FCA A #2 CTA',      
+      'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'FCA A #2 CTA',
       ],
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Flex Content Area Test');
@@ -160,7 +160,7 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->assertRaw('FCA A #2 Copy');
     $this->assertRaw('<a href="https://grammark.org">FCA A #2 Link 1</a>');
     $this->assertRaw('<a href="https://corporaproject.org">FCA A #2 CTA</a>');
-    
+
     // Verify Flex Content B is present.
     $this->assertRaw('FCA B Headline');
     $this->assertRaw('FCA B Copy');

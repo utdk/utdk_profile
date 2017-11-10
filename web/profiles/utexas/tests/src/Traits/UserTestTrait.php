@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\utexas\Traits;
 
+use Drupal\user\Entity\User;
+
 /**
  * General-purpose methods for interacting with Drupal users.
  */
@@ -42,6 +44,17 @@ trait UserTestTrait {
   protected function assertForbidden($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(403);
+  }
+
+  /**
+   * Create a user with Flex Page specific role.
+   */
+  protected function initializeFlexPageEditor() {
+    $this->testUser = $this->drupalCreateUser();
+    $testUser = user_load_by_name($this->testUser->getAccountName());
+    $testUser->addRole('utexas_flex_page_editor');
+    $testUser->save();
+    $this->drupalLogin($this->testUser);
   }
 
 }
