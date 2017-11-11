@@ -1,0 +1,17 @@
+name: 'UTexas Paragraph : Image Link'
+description: 'Defines a single paragraph type with image and link.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - field_layout
+  - file
+  - image
+  - layout_discovery
+  - link
+  - paragraphs
+  - responsive_image
+  - utexas_responsive_image_style_flex_content_area
+  - utexas_responsive_image_style_1800w_640w
+version: 8.x-1.0
+package: UTexas

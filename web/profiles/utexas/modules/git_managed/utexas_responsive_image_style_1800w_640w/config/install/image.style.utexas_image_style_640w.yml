@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: utexas_image_style_640w
+label: 'UTexas Image Style 640w'
+effects:
+  a96e1806-b1b1-4222-9594-3f359261cce4:
+    uuid: a96e1806-b1b1-4222-9594-3f359261cce4
+    id: image_scale
+    weight: 1
+    data:
+      width: 640
+      height: null
+      upscale: false

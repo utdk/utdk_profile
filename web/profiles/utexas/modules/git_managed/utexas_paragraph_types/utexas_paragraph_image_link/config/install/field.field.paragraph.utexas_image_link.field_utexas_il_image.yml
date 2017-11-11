@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_il_image
+    - paragraphs.paragraphs_type.utexas_image_link
+  module:
+    - image
+id: paragraph.utexas_image_link.field_utexas_il_image
+field_name: field_utexas_il_image
+entity_type: paragraph
+bundle: utexas_image_link
+label: Image
+description: 'This image will fill the width of the region it is placed in.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: image_links
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image
