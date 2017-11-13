@@ -61,7 +61,10 @@ class FlexContentAreaTest extends BrowserTestBase {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Verify the correct field schemae exist.
+    // 2. Add the Flex Content Area A & B paragraph types.
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-flex-content-area')->click();
+    // 3. Verify the correct field schemae exist.
     $fields = [
       'edit-field-flex-page-fca-a-0-subform-field-utexas-fca-image-0-upload',
       'edit-field-flex-page-fca-a-0-subform-field-utexas-fca-headline-0-value',
@@ -87,14 +90,18 @@ class FlexContentAreaTest extends BrowserTestBase {
    * Test validation.
    */
   public function testValidation() {
-    // Submit an image with no alt text & CTA with no title.
+    $this->assertAllowed("/node/add/utexas_flex_page");
+    // 1. Add the Flex Content Area A & B paragraph types.
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-flex-content-area')->click();
+    // 2. Submit an image with no alt text & CTA with no title.    
     $edit = [
       'title[0][value]' => 'Flex Page Test',
       'files[field_flex_page_fca_a_0_subform_field_utexas_fca_image_0]' => drupal_realpath($this->testImage),
       'field_flex_page_fca_a[0][subform][field_utexas_fca_cta][0][uri]' => 'https://markfullmer.com',
     ];
-    $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
-    // Images must have alt text.
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    // 3. Images must have alt text!
     $this->assertRaw('Alternative text field is required.');
     $this->assertRaw('Link text field is required.');
   }
@@ -103,6 +110,11 @@ class FlexContentAreaTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
+    $this->assertAllowed("/node/add/utexas_flex_page");
+    // 1. Add the Flex Content Area A & B paragraph types.
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-flex-content-area')->click();
+    
     $edit = [
       'title[0][value]' => 'Flex Content Area Test',
       'files[field_flex_page_fca_a_0_subform_field_utexas_fca_image_0]' => drupal_realpath($this->testImage),
@@ -120,13 +132,12 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_b[0][subform][field_utexas_fca_cta][0][uri]' => 'https://pantheon.io',
       'field_flex_page_fca_b[0][subform][field_utexas_fca_cta][0][title]' => 'FCA B CTA',
     ];
-    $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
-    // Verify we can add a second link item to Flex Content Area A.
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    // 2. Verify we can add a second link item to Flex Content Area A.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-0-subform-field-utexas-fca-links-add-more')->click();
-    // Verify we can add a second Flex Content Area A instance.
+    // 3. Verify we can add a second Flex Content Area A instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
-
-    // Alt text must be submitted *after* the image has been added.
+    // 4. Alt text must be submitted *after* the image has been added.
     $this->drupalPostForm(NULL, [
       'field_flex_page_fca_a[0][subform][field_utexas_fca_image][0][alt]' => 'Alt text',
       'field_flex_page_fca_b[0][subform][field_utexas_fca_image][0][alt]' => 'Alt text',
@@ -144,20 +155,20 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
 
-    // Verify Flex Content A, delta 0, is present.
+    // 5. Verify Flex Content A, delta 0, is present.
     $this->assertRaw('FCA A Headline');
     $this->assertRaw('FCA A Copy');
     $this->assertRaw('<a href="https://markfullmer.com">FCA A Link 1</a>');
     $this->assertRaw('<a href="https://genderedtextproject.com">FCA A Link 2</a>');
     $this->assertRaw('<a href="https://pantheon.io">FCA A CTA</a>');
 
-    // Verify Flex Content A, delta 1, is present.
+    // 6. Verify Flex Content A, delta 1, is present.
     $this->assertRaw('FCA A #2 Headline');
     $this->assertRaw('FCA A #2 Copy');
     $this->assertRaw('<a href="https://grammark.org">FCA A #2 Link 1</a>');
     $this->assertRaw('<a href="https://corporaproject.org">FCA A #2 CTA</a>');
 
-    // Verify Flex Content B is present.
+    // 7. Verify Flex Content B is present.
     $this->assertRaw('FCA B Headline');
     $this->assertRaw('FCA B Copy');
     $this->assertRaw('<a href="https://markfullmer.com">FCA B Link 1</a>');
