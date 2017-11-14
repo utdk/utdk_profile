@@ -94,7 +94,7 @@ class FlexContentAreaTest extends BrowserTestBase {
     // 1. Add the Flex Content Area A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-flex-content-area')->click();
-    // 2. Submit an image with no alt text & CTA with no title.    
+    // 2. Submit an image with no alt text & CTA with no title.
     $edit = [
       'title[0][value]' => 'Flex Page Test',
       'files[field_flex_page_fca_a_0_subform_field_utexas_fca_image_0]' => drupal_realpath($this->testImage),
@@ -110,11 +110,14 @@ class FlexContentAreaTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
+    // Generate a test node for referencing an internal link.
+    $basic_page_id = $this->createBasicPage();
+    $this->assertTrue($basic_page_id == 1);
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Flex Content Area A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-flex-content-area')->click();
-    
+
     $edit = [
       'title[0][value]' => 'Flex Content Area Test',
       'files[field_flex_page_fca_a_0_subform_field_utexas_fca_image_0]' => drupal_realpath($this->testImage),
