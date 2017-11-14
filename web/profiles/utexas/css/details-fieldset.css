@@ -1,0 +1,4 @@
+/** This fixes the 'invisible' caret on <summary> tags in Firefox **/
+summary {
+  display: list-item;
+}
