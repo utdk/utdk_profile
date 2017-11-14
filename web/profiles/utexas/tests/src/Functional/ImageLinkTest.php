@@ -60,7 +60,7 @@ class ImageLinkTest extends BrowserTestBase {
     // 2. Add the Image Link A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-b-add-more-add-more-button-utexas-image-link')->click();
-    
+
     // 3. Verify the correct field schemae exist.
     $fields = [
       'edit-field-flex-page-il-a-0-subform-field-utexas-il-image-0-upload',
@@ -94,7 +94,9 @@ class ImageLinkTest extends BrowserTestBase {
   /**
    * Test output.
    */
-  public function testOutput() {    
+  public function testOutput() {
+    // Generate a test node for referencing an internal link.
+    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Image Link A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
@@ -104,7 +106,7 @@ class ImageLinkTest extends BrowserTestBase {
       'files[field_flex_page_il_a_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
       'field_flex_page_il_a[0][subform][field_utexas_il_link][0][uri]' => 'https://markfullmer.com',
       'files[field_flex_page_il_b_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => 'https://google.com',
+      'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => '/node/' . $basic_page_id,
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
@@ -117,13 +119,13 @@ class ImageLinkTest extends BrowserTestBase {
     $node = $this->drupalGetNodeByTitle('Image Link Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    // 3. Verify Image Link A is present.
+    // 3. Verify Image Link A is present, and that the link is external.
     $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test.png');
     $this->assertRaw('<a href="https://markfullmer.com"');
     $this->assertRaw('alt="Alt A"');
-    // 4. Verify Image Link B is present.
+    // 4. Verify Image Link B is present, and that the link is internal.
     $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test_0.png');
-    $this->assertRaw('<a href="https://google.com"');
+    $this->assertRaw('<a href="/node/' . $basic_page_id);
     $this->assertRaw('alt="Alt B"');
     // Sign out!
     $this->drupalLogout();

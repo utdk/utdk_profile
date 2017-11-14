@@ -112,7 +112,6 @@ class FlexContentAreaTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->assertTrue($basic_page_id == 1);
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Flex Content Area A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
@@ -148,9 +147,9 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_a[0][subform][field_utexas_fca_links][1][title]' => 'FCA A Link 2',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_headline][0][value]' => 'FCA A #2 Headline!',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_copy][0][value]' => 'FCA A #2 Copy',
-      'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][uri]' => 'https://grammark.org',
+      'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][uri]' => '/node/' . $basic_page_id,
       'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][title]' => 'FCA A #2 Link 1',
-      'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][uri]' => 'https://corporaproject.org',
+      'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][uri]' => '/node/' . $basic_page_id,
       'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'FCA A #2 CTA',
     ],
     'edit-submit');
@@ -161,15 +160,20 @@ class FlexContentAreaTest extends BrowserTestBase {
     // 5. Verify Flex Content A, delta 0, is present.
     $this->assertRaw('FCA A Headline');
     $this->assertRaw('FCA A Copy');
+    // External links must be allowed in the Links field.
     $this->assertRaw('<a href="https://markfullmer.com">FCA A Link 1</a>');
+    // A second link must be possible.
     $this->assertRaw('<a href="https://genderedtextproject.com">FCA A Link 2</a>');
+    // External links must be allowed in the CTA field.
     $this->assertRaw('<a href="https://pantheon.io">FCA A CTA</a>');
 
     // 6. Verify Flex Content A, delta 1, is present.
     $this->assertRaw('FCA A #2 Headline');
     $this->assertRaw('FCA A #2 Copy');
-    $this->assertRaw('<a href="https://grammark.org">FCA A #2 Link 1</a>');
-    $this->assertRaw('<a href="https://corporaproject.org">FCA A #2 CTA</a>');
+    // Internal links must be allowed in the Links field.
+    $this->assertRaw('<a href="/node/' . $basic_page_id . '">FCA A #2 Link 1</a>');
+    // Internal links must be allowed in the CTA field.
+    $this->assertRaw('<a href="/node/' . $basic_page_id . '">FCA A #2 CTA</a>');
 
     // 7. Verify Flex Content B is present.
     $this->assertRaw('FCA B Headline');

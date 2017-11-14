@@ -63,6 +63,8 @@ class QuickLinksTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
+    // Generate a test node for referencing an internal link.
+    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Quick Links paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-ql-add-more-add-more-button-utexas-quick-links')->click();
@@ -81,18 +83,19 @@ class QuickLinksTest extends BrowserTestBase {
 
     $this->drupalPostForm(NULL, [
       'field_flex_page_ql[0][subform][field_utexas_ql_links][1][title]' => 'Quick Links Link Number 2!',
-      'field_flex_page_ql[0][subform][field_utexas_ql_links][1][uri]' => 'https://quicklinks.com',
+      'field_flex_page_ql[0][subform][field_utexas_ql_links][1][uri]' => '/node/' . $basic_page_id,
     ],
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Quick Links Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    // 3. Verify Quick Links link, delta 0, is present.
+    // 3. Verify Quick Links headline, is present.
     $this->assertRaw('Quick Links Headline');
+    // 4. Verify Quick Links link, delta 0, is present, and is an external link.
     $this->assertRaw('Quick Links Copy Value');
     $this->assertRaw('<a href="https://tylerfahey.com">Quick Links Link!</a>');
-    // 4. Verify Quick Links link, delta 1, is present.
-    $this->assertRaw('<a href="https://quicklinks.com">Quick Links Link Number 2!</a>');
+    // 5. Verify Quick Links link, delta 1, is present, and is an internal link.
+    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Quick Links Link Number 2!</a>');
 
     // Sign out!
     $this->drupalLogout();
