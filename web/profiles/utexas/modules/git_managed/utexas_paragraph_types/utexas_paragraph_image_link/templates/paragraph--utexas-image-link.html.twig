@@ -45,6 +45,7 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   ]
 %}
+{% set link = content._field_layout.content.field_utexas_il_link[0]['#plain_text'] %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
