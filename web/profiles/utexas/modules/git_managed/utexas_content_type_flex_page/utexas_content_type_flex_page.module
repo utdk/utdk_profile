@@ -29,9 +29,9 @@ function utexas_content_type_flex_page_form_alter(&$form, FormStateInterface $fo
         '#title' => $title,
         '#group' => 'content',
       );
-      if (isset($form[$widget]['widget'][0])) {
+      if ($form_id == 'node_utexas_flex_page_edit_form' && empty($form[$widget]['widget'][0])) {
         // Conditionally expand fields that already have data.
-        $form[$widget . '_base']['#open'] = TRUE;
+        $form[$widget . '_base']['#title'] = $title . ' (Empty)';
       }
       unset($form[$widget]['#group']);
       $form[$widget . '_base'][$widget] = $form[$widget];
