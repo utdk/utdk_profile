@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/site_build
     docker:
-      - image: circleci/php:7.1-apache-browsers
+      - image: circleci/php:7.1-apache
         environment:
           - MYSQL_HOST=127.0.0.1
       - image: mysql:5.7
@@ -41,16 +41,8 @@ jobs:
           name: Configure shell
           command: |
             echo -e "Host github.austin.utexas.edu\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-            echo 'export PATH=/home/circleci/site_build/vendor/bin:$PATH' >> $BASH_ENV
-           
-      - run: 
-          name: Configure Vhost
-          command: | 
-            sudo cp .circleci/fixtures/circle-vhost.conf /etc/apache2/sites-available
-            sudo a2ensite circle-vhost.conf
-            sudo a2enmod rewrite
-            sudo service apache2 restart
-          
+            echo 'export PATH=/var/www/site_build/vendor/bin:$PATH' >> $BASH_ENV
+            
       - run: 
           name: Configure Drush
           command: |
@@ -58,19 +50,53 @@ jobs:
             cp .circleci/fixtures/aliases.drushrc.php ~/.drush/aliases.drushrc.php
             
       - run: 
+          name: Configure docroot
+          command: sudo mv /home/circleci/site_build /var/www/site_build
+       
+      # Set up Drupal before vhost so the docroot is present.      
+      - run: 
           name: Set up and install Drupal
           command: |
-            bash /home/circleci/site_build/setup.sh
-            cp .circleci/fixtures/settings.php /home/circleci/site_build/web/sites/default/settings.local.php
+            cd /var/www/site_build
+            bash setup.sh
+            cp .circleci/fixtures/settings.php /var/www/site_build/web/sites/default/settings.local.php
             drush @test si utexas --site-name="Drupal Kit Rocks" install_configure_form.enable_update_status_module=NULL -y
             drush @test en simpletest -y
-      
+           
+      - run: 
+          name: Configure Apache and vhost
+          command: | 
+            sudo cp /var/www/site_build/.circleci/fixtures/circle-vhost.conf /etc/apache2/sites-available
+            sudo cp /var/www/site_build/.circleci/fixtures/envvars /etc/apache2/envvars
+            sudo a2ensite circle-vhost.conf
+            sudo a2enmod rewrite
+            sudo service apache2 restart
+             
+      - run: 
+          name: Add site to /etc/hosts
+          command: |
+            echo 127.0.0.1 http://test.dev| sudo tee -a /etc/hosts
+            
+      - run: 
+         name: Smoke test
+         command: |
+           HTTP_STATUS=$(curl -I -s  http://test.dev/user/login | grep HTTP)
+           echo "$HTTP_STATUS"
+           if [[ "$HTTP_STATUS" != *"200"* ]]; then
+             exit 1
+           fi
+                                 
       - run:
           name: Run tests
           command: |
             mkdir -p /tmp/test-results
-            php /home/circleci/site_build/web/core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://test.dev --module utexas --verbose --color --xml /tmp/test-results
+            cd /var/www/site_build/web
+            php core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://test.dev --module utexas --verbose --color --xml /tmp/test-results
           
       - store_artifacts:
           path: /tmp/test-results
-          destination: prefix
+          destination: PHPUnit
+          
+      - store_artifacts:
+          path: /var/www/site_build/web/sites/simpletest
+          destination: SimpleTest

@@ -6,6 +6,6 @@
  */
 
  $aliases['test'] = array(
-   'root' => '/home/circleci/site_build/web',
+   'root' => '/var/www/site_build/web',
    'uri' => 'http://test.dev',
  );
