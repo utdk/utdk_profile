@@ -1,5 +1,0 @@
-bundle: utexas
-excluded:
-  - image.style.utexas_image_style_1800w
-  - image.style.utexas_image_style_640w
-required: true

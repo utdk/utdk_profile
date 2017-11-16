@@ -1,6 +1,0 @@
-name: 'Image Style 640w'
-type: module
-core: 8.x
-dependencies:
-  - image
-package: UTexas
