@@ -43,6 +43,7 @@ class ImageLinkTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
+    $this->doSharedSetup();
     parent::setUp();
     $this->initializeFlexPageEditor();
     $this->drupalLogin($this->testUser);

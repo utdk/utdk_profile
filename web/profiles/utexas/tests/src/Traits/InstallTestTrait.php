@@ -18,4 +18,11 @@ trait InstallTestTrait {
     return $parameters;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function doSharedSetup() {
+    $this->strictConfigSchema = NULL;
+  }
+
 }
