@@ -47,7 +47,7 @@ class FlexContentAreaTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
-    $this->doSharedSetup();
+    $this->utexasSharedSetup();
     parent::setUp();
     $permissions = [
       "create utexas_flex_page content",

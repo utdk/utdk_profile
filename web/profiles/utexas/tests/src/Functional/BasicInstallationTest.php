@@ -20,7 +20,7 @@ class BasicInstallationTest extends BrowserTestBase {
   protected $profile = 'utexas';
 
   protected function setUp() {
-    $this->doSharedSetup();
+    $this->utexasSharedSetup();
     parent::setUp();
   }
 
