@@ -143,7 +143,7 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][title]' => 'FCA A #2 Link 1',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][uri]' => 'https://corporaproject.org',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'FCA A #2 CTA',
-      ],
+    ],
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Flex Content Area Test');
     $this->drupalGet('node/' . $node->id());

@@ -3,7 +3,7 @@
 namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\simpletest\WebTestBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Tests\utexas\Traits\InstallTestTrait;
 
 /**
  * Verifies full installation completes with everything enabled.
@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group utexas
  */
 class FullInstallationTest extends WebTestBase {
+  use InstallTestTrait;
 
   /**
    * Use the 'utexas' installation profile.
@@ -26,7 +27,7 @@ class FullInstallationTest extends WebTestBase {
     $this->utexasSharedSetup();
     parent::setUp();
   }
-  
+
   /**
    * {@inheritdoc}
    */

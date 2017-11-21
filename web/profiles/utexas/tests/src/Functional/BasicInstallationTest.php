@@ -19,6 +19,9 @@ class BasicInstallationTest extends BrowserTestBase {
    */
   protected $profile = 'utexas';
 
+  /**
+   * @inheritdoc
+   */
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
