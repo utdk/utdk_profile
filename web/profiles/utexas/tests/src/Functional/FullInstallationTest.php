@@ -4,6 +4,7 @@ namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\simpletest\WebTestBase;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Verifies full installation completes with everything enabled.
