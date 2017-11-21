@@ -22,6 +22,14 @@ class FullInstallationTest extends WebTestBase {
   /**
    * {@inheritdoc}
    */
+  protected function setUp() {
+    $this->utexasSharedSetup();
+    parent::setUp();
+  }
+  
+  /**
+   * {@inheritdoc}
+   */
   protected function installParameters() {
     $parameters = parent::installParameters();
     // Add specific installation form parameters here, e.g.:
@@ -66,12 +74,6 @@ class FullInstallationTest extends WebTestBase {
     $default_language = $this->config('system.site')->get('default_langcode');
     $this->assertEqual($default_language, 'en');
 
-  }
-
-  /**
-   * Using trait from FunctionalTestSetupTrait.php.
-   */
-  protected function initConfig(ContainerInterface $container) {
   }
 
 }
