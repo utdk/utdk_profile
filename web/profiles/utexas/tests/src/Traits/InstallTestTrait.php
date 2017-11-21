@@ -18,4 +18,11 @@ trait InstallTestTrait {
     return $parameters;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function utexasSharedSetup() {
+    $this->strictConfigSchema = NULL;
+  }
+
 }

@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\utexas\Traits;
 
-use Drupal\user\Entity\User;
-
 /**
  * General-purpose methods for interacting with Drupal users.
  */

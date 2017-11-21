@@ -33,6 +33,7 @@ class QuickLinksTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
+    $this->utexasSharedSetup();
     parent::setUp();
     $this->initializeFlexPageEditor();
   }

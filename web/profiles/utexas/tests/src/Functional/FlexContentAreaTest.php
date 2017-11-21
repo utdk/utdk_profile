@@ -47,6 +47,7 @@ class FlexContentAreaTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
+    $this->utexasSharedSetup();
     parent::setUp();
     $this->initializeFlexPageEditor();
     $this->drupalLogin($this->testUser);
