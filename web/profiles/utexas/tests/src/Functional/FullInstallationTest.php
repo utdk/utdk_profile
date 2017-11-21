@@ -77,4 +77,10 @@ class FullInstallationTest extends WebTestBase {
 
   }
 
+  /**
+   * Using trait from FunctionalTestSetupTrait.php.
+   */
+  protected function initConfig(ContainerInterface $container) {
+  }
+
 }
