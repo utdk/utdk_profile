@@ -3,6 +3,8 @@ jobs:
   build:
     working_directory: ~/site_build
     docker:
+      # "Browsers" container image includes unnecessary components and won't allow for apache to run on port 80.
+      # See https://circleci.com/docs/2.0/circleci-images/ for documentation about Pre-Built CircleCI Docker Images. 
       - image: circleci/php:7.1-apache
         environment:
           - MYSQL_HOST=127.0.0.1
@@ -53,7 +55,7 @@ jobs:
           name: Configure docroot
           command: sudo mv /home/circleci/site_build /var/www/site_build
        
-      # Set up Drupal before vhost so the docroot is present.      
+      # Set up script creates docroot - run before vhost configuration so the docroot is present.    
       - run: 
           name: Set up and install Drupal
           command: |
@@ -62,7 +64,9 @@ jobs:
             cp .circleci/fixtures/settings.php /var/www/site_build/web/sites/default/settings.local.php
             drush @test si utexas --site-name="Drupal Kit Rocks" install_configure_form.enable_update_status_module=NULL -y
             drush @test en simpletest -y
-           
+      
+      # Modifications to envars required to make Apache run as circle user.
+      # Project must be checked out into home directory - move code to more conventional directory for Apache.     
       - run: 
           name: Configure Apache and vhost
           command: | 
@@ -78,7 +82,7 @@ jobs:
             echo 127.0.0.1 http://test.dev| sudo tee -a /etc/hosts
             
       - run: 
-         name: Smoke test
+         name: Vhost setup smoke test
          command: |
            HTTP_STATUS=$(curl -I -s  http://test.dev/user/login | grep HTTP)
            echo "$HTTP_STATUS"
