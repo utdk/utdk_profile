@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.utexas_image_style_1800w
+    - image.style.utexas_image_style_1801w
     - image.style.utexas_image_style_640w
   theme:
     - bartik
@@ -13,16 +13,16 @@ image_style_mappings:
     breakpoint_id: bartik.wide
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_1800w
+    image_mapping: utexas_image_style_1801w
   -
     breakpoint_id: bartik.narrow
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_1800w
+    image_mapping: utexas_image_style_1801w
   -
     breakpoint_id: bartik.mobile
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_640w
 breakpoint_group: bartik
-fallback_image_style: utexas_image_style_1800w
+fallback_image_style: utexas_image_style_1801w

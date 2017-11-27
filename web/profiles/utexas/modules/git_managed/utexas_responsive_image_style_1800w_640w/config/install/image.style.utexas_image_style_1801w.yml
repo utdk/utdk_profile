@@ -1,14 +1,14 @@
 langcode: en
 status: true
 dependencies: {  }
-name: utexas_image_style_1800w
-label: 'UTexas Image Style 1800w'
+name: utexas_image_style_1801w
+label: 'UTexas Image Style 1801w'
 effects:
   a4cdbb38-fc76-4eb2-91b0-e4f5ccd57066:
     uuid: a4cdbb38-fc76-4eb2-91b0-e4f5ccd57066
     id: image_scale
     weight: 1
     data:
-      width: 1800
+      width: 1801
       height: null
       upscale: false

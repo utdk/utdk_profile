@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.utexas_image_style_1000w
+    - image.style.utexas_image_style_1350w
+    - image.style.utexas_image_style_1800w
+    - image.style.utexas_image_style_500w
+    - image.style.utexas_image_style_675w
+    - image.style.utexas_image_style_900w
+  module:
+    - utexas_responsive_images
+id: utexas_responsive_image_l_scale_crop
+label: 'Large Scale and Crop'
+image_style_mappings:
+  -
+    breakpoint_id: utexas_responsive_images.wide
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_900w
+  -
+    breakpoint_id: utexas_responsive_images.wide
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_1800w
+  -
+    breakpoint_id: utexas_responsive_images.narrow
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_675w
+  -
+    breakpoint_id: utexas_responsive_images.narrow
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_1350w
+  -
+    breakpoint_id: utexas_responsive_images.mobile
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_500w
+  -
+    breakpoint_id: utexas_responsive_images.mobile
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: utexas_image_style_1000w
+breakpoint_group: utexas_responsive_images
+fallback_image_style: utexas_image_style_500w
