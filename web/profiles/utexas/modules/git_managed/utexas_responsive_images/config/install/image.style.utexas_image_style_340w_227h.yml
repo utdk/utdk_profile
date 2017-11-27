@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: utexas_image_style_340w_227h
-label: 'UTexas Image Style 340w x 227h'
+label: '340w x 227h'
 effects:
   0255779a-b2d6-407b-ad07-0262080a8131:
     uuid: 0255779a-b2d6-407b-ad07-0262080a8131

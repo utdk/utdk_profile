@@ -44,4 +44,4 @@ image_style_mappings:
     image_mapping_type: image_style
     image_mapping: utexas_image_style_1000w_666h
 breakpoint_group: utexas_responsive_images
-fallback_image_style: utexas_image_style_500w_333h
+fallback_image_style: utexas_image_style_340w_227h
