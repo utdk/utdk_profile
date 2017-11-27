@@ -100,3 +100,12 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
   // Unsetting Country and Timezone selects from installation form.
   unset($form['regional_settings']);
 }
+
+
+/**
+ * Implements hook_page_attachments().
+ */
+function utexas_page_attachments(array &$attachments) {
+  // Add details fieldset optimizations to all pages.
+  $attachments['#attached']['library'][] = 'utexas/details-fieldset';
+}

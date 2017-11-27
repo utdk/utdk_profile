@@ -33,6 +33,7 @@ class QuickLinksTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
+    $this->utexasSharedSetup();
     parent::setUp();
     $this->initializeFlexPageEditor();
   }
@@ -44,7 +45,9 @@ class QuickLinksTest extends BrowserTestBase {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Verify the correct field schemae exist.
+    // 2. Add the Quick Links paragraph type.
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-ql-add-more-add-more-button-utexas-quick-links')->click();
+    // 3. Verify the correct field schemae exist.
     $fields = [
       'edit-field-flex-page-ql-0-subform-field-utexas-ql-headline-0-value',
       'edit-field-flex-page-ql-0-subform-field-utexas-ql-copy-0-value',
@@ -60,6 +63,11 @@ class QuickLinksTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
+    // Generate a test node for referencing an internal link.
+    $basic_page_id = $this->createBasicPage();
+    $this->assertAllowed("/node/add/utexas_flex_page");
+    // 1. Add the Quick Links paragraph type.
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-ql-add-more-add-more-button-utexas-quick-links')->click();
     $edit = [
       'title[0][value]' => 'Quick Links Test',
       'field_flex_page_ql[0][subform][field_utexas_ql_headline][0][value]' => 'Quick Links Headline',
@@ -67,26 +75,27 @@ class QuickLinksTest extends BrowserTestBase {
       'field_flex_page_ql[0][subform][field_utexas_ql_links][0][title]' => 'Quick Links Link!',
       'field_flex_page_ql[0][subform][field_utexas_ql_links][0][uri]' => 'https://tylerfahey.com',
     ];
-    $this->drupalPostForm("/node/add/utexas_flex_page", $edit, 'edit-submit');
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $node = $this->drupalGetNodeByTitle('Quick Links Test');
     $this->drupalGet('node/' . $node->id() . '/edit');
-    // Verify we can add a second link item to Quick Links instance.
+    // 2. Verify we can add a second link item to Quick Links instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-ql-0-subform-field-utexas-ql-links-add-more')->click();
 
     $this->drupalPostForm(NULL, [
       'field_flex_page_ql[0][subform][field_utexas_ql_links][1][title]' => 'Quick Links Link Number 2!',
-      'field_flex_page_ql[0][subform][field_utexas_ql_links][1][uri]' => 'https://quicklinks.com',
+      'field_flex_page_ql[0][subform][field_utexas_ql_links][1][uri]' => '/node/' . $basic_page_id,
     ],
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Quick Links Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    // Verify Quick Links link, delta 0, is present.
+    // 3. Verify Quick Links headline, is present.
     $this->assertRaw('Quick Links Headline');
+    // 4. Verify Quick Links link, delta 0, is present, and is an external link.
     $this->assertRaw('Quick Links Copy Value');
     $this->assertRaw('<a href="https://tylerfahey.com">Quick Links Link!</a>');
-    // Verify Quick Links link, delta 1, is present.
-    $this->assertRaw('<a href="https://quicklinks.com">Quick Links Link Number 2!</a>');
+    // 5. Verify Quick Links link, delta 1, is present, and is an internal link.
+    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Quick Links Link Number 2!</a>');
 
     // Sign out!
     $this->drupalLogout();

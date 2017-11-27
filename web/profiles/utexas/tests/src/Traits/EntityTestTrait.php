@@ -3,6 +3,7 @@
 namespace Drupal\Tests\utexas\Traits;
 
 use Drupal\file\Entity\File;
+use \Drupal\node\Entity\Node;
 
 /**
  * General-purpose methods for interacting with Drupal entities.
@@ -39,6 +40,9 @@ trait EntityTestTrait {
 
   /**
    * Creates a test image in Drupal and returns the image URI.
+   *
+   * @return string
+   *    The URI of the newly created file in the Drupal filesystem.
    */
   protected function createTestImage() {
     $images = $this->getTestFiles('image');
@@ -50,6 +54,21 @@ trait EntityTestTrait {
     ]);
     $file->save();
     return $images[0]->uri;
+  }
+
+  /**
+   * Populates & saves a basic page to the database.
+   *
+   * @return int
+   *    The new node's internal ID.
+   */
+  protected function createBasicPage() {
+    $node = Node::create([
+      'type'        => 'page',
+      'title'       => 'Test Basic Page',
+    ]);
+    $node->save();
+    return $node->id();
   }
 
 }

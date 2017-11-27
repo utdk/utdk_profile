@@ -3,3 +3,7 @@ utexas-install:
   css:
     theme:
       css/utexas.css: {}
+details-fieldset:
+  css:
+    theme:
+      css/details-fieldset.css: {}
