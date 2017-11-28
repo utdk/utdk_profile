@@ -8,3 +8,4 @@ dependencies:
  - utexas_paragraph_image_link:utexas_paragraph_image_link
  - utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area
  - utexas_paragraph_quick_links:utexas_paragraph_quick_links
+ - utexas_paragraph_photo_content_area:utexas_paragraph_photo_content_area

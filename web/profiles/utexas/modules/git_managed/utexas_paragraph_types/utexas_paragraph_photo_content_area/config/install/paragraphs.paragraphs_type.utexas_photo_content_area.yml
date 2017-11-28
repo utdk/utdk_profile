@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_photo_content_area
+label: 'Photo Content Area'
+behavior_plugins: {  }
