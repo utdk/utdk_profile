@@ -68,6 +68,15 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
+  field_flex_page_pca:
+    type: entity_reference_revisions_entity_view
+    weight: 105
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
   field_flex_page_ql:
     type: entity_reference_revisions_entity_view
     weight: 101
