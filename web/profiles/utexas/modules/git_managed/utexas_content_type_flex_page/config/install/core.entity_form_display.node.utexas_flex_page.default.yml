@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_fca_b
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
+    - field.field.node.utexas_flex_page.field_flex_page_pca
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - node.type.utexas_flex_page
   module:
@@ -24,13 +25,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   field_flex_page_fca_a:
     type: entity_reference_paragraphs
-    weight: 32
+    weight: 7
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -42,7 +43,7 @@ content:
     region: content
   field_flex_page_fca_b:
     type: entity_reference_paragraphs
-    weight: 33
+    weight: 8
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -54,7 +55,7 @@ content:
     region: content
   field_flex_page_il_a:
     type: entity_reference_paragraphs
-    weight: 33
+    weight: 9
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -66,7 +67,7 @@ content:
     region: content
   field_flex_page_il_b:
     type: entity_reference_paragraphs
-    weight: 34
+    weight: 10
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -76,9 +77,21 @@ content:
       default_paragraph_type: _none
     third_party_settings: {  }
     region: content
+  field_flex_page_pca:
+    type: entity_reference_paragraphs
+    weight: 11
+    settings:
+      title: 'Photo Content Area'
+      title_plural: 'Photo Content Areas'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
   field_flex_page_ql:
     type: entity_reference_paragraphs
-    weight: 31
+    weight: 6
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -90,7 +103,7 @@ content:
     region: content
   path:
     type: path
-    weight: 30
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -98,19 +111,26 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 3
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 4
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -118,7 +138,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 1
     settings:
       match_operator: CONTAINS
       size: 60

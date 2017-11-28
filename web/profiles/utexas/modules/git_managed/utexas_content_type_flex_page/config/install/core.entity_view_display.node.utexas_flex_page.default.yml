@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_fca_b
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
+    - field.field.node.utexas_flex_page.field_flex_page_pca
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - node.type.utexas_flex_page
   module:
@@ -25,7 +26,7 @@ content:
   field_flex_page_fca_a:
     type: entity_reference_revisions_entity_view
     weight: 102
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -34,7 +35,7 @@ content:
   field_flex_page_fca_b:
     type: entity_reference_revisions_entity_view
     weight: 103
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -43,7 +44,7 @@ content:
   field_flex_page_il_a:
     type: entity_reference_revisions_entity_view
     weight: 103
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -52,7 +53,16 @@ content:
   field_flex_page_il_b:
     type: entity_reference_revisions_entity_view
     weight: 104
-    label: above
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_flex_page_pca:
+    type: entity_reference_revisions_entity_view
+    weight: 105
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -61,7 +71,7 @@ content:
   field_flex_page_ql:
     type: entity_reference_revisions_entity_view
     weight: 101
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -70,4 +80,6 @@ content:
   links:
     weight: 100
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

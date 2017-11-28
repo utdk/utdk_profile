@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flex_page_pca
+    - node.type.utexas_flex_page
+    - paragraphs.paragraphs_type.utexas_photo_content_area
+  module:
+    - entity_reference_revisions
+id: node.utexas_flex_page.field_flex_page_pca
+field_name: field_flex_page_pca
+entity_type: node
+bundle: utexas_flex_page
+label: 'Photo Content Area'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      utexas_photo_content_area: utexas_photo_content_area
+    target_bundles_drag_drop:
+      utexas_flex_content_area:
+        weight: 5
+        enabled: false
+      utexas_image_link:
+        weight: 6
+        enabled: false
+      utexas_photo_content_area:
+        enabled: true
+        weight: 7
+      utexas_quick_links:
+        weight: 8
+        enabled: false
+field_type: entity_reference_revisions
