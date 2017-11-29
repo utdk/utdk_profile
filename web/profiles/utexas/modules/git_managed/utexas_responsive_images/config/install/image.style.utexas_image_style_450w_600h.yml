@@ -2,7 +2,7 @@ uuid: 28c985c2-5f5b-450a-a9fc-09dbc4f9b853
 langcode: en
 status: true
 dependencies: {  }
-name: 450w_600h
+name: utexas_image_style_450w_600h
 label: '450w x 600h'
 effects:
   b345a3ed-6a5a-4619-9d3c-4e0bdd8e48b0:
