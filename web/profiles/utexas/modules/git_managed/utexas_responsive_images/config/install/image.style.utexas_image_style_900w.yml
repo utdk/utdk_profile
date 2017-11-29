@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: utexas_image_style_900w
-label: '900w'
+label: 900w
 effects:
   0255779a-b2d6-407b-ad07-0262080a8131:
     uuid: 0255779a-b2d6-407b-ad07-0262080a8131
@@ -10,3 +10,5 @@ effects:
     weight: 1
     data:
       width: 900
+      height: null
+      upscale: false
