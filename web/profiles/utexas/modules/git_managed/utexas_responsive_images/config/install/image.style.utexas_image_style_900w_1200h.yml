@@ -1,0 +1,14 @@
+uuid: 1c255f70-4a06-4171-86e3-f5e3b3cc640c
+langcode: en
+status: true
+dependencies: {  }
+name: 900w_1200h
+label: '900w x 1200h'
+effects:
+  f03ecd09-c69e-4f4b-b491-65e1e1772a6b:
+    uuid: f03ecd09-c69e-4f4b-b491-65e1e1772a6b
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 900
+      height: 1200

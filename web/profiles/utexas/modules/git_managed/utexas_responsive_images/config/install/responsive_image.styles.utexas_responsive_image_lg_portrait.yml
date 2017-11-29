@@ -1,0 +1,45 @@
+uuid: 510a5c86-a02c-4c49-a595-06dcc94e1497
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.utexas_image_style_1800w_2400h
+    - image.style.utexas_image_style_450w_600h
+    - image.style.utexas_image_style_900w_1200h
+  module:
+    - utexas_responsive_images
+id: utexas_responsive_image_lg_portrait
+label: 'Large Portrait'
+image_style_mappings:
+  -
+    breakpoint_id: utexas_responsive_images.wide
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: 450w_600h
+  -
+    breakpoint_id: utexas_responsive_images.wide
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: 900w_1200h
+  -
+    breakpoint_id: utexas_responsive_images.narrow
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: 900w_1200h
+  -
+    breakpoint_id: utexas_responsive_images.narrow
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: 1800w_2400h
+  -
+    breakpoint_id: utexas_responsive_images.mobile
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: 450w_600h
+  -
+    breakpoint_id: utexas_responsive_images.mobile
+    multiplier: 2x
+    image_mapping_type: image_style
+    image_mapping: 900w_1200h
+breakpoint_group: utexas_responsive_images
+fallback_image_style: 450w_600h
