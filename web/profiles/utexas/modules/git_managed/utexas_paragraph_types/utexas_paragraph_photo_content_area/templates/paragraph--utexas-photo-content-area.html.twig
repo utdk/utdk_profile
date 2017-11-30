@@ -52,12 +52,12 @@
 {% set links = content._field_layout.content.field_utexas_pca_links %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
-    <div class="photo-content-area__image">
+    <figure class="photo-content-area__image">
       {{ image }}
       {% if credit %}
         {{ credit }}
       {% endif %} 
-    </div>
+    </figure>
     {% if headline %}
       {{ headline }}
     {% endif %}
