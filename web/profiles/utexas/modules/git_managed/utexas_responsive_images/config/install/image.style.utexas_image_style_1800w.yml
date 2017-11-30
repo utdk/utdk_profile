@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies: {  }
 name: utexas_image_style_1800w
-label: 'UTexas Image Style 1800w'
+label: 1800w
 effects:
-  a4cdbb38-fc76-4eb2-91b0-e4f5ccd57066:
-    uuid: a4cdbb38-fc76-4eb2-91b0-e4f5ccd57066
+  0255779a-b2d6-407b-ad07-0262080a8131:
+    uuid: 0255779a-b2d6-407b-ad07-0262080a8131
     id: image_scale
     weight: 1
     data:
