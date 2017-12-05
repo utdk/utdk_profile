@@ -12,6 +12,6 @@ dependencies:
   - paragraphs
   - responsive_image
   - text
-  - utexas_responsive_image_style_flex_content_area
+  - utexas_responsive_images
 version: 8.x-1.0
 package: UTexas
