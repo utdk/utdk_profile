@@ -11,7 +11,7 @@ field_name: field_utexas_pca_image
 entity_type: paragraph
 bundle: utexas_photo_content_area
 label: Image
-description: 'Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 900x1200 pixels to maintain resolution & avoid cropping.'
+description: 'Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 1800x2400 pixels to maintain resolution & avoid cropping.'
 required: true
 translatable: false
 default_value: {  }
