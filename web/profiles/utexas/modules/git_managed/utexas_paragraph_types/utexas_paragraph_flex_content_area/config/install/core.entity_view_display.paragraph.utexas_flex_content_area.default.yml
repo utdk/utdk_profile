@@ -8,7 +8,7 @@ dependencies:
     - field.field.paragraph.utexas_flex_content_area.field_utexas_fca_image
     - field.field.paragraph.utexas_flex_content_area.field_utexas_fca_links
     - paragraphs.paragraphs_type.utexas_flex_content_area
-    - responsive_image.styles.utexas_responsive_image_md_scale_crop
+    - responsive_image.styles.utexas_responsive_image_fca
   module:
     - field_layout
     - layout_discovery
