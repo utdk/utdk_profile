@@ -10,8 +10,8 @@ dependencies:
     - image.style.utexas_image_style_900w_600h
   module:
     - utexas_responsive_images
-id: utexas_responsive_image_md_scale_crop
-label: 'Medium Scale and Crop'
+id: utexas_responsive_image_fca
+label: 'Flex Content Area'
 image_style_mappings:
   -
     breakpoint_id: utexas_responsive_images.wide
