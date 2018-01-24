@@ -18,3 +18,4 @@ cp example.circle.yml circle.yml
 composer install
 cp composer.lock example.composer.lock
 echo "Updated example.composer.lock."
+npm install

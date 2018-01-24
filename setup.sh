@@ -13,4 +13,3 @@ composer install
 if [ ! -d "web/sites/default/config" ]; then
   mkdir web/sites/default/config
 fi
-
