@@ -11,7 +11,7 @@ field_name: field_utexas_fca_image
 entity_type: paragraph
 bundle: utexas_flex_content_area
 label: Image
-description: 'Images will be automatically scaled and cropped to 500 x 333. Use an image with an aspect ratio equal to 500 x 333 to avoid cropping.'
+description: 'Image will be scaled and cropped to a 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.'
 required: false
 translatable: false
 default_value: {  }
