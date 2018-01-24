@@ -8,8 +8,8 @@ dependencies:
     - image.style.utexas_image_style_900w_1200h
   module:
     - utexas_responsive_images
-id: utexas_responsive_image_lg_portrait
-label: 'Large Portrait'
+id: utexas_responsive_image_pca
+label: 'Photo Content Area'
 image_style_mappings:
   -
     breakpoint_id: utexas_responsive_images.wide
