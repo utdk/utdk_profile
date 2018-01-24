@@ -9,7 +9,7 @@ dependencies:
     - image.style.utexas_image_style_680w_454h
     - image.style.utexas_image_style_900w_600h
   module:
-    - utexas_paragraph_flex_content_area
+    - utexas_responsive_images
 id: utexas_responsive_image_fca
 label: 'Flex Content Area'
 image_style_mappings:
