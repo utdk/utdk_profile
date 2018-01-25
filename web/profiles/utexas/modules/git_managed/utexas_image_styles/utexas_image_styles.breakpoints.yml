@@ -1,18 +1,18 @@
-utexas_responsive_images.mobile:
+utexas_image_styles.mobile:
   label: mobile
   mediaQuery: 'all and (max-width: 599px)'
   weight: 0
   multipliers:
     - 1x
     - 2x
-utexas_responsive_images.narrow:
+utexas_image_styles.narrow:
   label: tablet
   mediaQuery: 'all and (min-width: 600px) and (max-width: 999px)'
   weight: 1
   multipliers:
     - 1x
     - 2x
-utexas_responsive_images.wide:
+utexas_image_styles.wide:
   label: desktop
   mediaQuery: 'all and (min-width: 1000px)'
   weight: 2
