@@ -10,8 +10,8 @@ dependencies:
     - image.style.utexas_image_style_900w
   module:
     - utexas_responsive_images
-id: utexas_responsive_image_lg_scale
-label: 'Large Scale'
+id: utexas_responsive_image_il
+label: 'Image Link'
 image_style_mappings:
   -
     breakpoint_id: utexas_responsive_images.wide
