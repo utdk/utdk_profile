@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_pu_cta_link
+    - paragraphs.paragraphs_type.utexas_promo_unit
+  module:
+    - link
+id: paragraph.utexas_promo_unit.field_utexas_pu_cta_link
+field_name: field_utexas_pu_cta_link
+entity_type: paragraph
+bundle: utexas_promo_unit
+label: 'Call to Action Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

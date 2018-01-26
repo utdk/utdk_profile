@@ -2,43 +2,43 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.utexas_image_style_1800w_2400h
-    - image.style.utexas_image_style_450w_600h
-    - image.style.utexas_image_style_900w_1200h
+    - image.style.utexas_image_style_176w_112h
+    - image.style.utexas_image_style_220w_140h
+    - image.style.utexas_image_style_440w_280h
   module:
     - utexas_responsive_images
-id: utexas_responsive_image_lg_portrait
-label: 'Large Portrait'
+id: utexas_responsive_image_promo_unit_landscape
+label: 'Promo Unit Landscape'
 image_style_mappings:
   -
     breakpoint_id: utexas_responsive_images.wide
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_450w_600h
+    image_mapping: utexas_image_style_220w_140h
   -
     breakpoint_id: utexas_responsive_images.wide
     multiplier: 2x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_900w_1200h
+    image_mapping: utexas_image_style_440w_280h
   -
     breakpoint_id: utexas_responsive_images.narrow
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_900w_1200h
+    image_mapping: utexas_image_style_176w_112h
   -
     breakpoint_id: utexas_responsive_images.narrow
     multiplier: 2x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_1800w_2400h
+    image_mapping: utexas_image_style_440w_280h
   -
     breakpoint_id: utexas_responsive_images.mobile
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_450w_600h
+    image_mapping: utexas_image_style_176w_112h
   -
     breakpoint_id: utexas_responsive_images.mobile
     multiplier: 2x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_900w_1200h
+    image_mapping: utexas_image_style_220w_140h
 breakpoint_group: utexas_responsive_images
-fallback_image_style: utexas_image_style_450w_600h
+fallback_image_style: utexas_image_style_176w_112h

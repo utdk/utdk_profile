@@ -1,0 +1,68 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.utexas_promo_unit.field_utexas_pu_copy
+    - field.field.paragraph.utexas_promo_unit.field_utexas_pu_cta_link
+    - field.field.paragraph.utexas_promo_unit.field_utexas_pu_headline
+    - field.field.paragraph.utexas_promo_unit.field_utexas_pu_image
+    - field.field.paragraph.utexas_promo_unit.field_utexas_pu_image_style
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.utexas_promo_unit
+  module:
+    - field_layout
+    - image
+    - layout_discovery
+    - link
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: paragraph.utexas_promo_unit.default
+targetEntityType: paragraph
+bundle: utexas_promo_unit
+mode: default
+content:
+  field_utexas_pu_copy:
+    weight: 3
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_utexas_pu_cta_link:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_utexas_pu_headline:
+    weight: 2
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_utexas_pu_image:
+    weight: 0
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_utexas_pu_image_style:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

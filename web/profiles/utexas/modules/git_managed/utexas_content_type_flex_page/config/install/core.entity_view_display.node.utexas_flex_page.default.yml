@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
     - field.field.node.utexas_flex_page.field_flex_page_pca
+    - field.field.node.utexas_flex_page.field_flex_page_pu
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - node.type.utexas_flex_page
   module:
@@ -68,7 +69,7 @@ content:
       link: ''
     third_party_settings: {  }
     region: content
-  field_flex_page_pca:
+  field_flex_page_pu:
     type: entity_reference_revisions_entity_view
     weight: 105
     label: above
