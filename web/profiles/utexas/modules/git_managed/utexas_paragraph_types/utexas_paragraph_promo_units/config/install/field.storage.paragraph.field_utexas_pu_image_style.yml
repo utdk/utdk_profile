@@ -11,13 +11,13 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: utexas_responsive_image_promo_unit_landscape
+      value: utexas_responsive_image_pu_landscape
       label: 'Landscape (220x140)'
     -
-      value: utexas_responsive_image_promo_unit_square
+      value: utexas_responsive_image_pu_square
       label: 'Square (140x140)'
     -
-      value: utexas_responsive_image_promo_unit_portrait
+      value: utexas_responsive_image_pu_portrait
       label: 'Portrait (150x188)'
   allowed_values_function: ''
 module: options

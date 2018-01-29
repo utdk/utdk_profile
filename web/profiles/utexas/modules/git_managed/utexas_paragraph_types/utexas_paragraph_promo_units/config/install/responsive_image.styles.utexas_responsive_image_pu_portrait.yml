@@ -6,39 +6,39 @@ dependencies:
     - image.style.utexas_image_style_150w_188h
     - image.style.utexas_image_style_300w_376h
   module:
-    - utexas_responsive_images
-id: utexas_responsive_image_promo_unit_portrait
+    - utexas_image_styles
+id: utexas_responsive_image_pu_portrait
 label: 'Promo Unit Portrait'
 image_style_mappings:
   -
-    breakpoint_id: utexas_responsive_images.wide
+    breakpoint_id: utexas_image_styles.wide
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_150w_188h
   -
-    breakpoint_id: utexas_responsive_images.wide
+    breakpoint_id: utexas_image_styles.wide
     multiplier: 2x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_300w_376h
   -
-    breakpoint_id: utexas_responsive_images.narrow
+    breakpoint_id: utexas_image_styles.narrow
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_120w_150h
   -
-    breakpoint_id: utexas_responsive_images.narrow
+    breakpoint_id: utexas_image_styles.narrow
     multiplier: 2x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_300w_376h
   -
-    breakpoint_id: utexas_responsive_images.mobile
+    breakpoint_id: utexas_image_styles.mobile
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_120w_150h
   -
-    breakpoint_id: utexas_responsive_images.mobile
+    breakpoint_id: utexas_image_styles.mobile
     multiplier: 2x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_150w_188h
-breakpoint_group: utexas_responsive_images
+breakpoint_group: utexas_image_styles
 fallback_image_style: utexas_image_style_120w_150h
