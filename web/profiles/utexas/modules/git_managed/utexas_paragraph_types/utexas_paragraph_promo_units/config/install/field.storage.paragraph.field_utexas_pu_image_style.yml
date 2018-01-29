@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_utexas_pu_image_style
+field_name: field_utexas_pu_image_style
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: utexas_responsive_image_promo_unit_landscape
+      label: 'Landscape (220x140)'
+    -
+      value: utexas_responsive_image_promo_unit_square
+      label: 'Square (140x140)'
+    -
+      value: utexas_responsive_image_promo_unit_portrait
+      label: 'Portrait (150x188)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_pu_image_style
+    - paragraphs.paragraphs_type.utexas_promo_unit
+  module:
+    - options
+id: paragraph.utexas_promo_unit.field_utexas_pu_image_style
+field_name: field_utexas_pu_image_style
+entity_type: paragraph
+bundle: utexas_promo_unit
+label: 'Image Style'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: landscape
+default_value_callback: ''
+settings: {  }
+field_type: list_string

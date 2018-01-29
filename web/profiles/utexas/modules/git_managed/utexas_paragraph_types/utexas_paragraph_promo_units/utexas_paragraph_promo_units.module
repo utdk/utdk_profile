@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Defines utexas_paragraph_promo_units field type.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_paragraph_promo_units_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__utexas_promo_unit_container' => [
+      'base hook' => 'paragraph',
+      'template' => 'paragraph--utexas-promo-unit-container',
+    ],
+    'paragraph__utexas_promo_unit' => [
+      'base hook' => 'paragraph',
+      'template' => 'paragraph--utexas-promo-unit',
+    ],
+  ];
+}
+
+/**
+ * Implements template_preprocesss_paragraph__PARAGRAPH_TYPE().
+ */
+function utexas_paragraph_promo_units_preprocess_paragraph__utexas_promo_unit(&$variables) {
+  // If a promo unit has an image, this will provide an additional
+  // {{ processed_image }} variable to the html.twig file that renders with the
+  // user-selected image style.
+  $image_style = $variables['paragraph']->get('field_utexas_pu_image_style')->getValue();
+  // Set display options.
+  $display_options = [
+    'label' => 'hidden',
+    'type' => 'responsive_image',
+    'settings' => [
+      'responsive_image_style' => $image_style[0]['value'],
+    ],
+  ];
+  // Get image, apply display options. If no image, this will display nothing.
+  $image = $variables['paragraph']->get('field_utexas_pu_image')->view($display_options);
+  // Render.
+  $variables['processed_image'] = render($image);
+}
