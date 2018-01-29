@@ -12,13 +12,13 @@ settings:
   allowed_values:
     -
       value: utexas_responsive_image_pu_landscape
-      label: 'Landscape (220x140)'
+      label: 'Landscape (220x140, 11:7 ratio)'
     -
       value: utexas_responsive_image_pu_square
-      label: 'Square (140x140)'
+      label: 'Square (140x140, 1:1 ratio)'
     -
       value: utexas_responsive_image_pu_portrait
-      label: 'Portrait (150x188)'
+      label: 'Portrait (150x188, 4:5 ratio)'
   allowed_values_function: ''
 module: options
 locked: false
