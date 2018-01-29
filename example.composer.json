@@ -50,7 +50,8 @@
     "drush/drush": "~8",
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
-    "webflo/drupal-core-strict": "8.4.2"
+    "webflo/drupal-core-strict": "8.4.2",
+    "drupal/date_ap_style": "1.x-dev"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
@@ -98,6 +99,7 @@
         "drupal/adminimal_admin_toolbar",
         "drupal/config_update",
         "drupal/ctools",
+        "drupal/date_ap_style",
         "drupal/entity_reference_revisions",
         "drupal/features",
         "drupal/layout_per_node",
