@@ -32,4 +32,6 @@ dependencies:
   - 'utexas_paragraph_promo_units:utexas_paragraph_promo_units'
   - utexas_paragraph_quick_links
   - 'utexas_paragraph_quick_links:utexas_paragraph_quick_links'
+  - utexas_paragraph_resources
+  - 'utexas_paragraph_resources:utexas_paragraph_resources'
 version: 8.x-1.0
