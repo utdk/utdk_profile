@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_fh_date
+    - paragraphs.paragraphs_type.utexas_featured_highlight
+  module:
+    - datetime
+id: paragraph.utexas_featured_highlight.field_utexas_fh_date
+field_name: field_utexas_fh_date
+entity_type: paragraph
+bundle: utexas_featured_highlight
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
