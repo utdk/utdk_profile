@@ -5,6 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.utexas_flex_page.field_flex_page_fca_a
     - field.field.node.utexas_flex_page.field_flex_page_fca_b
+    - field.field.node.utexas_flex_page.field_flex_page_fh
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
     - field.field.node.utexas_flex_page.field_flex_page_pca
@@ -31,6 +32,7 @@ content:
 hidden:
   field_flex_page_fca_a: true
   field_flex_page_fca_b: true
+  field_flex_page_fh: true
   field_flex_page_il_a: true
   field_flex_page_il_b: true
   field_flex_page_pca: true

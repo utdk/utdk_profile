@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_featured_highlight
-label: 'Featured Highlight'
-behavior_plugins: {  }

@@ -16,6 +16,7 @@ function utexas_content_type_flex_page_form_alter(&$form, FormStateInterface $fo
   // 1. Act on all Flex Page forms to place selected widgets in vertical tabs.
   if (in_array($form_id, ['node_utexas_flex_page_form', 'node_utexas_flex_page_edit_form'])) {
     $widgets = [
+      'field_flex_page_fh',
       'field_flex_page_fca_a',
       'field_flex_page_fca_b',
       'field_flex_page_il_a',
