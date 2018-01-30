@@ -1,5 +1,8 @@
-name: UTexas Paragraph Featured Highlight
+name: 'UTexas Paragraph Featured Highlight'
 type: module
-description: Defines schema & configuration for Featured Highlight widget
+description: 'Defines schema & configuration for Featured Highlight widget'
 core: 8.x
 package: UTexas
+dependencies:
+  - responsive_image
+  - utexas_image_styles
