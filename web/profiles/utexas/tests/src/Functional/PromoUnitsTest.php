@@ -97,7 +97,7 @@ class PromoUnitsTest extends BrowserTestBase {
       'title[0][value]' => 'Promo Unit Test',
       'field_flex_page_pu[0][subform][field_utexas_puc_title][0][value]' => "Test Title of Promo Unit Container",
       'files[field_flex_page_pu_0_subform_field_utexas_puc_items_0_subform_field_utexas_pu_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_promo_unit_square',
+      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_pu_square',
       'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_headline][0][value]' => 'Promo Unit Headline',
       'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_copy][0][value]' => 'Promo Unit Copy',
       'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_cta_link][0][uri]' => 'https://www.tylerfahey.com',
@@ -126,7 +126,7 @@ class PromoUnitsTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id() . '/edit');
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-top-links-edit-button')->click();
     $edit = [
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_promo_unit_landscape',
+      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_pu_landscape',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $this->drupalGet('node/' . $node->id());
@@ -136,7 +136,7 @@ class PromoUnitsTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id() . '/edit');
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-top-links-edit-button')->click();
     $edit = [
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_promo_unit_portrait',
+      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_pu_portrait',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $this->drupalGet('node/' . $node->id());

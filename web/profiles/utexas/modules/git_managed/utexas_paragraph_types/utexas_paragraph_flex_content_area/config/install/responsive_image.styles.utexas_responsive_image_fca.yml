@@ -9,39 +9,39 @@ dependencies:
     - image.style.utexas_image_style_680w_454h
     - image.style.utexas_image_style_900w_600h
   module:
-    - utexas_responsive_images
-id: utexas_responsive_image_md_scale_crop
-label: 'Medium Scale and Crop'
+    - utexas_image_styles
+id: utexas_responsive_image_fca
+label: 'Flex Content Area'
 image_style_mappings:
   -
-    breakpoint_id: utexas_responsive_images.wide
+    breakpoint_id: utexas_image_styles.wide
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_450w_300h
   -
-    breakpoint_id: utexas_responsive_images.wide
+    breakpoint_id: utexas_image_styles.wide
     multiplier: 2x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_900w_600h
   -
-    breakpoint_id: utexas_responsive_images.narrow
+    breakpoint_id: utexas_image_styles.narrow
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_340w_227h
   -
-    breakpoint_id: utexas_responsive_images.narrow
+    breakpoint_id: utexas_image_styles.narrow
     multiplier: 2x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_680w_454h
   -
-    breakpoint_id: utexas_responsive_images.mobile
+    breakpoint_id: utexas_image_styles.mobile
     multiplier: 1x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_500w_333h
   -
-    breakpoint_id: utexas_responsive_images.mobile
+    breakpoint_id: utexas_image_styles.mobile
     multiplier: 2x
     image_mapping_type: image_style
     image_mapping: utexas_image_style_1000w_666h
-breakpoint_group: utexas_responsive_images
+breakpoint_group: utexas_image_styles
 fallback_image_style: utexas_image_style_340w_227h
