@@ -6,6 +6,7 @@ version: 8.x-1.0
 package: 'UTexas'
 dependencies:
  - utexas_paragraph_image_link:utexas_paragraph_image_link
+ - utexas_paragraph_featured_highlight:utexas_paragraph_featured_highlight
  - utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area
  - utexas_paragraph_quick_links:utexas_paragraph_quick_links
  - utexas_paragraph_promo_units:utexas_paragraph_promo_units
