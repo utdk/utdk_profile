@@ -11,5 +11,7 @@ dependencies:
   - layout_discovery
   - link
   - paragraphs
+  - responsive_image
+  - utexas_image_styles
 version: 8.x-1.0
 package: UTexas
