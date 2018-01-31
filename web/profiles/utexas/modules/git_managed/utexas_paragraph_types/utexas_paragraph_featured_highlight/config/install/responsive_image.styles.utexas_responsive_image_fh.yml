@@ -9,7 +9,7 @@ dependencies:
     - image.style.utexas_image_style_660w_400h
   module:
     - utexas_image_styles
-id: utexas_responsive_image_style_featured_highlight
+id: utexas_responsive_image_fh
 label: 'Featured Highlight'
 image_style_mappings:
   -
