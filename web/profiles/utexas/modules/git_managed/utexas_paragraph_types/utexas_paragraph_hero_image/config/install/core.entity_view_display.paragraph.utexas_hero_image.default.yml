@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_caption
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_image
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_photo_credit
+    - paragraphs.paragraphs_type.utexas_hero_image
+  module:
+    - field_layout
+    - image
+    - layout_discovery
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: paragraph.utexas_hero_image.default
+targetEntityType: paragraph
+bundle: utexas_hero_image
+mode: default
+content:
+  field_utexas_hi_caption:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_utexas_hi_image:
+    weight: 0
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_utexas_hi_photo_credit:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

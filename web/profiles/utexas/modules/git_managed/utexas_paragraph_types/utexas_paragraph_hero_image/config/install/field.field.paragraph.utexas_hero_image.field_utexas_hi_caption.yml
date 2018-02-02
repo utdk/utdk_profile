@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_hi_caption
+    - paragraphs.paragraphs_type.utexas_hero_image
+id: paragraph.utexas_hero_image.field_utexas_hi_caption
+field_name: field_utexas_hi_caption
+entity_type: paragraph
+bundle: utexas_hero_image
+label: Caption
+description: 'Optional text to display directly beneath the image.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
