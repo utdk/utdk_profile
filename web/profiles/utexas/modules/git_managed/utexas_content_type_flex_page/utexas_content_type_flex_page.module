@@ -18,6 +18,7 @@ function utexas_content_type_flex_page_form_alter(&$form, FormStateInterface $fo
     $widgets = [
       'field_flex_page_fca_a',
       'field_flex_page_fca_b',
+      'field_flex_page_hi',
       'field_flex_page_il_a',
       'field_flex_page_il_b',
       'field_flex_page_ql',
