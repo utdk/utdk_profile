@@ -9,5 +9,7 @@ dependencies:
   - image
   - layout_discovery
   - paragraphs
+  - responsive_image
+  - utexas_image_styles
 version: 8.x-1.0
 package: UTexas
