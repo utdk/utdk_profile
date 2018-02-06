@@ -23,14 +23,15 @@ function utexas_content_type_flex_page_form_alter(&$form, FormStateInterface $fo
       'field_flex_page_ql',
       'field_flex_page_pu',
       'field_flex_page_pca',
+      'field_flex_page_resource',
     ];
     foreach ($widgets as $widget) {
       $title = isset($form[$widget]['widget']['title']['#value']) ? $form[$widget]['widget']['title']['#value'] : $form[$widget]['widget']['#title'];
-      $form[$widget . '_base'] = array(
+      $form[$widget . '_base'] = [
         '#type' => 'details',
         '#title' => $title,
         '#group' => 'content',
-      );
+      ];
       if ($form_id == 'node_utexas_flex_page_edit_form' && empty($form[$widget]['widget'][0])) {
         // Conditionally expand fields that already have data.
         $form[$widget . '_base']['#title'] = $title . ' (Empty)';

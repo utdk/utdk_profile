@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_flex_page_resource
+    - node.type.utexas_flex_page
+    - paragraphs.paragraphs_type.utexas_resource_container
+  module:
+    - entity_reference_revisions
+id: node.utexas_flex_page.field_flex_page_resource
+field_name: field_flex_page_resource
+entity_type: node
+bundle: utexas_flex_page
+label: Resource
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      utexas_resource_container: utexas_resource_container
+    target_bundles_drag_drop:
+      utexas_flex_content_area:
+        weight: 9
+        enabled: false
+      utexas_image_link:
+        weight: 10
+        enabled: false
+      utexas_photo_content_area:
+        weight: 11
+        enabled: false
+      utexas_promo_unit:
+        weight: 12
+        enabled: false
+      utexas_promo_unit_container:
+        weight: 13
+        enabled: false
+      utexas_quick_links:
+        weight: 14
+        enabled: false
+      utexas_resource:
+        weight: 15
+        enabled: false
+      utexas_resource_container:
+        enabled: true
+        weight: 16
+field_type: entity_reference_revisions

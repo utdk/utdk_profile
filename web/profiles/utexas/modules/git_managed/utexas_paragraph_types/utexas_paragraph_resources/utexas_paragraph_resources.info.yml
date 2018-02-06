@@ -1,0 +1,17 @@
+name: 'UTexas Paragraph : Resources'
+description: 'Defines a paragraph container and instance type with image, headline and links.'
+type: module
+core: 8.x
+dependencies:
+  - entity_reference_revisions
+  - field
+  - field_layout
+  - file
+  - image
+  - layout_discovery
+  - link
+  - paragraphs
+  - responsive_image
+  - utexas_image_styles
+version: 8.x-1.0
+package: UTexas

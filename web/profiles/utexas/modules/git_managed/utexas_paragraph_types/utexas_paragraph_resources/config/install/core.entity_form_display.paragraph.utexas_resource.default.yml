@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.utexas_resource.field_utexas_resource_headline
+    - field.field.paragraph.utexas_resource.field_utexas_resource_image
+    - field.field.paragraph.utexas_resource.field_utexas_resource_links
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.utexas_resource
+  module:
+    - field_layout
+    - image
+    - layout_discovery
+    - link
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: paragraph.utexas_resource.default
+targetEntityType: paragraph
+bundle: utexas_resource
+mode: default
+content:
+  field_utexas_resource_headline:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_utexas_resource_image:
+    weight: 0
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_utexas_resource_links:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
