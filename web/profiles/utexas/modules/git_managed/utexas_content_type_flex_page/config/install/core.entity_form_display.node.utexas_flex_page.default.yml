@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_pca
     - field.field.node.utexas_flex_page.field_flex_page_pu
     - field.field.node.utexas_flex_page.field_flex_page_ql
+    - field.field.node.utexas_flex_page.field_flex_page_resource
     - node.type.utexas_flex_page
   module:
     - field_layout
@@ -118,6 +119,18 @@ content:
   field_flex_page_ql:
     type: entity_reference_paragraphs
     weight: 6
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_flex_page_resource:
+    type: entity_reference_paragraphs
+    weight: 122
     settings:
       title: Paragraph
       title_plural: Paragraphs

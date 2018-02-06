@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.utexas_resource_container.field_utexas_rc_items
+    - field.field.paragraph.utexas_resource_container.field_utexas_rc_title
+    - paragraphs.paragraphs_type.utexas_resource_container
+  module:
+    - entity_reference_revisions
+    - field_layout
+    - layout_discovery
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: paragraph.utexas_resource_container.default
+targetEntityType: paragraph
+bundle: utexas_resource_container
+mode: default
+content:
+  field_utexas_rc_items:
+    type: entity_reference_revisions_entity_view
+    weight: 1
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_utexas_rc_title:
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }
