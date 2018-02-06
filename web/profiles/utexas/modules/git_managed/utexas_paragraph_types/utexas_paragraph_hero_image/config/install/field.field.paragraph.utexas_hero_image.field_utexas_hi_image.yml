@@ -11,7 +11,7 @@ field_name: field_utexas_hi_image
 entity_type: paragraph
 bundle: utexas_hero_image
 label: Image
-description: ''
+description: 'Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'
 required: false
 translatable: false
 default_value: {  }
