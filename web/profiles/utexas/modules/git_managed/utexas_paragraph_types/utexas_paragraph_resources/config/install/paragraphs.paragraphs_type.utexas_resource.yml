@@ -2,5 +2,5 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_resource
-label: Resource
+label: 'Resource Item'
 behavior_plugins: {  }
