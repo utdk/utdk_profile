@@ -2,5 +2,5 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_promo_unit
-label: 'Promo Unit'
+label: 'Promo Unit Item'
 behavior_plugins: {  }
