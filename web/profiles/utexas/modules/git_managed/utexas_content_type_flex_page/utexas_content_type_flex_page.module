@@ -25,6 +25,7 @@ function utexas_content_type_flex_page_form_alter(&$form, FormStateInterface $fo
       'field_flex_page_ql',
       'field_flex_page_pu',
       'field_flex_page_pca',
+      'field_flex_page_pl',
       'field_flex_page_resource',
     ];
     foreach ($widgets as $widget) {

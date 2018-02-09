@@ -31,10 +31,11 @@ dependencies:
   - utexas_paragraph_image_link
   - 'utexas_paragraph_image_link:utexas_paragraph_image_link'
   - utexas_paragraph_photo_content_area
+  - utexas_paragraph_promo_list
   - utexas_paragraph_promo_units
   - 'utexas_paragraph_promo_units:utexas_paragraph_promo_units'
   - utexas_paragraph_quick_links
   - 'utexas_paragraph_quick_links:utexas_paragraph_quick_links'
-  - utexas_paragraph_resources
   - 'utexas_paragraph_resources:utexas_paragraph_resources'
+  - utexas_paragraph_types:utexas_paragraph_types
 version: 8.x-1.0

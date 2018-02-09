@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
     - field.field.node.utexas_flex_page.field_flex_page_pca
+    - field.field.node.utexas_flex_page.field_flex_page_pl
     - field.field.node.utexas_flex_page.field_flex_page_pu
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - field.field.node.utexas_flex_page.field_flex_page_resource
@@ -111,6 +112,18 @@ content:
     settings:
       title: 'Photo Content Area'
       title_plural: 'Photo Content Areas'
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_flex_page_pl:
+    type: entity_reference_paragraphs
+    weight: 122
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
       edit_mode: open
       add_mode: dropdown
       form_display_mode: default

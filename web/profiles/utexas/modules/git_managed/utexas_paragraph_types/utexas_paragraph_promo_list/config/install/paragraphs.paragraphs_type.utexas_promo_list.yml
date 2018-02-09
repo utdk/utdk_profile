@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_promo_list
+label: 'Promo List Item'
+behavior_plugins: {  }

@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Wrapper module for all custom paragraph types.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+
+/**
+ * Helper function to create a link, provide field markup.
+ *
+ * @param mixed $field
+ *    The Drupal render array for a given field.
+ * @param string $link
+ *    An internal or external link.
+ *
+ * @return mixed
+ *    A render array of a Drupal link.
+ */
+function _utexas_paragraph_types_link_field($field, $link) {
+  $link = Link::fromTextAndUrl($field, Url::fromUri($link));
+  return $link->toRenderable();
+}

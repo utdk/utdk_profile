@@ -1,0 +1,18 @@
+name: 'UTexas Paragraph: Promo List'
+type: module
+core: 8.x
+dependencies:
+  - entity_reference_revisions
+  - field
+  - field_layout
+  - file
+  - image
+  - layout_discovery
+  - link
+  - paragraphs
+  - responsive_image
+  - text
+  - utexas_image_styles
+version: 8.x-1.0
+package: UTexas
+description: 'Defines a nested paragraph type with headline and unlimited promo lists.'
