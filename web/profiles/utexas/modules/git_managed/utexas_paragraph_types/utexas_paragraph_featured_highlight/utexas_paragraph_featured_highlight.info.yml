@@ -1,0 +1,19 @@
+name: 'UTexas Paragraph Featured Highlight'
+type: module
+description: 'Defines schema & configuration for Featured Highlight widget'
+core: 8.x
+package: UTexas
+dependencies:
+  - date_ap_style
+  - datetime
+  - field
+  - field_layout
+  - file
+  - image
+  - layout_discovery
+  - link
+  - paragraphs
+  - responsive_image
+  - text
+  - utexas_image_styles
+version: 8.x-1.0

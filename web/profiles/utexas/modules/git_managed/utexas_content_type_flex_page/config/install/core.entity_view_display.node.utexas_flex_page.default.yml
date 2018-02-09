@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.utexas_flex_page.field_flex_page_fca_a
     - field.field.node.utexas_flex_page.field_flex_page_fca_b
+    - field.field.node.utexas_flex_page.field_flex_page_fh
     - field.field.node.utexas_flex_page.field_flex_page_hi
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
@@ -28,7 +29,7 @@ mode: default
 content:
   field_flex_page_fca_a:
     type: entity_reference_revisions_entity_view
-    weight: 102
+    weight: 2
     label: hidden
     settings:
       view_mode: default
@@ -37,7 +38,16 @@ content:
     region: content
   field_flex_page_fca_b:
     type: entity_reference_revisions_entity_view
-    weight: 103
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  field_flex_page_fh:
+    type: entity_reference_revisions_entity_view
+    weight: 1
     label: hidden
     settings:
       view_mode: default
@@ -55,7 +65,7 @@ content:
     region: content
   field_flex_page_il_a:
     type: entity_reference_revisions_entity_view
-    weight: 103
+    weight: 4
     label: hidden
     settings:
       view_mode: default
@@ -64,7 +74,7 @@ content:
     region: content
   field_flex_page_il_b:
     type: entity_reference_revisions_entity_view
-    weight: 104
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -73,7 +83,7 @@ content:
     region: content
   field_flex_page_pca:
     type: entity_reference_revisions_entity_view
-    weight: 105
+    weight: 6
     label: hidden
     settings:
       view_mode: default
@@ -82,8 +92,8 @@ content:
     region: content
   field_flex_page_pu:
     type: entity_reference_revisions_entity_view
-    weight: 105
-    label: above
+    weight: 7
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -91,7 +101,7 @@ content:
     region: content
   field_flex_page_ql:
     type: entity_reference_revisions_entity_view
-    weight: 101
+    weight: 8
     label: hidden
     settings:
       view_mode: default
@@ -108,7 +118,7 @@ content:
     third_party_settings: {  }
     region: content
   links:
-    weight: 100
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }

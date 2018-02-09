@@ -1,6 +1,6 @@
 langcode: en
 status: true
 dependencies: {  }
-id: utexas_resource
-label: 'Resource Item'
+id: utexas_featured_highlight
+label: 'Featured Highlight'
 behavior_plugins: {  }

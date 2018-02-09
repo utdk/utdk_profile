@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies: {  }
+name: utexas_image_style_660w_400h
+label: '660w x 400h'
+effects:
+  84ac45c9-0cc4-4857-b184-bc55edc4ad7d:
+    uuid: 84ac45c9-0cc4-4857-b184-bc55edc4ad7d
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 660
+      height: 400

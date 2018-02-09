@@ -1,0 +1,69 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.utexas_featured_highlight.field_utexas_fh_copy
+    - field.field.paragraph.utexas_featured_highlight.field_utexas_fh_cta
+    - field.field.paragraph.utexas_featured_highlight.field_utexas_fh_date
+    - field.field.paragraph.utexas_featured_highlight.field_utexas_fh_headline
+    - field.field.paragraph.utexas_featured_highlight.field_utexas_fh_media
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.utexas_featured_highlight
+  module:
+    - datetime
+    - field_layout
+    - image
+    - layout_discovery
+    - link
+    - text
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings: {  }
+id: paragraph.utexas_featured_highlight.default
+targetEntityType: paragraph
+bundle: utexas_featured_highlight
+mode: default
+content:
+  field_utexas_fh_copy:
+    weight: 3
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_utexas_fh_cta:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_utexas_fh_date:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_utexas_fh_headline:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_utexas_fh_media:
+    weight: 1
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true
