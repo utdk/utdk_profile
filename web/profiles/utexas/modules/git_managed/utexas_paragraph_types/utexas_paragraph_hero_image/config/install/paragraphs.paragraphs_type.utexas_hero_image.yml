@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_hero_image
+label: 'Hero Image'
+behavior_plugins: {  }

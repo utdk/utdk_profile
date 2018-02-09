@@ -1,0 +1,15 @@
+name: 'UTexas Paragraph : Hero Image'
+description: 'Defines a single paragraph type with image, caption and credit.'
+type: module
+core: 8.x
+dependencies:
+  - field
+  - field_layout
+  - file
+  - image
+  - layout_discovery
+  - paragraphs
+  - responsive_image
+  - utexas_image_styles
+version: 8.x-1.0
+package: UTexas
