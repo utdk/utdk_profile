@@ -34,10 +34,10 @@ function utexas_paragraph_resources_field_widget_form_alter(&$element, FormState
     /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
     $field_storage = $field->getFieldStorageDefinition();
     // If there is a field with an unlimited set of iterations, proceed.
-    if ($field_storage->getCardinality() == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
+    if ($field_storage->getCardinality() === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
       // If one of the unlimited fields available is the links field, proceed.
       if (isset($element['subform']['field_utexas_resource_links'])) {
-        $element['subform']['field_utexas_resource_links']['widget']['add_more']['#value'] = t('Add another link');
+        $element['subform']['field_utexas_resource_links']['widget']['add_more']['#value'] = t('Add Another Link');
       }
     }
   }
