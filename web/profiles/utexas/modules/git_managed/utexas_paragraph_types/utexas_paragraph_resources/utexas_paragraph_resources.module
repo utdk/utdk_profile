@@ -5,6 +5,9 @@
  * Defines simple utexas_paragraph_resource field types.
  */
 
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -19,4 +22,23 @@ function utexas_paragraph_resources_theme($existing, $type, $theme, $path) {
       'template' => 'paragraph--utexas-resource',
     ],
   ];
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function utexas_paragraph_resources_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $field = $context['items']->getFieldDefinition();
+  // If there is a Resource Item paragraph iteration present, proceed.
+  if ($field->getName() === "field_utexas_rc_items") {
+    /** @var \Drupal\field\FieldStorageConfigInterface $field_storage */
+    $field_storage = $field->getFieldStorageDefinition();
+    // If there is a field with an unlimited set of iterations, proceed.
+    if ($field_storage->getCardinality() === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
+      // If one of the unlimited fields available is the links field, proceed.
+      if (isset($element['subform']['field_utexas_resource_links'])) {
+        $element['subform']['field_utexas_resource_links']['widget']['add_more']['#value'] = t('Add Another Link');
+      }
+    }
+  }
 }
