@@ -5,6 +5,9 @@
  * Defines simple utexas_paragraph_flex_content_area field types.
  */
 
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -15,4 +18,21 @@ function utexas_paragraph_flex_content_area_theme($existing, $type, $theme, $pat
       'template' => 'paragraph--flex-content-area',
     ],
   ];
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function utexas_paragraph_flex_content_area_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $field = $context['items']->getFieldDefinition();
+  // If there is a FCA A or B present, proceed.
+  if ($field->getName() === "field_flex_page_fca_a" || $field->getName() === "field_flex_page_fca_b") {
+    // If links field present on FCA, proceed.
+    if (isset($element['subform']['field_utexas_fca_links'])) {
+      // If the links field is set to unlimited iterations, proceed.
+      if ($element['subform']['field_utexas_fca_links']['widget']['#cardinality'] === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
+        $element['subform']['field_utexas_fca_links']['widget']['add_more']['#value'] = t('Add Another Link');
+      }
+    }
+  }
 }
