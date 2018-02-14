@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Defines additional configuration for utexas_block_social_links.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function utexas_block_social_links_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $field = $context['items']->getFieldDefinition();
+  if ($field->getType() == 'utexas_social_link_field') {
+    $element['#social_links_add_another_value'] = 'social link';
+  }
+}
+
+/**
+ * Implements hook_preprocess_field_multiple_value_form().
+ *
+ * We look for a value that was placed there earlier by
+ * utexas_block_social_links_field_widget_form_alter()
+ * and change the add_more button to use that.
+ */
+function utexas_block_social_links_preprocess_field_multiple_value_form(&$variables) {
+  foreach (Element::children($variables['element']) as $child) {
+    $child_element = &$variables['element'][$child];
+    if (isset($child_element['#social_links_add_another_value'])) {
+      $variables['button']['#value'] = t('Add another %label', ['%label' => $child_element['#social_links_add_another_value']]);
+    }
+  }
+}
