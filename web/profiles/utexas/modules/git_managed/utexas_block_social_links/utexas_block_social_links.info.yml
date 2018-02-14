@@ -1,0 +1,14 @@
+name: 'UTexas Block : Social Links'
+description: 'Provides a custom block type with a configurarable list of social links.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - features
+  - field
+  - field_layout
+  - layout_discovery
+  - text
+  - config_update
+version: 8.x-1.0
+package: UTexas
