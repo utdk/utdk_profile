@@ -5,6 +5,9 @@
  * Defines additional configuration for utexas_paragraph_photo_content_area.
  */
 
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -23,4 +26,21 @@ function utexas_paragraph_photo_content_area_theme($existing, $type, $theme, $pa
       'template' => 'field--paragraph--field-utexas-pca-headline',
     ],
   ];
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function utexas_paragraph_photo_content_area_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  $field = $context['items']->getFieldDefinition();
+  // If there is a PCA instance present, proceed.
+  if ($field->getName() === "field_flex_page_pca") {
+    // If links field present on PCA instance, proceed.
+    if (isset($element['subform']['field_utexas_pca_links'])) {
+      // If the links field is set to unlimited iterations, proceed.
+      if ($element['subform']['field_utexas_pca_links']['widget']['#cardinality'] === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
+        $element['subform']['field_utexas_pca_links']['widget']['add_more']['#value'] = t('Add Another Link');
+      }
+    }
+  }
 }
