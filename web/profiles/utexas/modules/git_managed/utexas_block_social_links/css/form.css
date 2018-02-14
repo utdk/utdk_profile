@@ -1,4 +1,4 @@
 .field--type-utexas-social-link-field .form-item {
-  display: inherit;
+  display: table-cell;
   padding-right: 1rem;
 }
