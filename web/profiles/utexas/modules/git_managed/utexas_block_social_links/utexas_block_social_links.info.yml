@@ -4,11 +4,12 @@ type: module
 core: 8.x
 dependencies:
   - block_content
+  - config_update
   - features
   - field
   - field_layout
   - layout_discovery
   - text
-  - config_update
+  - utexas_block_social_links
 version: 8.x-1.0
 package: UTexas

@@ -3,11 +3,11 @@ status: true
 dependencies:
   config:
     - block_content.type.social_links
-    - field.field.block_content.social_links.body
+    - field.field.block_content.social_links.field_utexas_sl_social_links
   module:
     - field_layout
     - layout_discovery
-    - text
+    - utexas_block_social_links
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -17,14 +17,11 @@ targetEntityType: block_content
 bundle: social_links
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
+  field_utexas_sl_social_links:
     weight: 26
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_social_link_widget
     region: content
   info:
     type: string_textfield
