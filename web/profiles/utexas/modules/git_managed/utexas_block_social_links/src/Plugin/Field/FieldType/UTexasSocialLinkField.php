@@ -28,11 +28,11 @@ class UTexasSocialLinkField extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     // Prevent early t() calls by using TranslatableMarkup class directly.
-    $properties['icon'] = DataDefinition::create('string')
+    $properties['social_account_name'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Icon key'))
       ->setSetting('case_sensitive', TRUE)
       ->setRequired(TRUE);
-    $properties['url'] = DataDefinition::create('string')
+    $properties['social_account_url'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('URL'))
       ->setSetting('case_sensitive', TRUE)
       ->setRequired(TRUE);
@@ -45,12 +45,12 @@ class UTexasSocialLinkField extends FieldItemBase {
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $schema = [
       'columns' => [
-        'icon' => [
+        'social_account_name' => [
           'type' => 'varchar_ascii',
           'length' => 255,
           'binary' => TRUE,
         ],
-        'url' => [
+        'social_account_url' => [
           'type' => 'varchar_ascii',
           'length' => 512,
           'binary' => TRUE,
@@ -69,7 +69,7 @@ class UTexasSocialLinkField extends FieldItemBase {
 
     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
     $constraints[] = $constraint_manager->create('ComplexData', [
-      'url' => [
+      'social_account_url' => [
         'Length' => [
           'max' => 512,
           'maxMessage' => t('%name: may not be longer than @max characters.', [
@@ -87,8 +87,8 @@ class UTexasSocialLinkField extends FieldItemBase {
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     $options = UTexasSocialLinkOptions::getOptionsArray();
-    $values['icon'] = array_rand($options);
-    $values['url'] = 'http://' . Random::word(10) . '.com';
+    $values['social_account_name'] = array_rand($options);
+    $values['social_account_url'] = 'https://' . Random::word(5) . '.com';
     return $values;
   }
 
@@ -96,7 +96,7 @@ class UTexasSocialLinkField extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    $value = $this->get('url')->getValue();
+    $value = $this->get('social_account_url')->getValue();
     return $value === NULL || $value === '';
   }
 

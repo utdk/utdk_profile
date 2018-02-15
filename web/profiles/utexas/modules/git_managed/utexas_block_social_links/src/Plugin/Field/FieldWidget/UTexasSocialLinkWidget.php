@@ -24,17 +24,17 @@ class UTexasSocialLinkWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element['icon'] = [
+    $element['social_account_name'] = [
       '#type' => 'select',
       '#title' => 'Website',
       '#options' => UTexasSocialLinkOptions::getOptionsArray(),
-      '#default_value' => isset($items[$delta]->icon) ? $items[$delta]->icon : NULL,
+      '#default_value' => isset($items[$delta]->social_account_name) ? $items[$delta]->social_account_name : NULL,
     ];
-    $element['url'] = [
+    $element['social_account_url'] = [
       '#type' => 'url',
       '#title' => 'URL',
-      '#default_value' => isset($items[$delta]->url) ? $items[$delta]->url : NULL,
-      '#placeholder' => 'https://name-of-media-site.com/our-name',
+      '#default_value' => isset($items[$delta]->social_account_url) ? $items[$delta]->social_account_url : NULL,
+      '#placeholder' => 'https://media-site-name.com/our-handle',
     ];
     $element['#attached']['library'][] = 'utexas_block_social_links/form';
     return $element;

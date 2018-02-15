@@ -28,14 +28,15 @@ class UTexasSocialLinkFormatter extends FormatterBase {
       // The following is placeholder output that will be replaced.
       // Two elements are available for retrieval, the $item->url,
       // which is the user-supplied external URL to a social media site,
-      // and the $item->icon, which is a key, such as "facebook" or "twitter,"
-      // That can subsequently be used to retrieve an SVG stored in
-      // configuration that has the matching key.
-      if ($item->icon) {
-        $markup = '<h3>' . $item->icon . '</h3>';
+      // and the $item->social_account_name, which is a key, such
+      // as "facebook" or "twitter," that can subsequently be used
+      // to retrieve an SVG stored in configuration that has the
+      // matching key.
+      if ($item->social_account_name) {
+        $markup = '<h3>' . $item->social_account_name . '</h3>';
       }
-      if ($item->url) {
-        $markup .= $item->url;
+      if ($item->social_account_url) {
+        $markup .= $item->social_account_url;
       }
 
       $elements[$delta] = array(
