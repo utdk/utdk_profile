@@ -37,16 +37,9 @@ function utexas_block_social_links_preprocess_field_multiple_value_form(&$variab
 }
 
 /**
- * Helper function to create default content.
- *
- * This function will be auto-executed during the UTexas
- * profile installation if this module is enabled and the
- * 'default content' option has been ticked.
- *
- * @see utexas_create_default_content()
- * @see Drupal\utexas\Form\ExtensionSelectForm::submitForm()
+ * Implements hook_utexas_demo_content().
  */
-function _utexas_block_social_links_default_content() {
+function utexas_block_social_links_utexas_demo_content() {
   $block = BlockContent::create([
     'info' => 'Sitewide Social Media Links',
     'type' => 'social_links',

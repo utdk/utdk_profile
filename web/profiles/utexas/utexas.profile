@@ -29,6 +29,11 @@ function utexas_install_tasks() {
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
+    'utexas_install_demo_content' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
     'utexas_finish_installation' => [
       'display_name' => t('Installation complete'),
       'display' => TRUE,
@@ -59,17 +64,6 @@ function utexas_install_batch_processing(&$install_state) {
   // Add theme installation options to batch.
   $operations[] = ['utexas_install_theme', ['bartik']];
 
-  // Check if we should install realistic default content.
-  // @see ExtensionSelectForm::submitForm().
-  $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
-  if ($create_default_content) {
-    foreach ($modules_to_install as $module) {
-      $operations[] = [
-        'utexas_create_default_content', [$module],
-      ];
-    }
-  }
-
   $batch = [
     'title' => t('Adding UTexas flavors...'),
     'operations' => $operations,
@@ -98,18 +92,28 @@ function utexas_install_theme($theme) {
 }
 
 /**
- * Helper function to execute module default content function, if it exists.
+ * Batch installation of demo content.
  *
- * @param string $module
- *   A module name.
+ * This simply invokes any implementations of hook_utexas_demo_content().
+ * It runs after the general `utexas_install_batch_processing` to
+ * ensure that the implementing modules are already installed.
  */
-function utexas_create_default_content($module) {
-  $moduleHandler = \Drupal::service('module_handler');
-  if ($moduleHandler->moduleExists($module)) {
-    $function = '_' . $module . '_default_content';
-    if (function_exists($function)) {
-      call_user_func($function);
+function utexas_install_demo_content(&$install_state) {
+  $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
+  if ($create_default_content) {
+    $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
+    $operations = [];
+    // Each of the modules with 'utexas_demo_content' implementations
+    // will be  added as a batch job.
+    foreach ($implementations as $module) {
+      $operations[] = [$module . '_utexas_demo_content', []];
     }
+    $batch = [
+      'title' => t('Generating demo content...'),
+      'operations' => $operations,
+      'error_message' => t('Demo content generation has encountered an error.'),
+    ];
+    return $batch;
   }
 }
 
