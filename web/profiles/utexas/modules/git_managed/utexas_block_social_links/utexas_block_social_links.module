@@ -5,6 +5,8 @@
  * Defines additional configuration for utexas_block_social_links.
  */
 
+use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -32,4 +34,77 @@ function utexas_block_social_links_preprocess_field_multiple_value_form(&$variab
       $variables['button']['#value'] = t('Add another %label', ['%label' => $child_element['#social_links_add_another_value']]);
     }
   }
+}
+
+/**
+ * Helper function to create default content.
+ *
+ * This function will be auto-executed during the UTexas
+ * profile installation if this module is enabled and the
+ * 'default content' option has been ticked.
+ *
+ * @see utexas_create_default_content()
+ * @see Drupal\utexas\Form\ExtensionSelectForm::submitForm()
+ */
+function _utexas_block_social_links_default_content() {
+  $block = BlockContent::create([
+    'info' => 'Sitewide Social Media Links',
+    'type' => 'social_links',
+    'langcode' => 'en',
+    'field_utexas_sl_social_links' => [
+      [
+        'social_account_name' => 'facebook',
+        'social_account_url' => 'https://www.facebook.com/UTAustinTX',
+      ],
+      [
+        'social_account_name' => 'twitter',
+        'social_account_url' => 'https://twitter.com/utaustin',
+      ],
+      [
+        'social_account_name' => 'instagram',
+        'social_account_url' => 'https://instagram.com/utaustintx',
+      ],
+      [
+        'social_account_name' => 'linkedin',
+        'social_account_url' => 'https://www.linkedin.com/edu/the-university-of-texas-at-austin-19518',
+      ],
+      [
+        'social_account_name' => 'youtube',
+        'social_account_url' => 'http://www.youtube.com/utaustintexas',
+      ],
+      [
+        'social_account_name' => 'googleplus',
+        'social_account_url' => 'https://plus.google.com/+UTAustin',
+      ],
+      [
+        'social_account_name' => 'FlickR',
+        'social_account_url' => 'https://www.flickr.com/photos/utaustin/',
+      ],
+      [
+        'social_account_name' => 'pinterest',
+        'social_account_url' => 'https://pinterest.com',
+      ],
+      [
+        'social_account_name' => 'tumblr',
+        'social_account_url' => 'http://utaustin.tumblr.com/',
+      ],
+      [
+        'social_account_name' => 'vimeo',
+        'social_account_url' => 'https://vimeo.com/utaustin',
+      ],
+    ],
+  ]);
+  $block->save();
+
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => $block->id(),
+    'weight' => 0,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'header',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
+  ]);
+  $placed_block->save();
 }
