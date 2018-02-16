@@ -50,10 +50,10 @@ function utexas_paragraph_photo_content_area_preprocess_field_multiple_value_for
   foreach (Element::children($variables['element']) as $child) {
     $child_element = &$variables['element'][$child];
     if (isset($child_element['#utexas_rc_add_link_value'])) {
-      if (isset($child_element['#utexas_rc_add_link_value']) && isset($variables['element']['add_more']['#value']) && $variables['element']['add_more']['#value'] != t('@add_another', ['@add_another' => $child_element['#utexas_rc_add_link_value']])) {
+      if (isset($child_element['#utexas_rc_add_link_value']) && isset($variables['element']['add_more']['#value']) && $variables['element']['add_more']['#value'] !== t('@add_another', ['@add_another' => $child_element['#utexas_rc_add_link_value']])) {
         $variables['element']['add_more']['#value'] = t('@add_another', ['@add_another' => $child_element['#utexas_rc_add_link_value']]);
       }
-      if (isset($child_element['#utexas_rc_add_link_value']) && isset($variables['button']['#value']) && $variables['button']['#value'] != t('@add_another', ['@add_another' => $child_element['#utexas_rc_add_link_value']])) {
+      if (isset($child_element['#utexas_rc_add_link_value']) && isset($variables['button']['#value']) && $variables['button']['#value'] !== t('@add_another', ['@add_another' => $child_element['#utexas_rc_add_link_value']])) {
         $variables['button']['#value'] = t('@add_another', ['@add_another' => $child_element['#utexas_rc_add_link_value']]);
       }
     }
