@@ -107,26 +107,34 @@ class PhotoContentAreaTest extends BrowserTestBase {
     ];
     // 2. Submit the form now to trigger the the alt text field.
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    // 3. Verify we can add a 2nd link item, internal link, & alt text.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-0-subform-field-utexas-pca-links-add-more')->click();
+    // 3. Set alt text.
     $this->drupalPostForm(NULL, [
       'field_flex_page_pca[0][subform][field_utexas_pca_image][0][alt]' => 'Alt text',
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][title]' => 'Internal Link',
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][uri]' => '/node/' . $basic_page_id,
     ],
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Photo Content Area Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    // 3. Verify headline, is present.
+    // 4. Verify headline, is present.
     $this->assertRaw('Headline');
-    // 4. Verify link, delta 0, is present, and is an external link.
+    // 5. Verify link, delta 0, is present, and is an external link.
     $this->assertRaw('Copy Value');
     $this->assertRaw('<a href="https://example.com">External Link</a>');
-    // 5. Verify link, delta 1, is present, and is an internal link.
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Internal Link</a>');
     // 6. Verify an image is present.
     $this->assertRaw('<div class="field field--name-field-utexas-pca-image field--type-image');
+
+    // Edit the node to add a second photo content area link.
+    $this->drupalGet('node/' . $node->id() . '/edit');
+
+    $this->drupalPostForm(NULL, [
+      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][title]' => 'Internal Link',
+      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][uri]' => '/node/' . $basic_page_id,
+    ],
+      'edit-submit');
+
+    $this->drupalGet('node/' . $node->id());
+    // 7. Verify link, delta 1, is present, and is an internal link.
+    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Internal Link</a>');
 
     // Sign out!
     $this->drupalLogout();
