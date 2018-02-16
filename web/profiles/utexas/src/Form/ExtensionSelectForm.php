@@ -105,7 +105,7 @@ class ExtensionSelectForm extends FormBase {
     $form['utexas_create_default_content'] = [
       '#prefix' => '<hr />',
       '#type' => 'checkbox',
-      '#title' => $this->t('Install realistic default content'),
+      '#title' => $this->t('Generate demo content'),
       '#description' => $this->t('Example pages and blocks to model content creation.'),
       '#default_value' => 1,
       '#weight' => 0,
