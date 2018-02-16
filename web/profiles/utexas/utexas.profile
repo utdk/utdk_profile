@@ -59,6 +59,17 @@ function utexas_install_batch_processing(&$install_state) {
   // Add theme installation options to batch.
   $operations[] = ['utexas_install_theme', ['bartik']];
 
+  // Check if we should install realistic default content.
+  // @see ExtensionSelectForm::submitForm().
+  $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
+  if ($create_default_content) {
+    foreach ($modules_to_install as $module) {
+      $operations[] = [
+        'utexas_create_default_content', [$module],
+      ];
+    }
+  }
+
   $batch = [
     'title' => t('Adding UTexas flavors...'),
     'operations' => $operations,
@@ -87,6 +98,22 @@ function utexas_install_theme($theme) {
 }
 
 /**
+ * Helper function to execute module default content function, if it exists.
+ *
+ * @param string $module
+ *   A module name.
+ */
+function utexas_create_default_content($module) {
+  $moduleHandler = \Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists($module)) {
+    $function = '_' . $module . '_default_content';
+    if (function_exists($function)) {
+      call_user_func($function);
+    }
+  }
+}
+
+/**
  * Implements hook_install_tasks_alter().
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
@@ -100,7 +127,6 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
   // Unsetting Country and Timezone selects from installation form.
   unset($form['regional_settings']);
 }
-
 
 /**
  * Implements hook_page_attachments().

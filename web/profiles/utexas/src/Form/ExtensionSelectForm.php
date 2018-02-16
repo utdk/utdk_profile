@@ -102,6 +102,14 @@ class ExtensionSelectForm extends FormBase {
       '#default_value' => 1,
       '#weight' => -8,
     ];
+    $form['utexas_create_default_content'] = [
+      '#prefix' => '<hr />',
+      '#type' => 'checkbox',
+      '#title' => $this->t('Install realistic default content'),
+      '#description' => $this->t('Example pages and blocks to model content creation.'),
+      '#default_value' => 1,
+      '#weight' => 0,
+    ];
     $form['actions'] = [
       'continue' => [
         '#type' => 'submit',
@@ -134,6 +142,10 @@ class ExtensionSelectForm extends FormBase {
     }
     // Set the form state for the batch process to know what's enabled.
     $this->stateFactory->set('utexas-install.modules_to_enable', $modules_to_install);
+
+    if ($values['utexas_create_default_content'] == 1) {
+      $this->stateFactory->set('utexas-install.default_content', TRUE);
+    }
 
     // Setting default country and timezone.
     $system_date = $this->configFactory->getEditable('system.date');
