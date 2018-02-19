@@ -101,3 +101,10 @@ function utexas_block_social_links_utexas_demo_content() {
   ]);
   $placed_block->save();
 }
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function utexas_block_social_links_preprocess_field__field_utexas_sl_social_links(&$variables) {
+  $variables['#attached']['library'][] = 'utexas_block_social_links/social_link_style';
+}

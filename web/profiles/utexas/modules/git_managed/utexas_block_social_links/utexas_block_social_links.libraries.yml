@@ -2,3 +2,7 @@ form:
   css:
     theme:
       css/form.css: {}
+social_link_style:
+  css:
+    theme:
+      css/social_link_styles.css: {}

@@ -19,22 +19,34 @@ class UTexasSocialLinkOptions {
    *   A render array.
    */
   public static function getOptionsArray() {
-    // Currently, this serves this hardcoded array.
-    // Subsequently, it will retrieve data from configuration
-    // located elsewhere (e.g., a configuration entity).
-    $options = [
-      'facebook' => t('Facebook'),
-      'twitter' => t('Twitter'),
-      'instagram' => t('Instagram'),
-      'linkedin' => t('LinkedIn'),
-      'youtube' => t('YouTube'),
-      'googleplus' => t('Google Plus'),
-      'flickr' => t('FlickR'),
-      'pinterest' => t('Pinterest'),
-      'tumblr' => t('Tumblr'),
-      'vimeo' => t('Vimeo'),
-    ];
-    return $options;
+    $social_link_entities = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data')->loadMultiple();
+    $social_links_options = [];
+    foreach ($social_link_entities as $key => $value) {
+      $id = $value->get('id');
+      $label = $value->get('label');
+      $social_links_options[$id] = $label;
+    }
+    return $social_links_options;
+  }
+
+  /**
+   * Provides a key-value array of social link icons.
+   *
+   * This is used in: UTexasSocialLinkFormatter::viewElements().
+   *
+   * @return array
+   *   A render array.
+   */
+  public static function getIcons() {
+    $social_link_entities = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data')->loadMultiple();
+    $social_links_icons = [];
+    $path_to_images = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
+    foreach ($social_link_entities as $key => $value) {
+      $id = $value->get('id');
+      $icon = $value->get('icon');
+      $social_links_icons[$id] = $path_to_images . $icon;
+    }
+    return $social_links_icons;
   }
 
 }

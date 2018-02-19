@@ -1,0 +1,6 @@
+.field--name-field-utexas-sl-social-links .field__items {
+  display: flex;
+}
+.field--name-field-utexas-sl-social-links .field__items .field__item + .field__item {
+  margin-left: 10px;
+}
