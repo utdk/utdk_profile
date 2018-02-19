@@ -1,0 +1,15 @@
+utexas_block_social_links.utexas_block_social_links.*:
+  type: config_entity
+  label: 'UTexas Block Social Links config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    icon:
+      type: string
+      label: 'Icon'
+    uuid:
+      type: string

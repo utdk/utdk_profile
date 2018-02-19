@@ -70,7 +70,7 @@ function utexas_block_social_links_utexas_demo_content() {
         'social_account_url' => 'https://plus.google.com/+UTAustin',
       ],
       [
-        'social_account_name' => 'FlickR',
+        'social_account_name' => 'flickr',
         'social_account_url' => 'https://www.flickr.com/photos/utaustin/',
       ],
       [
