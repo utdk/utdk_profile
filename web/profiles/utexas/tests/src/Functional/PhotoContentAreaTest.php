@@ -35,6 +35,13 @@ class PhotoContentAreaTest extends BrowserTestBase {
   protected $testUser;
 
   /**
+   * An image uri to be used with file uploads.
+   *
+   * @var string
+   */
+  protected $testImage;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
