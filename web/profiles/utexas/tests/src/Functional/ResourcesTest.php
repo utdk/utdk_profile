@@ -111,7 +111,6 @@ class ResourcesTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id() . '/edit');
     // Verify we can add a second link item to Resource instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-top-links-edit-button')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-subform-field-utexas-resource-links-add-more')->click();
     $this->drupalPostForm(NULL, [
       'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_links][1][title]' => 'Resource Link 2',
       'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_links][1][uri]' => '/node/' . $basic_page_id,
