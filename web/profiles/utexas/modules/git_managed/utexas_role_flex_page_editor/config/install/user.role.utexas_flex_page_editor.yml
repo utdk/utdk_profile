@@ -5,7 +5,13 @@ id: utexas_flex_page_editor
 label: 'Flex Page Editor'
 weight: 2
 is_admin: null
-permissions:  
+permissions:
+  - 'access administration pages'
+  - 'access toolbar'
+  - 'administer blocks'
+  - 'administer site configuration'
+  - 'administer taxonomy'
   - 'create utexas_flex_page content'
-  - 'edit any utexas_flex_page content'
   - 'delete any utexas_flex_page content'
+  - 'edit any utexas_flex_page content'
+  - 'use utexas_flex_page layout per node'
