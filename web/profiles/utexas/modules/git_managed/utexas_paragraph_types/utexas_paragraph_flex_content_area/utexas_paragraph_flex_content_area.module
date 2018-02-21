@@ -5,7 +5,7 @@
  * Defines simple utexas_paragraph_flex_content_area field types.
  */
 
-use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Render\Element;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -25,13 +25,28 @@ function utexas_paragraph_flex_content_area_theme($existing, $type, $theme, $pat
  */
 function utexas_paragraph_flex_content_area_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
   $field = $context['items']->getFieldDefinition();
-  // If there is a FCA A or B present, proceed.
-  if ($field->getName() === "field_flex_page_fca_a" || $field->getName() === "field_flex_page_fca_b") {
-    // If links field present on FCA, proceed.
-    if (isset($element['subform']['field_utexas_fca_links'])) {
-      // If the links field is set to unlimited iterations, proceed.
-      if ($element['subform']['field_utexas_fca_links']['widget']['#cardinality'] === FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED) {
-        $element['subform']['field_utexas_fca_links']['widget']['add_more']['#value'] = t('Add Another Link');
+  if ($field->getName() == 'field_utexas_fca_links') {
+    // Value used in hook_preprocess_field_multiple_value_form().
+    $element['#utexas_fca_add_link_value'] = 'Add another link';
+  }
+}
+
+/**
+ * Implements hook_preprocess_field_multiple_value_form().
+ *
+ * We look for a value that was placed there earlier by
+ * utexas_paragraph_resources_field_widget_form_alter() and
+ * change the add_more button to use that.
+ */
+function utexas_paragraph_flex_content_area_preprocess_field_multiple_value_form(&$variables) {
+  foreach (Element::children($variables['element']) as $child) {
+    $child_element = &$variables['element'][$child];
+    if (isset($child_element['#utexas_fca_add_link_value'])) {
+      if (isset($child_element['#utexas_fca_add_link_value']) && isset($variables['element']['add_more']['#value']) && $variables['element']['add_more']['#value'] !== t('@add_another', ['@add_another' => $child_element['#utexas_fca_add_link_value']])) {
+        $variables['element']['add_more']['#value'] = t('@add_another', ['@add_another' => $child_element['#utexas_fca_add_link_value']]);
+      }
+      if (isset($child_element['#utexas_fca_add_link_value']) && isset($variables['button']['#value']) && $variables['button']['#value'] !== t('@add_another', ['@add_another' => $child_element['#utexas_fca_add_link_value']])) {
+        $variables['button']['#value'] = t('@add_another', ['@add_another' => $child_element['#utexas_fca_add_link_value']]);
       }
     }
   }
