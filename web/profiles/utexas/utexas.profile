@@ -29,6 +29,11 @@ function utexas_install_tasks() {
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
+    'utexas_install_demo_content' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
     'utexas_finish_installation' => [
       'display_name' => t('Installation complete'),
       'display' => TRUE,
@@ -87,6 +92,32 @@ function utexas_install_theme($theme) {
 }
 
 /**
+ * Batch installation of demo content.
+ *
+ * This simply invokes any implementations of hook_utexas_demo_content().
+ * It runs after the general `utexas_install_batch_processing` to
+ * ensure that the implementing modules are already installed.
+ */
+function utexas_install_demo_content(&$install_state) {
+  $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
+  if ($create_default_content) {
+    $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
+    $operations = [];
+    // Each of the modules with 'utexas_demo_content' implementations
+    // will be  added as a batch job.
+    foreach ($implementations as $module) {
+      $operations[] = [$module . '_utexas_demo_content', []];
+    }
+    $batch = [
+      'title' => t('Generating demo content...'),
+      'operations' => $operations,
+      'error_message' => t('Demo content generation has encountered an error.'),
+    ];
+    return $batch;
+  }
+}
+
+/**
  * Implements hook_install_tasks_alter().
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
@@ -100,7 +131,6 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
   // Unsetting Country and Timezone selects from installation form.
   unset($form['regional_settings']);
 }
-
 
 /**
  * Implements hook_page_attachments().

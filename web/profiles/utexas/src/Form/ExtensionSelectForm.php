@@ -63,10 +63,11 @@ class ExtensionSelectForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
-    $form['#title'] = $this->t('Custom Functionality');
+    $form['#title'] = $this->t('Enable additional features');
     $form['utexas_enable_flex_page_content_type'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable Flex Page content type?'),
+      '#title' => $this->t('Flex Page content type'),
+      '#description' => $this->t('Fully-featured page type with configurable layout.'),
       '#default_value' => 1,
       '#weight' => -10,
       '#states' => [
@@ -89,15 +90,30 @@ class ExtensionSelectForm extends FormBase {
     ];
     $form['utexas_enable_fp_editor_role'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable Flex Page Editor role?'),
+      '#title' => $this->t('Flex Page Editor role'),
       '#description' => $this->t('Requires the Flex Page content type.'),
       '#default_value' => 0,
       '#weight' => -9,
     ];
+    $form['utexas_enable_social_links'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Social Media Links'),
+      '#description' => $this->t('Display icon-style links to social media assets as a block.'),
+      '#default_value' => 1,
+      '#weight' => -8,
+    ];
+    $form['utexas_create_default_content'] = [
+      '#prefix' => '<hr />',
+      '#type' => 'checkbox',
+      '#title' => $this->t('Generate demo content'),
+      '#description' => $this->t('Example pages and blocks to model content creation.'),
+      '#default_value' => 1,
+      '#weight' => 0,
+    ];
     $form['actions'] = [
       'continue' => [
         '#type' => 'submit',
-        '#value' => $this->t('Continue'),
+        '#value' => $this->t('Complete installation'),
       ],
       '#type' => 'actions',
       '#weight' => 0,
@@ -121,8 +137,15 @@ class ExtensionSelectForm extends FormBase {
     if ($values['utexas_enable_fp_editor_role'] == 1) {
       $modules_to_install[] = 'utexas_role_flex_page_editor';
     }
+    if ($values['utexas_enable_social_links'] == 1) {
+      $modules_to_install[] = 'utexas_block_social_links';
+    }
     // Set the form state for the batch process to know what's enabled.
     $this->stateFactory->set('utexas-install.modules_to_enable', $modules_to_install);
+
+    if ($values['utexas_create_default_content'] == 1) {
+      $this->stateFactory->set('utexas-install.default_content', TRUE);
+    }
 
     // Setting default country and timezone.
     $system_date = $this->configFactory->getEditable('system.date');
