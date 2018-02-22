@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_hi_heading
+    - paragraphs.paragraphs_type.utexas_hero_image
+id: paragraph.utexas_hero_image.field_utexas_hi_heading
+field_name: field_utexas_hi_heading
+entity_type: paragraph
+bundle: utexas_hero_image
+label: Heading
+description: 'Optional, but recommended to provide alternative textual explanation of the image.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

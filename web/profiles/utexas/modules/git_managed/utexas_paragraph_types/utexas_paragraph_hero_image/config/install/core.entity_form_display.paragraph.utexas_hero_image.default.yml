@@ -3,14 +3,19 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.utexas_hero_image.field_utexas_hi_caption
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_display_style
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_heading
     - field.field.paragraph.utexas_hero_image.field_utexas_hi_image
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_link
     - field.field.paragraph.utexas_hero_image.field_utexas_hi_photo_credit
+    - field.field.paragraph.utexas_hero_image.field_utexas_hi_subheading
     - image.style.thumbnail
     - paragraphs.paragraphs_type.utexas_hero_image
   module:
     - field_layout
     - image
     - layout_discovery
+    - link
 third_party_settings:
   field_layout:
     id: layout_onecol
@@ -21,7 +26,21 @@ bundle: utexas_hero_image
 mode: default
 content:
   field_utexas_hi_caption:
-    weight: 1
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_utexas_hi_display_style:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+    region: content
+  field_utexas_hi_heading:
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -29,15 +48,31 @@ content:
     type: string_textfield
     region: content
   field_utexas_hi_image:
-    weight: 0
+    weight: 1
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
     region: content
+  field_utexas_hi_link:
+    weight: 6
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_utexas_hi_photo_credit:
-    weight: 2
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_utexas_hi_subheading:
+    weight: 3
     settings:
       size: 60
       placeholder: ''

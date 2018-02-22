@@ -16,3 +16,15 @@ function utexas_paragraph_hero_image_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+/**
+ * Implements template_preprocesss_paragraph__PARAGRAPH_TYPE()
+ *
+ * For Hero Photo, provide variables to template for rendering.
+ */
+function utexas_paragraph_hero_image_preprocess_paragraph__utexas_hero_image(&$variables) {
+  $display_style = $variables['paragraph']->get('field_utexas_hi_display_style')->getValue();
+  if (!empty($display_style)) {
+    $variables['attributes']['class'][] = "utexas-hero--style-" . $display_style[0]['value'];
+  }
+}

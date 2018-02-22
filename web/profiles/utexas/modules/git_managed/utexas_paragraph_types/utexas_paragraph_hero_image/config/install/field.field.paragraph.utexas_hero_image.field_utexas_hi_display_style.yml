@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_hi_display_style
+    - paragraphs.paragraphs_type.utexas_hero_image
+  module:
+    - options
+id: paragraph.utexas_hero_image.field_utexas_hi_display_style
+field_name: field_utexas_hi_display_style
+entity_type: paragraph
+bundle: utexas_hero_image
+label: 'Hero Display Style'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '1'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

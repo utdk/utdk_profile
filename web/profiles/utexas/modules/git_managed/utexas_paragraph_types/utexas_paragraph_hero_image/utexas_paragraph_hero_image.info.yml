@@ -1,5 +1,5 @@
 name: 'UTexas Paragraph : Hero Image'
-description: 'Defines a single paragraph type with image, caption and credit.'
+description: 'Defines a single paragraph type with display style, image, heading, subheading, link, caption and credit.'
 type: module
 core: 8.x
 dependencies:
@@ -8,6 +8,8 @@ dependencies:
   - file
   - image
   - layout_discovery
+  - link
+  - options
   - paragraphs
   - responsive_image
   - utexas_image_styles
