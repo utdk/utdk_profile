@@ -135,14 +135,40 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_b[0][subform][field_utexas_fca_cta][0][title]' => 'FCA B CTA',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    // 2. Verify we can add a second link item to Flex Content Area A.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-0-subform-field-utexas-fca-links-add-more')->click();
-    // 3. Verify we can add a second Flex Content Area A instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
-    // 4. Alt text must be submitted *after* the image has been added.
+
+    // 2. Alt text must be submitted *after* the image has been added.
     $this->drupalPostForm(NULL, [
       'field_flex_page_fca_a[0][subform][field_utexas_fca_image][0][alt]' => 'Alt text',
       'field_flex_page_fca_b[0][subform][field_utexas_fca_image][0][alt]' => 'Alt text',
+    ],
+    'edit-submit');
+
+    $node = $this->drupalGetNodeByTitle('Flex Content Area Test');
+    $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
+
+    // 3. Verify Flex Content A, delta 0, is present.
+    $this->assertRaw('FCA A Headline');
+    $this->assertRaw('FCA A Copy');
+    // External links must be allowed in the Links field.
+    $this->assertRaw('<a href="https://markfullmer.com">FCA A Link 1</a>');
+    // External links must be allowed in the CTA field.
+    $this->assertRaw('<a href="https://pantheon.io">FCA A CTA</a>');
+
+    // 4. Verify Flex Content B is present.
+    $this->assertRaw('FCA B Headline');
+    $this->assertRaw('FCA B Copy');
+    $this->assertRaw('<a href="https://markfullmer.com">FCA B Link 1</a>');
+    $this->assertRaw('<a href="https://pantheon.io">FCA B CTA</a>');
+    $this->assertRaw('<div class="field field--name-field-utexas-fca-image field--type-image field--label-hidden field__item">');
+
+    // Edit the node to add a second FCA instance and link.
+    $this->drupalGet('node/' . $node->id() . '/edit');
+
+    // 5. Verify we can add a second Flex Content Area A instance.
+    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-flex-content-area')->click();
+
+    $this->drupalPostForm(NULL, [
       'field_flex_page_fca_a[0][subform][field_utexas_fca_links][1][uri]' => 'https://genderedtextproject.com',
       'field_flex_page_fca_a[0][subform][field_utexas_fca_links][1][title]' => 'FCA A Link 2',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_headline][0][value]' => 'FCA A #2 Headline!',
@@ -153,20 +179,11 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'FCA A #2 CTA',
     ],
     'edit-submit');
-    $node = $this->drupalGetNodeByTitle('Flex Content Area Test');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
 
-    // 5. Verify Flex Content A, delta 0, is present.
-    $this->assertRaw('FCA A Headline');
-    $this->assertRaw('FCA A Copy');
-    // External links must be allowed in the Links field.
-    $this->assertRaw('<a href="https://markfullmer.com">FCA A Link 1</a>');
+    $this->drupalGet('node/' . $node->id());
+
     // A second link must be possible.
     $this->assertRaw('<a href="https://genderedtextproject.com">FCA A Link 2</a>');
-    // External links must be allowed in the CTA field.
-    $this->assertRaw('<a href="https://pantheon.io">FCA A CTA</a>');
-
     // 6. Verify Flex Content A, delta 1, is present.
     $this->assertRaw('FCA A #2 Headline');
     $this->assertRaw('FCA A #2 Copy');
@@ -174,13 +191,6 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->assertRaw('<a href="/node/' . $basic_page_id . '">FCA A #2 Link 1</a>');
     // Internal links must be allowed in the CTA field.
     $this->assertRaw('<a href="/node/' . $basic_page_id . '">FCA A #2 CTA</a>');
-
-    // 7. Verify Flex Content B is present.
-    $this->assertRaw('FCA B Headline');
-    $this->assertRaw('FCA B Copy');
-    $this->assertRaw('<a href="https://markfullmer.com">FCA B Link 1</a>');
-    $this->assertRaw('<a href="https://pantheon.io">FCA B CTA</a>');
-    $this->assertRaw('<div class="field field--name-field-utexas-fca-image field--type-image field--label-hidden field__item">');
 
     // Sign out!
     $this->drupalLogout();

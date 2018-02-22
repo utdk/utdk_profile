@@ -78,9 +78,7 @@ class QuickLinksTest extends BrowserTestBase {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $node = $this->drupalGetNodeByTitle('Quick Links Test');
     $this->drupalGet('node/' . $node->id() . '/edit');
-    // 2. Verify we can add a second link item to Quick Links instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-ql-0-subform-field-utexas-ql-links-add-more')->click();
-
+    // 2. Edit the node and add a second link.
     $this->drupalPostForm(NULL, [
       'field_flex_page_ql[0][subform][field_utexas_ql_links][1][title]' => 'Quick Links Link Number 2!',
       'field_flex_page_ql[0][subform][field_utexas_ql_links][1][uri]' => '/node/' . $basic_page_id,
