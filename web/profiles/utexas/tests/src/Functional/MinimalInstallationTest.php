@@ -27,6 +27,7 @@ class MinimalInstallationTest extends WebTestBase {
     // Add specific installation form parameters here, e.g.:
     $parameters['forms']['utexas_select_extensions']['utexas_enable_flex_page_content_type'] = NULL;
     $parameters['forms']['utexas_select_extensions']['utexas_enable_fp_editor_role'] = NULL;
+    $parameters['forms']['utexas_select_extensions']['utexas_enable_social_links'] = NULL;
     return $parameters;
   }
 
@@ -38,9 +39,10 @@ class MinimalInstallationTest extends WebTestBase {
    */
   public function testMinimalInstallation() {
     $modules = [
-      'utexas_role_flex_page_editor',
-      'utexas_content_type_flex_page',
       'layout_per_node',
+      'utexas_block_social_links',
+      'utexas_content_type_flex_page',
+      'utexas_role_flex_page_editor',
     ];
     foreach ($modules as $module) {
       $module_enabled = \Drupal::moduleHandler()->moduleExists($module);

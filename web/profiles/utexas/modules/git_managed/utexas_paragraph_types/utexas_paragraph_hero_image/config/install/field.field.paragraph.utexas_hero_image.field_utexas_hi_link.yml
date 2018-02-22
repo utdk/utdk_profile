@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_hi_link
+    - paragraphs.paragraphs_type.utexas_hero_image
+  module:
+    - link
+id: paragraph.utexas_hero_image.field_utexas_hi_link
+field_name: field_utexas_hi_link
+entity_type: paragraph
+bundle: utexas_hero_image
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link

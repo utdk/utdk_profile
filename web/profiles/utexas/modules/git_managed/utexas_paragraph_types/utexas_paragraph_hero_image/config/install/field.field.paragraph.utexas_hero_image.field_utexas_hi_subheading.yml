@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_utexas_hi_subheading
+    - paragraphs.paragraphs_type.utexas_hero_image
+id: paragraph.utexas_hero_image.field_utexas_hi_subheading
+field_name: field_utexas_hi_subheading
+entity_type: paragraph
+bundle: utexas_hero_image
+label: Subheading
+description: 'Optional. Displays directly beneath the heading. For best appearance, use no more than 140 characters. Note: this field is only visible in hero styles 4, 5 and 6.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -12,7 +12,7 @@ entity_type: paragraph
 bundle: utexas_hero_image
 label: Image
 description: 'Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
