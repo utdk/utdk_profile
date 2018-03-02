@@ -11,7 +11,7 @@ id: node.utexas_flex_page.field_flex_page_resource
 field_name: field_flex_page_resource
 entity_type: node
 bundle: utexas_flex_page
-label: Resource
+label: Resources
 description: ''
 required: false
 translatable: false
@@ -35,11 +35,17 @@ settings:
       utexas_promo_unit:
         weight: 12
         enabled: false
+      utexas_featured_highlight:
+        weight: 13
+        enabled: false
       utexas_promo_unit_container:
         weight: 13
         enabled: false
       utexas_quick_links:
         weight: 14
+        enabled: false
+      utexas_hero_image:
+        weight: 15
         enabled: false
       utexas_resource:
         weight: 15
@@ -47,4 +53,10 @@ settings:
       utexas_resource_container:
         enabled: true
         weight: 16
+      utexas_promo_list:
+        weight: 18
+        enabled: false
+      utexas_promo_list_container:
+        weight: 19
+        enabled: false
 field_type: entity_reference_revisions
