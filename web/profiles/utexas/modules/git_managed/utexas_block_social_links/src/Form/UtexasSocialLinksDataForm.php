@@ -4,6 +4,7 @@ namespace Drupal\utexas_block_social_links\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Class UtexasSocialLinksDataForm.
@@ -33,12 +34,17 @@ class UtexasSocialLinksDataForm extends EntityForm {
       ],
       '#disabled' => !$utexas_block_social_links->isNew(),
     ];
-
+    $icon_default = $utexas_block_social_links->get('icon') !== NULL ? [$utexas_block_social_links->get('icon')] : [];
     $form['icon'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Icon'),
-      '#description' => $this->t('Icon to associate with this social account network.'),
-      '#default_value' => $utexas_block_social_links->get('icon'),
+      '#type' => 'managed_file',
+      '#title' => $this->t('SVG Icon'),
+      '#description' => $this->t('SVG Icon to associate with this social account network.'),
+      '#default_value' => $icon_default,
+      '#upload_location' => 'public://social_icons/',
+      '#upload_validators'    => [
+        'file_validate_extensions'    => ['svg'],
+        'file_validate_size'          => [25600000],
+      ],
       '#required' => TRUE,
     ];
 
@@ -49,7 +55,13 @@ class UtexasSocialLinksDataForm extends EntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    // TODO: We need to clean up the old file, if the icon is being replaced.
+    $image = $form_state->getValue('icon');
+    $file = File::load($image[0]);
+    $file->setPermanent();
+    $file->save();
     $utexas_block_social_links = $this->entity;
+    $utexas_block_social_links->set('icon', $file->id());
     $status = $utexas_block_social_links->save();
 
     switch ($status) {

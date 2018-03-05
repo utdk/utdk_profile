@@ -2,6 +2,8 @@
 
 namespace Drupal\utexas_block_social_links\Services;
 
+use Drupal\file\Entity\File;
+
 /**
  * Class UTexasSocialLinkOptions.
  *
@@ -40,11 +42,13 @@ class UTexasSocialLinkOptions {
   public static function getIcons() {
     $social_link_entities = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data')->loadMultiple();
     $social_links_icons = [];
-    $path_to_images = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
     foreach ($social_link_entities as $key => $value) {
       $id = $value->get('id');
-      $icon = $value->get('icon');
-      $social_links_icons[$id] = $path_to_images . $icon;
+      $icon_file = File::load($value->get('icon'));
+      if ($icon_file) {
+        $icon_path = $icon_file->getFileUri();
+        $social_links_icons[$id] = $icon_path;
+      }
     }
     return $social_links_icons;
   }

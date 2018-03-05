@@ -35,7 +35,6 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "canonical" = "/admin/structure/utexas_block_social_links/{utexas_social_links_data}",
  *     "add-form" = "/admin/structure/utexas_block_social_links/add",
  *     "edit-form" = "/admin/structure/utexas_block_social_links/{utexas_social_links_data}/edit",
- *     "delete-form" = "/admin/structure/utexas_block_social_links/{utexas_social_links_data}/delete",
  *     "collection" = "/admin/structure/social_links"
  *   }
  * )
@@ -59,7 +58,7 @@ class UtexasSocialLinksData extends ConfigEntityBase {
   /**
    * The UTexas Block Social Links icon.
    *
-   * @var string
+   * @var int
    */
   protected $icon;
 

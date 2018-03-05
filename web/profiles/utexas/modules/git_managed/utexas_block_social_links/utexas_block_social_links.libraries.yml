@@ -1,7 +1,7 @@
 form:
   css:
     theme:
-      css/form.css: {}
+      css/social_link_form.css: {}
 social_link_style:
   css:
     theme:
