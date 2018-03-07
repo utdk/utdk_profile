@@ -75,16 +75,11 @@ jobs:
             sudo a2ensite circle-vhost.conf
             sudo a2enmod rewrite
             sudo service apache2 restart
-             
-      - run: 
-          name: Add site to /etc/hosts
-          command: |
-            echo 127.0.0.1 http://test.dev| sudo tee -a /etc/hosts
-            
+
       - run: 
          name: Vhost setup smoke test
          command: |
-           HTTP_STATUS=$(curl -I -s  http://test.dev/user/login | grep HTTP)
+           HTTP_STATUS=$(curl -I -s  http://localhost:8080/user/login | grep HTTP)
            echo "$HTTP_STATUS"
            if [[ "$HTTP_STATUS" != *"200"* ]]; then
              exit 1
@@ -95,8 +90,7 @@ jobs:
           command: |
             mkdir -p /tmp/test-results
             cd /var/www/site_build/web
-            php core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://test.dev --module utexas --verbose --color --xml /tmp/test-results
-          
+            php core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://localhost:8080 --module utexas --verbose --color --xml /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
           destination: PHPUnit
