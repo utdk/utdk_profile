@@ -2,14 +2,14 @@
 
 namespace Drupal\Tests\utexas\Functional;
 
-use Drupal\Core\Render\Markup;
-use Drupal\Component\Utility\Random;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Random;
 
 /**
  * Verifies Social Links field schema & validation.
@@ -22,7 +22,6 @@ class SocialLinksTest extends BrowserTestBase {
   use ImageFieldCreationTrait;
   use TestFileCreationTrait;
   use InstallTestTrait;
-
   /**
    * Use the 'utexas' installation profile.
    *
@@ -147,11 +146,9 @@ class SocialLinksTest extends BrowserTestBase {
     $svg_data = "<svg><title>" . $svg_tag . "</title></svg>";
     file_put_contents($location . $svg_filename . '.svg', $svg_data);
     $saved_file = file_save_data($location . $svg_filename . '.svg', 'public://' . $svg_filename . '.svg', FILE_EXISTS_REPLACE);
-
     // Determine markup for evaluating presence of SVG in rendered page.
     $svgFile1FileContents = file_get_contents($saved_file->getFileUri());
     $svgFile1Markup = Markup::create($svgFile1FileContents);
-
     // Add a custom Social Network with 1st test SVG.
     $this->drupalGet("/admin/structure/utexas_block_social_links/add");
     $edit = [

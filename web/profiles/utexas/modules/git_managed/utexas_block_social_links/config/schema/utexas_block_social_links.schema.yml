@@ -9,7 +9,7 @@ utexas_block_social_links.utexas_block_social_links.*:
       type: label
       label: 'Label'
     icon:
-      type: int
+      type: string
       label: 'Icon'
     uuid:
       type: string

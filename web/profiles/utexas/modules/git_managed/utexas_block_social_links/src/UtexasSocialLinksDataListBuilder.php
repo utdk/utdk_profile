@@ -26,12 +26,9 @@ class UtexasSocialLinksDataListBuilder extends ConfigEntityListBuilder {
    * {@inheritdoc}
    */
   public function buildRow(EntityInterface $entity) {
-    $fid = $entity->get('icon');
-    $file = File::load($fid);
+    $file = $entity->get('icon');
     $icon_markup = "Missing Image";
-    if ($file) {
-      $filename = $file->getFileUri();
-      $icon = file_get_contents($filename);
+    if ($icon = file_get_contents($file)) {
       $icon_markup = Markup::create($icon);
     }
     $row['label'] = $entity->label();

@@ -20,11 +20,11 @@ function utexas_block_social_links_install() {
   foreach ($default_icons as $key => $value) {
     $uri = $value->uri;
     $file = file_get_contents($uri);
-    $saved_file = file_save_data($file, 'public://social_icons/' . $value->filename, FILE_EXISTS_REPLACE);
+    $saved_file = file_unmanaged_save_data($file, 'public://social_icons/' . $value->filename, FILE_EXISTS_REPLACE);
     $social_networks_entity_manager->create([
       'id' => $key,
       'label' => ucwords($key),
-      'icon' => $saved_file->id(),
+      'icon' => $saved_file,
     ])
       ->save();
   }

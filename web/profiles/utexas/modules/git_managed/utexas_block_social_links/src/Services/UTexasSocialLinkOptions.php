@@ -44,11 +44,8 @@ class UTexasSocialLinkOptions {
     $social_links_icons = [];
     foreach ($social_link_entities as $key => $value) {
       $id = $value->get('id');
-      $icon_file = File::load($value->get('icon'));
-      if ($icon_file) {
-        $icon_path = $icon_file->getFileUri();
-        $social_links_icons[$id] = $icon_path;
-      }
+      $icon_path = $value->get('icon');
+      $social_links_icons[$id] = $icon_path;
     }
     return $social_links_icons;
   }

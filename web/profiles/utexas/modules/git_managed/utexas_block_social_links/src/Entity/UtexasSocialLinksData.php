@@ -58,7 +58,7 @@ class UtexasSocialLinksData extends ConfigEntityBase {
   /**
    * The UTexas Block Social Links icon.
    *
-   * @var int
+   * @var string
    */
   protected $icon;
 
