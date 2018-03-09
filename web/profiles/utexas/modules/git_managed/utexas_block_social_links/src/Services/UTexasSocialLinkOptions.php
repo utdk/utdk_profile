@@ -2,8 +2,6 @@
 
 namespace Drupal\utexas_block_social_links\Services;
 
-use Drupal\file\Entity\File;
-
 /**
  * Class UTexasSocialLinkOptions.
  *

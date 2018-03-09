@@ -4,7 +4,6 @@ namespace Drupal\utexas_block_social_links;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\file\Entity\File;
 use Drupal\Core\Render\Markup;
 
 /**
