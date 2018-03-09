@@ -149,7 +149,7 @@ class SocialLinksTest extends BrowserTestBase {
     $svgFile1FileContents = file_get_contents($saved_file->getFileUri());
     $svgFile1Markup = Markup::create($svgFile1FileContents);
     // Add a custom Social Network with 1st test SVG.
-    $this->drupalGet("/admin/structure/utexas_block_social_links/add");
+    $this->drupalGet("/admin/structure/social-links/add");
     $edit = [
       'label' => 'test',
       'id' => 'test',
@@ -181,13 +181,13 @@ class SocialLinksTest extends BrowserTestBase {
     // Try to access the social links edit page to get a 403.
     $this->assertForbidden('admin/structure/social-links');
     // Try editing the FB social block entry to get a 403.
-    $this->assertForbidden('admin/structure/utexas_block_social_links/facebook/edit');
+    $this->assertForbidden('admin/structure/social-links/facebook/edit');
     // Create a new user with our permission to manage social links and login.
     $this->drupalLogin($this->drupalCreateUser(['administer social links data config']));
     // Try to access the social links edit page to get a 200.
     $this->assertAllowed('admin/structure/social-links');
     // Try editing the FB social block entry to get a 200.
-    $this->assertAllowed('admin/structure/utexas_block_social_links/facebook/edit');
+    $this->assertAllowed('admin/structure/social-links/facebook/edit');
   }
 
 }
