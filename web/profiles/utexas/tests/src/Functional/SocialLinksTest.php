@@ -123,7 +123,7 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertTrue($value == '');
     $this->drupalGet('<front>');
     $this->assertRaw('<svg');
-    $this->assertRaw('<title>facebook</title>');
+    $this->assertRaw('<title id="facebook-title">Facebook</title>');
     $this->assertRaw('<path');
     $this->assertRaw('</svg>');
   }
