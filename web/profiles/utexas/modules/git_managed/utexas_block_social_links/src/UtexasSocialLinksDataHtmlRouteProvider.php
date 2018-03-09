@@ -4,7 +4,6 @@ namespace Drupal\utexas_block_social_links;
 
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
-use Symfony\Component\Routing\Route;
 
 /**
  * Provides routes for UTexas Block Social Links entities.

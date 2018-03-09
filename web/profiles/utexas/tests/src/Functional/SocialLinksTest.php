@@ -8,6 +8,8 @@ use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
+use Drupal\Core\Render\Markup;
+use Drupal\Component\Utility\Random;
 
 /**
  * Verifies Social Links field schema & validation.
@@ -39,8 +41,7 @@ class SocialLinksTest extends BrowserTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->drupalLogin($this->testUser);
+    $this->drupalLogin($this->drupalCreateUser(['administer social links data config', 'administer blocks']));
   }
 
   /**
@@ -123,9 +124,70 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertTrue($value == '');
     $this->drupalGet('<front>');
     $this->assertRaw('<svg');
-    $this->assertRaw('<title>facebook</title>');
+    $this->assertRaw('<title id="facebook-title">Facebook</title>');
     $this->assertRaw('<path');
     $this->assertRaw('</svg>');
+  }
+
+  /**
+   * Validate configuring and rendering.
+   *
+   * This test will configure the default Site Wide Social Links block
+   * with a new 'test' network and icon. It then validates that this
+   * displays.
+   */
+  public function testRender() {
+    // Create test SVG.
+    $location = 'public://';
+    $random_util = new Random();
+    $svg_filename = $random_util->word(5);
+    $svg_tag = $random_util->word(5);
+    $svg_data = "<svg><title>" . $svg_tag . "</title></svg>";
+    file_put_contents($location . $svg_filename . '.svg', $svg_data);
+    $saved_file = file_save_data($location . $svg_filename . '.svg', 'public://' . $svg_filename . '.svg', FILE_EXISTS_REPLACE);
+    // Determine markup for evaluating presence of SVG in rendered page.
+    $svgFile1FileContents = file_get_contents($saved_file->getFileUri());
+    $svgFile1Markup = Markup::create($svgFile1FileContents);
+    // Add a custom Social Network with 1st test SVG.
+    $this->drupalGet("/admin/structure/social-links/add");
+    $edit = [
+      'label' => 'test',
+      'id' => 'test',
+      'files[icon]' => \Drupal::service('file_system')->realpath($saved_file->getFileUri()),
+    ];
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+
+    // Edit /block/1 (the default social links block) and add test network.
+    $this->drupalGet("/block/1");
+    $edit = [
+      'field_utexas_sl_social_links[0][social_account_name]' => 'test',
+      'field_utexas_sl_social_links[0][social_account_url]' => "https://testsocial.com",
+    ];
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+
+    // Go to homepage and confirm test network is rendering with test svg path.
+    $this->drupalGet("<front>");
+    $this->assertRaw("https://testsocial.com");
+    $this->assertRaw($svgFile1Markup);
+
+  }
+
+  /**
+   * Validate permission grants access to edit Social Links.
+   */
+  public function testPermission() {
+    // Logout with the current user.
+    $this->drupalLogout();
+    // Try to access the social links edit page to get a 403.
+    $this->assertForbidden('admin/structure/social-links');
+    // Try editing the FB social block entry to get a 403.
+    $this->assertForbidden('admin/structure/social-links/facebook/edit');
+    // Create a new user with our permission to manage social links and login.
+    $this->drupalLogin($this->drupalCreateUser(['administer social links data config']));
+    // Try to access the social links edit page to get a 200.
+    $this->assertAllowed('admin/structure/social-links');
+    // Try editing the FB social block entry to get a 200.
+    $this->assertAllowed('admin/structure/social-links/facebook/edit');
   }
 
 }

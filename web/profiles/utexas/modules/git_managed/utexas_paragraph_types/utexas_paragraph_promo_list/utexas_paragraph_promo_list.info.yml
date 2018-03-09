@@ -13,6 +13,7 @@ dependencies:
   - responsive_image
   - text
   - utexas_image_styles
+  - utexas_paragraph_types
 version: 8.x-1.0
 package: UTexas
 description: 'Defines a nested paragraph type with headline and unlimited promo lists.'

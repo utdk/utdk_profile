@@ -13,11 +13,14 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_pu
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - field.field.node.utexas_flex_page.field_flex_page_resource
+    - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_a
+    - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_b
     - node.type.utexas_flex_page
   module:
     - entity_reference_revisions
     - field_layout
     - layout_discovery
+    - text
     - user
 third_party_settings:
   field_layout:
@@ -126,6 +129,20 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
+  field_flex_page_wysiwyg_a:
+    weight: 107
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_flex_page_wysiwyg_b:
+    weight: 108
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   links:
     weight: 0

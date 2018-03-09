@@ -23,8 +23,8 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *       "html" = "Drupal\utexas_block_social_links\UtexasSocialLinksDataHtmlRouteProvider",
  *     },
  *   },
- *   config_prefix = "utexas_block_social_links",
- *   admin_permission = "administer site configuration",
+ *   config_prefix = "utexas_social_links_data",
+ *   admin_permission = "administer social links data config",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
@@ -32,11 +32,9 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/utexas_block_social_links/{utexas_social_links_data}",
- *     "add-form" = "/admin/structure/utexas_block_social_links/add",
- *     "edit-form" = "/admin/structure/utexas_block_social_links/{utexas_social_links_data}/edit",
- *     "delete-form" = "/admin/structure/utexas_block_social_links/{utexas_social_links_data}/delete",
- *     "collection" = "/admin/structure/social_links"
+ *     "add-form" = "/admin/structure/social-links/add",
+ *     "edit-form" = "/admin/structure/social-links/{utexas_social_links_data}/edit",
+ *     "collection" = "/admin/structure/social-links"
  *   }
  * )
  */
