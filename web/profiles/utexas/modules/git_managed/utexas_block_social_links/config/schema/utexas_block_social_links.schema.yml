@@ -1,6 +1,6 @@
-utexas_block_social_links.utexas_block_social_links.*:
+utexas_block_social_links.utexas_social_links_data.*:
   type: config_entity
-  label: 'UTexas Block Social Links config'
+  label: 'UTexas Social Links Data'
   mapping:
     id:
       type: string

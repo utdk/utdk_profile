@@ -2,3 +2,6 @@
   display: table-cell;
   padding-right: 1rem;
 }
+.region-content table svg, form svg {
+  width: 50px;
+}
