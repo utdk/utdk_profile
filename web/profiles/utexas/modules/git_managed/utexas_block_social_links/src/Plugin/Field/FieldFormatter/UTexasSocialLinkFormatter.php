@@ -41,4 +41,13 @@ class UTexasSocialLinkFormatter extends FormatterBase {
     return $elements;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function view(FieldItemListInterface $items, $langcode = NULL) {
+    $elements = parent::view($items, $langcode);
+    $elements['#cache']['tags'][] = 'utexas_social_links_block';
+    return $elements;
+  }
+
 }

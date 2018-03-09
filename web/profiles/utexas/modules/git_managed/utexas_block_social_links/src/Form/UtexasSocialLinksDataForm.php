@@ -2,6 +2,7 @@
 
 namespace Drupal\utexas_block_social_links\Form;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
@@ -112,6 +113,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
         ]));
     }
     $form_state->setRedirectUrl($utexas_block_social_links->toUrl('collection'));
+    Cache::invalidateTags(['utexas_social_links_block']);
   }
 
 }

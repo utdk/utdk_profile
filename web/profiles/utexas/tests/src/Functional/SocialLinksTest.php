@@ -134,7 +134,8 @@ class SocialLinksTest extends BrowserTestBase {
    *
    * This test will configure the default Site Wide Social Links block
    * with a new 'test' network and icon. It then validates that this
-   * displays.
+   * displays. The test also confirms that changing an existing icon
+   * invalidates the cache tag properly and the change is immediately visible.
    */
   public function testRender() {
     // Create test SVG.
@@ -170,6 +171,26 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertRaw("https://testsocial.com");
     $this->assertRaw($svgFile1Markup);
 
+    // Go back and change icon.
+    $svg_filename = $random_util->word(5);
+    $svg_tag = $random_util->word(5);
+    $svg_data = "<svg><title>" . $svg_tag . "</title></svg>";
+    file_put_contents($location . $svg_filename . '.svg', $svg_data);
+    $saved_file = file_save_data($location . $svg_filename . '.svg', 'public://' . $svg_filename . '.svg', FILE_EXISTS_REPLACE);
+    // Determine markup for evaluating presence of SVG in rendered page.
+    $svgFile2FileContents = file_get_contents($saved_file->getFileUri());
+    $svgFile2Markup = Markup::create($svgFile2FileContents);
+
+    // Edit the existing custom Social Network test network
+    $this->drupalGet('/admin/structure/social-links/test/edit');
+    $edit = [
+      'files[icon]' => \Drupal::service('file_system')->realpath($saved_file->getFileUri()),
+    ];
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+
+    // Go to homepage and confirm test network is rendering with test 2 svg path.
+    $this->drupalGet("<front>");
+    $this->assertRaw($svgFile2Markup);
   }
 
   /**
