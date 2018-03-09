@@ -27,6 +27,8 @@ function utexas_content_type_flex_page_form_alter(&$form, FormStateInterface $fo
       'field_flex_page_pu',
       'field_flex_page_ql',
       'field_flex_page_resource',
+      'field_flex_page_wysiwyg_a',
+      'field_flex_page_wysiwyg_b',
     ];
     foreach ($widgets as $widget) {
       $title = isset($form[$widget]['widget']['title']['#value']) ? $form[$widget]['widget']['title']['#value'] : $form[$widget]['widget']['#title'];
