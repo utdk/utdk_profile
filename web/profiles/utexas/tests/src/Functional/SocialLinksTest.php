@@ -41,8 +41,7 @@ class SocialLinksTest extends BrowserTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->drupalLogin($this->testUser);
+    $this->drupalLogin($this->drupalCreateUser(['administer social links data config', 'administer blocks']));
   }
 
   /**
@@ -125,7 +124,7 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertTrue($value == '');
     $this->drupalGet('<front>');
     $this->assertRaw('<svg');
-    $this->assertRaw('<title>facebook</title>');
+    $this->assertRaw('<title id="facebook-title">Facebook</title>');
     $this->assertRaw('<path');
     $this->assertRaw('</svg>');
   }
@@ -170,6 +169,25 @@ class SocialLinksTest extends BrowserTestBase {
     $this->drupalGet("<front>");
     $this->assertRaw("https://testsocial.com");
     $this->assertRaw($svgFile1Markup);
+
+  }
+
+  /**
+   * Validate permission grants access to edit Social Links.
+   */
+  public function testPermission() {
+    // Logout with the current user.
+    $this->drupalLogout();
+    // Try to access the social links edit page to get a 403.
+    $this->assertForbidden('admin/structure/social-links');
+    // Try editing the FB social block entry to get a 403.
+    $this->assertForbidden('admin/structure/utexas_block_social_links/facebook/edit');
+    // Create a new user with our permission to manage social links and login.
+    $this->drupalLogin($this->drupalCreateUser(['administer social links data config']));
+    // Try to access the social links edit page to get a 200.
+    $this->assertAllowed('admin/structure/social-links');
+    // Try editing the FB social block entry to get a 200.
+    $this->assertAllowed('admin/structure/utexas_block_social_links/facebook/edit');
   }
 
 }

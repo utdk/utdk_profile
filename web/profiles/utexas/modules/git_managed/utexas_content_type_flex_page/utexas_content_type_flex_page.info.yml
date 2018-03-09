@@ -22,6 +22,7 @@ dependencies:
   - node
   - paragraphs
   - path
+  - text
   - user
   - utexas_paragraph_featured_highlight
   - utexas_paragraph_flex_content_area

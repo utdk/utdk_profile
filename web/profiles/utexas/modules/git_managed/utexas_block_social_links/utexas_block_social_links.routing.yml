@@ -4,6 +4,6 @@ entity.utexas_social_links_data.collection:
     _entity_list: 'utexas_social_links_data'
     _title: 'Social Links'
   requirements:
-    _permission: 'administer site configuration'
+    _permission: 'administer social links data config'
   options:
     _admin_route: TRUE
