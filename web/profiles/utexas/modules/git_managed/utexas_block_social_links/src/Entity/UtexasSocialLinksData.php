@@ -24,7 +24,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "utexas_block_social_links",
- *   admin_permission = "administer site configuration",
+ *   admin_permission = "administer social links data config",
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
