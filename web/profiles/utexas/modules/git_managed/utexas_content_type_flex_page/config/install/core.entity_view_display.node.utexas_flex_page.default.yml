@@ -57,7 +57,7 @@ content:
     region: content
   field_flex_page_hi:
     type: entity_reference_revisions_entity_view
-    weight: 106
+    weight: 4
     label: above
     settings:
       view_mode: default
@@ -66,7 +66,7 @@ content:
     region: content
   field_flex_page_il_a:
     type: entity_reference_revisions_entity_view
-    weight: 4
+    weight: 5
     label: hidden
     settings:
       view_mode: default
@@ -75,7 +75,7 @@ content:
     region: content
   field_flex_page_il_b:
     type: entity_reference_revisions_entity_view
-    weight: 5
+    weight: 6
     label: hidden
     settings:
       view_mode: default
@@ -84,7 +84,7 @@ content:
     region: content
   field_flex_page_pca:
     type: entity_reference_revisions_entity_view
-    weight: 6
+    weight: 7
     label: hidden
     settings:
       view_mode: default
@@ -93,7 +93,7 @@ content:
     region: content
   field_flex_page_pl:
     type: entity_reference_revisions_entity_view
-    weight: 106
+    weight: 8
     label: above
     settings:
       view_mode: default
@@ -102,7 +102,7 @@ content:
     region: content
   field_flex_page_pu:
     type: entity_reference_revisions_entity_view
-    weight: 7
+    weight: 9
     label: hidden
     settings:
       view_mode: default
@@ -111,7 +111,7 @@ content:
     region: content
   field_flex_page_ql:
     type: entity_reference_revisions_entity_view
-    weight: 8
+    weight: 10
     label: hidden
     settings:
       view_mode: default
@@ -120,7 +120,7 @@ content:
     region: content
   field_flex_page_resource:
     type: entity_reference_revisions_entity_view
-    weight: 106
+    weight: 11
     label: above
     settings:
       view_mode: default

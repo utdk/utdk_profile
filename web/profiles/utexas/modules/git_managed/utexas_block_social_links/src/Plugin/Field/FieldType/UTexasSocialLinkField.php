@@ -18,7 +18,8 @@ use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
  *   label = @Translation("UTexas Social Link"),
  *   description = @Translation("Defines a tuple field with social icon selector & URL entry"),
  *   default_widget = "utexas_social_link_widget",
- *   default_formatter = "utexas_social_link_formatter"
+ *   default_formatter = "utexas_social_link_formatter",
+ *   no_ui = TRUE
  * )
  */
 class UTexasSocialLinkField extends FieldItemBase {

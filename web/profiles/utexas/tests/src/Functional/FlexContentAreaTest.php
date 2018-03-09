@@ -103,7 +103,7 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     // 3. Images must have alt text!
     $this->assertRaw('Alternative text field is required.');
-    $this->assertRaw('Link text field is required.');
+    $this->assertRaw('Link text field is required if there is URL input.');
   }
 
   /**

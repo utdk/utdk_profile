@@ -60,7 +60,7 @@ content:
     region: content
   field_flex_page_fh:
     type: entity_reference_paragraphs
-    weight: 121
+    weight: 6
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -72,7 +72,7 @@ content:
     region: content
   field_flex_page_hi:
     type: entity_reference_paragraphs
-    weight: 122
+    weight: 9
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -84,7 +84,7 @@ content:
     region: content
   field_flex_page_il_a:
     type: entity_reference_paragraphs
-    weight: 9
+    weight: 10
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -96,7 +96,7 @@ content:
     region: content
   field_flex_page_il_b:
     type: entity_reference_paragraphs
-    weight: 10
+    weight: 11
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -108,7 +108,7 @@ content:
     region: content
   field_flex_page_pca:
     type: entity_reference_paragraphs
-    weight: 11
+    weight: 12
     settings:
       title: 'Photo Content Area'
       title_plural: 'Photo Content Areas'
@@ -120,7 +120,7 @@ content:
     region: content
   field_flex_page_pl:
     type: entity_reference_paragraphs
-    weight: 122
+    weight: 13
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -132,7 +132,7 @@ content:
     region: content
   field_flex_page_pu:
     type: entity_reference_paragraphs
-    weight: 121
+    weight: 14
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -144,7 +144,7 @@ content:
     region: content
   field_flex_page_ql:
     type: entity_reference_paragraphs
-    weight: 6
+    weight: 15
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -156,7 +156,7 @@ content:
     region: content
   field_flex_page_resource:
     type: entity_reference_paragraphs
-    weight: 122
+    weight: 17
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -183,7 +183,7 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 12
+    weight: 16
     region: content
     third_party_settings: {  }
   sticky:
