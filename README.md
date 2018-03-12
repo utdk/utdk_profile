@@ -1,26 +1,39 @@
-# UT Drupal Kit 8.x-1.x-dev
-This is Composer-based Drupal 8 distribution that dynamically retrieves the
-Drupal 8 codebase and contributed projects, as well as custom projects from
-Github repositories.
+# UT Drupal Kit 8
+UT Drupal Kit is a collection of IT Architecture and Infrastructure Committee-endorsed resources for Drupal site developers. It aims to simplify development of websites on campus, standardize University brand templates, and improve accessibility while allowing developers to customize as needed. The code is downloadable at no cost for the UT community.
 
-Separate from its distribution kernel, it is meant to be a tool for
-collaborative development of custom functionality that is housed in *other* repositories. Developers can use this repository to install a single site that orchestrates these actively developed projects, rather than having to maintain
-separate local Drupal instances or do multiple git clones.
+## Contents of this repository
 
-# Development Setup
-0. Run `sh setup.sh`. This will copy the "example" files from the root into
-respective usable files. It will then run `composer install`, which will
-retrieve all packages needed for the distribution. The Drupal docroot will be
-copied into the /web directory (and you will need to point your server to
-this directory).
+This repository contains only the "kernel" of the customized code required to run UT Drupal Kit, version 8. It uses the dependency manager [Composer](https://getcomposer.org/) to retrieve the [Drops-8 codebase](https://github.com/pantheon-systems/drops-8), contributed projects from [drupal.org](https://drupal.org), and custom projects from separate Github repositories. Instructions for using Composer to build a fully-functional codebase are below.
+
+## Dependencies for local development
+For customization of UT Drupal Kit's codebase, the ability to run a replica of your site on a local machine is indispensable. Since Drupal is written in PHP and uses an SQL database, that means you'll need:
+- PHP 5.5.9 or higher. See [Drupal 8 PHP versions supported](https://www.drupal.org/docs/8/system-requirements/drupal-8-php-requirements).
+- A database server (MySQL, PostgreSQL, or SQLlite that meets the [minimum Drupal 8 requirements](https://www.drupal.org/docs/8/system-requirements/database-server)).
+- A webserver that meets the minimum PHP requirements above. Typically, this means Apache, Nginx, or Microsoft IIS. See [Drupal webserver requirements](https://www.drupal.org/docs/8/system-requirements/web-server).
+
+There are a number of pre-packaged solutions that simplify setup of the above. These includes [MAMP](https://www.mamp.info/en/), [Valet](https://laravel.com/docs/5.6/valet), and [Lando](https://docs.devwithlando.io/).
+
+Finally, you will need to install [Composer](https://getcomposer.org/doc/00-intro.md), the PHP dependency manager.
+
+Not required -- but highly recommended -- is the command-line shell for Drupal, [drush](http://www.drush.org/). 
+
+If local web development is new to you, consider coming by Web Publishing Office Hours for setup assistance.
+ 
+
+
+## Development Setup
+Once you have Composer installed, and a local web server up and running, the following steps will get you to a freshly installed Drupal Kit site:
+
+0. Within this codebase's document root, run `sh setup.sh`. This will copy "example" files from into usable files. It will then run `composer install`, which will retrieve all packages needed for the distribution. The Drupal document root will be copied into the `/web` directory (and you will need to point your server to
+that directory). See [web docroot background](https://www.drupal.org/node/2767907).
 2. `cp web/sites/example.settings.local.php web/sites/default/settings.local.php`
-3. Add database credentials to settings.local.php. Example:
+3. Create a MySQL database, then add its connection credentials to the newly created `settings.local.php`. Example:
 
 ```php
 $databases['default']['default'] = [
-  'database' => 'databasename',
-  'username' => 'username',
-  'password' => 'password',
+  'database' => 'MYSQL_DATABASE',
+  'username' => 'MYSQL_USERNAME',
+  'password' => 'MYSQL_PASSWORD',
   'host' => 'localhost',
   'port' => '3306',
   'driver' => 'mysql',
@@ -29,33 +42,18 @@ $databases['default']['default'] = [
 ];
 ```
 
-4. `cd web/ && drush si -y`
-5. You should now have a Drupal site installed, with the 'UTexas' profile!
+4. Either navigate to your local site's domain and follow the web-based installation instructions, or if you prefer to use `drush`, then `cd web/ && drush si -y`
+5. You should now have a Drupal site installed, with the "UTexas" profile!
 
-Currently, the 'UTexas' profile will install:
-* `Basic Page` content type
-* `Basic HTML` text format
-* `Basic block` entity
-* Bartik theme + Adminimal theme, plus block region configuration
-* Layout Per Node
 
-# Making changes to composer.json / composer.lock (Distribution maintainers only)
+## How to use composer.json / composer.lock
+*If you don't plan to use Composer to customize your codebase, this section does not apply.*
+
 To allow individual developers to define their own Composer elements, we do not
-commit composer.json & composer.lock. Instead, we commit equivalent "example"
-files (which are converted to "real" files during the `setup.sh` script).
-Changes you want to introduce to the Composer files must be copied back
-to the "example" equivalents. For example, after you run `composer require panels`
-you would then need to run:
+commit `composer.json` & `composer.lock`. Instead, we commit equivalent "example"
+files (which are converted to "real" files during the `setup.sh` script). 
 
-`cp composer.json example.composer.json`
+Developers using version control may then make changes to the `composer.json` file and commit the resulting customized file to their codebase without risking overwriting these changes when they update UT Drupal Kit in the future. During a UT Drupal Kit update, developers will want to "diff" the new `example.composer.json` file, and manually apply any changes to their own `composer.json` file, then run `composer update` and commit the resulting changes.
 
-`cp composer.lock example.composer.lock`
 
-After this, `git status` will show Composer modifications you made in the
-example files, and this is what you would commit to the repository
-# Road Map
-1. Create an installation profile within this repository. Updating the `$settings['install_profile']` in
-settings.php to this installation profile will make it execute on a
-`drush si -y`.
-2. Determine which contributed and custom modules provided by this
-composer.json should be placed in the profiles/`<custom-profile>`/ directory.
+
