@@ -20,7 +20,6 @@ Not required -- but highly recommended -- is the command-line shell for Drupal, 
 If local web development is new to you, consider coming by Web Publishing Office Hours for setup assistance.
  
 
-
 ## Development Setup
 Once you have Composer installed, and a local web server up and running, the following steps will get you to a freshly installed Drupal Kit site:
 
@@ -42,7 +41,7 @@ $databases['default']['default'] = [
 ];
 ```
 
-4. Either navigate to your local site's domain and follow the web-based installation instructions, or if you prefer to use `drush`, then `cd web/ && drush si -y`
+4. Either navigate to your local site's domain and follow the web-based installation instructions, or if you prefer to use `drush`, then `cd web/` and run the drush [site-install](https://drushcommands.com/drush-8x/core/site-install/) command; note that it is recommended to pass the `--account-mail` and `--site-mail` parameters along, with valid email addresses.
 5. You should now have a Drupal site installed, with the "UTexas" profile!
 
 
