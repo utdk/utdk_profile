@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: utexas_promo_unit_container
 label: 'Promo Unit Container'
+icon_uuid: null
+description: 'Promo Unit Container has an attached title and unlimited Promo Unit Items.'
 behavior_plugins: {  }

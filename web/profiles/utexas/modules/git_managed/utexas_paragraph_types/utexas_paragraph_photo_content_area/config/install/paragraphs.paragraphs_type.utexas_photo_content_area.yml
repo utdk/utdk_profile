@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: utexas_photo_content_area
 label: 'Photo Content Area'
+icon_uuid: null
+description: 'Photo Content Area has attached Image, Photo Credit, Photo Caption, Copy and Link fields.'
 behavior_plugins: {  }
