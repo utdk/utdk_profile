@@ -21,7 +21,7 @@ content:
   field_utexas_puc_items:
     type: entity_reference_revisions_entity_view
     weight: 2
-    label: hidden
+    label: above
     settings:
       view_mode: default
       link: ''
@@ -29,7 +29,7 @@ content:
     region: content
   field_utexas_puc_title:
     weight: 0
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
