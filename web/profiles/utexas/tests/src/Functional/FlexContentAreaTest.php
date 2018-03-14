@@ -160,7 +160,7 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->assertRaw('FCA B Copy');
     $this->assertRaw('<a href="https://markfullmer.com">FCA B Link 1</a>');
     $this->assertRaw('<a href="https://pantheon.io">FCA B CTA</a>');
-    $this->assertRaw('<div class="field field--name-field-utexas-fca-image field--type-image field--label-hidden field__item">');
+    $this->assertRaw('<div class="field field--name-field-utexas-fca-image field--type-image field--label-above">');
 
     // Edit the node to add a second FCA instance and link.
     $this->drupalGet('node/' . $node->id() . '/edit');
