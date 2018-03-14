@@ -26,14 +26,14 @@ mode: default
 content:
   field_utexas_pca_copy:
     weight: 3
-    label: hidden
+    label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_utexas_pca_credit:
     weight: 1
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -41,7 +41,7 @@ content:
     region: content
   field_utexas_pca_headline:
     weight: 2
-    label: hidden
+    label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -49,7 +49,7 @@ content:
     region: content
   field_utexas_pca_image:
     weight: 0
-    label: hidden
+    label: above
     settings:
       responsive_image_style: utexas_responsive_image_pca
       image_link: ''
@@ -58,7 +58,7 @@ content:
     region: content
   field_utexas_pca_links:
     weight: 4
-    label: hidden
+    label: above
     settings:
       trim_length: 80
       url_only: false
