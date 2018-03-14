@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: utexas_resource_container
 label: 'Resource Container'
+icon_uuid: null
+description: 'Resource Container has an attached title field and unlimited Resource Items.'
 behavior_plugins: {  }

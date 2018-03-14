@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: utexas_quick_links
 label: 'Quick Links'
+icon_uuid: null
+description: 'Quick Links has attached Headline, Copy and Link fields.'
 behavior_plugins: {  }
