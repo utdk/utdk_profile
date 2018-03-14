@@ -17,13 +17,13 @@ Finally, you will need to install [Composer](https://getcomposer.org/doc/00-intr
 
 Not required -- but highly recommended -- is the command-line shell for Drupal, [drush](http://www.drush.org/). 
 
-If local web development is new to you, consider coming by Web Publishing Office Hours for setup assistance.
+If local web development is new to you, consider coming by [Web Publishing Office Hours](https://sites.utexas.edu/web-publishing-office-hours/) for setup assistance.
  
 
 ## Development Setup
 Once you have Composer installed, and a local web server up and running, the following steps will get you to a freshly installed Drupal Kit site:
 
-0. Within this codebase's document root, run `sh setup.sh`. This will copy "example" files from into usable files. It will then run `composer install`, which will retrieve all packages needed for the distribution. The Drupal document root will be copied into the `/web` directory (and you will need to point your server to
+0. Within this codebase's document root, run `sh setup.sh`. This will copy "example" files into usable files. It will then run `composer install`, which will retrieve all packages needed for the distribution. The Drupal document root will be copied into the `/web` directory (and you will need to point your server to
 that directory). See [web docroot background](https://www.drupal.org/node/2767907).
 2. `cp web/sites/example.settings.local.php web/sites/default/settings.local.php`
 3. Create a MySQL database, then add its connection credentials to the newly created `settings.local.php`. Example:
@@ -41,9 +41,13 @@ $databases['default']['default'] = [
 ];
 ```
 
-4. Either navigate to your local site's domain and follow the web-based installation instructions, or if you prefer to use `drush`, then `cd web/` and run the drush [site-install](https://drushcommands.com/drush-8x/core/site-install/) command; note that it is recommended to pass the `--account-mail` and `--site-mail` parameters along, with valid email addresses.
-5. You should now have a Drupal site installed, with the "UTexas" profile!
+4. Either navigate to your local site's domain and follow the web-based installation instructions, or if you prefer to use `drush`, then `cd web/` and run the drush [site-install](https://drushcommands.com/drush-8x/core/site-install/) command; note that it is recommended to pass the `--account-mail` and `--site-mail` parameters along, with valid email addresses. The full drush command could look like this:
 
+```
+drush si utexas -y install_configure_form.enable_update_status_module=NULL --account-mail="your-eid@utexas.edu" --site-mail="your-eid@utexas.edu"'
+```
+
+You should now have a Drupal site installed, with the "UTexas" profile!
 
 ## How to use composer.json / composer.lock
 *If you don't plan to use Composer to customize your codebase, this section does not apply.*
