@@ -90,7 +90,8 @@ jobs:
           command: |
             mkdir -p /tmp/test-results
             cd /var/www/site_build/web
-            php core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://localhost:8080 --module utexas --verbose --color --xml /tmp/test-results
+            php core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://localhost:8080 --module utexas --verbose --color --xml /tmp/test-results --concurrency 20
+             
       - store_artifacts:
           path: /tmp/test-results
           destination: PHPUnit

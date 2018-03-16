@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: utexas_resource
 label: 'Resource Item'
+icon_uuid: null
+description: 'Resource Item has Image, Headline and Link fields.'
 behavior_plugins: {  }
