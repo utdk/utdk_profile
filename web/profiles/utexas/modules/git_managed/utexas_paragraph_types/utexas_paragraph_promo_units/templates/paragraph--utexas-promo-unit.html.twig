@@ -47,9 +47,9 @@
 %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
+    {{ processed_image }}
     {% block content %}
       {{ content }}
     {% endblock %}
-    {{ processed_image }}
   </div>
 {% endblock paragraph %}

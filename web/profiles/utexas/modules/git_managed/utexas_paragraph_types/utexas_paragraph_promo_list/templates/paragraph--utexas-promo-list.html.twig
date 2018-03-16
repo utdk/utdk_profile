@@ -34,9 +34,9 @@
  *   is an administrator.
  *
  * @see template_preprocess_paragraph()
- * 
+ *
  * Available custom variables:
- * - {{ processed_headline }} : provides the headline text, with link from the call to 
+ * - {{ processed_headline }} : provides the headline text, with link from the call to
  * action, if that URL has been defined. See
  * utexas_paragraph_promo_list_preprocess_paragraph__utexas_promo_list()
  * @ingroup themeable
@@ -54,10 +54,10 @@
   {{ title_prefix}}{{title_suffix}}
   {{ content|without('_field_layout') }}
   <div{{ attributes.addClass(classes) }}>
+      {{ image }}
       {% if headline %}
         <h3>{{ headline }}</h3>
       {% endif %}
-      {{ image }}
       {{ copy }}
     </div>
   </div>
