@@ -5,6 +5,8 @@
  * Defines utexas_paragraph_promo_units field type.
  */
 
+ use Drupal\Core\Entity\EntityTypeInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -41,4 +43,16 @@ function utexas_paragraph_promo_units_preprocess_paragraph__utexas_promo_unit(&$
   $image = $variables['paragraph']->get('field_utexas_pu_image')->view($display_options);
   // Render.
   $variables['processed_image'] = render($image);
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function utexas_paragraph_promo_units_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if (isset($fields['field_utexas_puc_items'])) {
+    $fields['field_utexas_puc_items']->addConstraint('PromoUnitItemConstraint');
+  }
+  if (isset($fields['field_utexas_puc_title'])) {
+    $fields['field_utexas_puc_title']->addConstraint('PromoUnitContainerConstraint');
+  }
 }
