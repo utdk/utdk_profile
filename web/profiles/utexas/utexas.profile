@@ -130,6 +130,9 @@ function utexas_install_tasks_alter(array &$tasks, array $install_state) {
 function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id) {
   // Unsetting Country and Timezone selects from installation form.
   unset($form['regional_settings']);
+  // Set default admin account name to site-admin.
+  $user_1_name = 'site-admin';
+  $form['admin_account']['account']['name']['#default_value'] = $user_1_name;
 }
 
 /**
