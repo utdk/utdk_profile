@@ -1,0 +1,9 @@
+name: 'UTexas Text Format Basic HTML '
+type: module
+core: 8.x
+version: 8.x-1.0
+package: UTexas
+dependencies:
+  - ckeditor
+  - editor
+  - filter

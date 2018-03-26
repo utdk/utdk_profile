@@ -31,6 +31,8 @@ dependencies:
   - automated_cron
   # Contrib
   - adminimal_admin_toolbar
+  # Custom
+  - utexas_text_format_basic_html
 themes:
   - bartik
   - adminimal_theme
