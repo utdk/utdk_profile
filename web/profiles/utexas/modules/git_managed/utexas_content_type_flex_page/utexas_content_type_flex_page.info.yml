@@ -17,7 +17,6 @@ dependencies:
   - field
   - field_layout
   - layout_discovery
-  - 'layout_per_node:layout_per_node'
   - menu_ui
   - node
   - paragraphs

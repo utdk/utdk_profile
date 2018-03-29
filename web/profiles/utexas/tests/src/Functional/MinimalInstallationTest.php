@@ -39,7 +39,6 @@ class MinimalInstallationTest extends WebTestBase {
    */
   public function testMinimalInstallation() {
     $modules = [
-      'layout_per_node',
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
       'utexas_role_flex_page_editor',
