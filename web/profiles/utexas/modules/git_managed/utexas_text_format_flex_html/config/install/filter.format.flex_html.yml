@@ -3,9 +3,9 @@ status: true
 dependencies:
   module:
     - editor
-name: 'Basic HTML'
-format: basic_html
-weight: 0
+name: 'Flex HTML'
+format: flex_html
+weight: -1
 filters:
   filter_html:
     id: filter_html

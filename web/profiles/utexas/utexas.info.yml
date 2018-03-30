@@ -32,7 +32,7 @@ dependencies:
   # Contrib
   - adminimal_admin_toolbar
   # Custom
-  - utexas_text_format_basic_html
+  - utexas_text_format_flex_html
 themes:
   - bartik
   - adminimal_theme

@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
+    - filter.format.flex_html
   module:
     - ckeditor
-format: basic_html
+format: flex_html
 editor: ckeditor
 settings:
   toolbar:
