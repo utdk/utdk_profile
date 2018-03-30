@@ -18,14 +18,8 @@ dependencies:
     - node.type.utexas_flex_page
   module:
     - entity_reference_revisions
-    - field_layout
-    - layout_discovery
     - text
     - user
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page

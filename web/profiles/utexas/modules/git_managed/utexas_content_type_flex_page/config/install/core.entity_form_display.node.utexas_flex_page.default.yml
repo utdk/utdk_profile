@@ -17,15 +17,9 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_b
     - node.type.utexas_flex_page
   module:
-    - field_layout
-    - layout_discovery
     - paragraphs
     - path
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page

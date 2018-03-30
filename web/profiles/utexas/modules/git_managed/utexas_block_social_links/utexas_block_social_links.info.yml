@@ -7,8 +7,6 @@ dependencies:
   - config_update
   - features
   - field
-  - field_layout
-  - layout_discovery
   - text
   - utexas_block_social_links
 version: 8.x-1.0

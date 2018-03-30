@@ -9,15 +9,9 @@ dependencies:
     - paragraphs.paragraphs_type.utexas_promo_list
     - responsive_image.styles.utexas_responsive_image_pl
   module:
-    - field_layout
-    - layout_discovery
     - link
     - responsive_image
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_promo_list.default
 targetEntityType: paragraph
 bundle: utexas_promo_list

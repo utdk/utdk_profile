@@ -6,13 +6,7 @@ dependencies:
     - field.field.paragraph.utexas_promo_unit_container.field_utexas_puc_title
     - paragraphs.paragraphs_type.utexas_promo_unit_container
   module:
-    - field_layout
-    - layout_discovery
     - paragraphs
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_promo_unit_container.default
 targetEntityType: paragraph
 bundle: utexas_promo_unit_container

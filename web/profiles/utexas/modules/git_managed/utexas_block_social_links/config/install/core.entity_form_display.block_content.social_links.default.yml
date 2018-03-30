@@ -5,13 +5,7 @@ dependencies:
     - block_content.type.social_links
     - field.field.block_content.social_links.field_utexas_sl_social_links
   module:
-    - field_layout
-    - layout_discovery
     - utexas_block_social_links
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: block_content.social_links.default
 targetEntityType: block_content
 bundle: social_links

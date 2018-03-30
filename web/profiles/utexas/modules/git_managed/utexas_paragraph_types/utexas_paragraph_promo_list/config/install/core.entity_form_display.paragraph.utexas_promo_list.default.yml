@@ -9,15 +9,9 @@ dependencies:
     - image.style.thumbnail
     - paragraphs.paragraphs_type.utexas_promo_list
   module:
-    - field_layout
     - image
-    - layout_discovery
     - link
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_promo_list.default
 targetEntityType: paragraph
 bundle: utexas_promo_list
