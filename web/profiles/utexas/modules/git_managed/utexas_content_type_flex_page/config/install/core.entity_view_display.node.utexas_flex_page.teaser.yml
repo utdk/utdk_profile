@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_resource
     - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_a
     - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_b
+    - field.field.node.utexas_flex_page.layout_builder__layout
     - node.type.utexas_flex_page
   module:
     - user
@@ -41,3 +42,4 @@ hidden:
   field_flex_page_resource: true
   field_flex_page_wysiwyg_a: true
   field_flex_page_wysiwyg_b: true
+  layout_builder__layout: true
