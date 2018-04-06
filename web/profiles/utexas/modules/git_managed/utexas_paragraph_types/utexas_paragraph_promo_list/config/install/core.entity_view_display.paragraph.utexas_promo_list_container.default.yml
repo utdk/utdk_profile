@@ -7,12 +7,6 @@ dependencies:
     - paragraphs.paragraphs_type.utexas_promo_list_container
   module:
     - entity_reference_revisions
-    - field_layout
-    - layout_discovery
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_promo_list_container.default
 targetEntityType: paragraph
 bundle: utexas_promo_list_container

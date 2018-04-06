@@ -45,14 +45,14 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
   ]
 %}
-{% set link = content._field_layout.content.field_utexas_il_link[0]['#plain_text'] %}
+{% set link = content.field_utexas_il_link[0]['#plain_text'] %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
       {% if link %}
-        <a href="{{ link }}">{{ content._field_layout.content.field_utexas_il_image }}</a>
+        <a href="{{ link }}">{{ content.field_utexas_il_image }}</a>
       {% else %}
-        {{ content._field_layout.content.field_utexas_il_image }}
+        {{ content.field_utexas_il_image }}
       {% endif %}
     {% endblock %}
   </div>

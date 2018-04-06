@@ -34,14 +34,14 @@
  *   is an administrator.
  *
  * @see template_preprocess_paragraph()
- * 
+ *
  * Available custom variables:
- * - {{ processed_headline }} : provides the headline text, with link from the call to 
+ * - {{ processed_headline }} : provides the headline text, with link from the call to
  * action, if that URL has been defined. See
  * utexas_paragraph_feat_highlight_preprocess_paragraph__utexas_featured_highlight()
- * - Separate from the other field-level variables "set" below, 
+ * - Separate from the other field-level variables "set" below,
  * if you want to print the raw headline field (no linking behavior), use:
- * {% set headline = content._field_layout.content.field_utexas_fh_headline %}
+ * {% set headline = content.field_utexas_fh_headline %}
  * @ingroup themeable
  */
 #}
@@ -52,10 +52,10 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
   ]
 %}
-{% set cta = content._field_layout.content.field_utexas_fh_cta %}
-{% set copy = content._field_layout.content.field_utexas_fh_copy %}
-{% set date = content._field_layout.content.field_utexas_fh_date %}
-{% set media = content._field_layout.content.field_utexas_fh_media %}
+{% set cta = content.field_utexas_fh_cta %}
+{% set copy = content.field_utexas_fh_copy %}
+{% set date = content.field_utexas_fh_date %}
+{% set media = content.field_utexas_fh_media %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% if media %}

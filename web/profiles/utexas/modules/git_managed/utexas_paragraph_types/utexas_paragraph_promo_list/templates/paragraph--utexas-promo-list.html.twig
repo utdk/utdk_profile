@@ -51,14 +51,12 @@
 %}
 
 {% block paragraph %}
-  {{ title_prefix}}{{title_suffix}}
-  {{ content|without('_field_layout') }}
+  {{ title_prefix}}{{title_suffix }}
   <div{{ attributes.addClass(classes) }}>
-      {{ image }}
-      {% if headline %}
-        <h3>{{ headline }}</h3>
-      {% endif %}
-      {{ copy }}
-    </div>
+    {{ image }}
+    {% if headline %}
+      <h3>{{ headline }}</h3>
+    {% endif %}
+    {{ copy }}
   </div>
 {% endblock paragraph %}

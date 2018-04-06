@@ -7,14 +7,8 @@ dependencies:
     - paragraphs.paragraphs_type.utexas_image_link
     - responsive_image.styles.utexas_responsive_image_il
   module:
-    - field_layout
-    - layout_discovery
     - link
     - responsive_image
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_image_link.default
 targetEntityType: paragraph
 bundle: utexas_image_link

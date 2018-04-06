@@ -12,14 +12,8 @@ dependencies:
     - image.style.thumbnail
     - paragraphs.paragraphs_type.utexas_hero_image
   module:
-    - field_layout
     - image
-    - layout_discovery
     - link
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_hero_image.default
 targetEntityType: paragraph
 bundle: utexas_hero_image

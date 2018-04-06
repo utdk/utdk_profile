@@ -6,13 +6,7 @@ dependencies:
     - field.field.paragraph.utexas_resource_container.field_utexas_rc_title
     - paragraphs.paragraphs_type.utexas_resource_container
   module:
-    - field_layout
-    - layout_discovery
     - paragraphs
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_resource_container.default
 targetEntityType: paragraph
 bundle: utexas_resource_container

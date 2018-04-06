@@ -7,14 +7,8 @@ dependencies:
     - field.field.paragraph.utexas_quick_links.field_utexas_ql_links
     - paragraphs.paragraphs_type.utexas_quick_links
   module:
-    - field_layout
-    - layout_discovery
     - link
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_quick_links.default
 targetEntityType: paragraph
 bundle: utexas_quick_links

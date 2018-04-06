@@ -45,18 +45,18 @@
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
   ]
 %}
-{% set image = content._field_layout.content.field_utexas_pca_image %}
-{% set credit = content._field_layout.content.field_utexas_pca_credit %}
-{% set headline = content._field_layout.content.field_utexas_pca_headline %}
-{% set copy = content._field_layout.content.field_utexas_pca_copy %}
-{% set links = content._field_layout.content.field_utexas_pca_links %}
+{% set image = content.field_utexas_pca_image %}
+{% set credit = content.field_utexas_pca_credit %}
+{% set headline = content.field_utexas_pca_headline %}
+{% set copy = content.field_utexas_pca_copy %}
+{% set links = content.field_utexas_pca_links %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     <figure class="photo-content-area__image">
       {{ image }}
       {% if credit %}
         {{ credit }}
-      {% endif %} 
+      {% endif %}
     </figure>
     {% if headline %}
       {{ headline }}

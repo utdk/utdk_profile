@@ -11,15 +11,9 @@ dependencies:
     - responsive_image.styles.utexas_responsive_image_fh
   module:
     - date_ap_style
-    - field_layout
-    - layout_discovery
     - link
     - responsive_image
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_featured_highlight.default
 targetEntityType: paragraph
 bundle: utexas_featured_highlight

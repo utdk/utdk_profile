@@ -8,14 +8,8 @@ dependencies:
     - paragraphs.paragraphs_type.utexas_resource
     - responsive_image.styles.utexas_responsive_image_resource
   module:
-    - field_layout
-    - layout_discovery
     - link
     - responsive_image
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings: {  }
 id: paragraph.utexas_resource.default
 targetEntityType: paragraph
 bundle: utexas_resource

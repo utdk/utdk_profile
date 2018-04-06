@@ -44,7 +44,6 @@
     "drupal/console": "1.2.0",
     "drupal/core": "8.5.0",
     "drupal/features": "3.5",
-    "drupal/layout_per_node": "1.x",
     "drupal/paragraphs": "1.2",
     "drupal/pathauto": "1.0",
     "drush/drush": "~8",
@@ -107,7 +106,6 @@
         "drupal/date_ap_style",
         "drupal/entity_reference_revisions",
         "drupal/features",
-        "drupal/layout_per_node",
         "drupal/paragraphs",
         "drupal/pathauto",
         "drupal/token"

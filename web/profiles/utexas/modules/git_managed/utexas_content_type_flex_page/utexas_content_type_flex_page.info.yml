@@ -6,8 +6,7 @@ package: UTexas
 dependencies:
   - 'drupal:entity_reference_revisions'
   - 'drupal:field'
-  - 'drupal:field_layout'
-  - 'drupal:layout_discovery'
+  - 'drupal:layout_builder'
   - 'drupal:menu_ui'
   - 'drupal:node'
   - 'drupal:paragraphs'
@@ -15,9 +14,7 @@ dependencies:
   - 'drupal:user'
   - entity_reference_revisions
   - field
-  - field_layout
-  - layout_discovery
-  - 'layout_per_node:layout_per_node'
+  - layout_builder
   - menu_ui
   - node
   - paragraphs
