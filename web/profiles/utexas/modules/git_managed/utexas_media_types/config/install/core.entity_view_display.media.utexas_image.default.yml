@@ -1,0 +1,134 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.utexas_image.field_utexas_media_image
+    - image.style.thumbnail
+    - media.type.utexas_image
+  module:
+    - image
+    - layout_builder
+    - layout_discovery
+    - user
+third_party_settings:
+  layout_builder:
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings: {  }
+        components:
+          1249e4b7-3155-40b6-b61e-1b35cc933f54:
+            uuid: 1249e4b7-3155-40b6-b61e-1b35cc933f54
+            region: content
+            configuration:
+              id: 'field_block:media:utexas_image:bundle'
+              label: 'Media type'
+              provider: layout_builder
+              label_display: '0'
+              formatter:
+                label: inline
+                type: entity_reference_label
+                settings:
+                  link: false
+                third_party_settings: {  }
+              context_mapping:
+                entity: layout_builder.entity
+            additional: {  }
+            weight: 5
+          1ee7d7d3-a422-4a72-9b9e-b22bae35bd11:
+            uuid: 1ee7d7d3-a422-4a72-9b9e-b22bae35bd11
+            region: content
+            configuration:
+              id: 'field_block:media:utexas_image:uid'
+              label: 'Authored by'
+              provider: layout_builder
+              label_display: '0'
+              formatter:
+                label: inline
+                type: entity_reference_label
+                settings:
+                  link: false
+                third_party_settings: {  }
+              context_mapping:
+                entity: layout_builder.entity
+            additional: {  }
+            weight: 6
+          c509edc0-760e-476b-b066-7421ee5e767b:
+            uuid: c509edc0-760e-476b-b066-7421ee5e767b
+            region: content
+            configuration:
+              id: 'field_block:media:utexas_image:created'
+              label: 'Authored on'
+              provider: layout_builder
+              label_display: '0'
+              formatter:
+                label: inline
+                type: timestamp
+                settings:
+                  date_format: medium
+                  custom_date_format: ''
+                  timezone: ''
+                third_party_settings: {  }
+              context_mapping:
+                entity: layout_builder.entity
+            additional: {  }
+            weight: 7
+          48836ba8-9e8f-4e7a-8fbc-59a61b673e44:
+            uuid: 48836ba8-9e8f-4e7a-8fbc-59a61b673e44
+            region: content
+            configuration:
+              id: 'field_block:media:utexas_image:field_utexas_media_image'
+              label_display: ''
+              formatter:
+                label: above
+                settings:
+                  image_style: ''
+                  image_link: ''
+                third_party_settings: {  }
+                type: image
+              context_mapping:
+                entity: layout_builder.entity
+            additional: {  }
+            weight: 4
+id: media.utexas_image.default
+targetEntityType: media
+bundle: utexas_image
+mode: default
+content:
+  created:
+    label: hidden
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_utexas_media_image:
+    weight: 7
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+  thumbnail:
+    type: image
+    weight: 5
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    region: content
+    third_party_settings: {  }
+  uid:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  name: true

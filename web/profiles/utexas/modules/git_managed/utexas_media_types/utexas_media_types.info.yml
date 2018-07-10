@@ -2,4 +2,13 @@ name: 'UTexas Media Types'
 type: module
 description: 'Provides Media Types for use in the UTDK distribution.'
 core: 8.x
-package: 'UTexas'
+package: UTexas
+dependencies:
+  - field
+  - file
+  - image
+  - layout_builder
+  - layout_discovery
+  - media
+  - path
+  - user
