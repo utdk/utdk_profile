@@ -118,3 +118,15 @@ function utexas_block_social_links_preprocess_page(&$variables) {
     $variables['#attached']['library'][] = 'utexas_block_social_links/form';
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_block_social_links_theme($existing, $type, $theme, $path) {
+  return [
+    'field__field_utexas_sl_social_links' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-social-link-field',
+    ],
+  ];
+}
