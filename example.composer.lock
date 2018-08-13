@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab39ee802607b34cccf7273a1947acf1",
+    "content-hash": "0b46eb0ccf5d3af323644a6ee6fa246c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5322,6 +5322,67 @@
             "time": "2017-09-27T18:06:46+00:00"
         },
         {
+            "name": "utexas/forty_acres",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
+                "reference": "c0f7360b07dbe87de8ad5d79383c3fbb635cbc8e"
+            },
+            "require": {
+                "composer/installers": "^1.0.20"
+            },
+            "type": "utexas-theme",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Tyler Fahey",
+                    "email": "twf369@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mark Fullmer",
+                    "email": "jmf3658@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Joe Goodman",
+                    "email": "jfg276@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Paul Grotevant",
+                    "email": "pfg@eid.utexas.edu",
+                    "role": "Manager"
+                },
+                {
+                    "name": "Rick Hastie",
+                    "email": "rh34438@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mike Marsello",
+                    "email": "mjm6289@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Polo Reynaga",
+                    "email": "lar3597@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jana Tate",
+                    "email": "jdt947@eid.utexas.edu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
+            "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
+            "time": "2018-07-26T20:58:55+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.5.1",
             "source": {
@@ -7876,6 +7937,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "utexas/forty_acres": 20,
         "drupal/date_ap_style": 20
     },
     "prefer-stable": true,
