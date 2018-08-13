@@ -36,3 +36,4 @@ dependencies:
 themes:
   - bartik
   - adminimal_theme
+  - forty_acres
