@@ -158,8 +158,9 @@ class SocialLinksTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
-    // Edit /block/1 (the default social links block) and add test network.
-    $this->drupalGet("/block/1");
+    // Edit the default social links block and add test network.
+    $sitewide_social_block_id = $this->drupalGetBlockByInfo('Sitewide Social Media Links')->id();
+    $this->drupalGet("/block/" . $sitewide_social_block_id);
     $edit = [
       'field_utexas_sl_social_links[0][social_account_name]' => 'test',
       'field_utexas_sl_social_links[0][social_account_url]' => "https://testsocial.com",

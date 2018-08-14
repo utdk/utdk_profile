@@ -11,6 +11,8 @@
 
 use Drupal\utexas\Form\ExtensionSelectForm;
 use Drupal\utexas\Form\InstallationComplete;
+use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
 
 /**
  * Implements hook_install_tasks().
@@ -101,6 +103,10 @@ function utexas_install_theme($theme) {
 function utexas_install_demo_content(&$install_state) {
   $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
   if ($create_default_content) {
+
+    // Function call to create footer textarea block below.
+    _utexas_install_footer_content();
+
     $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
     $operations = [];
     // Each of the modules with 'utexas_demo_content' implementations
@@ -148,4 +154,33 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
 function utexas_page_attachments(array &$attachments) {
   // Add details fieldset optimizations to all pages.
   $attachments['#attached']['library'][] = 'utexas/details-fieldset';
+}
+
+/**
+ * Create the footer textarea block and place into a footer region.
+ */
+function _utexas_install_footer_content() {
+  $block = BlockContent::create([
+    'info' => 'UTexas Block Footer Textarea',
+    'type' => 'basic',
+    'langcode' => 'en',
+    'body' => [
+      'value' => 'Powered by UT Drupal Kit',
+      'format' => 'restricted_html',
+    ],
+  ]);
+  $block->save();
+
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => $block->id(),
+    'weight' => 0,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    // @todo - change region below when forty acres theme becomes the default.
+    'region' => 'footer_first',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
+  ]);
+  $placed_block->save();
 }
