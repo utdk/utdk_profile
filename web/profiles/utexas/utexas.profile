@@ -178,7 +178,7 @@ function _utexas_install_footer_content() {
     'theme' => $config->get('default'),
     'status' => TRUE,
     // @todo - change region below when forty acres theme becomes the default.
-    'region' => 'footer_first',
+    'region' => 'footer_left',
     'plugin' => 'block_content:' . $block->uuid(),
     'settings' => [],
   ]);
