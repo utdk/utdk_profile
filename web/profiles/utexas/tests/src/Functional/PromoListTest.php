@@ -91,33 +91,33 @@ class PromoListTest extends BrowserTestBase {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // Add First Promo List Container
+    // Add First Promo List Container.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-add-more-add-more-button-utexas-promo-list-container')->click();
-    // Add the First Promo List Container first Promo List Item
+    // Add the First Promo List Container first Promo List Item.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-0-subform-field-utexas-plc-items-add-more-add-more-button-utexas-promo-list')->click();
-    // Add the First Promo List Container second Promo List Item
+    // Add the First Promo List Container second Promo List Item.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-0-subform-field-utexas-plc-items-add-more-add-more-button-utexas-promo-list')->click();
-    // Second Promo List Container
+    // Second Promo List Container.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-add-more-add-more-button-utexas-promo-list-container')->click();
-    // Add the Second Promo List Container first Promo List Item
+    // Add the Second Promo List Container first Promo List Item.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-1-subform-field-utexas-plc-items-add-more-add-more-button-utexas-promo-list')->click();
-    // Add the Second Promo List Container second Promo List Item
+    // Add the Second Promo List Container second Promo List Item.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-1-subform-field-utexas-plc-items-add-more-add-more-button-utexas-promo-list')->click();
     $edit = [
       'title[0][value]' => 'Promo List Test',
-      // First Promo List Container
+      // First Promo List Container.
       'field_flex_page_pl[0][subform][field_utexas_plc_headline][0][value]' => "Test Title of First Promo List Container",
       // First Container - first Promo List item instance with an external link.
       'files[field_flex_page_pl_0_subform_field_utexas_plc_items_0_subform_field_utexas_pl_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
       'field_flex_page_pl[0][subform][field_utexas_plc_items][0][subform][field_utexas_pl_headline][0][value]' => 'First Container First Item Promo List Headline',
       'field_flex_page_pl[0][subform][field_utexas_plc_items][0][subform][field_utexas_pl_copy][0][value]' => 'First Container First Item Promo List Copy',
       'field_flex_page_pl[0][subform][field_utexas_plc_items][0][subform][field_utexas_pl_link][0][uri]' => 'https://www.tylerfahey.com',
-      // First Container - second Promo List item instance with an internal link.
+      // First Container - second Promo List item instance with internal link.
       'files[field_flex_page_pl_0_subform_field_utexas_plc_items_1_subform_field_utexas_pl_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
       'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_headline][0][value]' => 'First Container Second Item Promo List Headline',
       'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_copy][0][value]' => 'First Container Second Item Promo List Copy',
       'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_link][0][uri]' => '/node/' . $basic_page_id,
-      // Second Promo List Container
+      // Second Promo List Container.
       'field_flex_page_pl[1][subform][field_utexas_plc_headline][0][value]' => "Test Title of Second Promo List Container",
       // Second Container - first Promo List item instance with no link.
       'files[field_flex_page_pl_1_subform_field_utexas_plc_items_0_subform_field_utexas_pl_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
@@ -144,7 +144,7 @@ class PromoListTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     // Verify first Promo List container headline.
     $this->assertRaw('Test Title of First Promo List Container');
-    // Verify first container first instance Promo List item copy, image and headline.
+    // Verify first container first instance PL item copy, image and headline.
     // Link is external, and should be wrapped around image and headline.
     $this->assertRaw('First Container First Item Promo List Copy');
     $this->assertRaw('utexas_image_style_85w_85h/public/promo_list/image-test.png');
@@ -155,7 +155,7 @@ class PromoListTest extends BrowserTestBase {
     $this->assertTrue(strpos($external_anchor_tags[1]->getHtml(), 'First Container First Item Promo List Headline'));
     $this->assertRaw('alt="Alt A Container 1 Item 1"');
 
-    // Verify first container second instance Promo List item copy, image and headline.
+    // Verify first container second instance PL item copy, image and headline.
     // Link is internal, and should be wrapped around image and headline.
     // Return anchor tags selected by href.
     $internal_anchor_tags = $this->getSession()->getPage()->findAll('css', 'a[href="/node/' . $basic_page_id . '"]');
@@ -168,7 +168,7 @@ class PromoListTest extends BrowserTestBase {
     // Verify second Promo List container headline.
     $this->assertRaw('Test Title of Second Promo List Container');
 
-    // Verify second container first instance Promo List item copy, image and headline.
+    // Verify second container first instance PL item copy, image and headline.
     // Link is not present.
     $this->assertRaw('Second Container First Item Promo List Copy');
     $this->assertRaw('utexas_image_style_85w_85h/public/promo_list/image-test.png');
@@ -176,7 +176,7 @@ class PromoListTest extends BrowserTestBase {
     $paragraph_containers = $this->getSession()->getPage()->findAll('css', 'div.paragraph--type--utexas-promo-list-container');
     $this->assertFalse(strpos($paragraph_containers[1]->getHtml(), 'href'));
 
-    // Verify second container second instance Promo List item copy, image and headline.
+    // Verify second container second instance PL item copy, image and headline.
     // Link is not present.
     $this->assertRaw('Second Container Second Item Promo List Copy');
     $this->assertTrue(strpos($paragraph_containers[1]->getHtml(), '<picture>'));
