@@ -148,60 +148,40 @@ class PromoListTest extends BrowserTestBase {
     // Link is external, and should be wrapped around image and headline.
     $this->assertRaw('First Container First Item Promo List Copy');
     $this->assertRaw('utexas_image_style_85w_85h/public/promo_list/image-test.png');
-    $this->assertRaw('<a href="https://www.tylerfahey.com">
-  <div class="field field--name-field-utexas-pl-image field--type-image field--label-above">
-    <div class="field__label">Image</div>'
-    );
+    // Return anchor tag selected by href.
+    $external_anchor_tags = $this->getSession()->getPage()->findAll('css', 'a[href="https://www.tylerfahey.com"]');
+    $this->assertTrue(count($external_anchor_tags) == 2);
+    $this->assertTrue(strpos($external_anchor_tags[0]->getHtml(), '<picture>'));
+    $this->assertTrue(strpos($external_anchor_tags[1]->getHtml(), 'First Container First Item Promo List Headline'));
     $this->assertRaw('alt="Alt A Container 1 Item 1"');
-    $this->assertRaw('<a href="https://www.tylerfahey.com">
-  <div class="field field--name-field-utexas-pl-headline field--type-string field--label-above">
-    <div class="field__label">Headline</div>
-              <div class="field__item">First Container First Item Promo List Headline</div>
-          </div>
-</a>'
-    );
+
     // Verify first container second instance Promo List item copy, image and headline.
     // Link is internal, and should be wrapped around image and headline.
+    // Return anchor tags selected by href.
+    $internal_anchor_tags = $this->getSession()->getPage()->findAll('css', 'a[href="/node/' . $basic_page_id . '"]');
+    $this->assertTrue(count($internal_anchor_tags) == 2);
+    $this->assertTrue(strpos($internal_anchor_tags[0]->getHtml(), '<picture>'));
+    $this->assertTrue(strpos($internal_anchor_tags[1]->getHtml(), 'First Container Second Item Promo List Headline'));
     $this->assertRaw('First Container Second Item Promo List Copy');
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">
-  <div class="field field--name-field-utexas-pl-image field--type-image field--label-above">
-    <div class="field__label">Image</div>');
     $this->assertRaw('alt="Alt B Container 1 Item 2"');
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">
-  <div class="field field--name-field-utexas-pl-headline field--type-string field--label-above">
-    <div class="field__label">Headline</div>
-              <div class="field__item">First Container Second Item Promo List Headline</div>
-          </div>
-</a>');
 
     // Verify second Promo List container headline.
     $this->assertRaw('Test Title of Second Promo List Container');
+
     // Verify second container first instance Promo List item copy, image and headline.
     // Link is not present.
     $this->assertRaw('Second Container First Item Promo List Copy');
     $this->assertRaw('utexas_image_style_85w_85h/public/promo_list/image-test.png');
     $this->assertRaw('alt="Alt A Container 2 Item 1"');
-    $this->assertRaw('<h3>
-  <div class="field field--name-field-utexas-pl-headline field--type-string field--label-above">
-    <div class="field__label">Headline</div>
-              <div class="field__item">Second Container First Item Promo List Headline</div>
-          </div>
-</h3>'
-    );
+    $paragraph_containers = $this->getSession()->getPage()->findAll('css', 'div.paragraph--type--utexas-promo-list-container');
+    $this->assertFalse(strpos($paragraph_containers[1]->getHtml(), 'href'));
+
     // Verify second container second instance Promo List item copy, image and headline.
     // Link is not present.
     $this->assertRaw('Second Container Second Item Promo List Copy');
-    $this->assertRaw('<div class="field field--name-field-utexas-pl-image field--type-image field--label-above">
-    <div class="field__label">Image</div>
-              <div class="field__item">'
-    );
+    $this->assertTrue(strpos($paragraph_containers[1]->getHtml(), '<picture>'));
+    $this->assertTrue(strpos($paragraph_containers[1]->getHtml(), 'Second Container Second Item Promo List Headline'));
     $this->assertRaw('alt="Alt B Container 2 Item 2"');
-    $this->assertRaw('<h3>
-  <div class="field field--name-field-utexas-pl-headline field--type-string field--label-above">
-    <div class="field__label">Headline</div>
-              <div class="field__item">Second Container Second Item Promo List Headline</div>
-          </div>
-</h3>');
     // Sign out!
     $this->drupalLogout();
   }
