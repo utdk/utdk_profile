@@ -3,7 +3,7 @@ status: true
 dependencies:
   theme:
     - forty_acres
-id: pagetitle
+id: page_title
 theme: forty_acres
 region: content
 weight: -2

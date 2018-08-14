@@ -7,7 +7,7 @@ dependencies:
     - system
   theme:
     - forty_acres
-id: mainnavigation
+id: main_navigation
 theme: forty_acres
 region: primary_menu
 weight: 0

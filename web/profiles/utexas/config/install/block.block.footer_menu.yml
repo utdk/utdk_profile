@@ -6,7 +6,7 @@ dependencies:
     - system
   theme:
     - forty_acres
-id: footer
+id: footer_menu
 theme: forty_acres
 region: footer_middle
 weight: 0

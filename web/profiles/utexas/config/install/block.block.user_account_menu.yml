@@ -7,7 +7,7 @@ dependencies:
     - system
   theme:
     - forty_acres
-id: useraccountmenu
+id: user_account_menu
 theme: forty_acres
 region: secondary_menu
 weight: 0

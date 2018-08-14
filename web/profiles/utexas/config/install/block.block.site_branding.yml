@@ -5,7 +5,7 @@ dependencies:
     - system
   theme:
     - forty_acres
-id: sitebranding
+id: site_branding
 theme: forty_acres
 region: header
 weight: 0
