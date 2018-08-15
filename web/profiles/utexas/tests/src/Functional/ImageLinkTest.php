@@ -125,7 +125,7 @@ class ImageLinkTest extends BrowserTestBase {
     $this->assertRaw('alt="Alt A"');
     // 4. Verify Image Link B is present, and that the link is internal.
     $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test_0.png');
-    $this->assertRaw('<a href="/node/' . $basic_page_id);
+    $this->assertRaw('<a href="/test-basic-page');
     $this->assertRaw('alt="Alt B"');
     // Sign out!
     $this->drupalLogout();

@@ -158,7 +158,7 @@ class HeroImageTest extends BrowserTestBase {
     $node = $this->drupalGetNodeByTitle('Hero Image Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Test Internal Link</a>');
+    $this->assertRaw('<a href="/test-basic-page">Test Internal Link</a>');
     $this->assertRaw('<div class="utexas-hero--style-5');
 
     // Sign out!

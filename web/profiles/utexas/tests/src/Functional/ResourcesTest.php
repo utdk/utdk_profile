@@ -128,7 +128,7 @@ class ResourcesTest extends BrowserTestBase {
     // Test external link.
     $this->assertRaw('<a href="https://www.google.com"');
     // Test internal link and addition of multiple links.
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Resource Link 2</a>');
+    $this->assertRaw('<a href="/test-basic-page">Resource Link 2</a>');
 
     // Sign out!
     $this->drupalLogout();

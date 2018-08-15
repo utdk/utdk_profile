@@ -182,10 +182,11 @@ class FlexContentAreaTest extends BrowserTestBase {
       'field_flex_page_fca_a[0][subform][field_utexas_fca_links][1][title]' => 'FCA A Link 2',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_headline][0][value]' => 'FCA A #2 Headline!',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_copy][0][value]' => 'FCA A #2 Copy',
-      'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][uri]' => '/node/' . $basic_page_id,
-      'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][title]' => 'FCA A #2 Link 1',
+      // Test that both the path alias and the internal node id can be used.
+      'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][uri]' => '/test-basic-page',
+      'field_flex_page_fca_a[1][subform][field_utexas_fca_links][0][title]' => 'Link to Basic Page',
       'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][uri]' => '/node/' . $basic_page_id,
-      'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'FCA A #2 CTA',
+      'field_flex_page_fca_a[1][subform][field_utexas_fca_cta][0][title]' => 'CTA to Basic Page',
     ],
     'edit-submit');
 
@@ -196,10 +197,10 @@ class FlexContentAreaTest extends BrowserTestBase {
     // 6. Verify Flex Content A, delta 1, is present.
     $this->assertRaw('FCA A #2 Headline');
     $this->assertRaw('FCA A #2 Copy');
-    // Internal links must be allowed in the Links field.
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">FCA A #2 Link 1</a>');
-    // Internal links must be allowed in the CTA field.
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">FCA A #2 CTA</a>');
+    // Internal links must be allowed in the Links field & display as aliases.
+    $this->assertRaw('<a href="/test-basic-page">Link to Basic Page</a>');
+    // Internal links must be allowed in the CTA field & display as aliases.
+    $this->assertRaw('<a href="/test-basic-page">CTA to Basic Page</a>');
 
     // Sign out!
     $this->drupalLogout();

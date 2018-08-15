@@ -142,7 +142,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
 
     $this->drupalGet('node/' . $node->id());
     // 7. Verify link, delta 1, is present, and is an internal link.
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '">Internal Link</a>');
+    $this->assertRaw('<a href="/test-basic-page">Internal Link</a>');
 
     // Sign out!
     $this->drupalLogout();
