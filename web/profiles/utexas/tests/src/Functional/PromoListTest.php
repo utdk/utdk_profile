@@ -158,7 +158,7 @@ class PromoListTest extends BrowserTestBase {
     // Verify first container second instance PL item copy, image and headline.
     // Link is internal, and should be wrapped around image and headline.
     // Return anchor tags selected by href.
-    $internal_anchor_tags = $this->getSession()->getPage()->findAll('css', 'a[href="/node/' . $basic_page_id . '"]');
+    $internal_anchor_tags = $this->getSession()->getPage()->findAll('css', 'a[href="/test-basic-page"]');
     $this->assertTrue(count($internal_anchor_tags) == 2);
     $this->assertTrue(strpos($internal_anchor_tags[0]->getHtml(), '<picture>'));
     $this->assertTrue(strpos($internal_anchor_tags[1]->getHtml(), 'First Container Second Item Promo List Headline'));
