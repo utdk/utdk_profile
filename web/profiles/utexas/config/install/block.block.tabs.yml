@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - bartik
-id: bartik_local_tasks
-theme: bartik
-region: content
-weight: -40
+    - forty_acres
+id: tabs
+theme: forty_acres
+region: highlighted
+weight: 0
 provider: null
 plugin: local_tasks_block
 settings:

@@ -32,6 +32,10 @@
     {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "vcs",
+      "url":  "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git"
     }
   ],
   "require": {
@@ -47,6 +51,7 @@
     "drupal/paragraphs": "1.2",
     "drupal/pathauto": "1.0",
     "drush/drush": "~8",
+    "utexas/forty_acres": "dev-master",
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
     "webflo/drupal-core-strict": "8.5.0",
@@ -114,7 +119,9 @@
       "web/profiles/utexas/themes/composer_managed/contrib/{$name}": [
         "drupal/adminimal_theme"
       ],
-      "web/profiles/utexas/themes/composer_managed/custom/{$name}": ["type:utexas-theme"],
+      "web/profiles/utexas/themes/composer_managed/custom/{$name}": [
+        "utexas/forty_acres"
+      ],
       "drush/contrib/{$name}": ["type:drupal-drush"]
     },
     "build-env": {

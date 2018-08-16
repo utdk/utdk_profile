@@ -64,7 +64,7 @@ function utexas_install_batch_processing(&$install_state) {
   }
 
   // Add theme installation options to batch.
-  $operations[] = ['utexas_install_theme', ['bartik']];
+  $operations[] = ['utexas_install_theme', ['forty_acres']];
 
   $batch = [
     'title' => t('Adding UTexas flavors...'),
@@ -178,7 +178,7 @@ function _utexas_install_footer_content() {
     'theme' => $config->get('default'),
     'status' => TRUE,
     // @todo - change region below when forty acres theme becomes the default.
-    'region' => 'footer_first',
+    'region' => 'footer_left',
     'plugin' => 'block_content:' . $block->uuid(),
     'settings' => [],
   ]);

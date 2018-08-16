@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - bartik
-id: bartik_page_title
-theme: bartik
+    - forty_acres
+id: page_title
+theme: forty_acres
 region: content
-weight: -50
+weight: -2
 provider: null
 plugin: page_title_block
 settings:

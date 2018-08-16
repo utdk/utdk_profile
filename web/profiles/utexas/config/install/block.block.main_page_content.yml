@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - bartik
-id: bartik_content
-theme: bartik
+    - forty_acres
+id: main_page_content
+theme: forty_acres
 region: content
 weight: 0
 provider: null

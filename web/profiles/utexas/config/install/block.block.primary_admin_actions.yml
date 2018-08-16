@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - bartik
-id: bartik_local_actions
-theme: bartik
-region: content
-weight: -20
+    - forty_acres
+id: primary_admin_actions
+theme: forty_acres
+region: highlighted
+weight: 0
 provider: null
 plugin: local_actions_block
 settings:

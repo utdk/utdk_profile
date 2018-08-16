@@ -31,10 +31,11 @@ function utexas_install() {
     ->getEditable('user.settings')
     ->set('register', USER_REGISTER_ADMINISTRATORS_ONLY)
     ->save(TRUE);
-  // Set the admin theme.
+  // Set the admin and default theme.
   \Drupal::configFactory()
     ->getEditable('system.theme')
     ->set('admin', 'adminimal_theme')
+    ->set('default', 'forty_acres')
     ->save(TRUE);
   \Drupal::configFactory()
     ->getEditable('node.settings')

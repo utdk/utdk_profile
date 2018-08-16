@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - bartik
-id: bartik_branding
-theme: bartik
+    - forty_acres
+id: site_branding
+theme: forty_acres
 region: header
 weight: 0
 provider: null
@@ -17,6 +17,6 @@ settings:
   provider: system
   label_display: '0'
   use_site_logo: true
-  use_site_name: true
-  use_site_slogan: true
+  use_site_name: false
+  use_site_slogan: false
 visibility: {  }

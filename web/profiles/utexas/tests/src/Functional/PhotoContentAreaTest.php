@@ -128,7 +128,8 @@ class PhotoContentAreaTest extends BrowserTestBase {
     $this->assertRaw('Copy Value');
     $this->assertRaw('<a href="https://example.com">External Link</a>');
     // 6. Verify an image is present.
-    $this->assertRaw('<div class="field field--name-field-utexas-pca-image field--type-image');
+    $picture_tag = $this->getSession()->getPage()->find('css', 'picture')->getHtml();
+    $this->assertTrue(strpos($picture_tag, 'photo_content_area/image-test'));
 
     // Edit the node to add a second photo content area link.
     $this->drupalGet('node/' . $node->id() . '/edit');

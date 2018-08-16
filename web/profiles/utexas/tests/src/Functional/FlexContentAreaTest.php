@@ -154,13 +154,22 @@ class FlexContentAreaTest extends BrowserTestBase {
     $this->assertRaw('<a href="https://markfullmer.com">FCA A Link 1</a>');
     // External links must be allowed in the CTA field.
     $this->assertRaw('<a href="https://pantheon.io">FCA A CTA</a>');
+    // Return all picture tags.
+    $picture_tags = $this->getSession()->getPage()->findAll('css', 'picture');
+    // Verify there are two picture tags created by the test.
+    $this->assertTrue(count($picture_tags) == 2);
+    // Verify first picture tag contains correct filename.
+    $image1 = $picture_tags[0]->getHtml();
+    $this->assertTrue(strpos($image1, 'flex_content_area/image-test'));
 
     // 4. Verify Flex Content B is present.
     $this->assertRaw('FCA B Headline');
     $this->assertRaw('FCA B Copy');
     $this->assertRaw('<a href="https://markfullmer.com">FCA B Link 1</a>');
     $this->assertRaw('<a href="https://pantheon.io">FCA B CTA</a>');
-    $this->assertRaw('<div class="field field--name-field-utexas-fca-image field--type-image field--label-above">');
+    // Verify second picture tag contains correct filename.
+    $image2 = $picture_tags[1]->getHtml();
+    $this->assertTrue(strpos($image2, 'flex_content_area/image-test'));
 
     // Edit the node to add a second FCA instance and link.
     $this->drupalGet('node/' . $node->id() . '/edit');
