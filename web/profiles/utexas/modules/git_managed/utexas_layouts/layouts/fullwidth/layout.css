@@ -1,0 +1,13 @@
+/*
+ * @file
+ * Provides the layout styles for utexas_fullwidth.
+ */
+
+.layout--utexas-fullwidth--container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.layout--utexas-fullwidth--container > .layout__region {
+    flex: 0 1 100%;
+}

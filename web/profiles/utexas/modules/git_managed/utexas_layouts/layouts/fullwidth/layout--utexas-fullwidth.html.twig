@@ -1,0 +1,29 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a full-width layout.
+ *
+ * Available variables:
+ * - content: The content for this layout.
+ * - attributes: HTML attributes for the layout <div>.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+set classes = [
+'layout',
+'layout--fullwidth',
+]
+%}
+{% if content %}
+    <div{{ attributes.addClass(classes) }}>
+        <div class="layout--fullwidth--container container">
+        {% if content.main %}
+            <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
+                {{ content.main }}
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endif %}

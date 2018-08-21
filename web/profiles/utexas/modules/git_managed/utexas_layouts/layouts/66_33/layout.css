@@ -1,0 +1,28 @@
+/*
+ * @file
+ * Provides the layout styles for utexas_66_33.
+ */
+
+.layout--utexas-66-33--container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.layout--utexas-66-33--container > .layout__region {
+    flex: 0 1 100%;
+}
+
+@media screen and (min-width: 40em) {
+    .layout--utexas-66-33--container > .layout__region--main {
+        flex: 0 1 calc(66% - 1em);
+        min-width: calc(66% - 1em);
+        max-width: calc(66% - 1em);
+        margin-right: 1em;
+    }
+    .layout--utexas-66-33--container > .layout__region--sidebar {
+        flex: 0 1 calc(34% - 1em);
+        min-width: calc(34% - 1em);
+        max-width: calc(34% - 1em);
+        margin-left: 1em;
+    }
+}

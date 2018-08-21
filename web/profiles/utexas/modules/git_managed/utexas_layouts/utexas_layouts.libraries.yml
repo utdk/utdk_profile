@@ -1,0 +1,10 @@
+utexas_fullwidth:
+  version: 1.0
+  css:
+    theme:
+      layouts/fullwidth/layout.css: {}
+utexas_66_33:
+  version: 1.0
+  css:
+    theme:
+      layouts/66_33/layout.css: {}

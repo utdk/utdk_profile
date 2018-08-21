@@ -1,0 +1,26 @@
+layout_utexas_fullwidth:
+  label: 'Full width'
+  path: layouts/fullwidth
+  template: layout--utexas-fullwidth
+  library: utexas_layouts/utexas_fullwidth
+  category: 'Columns: 1'
+  default_region: main
+  icon_map:
+    - [main]
+  regions:
+    main:
+      label: 'Main Content'
+layout_utexas_66_33:
+  label: 'Right sidebar'
+  path: layouts/66_33
+  template: layout--utexas-66-33
+  library: utexas_layouts/utexas_66_33
+  category: 'Columns: 2'
+  default_region: main
+  icon_map:
+    - [main, main, sidebar]
+  regions:
+    main:
+      label: 'Main Content'
+    sidebar:
+      label: 'Sidebar'
