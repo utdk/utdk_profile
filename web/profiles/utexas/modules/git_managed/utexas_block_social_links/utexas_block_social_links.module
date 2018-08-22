@@ -90,8 +90,8 @@ function utexas_block_social_links_utexas_demo_content() {
   $block->save();
 
   $config = \Drupal::config('system.theme');
-  $placed_block = Block::create([
-    'id' => $block->id(),
+  $header_block = Block::create([
+    'id' => 'header_sitewide_social_links',
     'weight' => 0,
     'theme' => $config->get('default'),
     'status' => TRUE,
@@ -99,7 +99,17 @@ function utexas_block_social_links_utexas_demo_content() {
     'plugin' => 'block_content:' . $block->uuid(),
     'settings' => [],
   ]);
-  $placed_block->save();
+  $header_block->save();
+  $footer_block = Block::create([
+    'id' => 'footer_sitewide_social_links',
+    'weight' => 0,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'footer_left',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
+  ]);
+  $footer_block->save();
 }
 
 /**
