@@ -10,6 +10,20 @@ layout_utexas_fullwidth:
   regions:
     main:
       label: 'Main Content'
+layout_utexas_50_50:
+  label: 'Two columns'
+  path: layouts/50_50
+  template: layout--utexas-50-50
+  library: utexas_layouts/utexas_50_50
+  category: 'Columns: 2'
+  default_region: left
+  icon_map:
+    - [left, right]
+  regions:
+    left:
+      label: 'Left'
+    right:
+      label: 'Right'
 layout_utexas_66_33:
   label: 'Right sidebar'
   path: layouts/66_33

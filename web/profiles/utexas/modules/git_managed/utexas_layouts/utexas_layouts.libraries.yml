@@ -3,6 +3,11 @@ utexas_fullwidth:
   css:
     theme:
       layouts/fullwidth/layout.css: {}
+utexas_50_50:
+  version: 1.0
+  css:
+    theme:
+      layouts/50_50/layout.css: {}
 utexas_66_33:
   version: 1.0
   css:

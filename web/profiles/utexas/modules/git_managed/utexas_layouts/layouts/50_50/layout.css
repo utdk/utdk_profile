@@ -1,0 +1,31 @@
+/*
+ * @file
+ * Provides the layout styles for utexas_50_50.
+ */
+
+.layout--utexas-50-50--container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.layout--utexas-50-50--container > .layout__region {
+    flex: 0 1 100%;
+}
+
+@media screen and (min-width: 40em) {
+    .layout--utexas-50-50--container > .layout__region--left,
+    .layout--utexas-50-50--container > .layout__region--right {
+        flex: 0 1 calc(50% - 1em);
+        min-width: calc(50% - 1em);
+        max-width: calc(50% - 1em);
+    }
+
+    .layout--utexas-50-50--container > .layout__region--left {
+        margin-right: 1em;
+    }
+
+    .layout--utexas-50-50--container > .layout__region--right {
+        margin-left: 1em;
+    }
+
+}
