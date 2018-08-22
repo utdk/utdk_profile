@@ -5,15 +5,15 @@ dependencies:
     - system
   theme:
     - forty_acres
-id: site_branding
+id: site_branding_footer
 theme: forty_acres
-region: header
+region: footer_left
 weight: 0
 provider: null
 plugin: system_branding_block
 settings:
   id: system_branding_block
-  label: 'Site branding'
+  label: 'Site branding (Footer)'
   provider: system
   label_display: '0'
   use_site_logo: true
