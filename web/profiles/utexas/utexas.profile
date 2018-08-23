@@ -13,6 +13,7 @@ use Drupal\utexas\Form\ExtensionSelectForm;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 
 /**
  * Implements hook_install_tasks().
@@ -107,6 +108,9 @@ function utexas_install_demo_content(&$install_state) {
     // Function call to create footer textarea block below.
     _utexas_install_footer_content();
 
+    // Function call to create header menu block.
+    _utexas_install_header_menu_content();
+
     $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
     $operations = [];
     // Each of the modules with 'utexas_demo_content' implementations
@@ -177,10 +181,25 @@ function _utexas_install_footer_content() {
     'weight' => 0,
     'theme' => $config->get('default'),
     'status' => TRUE,
-    // @todo - change region below when forty acres theme becomes the default.
     'region' => 'footer_left',
     'plugin' => 'block_content:' . $block->uuid(),
     'settings' => [],
   ]);
   $placed_block->save();
+}
+
+/**
+ * Populate with links and place into header region.
+ */
+function _utexas_install_header_menu_content() {
+  // Populate header menu links.
+  for ($i = 1; $i < 4; $i++) {
+    $link = MenuLinkContent::create([
+      'title'      => 'Header Link ' . $i,
+      'link'       => ['uri' => 'internal:/'],
+      'menu_name'  => 'header_menu',
+      'weight'     => $i,
+    ]);
+    $link->save();
+  }
 }

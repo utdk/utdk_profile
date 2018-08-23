@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.header_menu
+  module:
+    - system
+  theme:
+    - forty_acres
+id: header_menu
+theme: forty_acres
+region: header
+weight: 0
+provider: null
+plugin: 'system_menu_block:header_menu'
+settings:
+  id: 'system_menu_block:header_menu'
+  label: 'Header Menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility: {  }
