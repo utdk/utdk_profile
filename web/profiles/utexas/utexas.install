@@ -5,6 +5,8 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
 /**
  * Implements hook_preprocess_install_page().
  */
@@ -52,4 +54,15 @@ function utexas_install() {
     ->getEditable('system.site')
     ->set('default_langcode', 'en')
     ->save(TRUE);
+
+  // Add footer menu links.
+  for ($i = 1; $i < 6; $i++) {
+    $link = MenuLinkContent::create([
+      'title'      => 'Footer Link ' . $i,
+      'link'       => ['uri' => 'internal:/'],
+      'menu_name'  => 'footer',
+      'weight'     => $i,
+    ]);
+    $link->save();
+  }
 }
