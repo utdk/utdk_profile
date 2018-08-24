@@ -1,0 +1,13 @@
+name: 'UTexas Call to Action'
+description: 'Provides a custom block type with a formatted link field.'
+type: module
+core: 8.x
+dependencies:
+  - block_content
+  - field
+  - layout_builder
+  - layout_discovery
+  - link
+  - text
+version: 8.x-1.0
+package: UTexas
