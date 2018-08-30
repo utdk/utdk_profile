@@ -35,6 +35,7 @@ dependencies:
   # Custom
   - utexas_text_format_flex_html
   - utexas_call_to_action
+  - utexas_block_required_links
   - utexas_layouts
 themes:
   - bartik

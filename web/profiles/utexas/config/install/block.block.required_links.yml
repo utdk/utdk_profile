@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - utexas_block_required_links
+  theme:
+    - forty_acres
+id: required_links_block
+theme: forty_acres
+region: footer_right
+weight: 0
+provider: null
+plugin: required_links_block
+settings:
+  id: required_links_block
+  label: 'Required Links Block'
+  provider: utexas_block_required_links
+  label_display: '0'
+visibility: {  }
