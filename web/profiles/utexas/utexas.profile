@@ -105,11 +105,11 @@ function utexas_install_demo_content(&$install_state) {
   $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
   if ($create_default_content) {
 
-    // Function call to create footer textarea block below.
+    // Function call to create footer demo content.
     _utexas_install_footer_content();
 
-    // Function call to create header menu block.
-    _utexas_install_header_menu_content();
+    // Function call to create header demo content.
+    _utexas_install_header_content();
 
     $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
     $operations = [];
@@ -161,9 +161,10 @@ function utexas_page_attachments(array &$attachments) {
 }
 
 /**
- * Create the footer textarea block and place into a footer region.
+ * Populate footer regions with demo content.
  */
 function _utexas_install_footer_content() {
+  // Create block with textarea in Left Footer region.
   $block = BlockContent::create([
     'info' => 'UTexas Block Footer Textarea',
     'type' => 'basic',
@@ -186,12 +187,43 @@ function _utexas_install_footer_content() {
     'settings' => [],
   ]);
   $placed_block->save();
+
+  // Create CTA block and place in Right Footer region.
+  $block = BlockContent::create([
+    'info' => 'Footer Call to Action',
+    'type' => 'call_to_action',
+    'langcode' => 'en',
+    'field_utexas_call_to_action_link' => [
+      'uri' => 'https://utexas.edu',
+      'title' => 'Call to Action',
+    ],
+  ]);
+  $block->save();
+
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => 'footer_cta_block',
+    'weight' => 0,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'footer_right',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [
+      'label' => 'Footer Call to Action',
+      'provider' => 'block_content',
+      'label_display' => '0',
+      'status' => TRUE,
+      'info' => '',
+      'view_mode' => 'full',
+    ],
+  ]);
+  $placed_block->save();
 }
 
 /**
- * Populate with links and place into header region.
+ * Populate header regions with demo content.
  */
-function _utexas_install_header_menu_content() {
+function _utexas_install_header_content() {
   // Populate header menu links.
   for ($i = 1; $i < 4; $i++) {
     $link = MenuLinkContent::create([
