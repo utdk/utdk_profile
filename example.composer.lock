@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "81ed8fd5916f3d7188d587d1c6c1b96d",
+    "content-hash": "0b05e1101f7081047fc128c3b79a88d7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2085,11 +2085,14 @@
                 },
                 "drupal": {
                     "version": "8.x-3.5",
-                    "datestamp": "1488908583",
+                    "datestamp": "1519703584",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
                     }
+                },
+                "patches_applied": {
+                    "Class declaration needs to be uppercased": "https://www.drupal.org/files/issues/2018-08-15/2992790-drupal-component-namespace-case.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",

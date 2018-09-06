@@ -101,6 +101,10 @@
     "patches": {
       "drupal/core": {
         "Fix for margin on form-items in table rows": "https://www.drupal.org/files/issues/margin-on-form-items-in-table-rows-2675464.patch"
+      },
+      "drupal/features": {
+        "Class declaration needs to be uppercased":
+        "https://www.drupal.org/files/issues/2018-08-15/2992790-drupal-component-namespace-case.patch"
       }
     },
     "installer-types": ["utexas-module", "utexas-theme"],
