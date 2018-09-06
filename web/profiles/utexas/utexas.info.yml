@@ -37,6 +37,7 @@ dependencies:
   - utexas_call_to_action
   - utexas_block_required_links
   - utexas_layouts
+install: []
 themes:
   - bartik
   - adminimal_theme
