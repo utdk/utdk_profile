@@ -6,3 +6,4 @@ package: UTexas
 dependencies:
   - image
   - responsive_image
+  - utexas_image_styles
