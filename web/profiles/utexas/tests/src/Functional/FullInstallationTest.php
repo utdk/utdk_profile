@@ -2,7 +2,7 @@
 
 namespace Drupal\Tests\utexas\Functional;
 
-use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @group utexas
  */
-class FullInstallationTest extends WebTestBase {
+class FullInstallationTest extends BrowserTestBase {
   use InstallTestTrait;
 
   /**
