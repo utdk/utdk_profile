@@ -12,16 +12,8 @@ dependencies:
   - 'drupal:node'
   - 'drupal:paragraphs'
   - 'drupal:path'
+  - 'drupal:text'
   - 'drupal:user'
-  - entity_reference_revisions
-  - field
-  - layout_builder
-  - menu_ui
-  - node
-  - paragraphs
-  - path
-  - text
-  - user
   - utexas_paragraph_featured_highlight
   - utexas_paragraph_flex_content_area
   - 'utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area'
