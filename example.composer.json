@@ -46,7 +46,7 @@
     "drupal/adminimal_admin_toolbar":"1.5",
     "drupal/adminimal_theme":"1.3",
     "drupal/console": "1.2.0",
-    "drupal/core": "8.5.0",
+    "drupal/core": "8.6.0",
     "drupal/features": "3.5",
     "drupal/paragraphs": "1.2",
     "drupal/pathauto": "1.0",
@@ -54,7 +54,7 @@
     "utexas/forty_acres": "dev-master",
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
-    "webflo/drupal-core-strict": "8.5.0",
+    "webflo/drupal-core-strict": "8.6.0",
     "drupal/date_ap_style": "1.x-dev"
   },
   "require-dev": {
@@ -67,8 +67,11 @@
     "jcalderonzumba/mink-phantomjs-driver": "^0.3.1",
     "drupal/drupal-extension": "^3.1",
     "drush-ops/behat-drush-endpoint": "^0.0.4",
-    "phpunit/phpunit": "^4.8",
-    "symfony/css-selector": "^2.8"
+    "phpunit/phpunit": "^4.8.35 || ^6.5",
+    "phpspec/prophecy": "^1.4",
+    "symfony/css-selector": "^3.4.0",
+    "symfony/phpunit-bridge": "^3.4.3",
+    "symfony/debug": "^3.4.0"
   },
   "conflict": {
     "drupal/drupal": "*"
