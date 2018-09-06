@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "f76371cda7e573d6c016efedffa47cd8",
+=======
+    "content-hash": "81245cb7b893e0961981d87df08b457c",
+>>>>>>> 3b3ad1c32... Integrate layout_builder_restrictions into flex_page content type
     "packages": [
         {
             "name": "alchemy/zippy",

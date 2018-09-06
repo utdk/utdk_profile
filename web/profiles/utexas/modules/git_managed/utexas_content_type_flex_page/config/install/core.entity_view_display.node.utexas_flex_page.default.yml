@@ -1,3 +1,4 @@
+uuid: c4e39e94-8197-4986-ba9e-cbc290a8d81c
 langcode: en
 status: true
 dependencies:
@@ -20,11 +21,274 @@ dependencies:
   module:
     - entity_reference_revisions
     - layout_builder
+    - layout_builder_restrictions
+    - layout_discovery
     - text
     - user
 third_party_settings:
   layout_builder:
     allow_custom: true
+    enabled: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings: {  }
+        components:
+          635aca94-9633-4a13-8bdf-ed1c703fd0c7:
+            uuid: 635aca94-9633-4a13-8bdf-ed1c703fd0c7
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'extra_field_block:node:utexas_flex_page:links'
+            additional: {  }
+            weight: 0
+          dc54b5f2-fbab-4c5d-bd3b-f2bb721e5258:
+            uuid: dc54b5f2-fbab-4c5d-bd3b-f2bb721e5258
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_fh'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 1
+          c3687cc7-fc91-47fa-99ae-62b39c4e0b59:
+            uuid: c3687cc7-fc91-47fa-99ae-62b39c4e0b59
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_fca_a'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 2
+          4ca678b9-8741-4318-8ab4-1777c24a5bc9:
+            uuid: 4ca678b9-8741-4318-8ab4-1777c24a5bc9
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_fca_b'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 3
+          d714f196-82ac-4b5c-ad1a-bbec85999a75:
+            uuid: d714f196-82ac-4b5c-ad1a-bbec85999a75
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_hi'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: above
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 4
+          44030133-5181-4279-80be-f5740e666bbf:
+            uuid: 44030133-5181-4279-80be-f5740e666bbf
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_il_a'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 5
+          a0a2644c-cd14-4f6b-a766-e8a61e7d8b9a:
+            uuid: a0a2644c-cd14-4f6b-a766-e8a61e7d8b9a
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_il_b'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 6
+          3d710fd8-89c1-4b3f-93a9-c05a0323bb69:
+            uuid: 3d710fd8-89c1-4b3f-93a9-c05a0323bb69
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_pca'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 7
+          8e171d1d-6646-44d8-ac4f-196404f60e97:
+            uuid: 8e171d1d-6646-44d8-ac4f-196404f60e97
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_pl'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: above
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 8
+          6d94038e-b77c-4938-aa10-56a8349805c0:
+            uuid: 6d94038e-b77c-4938-aa10-56a8349805c0
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_pu'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 9
+          3bd6feaf-795d-4438-bec2-7e0c43cf8cc6:
+            uuid: 3bd6feaf-795d-4438-bec2-7e0c43cf8cc6
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_ql'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 10
+          d213eac0-1d4c-4268-aa92-1d92734842b4:
+            uuid: d213eac0-1d4c-4268-aa92-1d92734842b4
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_resource'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: above
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 11
+          5579e67f-1b49-4348-92dc-8f78ba3de03c:
+            uuid: 5579e67f-1b49-4348-92dc-8f78ba3de03c
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_a'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: text_default
+            additional: {  }
+            weight: 12
+          472e0b04-a1cf-4d9a-931f-8bbd20b2f638:
+            uuid: 472e0b04-a1cf-4d9a-931f-8bbd20b2f638
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_b'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: text_default
+            additional: {  }
+            weight: 13
+  layout_builder_restrictions:
+    allowed_blocks:
+      'Chaos tools': {  }
+      Content:
+        - 'field_block:node:utexas_flex_page:field_flex_page_fh'
+        - 'field_block:node:utexas_flex_page:field_flex_page_fca_a'
+        - 'field_block:node:utexas_flex_page:field_flex_page_fca_b'
+        - 'field_block:node:utexas_flex_page:field_flex_page_hi'
+        - 'field_block:node:utexas_flex_page:field_flex_page_il_a'
+        - 'field_block:node:utexas_flex_page:field_flex_page_il_b'
+        - 'field_block:node:utexas_flex_page:field_flex_page_pca'
+        - 'field_block:node:utexas_flex_page:field_flex_page_pl'
+        - 'field_block:node:utexas_flex_page:field_flex_page_pu'
+        - 'field_block:node:utexas_flex_page:field_flex_page_ql'
+        - 'field_block:node:utexas_flex_page:field_flex_page_resource'
+        - 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_a'
+        - 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_b'
+      core: {  }
+      Forms: {  }
+      System: {  }
+      User: {  }
+      'UTexas Required Links': {  }
+    allowed_layouts:
+      - layout_utexas_fullwidth
+      - layout_utexas_50_50
+      - layout_utexas_66_33
+_core:
+  default_config_hash: CeJ7ZsOgitVMWoqUo3EjLMsRG2nGz-xeEaOYMqa6G1Q
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page
