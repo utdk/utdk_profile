@@ -234,4 +234,37 @@ function _utexas_install_header_content() {
     ]);
     $link->save();
   }
+
+  // Populate main menu links.
+  $menu_link_titles = [
+    'Undergraduate Program',
+    'Graduate Program',
+    'Course Directory',
+    'News',
+    'Events',
+    'About',
+  ];
+  for ($i = 0; $i < 6; $i++) {
+    $link = MenuLinkContent::create([
+      'title'      => $menu_link_titles[$i],
+      'link'       => ['uri' => 'internal:/'],
+      'menu_name'  => 'main',
+      'weight'     => $i,
+      'expanded'   => TRUE,
+    ]);
+    $link->save();
+    $active_link = $link;
+    for ($j = 0; $j < 4; $j++) {
+      $mid = $active_link->getPluginId();
+      $link = MenuLinkContent::create([
+        'title'      => 'Lorem Ipsum',
+        'link'       => ['uri' => 'internal:/'],
+        'menu_name'  => 'main',
+        'weight'     => 2,
+        'parent'     => $mid,
+      ]);
+      $link->save();
+    }
+  }
+
 }
