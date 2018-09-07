@@ -1,10 +1,11 @@
 .block__ut-social-links--items {
   display: flex;
+  flex-wrap: wrap;
 }
 .block__ut-social-links--items svg {
   width: 40px;
   height: auto;
 }
-.block__ut-social-links--items > div + div {
-  margin-left: 5px;
+.block__ut-social-links--items > div {
+  margin-right: 5px;
 }

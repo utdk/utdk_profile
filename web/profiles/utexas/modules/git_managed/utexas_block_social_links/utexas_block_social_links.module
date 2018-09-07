@@ -102,7 +102,7 @@ function utexas_block_social_links_utexas_demo_content() {
   $header_block->save();
   $footer_block = Block::create([
     'id' => 'footer_sitewide_social_links',
-    'weight' => 0,
+    'weight' => 2,
     'theme' => $config->get('default'),
     'status' => TRUE,
     'region' => 'footer_left',

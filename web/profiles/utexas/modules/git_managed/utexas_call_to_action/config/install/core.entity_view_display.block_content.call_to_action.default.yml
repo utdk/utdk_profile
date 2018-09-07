@@ -22,7 +22,7 @@ third_party_settings:
               id: 'field_block:block_content:call_to_action:field_utexas_call_to_action_link'
               label_display: ''
               formatter:
-                label: above
+                label: hidden
                 settings:
                   trim_length: 80
                   url_only: false

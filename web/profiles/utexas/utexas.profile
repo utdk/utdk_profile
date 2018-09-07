@@ -170,8 +170,8 @@ function _utexas_install_footer_content() {
     'type' => 'basic',
     'langcode' => 'en',
     'body' => [
-      'value' => 'Powered by UT Drupal Kit',
-      'format' => 'restricted_html',
+      'value' => '<p class="footer-textarea">Powered by UT Drupal Kit</p>',
+      'format' => 'flex_html',
     ],
   ]);
   $block->save();
