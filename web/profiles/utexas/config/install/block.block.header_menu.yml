@@ -9,7 +9,7 @@ dependencies:
     - forty_acres
 id: header_menu
 theme: forty_acres
-region: header
+region: header_secondary
 weight: 0
 provider: null
 plugin: 'system_menu_block:header_menu'

@@ -7,7 +7,7 @@ dependencies:
     - forty_acres
 id: site_branding_header
 theme: forty_acres
-region: header
+region: header_primary
 weight: 0
 provider: null
 plugin: system_branding_block
