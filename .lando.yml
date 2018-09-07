@@ -1,0 +1,4 @@
+name: utdk8
+recipe: drupal8
+config:
+  webroot: web
