@@ -7,7 +7,7 @@ dependencies:
     - forty_acres
 id: search_form
 theme: forty_acres
-region: header
+region: header_tertiary
 weight: 4
 provider: null
 plugin: search_form_block
