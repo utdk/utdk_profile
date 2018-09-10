@@ -7,7 +7,7 @@ dependencies:
   module:
     - layout_builder
     - layout_discovery
-    - link
+    - utexas_call_to_action
 third_party_settings:
   layout_builder:
     sections:
@@ -42,14 +42,9 @@ mode: default
 content:
   field_utexas_call_to_action_link:
     weight: 2
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
-    type: link
+    type: utexas_call_to_action_formatter
     region: content
 hidden: {  }
