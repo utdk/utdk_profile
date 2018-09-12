@@ -6,6 +6,7 @@
  */
 
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\user\RoleInterface;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -65,4 +66,8 @@ function utexas_install() {
     ]);
     $link->save();
   }
+
+  // Allow all users to use search.
+  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, ['search content']);
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['search content']);
 }
