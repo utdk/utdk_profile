@@ -16,3 +16,5 @@ permissions:
   - 'edit any utexas_flex_page content'
   - 'use text format flex_html'
   - 'use utexas_flex_page layout per node'
+  - 'use advanced search'
+  - 'search content'
