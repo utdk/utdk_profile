@@ -14,6 +14,7 @@ use Drupal\utexas\Form\InstallationComplete;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\user\Entity\Role;
 
 /**
  * Implements hook_install_tasks().
@@ -110,6 +111,9 @@ function utexas_install_demo_content(&$install_state) {
 
     // Function call to create header demo content.
     _utexas_install_header_content();
+
+    // Adjust permissions.
+    _utexas_install_update_permissions();
 
     $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
     $operations = [];
@@ -267,4 +271,20 @@ function _utexas_install_header_content() {
     }
   }
 
+}
+
+/**
+ * Update permissions.
+ */
+function _utexas_install_update_permissions() {
+  $role = [
+    'anonymous',
+    'authenticated',
+  ];
+  foreach ($role as $key => $value) {
+    $role = Role::load($value);
+    $role->grantPermission('search content');
+    $role->grantPermission('use advanced search');
+    $role->save();
+  }
 }
