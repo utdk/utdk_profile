@@ -18,3 +18,4 @@ permissions:
   - 'use utexas_flex_page layout per node'
   - 'use advanced search'
   - 'search content'
+  - 'view the administration theme'

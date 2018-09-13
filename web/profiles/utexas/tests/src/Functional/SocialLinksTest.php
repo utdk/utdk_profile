@@ -41,7 +41,7 @@ class SocialLinksTest extends BrowserTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->drupalLogin($this->drupalCreateUser(['administer social links data config', 'administer blocks']));
+    $this->drupalLogin($this->drupalCreateUser(['administer social links data config', 'administer blocks', 'view the administration theme']));
   }
 
   /**
