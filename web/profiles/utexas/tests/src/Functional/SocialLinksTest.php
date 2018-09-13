@@ -41,7 +41,11 @@ class SocialLinksTest extends BrowserTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->drupalLogin($this->drupalCreateUser(['administer social links data config', 'administer blocks', 'view the administration theme']));
+    $this->drupalLogin($this->drupalCreateUser([
+      'administer social links data config',
+      'administer blocks',
+      'view the administration theme',
+    ]));
   }
 
   /**
@@ -182,14 +186,14 @@ class SocialLinksTest extends BrowserTestBase {
     $svgFile2FileContents = file_get_contents($saved_file->getFileUri());
     $svgFile2Markup = Markup::create($svgFile2FileContents);
 
-    // Edit the existing custom Social Network test network
+    // Edit the existing custom Social Network test network.
     $this->drupalGet('/admin/structure/social-links/test/edit');
     $edit = [
       'files[icon]' => \Drupal::service('file_system')->realpath($saved_file->getFileUri()),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
-    // Go to homepage and confirm test network is rendering with test 2 svg path.
+    // Go to homepage & confirm test network is rendering with test 2 svg path.
     $this->drupalGet("<front>");
     $this->assertRaw($svgFile2Markup);
   }
