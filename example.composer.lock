@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f76371cda7e573d6c016efedffa47cd8",
+    "content-hash": "7225353060cfc8a27d80aaab234c5773",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2134,17 +2134,17 @@
         },
         {
             "name": "drupal/layout_builder_restrictions",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/layout_builder_restrictions",
-                "reference": "8.x-1.1"
+                "reference": "8.x-1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/layout_builder_restrictions-8.x-1.1.zip",
-                "reference": "8.x-1.1",
-                "shasum": "f8fc4a5821eef2bd154b19a46897650a42a4f6f8"
+                "url": "https://ftp.drupal.org/files/projects/layout_builder_restrictions-8.x-1.2.zip",
+                "reference": "8.x-1.2",
+                "shasum": "8ef1d2f93692eb0ef9cd826e54c77f4873f3cfda"
             },
             "require": {
                 "drupal/core": "^8.5.0-rc1"
@@ -2155,8 +2155,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.1",
-                    "datestamp": "1536264480",
+                    "version": "8.x-1.2",
+                    "datestamp": "1536853980",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2177,6 +2177,7 @@
                     "homepage": "https://www.drupal.org/user/2612816"
                 }
             ],
+            "description": "Manage which fields & layouts are available in Layout Builder",
             "homepage": "https://www.drupal.org/project/layout_builder_restrictions",
             "support": {
                 "source": "http://cgit.drupalcode.org/layout_builder_restrictions"
@@ -5387,7 +5388,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "5ecd2aa26665107368df4128337dc0b1dbf6f430"
+                "reference": "20279843112df89fbe680b5cb983ab46b2678cf3"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5440,7 +5441,7 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-09-07T16:03:49+00:00"
+            "time": "2018-09-12T16:18:41+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -5495,6 +5496,11 @@
         {
             "name": "webflo/drupal-core-strict",
             "version": "8.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webflo/drupal-core-strict.git",
+                "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6"
+            },
             "require": {
                 "asm89/stack-cors": "1.2.0",
                 "composer/installers": "v1.5.0",
