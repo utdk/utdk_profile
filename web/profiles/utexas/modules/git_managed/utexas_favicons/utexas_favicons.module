@@ -33,7 +33,7 @@ function utexas_favicons_preprocess_html(&$variables) {
     [
       'size' => '16x16',
       'filename' => 'favicon.ico',
-      'rel' => 'shortcut-icon',
+      'rel' => 'icon',
     ],
     [
       'size' => '32x32',
@@ -69,7 +69,7 @@ function utexas_favicons_preprocess_html(&$variables) {
     $sized_icons = [
       '#tag' => 'link',
       '#attributes' => [
-        'rel' => isset($value['rel']) ? $value['rel'] : 'shortcut icon',
+        'rel' => isset($value['rel']) ? $value['rel'] : 'icon',
         'size' => $value['size'],
         'href' => '/' . $value['filename'],
       ],
