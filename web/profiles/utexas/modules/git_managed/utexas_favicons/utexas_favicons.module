@@ -82,7 +82,7 @@ function utexas_favicons_preprocess_html(&$variables) {
   $favicon = [
     '#tag' => 'link',
     '#attributes' => [
-      'rel' => 'shortcut icon',
+      'rel' => 'icon',
       'href' => '/favicon.ico',
       'type' => 'image/vnd.microsoft.icon',
     ],
