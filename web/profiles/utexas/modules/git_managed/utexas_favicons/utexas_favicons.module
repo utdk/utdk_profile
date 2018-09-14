@@ -1,0 +1,90 @@
+<?php
+
+/**
+ * @file
+ * UTexas Favicons module.
+ *
+ * Adds <link> tags to <head> to register favicon manifest.
+ */
+
+/**
+ * Template preprocessor for theme('html').
+ *
+ * Attaches new metatags for the different favicons and touch icons.
+ *
+ * @see #attached
+ */
+function utexas_favicons_preprocess_html(&$variables) {
+  $manifest = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'manifest',
+      'href' => '/site.webmanifest',
+    ],
+  ];
+  $variables['page']['#attached']['html_head'][] = [$manifest, 'manifest'];
+
+  $icons = [
+    [
+      'rel' => 'apple-touch-icon',
+      'size' => '180x180',
+      'filename' => 'apple-touch-icon.png',
+    ],
+    [
+      'size' => '16x16',
+      'filename' => 'favicon.ico',
+      'rel' => 'shortcut-icon',
+    ],
+    [
+      'size' => '32x32',
+      'filename' => 'favicon-32x32.png',
+    ],
+    [
+      'size' => '48x48',
+      'filename' => 'favicon-48x48.png',
+    ],
+    [
+      'size' => '150x150',
+      'filename' => 'mstile-150x150.png',
+    ],
+    [
+      'size' => '192x192',
+      'filename' => 'android-chrome-192x192.png',
+      'rel' => 'icon',
+    ],
+    [
+      'size' => '512x512',
+      'filename' => 'android-chrome-512x512.png',
+      'rel' => 'icon',
+    ],
+    [
+      'size' => '400x400',
+      'filename' => 'safari-pinned-tab.svg',
+      'color' => '#bf5700',
+      'rel' => 'mask-icon',
+    ],
+  ];
+
+  foreach ($icons as $key => $value) {
+    $sized_icons = [
+      '#tag' => 'link',
+      '#attributes' => [
+        'rel' => isset($value['rel']) ? $value['rel'] : 'shortcut icon',
+        'size' => $value['size'],
+        'href' => '/' . $value['filename'],
+      ],
+    ];
+    if (isset($value['color'])) {
+      $sized_icons['#attributes']['color'] = $value['color'];
+    }
+    $variables['page']['#attached']['html_head'][] = [$sized_icons, $value['size']];
+  }
+  $favicon = [
+    '#tag' => 'link',
+    '#attributes' => [
+      'rel' => 'shortcut icon',
+      'href' => '/favicon.ico',
+    ],
+  ];
+  $variables['page']['#attached']['html_head'][] = [$favicon, 'favicon'];
+}

@@ -37,6 +37,7 @@ dependencies:
   - utexas_text_format_flex_html
   - utexas_call_to_action
   - utexas_block_required_links
+  - utexas_favicons
   - utexas_layouts
 install: []
 themes:
