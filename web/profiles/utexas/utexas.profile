@@ -237,17 +237,18 @@ function _utexas_install_header_content() {
 
   // Populate main menu links.
   $menu_link_titles = [
-    'Undergraduate Program',
-    'Graduate Program',
-    'Course Directory',
-    'News',
-    'Events',
-    'About',
+    'Undergraduate Program' => 'route:<nolink>',
+    'Graduate Program' => 'internal:/',
+    'Course Directory' => 'internal:/',
+    'News' => 'internal:/',
+    'Events' => 'internal:/',
+    'About' => 'internal:/',
   ];
-  for ($i = 0; $i < 6; $i++) {
+  $i = 0;
+  foreach ($menu_link_titles as $menu_link_title => $uri) {
     $link = MenuLinkContent::create([
-      'title'      => $menu_link_titles[$i],
-      'link'       => ['uri' => 'internal:/'],
+      'title'      => $menu_link_title,
+      'link'       => ['uri' => $uri],
       'menu_name'  => 'main',
       'weight'     => $i,
       'expanded'   => TRUE,
@@ -265,5 +266,6 @@ function _utexas_install_header_content() {
       ]);
       $link->save();
     }
+    $i++;
   }
 }
