@@ -237,7 +237,7 @@ function _utexas_install_header_content() {
 
   // Populate main menu links.
   $menu_link_titles = [
-    'Undergraduate Program' => 'route:<nolink>',
+    'Undergraduate Program' => 'route:<none>',
     'Graduate Program' => 'internal:/',
     'Course Directory' => 'internal:/',
     'News' => 'internal:/',
