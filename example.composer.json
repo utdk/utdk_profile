@@ -36,6 +36,10 @@
     {
       "type": "vcs",
       "url":  "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git"
+    },
+    {
+      "type": "vcs",
+      "url":  "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git"
     }
   ],
   "require": {
@@ -53,6 +57,7 @@
     "drupal/pathauto": "1.2",
     "drush/drush": "~8",
     "utexas/forty_acres": "dev-master",
+    "utexas/utexas_breadcrumbs_visibility": "1.0",
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
     "webflo/drupal-core-strict": "8.6.0",
