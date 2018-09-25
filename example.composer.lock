@@ -2326,17 +2326,17 @@
         },
         {
             "name": "drupal/token",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/token",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "fd8d854eaa3fd7698694f4d9a9d66dc437e19cd0"
+                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "6382a7e1aabbd8246f1117a26bf4916d285b401d"
             },
             "require": {
                 "drupal/core": "^8.5"
@@ -2347,8 +2347,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1536408480",
+                    "version": "8.x-1.5",
+                    "datestamp": "1537557481",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5388,7 +5388,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "f865288346043e9a061c87a223cb06c91884698b"
+                "reference": "4b6c26d3027d441740e268baad9fec7fcc40e08e"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5441,7 +5441,7 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-09-17T19:59:55+00:00"
+            "time": "2018-09-21T16:49:46+00:00"
         },
         {
             "name": "utexas/utexas_breadcrumbs_visibility",
@@ -5449,7 +5449,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git",
-                "reference": "95045d677e74c007f73963c0044d0627be76fd67"
+                "reference": "25fd7db3934c85bbab43e8756349e22238ef8f81"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5502,7 +5502,7 @@
             ],
             "description": "Regulate whether breadcrumbs display on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_breadcrumbs_visibility",
-            "time": "2018-09-20T18:05:39+00:00"
+            "time": "2018-09-25T15:19:49+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
