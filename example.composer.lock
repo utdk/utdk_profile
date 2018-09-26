@@ -5449,7 +5449,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git",
-                "reference": "57132691a6f5f681df8b7ed4d0fa95ebbb0164f7"
+                "reference": "eab0714941e8322f2c8b96b9aff99caddf1ca258"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5502,7 +5502,7 @@
             ],
             "description": "Regulate whether breadcrumbs display on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_breadcrumbs_visibility",
-            "time": "2018-09-25T21:05:38+00:00"
+            "time": "2018-09-26T19:19:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
