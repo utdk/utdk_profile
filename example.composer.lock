@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "44f0060518d5672b0c45beffae98f28e",
+    "content-hash": "db35feff2e762c366a20c1af8232a907",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5388,7 +5388,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "4b6c26d3027d441740e268baad9fec7fcc40e08e"
+                "reference": "bf8670a14a65ee2401e500f23e271320463f5827"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5441,7 +5441,7 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-09-21T16:49:46+00:00"
+            "time": "2018-09-26T21:20:19+00:00"
         },
         {
             "name": "utexas/utexas_breadcrumbs_visibility",
@@ -5449,7 +5449,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git",
-                "reference": "eab0714941e8322f2c8b96b9aff99caddf1ca258"
+                "reference": "126a458f1709dd16dc856a64d4d00deb9868ffce"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5502,7 +5502,68 @@
             ],
             "description": "Regulate whether breadcrumbs display on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_breadcrumbs_visibility",
-            "time": "2018-09-26T19:19:29+00:00"
+            "time": "2018-09-27T16:08:22+00:00"
+        },
+        {
+            "name": "utexas/utexas_page_title_visibility",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_page_title_visibility.git",
+                "reference": "74a8429f89c8781360b7cc5ad0d71b5b5d1f2f05"
+            },
+            "require": {
+                "composer/installers": "^1.0.20"
+            },
+            "type": "utexas-module",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Tyler Fahey",
+                    "email": "twf369@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mark Fullmer",
+                    "email": "jmf3658@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Joe Goodman",
+                    "email": "jfg276@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Paul Grotevant",
+                    "email": "pfg@eid.utexas.edu",
+                    "role": "Manager"
+                },
+                {
+                    "name": "Rick Hastie",
+                    "email": "rh34438@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mike Marsello",
+                    "email": "mjm6289@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Polo Reynaga",
+                    "email": "lar3597@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jana Tate",
+                    "email": "jdt947@eid.utexas.edu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Regulate whether page title displays on a per-node basis",
+            "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_page_title_visibility",
+            "time": "2018-09-27T16:04:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
