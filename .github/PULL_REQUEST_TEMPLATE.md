@@ -27,7 +27,7 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 - [ ] Change requires a change to the documentation.
 - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
-- [ ] Combo change (this change requires specific changes from another repo, such as  `forty_acres` or `utexas_migrate`). If yes, specify repo:
+- [ ] Combo change (this change requires specific changes from another repo, such as  `forty_acres` or `utexas_migrate`). If yes, specify repo and branch:
   - [ ] forty_acres: [`branch`]
   - [ ] utexas_migrate [`branch`]
   - [ ] other: [`update with the repo`: `branch`]
@@ -36,6 +36,6 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 <!--- Include notes for both functional testing & code review -->
 0. `git fetch && git checkout ` this branch
 0. `si` (e.g., `alias si='lando drush si utexas -y install_configure_form.enable_update_status_module=NULL --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks"'`)
-0. `runtests` (e.g., `alias runtests='lando drush en simpletest -y && lando php web/core/scripts/run-tests.sh --php /usr/local/bin/php PHPUnit --suppress-deprecations --dburl mysql://drupal8:drupal8@database/drupal8 --url http://utdk8.lndo.site --module utexas --concurrency 4 --verbose'`) OR `composer test-utexas`
+0. `lando composer test-utexas`
 0.
 0.
