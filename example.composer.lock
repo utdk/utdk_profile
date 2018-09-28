@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7225353060cfc8a27d80aaab234c5773",
+    "content-hash": "db35feff2e762c366a20c1af8232a907",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -306,16 +306,16 @@
         },
         {
             "name": "consolidation/annotated-command",
-            "version": "2.8.5",
+            "version": "2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/consolidation/annotated-command.git",
-                "reference": "1e8ff512072422b850b44aa721b5b303e4a5ebb3"
+                "reference": "4bdbb8fa149e1cc1511bd77b0bc4729fd66bccac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/1e8ff512072422b850b44aa721b5b303e4a5ebb3",
-                "reference": "1e8ff512072422b850b44aa721b5b303e4a5ebb3",
+                "url": "https://api.github.com/repos/consolidation/annotated-command/zipball/4bdbb8fa149e1cc1511bd77b0bc4729fd66bccac",
+                "reference": "4bdbb8fa149e1cc1511bd77b0bc4729fd66bccac",
                 "shasum": ""
             },
             "require": {
@@ -354,7 +354,7 @@
                 }
             ],
             "description": "Initialize Symfony Console commands from annotated command class methods.",
-            "time": "2018-08-18T23:51:49+00:00"
+            "time": "2018-09-19T17:47:18+00:00"
         },
         {
             "name": "consolidation/output-formatters",
@@ -2326,17 +2326,17 @@
         },
         {
             "name": "drupal/token",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/token",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "fd8d854eaa3fd7698694f4d9a9d66dc437e19cd0"
+                "url": "https://ftp.drupal.org/files/projects/token-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "6382a7e1aabbd8246f1117a26bf4916d285b401d"
             },
             "require": {
                 "drupal/core": "^8.5"
@@ -2347,8 +2347,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1536408480",
+                    "version": "8.x-1.5",
+                    "datestamp": "1537557481",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2990,16 +2990,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.0.3",
+            "version": "v4.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d"
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/bd088dc940a418f09cda079a9b5c7c478890fb8d",
-                "reference": "bd088dc940a418f09cda079a9b5c7c478890fb8d",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/fa6ee28600d21d49b2b4e1006b48426cec8e579c",
+                "reference": "fa6ee28600d21d49b2b4e1006b48426cec8e579c",
                 "shasum": ""
             },
             "require": {
@@ -3037,7 +3037,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2018-07-15T17:25:16+00:00"
+            "time": "2018-09-18T07:03:24+00:00"
         },
         {
             "name": "oomphinc/composer-installers-extender",
@@ -5388,7 +5388,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "20279843112df89fbe680b5cb983ab46b2678cf3"
+                "reference": "bf8670a14a65ee2401e500f23e271320463f5827"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5441,7 +5441,129 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-09-12T16:18:41+00:00"
+            "time": "2018-09-26T21:20:19+00:00"
+        },
+        {
+            "name": "utexas/utexas_breadcrumbs_visibility",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git",
+                "reference": "126a458f1709dd16dc856a64d4d00deb9868ffce"
+            },
+            "require": {
+                "composer/installers": "^1.0.20"
+            },
+            "type": "utexas-module",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Tyler Fahey",
+                    "email": "twf369@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mark Fullmer",
+                    "email": "jmf3658@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Joe Goodman",
+                    "email": "jfg276@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Paul Grotevant",
+                    "email": "pfg@eid.utexas.edu",
+                    "role": "Manager"
+                },
+                {
+                    "name": "Rick Hastie",
+                    "email": "rh34438@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mike Marsello",
+                    "email": "mjm6289@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Polo Reynaga",
+                    "email": "lar3597@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jana Tate",
+                    "email": "jdt947@eid.utexas.edu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Regulate whether breadcrumbs display on a per-node basis",
+            "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_breadcrumbs_visibility",
+            "time": "2018-09-27T16:08:22+00:00"
+        },
+        {
+            "name": "utexas/utexas_page_title_visibility",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_page_title_visibility.git",
+                "reference": "74a8429f89c8781360b7cc5ad0d71b5b5d1f2f05"
+            },
+            "require": {
+                "composer/installers": "^1.0.20"
+            },
+            "type": "utexas-module",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Tyler Fahey",
+                    "email": "twf369@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mark Fullmer",
+                    "email": "jmf3658@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Joe Goodman",
+                    "email": "jfg276@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Paul Grotevant",
+                    "email": "pfg@eid.utexas.edu",
+                    "role": "Manager"
+                },
+                {
+                    "name": "Rick Hastie",
+                    "email": "rh34438@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Mike Marsello",
+                    "email": "mjm6289@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Polo Reynaga",
+                    "email": "lar3597@eid.utexas.edu",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Jana Tate",
+                    "email": "jdt947@eid.utexas.edu",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Regulate whether page title displays on a per-node basis",
+            "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_page_title_visibility",
+            "time": "2018-09-27T16:04:15+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
