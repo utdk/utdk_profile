@@ -36,14 +36,6 @@
     {
       "type": "vcs",
       "url":  "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git"
-    },
-    {
-      "type": "vcs",
-      "url":  "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git"
-    },
-    {
-      "type": "vcs",
-      "url":  "git@github.austin.utexas.edu:eis1-wcs/utexas_page_title_visibility.git"
     }
   ],
   "require": {
@@ -66,7 +58,7 @@
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
     "webflo/drupal-core-strict": "8.6.0",
-    "drupal/date_ap_style": "1.x-dev"
+    "drupal/date_ap_style": "1.0-beta1"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
@@ -94,6 +86,9 @@
       "scripts/composer/ScriptHandler.php"
     ]
   },
+  "config": {
+    "process-timeout": 0
+  },
   "scripts": {
     "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
     "build-assets": [
@@ -108,11 +103,8 @@
       "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
     ],
     "test-utexas": [
-      "php web/core/scripts/run-tests.sh --php /usr/local/bin/php PHPUnit --suppress-deprecations --dburl mysql://drupal8:drupal8@database/drupal8 --url http://utdk8.lndo.site --module utexas --concurrency 4 --verbose"
+      "php web/core/scripts/run-tests.sh --php /usr/local/bin/php PHPUnit --suppress-deprecations --concurrency 12 --dburl mysql://drupal8:drupal8@database/drupal8 --url http://utdk8.lndo.site --module utexas --verbose"
     ]
-  },
-  "config": {
-    "process-timeout": 0
   },
   "extra": {
     "patches": {
