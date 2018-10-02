@@ -16,3 +16,19 @@ function utexas_paragraph_image_link_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+/**
+ * Implements template_preprocesss_paragraph__PARAGRAPH_TYPE()
+ *
+ * For Image links, provide linked or non-linked images, depending on presence.
+ */
+function utexas_paragraph_image_link_preprocess_paragraph__utexas_image_link(&$variables) {
+  $image = $variables['paragraph']->get('field_utexas_il_image');
+  $cta = $variables['paragraph']->get('field_utexas_il_link')->getValue();
+  $variables['image'] = $image->view('full');
+  if (!empty($cta)) {
+    $link_raw = $cta[0]['uri'];
+    $linked_image = _utexas_paragraph_types_link_field($variables['image'], $link_raw);
+    $variables['image'] = render($linked_image);
+  }
+}
