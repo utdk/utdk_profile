@@ -21,7 +21,7 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 <!--- Put an `x` in all the boxes that apply: -->
-- [ ] Automated tests pass
+- [ ] Automated tests pass <!--- If tests don't pass because of a known reason, elaborate on the test and issue -->
 - [ ] Code meets syntax standards
 - [ ] Namespacing follows team conventions
 - [ ] Change requires a change to the documentation.
