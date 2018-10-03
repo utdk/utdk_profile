@@ -49,7 +49,8 @@
   set classes = [
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    'utexas-featured-highlight'
   ]
 %}
 {% set cta = content.field_utexas_fh_cta %}
@@ -58,23 +59,10 @@
 {% set media = content.field_utexas_fh_media %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
-    {% if media %}
-      {{ media }}
-    {% endif %}
-    <div class="featured-highlight-content">
-      {% if date %}
-        {{ date }}
-      {% endif %}
-      {% if processed_headline %}
-        <h3>{{ processed_headline }}</h3>
-      {% endif %}
-      {% if copy %}
-        {{ copy }}
-      {% endif %}
-      {% if cta %}
-        {{ cta }}
-      {% endif %}
-    </div>
-
+    {{ media }}
+    {{ date }}
+    {{ processed_headline }}
+    {{ copy }}
+    {{ cta }}
   </div>
 {% endblock paragraph %}

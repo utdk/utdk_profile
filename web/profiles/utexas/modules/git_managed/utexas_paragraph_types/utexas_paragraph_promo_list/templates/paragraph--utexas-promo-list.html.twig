@@ -46,7 +46,8 @@
   set classes = [
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    'utexas-promo-list'
   ]
 %}
 
@@ -54,9 +55,7 @@
   {{ title_prefix}}{{title_suffix }}
   <div{{ attributes.addClass(classes) }}>
     {{ image }}
-    {% if headline %}
-      <h3>{{ headline }}</h3>
-    {% endif %}
+    {{ headline }}
     {{ copy }}
   </div>
 {% endblock paragraph %}
