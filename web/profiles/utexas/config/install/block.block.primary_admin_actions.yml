@@ -6,7 +6,7 @@ dependencies:
 id: primary_admin_actions
 theme: forty_acres
 region: highlighted
-weight: 0
+weight: 1
 provider: null
 plugin: local_actions_block
 settings:
