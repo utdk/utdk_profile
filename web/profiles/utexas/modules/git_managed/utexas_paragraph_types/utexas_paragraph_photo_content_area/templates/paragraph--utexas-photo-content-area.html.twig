@@ -42,7 +42,8 @@
   set classes = [
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    'utexas-photo-content-area'
   ]
 %}
 {% set image = content.field_utexas_pca_image %}
@@ -54,21 +55,10 @@
   <div{{ attributes.addClass(classes) }}>
     <figure class="photo-content-area__image">
       {{ image }}
-      {% if credit %}
-        {{ credit }}
-      {% endif %}
+      {{ credit }}
     </figure>
-    {% if headline %}
-      {{ headline }}
-    {% endif %}
-
-    {% if copy %}
-      {{ copy }}
-    {% endif %}
-
-    {% if links %}
-      {{ links }}
-    {% endif %}
-
+    {{ headline }}
+    {{ copy }}
+    {{ links }}
   </div>
 {% endblock paragraph %}

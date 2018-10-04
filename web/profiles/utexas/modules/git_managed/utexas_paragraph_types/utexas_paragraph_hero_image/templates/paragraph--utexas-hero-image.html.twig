@@ -43,12 +43,13 @@
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    'utexas-hero-image'
   ]
 %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+      {{ content|without('field_utexas_hi_display_style') }}
     {% endblock %}
   </div>
 {% endblock paragraph %}
