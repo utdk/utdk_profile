@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "40dc89b9ef4f3563cc9da0b3e3ead8ce",
+    "content-hash": "f49563f1d757320538faa34d4424e7b0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5392,7 +5392,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "ba544f36679331c93ca6515080724acb5a6292b8"
+                "reference": "2d78eb8e61abafa5d0e295cab71fcb123bee9ae9"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5445,7 +5445,7 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-10-03T17:12:54+00:00"
+            "time": "2018-10-08T20:39:12+00:00"
         },
         {
             "name": "utexas/utexas_breadcrumbs_visibility",
@@ -5570,6 +5570,32 @@
             "time": "2018-09-27T16:04:15+00:00"
         },
         {
+            "name": "utexas/utexas_qualtrics_filter",
+            "version": "1.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git",
+                "reference": "f349061f891decb745236a828ef54f118b66c8ee"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "utexas-module",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Custom text filter to allow Qualtrics forms into WYSIWYG fields",
+            "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter",
+            "keywords": [
+                "Drupal"
+            ],
+            "support": {
+                "issues": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter/issues",
+                "source": "https://github.austin.utexas.edu/eis1-wcs/utexas_qualtrics_filter"
+            },
+            "time": "2018-03-19T16:13:48+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v2.5.1",
             "source": {
@@ -5626,12 +5652,6 @@
                 "type": "git",
                 "url": "https://github.com/webflo/drupal-core-strict.git",
                 "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webflo/drupal-core-strict/zipball/f59ade4ff11b4c77937b0f7b91164c374434d4c6",
-                "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6",
-                "shasum": ""
             },
             "require": {
                 "asm89/stack-cors": "1.2.0",
