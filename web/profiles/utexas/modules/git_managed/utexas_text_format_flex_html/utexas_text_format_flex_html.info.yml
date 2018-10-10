@@ -7,3 +7,4 @@ dependencies:
   - ckeditor
   - editor
   - filter
+  - utexas_qualtrics_filter
