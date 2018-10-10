@@ -39,6 +39,7 @@ dependencies:
   - utexas_block_required_links
   - utexas_favicons
   - utexas_layouts
+  - utexas_breadcrumbs_visibility
   - utexas_page_title_visibility
 install: []
 themes:
