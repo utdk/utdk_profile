@@ -16,7 +16,7 @@ mode: default
 content:
   field_utexas_il_image:
     weight: 0
-    label: above
+    label: hidden
     settings:
       responsive_image_style: utexas_responsive_image_il
       image_link: ''
@@ -25,7 +25,7 @@ content:
     region: content
   field_utexas_il_link:
     weight: 1
-    label: above
+    label: hidden
     settings:
       trim_length: 80
       url_only: true
