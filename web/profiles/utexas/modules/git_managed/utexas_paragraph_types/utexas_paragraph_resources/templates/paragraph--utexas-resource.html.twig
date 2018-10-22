@@ -46,10 +46,17 @@
     'utexas-resource'
   ]
 %}
+
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+      <div class="image-wrapper">
+        {{ content.field_utexas_resource_image }}
+      </div>
+      <div class="data-wrapper">
+        {{ content.field_utexas_resource_headline }}
+        {{ content.field_utexas_resource_links }}
+      </div>
     {% endblock %}
   </div>
 {% endblock paragraph %}
