@@ -224,7 +224,7 @@ third_party_settings:
               id: 'field_block:node:utexas_flex_page:field_flex_page_resource'
               formatter:
                 type: entity_reference_revisions_entity_view
-                label: above
+                label: hidden
                 settings:
                   view_mode: default
                   link: ''
@@ -387,7 +387,7 @@ content:
   field_flex_page_resource:
     type: entity_reference_revisions_entity_view
     weight: 11
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: ''
