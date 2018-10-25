@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: flex_html
+label: 'Flex HTML'
+description: 'Linkit profile for Flex HTML text format.'
+matchers:
+  a2717477-f1c4-4678-a38f-01a80ecd5405:
+    uuid: a2717477-f1c4-4678-a38f-01a80ecd5405
+    id: 'entity:node'
+    weight: 0
+    settings:
+      include_unpublished: false
+      metadata: ''
+      bundles: {  }
+      group_by_bundle: true
+      substitution_type: canonical
+  785d157f-eb72-4a67-a465-4cb567df29bf:
+    uuid: 785d157f-eb72-4a67-a465-4cb567df29bf
+    id: email
+    weight: 0
+    settings: {  }
