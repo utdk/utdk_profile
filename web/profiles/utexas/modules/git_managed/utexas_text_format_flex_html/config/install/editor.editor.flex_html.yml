@@ -41,6 +41,9 @@ settings:
             - Source
             - qualtricsbutton
   plugins:
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: flex_html
     language:
       language_list: un
     stylescombo:
