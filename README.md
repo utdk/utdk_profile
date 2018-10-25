@@ -15,10 +15,10 @@ There are a number of pre-packaged solutions that simplify setup of the above. T
 
 Finally, you will need to install [Composer](https://getcomposer.org/doc/00-intro.md), the PHP dependency manager.
 
-Not required -- but highly recommended -- is the command-line shell for Drupal, [drush](http://www.drush.org/). 
+Not required -- but highly recommended -- is the command-line shell for Drupal, [drush](http://www.drush.org/).
 
 If local web development is new to you, consider coming by [Web Publishing Office Hours](https://sites.utexas.edu/web-publishing-office-hours/) for setup assistance.
- 
+
 
 ## Development Setup
 Once you have Composer installed, and a local web server up and running, the following steps will get you to a freshly installed Drupal Kit site:
@@ -54,9 +54,8 @@ You should now have a Drupal site installed, with the "UTexas" profile!
 
 To allow individual developers to define their own Composer elements, we do not
 commit `composer.json` & `composer.lock`. Instead, we commit equivalent "example"
-files (which are converted to "real" files during the `setup.sh` script). 
+files (which are converted to "real" files during the `setup.sh` script).
 
 Developers using version control may then make changes to the `composer.json` file and commit the resulting customized file to their codebase without risking overwriting these changes when they update UT Drupal Kit in the future. During a UT Drupal Kit update, developers will want to "diff" the new `example.composer.json` file, and manually apply any changes to their own `composer.json` file, then run `composer update` and commit the resulting changes.
-
 
 
