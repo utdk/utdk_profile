@@ -7,4 +7,6 @@ dependencies:
   - ckeditor
   - editor
   - filter
+  - linkit
   - utexas_qualtrics_filter
+  - utexas_linkit_flex_html
