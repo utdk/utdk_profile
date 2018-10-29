@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Proprocess settings for available layout configuration.
+ */
+
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_preprocess_layout().
+ */
+function utexas_layouts_preprocess_layout(&$variables) {
+  if (isset($variables['settings'])) {
+    // Append any user-defined classes. See DefaultConfiguration.php.
+    if (!empty($variables['settings']['class'])) {
+      $variables['attributes']['class'][] = $variables['settings']['class'];
+    }
+
+    // Add a user-defined background accent. See BackgroundAccent.php.
+    if (!empty($variables['settings']['background-accent'])) {
+      // Add "background-accent" class to container to allow
+      // field-level CSS to adjust.
+      $variables['attributes']['class'][] = 'background-accent';
+      /** @var \Drupal\media\Entity\Media $media */
+      $media = \Drupal::entityTypeManager()->getStorage('media')->load($variables['settings']['background-accent']);
+      if ($media) {
+        $variables['hasBackgroundAccent'] = TRUE;
+        if ($media->bundle() == 'utexas_image') {
+          // @todo : use a *responsive* image style?
+          $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($media->field_utexas_media_image->first()->entity->getFileUri());
+          if (!empty($variables['settings']['blur'])) {
+            $variables['attributes']['style'] = "background-image: url('$src');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      filter:blur(6px);-webkit-filter:blur(6px);-ms-filter:blur(6px);
+      position:absolute; top:0px; right:0px; bottom:0px; left:0px;";
+          }
+          else {
+            $variables['attributes']['style'] = "background-image: url('$src');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position:absolute; top:0px; right:0px; bottom:0px; left:0px;";
+          }
+        }
+      }
+    }
+  }
+}

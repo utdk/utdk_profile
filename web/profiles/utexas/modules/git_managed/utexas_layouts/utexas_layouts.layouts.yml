@@ -1,6 +1,7 @@
 layout_utexas_fullwidth:
   label: 'Full width'
   path: layouts/fullwidth
+  class: '\Drupal\utexas_layouts\Plugin\Layout\BackgroundAccent'
   template: layout--utexas-fullwidth
   library: utexas_layouts/utexas_fullwidth
   category: 'Columns: 1'
@@ -13,6 +14,7 @@ layout_utexas_fullwidth:
 layout_utexas_50_50:
   label: 'Two columns'
   path: layouts/50_50
+  class: '\Drupal\utexas_layouts\Plugin\Layout\BackgroundAccent'
   template: layout--utexas-50-50
   library: utexas_layouts/utexas_50_50
   category: 'Columns: 2'
@@ -27,6 +29,7 @@ layout_utexas_50_50:
 layout_utexas_66_33:
   label: 'Right sidebar'
   path: layouts/66_33
+  class: '\Drupal\utexas_layouts\Plugin\Layout\BackgroundAccent'
   template: layout--utexas-66-33
   library: utexas_layouts/utexas_66_33
   category: 'Columns: 2'

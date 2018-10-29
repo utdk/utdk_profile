@@ -17,7 +17,11 @@ set classes = [
 ]
 %}
 {% if content %}
-    <div{{ attributes.addClass(classes) }}>
+    {% if hasBackgroundAccent %}
+        <!-- This div supplies the background accent, if present -->
+        <div{{ attributes|without('class') }}></div>
+    {% endif %}
+    <div{{ attributes.addClass(classes)|without('style') }}>
         <div class="layout--utexas-66-33--container container">
         {% if content.main %}
             <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>

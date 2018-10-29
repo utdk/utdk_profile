@@ -6,6 +6,7 @@
  * Available variables:
  * - content: The content for this layout.
  * - attributes: HTML attributes for the layout <div>.
+ * - hasBackgroundAccent: boolean to indicate whether a background accent is present.
  *
  * @ingroup themeable
  */
@@ -17,7 +18,12 @@ set classes = [
 ]
 %}
 {% if content %}
-    <div{{ attributes.addClass(classes) }}>
+    {% if hasBackgroundAccent %}
+        <!-- This div supplies the background accent, if present -->
+        <div{{ attributes|without('class') }}></div>
+    {% endif %}
+    <!-- The rest of the template is the actual content -->
+    <div{{ attributes.addClass(classes)|without('style') }}>
         <div class="layout--utexas-50-50--container container">
         {% if content.left %}
             <div {{ region_attributes.left.addClass('layout__region', 'layout__region--left') }}>
