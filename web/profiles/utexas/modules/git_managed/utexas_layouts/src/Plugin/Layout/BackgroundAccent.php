@@ -59,6 +59,10 @@ class BackgroundAccent extends DefaultConfigLayout {
     if ($form_state->getValue('background-accent')) {
       $file = \Drupal::entityTypeManager()->getStorage('file')->load($form_state->getValue('background-accent')[0]);
       if ($file) {
+        $file->setPermanent();
+        $file->save();
+        $file_usage = \Drupal::service('file.usage'); 
+        $file_usage->add($file, 'utexas_layouts', 'utexas_image', \Drupal::currentUser()->id());
         $this->configuration['background-accent'] = $file->id();
       }
     }
