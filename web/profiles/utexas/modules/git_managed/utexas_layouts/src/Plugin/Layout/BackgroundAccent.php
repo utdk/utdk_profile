@@ -40,15 +40,6 @@ class BackgroundAccent extends DefaultConfigLayout {
     ];
     if (!empty($this->configuration['background-accent'])) {
       $form['background-accent']['#default_value'] = [$this->configuration['background-accent']];
-      $file = \Drupal::entityTypeManager()->getStorage('file')->load($this->configuration['background-accent']);
-      if ($file && $uri = $file->getFileUri()) {
-        $form['preview'] = [
-          '#theme' => 'image_style',
-          '#style_name' => 'medium',
-          '#uri' => $uri,
-          '#weight' => 1,
-        ];
-      }
     }
     $form['blur'] = [
       '#type' => 'checkbox',
@@ -85,7 +76,7 @@ class BackgroundAccent extends DefaultConfigLayout {
         $build['#background_image'] = new Attribute();
         $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
         if (!empty($this->configuration['blur'])) {
-          $build['#background_image']['style'] =  "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);";
+          $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);";
         }
         $build['#background_image']['style'] .= "background-image: url('$src');
         background-position: center;
