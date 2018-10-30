@@ -17,7 +17,6 @@ class DefaultConfigLayout extends LayoutDefault implements PluginFormInterface {
   public function defaultConfiguration() {
     return [
       'class' => '',
-      'full_width' => FALSE,
     ];
   }
 
@@ -29,9 +28,6 @@ class DefaultConfigLayout extends LayoutDefault implements PluginFormInterface {
     if (!empty($this->configuration['class'])) {
       $build['#attributes']['class'][] = $this->configuration['class'];
     }
-    if (!empty($this->configuration['full_width'])) {
-      $build['#attributes']['class'][] = 'edge-to-edge';
-    }
     return $build;
   }
 
@@ -39,12 +35,6 @@ class DefaultConfigLayout extends LayoutDefault implements PluginFormInterface {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form['full_width'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Span entire screen width'),
-      '#default_value' => $this->configuration['full_width'],
-      '#description' => 'When checked, this section will fit the screen, edge-to-edge.',
-    ];
     $form['class'] = [
       '#type' => 'textfield',
       '#title' => $this->t('CSS class'),
@@ -65,7 +55,6 @@ class DefaultConfigLayout extends LayoutDefault implements PluginFormInterface {
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['class'] = $form_state->getValue('class');
-    $this->configuration['full_width'] = $form_state->getValue('full_width');
   }
 
 }
