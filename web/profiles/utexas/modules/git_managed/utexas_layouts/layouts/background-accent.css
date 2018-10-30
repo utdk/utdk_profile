@@ -10,6 +10,15 @@
   position:relative;
 }
 
+/* Pad all regions so that non-background accent regions that
+follow a background-accent region have spacing */
+.layout__region--main,
+.layout__region--sidebar,
+.layout__region--right,
+.layout__region--left {
+  padding-top:1rem;
+}
+
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
 .background-accent .layout__region--main,
 .background-accent .layout__region--sidebar,
