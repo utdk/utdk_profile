@@ -88,16 +88,19 @@ class BackgroundAccent extends DefaultConfigLayout {
         }
         if (!empty($this->configuration['blur'])) {
           // Apply blur effect first to prevent mangled UTF8 encoding on $src.
-          $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);";
+          $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);margin:-10px;";
         }
         $build['#background_image']['style'] .= "background-image: url('$src');
-        background-position: center;
-        background-repeat: no-repeat;
-        position:absolute;
-        height:100%;
-        width:100%;
-        z-index:-1000;
-        background-size: cover;";
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1000;
+    background-size: cover;
+    margin: -10px;
+    bottom: 0;";
       }
     }
     return $build;
