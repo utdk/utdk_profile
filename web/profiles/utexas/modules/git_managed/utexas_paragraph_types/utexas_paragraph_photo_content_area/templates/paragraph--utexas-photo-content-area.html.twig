@@ -43,7 +43,7 @@
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    'utexas-photo-content-area'
+    'ut-photo-content-area'
   ]
 %}
 {% set image = content.field_utexas_pca_image %}
@@ -53,12 +53,16 @@
 {% set links = content.field_utexas_pca_links %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
-    <figure class="photo-content-area__image">
-      {{ image }}
-      {{ credit }}
-    </figure>
-    {{ headline }}
-    {{ copy }}
-    {{ links }}
+    <div class="photo-wrapper">
+      <figure class="photo-content-area__image">
+        {{ image }}
+        {{ credit }}
+      </figure>
+    </div>
+    <div class="content-wrapper">
+      {{ headline }}
+      {{ copy }}
+      {{ links }}
+    </div>
   </div>
 {% endblock paragraph %}

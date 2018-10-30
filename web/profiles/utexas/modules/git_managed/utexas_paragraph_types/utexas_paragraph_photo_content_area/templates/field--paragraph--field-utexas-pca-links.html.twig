@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme file for the Photo Content Area Headline field.
+ * Theme file for the Photo Content Area Links field.
  *
  * To override output, copy this file into your
  * to your theme's directory and customize it, just like customizing other
@@ -25,6 +25,12 @@
  */
 #}
 
-{% for item in items %}
-  <h3{{ item.attributes }}>{{ item.content }}</h3>
-{% endfor %}
+<div{{ attributes }}>
+  <ul>
+    {% for item in items %}
+      <li{{ item.attributes }}>{{ item.content }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+

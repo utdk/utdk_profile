@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme file for the Photo Content Area credit field.
+ * Theme file for the Photo Content Area Credit field.
  *
  * To override output, copy this file into your
  * to your theme's directory and customize it, just like customizing other
@@ -24,5 +24,11 @@
  * @see template_preprocess_field()
  */
 #}
-<figcaption{{ attributes }}>{{ items[0].content }}</figcaption>
+
+{% for item in items %}
+  <div{{ item.attributes }}>
+    <span>{{ item.content }}</span>
+  </div>
+{% endfor %}
+
 

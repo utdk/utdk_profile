@@ -126,7 +126,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
     $this->assertRaw('Headline');
     // 5. Verify link, delta 0, is present, and is an external link.
     $this->assertRaw('Copy Value');
-    $this->assertRaw('<a href="https://example.com">External Link</a>');
+    $this->assertRaw('<a href="https://example.com" class="ut-link">External Link</a>');
     // 6. Verify an image is present.
     $picture_tag = $this->getSession()->getPage()->find('css', 'picture')->getHtml();
     $this->assertTrue(strpos($picture_tag, 'photo_content_area/image-test'));
@@ -142,7 +142,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
 
     $this->drupalGet('node/' . $node->id());
     // 7. Verify link, delta 1, is present, and is an internal link.
-    $this->assertRaw('<a href="/test-basic-page">Internal Link</a>');
+    $this->assertRaw('<a href="/test-basic-page" class="ut-link">Internal Link</a>');
 
     // Sign out!
     $this->drupalLogout();
