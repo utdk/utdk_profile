@@ -1,5 +1,5 @@
 layout_utexas_fullwidth:
-  label: 'Full width'
+  label: 'One column'
   path: layouts/fullwidth
   class: '\Drupal\utexas_layouts\Plugin\Layout\BackgroundAccent'
   template: layout--utexas-fullwidth

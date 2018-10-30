@@ -17,12 +17,18 @@
         flex: 0 1 calc(66% - 1em);
         min-width: calc(66% - 1em);
         max-width: calc(66% - 1em);
-        margin-right: 1em;
+        margin-right: 1rem;
     }
     .layout--utexas-66-33--container > .layout__region--sidebar {
         flex: 0 1 calc(34% - 1em);
         min-width: calc(34% - 1em);
         max-width: calc(34% - 1em);
-        margin-left: 1em;
+        margin-left: 1rem;
     }
+}
+
+.background-accent .layout--utexas-66-33--container > .layout__region--main,
+.background-accent .layout--utexas-66-33--container > .layout__region--sidebar {
+   padding-top:1rem;
+   padding-bottom:1rem;
 }

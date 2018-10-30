@@ -3,18 +3,20 @@
 namespace Drupal\utexas_layouts\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\image\Entity\ImageStyle;
 
 /**
  * Defines layout configuration that includes an option for a background accent.
  */
-class BackgroundAccent extends DefaultConfig {
+class BackgroundAccent extends DefaultConfigLayout {
 
   /**
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
     $config = parent::defaultConfiguration();
-    $config['blur'] = TRUE;
+    $config['blur'] = FALSE;
     return $config;
   }
 
@@ -23,27 +25,36 @@ class BackgroundAccent extends DefaultConfig {
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = parent::buildConfigurationForm($form, $form_state);
-    // The 'target_bundle in this form field limits this to the
-    // media entities defined in /admin/structure/media.
-    // Theoretically, a video entity could be referenced here,
-    // with additional preprocess logic for rendering that video.
+    $validators = [
+      'file_validate_extensions' => ['jpg jpeg png gif'],
+    ];
     $form['background-accent'] = [
-      '#title' => $this->t('Background Accent'),
-      '#type' => 'entity_autocomplete',
-      '#target_type' => 'media',
-      '#description' => $this->t('Optionally, add a background image for the "related content" region. For best results, upload an image of minimum size 1500x500 pixels. Allows GIF, PNG, JPG, JPEG.'),
-      '#selection_handler' => 'default',
-      '#selection_settings' => [
-        'target_bundles' => ['utexas_image'],
-      ],
+      '#type' => 'managed_file',
+      '#name' => 'background_accent',
+      '#title' => $this->t('Background image'),
+      '#size' => 20,
+      '#description' => $this->t('Optionally, display an image behind section content. Ideal size is 1500x500 pixels.'),
+      '#upload_validators' => $validators,
+      '#upload_location' => 'public://background_accent/',
+      '#weight' => 2,
     ];
     if (!empty($this->configuration['background-accent'])) {
-      $form['background-accent']['#default_value'] = \Drupal::entityTypeManager()->getStorage('media')->load($this->configuration['background-accent']);
+      $form['background-accent']['#default_value'] = [$this->configuration['background-accent']];
+      $file = \Drupal::entityTypeManager()->getStorage('file')->load($this->configuration['background-accent']);
+      if ($file && $uri = $file->getFileUri()) {
+        $form['preview'] = [
+          '#theme' => 'image_style',
+          '#style_name' => 'medium',
+          '#uri' => $uri,
+          '#weight' => 1,
+        ];
+      }
     }
     $form['blur'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Apply blur to image?'),
       '#default_value' => $this->configuration['blur'],
+      '#weight' => 3,
     ];
     return $form;
   }
@@ -54,7 +65,39 @@ class BackgroundAccent extends DefaultConfig {
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     parent::submitConfigurationForm($form, $form_state);
     $this->configuration['blur'] = $form_state->getValue('blur');
-    $this->configuration['background-accent'] = $form_state->getValue('background-accent');
+    if ($form_state->getValue('background-accent')) {
+      $file = \Drupal::entityTypeManager()->getStorage('file')->load($form_state->getValue('background-accent')[0]);
+      if ($file) {
+        $this->configuration['background-accent'] = $file->id();
+      }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function build(array $regions) {
+    $build = parent::build($regions);
+    if (!empty($this->configuration['background-accent'])) {
+      $file = \Drupal::entityTypeManager()->getStorage('file')->load($this->configuration['background-accent']);
+      if ($file && $uri = $file->getFileUri()) {
+        $build['#attributes']['class'][] = 'background-accent';
+        $build['#background_image'] = new Attribute();
+        $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
+        if (!empty($this->configuration['blur'])) {
+          $build['#background_image']['style'] =  "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);";
+        }
+        $build['#background_image']['style'] .= "background-image: url('$src');
+        background-position: center;
+        background-repeat: no-repeat;
+        position:absolute;
+        height:100%;
+        width:100%;
+        z-index:-1000;
+        background-size: cover;";
+      }
+    }
+    return $build;
   }
 
 }

@@ -6,31 +6,21 @@
  * Available variables:
  * - content: The content for this layout.
  * - attributes: HTML attributes for the layout <div>.
- * - hasBackgroundAccent: boolean to indicate whether a background accent is present.
+ * - background_image: style attribute that provides the background image
  *
  * @ingroup themeable
  */
 #}
-{%
-set classes = [
-'layout',
-'layout--utexas-50-50',
-]
-%}
+
 {% if content %}
-    {% if hasBackgroundAccent %}
-        <!-- This div supplies the background accent, if present -->
-        <div{{ attributes|without('class') }}></div>
-    {% endif %}
-    <!-- The rest of the template is the actual content -->
-    <div{{ attributes.addClass(classes)|without('style') }}>
-        <div class="layout--utexas-50-50--container container">
+    <div{{ attributes.addClass(classes) }}>
+        <div{{ background_image }}></div>
+        <div class="layout--utexas-50-50--container">
         {% if content.left %}
             <div {{ region_attributes.left.addClass('layout__region', 'layout__region--left') }}>
                 {{ content.left }}
             </div>
         {% endif %}
-
         {% if content.right %}
             <div {{ region_attributes.right.addClass('layout__region', 'layout__region--right') }}>
                 {{ content.right }}
