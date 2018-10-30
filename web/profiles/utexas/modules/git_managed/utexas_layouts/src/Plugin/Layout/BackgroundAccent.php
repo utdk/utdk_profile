@@ -74,8 +74,16 @@ class BackgroundAccent extends DefaultConfigLayout {
       if ($file && $uri = $file->getFileUri()) {
         $build['#attributes']['class'][] = 'background-accent';
         $build['#background_image'] = new Attribute();
-        $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
+        // Exclude GIFs from image style to allow for animation.
+        if ($file->getMimeType() != 'image/gif') {
+          // Apply an image style in an attempt to optimize huge images.
+          $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
+        }
+        else {
+          $src = $file->url();
+        }
         if (!empty($this->configuration['blur'])) {
+          // Apply blur effect first to prevent mangled UTF8 encoding on $src.
           $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);";
         }
         $build['#background_image']['style'] .= "background-image: url('$src');
