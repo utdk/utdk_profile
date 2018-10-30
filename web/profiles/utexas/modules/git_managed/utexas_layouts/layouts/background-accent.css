@@ -1,8 +1,8 @@
 .background-accent .block-layout-builder {
-    background:#fff;
-    border:1px solid gray;
-    padding:1rem;
-    margin:0.5rem 1rem 0.5rem 1rem;
+  background-color: #fff;
+  border: 1px solid #333f48;
+  padding:1.25rem;
+  margin:0.5rem 1rem 0.5rem 1rem;
 }
 
 /* Prevent images with height:100% from overflowing their container */
@@ -15,22 +15,32 @@
 .background-accent .layout__region--sidebar,
 .background-accent .layout__region--right,
 .background-accent .layout__region--left {
-   padding-top:1rem;
-   padding-bottom:1rem;
+  padding-top:1rem;
+  padding-bottom:1rem;
 }
 .background-accent .layout--utexas-66-33--container > .layout__region--main,
 .background-accent .layout--utexas-50-50--container > .layout__region--left {
-   margin-left:0.75rem;
-   margin-right:0rem;
+  margin-left:0.75rem;
+  margin-right:0rem;
 }
 .background-accent .layout--utexas-66-33--container > .layout__region--sidebar,
 .background-accent .layout--utexas-50-50--container > .layout__region--right {
-   margin-left:0.75rem;
-   margin-right:0rem;
+  margin-left:0.75rem;
+  margin-right:0rem;
 }
 .background-accent .layout--utexas-fullwidth--container > .layout__region--main {
-   margin-left:0.75rem;
-   margin-right:0.75rem;
+  margin-left:0.75rem;
+  margin-right:0.75rem;
+}
+/* Reduce vertical padding on widgets on small screens */
+@media screen and (max-width: 40em) {
+  .background-accent .layout__region--main,
+  .background-accent .layout__region--sidebar,
+  .background-accent .layout__region--right,
+  .background-accent .layout__region--left {
+    padding-top:0.75rem;
+    padding-bottom:0.25rem;
+  }
 }
 
 /* Ensure that the "Configure" button is visible with blurred background images */
