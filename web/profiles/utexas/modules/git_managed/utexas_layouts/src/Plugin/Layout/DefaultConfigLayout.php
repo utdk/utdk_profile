@@ -40,6 +40,7 @@ class DefaultConfigLayout extends LayoutDefault implements PluginFormInterface {
       '#title' => $this->t('CSS class'),
       '#default_value' => $this->configuration['class'],
       '#description' => $this->t("Added to the section's wrapper div. Separate multiple classes with spaces."),
+      '#weight' => 3,
     ];
     return $form;
   }

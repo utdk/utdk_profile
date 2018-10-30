@@ -36,7 +36,7 @@ class BackgroundAccent extends DefaultConfigLayout {
       '#description' => $this->t('Optionally, display an image behind section content. Ideal size is 1500x500 pixels.'),
       '#upload_validators' => $validators,
       '#upload_location' => 'public://background_accent/',
-      '#weight' => 2,
+      '#weight' => 1,
     ];
     if (!empty($this->configuration['background-accent'])) {
       $form['background-accent']['#default_value'] = [$this->configuration['background-accent']];
@@ -45,7 +45,7 @@ class BackgroundAccent extends DefaultConfigLayout {
       '#type' => 'checkbox',
       '#title' => $this->t('Apply blur to image?'),
       '#default_value' => $this->configuration['blur'],
-      '#weight' => 3,
+      '#weight' => 2,
     ];
     return $form;
   }
