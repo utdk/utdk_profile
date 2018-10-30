@@ -5,14 +5,38 @@
     margin:0.5rem 1rem 0.5rem 1rem;
 }
 
+/* Prevent images with height:100% from overflowing their container */
 .background-accent {
   position:relative;
 }
 
-#layout-builder .configure-section {
-  background:#fff; /* Ensure that the "Configure" button is visible with background images */
+/* Give padding/spacing to widgets placed in sections with backgrounds. */
+.background-accent .layout__region--main,
+.background-accent .layout__region--sidebar,
+.background-accent .layout__region--right,
+.background-accent .layout__region--left {
+   padding-top:1rem;
+   padding-bottom:1rem;
+}
+.background-accent .layout--utexas-66-33--container > .layout__region--main,
+.background-accent .layout--utexas-50-50--container > .layout__region--left {
+   margin-left:0.75rem;
+   margin-right:0rem;
+}
+.background-accent .layout--utexas-66-33--container > .layout__region--sidebar,
+.background-accent .layout--utexas-50-50--container > .layout__region--right {
+   margin-left:0.75rem;
+   margin-right:0rem;
+}
+.background-accent .layout--utexas-fullwidth--container > .layout__region--main {
+   margin-left:0.75rem;
+   margin-right:0.75rem;
 }
 
+/* Ensure that the "Configure" button is visible with blurred background images */
+#layout-builder .configure-section {
+  background:#fff; 
+}
 #layout-builder .remove-section {
   margin-left:1rem;
 }

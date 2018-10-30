@@ -16,16 +16,16 @@
     <div{{ attributes.addClass(classes) }}>
         <div{{ background_image }}></div>
         <div class="layout--utexas-50-50--container">
-        {% if content.left %}
-            <div {{ region_attributes.left.addClass('layout__region', 'layout__region--left') }}>
-                {{ content.left }}
-            </div>
-        {% endif %}
-        {% if content.right %}
-            <div {{ region_attributes.right.addClass('layout__region', 'layout__region--right') }}>
-                {{ content.right }}
-            </div>
-        {% endif %}
+            {% if content.left %}
+                <div {{ region_attributes.left.addClass('layout__region', 'layout__region--left') }}>
+                    {{ content.left }}
+                </div>
+            {% endif %}
+            {% if content.right %}
+                <div {{ region_attributes.right.addClass('layout__region', 'layout__region--right') }}>
+                    {{ content.right }}
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endif %}

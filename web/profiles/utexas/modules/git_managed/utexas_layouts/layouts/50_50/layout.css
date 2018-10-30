@@ -29,9 +29,3 @@
     }
 
 }
-
-.background-accent .layout--utexas-50-50--container > .layout__region--left,
-.background-accent .layout--utexas-50-50--container > .layout__region--right {
-   padding-top:1rem;
-   padding-bottom:1rem;
-}

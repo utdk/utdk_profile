@@ -14,10 +14,12 @@
 {% if content %}
     <div{{ attributes.addClass(classes) }}>
         <div{{ background_image }}></div>
-        {% if content.main %}
-            <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
-                {{ content.main }}
-            </div>
-        {% endif %}
+        <div class="layout--utexas-fullwidth--container">
+            {% if content.main %}
+                <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
+                    {{ content.main }}
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endif %}

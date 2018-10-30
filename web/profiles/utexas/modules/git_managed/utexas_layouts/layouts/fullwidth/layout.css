@@ -2,8 +2,3 @@
  * @file
  * Provides the layout styles for utexas_fullwidth.
  */
-
- .background-accent .layout__region--main {
-    padding-top:1rem;
-    padding-bottom:1rem;
- }
