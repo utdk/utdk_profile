@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "bc07ce56d66dfe5a12ac80cab3d6fb5a",
+    "content-hash": "cf4c319fdf03fd3f14314a201d569a43",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -5500,7 +5500,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "24cc2dc4e587820199f64faf278c2f53985c2ce4"
+                "reference": "953fb2d6695a954cd9b19e31c6c2909156f258f6"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5553,15 +5553,15 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-11-01T16:26:17+00:00"
+            "time": "2018-11-01T21:59:57+00:00"
         },
         {
             "name": "utexas/utexas_breadcrumbs_visibility",
-            "version": "1.0-alpha2",
+            "version": "1.0-alpha3",
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git",
-                "reference": "7f976fd573269e5cf0274b757356ef1b7bbae91c"
+                "reference": "ecdd0866337afab41bcc4a794e318ebbfc75326c"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5614,15 +5614,15 @@
             ],
             "description": "Regulate whether breadcrumbs display on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_breadcrumbs_visibility",
-            "time": "2018-11-01T16:24:51+00:00"
+            "time": "2018-11-01T22:00:12+00:00"
         },
         {
             "name": "utexas/utexas_page_title_visibility",
-            "version": "1.0-alpha2",
+            "version": "1.0-alpha3",
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_page_title_visibility.git",
-                "reference": "2634a84356a723abd932f5245fa32b31402687c4"
+                "reference": "c53f4e9f41a32e72513c8021482ce2277e2fa253"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5675,7 +5675,7 @@
             ],
             "description": "Regulate whether page title displays on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_page_title_visibility",
-            "time": "2018-11-01T16:23:36+00:00"
+            "time": "2018-11-01T22:00:47+00:00"
         },
         {
             "name": "utexas/utexas_qualtrics_filter",

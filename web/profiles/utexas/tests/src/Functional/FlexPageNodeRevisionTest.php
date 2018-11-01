@@ -42,10 +42,10 @@ class FlexPageNodeRevisionTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
-    // Generate a test node for referencing an internal link.
+    // Generate a test node for testing that revisions can be accessed.
     $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // // 1. Add the Quick Links paragraph type.
+    // // 1. Add Node title and revision information.
     $edit = [
       'title[0][value]' => 'Revision Test',
       'edit-revision-log-0-value' => 'First revision',
@@ -53,7 +53,7 @@ class FlexPageNodeRevisionTest extends BrowserTestBase {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $node = $this->drupalGetNodeByTitle('Revision Test');
     $this->drupalGet('node/' . $node->id() . '/edit');
-    // 2. Edit the node and add a second link.
+    // 2. Edit the node to create a new revision.
     $this->drupalPostForm(NULL, [
       'title[0][value]' => 'Revision Test rev2',
       'edit-revision-log-0-value' => 'Second revision',
