@@ -32,6 +32,20 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  display_breadcrumbs:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  display_page_title:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_flex_page_fca_a:
     type: entity_reference_paragraphs
     weight: 7

@@ -12,14 +12,77 @@ use Drupal\Core\Link;
  * Helper function to create a link, provide field markup.
  *
  * @param mixed $field
- *    The Drupal render array for a given field.
+ *   The Drupal render array for a given field.
  * @param string $link
- *    An internal or external link.
+ *   An internal or external link.
  *
  * @return mixed
- *    A render array of a Drupal link.
+ *   A render array of a Drupal link.
  */
 function _utexas_paragraph_types_link_field($field, $link) {
   $link = Link::fromTextAndUrl($field, Url::fromUri($link));
   return $link->toRenderable();
+}
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_paragraph_types_theme($existing, $type, $theme, $path) {
+  return [
+    'field__utexas_headline' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-headline',
+    ],
+    'field__utexas_copy' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-copy',
+    ],
+    'field__utexas_link_list' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-link-list',
+    ],
+    'field__utexas_cta' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-cta',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+  $field_name = $variables['element']['#field_name'];
+  // Add whatever fields we want to use field--utexas-headline.twig.html.
+  $headline_fields = [
+    'field_utexas_fca_headline',
+  ];
+  // Add whatever fields we want to use field--utexas-copy.twig.html.
+  $copy_fields = [
+    'field_utexas_fca_copy',
+  ];
+  // Add whatever fields we want to use field--utexas-link-list.twig.html.
+  $link_list_fields = [
+    'field_utexas_fca_links',
+  ];
+  // Add whatever fields we want to use field--utexas-cta.twig.html.
+  $cta_fields = [
+    'field_utexas_fca_cta',
+  ];
+
+  if (in_array($field_name, $headline_fields)) {
+    $suggestions[] = 'field__utexas_headline';
+  }
+
+  elseif (in_array($field_name, $copy_fields)) {
+    $suggestions[] = 'field__utexas_copy';
+  }
+
+  elseif (in_array($field_name, $link_list_fields)) {
+    $suggestions[] = 'field__utexas_link_list';
+  }
+
+  elseif (in_array($field_name, $cta_fields)) {
+    $suggestions[] = 'field__utexas_cta';
+  }
 }

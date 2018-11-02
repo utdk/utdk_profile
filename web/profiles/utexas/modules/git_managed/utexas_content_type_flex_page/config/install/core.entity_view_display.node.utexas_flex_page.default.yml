@@ -1,4 +1,3 @@
-uuid: c4e39e94-8197-4986-ba9e-cbc290a8d81c
 langcode: en
 status: true
 dependencies:
@@ -287,8 +286,6 @@ third_party_settings:
       - layout_utexas_fullwidth
       - layout_utexas_50_50
       - layout_utexas_66_33
-_core:
-  default_config_hash: CeJ7ZsOgitVMWoqUo3EjLMsRG2nGz-xeEaOYMqa6G1Q
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page
@@ -413,4 +410,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  display_breadcrumbs: true
+  display_page_title: true
   layout_builder__layout: true

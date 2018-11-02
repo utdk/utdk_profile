@@ -43,13 +43,21 @@
     'paragraph',
     'paragraph--type--' ~ paragraph.bundle|clean_class,
     view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-    'utexas-flex-content-area'
+    'ut-flex-content-area'
   ]
 %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+      <div class="image-wrapper">
+        {{ content.field_utexas_fca_image }}
+      </div>
+      <div class="content-wrapper">
+        {{ content.field_utexas_fca_headline }}
+        {{ content.field_utexas_fca_copy }}
+        {{ content.field_utexas_fca_links }}
+        {{ content.field_utexas_fca_cta }}
+      </div>
     {% endblock %}
   </div>
 {% endblock paragraph %}

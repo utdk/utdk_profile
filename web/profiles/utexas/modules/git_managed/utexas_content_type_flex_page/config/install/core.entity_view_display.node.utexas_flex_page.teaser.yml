@@ -29,6 +29,8 @@ content:
     weight: 100
     region: content
 hidden:
+  display_breadcrumbs: true
+  display_page_title: true
   field_flex_page_fca_a: true
   field_flex_page_fca_b: true
   field_flex_page_fh: true

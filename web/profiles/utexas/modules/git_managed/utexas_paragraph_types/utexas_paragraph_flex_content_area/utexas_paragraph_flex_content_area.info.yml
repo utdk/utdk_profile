@@ -3,6 +3,7 @@ description: 'Defines a single paragraph type with image, headline, copy, links 
 type: module
 core: 8.x
 dependencies:
+  - entity_reference_revisions
   - field
   - file
   - image

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_fca_container
+label: 'Flex Content Area Container'
+icon_uuid: null
+description: 'Flex Content Area Container has unlimited Flex Content Area Items.'
+behavior_plugins: {  }

@@ -4,7 +4,7 @@ dependencies:
   config:
     - field.storage.node.field_flex_page_fca_b
     - node.type.utexas_flex_page
-    - paragraphs.paragraphs_type.utexas_flex_content_area
+    - paragraphs.paragraphs_type.utexas_fca_container
   module:
     - entity_reference_revisions
 id: node.utexas_flex_page.field_flex_page_fca_b
@@ -20,10 +20,47 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
+    negate: 0
     target_bundles:
-      utexas_flex_content_area: utexas_flex_content_area
+      utexas_fca_container: utexas_fca_container
     target_bundles_drag_drop:
       utexas_flex_content_area:
-        enabled: true
         weight: 2
+        enabled: false
+      utexas_featured_highlight:
+        weight: 17
+        enabled: false
+      utexas_fca_container:
+        enabled: true
+        weight: 18
+      utexas_hero_image:
+        weight: 19
+        enabled: false
+      utexas_image_link:
+        weight: 20
+        enabled: false
+      utexas_photo_content_area:
+        weight: 21
+        enabled: false
+      utexas_promo_list:
+        weight: 22
+        enabled: false
+      utexas_promo_list_container:
+        weight: 23
+        enabled: false
+      utexas_promo_unit:
+        weight: 24
+        enabled: false
+      utexas_promo_unit_container:
+        weight: 25
+        enabled: false
+      utexas_quick_links:
+        weight: 26
+        enabled: false
+      utexas_resource:
+        weight: 27
+        enabled: false
+      utexas_resource_container:
+        weight: 28
+        enabled: false
 field_type: entity_reference_revisions

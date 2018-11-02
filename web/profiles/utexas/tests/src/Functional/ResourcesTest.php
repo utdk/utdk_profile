@@ -58,7 +58,7 @@ class ResourcesTest extends BrowserTestBase {
     // Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
 
-    // Add a Promo Unit paragraph type instance.
+    // Add a Resource paragraph type instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-add-more-add-more-button-utexas-resource-container')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-add-more-add-more-button-utexas-resource')->click();
 

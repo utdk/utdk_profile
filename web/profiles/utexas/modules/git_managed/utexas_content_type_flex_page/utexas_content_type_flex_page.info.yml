@@ -14,6 +14,18 @@ dependencies:
   - 'drupal:path'
   - 'drupal:text'
   - 'drupal:user'
+  - entity_reference_revisions
+  - field
+  - layout_builder
+  - layout_builder_restrictions
+  - layout_discovery
+  - menu_ui
+  - node
+  - paragraphs
+  - path
+  - text
+  - user
+  - utexas_media_types
   - utexas_paragraph_featured_highlight
   - utexas_paragraph_flex_content_area
   - 'utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area'
@@ -30,5 +42,4 @@ dependencies:
   - utexas_paragraph_resources
   - 'utexas_paragraph_resources:utexas_paragraph_resources'
   - 'utexas_paragraph_types:utexas_paragraph_types'
-  - utexas_media_types
 version: 8.x-1.0
