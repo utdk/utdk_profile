@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "407fc0eb8c336588abc139473fe95aa4",
+    "content-hash": "cf4c319fdf03fd3f14314a201d569a43",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -1123,7 +1123,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.20",
-                    "datestamp": "1505199844",
+                    "datestamp": "1511190785",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1196,7 +1196,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.5",
-                    "datestamp": "1500955443",
+                    "datestamp": "1526659380",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1253,7 +1253,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -1265,6 +1265,7 @@
                     "homepage": "https://www.drupal.org/user/139189"
                 }
             ],
+            "description": "Drupal administration theme with modern minimalist design.",
             "homepage": "https://www.drupal.org/project/adminimal_theme",
             "support": {
                 "source": "http://cgit.drupalcode.org/adminimal_theme"
@@ -1303,7 +1304,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -1915,6 +1916,10 @@
                     "role": "Maintainer"
                 },
                 {
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
+                },
+                {
                     "name": "merlinofchaos",
                     "homepage": "https://www.drupal.org/user/26979"
                 },
@@ -2395,7 +2400,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1524421084",
+                    "datestamp": "1536407884",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5495,7 +5500,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "5acc793d23ea544fb13baf56d52ac4ea707cb63b"
+                "reference": "953fb2d6695a954cd9b19e31c6c2909156f258f6"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5548,15 +5553,15 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-10-25T16:24:43+00:00"
+            "time": "2018-11-01T21:59:57+00:00"
         },
         {
             "name": "utexas/utexas_breadcrumbs_visibility",
-            "version": "1.0-alpha1",
+            "version": "1.0-alpha3",
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_breadcrumbs_visibility.git",
-                "reference": "126a458f1709dd16dc856a64d4d00deb9868ffce"
+                "reference": "ecdd0866337afab41bcc4a794e318ebbfc75326c"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5609,15 +5614,15 @@
             ],
             "description": "Regulate whether breadcrumbs display on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_breadcrumbs_visibility",
-            "time": "2018-09-27T16:08:22+00:00"
+            "time": "2018-11-01T22:00:12+00:00"
         },
         {
             "name": "utexas/utexas_page_title_visibility",
-            "version": "1.0-alpha1",
+            "version": "1.0-alpha3",
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_page_title_visibility.git",
-                "reference": "74a8429f89c8781360b7cc5ad0d71b5b5d1f2f05"
+                "reference": "c53f4e9f41a32e72513c8021482ce2277e2fa253"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5670,7 +5675,7 @@
             ],
             "description": "Regulate whether page title displays on a per-node basis",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/utexas_page_title_visibility",
-            "time": "2018-09-27T16:04:15+00:00"
+            "time": "2018-11-01T22:00:47+00:00"
         },
         {
             "name": "utexas/utexas_qualtrics_filter",
@@ -5755,6 +5760,12 @@
                 "type": "git",
                 "url": "https://github.com/webflo/drupal-core-strict.git",
                 "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webflo/drupal-core-strict/zipball/f59ade4ff11b4c77937b0f7b91164c374434d4c6",
+                "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6",
+                "shasum": ""
             },
             "require": {
                 "asm89/stack-cors": "1.2.0",
