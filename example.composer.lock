@@ -1123,7 +1123,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.20",
-                    "datestamp": "1511190785",
+                    "datestamp": "1505199844",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1196,7 +1196,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.5",
-                    "datestamp": "1526659380",
+                    "datestamp": "1500955443",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -1253,7 +1253,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
@@ -1265,7 +1265,6 @@
                     "homepage": "https://www.drupal.org/user/139189"
                 }
             ],
-            "description": "Drupal administration theme with modern minimalist design.",
             "homepage": "https://www.drupal.org/project/adminimal_theme",
             "support": {
                 "source": "http://cgit.drupalcode.org/adminimal_theme"
@@ -1304,7 +1303,7 @@
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
-                "GPL-2.0-or-later"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
@@ -1916,10 +1915,6 @@
                     "role": "Maintainer"
                 },
                 {
-                    "name": "joelpittet",
-                    "homepage": "https://www.drupal.org/user/160302"
-                },
-                {
                     "name": "merlinofchaos",
                     "homepage": "https://www.drupal.org/user/26979"
                 },
@@ -2400,7 +2395,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.2",
-                    "datestamp": "1536407884",
+                    "datestamp": "1524421084",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3803,7 +3798,7 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
@@ -3928,16 +3923,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "e5389132dc6320682de3643091121c048ff796b3"
+                "reference": "99b2fa8acc244e656cdf324ff419fbe6fd300a4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/e5389132dc6320682de3643091121c048ff796b3",
-                "reference": "e5389132dc6320682de3643091121c048ff796b3",
+                "url": "https://api.github.com/repos/symfony/config/zipball/99b2fa8acc244e656cdf324ff419fbe6fd300a4d",
+                "reference": "99b2fa8acc244e656cdf324ff419fbe6fd300a4d",
                 "shasum": ""
             },
             "require": {
@@ -3988,7 +3983,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2018-09-08T13:15:14+00:00"
+            "time": "2018-10-31T09:06:03+00:00"
         },
         {
             "name": "symfony/console",
@@ -4061,7 +4056,7 @@
         },
         {
             "name": "symfony/css-selector",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -4241,7 +4236,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dom-crawler.git",
@@ -4361,7 +4356,7 @@
         },
         {
             "name": "symfony/expression-language",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/expression-language.git",
@@ -4411,7 +4406,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -4461,7 +4456,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -5303,7 +5298,7 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
@@ -5500,7 +5495,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "953fb2d6695a954cd9b19e31c6c2909156f258f6"
+                "reference": "046e318d9f357044c4d436fdf4cb08b410239bf8"
             },
             "require": {
                 "composer/installers": "^1.0.20"
@@ -5553,7 +5548,7 @@
             ],
             "description": "A UT-branded Drupal theme based on Bootstrap version 4.",
             "homepage": "https://github.austin.utexas.edu/eis1-wcs/forty_acres",
-            "time": "2018-11-01T21:59:57+00:00"
+            "time": "2018-11-05T14:41:56+00:00"
         },
         {
             "name": "utexas/utexas_breadcrumbs_visibility",
@@ -5760,12 +5755,6 @@
                 "type": "git",
                 "url": "https://github.com/webflo/drupal-core-strict.git",
                 "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webflo/drupal-core-strict/zipball/f59ade4ff11b4c77937b0f7b91164c374434d4c6",
-                "reference": "f59ade4ff11b4c77937b0f7b91164c374434d4c6",
-                "shasum": ""
             },
             "require": {
                 "asm89/stack-cors": "1.2.0",
@@ -8553,7 +8542,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v4.1.6",
+            "version": "v4.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -8610,7 +8599,7 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.4.17",
+            "version": "v3.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
