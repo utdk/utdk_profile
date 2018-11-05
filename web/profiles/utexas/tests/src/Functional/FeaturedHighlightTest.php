@@ -112,7 +112,7 @@ class FeaturedHighlightTest extends BrowserTestBase {
     $this->assertRaw('Featured Highlight copy text.');
     $this->assertRaw('Jan. 1, 2018');
     // External links must be allowed in the CTA field.
-    $this->assertRaw('<a href="https://markfullmer.com">Featured Highlight Link</a>');
+    $this->assertRaw('<a href="https://markfullmer.com" class="ut-btn button">Featured Highlight Link</a>');
 
     $this->assertRaw('utexas_image_style_250w_150h/public/featured_highlight/image-test.png');
 
@@ -123,7 +123,7 @@ class FeaturedHighlightTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $this->drupalGet('node/' . $node->id());
-    $this->assertRaw('<a href="/test-basic-page">Featured Highlight Link</a>');
+    $this->assertRaw('<a href="/test-basic-page" class="ut-btn button">Featured Highlight Link</a>');
 
     // 5. Verify if a CTA link is not present, headline displays with no link.
     $this->drupalGet('node/' . $node->id() . '/edit');

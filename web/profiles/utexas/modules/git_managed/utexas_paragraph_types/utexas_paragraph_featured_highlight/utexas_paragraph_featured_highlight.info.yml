@@ -9,6 +9,8 @@ dependencies:
   - field
   - file
   - image
+  - layout_builder
+  - layout_builder_restrictions
   - link
   - paragraphs
   - responsive_image

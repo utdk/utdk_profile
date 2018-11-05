@@ -60,6 +60,7 @@ function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestion
   // Add whatever fields we want to use field--utexas-copy.twig.html.
   $copy_fields = [
     'field_utexas_fca_copy',
+    'field_utexas_fh_copy',
   ];
   // Add whatever fields we want to use field--utexas-link-list.twig.html.
   $link_list_fields = [

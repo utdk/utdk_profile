@@ -17,6 +17,14 @@ function utexas_paragraph_featured_highlight_theme($existing, $type, $theme, $pa
       'base hook' => 'paragraph',
       'template' => 'paragraph--utexas-featured-highlight',
     ],
+    'field__paragraph__field_utexas_fh_cta' => [
+      'base hook' => 'field',
+      'template'  => 'field--paragraph--field-utexas-fh-cta',
+    ],
+    'field__paragraph__field_utexas_fh_date' => [
+      'base hook' => 'field',
+      'template'  => 'field--paragraph--field-utexas-fh-date',
+    ],
   ];
 }
 

@@ -11,9 +11,19 @@ dependencies:
     - responsive_image.styles.utexas_responsive_image_fh
   module:
     - date_ap_style
+    - layout_builder
+    - layout_builder_restrictions
     - link
     - responsive_image
     - text
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+    sections: {  }
+  layout_builder_restrictions:
+    allowed_blocks: {  }
+    allowed_layouts: {  }
 id: paragraph.utexas_featured_highlight.default
 targetEntityType: paragraph
 bundle: utexas_featured_highlight
@@ -21,14 +31,14 @@ mode: default
 content:
   field_utexas_fh_copy:
     weight: 3
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_utexas_fh_cta:
     weight: 4
-    label: above
+    label: hidden
     settings:
       trim_length: 80
       url_only: false
@@ -40,7 +50,7 @@ content:
     region: content
   field_utexas_fh_date:
     weight: 2
-    label: above
+    label: hidden
     settings:
       always_display_year: '1'
       display_day: '1'
@@ -54,7 +64,7 @@ content:
     region: content
   field_utexas_fh_headline:
     weight: 0
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -62,7 +72,7 @@ content:
     region: content
   field_utexas_fh_media:
     weight: 1
-    label: above
+    label: hidden
     settings:
       responsive_image_style: utexas_responsive_image_fh
       image_link: ''

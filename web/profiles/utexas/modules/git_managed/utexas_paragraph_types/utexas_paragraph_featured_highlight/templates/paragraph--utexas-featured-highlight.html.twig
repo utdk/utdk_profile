@@ -59,10 +59,14 @@
 {% set media = content.field_utexas_fh_media %}
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
-    {{ media }}
-    {{ date }}
-    {{ processed_headline }}
-    {{ copy }}
-    {{ cta }}
+    <div class="image-wrapper">
+      {{ media }}
+    </div>
+    <div class="content-wrapper">
+      {{ date }}
+      <h2 class="ut-headline">{{ processed_headline }}</h2>
+      {{ copy }}
+      {{ cta }}
+    </div>
   </div>
 {% endblock paragraph %}
