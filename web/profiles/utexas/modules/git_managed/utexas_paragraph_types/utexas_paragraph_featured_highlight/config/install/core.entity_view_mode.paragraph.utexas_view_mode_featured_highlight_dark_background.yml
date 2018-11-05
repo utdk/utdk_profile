@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.utexas_view_mode_featured_highlight_dark_background
+label: 'Dark Background'
+targetEntityType: paragraph
+cache: true

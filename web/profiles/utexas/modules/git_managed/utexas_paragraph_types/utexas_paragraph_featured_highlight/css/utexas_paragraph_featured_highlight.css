@@ -1,0 +1,13 @@
+div.paragraph--view-mode--default {
+  background-color: #333f48;
+}
+div.paragraph--view-mode--utexas-view-mode-featured-highlight-light-background {
+  background-color: #d6d2c4;
+  color: #000000;
+}
+div.paragraph--view-mode--utexas-view-mode-featured-highlight-light-background .content-wrapper .ut-headline a {
+color: #000000;
+}
+div.paragraph--view-mode--utexas-view-mode-featured-highlight-dark-background {
+  background-color: #6a6361;
+}

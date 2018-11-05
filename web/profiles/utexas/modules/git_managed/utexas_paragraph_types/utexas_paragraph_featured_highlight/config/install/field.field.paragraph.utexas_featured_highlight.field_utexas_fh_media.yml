@@ -17,7 +17,7 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  file_directory: 'featured_highlight'
+  file_directory: featured_highlight
   file_extensions: 'png gif jpg jpeg'
   max_filesize: ''
   max_resolution: ''
