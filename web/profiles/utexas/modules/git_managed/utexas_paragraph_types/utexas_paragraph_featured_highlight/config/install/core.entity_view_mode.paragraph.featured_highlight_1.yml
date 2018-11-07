@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.utexas_view_mode_featured_highlight_dark_background
+id: paragraph.featured_highlight_1
 label: 'Dark Background'
 targetEntityType: paragraph
 cache: true

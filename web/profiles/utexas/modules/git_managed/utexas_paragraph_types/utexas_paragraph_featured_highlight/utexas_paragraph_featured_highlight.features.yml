@@ -1,2 +1,7 @@
 bundle: utexas
+excluded:
+  - core.entity_view_display.paragraph.utexas_featured_highlight.utexas_view_mode_featured_highlight_dark_background
+  - core.entity_view_display.paragraph.utexas_featured_highlight.utexas_view_mode_featured_highlight_light_background
+  - core.entity_view_mode.paragraph.utexas_view_mode_featured_highlight_dark_background
+  - core.entity_view_mode.paragraph.utexas_view_mode_featured_highlight_light_background
 required: true
