@@ -45,6 +45,10 @@ function utexas_paragraph_types_theme($existing, $type, $theme, $path) {
       'base hook' => 'field',
       'template' => 'field--utexas-link-list',
     ],
+    'field__utexas_link_list__darker' => [
+      'base hook' => 'field',
+      'template' => 'field--utexas-link-list--darker',
+    ],
     'field__utexas_cta' => [
       'base hook' => 'field',
       'template' => 'field--utexas-cta',
@@ -62,10 +66,12 @@ function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestion
     'field_utexas_fca_headline',
     'field_utexas_ql_headline',
     'field_utexas_pl_headline',
+    'field_utexas_resource_headline',
   ];
   // Add fields we want to use field--utexas-headline--underline.twig.html.
   $headline_fields_underline = [
     'field_utexas_plc_headline',
+    'field_utexas_rc_title',
   ];
   // Add fields we want to use field--utexas-copy.twig.html.
   $copy_fields = [
@@ -78,6 +84,10 @@ function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestion
   $link_list_fields = [
     'field_utexas_fca_links',
     'field_utexas_ql_links',
+  ];
+  // Add fields we want to use field--utexas-link-list--darker.twig.html.
+  $link_list_fields_darker = [
+    'field_utexas_resource_links',
   ];
   // Add fields we want to use field--utexas-cta.twig.html.
   $cta_fields = [
@@ -98,6 +108,10 @@ function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestion
 
   elseif (in_array($field_name, $link_list_fields)) {
     $suggestions[] = 'field__utexas_link_list';
+  }
+
+  elseif (in_array($field_name, $link_list_fields_darker)) {
+    $suggestions[] = 'field__utexas_link_list__darker';
   }
 
   elseif (in_array($field_name, $cta_fields)) {
