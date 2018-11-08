@@ -1,0 +1,5 @@
+utexas-paragraph-featured-highlight-styles:
+  version: 1.x
+  css:
+    theme:
+      css/utexas_paragraph_featured_highlight.css: {}
