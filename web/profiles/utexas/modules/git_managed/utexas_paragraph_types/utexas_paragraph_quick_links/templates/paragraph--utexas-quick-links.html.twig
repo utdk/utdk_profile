@@ -50,7 +50,11 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes) }}>
     {% block content %}
-      {{ content }}
+      {{ content.field_utexas_ql_headline }}
+    <div class="content">
+      {{ content.field_utexas_ql_copy }}
+      {{ content.field_utexas_ql_links }}
+    </div>
     {% endblock %}
   </div>
 {% endblock paragraph %}

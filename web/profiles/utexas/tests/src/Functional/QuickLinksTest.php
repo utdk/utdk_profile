@@ -91,9 +91,9 @@ class QuickLinksTest extends BrowserTestBase {
     $this->assertRaw('Quick Links Headline');
     // 4. Verify Quick Links link, delta 0, is present, and is an external link.
     $this->assertRaw('Quick Links Copy Value');
-    $this->assertRaw('<a href="https://tylerfahey.com">Quick Links Link!</a>');
+    $this->assertRaw('<a href="https://tylerfahey.com" class="ut-link">Quick Links Link!</a>');
     // 5. Verify Quick Links link, delta 1, is present, and is an internal link.
-    $this->assertRaw('<a href="/test-basic-page">Quick Links Link Number 2!</a>');
+    $this->assertRaw('<a href="/test-basic-page" class="ut-link">Quick Links Link Number 2!</a>');
 
     // Sign out!
     $this->drupalLogout();

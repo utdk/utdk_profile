@@ -60,6 +60,7 @@ function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestion
   // Add fields we want to use field--utexas-headline.twig.html.
   $headline_fields = [
     'field_utexas_fca_headline',
+    'field_utexas_ql_headline',
     'field_utexas_pl_headline',
   ];
   // Add fields we want to use field--utexas-headline--underline.twig.html.
@@ -69,12 +70,14 @@ function utexas_paragraph_types_theme_suggestions_field_alter(array &$suggestion
   // Add fields we want to use field--utexas-copy.twig.html.
   $copy_fields = [
     'field_utexas_fca_copy',
+    'field_utexas_ql_copy',
     'field_utexas_pl_copy',
     'field_utexas_fh_copy',
   ];
   // Add fields we want to use field--utexas-link-list.twig.html.
   $link_list_fields = [
     'field_utexas_fca_links',
+    'field_utexas_ql_links',
   ];
   // Add fields we want to use field--utexas-cta.twig.html.
   $cta_fields = [
