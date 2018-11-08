@@ -7,18 +7,18 @@
   color: #fff;
 }
 /* featured-highlight-1 = Dark Background */
-div.paragraph--view-mode--featured-highlight-1 {
+div.paragraph--view-mode--utexas-featured-highlight-1 {
   background-color: #6a6361;
   color: #efefef;
 }
-div.paragraph--view-mode--featured-highlight-1 .content-wrapper .ut-headline a {
+div.paragraph--view-mode--utexas-featured-highlight-1 .content-wrapper .ut-headline a {
   color: #efefef;
 }
 /* featured-highlight-2 = Light Background */
-div.paragraph--view-mode--featured-highlight-2 {
+div.paragraph--view-mode--utexas-featured-highlight-2 {
   background-color: #d6d2c4;
   color: #2d2a28;
 }
-div.paragraph--view-mode--featured-highlight-2 .content-wrapper .ut-headline a {
+div.paragraph--view-mode--utexas-featured-highlight-2 .content-wrapper .ut-headline a {
   color: #2d2a28;
 }
