@@ -26,7 +26,7 @@
 #}
 
 {% for item in items %}
-  <div{{ item.attributes }}>
+  <div{{ item.attributes.addClass('caption') }}>
     <span>{{ item.content }}</span>
   </div>
 {% endfor %}
