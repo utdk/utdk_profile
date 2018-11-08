@@ -54,8 +54,12 @@
 {% block paragraph %}
   {{ title_prefix}}{{title_suffix }}
   <div{{ attributes.addClass(classes) }}>
-    {{ image }}
-    {{ headline }}
-    {{ copy }}
+    <div class="image-wrapper">
+      {{ image }}
+    </div>
+    <div class="content-wrapper">
+      {{ headline }}
+      {{ copy }}
+    </div>
   </div>
 {% endblock paragraph %}

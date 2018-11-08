@@ -14,6 +14,10 @@ function utexas_paragraph_promo_list_theme($existing, $type, $theme, $path) {
       'base hook' => 'paragraph',
       'template' => 'paragraph--utexas-promo-list',
     ],
+    'field__paragraph__utexas_promo_list_container' => [
+      'base hook' => 'field',
+      'template' => 'field--paragraph--utexas-promo-list-container',
+    ],
   ];
 }
 
