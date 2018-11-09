@@ -5500,7 +5500,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git",
-                "reference": "059834827f1d46e08d9425eb1e63c093b60d80f8"
+                "reference": "da4e3a6e6816812c85cb573613f7ef3a8df9454b"
             },
             "require": {
                 "composer/installers": "^1.0.20"
