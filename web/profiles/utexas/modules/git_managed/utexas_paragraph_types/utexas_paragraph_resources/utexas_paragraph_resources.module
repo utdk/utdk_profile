@@ -21,18 +21,6 @@ function utexas_paragraph_resources_theme($existing, $type, $theme, $path) {
       'base hook' => 'paragraph',
       'template' => 'paragraph--utexas-resource',
     ],
-    'field__paragraph__field_utexas_resource_headline' => [
-      'base hook' => 'field',
-      'template' => 'field--paragraph--field-utexas-resource-headline',
-    ],
-    'field__paragraph__field_utexas_resource_links' => [
-      'base hook' => 'field',
-      'template' => 'field--paragraph--field-utexas-resource-links',
-    ],
-    'field__paragraph__field_utexas_rc_title' => [
-      'base hook' => 'field',
-      'template' => 'field--paragraph--field-utexas-rc-title',
-    ],
   ];
 }
 

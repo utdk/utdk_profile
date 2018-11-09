@@ -17,14 +17,6 @@ function utexas_paragraph_photo_content_area_theme($existing, $type, $theme, $pa
       'base hook' => 'paragraph',
       'template' => 'paragraph--utexas-photo-content-area',
     ],
-    'field__paragraph__field_utexas_pca_headline' => [
-      'base hook' => 'field',
-      'template' => 'field--paragraph--field-utexas-pca-headline',
-    ],
-    'field__paragraph__field_utexas_pca_links' => [
-      'base hook' => 'field',
-      'template' => 'field--paragraph--field-utexas-pca-links',
-    ],
     'field__paragraph__field_utexas_pca_credit' => [
       'base hook' => 'field',
       'template' => 'field--paragraph--field-utexas-pca-credit',
