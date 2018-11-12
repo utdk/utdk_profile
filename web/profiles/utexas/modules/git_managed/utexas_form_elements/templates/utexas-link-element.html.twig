@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Custom theme implementation of a link with separate title and URL elements.
+ *
+ * Available variables:
+ * - element.url: The link that has already been formatted by l().
+ * - element.title: (optional) A descriptive or alternate title for the link, which may
+ *   be different than the actual link text.
+ *
+ * @see template_preprocess()
+ * @see template_preprocess_link_formatter_link_separate()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% spaceless %}
+<div style="display: table">
+  <div style="display: table-row">
+      <div style="display: table-cell">{{ element.url }}</div>
+      <div style="display: table-cell">{{ element.title }}</div>
+  </div>
+</div>
+{% endspaceless %}

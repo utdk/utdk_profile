@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - block_content
+id: block_content.utexas_quick_links_4
+label: 'Quick Links 4 Columns'
+targetEntityType: block_content
+cache: true

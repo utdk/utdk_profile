@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Defines utexas_link_element field type.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_form_elements_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_link_element' => [
+      'render element' => 'element',
+      'template' => 'utexas-link-element',
+    ],
+  ];
+  return $variables;
+}

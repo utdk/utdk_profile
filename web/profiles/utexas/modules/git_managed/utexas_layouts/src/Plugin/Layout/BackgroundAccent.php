@@ -66,6 +66,10 @@ class BackgroundAccent extends DefaultConfigLayout {
         $this->configuration['background-accent'] = $file->id();
       }
     }
+    else {
+      // There is no image.
+      $this->configuration['background-accent'] = 0;
+    }
   }
 
   /**

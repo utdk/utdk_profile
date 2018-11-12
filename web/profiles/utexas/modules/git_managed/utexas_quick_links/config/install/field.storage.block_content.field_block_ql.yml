@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - block_content
     - utexas_quick_links
-id: node.field_flex_page_ql
-field_name: field_flex_page_ql
-entity_type: node
+id: block_content.field_block_ql
+field_name: field_block_ql
+entity_type: block_content
 type: utexas_quick_links
 settings: {  }
 module: utexas_quick_links

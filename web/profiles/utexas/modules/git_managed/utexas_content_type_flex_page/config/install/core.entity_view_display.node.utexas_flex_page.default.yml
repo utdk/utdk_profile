@@ -24,6 +24,7 @@ dependencies:
     - layout_discovery
     - text
     - user
+    - utexas_quick_links
 third_party_settings:
   layout_builder:
     allow_custom: true
@@ -196,23 +197,6 @@ third_party_settings:
                 third_party_settings: {  }
             additional: {  }
             weight: 9
-          3bd6feaf-795d-4438-bec2-7e0c43cf8cc6:
-            uuid: 3bd6feaf-795d-4438-bec2-7e0c43cf8cc6
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:node:utexas_flex_page:field_flex_page_ql'
-              formatter:
-                type: entity_reference_revisions_entity_view
-                label: hidden
-                settings:
-                  view_mode: default
-                  link: ''
-                third_party_settings: {  }
-            additional: {  }
-            weight: 10
           d213eac0-1d4c-4268-aa92-1d92734842b4:
             uuid: d213eac0-1d4c-4268-aa92-1d92734842b4
             region: content
@@ -260,6 +244,21 @@ third_party_settings:
                 type: text_default
             additional: {  }
             weight: 13
+          7005ad35-1188-490a-847c-eb7408b819e9:
+            uuid: 7005ad35-1188-490a-847c-eb7408b819e9
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_ql'
+              formatter:
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+                type: utexas_quick_links
+            additional: {  }
+            weight: 14
   layout_builder_restrictions:
     allowed_blocks:
       'Chaos tools': {  }
@@ -373,13 +372,11 @@ content:
     third_party_settings: {  }
     region: content
   field_flex_page_ql:
-    type: entity_reference_revisions_entity_view
-    weight: 10
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
+    weight: 109
+    label: above
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_quick_links
     region: content
   field_flex_page_resource:
     type: entity_reference_revisions_entity_view

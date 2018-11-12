@@ -1,0 +1,89 @@
+/* Styling for Quick Link columns. */
+.utexas-quick-links ul.link-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.utexas-quick-links ul.link-list li {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 1rem;
+}
+
+/* Two Columns. */
+.utexas-quick-links.two ul.link-list li {
+  width: 50%;
+  padding-right: 1rem;
+}
+
+.utexas-quick-links.two ul.link-list li:nth-child(2n+0) {
+  padding-right: 0;
+}
+
+/* Three Columns. */
+.utexas-quick-links.three ul.link-list li {
+  width: 33%;
+  padding-right: 1rem;
+}
+
+.utexas-quick-links.three ul.link-list li:nth-child(3n+0) {
+  padding-right: 0;
+}
+
+/* Four Columns. */
+.utexas-quick-links.four ul.link-list li {
+  width: 25%;
+  padding-right: 1rem;
+}
+
+.utexas-quick-links.four ul.link-list li:nth-child(4n+0) {
+  padding-right: 0;
+}
+
+/* 2, 3, 4 columns goes to 1 column if under 640px */
+@media screen and (max-width: 640px) {
+
+  .utexas-quick-links.two ul.link-list li,
+  .utexas-quick-links.three ul.link-list li,
+  .utexas-quick-links.four ul.link-list li {
+    width: 100%;
+    padding-right: 1rem;
+  }
+}
+
+/* 2 columns goes to 1 column if between 641 and 1000px */
+@media screen and (min-width: 641px) and (max-width: 1000px) {
+  .utexas-quick-links.two ul.link-list li {
+    width: 100%;
+  }
+  .utexas-quick-links.three ul.link-list li:nth-child(2n+0),
+  .utexas-quick-links.three ul.link-list li:nth-child(3n+0),
+  .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
+    padding-right: 1rem;
+  }
+}
+
+/* 3 columns goes to 2 columns if between 641 and 1000px */
+@media screen and (min-width: 641px) and (max-width: 1000px) {
+  .utexas-quick-links.three ul.link-list li {
+    width: 50%;
+  }
+  .utexas-quick-links.three ul.link-list li:nth-child(2n+0),
+  .utexas-quick-links.three ul.link-list li:nth-child(3n+0),
+  .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
+    padding-right: 1rem;
+  }
+}
+
+/* 4 columns goes to 3 columns if between 641 and 1000px */
+@media screen and (min-width: 641px) and (max-width: 1000px) {
+  .utexas-quick-links.four ul.link-list li {
+    width: 50%;
+  }
+  .utexas-quick-links.three ul.link-list li:nth-child(2n+0),
+  .utexas-quick-links.three ul.link-list li:nth-child(3n+0),
+  .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
+    padding-right: 1rem;
+  }
+}
