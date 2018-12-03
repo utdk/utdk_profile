@@ -48,8 +48,6 @@ class UTexasQuickLinksWidget extends WidgetBase {
       '#prefix' => '<div id="' . $fieldset_wrapper_name . '">',
       '#suffix' => '</div>',
     ];
-    // Gather the number of links in the form already.
-    $links = unserialize($items[$delta]->links);
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
