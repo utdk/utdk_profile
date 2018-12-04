@@ -41,8 +41,7 @@ class UtexasLinkElement extends FormElement {
       '#title' => t('URL'),
       '#default_value' => isset($element['#default_value']['url']) ? static::getUriAsDisplayableString($element['#default_value']['url']) : NULL,
       '#element_validate' => [[get_called_class(), 'validateUriElement']],
-      '#description' => t('You can also enter an internal path such as /node/add or an external URL such as http://example.com. Enter <front> to link to the front page.'),
-      '#placeholder' => 'https://utexas.edu',
+      '#placeholder' => 'External URL (https://) or internal path (e.g., /node/1)',
       '#process_default_value' => FALSE,
     ];
 
@@ -51,6 +50,7 @@ class UtexasLinkElement extends FormElement {
       '#title' => t('Link text'),
       '#default_value' => isset($element['#default_value']['title']) ? $element['#default_value']['title'] : '',
       '#placeholder' => 'Text to display',
+      '#access' => isset($element['#suppress_display']) ? FALSE : TRUE,
     ];
 
     return $element;

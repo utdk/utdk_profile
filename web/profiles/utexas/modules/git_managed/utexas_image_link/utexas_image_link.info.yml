@@ -1,0 +1,11 @@
+name: 'UTexas Image Link'
+type: module
+description: 'A custom field that allows for a linked image.'
+core: 8.x
+package: UTexas
+dependencies:
+  - block_content
+  - field
+  - responsive_image
+  - utexas_image_styles
+  - utexas_image_link

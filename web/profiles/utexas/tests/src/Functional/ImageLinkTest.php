@@ -57,16 +57,12 @@ class ImageLinkTest extends BrowserTestBase {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Add the Image Link A & B paragraph types.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-b-add-more-add-more-button-utexas-image-link')->click();
-
-    // 3. Verify the correct field schemae exist.
+    // 2. Verify the correct field schemae exist.
     $fields = [
-      'edit-field-flex-page-il-a-0-subform-field-utexas-il-image-0-upload',
-      'edit-field-flex-page-il-a-0-subform-field-utexas-il-link-0-uri',
-      'edit-field-flex-page-il-b-0-subform-field-utexas-il-image-0-upload',
-      'edit-field-flex-page-il-b-0-subform-field-utexas-il-link-0-uri',
+      'edit-field-flex-page-il-a-0-image-upload',
+      'edit-field-flex-page-il-a-0-link-url',
+      'edit-field-flex-page-il-b-0-image-upload',
+      'edit-field-flex-page-il-b-0-link-url',
     ];
     foreach ($fields as $field) {
       $assert->fieldExists($field);
@@ -78,17 +74,12 @@ class ImageLinkTest extends BrowserTestBase {
    */
   public function testValidation() {
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // 1. Add the Image Link A & B paragraph types.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-b-add-more-add-more-button-utexas-image-link')->click();
     // Submit an image with no alt text.
     $edit = [
       'title[0][value]' => 'Flex Page Test',
-      'files[field_flex_page_il_a_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_il_a_0_image]' => drupal_realpath($this->testImage),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    // Images must have alt text.
-    $this->assertRaw('Alternative text field is required.');
   }
 
   /**
@@ -98,35 +89,28 @@ class ImageLinkTest extends BrowserTestBase {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // 1. Add the Image Link A & B paragraph types.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-a-add-more-add-more-button-utexas-image-link')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-il-b-add-more-add-more-button-utexas-image-link')->click();
     $edit = [
       'title[0][value]' => 'Image Link Test',
-      'files[field_flex_page_il_a_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il_a[0][subform][field_utexas_il_link][0][uri]' => 'https://markfullmer.com',
-      'files[field_flex_page_il_b_0_subform_field_utexas_il_image_0]' => drupal_realpath($this->testImage),
-      'field_flex_page_il_b[0][subform][field_utexas_il_link][0][uri]' => '/node/' . $basic_page_id,
+      'files[field_flex_page_il_a_0_image]' => drupal_realpath($this->testImage),
+      'edit-field-flex-page-il-a-0-link-url' => 'https://markfullmer.com',
+      'files[field_flex_page_il_b_0_image]' => drupal_realpath($this->testImage),
+      'edit-field-flex-page-il-b-0-link-url' => '/node/' . $basic_page_id,
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
-    // 2. Alt text must be submitted *after* the image has been added.
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_il_a[0][subform][field_utexas_il_image][0][alt]' => 'Alt A',
-      'field_flex_page_il_b[0][subform][field_utexas_il_image][0][alt]' => 'Alt B',
-    ],
-    'edit-submit');
     $node = $this->drupalGetNodeByTitle('Image Link Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
     // 3. Verify Image Link A is present, and that the link is external.
-    $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test.png');
+    $this->assertRaw('utexas_image_style_1800w/public/image_link/image-test.png');
     $this->assertRaw('<a href="https://markfullmer.com"');
-    $this->assertRaw('alt="Alt A"');
     // 4. Verify Image Link B is present, and that the link is internal.
-    $this->assertRaw('utexas_image_style_1800w/public/image_links/image-test_0.png');
+    $this->assertRaw('utexas_image_style_1800w/public/image_link/image-test_0.png');
     $this->assertRaw('<a href="/test-basic-page');
-    $this->assertRaw('alt="Alt B"');
+    /* Verify a picture tag and srcset are in the markup to show the image is
+    rendered as a responsive image. */
+    $this->assertRaw('<picture>');
+    $this->assertRaw('<source srcset');
     // Sign out!
     $this->drupalLogout();
   }

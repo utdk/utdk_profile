@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - entity_reference_revisions
     - node
-    - paragraphs
+    - utexas_image_link
 id: node.field_flex_page_il_a
 field_name: field_flex_page_il_a
 entity_type: node
-type: entity_reference_revisions
-settings:
-  target_type: paragraph
-module: entity_reference_revisions
+type: utexas_image_link
+settings: {  }
+module: utexas_image_link
 locked: false
 cardinality: 1
 translatable: true

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_image_link
-label: 'Image Link'
-icon_uuid: null
-description: 'Image Link has an Image and Link field.'
-behavior_plugins: {  }
