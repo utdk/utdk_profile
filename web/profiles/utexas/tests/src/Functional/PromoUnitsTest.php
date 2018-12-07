@@ -58,19 +58,14 @@ class PromoUnitsTest extends BrowserTestBase {
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
 
-    // 2. Add a Promo Unit paragraph type instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-add-more-add-more-button-utexas-promo-unit-container')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-0-subform-field-utexas-puc-items-add-more-add-more-button-utexas-promo-unit')->click();
-
-    // 3. Verify the correct field schema exist.
+    // 2. Verify the correct field schema exist.
     $fields = [
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-title-0-value',
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-subform-field-utexas-pu-image-0-upload',
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-subform-field-utexas-pu-image-style',
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-subform-field-utexas-pu-headline-0-value',
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-subform-field-utexas-pu-copy-0-value',
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-subform-field-utexas-pu-cta-link-0-uri',
-      'edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-subform-field-utexas-pu-cta-link-0-title',
+      'edit-field-flex-page-pu-0-headline',
+      'edit-field-flex-page-pu-0-link-fieldset-promo-unit-items-0-item-headline',
+      'edit-field-flex-page-pu-0-link-fieldset-promo-unit-items-0-item-image-upload',
+      'edit-field-flex-page-pu-0-link-fieldset-promo-unit-items-0-item-copy-value',
+      'edit-field-flex-page-pu-0-link-fieldset-promo-unit-items-0-item-link-url',
+      'edit-field-flex-page-pu-0-link-fieldset-promo-unit-items-0-item-link-title',
     ];
     foreach ($fields as $field) {
       $assert->fieldExists($field);
@@ -90,57 +85,58 @@ class PromoUnitsTest extends BrowserTestBase {
    */
   public function testOutput() {
     $this->assertAllowed("/node/add/utexas_flex_page");
-    // 1. Add the Promo Unit paragraph type.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-add-more-add-more-button-utexas-promo-unit-container')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-0-subform-field-utexas-puc-items-add-more-add-more-button-utexas-promo-unit')->click();
+    // 1. Add the Promo Unit.
     $edit = [
       'title[0][value]' => 'Promo Unit Test',
-      'field_flex_page_pu[0][subform][field_utexas_puc_title][0][value]' => "Test Title of Promo Unit Container",
-      'files[field_flex_page_pu_0_subform_field_utexas_puc_items_0_subform_field_utexas_pu_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_pu_square',
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_headline][0][value]' => 'Promo Unit Headline',
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_copy][0][value]' => 'Promo Unit Copy',
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_cta_link][0][uri]' => 'https://www.tylerfahey.com',
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_cta_link][0][title]' => 'Test Promo Unit Link',
+      'field_flex_page_pu[0][headline]' => "Test Title of Promo Unit Container",
+      'files[field_flex_page_pu_0_link-fieldset_promo_unit_items_0_item_image]' => \Drupal::service('file_system')->realpath($this->testImage),
+      'field_flex_page_pu[0][link-fieldset][promo_unit_items][0][item][headline]' => 'Promo Unit Headline',
+      'field_flex_page_pu[0][link-fieldset][promo_unit_items][0][item][copy][value]' => 'Promo Unit Copy',
+      'field_flex_page_pu[0][link-fieldset][promo_unit_items][0][item][link][url]' => 'https://www.tylerfahey.com',
+      'field_flex_page_pu[0][link-fieldset][promo_unit_items][0][item][link][title]' => 'Test Promo Unit Link',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
-    // 2. Alt text must be submitted *after* the image has been added.
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image][0][alt]' => 'Alt A',
-    ],
-      'edit-submit');
+    // TODO: test for alt text once it is implemented.
     $node = $this->drupalGetNodeByTitle('Promo Unit Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    // 3. Verify Promo Unit data is present, and that the link is external.
+
+    // 3. Verify Promo Unit data is present, that the link is external and that image has landscape orientation.
     $this->assertRaw('Test Title of Promo Unit Container');
-    $this->assertRaw('utexas_image_style_112w_112h/public/promo_units/image-test.png');
+    $this->assertRaw('utexas_image_style_176w_112h/public/promo_unit_items/image-test.png');
     $this->assertRaw('Promo Unit Headline');
     $this->assertRaw('Promo Unit Copy');
     $this->assertRaw('Test Promo Unit Link');
     $this->assertRaw('<a href="https://www.tylerfahey.com"');
-    $this->assertRaw('alt="Alt A"');
-
-    // Test for landscape image based on user selection.
-    $this->drupalGet('node/' . $node->id() . '/edit');
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-top-links-edit-button')->click();
-    $edit = [
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_pu_landscape',
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertRaw('utexas_image_style_176w_112h/public/promo_units/image-test.png');
 
     // Test for portrait image based on user selection.
-    $this->drupalGet('node/' . $node->id() . '/edit');
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pu-0-subform-field-utexas-puc-items-0-top-links-edit-button')->click();
+    $this->drupalGet('node/' . $node->id() . '/layout');
+    // Add layout section.
+    $this->getSession()->getPage()->find('css', 'a.use-ajax.new-section__link')->click();
+    $this->getSession()->getPage()->find('css', 'ul.layout-selection li:nth-child(2) a')->click();
+    $this->getSession()->getPage()->find('css', '#edit-actions-submit')->click();
+    // Add promo unit to left section region.
+    $this->getSession()->getPage()->find('css', 'div.layout__region--left a.use-ajax.new-block__link')->click();
+    $this->getSession()->getPage()->find('css', 'summary:contains("Content") + div ul.links a:contains("Promo Unit")')->click();
     $edit = [
-      'field_flex_page_pu[0][subform][field_utexas_puc_items][0][subform][field_utexas_pu_image_style]' => 'utexas_responsive_image_pu_portrait',
+      'settings[formatter][type]' => 'utexas_promo_unit_2',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->drupalPostForm(NULL, $edit, 'edit-actions-submit');
+    // Add promo unit to right section region.
+    $this->getSession()->getPage()->find('css', 'div.layout__region--right a.use-ajax.new-block__link')->click();
+    $this->getSession()->getPage()->find('css', 'summary:contains("Content") + div ul.links a:contains("Promo Unit")')->click();
+    $edit = [
+      'settings[formatter][type]' => 'utexas_promo_unit_3',
+    ];
+    $this->drupalPostForm(NULL, $edit, 'edit-actions-submit');
+    // Save layout.
+    $this->getSession()->getPage()->find('css', 'a:contains("Save Layout")')->click();
+
+    // Test for presence of portrait and square images.
     $this->drupalGet('node/' . $node->id());
-    $this->assertRaw('utexas_image_style_120w_150h/public/promo_units/image-test.png');
+    $this->assertRaw('utexas_image_style_120w_150h/public/promo_unit_items/image-test.png');
+    $this->assertRaw('utexas_image_style_112w_112h/public/promo_unit_items/image-test.png');
 
     // Sign out!
     $this->drupalLogout();

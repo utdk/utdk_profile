@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_promo_unit.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_promo_unit_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_promo_unit' => [
+      'variables' => [
+        'headline' => NULL,
+        'promo_unit_items' => [],
+        'image_display' => NULL,
+      ],
+      'template' => 'utexas-promo-unit',
+    ],
+  ];
+  return $variables;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_promo_unit_form_layout_builder_update_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_promo_unit_simplify_layout_form($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_promo_unit_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_promo_unit_simplify_layout_form($form);
+}
+
+/**
+ * Helper function for Layout Builder form alters.
+ */
+function _utexas_promo_unit_simplify_layout_form(&$form) {
+  $map = [
+    'default' => "Landscape (220x140, 11:7 ratio)",
+    'utexas_promo_unit_2' => "Portrait (150x188, 4:5 ratio)",
+    'utexas_promo_unit_3' => "Square (140x140, 1:1 ratio)",
+  ];
+  if (isset($form['settings']['block_form'])) {
+    $bundle = $form['settings']['block_form']['#block']->bundle();
+    if ($bundle === 'utexas_promo_unit') {
+      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
+        if (in_array($machine_name, array_keys($map))) {
+          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
+        }
+      }
+    }
+  }
+}

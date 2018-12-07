@@ -48,12 +48,6 @@ settings:
       utexas_promo_list_container:
         weight: 25
         enabled: false
-      utexas_promo_unit:
-        weight: 26
-        enabled: false
-      utexas_promo_unit_container:
-        weight: 27
-        enabled: false
       utexas_resource:
         weight: 29
         enabled: false

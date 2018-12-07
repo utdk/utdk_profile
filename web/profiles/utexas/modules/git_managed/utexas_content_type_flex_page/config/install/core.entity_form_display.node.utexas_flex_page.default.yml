@@ -22,6 +22,7 @@ dependencies:
     - path
     - text
     - utexas_image_link
+    - utexas_promo_unit
     - utexas_quick_links
 id: node.utexas_flex_page.default
 targetEntityType: node
@@ -133,16 +134,10 @@ content:
     third_party_settings: {  }
     region: content
   field_flex_page_pu:
-    type: entity_reference_paragraphs
-    weight: 14
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
+    weight: 128
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_promo_unit
     region: content
   field_flex_page_ql:
     weight: 125

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_promo_unit
-label: 'Promo Unit Item'
-icon_uuid: null
-description: 'Promo Unit Item has attached Image, Image Style, Headline, Copy and Call to Action fields.'
-behavior_plugins: {  }

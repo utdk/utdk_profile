@@ -1,0 +1,24 @@
+{%
+  set classes = [
+    'utexas-promo-unit',
+  ]
+%}
+{% if headline %}
+  <h3 class="ut-headline--underline">{{ headline }}</h3>
+{% endif %}
+{% for item in promo_unit_items %}
+  <div class="utexas-promo-unit">
+    {% if item.image %}
+      <div class="image-wrapper {{ image_display }}">
+        {{ item.image }}
+      </div>
+    {% endif %}
+    <div class="data-wrapper">
+      <h3 class="ut-headline">
+        {{ item.headline }}
+      </h3>
+      <p>{{ item.copy }}</p>
+      {{ item.link }}
+    </div>
+  </div>
+{% endfor %}

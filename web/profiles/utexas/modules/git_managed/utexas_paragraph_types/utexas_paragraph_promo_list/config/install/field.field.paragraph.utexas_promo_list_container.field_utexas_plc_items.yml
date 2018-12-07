@@ -38,10 +38,4 @@ settings:
       utexas_promo_list_container:
         weight: 13
         enabled: false
-      utexas_promo_unit:
-        weight: 14
-        enabled: false
-      utexas_promo_unit_container:
-        weight: 15
-        enabled: false
 field_type: entity_reference_revisions

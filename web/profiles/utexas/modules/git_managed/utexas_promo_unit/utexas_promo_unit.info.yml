@@ -1,0 +1,11 @@
+name: 'UTexas Promo Unit'
+type: module
+description: 'A compound field with image, headline, copy text, & link.'
+core: 8.x
+package: UTexas
+dependencies:
+  - block_content
+  - field
+  - layout_builder
+  - layout_builder_restrictions
+  - utexas_promo_unit

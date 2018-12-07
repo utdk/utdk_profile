@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_flex_page_pu
-    - node.type.utexas_flex_page
+    - block_content.type.utexas_promo_unit
+    - field.storage.block_content.field_block_pu
   module:
     - utexas_promo_unit
-id: node.utexas_flex_page.field_flex_page_pu
-field_name: field_flex_page_pu
-entity_type: node
-bundle: utexas_flex_page
+id: block_content.utexas_promo_unit.field_block_pu
+field_name: field_block_pu
+entity_type: block_content
+bundle: utexas_promo_unit
 label: 'Promo Unit'
 description: ''
 required: false

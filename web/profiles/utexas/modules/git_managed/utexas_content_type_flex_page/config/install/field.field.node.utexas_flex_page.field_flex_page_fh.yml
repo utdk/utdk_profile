@@ -32,12 +32,6 @@ settings:
       utexas_photo_content_area:
         weight: 10
         enabled: false
-      utexas_promo_unit:
-        weight: 11
-        enabled: false
-      utexas_promo_unit_container:
-        weight: 12
-        enabled: false
       utexas_quick_links:
         weight: 13
         enabled: false

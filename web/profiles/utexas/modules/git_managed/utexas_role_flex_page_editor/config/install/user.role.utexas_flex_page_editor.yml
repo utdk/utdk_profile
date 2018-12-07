@@ -22,3 +22,4 @@ permissions:
   - 'use utexas_flex_page layout per node'
   - 'view the administration theme'
   - 'view utexas_flex_page revisions'
+  - 'configure any layout'
