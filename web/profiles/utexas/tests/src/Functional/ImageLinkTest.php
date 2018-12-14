@@ -47,7 +47,7 @@ class ImageLinkTest extends BrowserTestBase {
     parent::setUp();
     $this->initializeFlexPageEditor();
     $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestImage();
+    $this->testImage = $this->createTestMediaImage();
   }
 
   /**
@@ -77,7 +77,7 @@ class ImageLinkTest extends BrowserTestBase {
     // Submit an image with no alt text.
     $edit = [
       'title[0][value]' => 'Flex Page Test',
-      'files[field_flex_page_il_a_0_image]' => drupal_realpath($this->testImage),
+      'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
   }
@@ -91,9 +91,9 @@ class ImageLinkTest extends BrowserTestBase {
     $this->assertAllowed("/node/add/utexas_flex_page");
     $edit = [
       'title[0][value]' => 'Image Link Test',
-      'files[field_flex_page_il_a_0_image]' => drupal_realpath($this->testImage),
+      'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
       'edit-field-flex-page-il-a-0-link-url' => 'https://markfullmer.com',
-      'files[field_flex_page_il_b_0_image]' => drupal_realpath($this->testImage),
+      'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
       'edit-field-flex-page-il-b-0-link-url' => '/node/' . $basic_page_id,
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
