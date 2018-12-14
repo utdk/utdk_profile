@@ -12,3 +12,4 @@ dependencies:
   - media
   - path
   - user
+  - utexas_image_styles
