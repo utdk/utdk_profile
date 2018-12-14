@@ -46,8 +46,9 @@ class UTexasImageLinkFormatter extends FormatterBase {
         }
         $image = new \stdClass();
         $image->title = NULL;
-        // @todo : retrieve the media object's alt text.
-        $image->alt = $file->getFileUri();
+        $media = \Drupal::entityTypeManager()->getStorage('media')->load($item->image);
+        $media_attributes = $media->get('field_utexas_media_image')->getValue();
+        $image->alt = $media_attributes[0]['alt'];
         $image->entity = $file;
         $image->uri = $file->getFileUri();
         $image->width = NULL;

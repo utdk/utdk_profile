@@ -3,3 +3,5 @@ type: module
 description: General-use form elements not provided by Core
 core: 8.x
 package: UTexas
+dependencies:
+  - media_library

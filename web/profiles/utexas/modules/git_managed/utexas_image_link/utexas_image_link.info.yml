@@ -8,4 +8,4 @@ dependencies:
   - field
   - responsive_image
   - utexas_image_styles
-  - utexas_image_link
+  - utexas_form_elements

@@ -23,16 +23,14 @@ class UTexasImageLinkWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $validators = [
-      'file_validate_extensions' => ['jpg jpeg png gif'],
-    ];
     $element['image'] = [
-      '#type' => 'managed_file',
+      '#type' => 'media_library_element',
+      '#target_bundles' => ['utexas_image'],
+      '#delta' => $delta,
+      '#cardinality' => 1,
       '#title' => t('Image'),
-      '#default_value' => isset($items[$delta]->image) ? [$items[$delta]->image] : 0,
+      '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : 0,
       '#description' => t('This image will fill the width of the region it is placed in.'),
-      '#upload_validators' => $validators,
-      '#upload_location' => 'public://image_link/',
     ];
     $element['link'] = [
       '#type' => 'utexas_link_element',
@@ -51,10 +49,9 @@ class UTexasImageLinkWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through (potential) field instances.
     foreach ($values as &$value) {
-      if (isset($value['image'][0])) {
-        // The image link compound field only ever accepts 1 image,
-        // So we store the 0th element from the managed_file array, if present.
-        $value['image'] = $value['image'][0];
+      if (isset($value['image']['media_library_selection'])) {
+        // @see MediaLibraryElement.php
+        $value['image'] = $value['image']['media_library_selection'];
       }
       else {
         $value['image'] = 0;
