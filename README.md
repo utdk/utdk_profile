@@ -65,6 +65,7 @@ The site does not have to be installed in order to run tests. Running `lando sta
 
 ### Allow Lando to write to sites/simpletest
 `mkdir web/sites/simpletest`
+
 `chmod -R 777 web/sites/simpletest`
 
 A single test can be run with the following command:
@@ -87,21 +88,21 @@ Time: 1.04 minutes, Memory: 6.00MB
 OK (1 test, 7 assertions)
 ```
 
-To run all `UTexas` tests:
+### Run all UTexas tests:
 `lando test-utexas` 
-(This is really just a tooling shortcut for the following:)
-`lando phpunit -c web/core/phpunit.xml.dist --group=utexas`
 
-To run a single test:
+(This is really just a tooling shortcut for `lando phpunit -c web/core/phpunit.xml.dist --group=utexas`)
+
+### Run a single test:
 `lando test BasicInstallationTest`
-(This is really just a tooling shortcut for the following:)
-`lando phpunit -c web/core/phpunit.xml.dist --filter=BasicInstallationTest`
 
-To run a test based on the full path:
+(This is really just a tooling shortcut for `lando phpunit -c web/core/phpunit.xml.dist --filter=BasicInstallationTest`)
+
+### To run a test based on the full path:
 `lando phpunit -c web/core/phpunit.xml.dist web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`
 
 ### Alternate testing approaches
-Non-lando based tests can be run by a command along the lines of:
+Non-Lando based tests can be run by a command along the lines of:
 
 ```
 php web/core/scripts/run-tests.sh --php /usr/local/bin/php PHPUnit --suppress-deprecations --dburl mysql://drupal8:drupal8@database/drupal8 --url http://utdk8.lndo.site --module utexas --concurrency 4 --verbose
