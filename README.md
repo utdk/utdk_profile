@@ -69,10 +69,9 @@ The site does not have to be installed in order to run tests. Running `lando sta
 `chmod -R 777 web/sites/simpletest`
 
 A single test can be run with the following command:
-`lando phpunit -c web/core/phpunit.xml.dist web/core/modules/field/tests/src/FunctionalJavascript/Number/NumberFieldTest.php`
+`lando test web/core/modules/field/tests/src/FunctionalJavascript/Number/NumberFieldTest.php`
 
-- The `phpunit` command is provided by the "tooling" section in `.lando.yml`
-- The `-c web/core/phpunit.xml.dist` loads the default configuration from Drupal, while overriding some of its settings via the `overrides` section in `.lando.yml`
+- The `test` command is provided by the "tooling" section in `.lando.yml`
 - The final parameter is the path to the file that defines the test.
 
 You should get this output:
@@ -91,15 +90,12 @@ OK (1 test, 7 assertions)
 ### Run all UTexas tests:
 `lando test-utexas` 
 
-(This is really just a tooling shortcut for `lando phpunit -c web/core/phpunit.xml.dist --group=utexas`)
+(This is really just a tooling shortcut for `lando phpunit -c /app/web/profiles/utexas/tests/phpunit.xml --group=utexas`)
 
 ### Run a single test:
-`lando test BasicInstallationTest`
+`lando test web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`
 
-(This is really just a tooling shortcut for `lando phpunit -c web/core/phpunit.xml.dist --filter=BasicInstallationTest`)
-
-### To run a test based on the full path:
-`lando phpunit -c web/core/phpunit.xml.dist web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`
+(This is really just a tooling shortcut for `lando phpunit -c /app/web/profiles/utexas/tests/phpunit.xml web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`)
 
 ### Alternate testing approaches
 Non-Lando based tests can be run by a command along the lines of:

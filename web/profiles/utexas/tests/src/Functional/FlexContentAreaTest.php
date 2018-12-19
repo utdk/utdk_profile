@@ -60,7 +60,7 @@ class FlexContentAreaTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 2. Add the Flex Content Area A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-fca-container')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-fca-container')->click();
@@ -90,7 +90,7 @@ class FlexContentAreaTest extends BrowserTestBase {
    * Test validation.
    */
   public function testValidation() {
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 1. Add the Flex Content Area A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-fca-container')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-fca-container')->click();
@@ -112,7 +112,7 @@ class FlexContentAreaTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 1. Add the Flex Content Area A & B paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-a-add-more-add-more-button-utexas-fca-container')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fca-b-add-more-add-more-button-utexas-fca-container')->click();
@@ -145,7 +145,7 @@ class FlexContentAreaTest extends BrowserTestBase {
 
     $node = $this->drupalGetNodeByTitle('Flex Content Area Test');
     $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
+    
 
     // 3. Verify Flex Content A, delta 0, is present.
     $this->assertRaw('FCA A Headline');

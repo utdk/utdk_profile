@@ -56,7 +56,7 @@ class HeroImageTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // Add the Hero Image paragraph types.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-hi-add-more-add-more-button-utexas-hero-image')->click();
 
@@ -86,7 +86,7 @@ class HeroImageTest extends BrowserTestBase {
    * Test validation.
    */
   public function testValidation() {
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // Add the Hero Image paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-hi-add-more-add-more-button-utexas-hero-image')->click();
     // Submit with headline & no image.
@@ -111,7 +111,7 @@ class HeroImageTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     $basic_page_id = $this->createBasicPage();
 
     // Add the Hero Image paragraph type.
@@ -135,7 +135,6 @@ class HeroImageTest extends BrowserTestBase {
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Hero Image Test');
     $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('utexas_image_style_2280w_1232h/public/hero_images/image-test.png');
     $this->assertRaw('alt="Alternative text"');
     $this->assertRaw('This is a caption');
@@ -153,7 +152,6 @@ class HeroImageTest extends BrowserTestBase {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $node = $this->drupalGetNodeByTitle('Hero Image Test');
     $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('<a href="/test-basic-page">Test Internal Link</a>');
 
     // Sign out!

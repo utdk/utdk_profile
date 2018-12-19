@@ -57,7 +57,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 2. Add the Photo Content Area paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
     // 3. Verify the correct field schemae exist.
@@ -78,7 +78,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
    * Validation: Photo Content Area image is required & alt text is required.
    */
   public function testValidation() {
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 2. Add the Photo Content Area paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
     // 2. Submit a Photo Content Area with no photo.
@@ -101,7 +101,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 1. Add the Photo Content Area paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
     $edit = [

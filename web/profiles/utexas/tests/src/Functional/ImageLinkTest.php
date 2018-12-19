@@ -56,7 +56,7 @@ class ImageLinkTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // 2. Verify the correct field schemae exist.
     $fields = [
       'edit-field-flex-page-il-a-0-image-upload',
@@ -73,7 +73,7 @@ class ImageLinkTest extends BrowserTestBase {
    * Test validation.
    */
   public function testValidation() {
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     // Submit an image with no alt text.
     $edit = [
       'title[0][value]' => 'Flex Page Test',
@@ -88,7 +88,7 @@ class ImageLinkTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet("/node/add/utexas_flex_page");
     $edit = [
       'title[0][value]' => 'Image Link Test',
       'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
@@ -100,7 +100,6 @@ class ImageLinkTest extends BrowserTestBase {
 
     $node = $this->drupalGetNodeByTitle('Image Link Test');
     $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
     // 3. Verify Image Link A is present, and that the link is external.
     $this->assertRaw('utexas_image_style_1800w/public/image_link/image-test.png');
     $this->assertRaw('<a href="https://markfullmer.com"');

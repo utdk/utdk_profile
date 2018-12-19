@@ -4,40 +4,33 @@ config:
   webroot: web
 compose:
   - docker-compose.yml
-services:
-  appserver:
-    run:
-      - "cd $LANDO_MOUNT && composer install"
-    overrides:
+# services:
+  # appserver:
+    # overrides:
       # Avoid requiring a custom phpunit.xml file by passing overrides.
       # Based on https://github.com/lando/lando/pull/1092/files 
       # See also https://github.com/lando/lando/issues/360
-      services:
-        environment:
-          SYMFONY_DEPRECATIONS_HELPER: 'disabled' # Temporary workaround to use deprecated methods.
-          MINK_DRIVER_ARGS: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]' # Not needed for Functional Javascript
-          MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome:9515"]' # Port is set in docker-composer.yml. Note that different sites must use different ports.
-          MINK_DRIVER_CLASS: 'Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver'
-          SIMPLETEST_DB: 'mysql://drupal8:drupal8@database/drupal8'
-          SIMPLETEST_BASE_URL: 'http://appserver/' # Lando always makes available 'appserver' as domain.
+      # services:
+      #   environment:
+      #     SYMFONY_DEPRECATIONS_HELPER: 'disabled' # Temporary workaround to use deprecated methods.
+      #     MINK_DRIVER_ARGS_WEBDRIVER: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://chrome.utdk8.internal:9515"]' # Port is set in docker-composer.yml. Note that different sites must use different ports.
+      #     MINK_DRIVER_CLASS: 'Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver'
+      #     SIMPLETEST_DB: 'mysql://drupal8:drupal8@database/drupal8'
+      #     SIMPLETEST_BASE_URL: 'http://utdk8.lndo.site/' # Alternately, Lando always makes available 'appserver' as domain.
+      #     BROWSERTEST_OUTPUT_DIRECTORY: '/app/web/sites/simpletest/browser_output'
 tooling:
   phpunit:
     service: appserver
-    description: Run phpunit tests locally.
+    description: Run generic phpunit tests locally.
     cmd:
       - /app/vendor/bin/phpunit
   test-utexas:
     service: appserver
     description: Run all UTexas tests
     cmd:
-      - /app/vendor/bin/phpunit -c web/core/phpunit.xml.dist --group=utexas --stop-on-failure --verbose --debug
+      - /app/vendor/bin/phpunit -c /app/web/profiles/utexas/tests/phpunit.xml  --stop-on-failure --verbose --debug --group=utexas
   test: 
     service: appserver
-    description: Run a single PHPUnit test based on the class name
+    description: Run a single PHPUnit test based on file path
     cmd:
-      - /app/vendor/bin/phpunit -c web/core/phpunit.xml.dist --stop-on-failure --verbose --debug --filter=
-  site-install:
-    service: appserver
-    description: Install a standard 'UTexas' site
-    cmd:
-      - drush si utexas -y install_configure_form.enable_update_status_module=NULL --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks"
+      - /app/vendor/bin/phpunit -c /app/web/profiles/utexas/tests/phpunit.xml --stop-on-failure --verbose --debug

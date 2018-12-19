@@ -44,7 +44,8 @@ class FlexPageNodeRevisionTest extends WebDriverTestBase {
   public function testOutput() {
     // Generate a test node for testing that revisions can be accessed.
     $basic_page_id = $this->createBasicPage();
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $this->drupalGet('/node/add/utexas_flex_page');
+    $page = $this->getSession()->getPage();
     // // 1. Add Node title and revision information.
     $edit = [
       'title[0][value]' => 'Revision Test',
