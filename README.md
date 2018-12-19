@@ -58,4 +58,53 @@ files (which are converted to "real" files during the `setup.sh` script).
 
 Developers using version control may then make changes to the `composer.json` file and commit the resulting customized file to their codebase without risking overwriting these changes when they update UT Drupal Kit in the future. During a UT Drupal Kit update, developers will want to "diff" the new `example.composer.json` file, and manually apply any changes to their own `composer.json` file, then run `composer update` and commit the resulting changes.
 
+## Unit Testing
+The easiest way to run all core and UTexas tests is via a Lando-based local development environment. Everything needed is defined in the `.lando.yml file` and the `docker-compose.yml` file. 
 
+The site does not have to be installed in order to run tests. Running `lando start` will automatically prepare the containers needed for running the tests. You will then be able to execute phpunit tests with the command `lando phpunit`.
+
+### Allow Lando to write to sites/simpletest
+`mkdir web/sites/simpletest`
+`chmod -R 777 web/sites/simpletest`
+
+A single test can be run with the following command:
+`lando phpunit -c web/core/phpunit.xml.dist web/core/modules/field/tests/src/FunctionalJavascript/Number/NumberFieldTest.php`
+
+- The `phpunit` command is provided by the "tooling" section in `.lando.yml`
+- The `-c web/core/phpunit.xml.dist` loads the default configuration from Drupal, while overriding some of its settings via the `overrides` section in `.lando.yml`
+- The final parameter is the path to the file that defines the test.
+
+You should get this output:
+
+```
+PHPUnit 6.5.13 by Sebastian Bergmann and contributors.
+
+Testing Drupal\Tests\field\FunctionalJavascript\Number\NumberFieldTest
+.                                                                   1 / 1 (100%)
+
+Time: 1.04 minutes, Memory: 6.00MB
+
+OK (1 test, 7 assertions)
+```
+
+To run all `UTexas` tests:
+`lando test-utexas` 
+(This is really just a tooling shortcut for the following:)
+`lando phpunit -c web/core/phpunit.xml.dist --group=utexas`
+
+To run a single test:
+`lando test BasicInstallationTest`
+(This is really just a tooling shortcut for the following:)
+`lando phpunit -c web/core/phpunit.xml.dist --filter=BasicInstallationTest`
+
+To run a test based on the full path:
+`lando phpunit -c web/core/phpunit.xml.dist web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`
+
+### Alternate testing approaches
+Non-lando based tests can be run by a command along the lines of:
+
+```
+php web/core/scripts/run-tests.sh --php /usr/local/bin/php PHPUnit --suppress-deprecations --dburl mysql://drupal8:drupal8@database/drupal8 --url http://utdk8.lndo.site --module utexas --concurrency 4 --verbose
+```
+
+For FunctionalJavascript-based tests outside of a Lando context, `chromedriver` or `phantomJS` will need to be running as a separate process, and additional configuration will need to be defined in the phpunit.xml file, as described in https://www.drupal.org/docs/8/phpunit/phpunit-javascript-testing-tutorial

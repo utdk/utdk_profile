@@ -35,7 +35,7 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 ## Testing steps
 <!--- Include notes for both functional testing & code review -->
 0. `git fetch && git checkout ` this branch
-0. `si` (e.g., `alias si='lando drush si utexas -y install_configure_form.enable_update_status_module=NULL --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks"'`)
-0. `lando composer test-utexas`
+1. `lando site-install`
+2. `lando test-utexas`
 0.
 0.

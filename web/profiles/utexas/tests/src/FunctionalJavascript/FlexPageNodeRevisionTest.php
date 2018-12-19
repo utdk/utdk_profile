@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
+namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\Tests\BrowserTestBase;
+use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
@@ -12,7 +12,7 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
  *
  * @group utexas
  */
-class FlexPageNodeRevisionTest extends BrowserTestBase {
+class FlexPageNodeRevisionTest extends WebDriverTestBase {
   use EntityTestTrait;
   use UserTestTrait;
   use InstallTestTrait;
@@ -61,7 +61,6 @@ class FlexPageNodeRevisionTest extends BrowserTestBase {
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Revision Test rev2');
     $this->drupalGet('node/' . $node->id() . '/revisions/' . $node->getRevisionId() . '/view');
-    $this->assertSession()->statusCodeEquals(200);
     // 3. Verify Revision 1 title, is present.
     $this->assertRaw('Revision Test');
 
