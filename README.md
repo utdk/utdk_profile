@@ -68,34 +68,19 @@ The site does not have to be installed in order to run tests. Running `lando sta
 
 `chmod -R 777 web/sites/simpletest`
 
-A single test can be run with the following command:
-`lando test web/core/modules/field/tests/src/FunctionalJavascript/Number/NumberFieldTest.php`
+Various test scopes can be run with `lando test`
 
-- The `test` command is provided by the "tooling" section in `.lando.yml`
-- The final parameter is the path to the file that defines the test.
+The `test` command is provided by the "tooling" section in `.lando.yml`, and specifies which configuration defaults to use, and to print verbose output. It can be used with any of the available PHPUnit parameters:
 
-You should get this output:
+- `lando test web/profiles/utexas/tests/src/Functional` will run all tests found in the given directory
+- `lando test --filter=MinimalInstallationTest` will run test(s) with the class name "MinimalInstallationTest"
+- `lando test --group=utexas` will run all tests with the "utexas" docblock group annotation
 
-```
-PHPUnit 6.5.13 by Sebastian Bergmann and contributors.
-
-Testing Drupal\Tests\field\FunctionalJavascript\Number\NumberFieldTest
-.                                                                   1 / 1 (100%)
-
-Time: 1.04 minutes, Memory: 6.00MB
-
-OK (1 test, 7 assertions)
-```
-
-### Run all UTexas tests:
-`lando test-utexas` 
-
-(This is really just a tooling shortcut for `lando phpunit -c /app/web/profiles/utexas/tests/phpunit.xml --group=utexas`)
-
-### Run a single test:
-`lando test web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`
-
-(This is really just a tooling shortcut for `lando phpunit -c /app/web/profiles/utexas/tests/phpunit.xml web/profiles/utexas/tests/src/Functional/BasicInstallationTest.php`)
+### FunctionalJavascript
+FunctionalJavascript tests require additional parameters, so they have a separate tooling alias:
+- `lando test-js web/profiles/utexas/tests/src/FunctionalJavascript` will run all tests found in the given directory
+- `lando test-js --filter=ImageLinkTest` will run FunctionalJavasdcript test(s) with the class name "ImageLinkTest"
+- `lando test-js --group=utexas` will run FunctionalJavascript test with the "utexas" docblock group annotation
 
 ### Alternate testing approaches
 Non-Lando based tests can be run by a command along the lines of:

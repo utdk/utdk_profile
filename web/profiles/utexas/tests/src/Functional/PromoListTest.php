@@ -57,7 +57,7 @@ class PromoListTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
 
     // 2. Add a Promo List paragraph type instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-add-more-add-more-button-utexas-promo-list-container')->click();
@@ -90,7 +90,7 @@ class PromoListTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // Add First Promo List Container.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-add-more-add-more-button-utexas-promo-list-container')->click();
     // Add the First Promo List Container first Promo List Item.
@@ -141,6 +141,7 @@ class PromoListTest extends BrowserTestBase {
     );
     $node = $this->drupalGetNodeByTitle('Promo List Test');
     $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
     // Verify first Promo List container headline.
     $this->assertRaw('Test Title of First Promo List Container');
     // Verify first container first instance PL item copy, image and headline.

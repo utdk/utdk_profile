@@ -60,7 +60,7 @@ class FeaturedHighlightTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // 2. Add the Featured Highlight.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fh-add-more-add-more-button-utexas-featured-highlight')->click();
     // 3. Verify the correct field schemae exist.
@@ -83,7 +83,7 @@ class FeaturedHighlightTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Featured Highlight paragraph widget.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fh-add-more-add-more-button-utexas-featured-highlight')->click();
 
@@ -104,6 +104,7 @@ class FeaturedHighlightTest extends BrowserTestBase {
     'edit-submit');
     $node = $this->drupalGetNodeByTitle('Featured Highlight Test');
     $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
 
     // 3. Verify initial content is displayed.
     // Headline should be a link at this point:

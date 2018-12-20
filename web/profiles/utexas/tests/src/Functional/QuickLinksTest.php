@@ -44,7 +44,7 @@ class QuickLinksTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // 2. Verify the correct field schemae exist.
     $fields = [
       'edit-field-flex-page-ql-0-headline',
@@ -63,7 +63,7 @@ class QuickLinksTest extends BrowserTestBase {
   public function testOutput() {
     // Generate a test node for referencing an internal link.
     $basic_page_id = $this->createBasicPage();
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Quick Links paragraph type.
     $edit = [
       'title[0][value]' => 'Quick Links Test',
@@ -84,6 +84,7 @@ class QuickLinksTest extends BrowserTestBase {
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Quick Links Test');
     $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
     // 3. Verify Quick Links headline, is present.
     $this->assertRaw('Quick Links Headline');
     // 4. Verify Quick Links link, delta 0, is present, and is an external link.

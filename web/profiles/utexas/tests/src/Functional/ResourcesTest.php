@@ -56,7 +56,7 @@ class ResourcesTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // Verify a user has access to the content type.
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
 
     // Add a Resource paragraph type instance.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-add-more-add-more-button-utexas-resource-container')->click();
@@ -88,7 +88,7 @@ class ResourcesTest extends BrowserTestBase {
    */
   public function testOutput() {
     $basic_page_id = $this->createBasicPage();
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // Add the Promo Unit paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-add-more-add-more-button-utexas-resource-container')->click();
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-add-more-add-more-button-utexas-resource')->click();
@@ -118,6 +118,7 @@ class ResourcesTest extends BrowserTestBase {
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Resource Test');
     $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('Test Title for Resource Field');
     $this->assertRaw('Resource Headline');
     // Test image upload and alt text.

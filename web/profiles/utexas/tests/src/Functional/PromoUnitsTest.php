@@ -56,7 +56,7 @@ class PromoUnitsTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
 
     // 2. Verify the correct field schema exist.
     $fields = [
@@ -84,7 +84,7 @@ class PromoUnitsTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Promo Unit.
     $edit = [
       'title[0][value]' => 'Promo Unit Test',
@@ -100,9 +100,9 @@ class PromoUnitsTest extends BrowserTestBase {
     // TODO: test for alt text once it is implemented.
     $node = $this->drupalGetNodeByTitle('Promo Unit Test');
     $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
 
-    // 3. Verify Promo Unit data is present,
-    // that the link is external and that image has landscape orientation.
+    // 3. Verify Promo Unit data is present, that the link is external and that image has landscape orientation.
     $this->assertRaw('Test Title of Promo Unit Container');
     $this->assertRaw('utexas_image_style_176w_112h/public/promo_unit_items/image-test.png');
     $this->assertRaw('Promo Unit Headline');

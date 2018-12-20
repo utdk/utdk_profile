@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
+namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\Tests\BrowserTestBase;
+use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
@@ -14,7 +14,7 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
  *
  * @group utexas
  */
-class ImageLinkTest extends BrowserTestBase {
+class ImageLinkTest extends WebDriverTestBase {
   use EntityTestTrait;
   use UserTestTrait;
   use ImageFieldCreationTrait;

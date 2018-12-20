@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\Tests\utexas\FunctionalJavascript;
+namespace Drupal\Tests\utexas\Functional;
 
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
@@ -12,7 +12,7 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
  *
  * @group utexas
  */
-class FlexPageNodeRevisionTest extends WebDriverTestBase {
+class FlexPageNodeRevisionTest extends BrowserTestBase {
   use EntityTestTrait;
   use UserTestTrait;
   use InstallTestTrait;
@@ -44,8 +44,7 @@ class FlexPageNodeRevisionTest extends WebDriverTestBase {
   public function testOutput() {
     // Generate a test node for testing that revisions can be accessed.
     $basic_page_id = $this->createBasicPage();
-    $this->drupalGet('/node/add/utexas_flex_page');
-    $page = $this->getSession()->getPage();
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // // 1. Add Node title and revision information.
     $edit = [
       'title[0][value]' => 'Revision Test',
@@ -62,6 +61,7 @@ class FlexPageNodeRevisionTest extends WebDriverTestBase {
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Revision Test rev2');
     $this->drupalGet('node/' . $node->id() . '/revisions/' . $node->getRevisionId() . '/view');
+    $this->assertSession()->statusCodeEquals(200);
     // 3. Verify Revision 1 title, is present.
     $this->assertRaw('Revision Test');
 

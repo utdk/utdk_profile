@@ -54,7 +54,7 @@ class SocialLinksTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the block type.
-    $this->drupalGet("/block/add/social_links");
+    $this->assertAllowed("/block/add/social_links");
     // 3. Verify the correct field schemae exist.
     $fields = [
       'edit-info-0-value',
@@ -91,7 +91,7 @@ class SocialLinksTest extends BrowserTestBase {
    * Create a block & validate an external link is required for URL.
    */
   public function testValidation() {
-    $this->drupalGet("/block/add/social_links");
+    $this->assertAllowed("/block/add/social_links");
     $edit = [
       'info[0][value]' => 'Social Links Test',
       'field_utexas_sl_social_links[0][social_account_name]' => 'instagram',
@@ -211,9 +211,9 @@ class SocialLinksTest extends BrowserTestBase {
     // Create a new user with our permission to manage social links and login.
     $this->drupalLogin($this->drupalCreateUser(['administer social links data config']));
     // Try to access the social links edit page to get a 200.
-    $this->drupalGet('admin/structure/social-links');
+    $this->assertAllowed('admin/structure/social-links');
     // Try editing the FB social block entry to get a 200.
-    $this->drupalGet('admin/structure/social-links/facebook/edit');
+    $this->assertAllowed('admin/structure/social-links/facebook/edit');
   }
 
 }

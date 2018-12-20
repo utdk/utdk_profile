@@ -5,7 +5,7 @@ namespace Drupal\Tests\utexas\Traits;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use Drupal\media\Entity\Media;
-use Drupal\Core\Language;
+use Drupal\Core\Language\Language;
 
 /**
  * General-purpose methods for interacting with Drupal entities.
@@ -69,16 +69,17 @@ trait EntityTestTrait {
     // Create a File entity for the initial image. The zeroth element is a PNG.
     $file = File::create([
       'uri' => $images[0]->uri,
-      'uid' => 0,
+      'uid' => 1,
       'status' => FILE_STATUS_PERMANENT,
     ]);
     $file->save();
     $image_media = Media::create([
+      'name' => 'Image 1',
       'bundle' => 'utexas_image',
       'uid' => '1',
       'langcode' => Language::LANGCODE_DEFAULT,
       'status' => '1',
-      'your_image_field_name_here' => [
+      'field_utexas_media_image' => [
         'target_id' => $file->id(),
         'alt' => t('Test Alt Text'),
         'title' => t('Test Title Text'),

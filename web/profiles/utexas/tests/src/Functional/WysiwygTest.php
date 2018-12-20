@@ -45,7 +45,7 @@ class WysiwygTest extends BrowserTestBase {
   public function testSchema() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
     // 2. Add the WYSIWYG paragraph type.
     // 3. Verify the correct field schema exist.
     $fields = [
@@ -61,7 +61,7 @@ class WysiwygTest extends BrowserTestBase {
    * Test output.
    */
   public function testOutput() {
-    $this->drupalGet("/node/add/utexas_flex_page");
+    $this->assertAllowed("/node/add/utexas_flex_page");
 
     $edit = [
       'title[0][value]' => 'WYSIWYG Test',
@@ -71,6 +71,7 @@ class WysiwygTest extends BrowserTestBase {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $node = $this->drupalGetNodeByTitle('WYSIWYG Test');
     $this->drupalGet('node/' . $node->id());
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('WYSIWYG A Body');
     $this->assertRaw('WYSIWYG B Body');
 
