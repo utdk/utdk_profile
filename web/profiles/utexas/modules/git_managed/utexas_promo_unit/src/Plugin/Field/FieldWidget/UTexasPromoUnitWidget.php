@@ -69,7 +69,7 @@ class UTexasPromoUnitWidget extends WidgetBase {
           'headline' => $items[$i]['item']['headline'] ?? '',
           'image' => $items[$i]['item']['image'] ?? '',
           'copy_value' => $items[$i]['item']['copy']['value'] ?? '',
-          'copy_format' => $items[$i]['item']['copy']['format'] ?? 'flex_html',
+          'copy_format' => $items[$i]['item']['copy']['format'] ?? 'restricted_html',
           'link' => $items[$i]['item']['link'] ?? '',
         ],
       ];
@@ -109,22 +109,9 @@ class UTexasPromoUnitWidget extends WidgetBase {
             unset($value[self::ADD_MORE_ELEMENT]['promo_unit_items'][$key]);
           }
           else {
-            if (!empty($item['item']['image'][0])) {
-              $file = \Drupal::entityTypeManager()->getStorage('file')->load($item['item']['image'][0]);
-              if ($file) {
-                $file->setPermanent();
-                $file->save();
-                // @todo: properly manage file usage count.
-                // Look up existing node & scan for instances??
-                $file_usage = \Drupal::service('file.usage');
-                $file_usage->add(
-                  $file,
-                  'utexas_promo_unit',
-                  $this->fieldDefinition->getTargetEntityTypeId(),
-                  \Drupal::currentUser()->id()
-                );
-                $value[self::ADD_MORE_ELEMENT]['promo_unit_items'][$key]['item']['image'] = [$file->id()];
-              }
+            if (isset($item['item']['image']['media_library_selection'])) {
+              // @see MediaLibraryElement.php
+              $value[self::ADD_MORE_ELEMENT]['promo_unit_items'][$key]['item']['image'] = $item['item']['image']['media_library_selection'];
             }
           }
         }

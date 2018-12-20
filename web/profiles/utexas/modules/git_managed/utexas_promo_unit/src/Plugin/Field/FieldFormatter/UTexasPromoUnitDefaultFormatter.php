@@ -86,7 +86,8 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
   protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url) {
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
-    if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($image)) {
+    if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($image)) {
+      $media_attributes = $media->get('field_utexas_media_image')->getValue();
       // Collect cache tags to be added for each item in the field.
       $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
       $image_styles_to_load = [];
@@ -102,24 +103,26 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
       if (!empty($link_url)) {
         $link = Url::fromUri($link_url);
       }
-      $image = new \stdClass();
-      $image->title = NULL;
-      // @todo : retrieve the media object's alt text.
-      $image->alt = $file->getFileUri();
-      $image->entity = $file;
-      $image->uri = $file->getFileUri();
-      $image->width = NULL;
-      $image->height = NULL;
-      $image_render_array = [
-        '#theme' => 'responsive_image_formatter',
-        '#item' => $image,
-        '#item_attributes' => [],
-        '#responsive_image_style_id' => $responsive_image_style_name,
-        '#url' => $link ?? '',
-        '#cache' => [
-          'tags' => $cache_tags,
-        ],
-      ];
+      $image_render_array = [];
+      if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+        $image = new \stdClass();
+        $image->title = NULL;
+        $image->alt = $media_attributes[0]['alt'];
+        $image->entity = $file;
+        $image->uri = $file->getFileUri();
+        $image->width = NULL;
+        $image->height = NULL;
+        $image_render_array = [
+          '#theme' => 'responsive_image_formatter',
+          '#item' => $image,
+          '#item_attributes' => [],
+          '#responsive_image_style_id' => $responsive_image_style_name,
+          '#url' => $link ?? '',
+          '#cache' => [
+            'tags' => $cache_tags,
+          ],
+        ];
+      }
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
       $renderer = \Drupal::service('renderer');

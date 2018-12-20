@@ -1,54 +1,11 @@
 <?php
 
-namespace Drupal\Tests\utexas\FunctionalJavascript;
-
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
- * Verifies Image Link field schema & validation.
- *
- * @group utexas
+ * Defines testing for Image Link widget.
  */
-class ImageLinkTest extends WebDriverTestBase {
-  use EntityTestTrait;
-  use UserTestTrait;
-  use ImageFieldCreationTrait;
-  use TestFileCreationTrait;
-  use InstallTestTrait;
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestMediaImage();
-  }
+trait ImageLinkTestTrait {
 
   /**
    * Test schema.
@@ -103,8 +60,11 @@ class ImageLinkTest extends WebDriverTestBase {
     $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'src', $expected_path);
     // Verify Image Link B link is internal.
     $assert->linkByHrefExists('/image-link-test');
-    // Sign out!
-    $this->drupalLogout();
+
+    // Delete the node from the system.
+    $node = $this->drupalGetNodeByTitle('Image Link Test');
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

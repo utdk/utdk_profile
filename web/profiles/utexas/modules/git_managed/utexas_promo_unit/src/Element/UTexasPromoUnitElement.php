@@ -39,7 +39,9 @@ class UtexasPromoUnitElement extends FormElement {
       '#default_value' => isset($element['#default_value']['headline']) ? $element['#default_value']['headline'] : '',
     ];
     $element['image'] = [
-      '#type' => 'managed_file',
+      '#type' => 'media_library_element',
+      '#target_bundles' => ['utexas_image'],
+      '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
       '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : 0,
@@ -51,7 +53,7 @@ class UtexasPromoUnitElement extends FormElement {
       '#title' => 'Copy',
       '#type' => 'text_format',
       '#default_value' => isset($element['#default_value']['copy_value']) ? $element['#default_value']['copy_value'] : NULL,
-      '#format' => isset($element['#default_value']['copy_format']) ? $element['#default_value']['copy_format'] : 'flex_html',
+      '#format' => isset($element['#default_value']['copy_format']) ? $element['#default_value']['copy_format'] : 'restricted_html',
     ];
     $element['link'] = [
       '#type' => 'utexas_link_element',
