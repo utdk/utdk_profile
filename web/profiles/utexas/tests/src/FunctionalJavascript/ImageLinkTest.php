@@ -53,64 +53,56 @@ class ImageLinkTest extends WebDriverTestBase {
   /**
    * Test schema.
    */
-  public function testSchema() {
+  public function testImageLink() {
     $assert = $this->assertSession();
-    // 1. Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Verify the correct field schemae exist.
-    $fields = [
-      'edit-field-flex-page-il-a-0-image-upload',
-      'edit-field-flex-page-il-a-0-link-url',
-      'edit-field-flex-page-il-b-0-image-upload',
-      'edit-field-flex-page-il-b-0-link-url',
-    ];
-    foreach ($fields as $field) {
-      $assert->fieldExists($field);
-    }
-  }
+    $page = $this->getSession()->getPage();
+    $this->drupalGet('node/add/utexas_flex_page');
 
-  /**
-   * Test validation.
-   */
-  public function testValidation() {
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // Submit an image with no alt text.
-    $edit = [
-      'title[0][value]' => 'Flex Page Test',
-      'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-  }
+    // Verify that both media widget instances are present.
+    $assert->pageTextContains('Image Link A');
+    $image_link_a_wrapper = $assert->elementExists('css', '#edit-field-flex-page-il-a-base');
+    $image_link_a_wrapper->click();
+    $image_link_a_button = $assert->elementExists('css', '#edit-field-flex-page-il-a-0-image-media-library-open-button');
+    $image_link_a_button->click();
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
 
-  /**
-   * Test output.
-   */
-  public function testOutput() {
-    // Generate a test node for referencing an internal link.
-    $basic_page_id = $this->createBasicPage();
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    $edit = [
+    $assert->pageTextContains('Image Link B');
+    $image_link_a_wrapper = $assert->elementExists('css', '#edit-field-flex-page-il-b-base');
+    $image_link_a_wrapper->click();
+    $image_link_a_button = $assert->elementExists('css', '#edit-field-flex-page-il-b-0-image-media-library-open-button');
+    $image_link_a_button->click();
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
+
+    $this->submitForm([
       'title[0][value]' => 'Image Link Test',
-      'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
-      'edit-field-flex-page-il-a-0-link-url' => 'https://markfullmer.com',
-      'field_flex_page_il_a[0][image][media_library_selection]' => $this->testImage,
-      'edit-field-flex-page-il-b-0-link-url' => '/node/' . $basic_page_id,
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+      'field_flex_page_il_a[0][link][url]' => 'https://imagelink.test',
+      'field_flex_page_il_b[0][link][url]' => '/node/1',
+    ], 'Save');
 
-    $node = $this->drupalGetNodeByTitle('Image Link Test');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
-    // 3. Verify Image Link A is present, and that the link is external.
-    $this->assertRaw('utexas_image_style_1800w/public/image_link/image-test.png');
-    $this->assertRaw('<a href="https://markfullmer.com"');
-    // 4. Verify Image Link B is present, and that the link is internal.
-    $this->assertRaw('utexas_image_style_1800w/public/image_link/image-test_0.png');
-    $this->assertRaw('<a href="/test-basic-page');
-    /* Verify a picture tag and srcset are in the markup to show the image is
-    rendered as a responsive image. */
-    $this->assertRaw('<picture>');
-    $this->assertRaw('<source srcset');
+    // Verify page output.
+    $assert->linkByHrefExists('https://imagelink.test');
+    // Verify responsive image is present within the link.
+    $assert->elementExists('css', 'a picture source');
+    $expected_path = 'utexas_image_style_500w/public/image-test.png';
+    $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'src', $expected_path);
+    // Verify Image Link B link is internal.
+    $assert->linkByHrefExists('/image-link-test');
     // Sign out!
     $this->drupalLogout();
   }
