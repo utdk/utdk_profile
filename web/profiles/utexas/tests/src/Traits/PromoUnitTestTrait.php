@@ -10,7 +10,7 @@ trait PromoUnitTestTrait {
   /**
    * Verify promo unit widget schema & output.
    */
-  public function testPromoUnit() {
+  public function verifyPromoUnit() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_unit');

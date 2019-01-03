@@ -10,7 +10,7 @@ trait ImageLinkTestTrait {
   /**
    * Test schema.
    */
-  public function testImageLink() {
+  public function verifyImageLink() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('node/add/utexas_flex_page');
