@@ -59,6 +59,9 @@ files (which are converted to "real" files during the `setup.sh` script).
 Developers using version control may then make changes to the `composer.json` file and commit the resulting customized file to their codebase without risking overwriting these changes when they update UT Drupal Kit in the future. During a UT Drupal Kit update, developers will want to "diff" the new `example.composer.json` file, and manually apply any changes to their own `composer.json` file, then run `composer update` and commit the resulting changes.
 
 ## Unit Testing
+
+#####  NOTE: In order to run the tests, we highly encourage updating Lando to at least version `3.0.0-rc.1`. 
+
 The easiest way to run all core and UTexas tests is via a Lando-based local development environment. Everything needed is defined in the `.lando.yml file` and the `docker-compose.yml` file. 
 
 The site does not have to be installed in order to run tests. Running `lando start` will automatically prepare the containers needed for running the tests. You will then be able to execute phpunit tests with the command `lando phpunit`.
