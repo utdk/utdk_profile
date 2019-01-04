@@ -5,6 +5,7 @@ namespace Drupal\Tests\utexas\Traits;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use Drupal\media\Entity\Media;
+use Drupal\Core\Language\Language;
 
 /**
  * General-purpose methods for interacting with Drupal entities.
@@ -76,7 +77,7 @@ trait EntityTestTrait {
       'name' => 'Image 1',
       'bundle' => 'utexas_image',
       'uid' => '1',
-      'langcode' => 'en',
+      'langcode' => Language::LANGCODE_NOT_SPECIFIED,
       'status' => '1',
       'field_utexas_media_image' => [
         'target_id' => $file->id(),
