@@ -2,6 +2,7 @@
 
 namespace Drupal\utexas_quick_links\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -20,14 +21,11 @@ use Drupal\Component\Utility\NestedArray;
  */
 class UTexasQuickLinksWidget extends WidgetBase {
 
-  const ADD_MORE_ELEMENT = 'link-fieldset';
-
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
-    $fieldset_wrapper_name = self::ADD_MORE_ELEMENT . $field_name . '-' . $delta;
     $element['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
@@ -40,13 +38,7 @@ class UTexasQuickLinksWidget extends WidgetBase {
       '#title' => 'Copy',
       '#type' => 'text_format',
       '#default_value' => isset($items[$delta]->copy_value) ? $items[$delta]->copy_value : NULL,
-      '#format' => isset($items[$delta]->copy_format) ? $items[$delta]->copy_format : NULL,
-    ];
-    $element[self::ADD_MORE_ELEMENT] = [
-      '#type' => 'fieldset',
-      '#title' => $this->t('Quick Links'),
-      '#prefix' => '<div id="' . $fieldset_wrapper_name . '">',
-      '#suffix' => '</div>',
+      '#format' => $items[$delta]->copy_format ?? 'restricted_html',
     ];
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
@@ -65,8 +57,11 @@ class UTexasQuickLinksWidget extends WidgetBase {
       $widget_state[$field_name][$delta]["counter"] = $link_count;
       static::setWidgetState($parents, $field_name, $form_state, $widget_state);
     }
+    $wrapper_id = Html::getUniqueId('ajax-wrapper');
+    $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
+    $element['links']['#suffix'] = '</div>';
     for ($i = 0; $i < $link_count; $i++) {
-      $element[self::ADD_MORE_ELEMENT]['links'][$i] = [
+      $element['links'][$i] = [
         '#type' => 'utexas_link_element',
         '#default_value' => [
           'url' => $links[$i]['url'] ?? '',
@@ -77,7 +72,7 @@ class UTexasQuickLinksWidget extends WidgetBase {
     // We limit form validation so that other elements are not validated
     // during this submit button's refresh action. See
     // See https://www.drupal.org/project/drupal/issues/2476569
-    $element[self::ADD_MORE_ELEMENT]['actions']['add_link'] = [
+    $element['links']['actions']['add_link'] = [
       '#type' => 'submit',
       '#name' => $field_name . $delta,
       '#value' => $this->t('Add link'),
@@ -85,7 +80,7 @@ class UTexasQuickLinksWidget extends WidgetBase {
       '#limit_validation_errors' => [],
       '#ajax' => [
         'callback' => [get_class($this), 'utexasAddMoreAjax'],
-        'wrapper' => $fieldset_wrapper_name,
+        'wrapper' => $wrapper_id,
       ],
     ];
     return $element;
@@ -95,19 +90,9 @@ class UTexasQuickLinksWidget extends WidgetBase {
    * Helper function to extract the add more parent element.
    */
   public static function retrieveAddMoreElement($form, FormStateInterface $form_state) {
-    // Modelled on WidgetBase::addMoreAjax().
-    $button = $form_state->getTriggeringElement();
-    foreach ($button['#array_parents'] as $current_parent) {
-      $current = (string) $current_parent;
-      if ($current == self::ADD_MORE_ELEMENT) {
-        $parent_tree[] = self::ADD_MORE_ELEMENT;
-        break;
-      }
-      else {
-        $parent_tree[] = $current;
-      }
-    }
-    return NestedArray::getValue($form, $parent_tree);
+    $triggering_element = $form_state->getTriggeringElement();
+    $parents = array_slice($triggering_element['#array_parents'], 0, -2);
+    return NestedArray::getValue($form, $parents);
   }
 
   /**
@@ -115,11 +100,11 @@ class UTexasQuickLinksWidget extends WidgetBase {
    */
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
-    array_pop($element['#parents']);
     // The field_delta will be the last (nearest) element in the #parents array.
+    $linka = array_pop($element['#parents']);
     $field_delta = array_pop($element['#parents']);
-    // The field_name will be the penultimate element in the #parents array.
     $field_name = array_pop($element['#parents']);
+    // The field_name will be the penultimate element in the #parents array.
     $parents = [$field_name, 'widget'];
     // Increment the items count.
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
@@ -145,16 +130,19 @@ class UTexasQuickLinksWidget extends WidgetBase {
     // This loop is through field instances (not link instances).
     foreach ($values as &$value) {
       // Links are stored as a serialized array.
-      if (!empty($value[self::ADD_MORE_ELEMENT]['links'])) {
-        foreach ($value[self::ADD_MORE_ELEMENT]['links'] as $key => $link) {
+      if (!empty($value['links'])) {
+        foreach ($value['links'] as $key => $link) {
           if (empty($link['url'])) {
             // Remove empty links.
-            unset($value[self::ADD_MORE_ELEMENT]['links'][$key]);
+            unset($value['links'][$key]);
           }
         }
         // Don't serialize an empty array.
-        if (!empty($value[self::ADD_MORE_ELEMENT]['links'])) {
-          $value['links'] = serialize($value[self::ADD_MORE_ELEMENT]['links']);
+        if (!empty($value['links'])) {
+          $value['links'] = serialize($value['links']);
+        }
+        else {
+          unset($value['links']);
         }
       }
       // Split the "text_format" form element data into our field's schema.
