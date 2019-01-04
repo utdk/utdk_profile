@@ -5,6 +5,24 @@ UT Drupal Kit is a collection of IT Architecture and Infrastructure Committee-en
 
 This repository contains only the "kernel" of the customized code required to run UT Drupal Kit, version 8. It uses the dependency manager [Composer](https://getcomposer.org/) to retrieve the [Drops-8 codebase](https://github.com/pantheon-systems/drops-8), contributed projects from [drupal.org](https://drupal.org), and custom projects from separate Github repositories. Instructions for using Composer to build a fully-functional codebase are below.
 
+## Previewing a functional site
+You can easily install & examine a complete UT Drupal Kit site on most computers without additional development tools or configuration. To do this, download the Kit and unzip the files into any directory. Using your system's terminal, navigate to the newly downloaded folder, and then into its `web` directory, and run:
+
+```
+php core/scripts/drupal quick-start
+```
+
+You will see this output in your terminal:
+
+```
+Drupal development server started: <http://127.0.0.1:8888>
+This server is not meant for production use.
+```
+Navigating to the above URL in a browser will bring you to a fully installed UT Drupal Kit site.
+
+Note to developers: if you have configured database settings for local development, you will need to remove them for the "QuickStart" to work.
+
+
 ## Dependencies for local development
 For customization of UT Drupal Kit's codebase, the ability to run a replica of your site on a local machine is indispensable. Since Drupal is written in PHP and uses an SQL database, that means you'll need:
 - PHP 5.5.9 or higher. See [Drupal 8 PHP versions supported](https://www.drupal.org/docs/8/system-requirements/drupal-8-php-requirements).
