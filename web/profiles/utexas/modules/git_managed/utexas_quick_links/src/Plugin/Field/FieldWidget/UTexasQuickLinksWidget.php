@@ -101,7 +101,7 @@ class UTexasQuickLinksWidget extends WidgetBase {
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
     // The field_delta will be the last (nearest) element in the #parents array.
-    $linka = array_pop($element['#parents']);
+    $wrapper = array_pop($element['#parents']);
     $field_delta = array_pop($element['#parents']);
     $field_name = array_pop($element['#parents']);
     // The field_name will be the penultimate element in the #parents array.

@@ -30,10 +30,10 @@ trait PromoUnitTestTrait {
     $this->submitForm([
       'info[0][value]' => 'Promo Unit Test',
       'field_block_pu[0][headline]' => 'Promo Unit Container Headline',
-      'field_block_pu[0][link-fieldset][promo_unit_items][0][item][headline]' => 'Promo Unit 1 Headline',
-      'field_block_pu[0][link-fieldset][promo_unit_items][0][item][copy][value]' => 'Promo Unit 1 Copy',
-      'field_block_pu[0][link-fieldset][promo_unit_items][0][item][link][url]' => 'https://promounit.test',
-      'field_block_pu[0][link-fieldset][promo_unit_items][0][item][link][title]' => 'Promo Unit External Link',
+      'field_block_pu[0][promo_unit_items][0][item][headline]' => 'Promo Unit 1 Headline',
+      'field_block_pu[0][promo_unit_items][0][item][copy][value]' => 'Promo Unit 1 Copy',
+      'field_block_pu[0][promo_unit_items][0][item][link][url]' => 'https://promounit.test',
+      'field_block_pu[0][promo_unit_items][0][item][link][title]' => 'Promo Unit External Link',
     ], 'Save');
     $assert->pageTextContains('Promo Unit Promo Unit Test has been created.');
 
