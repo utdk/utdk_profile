@@ -73,7 +73,8 @@
     "utexas/utexas_qualtrics_filter": "1.0-alpha2",
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
-    "webflo/drupal-core-strict": "8.6.5"
+    "webflo/drupal-core-strict": "8.6.5",
+    "zaporylie/composer-drupal-optimizations": "1.0.2"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
