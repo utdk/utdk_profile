@@ -53,11 +53,12 @@ content:
     label: hidden
     settings:
       always_display_year: '1'
-      display_day: '1'
       display_noon_and_midnight: '1'
       timezone: ''
+      display_day: 0
       display_time: 0
       time_before_date: 0
+      use_all_day: 0
       capitalize_noon_and_midnight: 0
     third_party_settings: {  }
     type: timestamp_ap_style
