@@ -8,6 +8,7 @@ use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\ImageLinkTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
+use Drupal\Tests\utexas\Traits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\PromoUnitTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
@@ -21,6 +22,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   use ImageFieldCreationTrait;
   use ImageLinkTestTrait;
   use InstallTestTrait;
+  use PromoListTestTrait;
   use PromoUnitTestTrait;
   use TestFileCreationTrait;
   use UserTestTrait;
@@ -61,6 +63,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   public function testCustomWidgets() {
     $this->verifyImageLink();
     $this->verifyPromoUnit();
+    $this->verifyPromoList();
   }
 
 }

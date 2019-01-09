@@ -43,6 +43,7 @@ class UtexasLinkElement extends FormElement {
       '#element_validate' => [[get_called_class(), 'validateUriElement']],
       '#placeholder' => 'External URL (https://) or internal path (e.g., /node/1)',
       '#process_default_value' => FALSE,
+      '#description' => $element['#description'] ?? '',
     ];
 
     $element['title'] = [

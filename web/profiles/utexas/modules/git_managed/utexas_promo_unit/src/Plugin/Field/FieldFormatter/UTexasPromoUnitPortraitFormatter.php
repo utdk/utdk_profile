@@ -3,8 +3,6 @@
 namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' formatter.

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_promo_list
-label: 'Promo List Item'
-icon_uuid: null
-description: 'Promo List Item has attached Headline, Image, Copy and Link fields.'
-behavior_plugins: {  }

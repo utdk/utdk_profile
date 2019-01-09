@@ -25,6 +25,7 @@ dependencies:
     - text
     - user
     - utexas_image_link
+    - utexas_promo_list
     - utexas_promo_unit
     - utexas_quick_links
 third_party_settings:
@@ -131,23 +132,6 @@ third_party_settings:
                 third_party_settings: {  }
             additional: {  }
             weight: 7
-          8e171d1d-6646-44d8-ac4f-196404f60e97:
-            uuid: 8e171d1d-6646-44d8-ac4f-196404f60e97
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:node:utexas_flex_page:field_flex_page_pl'
-              formatter:
-                type: entity_reference_revisions_entity_view
-                label: hidden
-                settings:
-                  view_mode: default
-                  link: ''
-                third_party_settings: {  }
-            additional: {  }
-            weight: 8
           d213eac0-1d4c-4268-aa92-1d92734842b4:
             uuid: d213eac0-1d4c-4268-aa92-1d92734842b4
             region: content
@@ -255,6 +239,21 @@ third_party_settings:
                 type: utexas_promo_unit
             additional: {  }
             weight: 17
+          fd9fe0ab-6e43-414b-8373-16573bccea85:
+            uuid: fd9fe0ab-6e43-414b-8373-16573bccea85
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_pl'
+              formatter:
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+                type: utexas_promo_list
+            additional: {  }
+            weight: 18
   layout_builder_restrictions:
     allowed_blocks:
       'Chaos tools': {  }
@@ -346,13 +345,11 @@ content:
     third_party_settings: {  }
     region: content
   field_flex_page_pl:
-    type: entity_reference_revisions_entity_view
-    weight: 8
+    weight: 113
     label: hidden
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_promo_list
     region: content
   field_flex_page_pu:
     weight: 112

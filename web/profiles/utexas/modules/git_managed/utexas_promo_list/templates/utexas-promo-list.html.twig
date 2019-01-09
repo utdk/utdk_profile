@@ -1,0 +1,42 @@
+ {#
+/**
+ * @file
+ * Template for Promo List field.
+ *
+ * Available variables:
+ * - headline: The hist headline..
+ * - promo_list_item.headline.
+ * - promo_list_item.copy.
+ * - promo_list_item.image.
+ * - promo_list_item.link.
+ *
+ */
+#}
+
+{%
+  set classes = [
+    'ut-promo-list-wrapper',
+    wrapper|clean_class,
+  ]
+%}
+
+
+
+<h3 class="ut-headline--underline">{{ headline }}</h3>
+<div{{ attributes.addClass(classes) }}>
+{% for item in promo_list_items %}
+  <div class="{{ columns }}">
+    {{ item.image }}
+    <div class="content">
+      {% if item.link and item.headline %}
+      <a href="{{ item.link }}" class="ut-link">
+        <h3 class="ut-headline">{{ item.headline }}</h3>
+      </a>
+      {% elseif item.headline %}
+        <h3 class="ut-headline">{{ item.headline }}</h3>
+      {% endif %}
+      {{ item.copy }}
+    </div>
+  </div>
+{% endfor %}
+</div>

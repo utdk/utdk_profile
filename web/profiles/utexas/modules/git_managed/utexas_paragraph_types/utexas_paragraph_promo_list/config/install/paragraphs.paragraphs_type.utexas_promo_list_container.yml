@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_promo_list_container
-label: 'Promo List Container'
-icon_uuid: null
-description: 'Promo List Container has an attached title field and unlimited Promo List Items.'
-behavior_plugins: {  }

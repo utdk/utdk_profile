@@ -10,7 +10,6 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
     - field.field.node.utexas_flex_page.field_flex_page_pca
-    - field.field.node.utexas_flex_page.field_flex_page_pl
     - field.field.node.utexas_flex_page.field_flex_page_pu
     - field.field.node.utexas_flex_page.field_flex_page_ql
     - field.field.node.utexas_flex_page.field_flex_page_resource
@@ -38,7 +37,6 @@ hidden:
   field_flex_page_il_a: true
   field_flex_page_il_b: true
   field_flex_page_pca: true
-  field_flex_page_pl: true
   field_flex_page_pu: true
   field_flex_page_ql: true
   field_flex_page_resource: true

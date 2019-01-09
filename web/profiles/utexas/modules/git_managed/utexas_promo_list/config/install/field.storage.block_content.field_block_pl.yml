@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - block_content
     - utexas_promo_list
-id: node.field_flex_page_pl
-field_name: field_flex_page_pl
-entity_type: node
+id: block_content.field_block_pl
+field_name: field_block_pl
+entity_type: block_content
 type: utexas_promo_list
 settings: {  }
 module: utexas_promo_list

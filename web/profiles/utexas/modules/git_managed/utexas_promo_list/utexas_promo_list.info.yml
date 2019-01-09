@@ -1,0 +1,12 @@
+name: 'UTexas Promo List'
+type: module
+description: 'Provide a compound field with repeatable content, along with a block type for usage.'
+core: 8.x
+package: UTexas
+dependencies:
+  - block_content
+  - field
+  - layout_builder
+  - responsive_image
+  - utexas_image_styles
+  - utexas_promo_list

@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_promo_list.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_promo_list_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_promo_list' => [
+      'variables' => [
+        'headline' => NULL,
+        'promo_list_items' => [],
+        'wrapper' => NULL,
+        'columns' => NULL,
+      ],
+      'template' => 'utexas-promo-list',
+    ],
+  ];
+  return $variables;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_promo_list_form_layout_builder_update_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_promo_list_simplify_layout_form($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_promo_list_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_promo_list_simplify_layout_form($form);
+}
+
+/**
+ * Helper function for Layout Builder form alters.
+ */
+function _utexas_promo_list_simplify_layout_form(&$form) {
+  $map = [
+    'default' => "Single list full (1 item per row)",
+    'utexas_promo_list_2' => "Single list responsive (2 items per row)",
+    'utexas_promo_list_3' => "Two lists, side-by-side",
+  ];
+  if (isset($form['settings']['block_form'])) {
+    $bundle = $form['settings']['block_form']['#block']->bundle();
+    if ($bundle === 'utexas_promo_list') {
+      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
+        if (in_array($machine_name, array_keys($map))) {
+          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
+        }
+      }
+    }
+  }
+}
