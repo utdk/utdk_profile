@@ -26,8 +26,8 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
-    $instances = [];
     foreach ($items as $delta => $item) {
+      $instances = [];
       $promo_unit_items = unserialize($item->promo_unit_items);
       if (!empty($promo_unit_items)) {
         foreach ($promo_unit_items as $key => $instance) {
