@@ -39,9 +39,10 @@ trait QuickLinksTestTrait {
     $this->drupalGet('node/' . $node->id() . '/edit');
     // 2. Edit the node and add a second link.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-ql-0-links-actions-add-link')->click();
+    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
     $this->drupalPostForm(NULL, [
       'field_flex_page_ql[0][links][1][title]' => 'Quick Links Link Number 2!',
-      'field_flex_page_ql[0][links][1][url]' => '/node/' . $basic_page_id,
+      'field_flex_page_ql[0][links][1][url]' => '/node/' . $basic_page->id(),
     ],
       'edit-submit');
     $node = $this->drupalGetNodeByTitle('Quick Links Test');
