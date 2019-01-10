@@ -8,73 +8,68 @@ namespace Drupal\Tests\utexas\Traits;
 trait ResourcesTestTrait {
 
   /**
-   * Test schema.
+   * Verify promo unit widget schema & output.
    */
   public function verifyResources() {
     $assert = $this->assertSession();
-    // Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
+    $page = $this->getSession()->getPage();
+    $this->drupalGet('block/add/utexas_resources');
 
-    // Add a Resource paragraph type instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-add-more-add-more-button-utexas-resource-container')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-add-more-add-more-button-utexas-resource')->click();
+    // Verify widget field schema.
+    $this->clickLink('Add media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
 
-    // Verify the correct field schema exist.
-    $fields = [
-      'edit-field-flex-page-resource-0-subform-field-utexas-rc-title-0-value',
-      'edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-subform-field-utexas-resource-image-0-upload',
-      'edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-subform-field-utexas-resource-headline-0-value',
-      'edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-subform-field-utexas-resource-links-0-uri',
-      'edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-subform-field-utexas-resource-links-0-title',
-    ];
-    foreach ($fields as $field) {
-      $assert->fieldExists($field);
-    }
+    // Verify that multiple links can be added.
+    $page->pressButton('Add link');
+    $assert->assertWaitOnAjaxRequest();
 
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-add-more-add-more-button-utexas-resource-container')->click();
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-add-more-add-more-button-utexas-resource')->click();
-    $edit = [
-      'title[0][value]' => 'Resource Test',
-      'field_flex_page_resource[0][subform][field_utexas_rc_title][0][value]' => "Test Title for Resource Field",
-      'files[field_flex_page_resource_0_subform_field_utexas_rc_items_0_subform_field_utexas_resource_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
-      'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_headline][0][value]' => 'Resource Headline',
-      'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_links][0][uri]' => 'https://www.google.com',
-      'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_links][0][title]' => 'Resource Link 1',
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    // Verify that multiple resource collections can be added.
+    $page->pressButton('Add another collection');
+    $assert->assertWaitOnAjaxRequest();
 
-    // Alt text must be submitted *after* the image has been added.
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_image][0][alt]' => 'alternative text',
-    ],
-      'edit-submit');
-    $node = $this->drupalGetNodeByTitle('Resource Test');
-    $this->drupalGet('node/' . $node->id() . '/edit');
-    // Verify we can add a second link item to Resource instance.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-resource-0-subform-field-utexas-rc-items-0-top-links-edit-button')->click();
-    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_links][1][title]' => 'Resource Link 2',
-      'field_flex_page_resource[0][subform][field_utexas_rc_items][0][subform][field_utexas_resource_links][1][uri]' => '/node/' . $basic_page->id(),
-    ],
-      'edit-submit');
-    $node = $this->drupalGetNodeByTitle('Resource Test');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertRaw('Test Title for Resource Field');
-    $this->assertRaw('Resource Headline');
-    // Test image upload and alt text.
-    $this->assertRaw('utexas_image_style_800w_500h/public/resources/image-test');
-    $this->assertRaw('alt="alternative text"');
-    $this->assertRaw('Resource Link 1');
-    // Test external link.
-    $this->assertRaw('<a href="https://www.google.com"');
-    // Test internal link and addition of multiple links.
-    $this->assertRaw('<a href="/test-basic-page" class="ut-link--darker">Resource Link 2</a>');
+    $this->submitForm([
+      'info[0][value]' => 'Resources Test',
+      'field_block_resources[0][headline]' => 'Resource Container Headline',
+      'field_block_resources[0][resource_items][0][item][headline]' => 'Resource 1 Headline',
+      'field_block_resources[0][resource_items][0][item][copy][value]' => 'Resource 1 Copy',
+      'field_block_resources[0][resource_items][0][item][links][0][url]' => 'https://resource.test',
+      'field_block_resources[0][resource_items][0][item][links][0][title]' => 'Resource External Link',
+      'field_block_resources[0][resource_items][0][item][links][1][url]' => '/node',
+      'field_block_resources[0][resource_items][0][item][links][1][title]' => 'Resource Internal Link',
+      'field_block_resources[0][resource_items][1][item][headline]' => 'Resource 2 Headline',
+    ], 'Save');
+    $assert->pageTextContains('Resources Resources Test has been created.');
 
-    $this->drupalGet('node/' . $node->id() . '/delete');
-    $this->submitForm([], 'Delete');
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
+
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Resource Container Headline');
+    $assert->elementTextContains('css', 'h3.ut-headline', 'Resource 1 Headline');
+    $assert->pageTextContains('Resource 2 Headline');
+    $assert->pageTextContains('Resource Internal Link');
+    $assert->pageTextContains('Resource 1 Copy');
+    $assert->linkByHrefExists('https://resource.test');
+    // Verify responsive image is present within the link.
+    $assert->elementExists('css', 'picture source');
+    $expected_path = 'utexas_image_style_400w_250h/public/image-test';
+    $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
+
+    // Remove the block from the system.
+    $this->drupalGet('admin/structure/block/manage/resourcestest/delete');
+    $this->submitForm([], 'Remove');
   }
 
 }

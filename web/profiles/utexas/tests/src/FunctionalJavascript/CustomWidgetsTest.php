@@ -10,6 +10,7 @@ use Drupal\Tests\utexas\Traits\ImageLinkTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\PromoUnitTestTrait;
+use Drupal\Tests\utexas\Traits\ResourcesTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 /**
@@ -24,6 +25,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   use InstallTestTrait;
   use PromoListTestTrait;
   use PromoUnitTestTrait;
+  use ResourcesTestTrait;
   use TestFileCreationTrait;
   use UserTestTrait;
 
@@ -61,6 +63,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
+    $this->verifyResources();
     $this->verifyImageLink();
     $this->verifyPromoUnit();
     $this->verifyPromoList();

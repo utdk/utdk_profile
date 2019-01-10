@@ -13,7 +13,6 @@ use Drupal\Tests\utexas\Traits\HeroImageTestTrait;
 use Drupal\Tests\utexas\Traits\PhotoContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\QuickLinksTestTrait;
-use Drupal\Tests\utexas\Traits\ResourcesTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 /**
@@ -32,7 +31,6 @@ class CustomWidgetsTest extends BrowserTestBase {
   use PhotoContentAreaTestTrait;
   use PromoListTestTrait;
   use QuickLinksTestTrait;
-  use ResourcesTestTrait;
   use TestFileCreationTrait;
   use UserTestTrait;
 
@@ -79,7 +77,6 @@ class CustomWidgetsTest extends BrowserTestBase {
     $this->verifyHeroImage();
     $this->verifyPhotoContentArea();
     $this->verifyQuickLinks();
-    $this->verifyResources();
   }
 
 }
