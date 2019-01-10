@@ -1,47 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
- * Verifies Flex Content Area A & B field schema & validation.
- *
- * @group utexas
+ * Verifies QuickLinks field schema & validation.
  */
-class QuickLinksTest extends BrowserTestBase {
-  use EntityTestTrait;
-  use UserTestTrait;
-  use InstallTestTrait;
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-  }
+trait QuickLinksTestTrait {
 
   /**
    * Test Quick Links.
    */
-  public function testQuickLinks() {
+  public function verifyQuickLinks() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -56,8 +25,6 @@ class QuickLinksTest extends BrowserTestBase {
       $assert->fieldExists($field);
     }
 
-    // Generate a test node for referencing an internal link.
-    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Quick Links paragraph type.
     $edit = [
@@ -88,6 +55,8 @@ class QuickLinksTest extends BrowserTestBase {
     // 5. Verify Quick Links link, delta 1, is present, and is an internal link.
     $this->assertRaw('<a href="/test-basic-page" class="ut-link">Quick Links Link Number 2!</a>');
 
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

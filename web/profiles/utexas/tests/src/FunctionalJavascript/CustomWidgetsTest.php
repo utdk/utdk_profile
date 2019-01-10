@@ -12,7 +12,7 @@ use Drupal\Tests\utexas\Traits\PromoUnitTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 /**
- * Verifies Promo Unit field schema & validation.
+ * Verifies custom compound field schema, validation, & output.
  *
  * @group utexas
  */

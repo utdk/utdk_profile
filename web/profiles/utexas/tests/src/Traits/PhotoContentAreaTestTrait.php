@@ -1,60 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
  * Verifies Photo Content Area field schema, validation, & output.
- *
- * @group utexas
  */
-class PhotoContentAreaTest extends BrowserTestBase {
-  use EntityTestTrait;
-  use ImageFieldCreationTrait;
-  use InstallTestTrait;
-  use TestFileCreationTrait;
-  use UserTestTrait;
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->testImage = $this->createTestImage();
-  }
+trait PhotoContentAreaTestTrait {
 
   /**
    * Test schema.
    */
-  public function testSchema() {
+  public function verifyPhotoContentArea() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -72,12 +28,7 @@ class PhotoContentAreaTest extends BrowserTestBase {
     foreach ($fields as $field) {
       $assert->fieldExists($field);
     }
-  }
 
-  /**
-   * Validation: Photo Content Area image is required & alt text is required.
-   */
-  public function testValidation() {
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 2. Add the Photo Content Area paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
@@ -89,24 +40,17 @@ class PhotoContentAreaTest extends BrowserTestBase {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $this->assertRaw('Image field is required.');
     $this->drupalPostForm(NULL, [
-      'files[field_flex_page_pca_0_subform_field_utexas_pca_image_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_pca_0_subform_field_utexas_pca_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
     ],
       'edit-submit');
     $this->assertRaw('Alternative text field is required.');
-  }
 
-  /**
-   * Test output.
-   */
-  public function testOutput() {
-    // Generate a test node for referencing an internal link.
-    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Photo Content Area paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
     $edit = [
       'title[0][value]' => 'Photo Content Area Test',
-      'files[field_flex_page_pca_0_subform_field_utexas_pca_image_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_pca_0_subform_field_utexas_pca_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
       'field_flex_page_pca[0][subform][field_utexas_pca_headline][0][value]' => 'Headline',
       'field_flex_page_pca[0][subform][field_utexas_pca_copy][0][value]' => 'Copy Value',
       'field_flex_page_pca[0][subform][field_utexas_pca_links][0][title]' => 'External Link',
@@ -133,10 +77,10 @@ class PhotoContentAreaTest extends BrowserTestBase {
 
     // Edit the node to add a second photo content area link.
     $this->drupalGet('node/' . $node->id() . '/edit');
-
+    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
     $this->drupalPostForm(NULL, [
       'field_flex_page_pca[0][subform][field_utexas_pca_links][1][title]' => 'Internal Link',
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][uri]' => '/node/' . $basic_page_id,
+      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][uri]' => '/node/' . $basic_page->id(),
     ],
       'edit-submit');
 
@@ -144,8 +88,8 @@ class PhotoContentAreaTest extends BrowserTestBase {
     // 7. Verify link, delta 1, is present, and is an internal link.
     $this->assertRaw('<a href="/test-basic-page" class="ut-link">Internal Link</a>');
 
-    // Sign out!
-    $this->drupalLogout();
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

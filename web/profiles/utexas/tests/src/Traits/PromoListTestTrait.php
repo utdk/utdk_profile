@@ -1,60 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
  * Verifies Promo List field schema & validation.
- *
- * @group utexas
  */
-class PromoListTest extends BrowserTestBase {
-  use EntityTestTrait;
-  use UserTestTrait;
-  use ImageFieldCreationTrait;
-  use TestFileCreationTrait;
-  use InstallTestTrait;
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestImage();
-
-  }
+trait PromoListTestTrait {
 
   /**
    * Test schema.
    */
-  public function testSchema() {
+  public function verifyPromoList() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -74,22 +30,7 @@ class PromoListTest extends BrowserTestBase {
     foreach ($fields as $field) {
       $assert->fieldExists($field);
     }
-  }
 
-  /**
-   * Test validation.
-   */
-  public function testValidation() {
-    // Currently, no fields in Promo List are required,
-    // therefore, there is no validation to test.
-  }
-
-  /**
-   * Test output.
-   */
-  public function testOutput() {
-    // Generate a test node for referencing an internal link.
-    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // Add First Promo List Container.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-add-more-add-more-button-utexas-promo-list-container')->click();
@@ -103,6 +44,7 @@ class PromoListTest extends BrowserTestBase {
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-1-subform-field-utexas-plc-items-add-more-add-more-button-utexas-promo-list')->click();
     // Add the Second Promo List Container second Promo List Item.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pl-1-subform-field-utexas-plc-items-add-more-add-more-button-utexas-promo-list')->click();
+    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
     $edit = [
       'title[0][value]' => 'Promo List Test',
       // First Promo List Container.
@@ -116,7 +58,7 @@ class PromoListTest extends BrowserTestBase {
       'files[field_flex_page_pl_0_subform_field_utexas_plc_items_1_subform_field_utexas_pl_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
       'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_headline][0][value]' => 'First Container Second Item Promo List Headline',
       'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_copy][0][value]' => 'First Container Second Item Promo List Copy',
-      'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_link][0][uri]' => '/node/' . $basic_page_id,
+      'field_flex_page_pl[0][subform][field_utexas_plc_items][1][subform][field_utexas_pl_link][0][uri]' => '/node/' . $basic_page->id(),
       // Second Promo List Container.
       'field_flex_page_pl[1][subform][field_utexas_plc_headline][0][value]' => "Test Title of Second Promo List Container",
       // Second Container - first Promo List item instance with no link.
@@ -147,7 +89,7 @@ class PromoListTest extends BrowserTestBase {
     // Verify first container first instance PL item copy, image and headline.
     // Link is external, and should be wrapped around image and headline.
     $this->assertRaw('First Container First Item Promo List Copy');
-    $this->assertRaw('utexas_image_style_85w_85h/public/promo_list/image-test.png');
+    $this->assertRaw('utexas_image_style_85w_85h/public/promo_list/image-test');
     // Return anchor tag selected by href.
     $external_anchor_tags = $this->getSession()->getPage()->findAll('css', 'a[href="https://www.tylerfahey.com"]');
     $this->assertTrue(count($external_anchor_tags) == 2);
@@ -182,8 +124,9 @@ class PromoListTest extends BrowserTestBase {
     $this->assertTrue(strpos($paragraph_containers[1]->getHtml(), '<picture>'));
     $this->assertTrue(strpos($paragraph_containers[1]->getHtml(), 'Second Container Second Item Promo List Headline'));
     $this->assertRaw('alt="Alt B Container 2 Item 2"');
-    // Sign out!
-    $this->drupalLogout();
+
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

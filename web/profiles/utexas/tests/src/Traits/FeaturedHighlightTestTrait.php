@@ -1,63 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
  * Verifies Featured Highlight field schema & output.
- *
- * @group utexas
  */
-class FeaturedHighlightTest extends BrowserTestBase {
-
-  use EntityTestTrait;
-  use UserTestTrait;
-  use ImageFieldCreationTrait;
-  use TestFileCreationTrait;
-  use InstallTestTrait;
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestImage();
-  }
+trait FeaturedHighlightTestTrait {
 
   /**
    * Test schema.
    */
-  public function testSchema() {
+  public function verifyFeaturedHighlight() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -75,21 +28,14 @@ class FeaturedHighlightTest extends BrowserTestBase {
     foreach ($fields as $field) {
       $assert->fieldExists($field);
     }
-  }
 
-  /**
-   * Test the output.
-   */
-  public function testOutput() {
-    // Generate a test node for referencing an internal link.
-    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // 1. Add the Featured Highlight paragraph widget.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fh-add-more-add-more-button-utexas-featured-highlight')->click();
 
     $edit = [
       'title[0][value]' => 'Featured Highlight Test',
-      'files[field_flex_page_fh_0_subform_field_utexas_fh_media_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_fh_0_subform_field_utexas_fh_media_0]' => \Drupal::service('file_system')->realpath($this->testImage),
       'field_flex_page_fh[0][subform][field_utexas_fh_headline][0][value]' => 'Featured Highlight Headline!',
       'field_flex_page_fh[0][subform][field_utexas_fh_copy][0][value]' => 'Featured Highlight copy text.',
       'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][uri]' => 'https://markfullmer.com',
@@ -114,12 +60,13 @@ class FeaturedHighlightTest extends BrowserTestBase {
     // External links must be allowed in the CTA field.
     $this->assertRaw('<a href="https://markfullmer.com" class="ut-btn button">Featured Highlight Link</a>');
 
-    $this->assertRaw('utexas_image_style_250w_150h/public/featured_highlight/image-test.png');
+    $this->assertRaw('utexas_image_style_250w_150h/public/featured_highlight/image-test');
 
     // 4. Verify that an internal link can be used.
+    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
     $this->drupalGet('node/' . $node->id() . '/edit');
     $edit = [
-      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][uri]' => '/node/' . $basic_page_id,
+      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][uri]' => '/node/' . $basic_page->id(),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $this->drupalGet('node/' . $node->id());
@@ -135,8 +82,8 @@ class FeaturedHighlightTest extends BrowserTestBase {
     $this->drupalGet('node/' . $node->id());
     $this->assertRaw('Featured Highlight Headline!');
 
-    // Sign out!
-    $this->drupalLogout();
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

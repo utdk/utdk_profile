@@ -1,48 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
- * Verifies WYSIWYG field schema, validation, & output.
- *
- * @group utexas
+ * Verifies that Wysiwyg A & B exist on the Flex Page content type.
  */
-class WysiwygTest extends BrowserTestBase {
-  use InstallTestTrait;
-  use EntityTestTrait;
-  use UserTestTrait;
+trait WysiwygTestTrait {
 
   /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
+   * Test that revisioning works per Drupal convention.
    */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-  }
-
-  /**
-   * Test schema.
-   */
-  public function testSchema() {
+  public function verifyWysiwyg() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -55,12 +23,7 @@ class WysiwygTest extends BrowserTestBase {
     foreach ($fields as $field) {
       $assert->fieldExists($field);
     }
-  }
 
-  /**
-   * Test output.
-   */
-  public function testOutput() {
     $this->assertAllowed("/node/add/utexas_flex_page");
 
     $edit = [
@@ -75,8 +38,10 @@ class WysiwygTest extends BrowserTestBase {
     $this->assertRaw('WYSIWYG A Body');
     $this->assertRaw('WYSIWYG B Body');
 
-    // Sign out!
-    $this->drupalLogout();
+    // Clean configuration introduced by test.
+    $node = $this->drupalGetNodeByTitle('WYSIWYG Test');
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

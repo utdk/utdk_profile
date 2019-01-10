@@ -1,47 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
- * Verifies Flex Page nodes revisions work without issue.
- *
- * @group utexas
+ * Verifies that Flex Pages can be revised in a Drupal way.
  */
-class FlexPageNodeRevisionTest extends BrowserTestBase {
-  use EntityTestTrait;
-  use UserTestTrait;
-  use InstallTestTrait;
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
+trait FlexPageRevisionsTestTrait {
 
   /**
-   * {@inheritdoc}
+   * Test that revisioning works per Drupal convention.
    */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-  }
-
-  /**
-   * Test output.
-   */
-  public function testOutput() {
+  public function verifyRevisioning() {
     // Generate a test node for testing that revisions can be accessed.
     $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -65,8 +34,10 @@ class FlexPageNodeRevisionTest extends BrowserTestBase {
     // 3. Verify Revision 1 title, is present.
     $this->assertRaw('Revision Test');
 
-    // Sign out!
-    $this->drupalLogout();
+    // Clean configuration introduced by test.
+    $node = $this->drupalGetNodeByTitle('Revision Test rev2');
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

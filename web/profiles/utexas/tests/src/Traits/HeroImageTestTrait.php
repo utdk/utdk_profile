@@ -1,59 +1,16 @@
 <?php
 
-namespace Drupal\Tests\utexas\Functional;
-
-use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
+namespace Drupal\Tests\utexas\Traits;
 
 /**
  * Verifies Hero Image field schema & validation.
- *
- * @group utexas
  */
-class HeroImageTest extends BrowserTestBase {
-  use EntityTestTrait;
-  use UserTestTrait;
-  use ImageFieldCreationTrait;
-  use TestFileCreationTrait;
-  use InstallTestTrait;
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    $this->utexasSharedSetup();
-    parent::setUp();
-    $this->initializeFlexPageEditor();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestImage();
-  }
+trait HeroImageTestTrait {
 
   /**
    * Test schema.
    */
-  public function testSchema() {
+  public function verifyHeroImage() {
     $assert = $this->assertSession();
     // Verify a user has access to the content type.
     $this->assertAllowed("/node/add/utexas_flex_page");
@@ -80,12 +37,7 @@ class HeroImageTest extends BrowserTestBase {
     foreach ($fields as $field) {
       $assert->fieldExists($field);
     }
-  }
 
-  /**
-   * Test validation.
-   */
-  public function testValidation() {
     $this->assertAllowed("/node/add/utexas_flex_page");
     // Add the Hero Image paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-hi-add-more-add-more-button-utexas-hero-image')->click();
@@ -100,25 +52,19 @@ class HeroImageTest extends BrowserTestBase {
     // Submit an image with no alt text.
     $edit = [
       'title[0][value]' => 'Hero Image Test',
-      'files[field_flex_page_hi_0_subform_field_utexas_hi_image_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_hi_0_subform_field_utexas_hi_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     // Images must have alt text.
     $this->assertRaw('Alternative text field is required.');
-  }
 
-  /**
-   * Test output.
-   */
-  public function testOutput() {
     $this->assertAllowed("/node/add/utexas_flex_page");
-    $basic_page_id = $this->createBasicPage();
 
     // Add the Hero Image paragraph type.
     $this->getSession()->getPage()->find('css', '#edit-field-flex-page-hi-add-more-add-more-button-utexas-hero-image')->click();
     $edit = [
       'title[0][value]' => 'Hero Image Test',
-      'files[field_flex_page_hi_0_subform_field_utexas_hi_image_0]' => drupal_realpath($this->testImage),
+      'files[field_flex_page_hi_0_subform_field_utexas_hi_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
       'field_flex_page_hi[0][subform][field_utexas_hi_caption][0][value]' => 'This is a caption',
       'field_flex_page_hi[0][subform][field_utexas_hi_photo_credit][0][value]' => 'This is a photo credit',
       'field_flex_page_hi[0][subform][field_utexas_hi_heading][0][value]' => 'Test Heading',
@@ -136,7 +82,7 @@ class HeroImageTest extends BrowserTestBase {
     $node = $this->drupalGetNodeByTitle('Hero Image Test');
     $this->drupalGet('node/' . $node->id());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertRaw('utexas_image_style_2280w_1232h/public/hero_images/image-test.png');
+    $this->assertRaw('utexas_image_style_720w_389h/public/hero_images/image-test');
     $this->assertRaw('alt="Alternative text"');
     $this->assertRaw('This is a caption');
     $this->assertRaw('This is a photo credit');
@@ -146,8 +92,9 @@ class HeroImageTest extends BrowserTestBase {
 
     // Go back to edit node and make link internal.
     $this->drupalGet('node/' . $node->id() . '/edit');
+    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
     $edit = [
-      'field_flex_page_hi[0][subform][field_utexas_hi_link][0][uri]' => '/node/' . $basic_page_id,
+      'field_flex_page_hi[0][subform][field_utexas_hi_link][0][uri]' => '/node/' . $basic_page->id(),
       'field_flex_page_hi[0][subform][field_utexas_hi_link][0][title]' => 'Test Internal Link',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
@@ -156,8 +103,8 @@ class HeroImageTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('<a href="/test-basic-page">Test Internal Link</a>');
 
-    // Sign out!
-    $this->drupalLogout();
+    $this->drupalGet('node/' . $node->id() . '/delete');
+    $this->submitForm([], 'Delete');
   }
 
 }

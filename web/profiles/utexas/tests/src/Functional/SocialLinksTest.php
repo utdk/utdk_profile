@@ -51,7 +51,7 @@ class SocialLinksTest extends BrowserTestBase {
   /**
    * Test schema.
    */
-  public function testSchema() {
+  public function testSocialLinks() {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the block type.
     $this->assertAllowed("/block/add/social_links");
@@ -85,12 +85,8 @@ class SocialLinksTest extends BrowserTestBase {
       'youtube',
     ];
     $this->assertTrue($available_icons == $options);
-  }
 
-  /**
-   * Create a block & validate an external link is required for URL.
-   */
-  public function testValidation() {
+    // Create a block & validate an external link is required for URL.
     $this->assertAllowed("/block/add/social_links");
     $edit = [
       'info[0][value]' => 'Social Links Test',
@@ -131,17 +127,7 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertRaw('<title id="facebook-title">Facebook</title>');
     $this->assertRaw('<path');
     $this->assertRaw('</svg>');
-  }
 
-  /**
-   * Validate configuring and rendering.
-   *
-   * This test will configure the default Site Wide Social Links block
-   * with a new 'test' network and icon. It then validates that this
-   * displays. The test also confirms that changing an existing icon
-   * invalidates the cache tag properly and the change is immediately visible.
-   */
-  public function testRender() {
     // Create test SVG.
     $location = 'public://';
     $random_util = new Random();
@@ -196,14 +182,11 @@ class SocialLinksTest extends BrowserTestBase {
     // Go to homepage & confirm test network is rendering with test 2 svg path.
     $this->drupalGet("<front>");
     $this->assertRaw($svgFile2Markup);
-  }
 
-  /**
-   * Validate permission grants access to edit Social Links.
-   */
-  public function testPermission() {
     // Logout with the current user.
     $this->drupalLogout();
+
+    // Verify Permissions.
     // Try to access the social links edit page to get a 403.
     $this->assertForbidden('admin/structure/social-links');
     // Try editing the FB social block entry to get a 403.
