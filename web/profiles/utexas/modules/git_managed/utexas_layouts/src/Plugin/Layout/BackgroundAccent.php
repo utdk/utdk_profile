@@ -29,18 +29,15 @@ class BackgroundAccent extends DefaultConfigLayout {
       'file_validate_extensions' => ['jpg jpeg png gif'],
     ];
     $form['background-accent'] = [
-      '#type' => 'managed_file',
+      '#type' => 'media_library_element',
+      '#target_bundles' => ['utexas_image'],
+      '#cardinality' => 1,
+      '#default_value' => !empty($this->configuration['background-accent']) ? $this->configuration['background-accent'] : 0,
       '#name' => 'background_accent',
       '#title' => $this->t('Background image'),
-      '#size' => 20,
       '#description' => $this->t('Optionally, display an image behind section content. Ideal size is 1500x500 pixels.'),
-      '#upload_validators' => $validators,
-      '#upload_location' => 'public://background_accent/',
       '#weight' => 1,
     ];
-    if (!empty($this->configuration['background-accent'])) {
-      $form['background-accent']['#default_value'] = [$this->configuration['background-accent']];
-    }
     $form['blur'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Apply blur to image?'),
@@ -57,14 +54,7 @@ class BackgroundAccent extends DefaultConfigLayout {
     parent::submitConfigurationForm($form, $form_state);
     $this->configuration['blur'] = $form_state->getValue('blur');
     if ($form_state->getValue('background-accent')) {
-      $file = \Drupal::entityTypeManager()->getStorage('file')->load($form_state->getValue('background-accent')[0]);
-      if ($file) {
-        $file->setPermanent();
-        $file->save();
-        $file_usage = \Drupal::service('file.usage'); 
-        $file_usage->add($file, 'utexas_layouts', 'utexas_image', \Drupal::currentUser()->id());
-        $this->configuration['background-accent'] = $file->id();
-      }
+      $this->configuration['background-accent'] = $form_state->getValue('background-accent')['media_library_selection'];
     }
     else {
       // There is no image.
@@ -78,32 +68,35 @@ class BackgroundAccent extends DefaultConfigLayout {
   public function build(array $regions) {
     $build = parent::build($regions);
     if (!empty($this->configuration['background-accent'])) {
-      $file = \Drupal::entityTypeManager()->getStorage('file')->load($this->configuration['background-accent']);
-      if ($file && $uri = $file->getFileUri()) {
-        $build['#attributes']['class'][] = 'background-accent';
-        $build['#background_image'] = new Attribute();
-        // Exclude GIFs from image style to allow for animation.
-        if ($file->getMimeType() != 'image/gif') {
-          // Apply an image style in an attempt to optimize huge images.
-          $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
+      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($this->configuration['background-accent'])) {
+        $media_attributes = $media->get('field_utexas_media_image')->getValue();
+        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+          $uri = $file->getFileUri();
+          $build['#attributes']['class'][] = 'background-accent';
+          $build['#background_image'] = new Attribute();
+          // Exclude GIFs from image style to allow for animation.
+          if ($file->getMimeType() != 'image/gif') {
+            // Apply an image style in an attempt to optimize huge images.
+            $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
+          }
+          else {
+            $src = $file->url();
+          }
+          if (!empty($this->configuration['blur'])) {
+            // Apply blur effect first to prevent mangled UTF8 encoding on $src.
+            $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);margin:-10px;";
+          }
+          $build['#background_image']['style'] .= "background-image: url('$src');
+            background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: -1000;
+            background-size: cover;
+            bottom: 0;";
         }
-        else {
-          $src = $file->url();
-        }
-        if (!empty($this->configuration['blur'])) {
-          // Apply blur effect first to prevent mangled UTF8 encoding on $src.
-          $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);margin:-10px;";
-        }
-        $build['#background_image']['style'] .= "background-image: url('$src');
-          background-position: center;
-          background-repeat: no-repeat;
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          z-index: -1000;
-          background-size: cover;
-          bottom: 0;";
       }
     }
     return $build;
