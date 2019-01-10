@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_flex_page_resource
-    - node.type.utexas_flex_page
+    - block_content.type.utexas_resources
+    - field.storage.block_content.field_block_resources
   module:
     - utexas_resources
-id: node.utexas_flex_page.field_flex_page_resource
-field_name: field_flex_page_resource
-entity_type: node
-bundle: utexas_flex_page
+id: block_content.utexas_resources.field_block_resources
+field_name: field_block_resources
+entity_type: block_content
+bundle: utexas_resources
 label: Resources
 description: ''
 required: false

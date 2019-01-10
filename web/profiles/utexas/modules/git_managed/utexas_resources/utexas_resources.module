@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Resources custom compound field dot module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_resources_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_resources' => [
+      'variables' => [
+        'headline' => NULL,
+        'resource_items' => [],
+      ],
+      'template' => 'utexas-resources',
+    ],
+  ];
+  return $variables;
+}

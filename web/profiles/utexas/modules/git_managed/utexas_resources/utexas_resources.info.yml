@@ -1,0 +1,15 @@
+name: 'UTexas Resources'
+type: module
+description: 'Provides a headline, image, copy text & unlimited internal/external links. This includes a custom block type and view modes for custom inline blocks.'
+core: 8.x
+package: UTexas
+dependencies:
+  - block_content
+  - field
+  - layout_builder
+  - layout_builder_restrictions
+  - media_library
+  - responsive_image
+  - utexas_form_elements
+  - utexas_image_styles
+  - utexas_resources

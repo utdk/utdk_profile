@@ -39,7 +39,7 @@ function utexas_paragraph_flex_content_area_field_widget_form_alter(&$element, F
  * Implements hook_preprocess_field_multiple_value_form().
  *
  * We look for a value that was placed there earlier by
- * utexas_paragraph_resources_field_widget_form_alter() and
+ * utexas_paragraph_flex_content_area_field_widget_form_alter() and
  * change the add_more button to use that.
  */
 function utexas_paragraph_flex_content_area_preprocess_field_multiple_value_form(&$variables) {

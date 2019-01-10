@@ -34,9 +34,10 @@ dependencies:
   - 'utexas_paragraph_hero_image:utexas_paragraph_hero_image'
   - utexas_paragraph_photo_content_area
   - utexas_paragraph_resources
-  - 'utexas_paragraph_resources:utexas_paragraph_resources'
+  - utexas_paragraph_promo_list
   - 'utexas_paragraph_types:utexas_paragraph_types'
   - utexas_promo_list
   - utexas_promo_unit
   - utexas_quick_links
+  - utexas_resources
 version: 8.x-1.0

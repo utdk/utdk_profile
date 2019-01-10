@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - block_content
     - utexas_resources
-id: node.field_flex_page_resource
-field_name: field_flex_page_resource
-entity_type: node
+id: block_content.field_block_resources
+field_name: field_block_resources
+entity_type: block_content
 type: utexas_resources
 settings: {  }
 module: utexas_resources
 locked: false
-cardinality: 1
+cardinality: -1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
