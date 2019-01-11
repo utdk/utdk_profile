@@ -32,6 +32,7 @@ dependencies:
   - search
   # Contrib
   - adminimal_admin_toolbar
+  - feed_block
   - pathauto
   # Custom
   - utexas_text_format_flex_html
