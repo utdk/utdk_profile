@@ -117,7 +117,7 @@ class UTexasResources extends FieldItemBase {
         ],
       ]);
       $image_media->save();
-      $values['resource_items'][$i]['item']['image'][] = $image_media->id();
+      $values['resource_items'][$i]['item']['image'] = $image_media->id();
 
       // // Set of possible top-level domains for sample link value.
       $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];

@@ -43,7 +43,7 @@ class UtexasResourcesElement extends FormElement {
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
-      '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'][0] : 0,
+      '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : 0,
       '#description' => t('Image will be automatically cropped to 400 x 250. Upload an image with an aspect ratio equal to 400 x 250 to avoid cropping.'),
     ];
     $element['copy'] = [
@@ -60,7 +60,6 @@ class UtexasResourcesElement extends FormElement {
     // [3] => 0
     // [4] => item
     // ... where [1] is the field delta and [3] is the resource item delta.
-
     $field_name = $element['#parents'][0];
     $field_delta = $element['#parents'][1];
     $resource_delta = $element['#parents'][3];
