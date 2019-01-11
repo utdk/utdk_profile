@@ -78,7 +78,6 @@ class CustomWidgetsTest extends BrowserTestBase {
     $this->verifyFlexContentArea();
     $this->verifyHeroImage();
     $this->verifyPhotoContentArea();
-    $this->verifyPromoList();
     $this->verifyQuickLinks();
     $this->verifyResources();
   }
