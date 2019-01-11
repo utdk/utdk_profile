@@ -21,6 +21,11 @@ services:
            SIMPLETEST_BASE_URL: 'http://utdk8.lndo.site/' # Alternately, Lando always makes available 'appserver' as domain.
            BROWSERTEST_OUTPUT_DIRECTORY: '/app/web/sites/simpletest/browser_output'
 tooling:
+  cr:
+    service: appserver
+    description: Clear the drupal cache
+    cmd:
+      - scripts/d8-lando-cache-clear.sh
   phpunit:
     service: appserver
     description: Run generic phpunit tests locally.
