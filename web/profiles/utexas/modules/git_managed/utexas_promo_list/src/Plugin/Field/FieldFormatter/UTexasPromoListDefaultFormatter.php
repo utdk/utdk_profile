@@ -50,9 +50,6 @@ class UTexasPromoListDefaultFormatter extends FormatterBase {
           if (!empty($i['copy']['value'])) {
             $instances[$key]['copy'] = check_markup($i['copy']['value'], $i['copy']['format']);
           }
-          if (!empty($i['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($i['copy']['value'], $i['copy']['format']);
-          }
           if (!empty($i['link'])) {
             $url = Url::fromUri($i['link']);
             $url->setAbsolute();
