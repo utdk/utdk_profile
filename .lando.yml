@@ -25,7 +25,7 @@ tooling:
     service: appserver
     description: Clear the drupal cache
     cmd:
-      - scripts/d8-lando-cache-clear.sh
+      - /app/scripts/d8-lando-cache-clear.sh
   phpunit:
     service: appserver
     description: Run generic phpunit tests locally.
