@@ -98,21 +98,21 @@ class UTexasResourcesWidget extends WidgetBase {
       // Links are stored as a serialized array.
       if (!empty($value['resource_items'])) {
         foreach ($value['resource_items'] as $key => $item) {
+          unset($value['resource_items'][$key]['item']['links']['actions']);
+          foreach ($item['item']['links'] as $delta => $link) {
+            if (empty($link['url']) || $link['url'] == '') {
+              unset($item['item']['links'][$delta]);
+            }
+          }
           if (empty($item['item']['headline'])
-          && empty($item['item']['image'])
-          && empty($item['item']['copy']['value'])
-          && empty($item['item']['links'])) {
+            && $item['item']['image']['media_library_selection'] == 0
+            && empty($item['item']['copy']['value'])
+            && empty($item['item']['links'])) {
             // Remove empty resource items.
             unset($value['resource_items'][$key]);
           }
           else {
-            unset($value['resource_items'][$key]['item']['links']['actions']);
             // Clean up empty link deltas as a courtesy.
-            foreach ($value['resource_items'][$key]['item']['links'] as $delta => $link) {
-              if (empty($link['url'])) {
-                unset($value['resource_items'][$key]['item']['links'][$delta]);
-              }
-            }
             if (isset($item['item']['image']['media_library_selection'])) {
               // @see MediaLibraryElement.php
               $value['resource_items'][$key]['item']['image'] = $item['item']['image']['media_library_selection'];

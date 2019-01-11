@@ -43,6 +43,9 @@ class UTexasResourcesDefaultFormatter extends FormatterBase {
           }
           if (!empty($i['links'])) {
             foreach ($i['links'] as $l) {
+              if ($l['url'] == '') {
+                continue;
+              }
               // Ensure that links without title text print the URL.
               $link_url = Url::fromUri($l['url']);
               if (empty($l['title'])) {
