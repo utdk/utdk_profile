@@ -25,6 +25,7 @@ dependencies:
     - text
     - user
     - utexas_image_link
+    - utexas_promo_list
     - utexas_promo_unit
     - utexas_quick_links
     - utexas_resources
