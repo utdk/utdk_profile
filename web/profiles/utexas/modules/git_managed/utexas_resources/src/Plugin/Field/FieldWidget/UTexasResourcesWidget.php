@@ -98,6 +98,10 @@ class UTexasResourcesWidget extends WidgetBase {
       // Links are stored as a serialized array.
       if (!empty($value['resource_items'])) {
         foreach ($value['resource_items'] as $key => $item) {
+          if (!isset($item['item'])) {
+            unset($value['resource_items'][$key]);
+            continue;
+          }
           unset($value['resource_items'][$key]['item']['links']['actions']);
           foreach ($item['item']['links'] as $delta => $link) {
             if (empty($link['url']) || $link['url'] == '') {
