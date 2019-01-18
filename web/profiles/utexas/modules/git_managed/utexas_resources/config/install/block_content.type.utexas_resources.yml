@@ -4,4 +4,4 @@ dependencies: {  }
 id: utexas_resources
 label: Resources
 revision: 1
-description: 'Provides a headline, image, copy text & unlimited internal/external links'
+description: 'Provides a headline, image, & unlimited internal/external links'

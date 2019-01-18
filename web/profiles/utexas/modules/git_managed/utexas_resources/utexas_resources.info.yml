@@ -1,6 +1,6 @@
 name: 'UTexas Resources'
 type: module
-description: 'Provides a headline, image, copy text & unlimited internal/external links. This includes a custom block type and view modes for custom inline blocks.'
+description: 'Provides a headline, image, unlimited internal/external links. This includes a custom block type and view modes for custom inline blocks.'
 core: 8.x
 package: UTexas
 dependencies:
