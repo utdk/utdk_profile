@@ -1,0 +1,39 @@
+{#
+/**
+ * @file
+ * Template for the Hero field.
+ *
+ * Available variables:
+ * - media: An image or video -- ensure that you handle display for either.
+ * - heading: a string of text meant to be prominently displayed
+ * - subheading: a string of text, subsidiary to the heading
+ * - caption: descriptive string for the media
+ * - credit: attribution string for the media
+ * - cta_uri: a URI. May be use to wrap other elements.
+ * - cta_title: a string of text meant to be displayed as a button.
+ *
+ */
+#} 
+{% if media %}
+  {{ media }}
+{% endif %}
+
+{% if heading %}
+  {{ heading }}
+{% endif %}
+
+{% if subheading %}
+  {{ subheading }}
+{% endif %}
+
+{% if caption %}
+  {{ caption }}
+{% endif %}
+
+{% if credit %}
+  {{ credit }}
+{% endif %}
+
+{% if cta_uri %}
+  {{ link(cta_title, cta_uri, { 'class':['ut-link']} ) }}
+{% endif %}
