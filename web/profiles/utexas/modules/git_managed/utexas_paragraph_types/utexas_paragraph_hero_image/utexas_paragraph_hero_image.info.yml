@@ -11,5 +11,6 @@ dependencies:
   - paragraphs
   - responsive_image
   - utexas_image_styles
+  - utexas_hero
 version: 8.x-1.0
 package: UTexas
