@@ -70,6 +70,7 @@ class UTexasHeroWidget extends WidgetBase {
     ];
     $element['cta']['link'] = [
       '#type' => 'utexas_link_element',
+      '#description' => $this->t('Enter an internal path such as /node/add or an external URL such as https://example.com.'),
       '#default_value' => [
         'url' => $items[$delta]->link_uri ?? '',
         'title' => $items[$delta]->link_title ?? '',
