@@ -24,7 +24,7 @@ printf "${GREEN}Cache rebuild complete.${DEFAULT_COLOR}"
 echo ""
 
 ## Remove Twig PHP cache (presumes a web docroot & sites/default setup)
-rm -rf web/sites/default/files/php/twig/*
+rm -rf /app/web/sites/default/files/php/twig/*
 ## Remove CSS & JS cached files.
-rm -rf web/sites/default/files/css/*
-rm -rf web/sites/default/files/js/*
+rm -rf /app/web/sites/default/files/css/*
+rm -rf /app/web/sites/default/files/js/*
