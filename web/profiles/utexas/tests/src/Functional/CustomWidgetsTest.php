@@ -9,7 +9,6 @@ use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\FeaturedHighlightTestTrait;
 use Drupal\Tests\utexas\Traits\FlexContentAreaTestTrait;
-use Drupal\Tests\utexas\Traits\HeroImageTestTrait;
 use Drupal\Tests\utexas\Traits\PhotoContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\QuickLinksTestTrait;
@@ -27,7 +26,6 @@ class CustomWidgetsTest extends BrowserTestBase {
   use InstallTestTrait;
   use FeaturedHighlightTestTrait;
   use FlexContentAreaTestTrait;
-  use HeroImageTestTrait;
   use PhotoContentAreaTestTrait;
   use PromoListTestTrait;
   use QuickLinksTestTrait;
@@ -74,7 +72,6 @@ class CustomWidgetsTest extends BrowserTestBase {
   public function testCustomWidgets() {
     $this->verifyFeaturedHighlight();
     $this->verifyFlexContentArea();
-    $this->verifyHeroImage();
     $this->verifyPhotoContentArea();
     $this->verifyQuickLinks();
   }
