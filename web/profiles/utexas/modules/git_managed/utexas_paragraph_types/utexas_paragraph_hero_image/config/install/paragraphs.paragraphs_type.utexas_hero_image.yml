@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_hero_image
-label: 'Hero Image'
-icon_uuid: null
-description: 'Hero Image has attached Hero Display Style, Image, Heading, Subheading, Caption, Photo Credit and Link fields.'
-behavior_plugins: {  }

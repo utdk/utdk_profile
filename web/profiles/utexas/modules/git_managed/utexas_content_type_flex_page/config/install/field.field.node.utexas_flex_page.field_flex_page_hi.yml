@@ -4,38 +4,17 @@ dependencies:
   config:
     - field.storage.node.field_flex_page_hi
     - node.type.utexas_flex_page
-    - paragraphs.paragraphs_type.utexas_hero_image
   module:
-    - entity_reference_revisions
+    - utexas_hero
 id: node.utexas_flex_page.field_flex_page_hi
 field_name: field_flex_page_hi
 entity_type: node
 bundle: utexas_flex_page
-label: 'Hero Image'
+label: Hero
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:paragraph'
-  handler_settings:
-    target_bundles:
-      utexas_hero_image: utexas_hero_image
-    target_bundles_drag_drop:
-      utexas_flex_content_area:
-        weight: 7
-        enabled: false
-      utexas_image_link:
-        weight: 8
-        enabled: false
-      utexas_photo_content_area:
-        weight: 9
-        enabled: false
-      utexas_quick_links:
-        weight: 12
-        enabled: false
-      utexas_hero_image:
-        enabled: true
-        weight: 14
-field_type: entity_reference_revisions
+settings: {  }
+field_type: utexas_hero

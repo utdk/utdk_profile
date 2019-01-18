@@ -21,6 +21,7 @@ dependencies:
     - paragraphs
     - path
     - text
+    - utexas_hero
     - utexas_image_link
     - utexas_promo_list
     - utexas_promo_unit
@@ -88,16 +89,10 @@ content:
     third_party_settings: {  }
     region: content
   field_flex_page_hi:
-    type: entity_reference_paragraphs
-    weight: 9
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
+    weight: 130
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_hero
     region: content
   field_flex_page_il_a:
     weight: 126

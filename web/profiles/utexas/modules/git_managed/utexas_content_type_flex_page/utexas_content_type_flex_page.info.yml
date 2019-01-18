@@ -25,13 +25,12 @@ dependencies:
   - path
   - text
   - user
+  - utexas_hero
   - utexas_image_link
   - utexas_media_types
   - utexas_paragraph_featured_highlight
   - utexas_paragraph_flex_content_area
   - 'utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area'
-  - utexas_paragraph_hero_image
-  - 'utexas_paragraph_hero_image:utexas_paragraph_hero_image'
   - utexas_paragraph_photo_content_area
   - 'utexas_paragraph_types:utexas_paragraph_types'
   - utexas_promo_list

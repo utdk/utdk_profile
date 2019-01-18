@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - entity_reference_revisions
     - node
-    - paragraphs
+    - utexas_hero
 id: node.field_flex_page_hi
 field_name: field_flex_page_hi
 entity_type: node
-type: entity_reference_revisions
-settings:
-  target_type: paragraph
-module: entity_reference_revisions
+type: utexas_hero
+settings: {  }
+module: utexas_hero
 locked: false
 cardinality: 1
 translatable: true
