@@ -1,5 +1,12 @@
-name: Hero
+name: 'UTexas Hero'
 type: module
-description: Defines a compound field with media, heading, subheading, link, caption and credit.
+description: 'Defines a compound field with media, heading, subheading, link, caption and credit.'
 core: 8.x
 package: UTexas
+dependencies:
+  - block_content
+  - field
+  - layout_builder
+  - responsive_image
+  - utexas_hero
+  - utexas_image_styles
