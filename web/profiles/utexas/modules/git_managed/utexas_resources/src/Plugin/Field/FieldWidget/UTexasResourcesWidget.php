@@ -65,8 +65,6 @@ class UTexasResourcesWidget extends WidgetBase {
         '#default_value' => [
           'headline' => $items[$i]['item']['headline'] ?? '',
           'image' => $items[$i]['item']['image'] ?? '',
-          'copy_value' => $items[$i]['item']['copy']['value'] ?? '',
-          'copy_format' => $items[$i]['item']['copy']['format'] ?? 'restricted_html',
           'links' => $items[$i]['item']['links'] ?? FALSE,
         ],
       ];
@@ -110,7 +108,6 @@ class UTexasResourcesWidget extends WidgetBase {
           }
           if (empty($item['item']['headline'])
             && $item['item']['image']['media_library_selection'] == 0
-            && empty($item['item']['copy']['value'])
             && empty($item['item']['links'])) {
             // Remove empty resource items.
             unset($value['resource_items'][$key]);

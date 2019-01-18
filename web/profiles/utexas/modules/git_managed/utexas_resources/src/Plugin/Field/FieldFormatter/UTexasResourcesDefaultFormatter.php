@@ -35,9 +35,6 @@ class UTexasResourcesDefaultFormatter extends FormatterBase {
           if (!empty($i['headline'])) {
             $instances[$key]['headline'] = $i['headline'];
           }
-          if (!empty($i['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($i['copy']['value'], $i['copy']['format']);
-          }
           if (!empty($i['links'])) {
             foreach ($i['links'] as $l) {
               if ($l['url'] == '') {

@@ -8,7 +8,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 
 /**
- * Defines an element with image, headline, copy and unlimited links.
+ * Defines an element with image, headline, and unlimited links.
  *
  * @FormElement("utexas_resource")
  */
@@ -45,12 +45,6 @@ class UtexasResourcesElement extends FormElement {
       '#title' => t('Image'),
       '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : 0,
       '#description' => t('Image will be automatically cropped to 400 x 250. Upload an image with an aspect ratio equal to 400 x 250 to avoid cropping.'),
-    ];
-    $element['copy'] = [
-      '#title' => 'Copy',
-      '#type' => 'text_format',
-      '#default_value' => isset($element['#default_value']['copy_value']) ? $element['#default_value']['copy_value'] : NULL,
-      '#format' => isset($element['#default_value']['copy_format']) ? $element['#default_value']['copy_format'] : 'restricted_html',
     ];
     // Retrieve the form element that is using this widget.
     // The structure of $element['#parents'] will be similar to:

@@ -68,8 +68,6 @@ class UTexasResources extends FieldItemBase {
     $values['headline'] = ucfirst($random->word(mt_rand(5, 10)));
     for ($i = 0; $i < 2; $i++) {
       $values['resource_items'][$i]['item']['headline'] = ucfirst($random->word(mt_rand(5, 10)));
-      $values['resource_items'][$i]['item']['copy']['value'] = $random->sentences(mt_rand(1, 2));
-      $values['resource_items'][$i]['item']['copy']['format'] = 'restricted_html';
 
       // Attributes for sample image.
       static $images = [];

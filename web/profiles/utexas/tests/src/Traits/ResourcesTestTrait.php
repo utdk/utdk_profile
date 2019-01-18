@@ -39,7 +39,6 @@ trait ResourcesTestTrait {
       'info[0][value]' => 'Resources Test',
       'field_block_resources[0][headline]' => 'Resource Container Headline',
       'field_block_resources[0][resource_items][0][item][headline]' => 'Resource 1 Headline',
-      'field_block_resources[0][resource_items][0][item][copy][value]' => 'Resource 1 Copy',
       'field_block_resources[0][resource_items][0][item][links][0][url]' => 'https://resource.test',
       'field_block_resources[0][resource_items][0][item][links][0][title]' => 'Resource External Link',
       'field_block_resources[0][resource_items][0][item][links][1][url]' => '/node',
@@ -60,7 +59,6 @@ trait ResourcesTestTrait {
     $assert->elementTextContains('css', 'h3.ut-headline', 'Resource 1 Headline');
     $assert->pageTextContains('Resource 2 Headline');
     $assert->pageTextContains('Resource Internal Link');
-    $assert->pageTextContains('Resource 1 Copy');
     $assert->linkByHrefExists('https://resource.test');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', 'picture source');
