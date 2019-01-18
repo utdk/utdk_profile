@@ -1,5 +1,5 @@
 name: 'UTexas Paragraph : Hero Image'
-description: 'Defines a single paragraph type with display style, image, heading, subheading, link, caption and credit.'
+description: 'Defines a compound field with media, heading, subheading, link, caption and credit.'
 type: module
 core: 8.x
 dependencies:
