@@ -31,7 +31,7 @@ class UTexasHero extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['media'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Image'))
+      ->setLabel(new TranslatableMarkup('Media'))
       ->setRequired(FALSE);
     $properties['heading'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Heading'))
@@ -43,7 +43,7 @@ class UTexasHero extends FieldItemBase {
       ->setLabel(new TranslatableMarkup('Caption'))
       ->setRequired(FALSE);
     $properties['credit'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('credit'))
+      ->setLabel(new TranslatableMarkup('Credit'))
       ->setRequired(FALSE);
     $properties['link_uri'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Link URI'))
