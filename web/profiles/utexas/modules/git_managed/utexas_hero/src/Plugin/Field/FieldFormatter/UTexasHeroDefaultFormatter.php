@@ -44,7 +44,7 @@ class UTexasHeroDefaultFormatter extends FormatterBase {
       $cta['uri'] = '';
       if (!empty($item->link_uri)) {
         $url = Url::fromUri($item->link_uri);
-        $cta['uri'] = $url->toString();
+        $cta['uri'] = $url;
         if (empty($item->link_title)) {
           $url = Url::fromUri($item->link_uri);
           $url->setAbsolute();
