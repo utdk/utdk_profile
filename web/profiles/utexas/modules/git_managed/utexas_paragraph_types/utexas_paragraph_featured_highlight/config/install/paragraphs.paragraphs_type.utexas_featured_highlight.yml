@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_featured_highlight
-label: 'Featured Highlight'
-icon_uuid: null
-description: 'Featured Highlight has attached Headline, Image, Date, Copy and Call to Action fields.'
-behavior_plugins: {  }

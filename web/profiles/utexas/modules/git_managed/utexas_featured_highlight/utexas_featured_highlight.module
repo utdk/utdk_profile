@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_featured_highlight.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_featured_highlight_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_featured_highlight' => [
+      'variables' => [
+        'headline' => NULL,
+        'media' => NULL,
+        'date' => NULL,
+        'copy' => NULL,
+        'cta' => NULL,
+        'style' => NULL,
+      ],
+      'template' => 'utexas-featured-highlight',
+    ],
+  ];
+  return $variables;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_featured_highlight_form_layout_builder_update_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_featured_highlight_simplify_layout_form($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_featured_highlight_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_featured_highlight_simplify_layout_form($form);
+}
+
+/**
+ * Helper function for Layout Builder form alters.
+ */
+function _utexas_featured_highlight_simplify_layout_form(&$form) {
+  $map = [
+    'default' => "Limestone (Light)",
+    'utexas_featured_highlight_2' => "Bluebonnet (Medium)",
+    'utexas_featured_highlight_3' => "Charcoal (Dark)",
+  ];
+  if (isset($form['settings']['block_form'])) {
+    $bundle = $form['settings']['block_form']['#block']->bundle();
+    if ($bundle === 'utexas_featured_highlight') {
+      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
+        if (in_array($machine_name, array_keys($map))) {
+          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
+        }
+      }
+    }
+  }
+}

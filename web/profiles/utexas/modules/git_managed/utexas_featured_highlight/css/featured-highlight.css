@@ -1,0 +1,29 @@
+/* default view mode = Limestone (Light) */
+.utexas-featured-highlight {
+  background-color: #d6d2c4;
+  color: #000;
+}
+.utexas-featured-highlight .content-wrapper .ut-headline a,
+.utexas-featured-highlight .content-wrapper .ut-headline {
+  color: #000;
+}
+
+/* Bluebonnet (Medium) */
+.utexas-featured-highlight.medium {
+  background-color: #005f86;
+  color: #ffffff;
+}
+.utexas-featured-highlight.medium .content-wrapper .ut-headline a,
+.utexas-featured-highlight.medium .content-wrapper .ut-headline {
+  color:#ffffff;
+}
+
+/* Charcoal (Dark) */
+.utexas-featured-highlight.dark {
+  background-color: #333f48;
+  color: #ffffff;
+}
+.utexas-featured-highlight.dark .content-wrapper .ut-headline a,
+.utexas-featured-highlight.dark .content-wrapper .ut-headline {
+  color:#ffffff;
+}

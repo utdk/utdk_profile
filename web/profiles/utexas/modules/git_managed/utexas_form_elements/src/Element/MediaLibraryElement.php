@@ -74,7 +74,7 @@ class MediaLibraryElement extends FormElement {
     // Prefix and suffix used for Ajax replacement.
     $title = $element['#title'] ? '<strong>' . $element['#title'] . '</strong>' : '';
     $element['#prefix'] = '<div id="' . $wrapper_id . '">' . $title;
-    $description = $element['#description'] ? '<br /><em>' . $element['#description'] . '</em>' : '';
+    $description = isset($element['#description']) ? '<br /><em>' . $element['#description'] . '</em>' : '';
     $element['#suffix'] = $description . '</div>';
     $element['#attached']['library'][] = 'media_library/widget';
 

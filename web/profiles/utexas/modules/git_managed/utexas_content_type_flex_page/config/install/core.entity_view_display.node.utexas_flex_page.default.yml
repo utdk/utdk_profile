@@ -24,6 +24,7 @@ dependencies:
     - layout_discovery
     - text
     - user
+    - utexas_featured_highlight
     - utexas_hero
     - utexas_image_link
     - utexas_promo_list
@@ -49,23 +50,6 @@ third_party_settings:
               id: 'extra_field_block:node:utexas_flex_page:links'
             additional: {  }
             weight: 0
-          dc54b5f2-fbab-4c5d-bd3b-f2bb721e5258:
-            uuid: dc54b5f2-fbab-4c5d-bd3b-f2bb721e5258
-            region: content
-            configuration:
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              id: 'field_block:node:utexas_flex_page:field_flex_page_fh'
-              formatter:
-                type: entity_reference_revisions_entity_view
-                label: hidden
-                settings:
-                  view_mode: default
-                  link: ''
-                third_party_settings: {  }
-            additional: {  }
-            weight: 1
           c3687cc7-fc91-47fa-99ae-62b39c4e0b59:
             uuid: c3687cc7-fc91-47fa-99ae-62b39c4e0b59
             region: content
@@ -304,13 +288,11 @@ content:
     third_party_settings: {  }
     region: content
   field_flex_page_fh:
-    type: entity_reference_revisions_entity_view
-    weight: 1
+    weight: 114
     label: hidden
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_featured_highlight
     region: content
   field_flex_page_hi:
     weight: 114

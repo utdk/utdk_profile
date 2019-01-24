@@ -6,6 +6,7 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
+use Drupal\Tests\utexas\Traits\FeaturedHighlightTestTrait;
 use Drupal\Tests\utexas\Traits\HeroTestTrait;
 use Drupal\Tests\utexas\Traits\ImageLinkTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
@@ -21,6 +22,7 @@ use Drupal\Tests\utexas\Traits\UserTestTrait;
  */
 class CustomWidgetsTest extends WebDriverTestBase {
   use EntityTestTrait;
+  use FeaturedHighlightTestTrait;
   use HeroTestTrait;
   use ImageFieldCreationTrait;
   use ImageLinkTestTrait;
@@ -67,6 +69,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   public function testCustomWidgets() {
     $this->verifyHero();
     $this->verifyResources();
+    $this->verifyFeaturedHighlight();
     $this->verifyImageLink();
     $this->verifyPromoUnit();
     $this->verifyPromoList();

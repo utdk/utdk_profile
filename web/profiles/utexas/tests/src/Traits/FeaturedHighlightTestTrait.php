@@ -12,78 +12,72 @@ trait FeaturedHighlightTestTrait {
    */
   public function verifyFeaturedHighlight() {
     $assert = $this->assertSession();
-    // 1. Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Add the Featured Highlight.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fh-add-more-add-more-button-utexas-featured-highlight')->click();
-    // 3. Verify the correct field schemae exist.
-    $fields = [
-      'edit-field-flex-page-fh-0-subform-field-utexas-fh-media-0-upload',
-      'edit-field-flex-page-fh-0-subform-field-utexas-fh-headline-0-value',
-      'edit-field-flex-page-fh-0-subform-field-utexas-fh-date-0-value-date',
-      'edit-field-flex-page-fh-0-subform-field-utexas-fh-copy-0-value',
-      'edit-field-flex-page-fh-0-subform-field-utexas-fh-cta-0-title',
-      'edit-field-flex-page-fh-0-subform-field-utexas-fh-cta-0-uri',
-    ];
-    foreach ($fields as $field) {
-      $assert->fieldExists($field);
-    }
+    $page = $this->getSession()->getPage();
+    $this->drupalGet('block/add/utexas_featured_highlight');
 
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // 1. Add the Featured Highlight paragraph widget.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-fh-add-more-add-more-button-utexas-featured-highlight')->click();
+    // Verify widget field schema.
+    $this->clickLink('Add media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
 
-    $edit = [
-      'title[0][value]' => 'Featured Highlight Test',
-      'files[field_flex_page_fh_0_subform_field_utexas_fh_media_0]' => \Drupal::service('file_system')->realpath($this->testImage),
-      'field_flex_page_fh[0][subform][field_utexas_fh_headline][0][value]' => 'Featured Highlight Headline!',
-      'field_flex_page_fh[0][subform][field_utexas_fh_copy][0][value]' => 'Featured Highlight copy text.',
-      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][uri]' => 'https://markfullmer.com',
-      'field_flex_page_fh[0][subform][field_utexas_fh_date][0][value][date]' => '2018-01-01',
-      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][title]' => 'Featured Highlight Link',
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    // 2. Alt text must be submitted *after* the image has been added.
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_fh[0][subform][field_utexas_fh_media][0][alt]' => 'Alt text',
-    ],
-    'edit-submit');
-    $node = $this->drupalGetNodeByTitle('Featured Highlight Test');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
+    $this->submitForm([
+      'info[0][value]' => 'Featured Highlight Test',
+      'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
+      'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
+      'field_block_featured_highlight[0][link][url]' => 'https://featuredhighlight.test',
+      'field_block_featured_highlight[0][link][title]' => 'Featured Highlight Link',
+      'field_block_featured_highlight[0][date]' => '01-17-2019',
+    ], 'Save');
+    $assert->pageTextContains('Featured Highlight Featured Highlight Test has been created.');
 
-    // 3. Verify initial content is displayed.
-    // Headline should be a link at this point:
-    $this->assertRaw('<a href="https://markfullmer.com">Featured Highlight Headline!</a>');
-    $this->assertRaw('Featured Highlight copy text.');
-    $this->assertRaw('Jan. 1, 2018');
-    // External links must be allowed in the CTA field.
-    $this->assertRaw('<a href="https://markfullmer.com" class="ut-btn button">Featured Highlight Link</a>');
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
 
-    $this->assertRaw('utexas_image_style_250w_150h/public/featured_highlight/image-test');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementTextContains('css', 'h2.ut-headline', 'Featured Highlight Headline');
+    $assert->pageTextContains('Featured Highlight Copy');
+    $assert->linkByHrefExists('https://featuredhighlight.test');
+    $assert->pageTextContains('Jan. 17, 2019');
+    // Verify responsive image is present within the link.
+    $assert->elementExists('css', 'a picture source');
+    $expected_path = 'utexas_image_style_250w_150h/public/image-test';
+    $assert->elementAttributeContains('css', 'a[href^="https://featuredhighlight.test"] picture img', 'src', $expected_path);
 
-    // 4. Verify that an internal link can be used.
-    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
-    $this->drupalGet('node/' . $node->id() . '/edit');
-    $edit = [
-      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][uri]' => '/node/' . $basic_page->id(),
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertRaw('<a href="/test-basic-page" class="ut-btn button">Featured Highlight Link</a>');
+    // Set display to "Bluebonnet (Medium)".
+    $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_featured_highlight_2',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', 'div.utexas-featured-highlight.medium');
 
-    // 5. Verify if a CTA link is not present, headline displays with no link.
-    $this->drupalGet('node/' . $node->id() . '/edit');
-    $edit = [
-      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][uri]' => '',
-      'field_flex_page_fh[0][subform][field_utexas_fh_cta][0][title]' => '',
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertRaw('Featured Highlight Headline!');
+    // Set display to "Charcoal (Dark)".
+    $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_featured_highlight_3',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', 'div.utexas-featured-highlight.dark');
 
-    $this->drupalGet('node/' . $node->id() . '/delete');
-    $this->submitForm([], 'Delete');
+    // Remove the block from the system.
+    $this->drupalGet('admin/structure/block/manage/featuredhighlighttest/delete');
+    $this->submitForm([], 'Remove');
+
   }
 
 }

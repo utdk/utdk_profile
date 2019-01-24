@@ -1,0 +1,37 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Featured Highight.
+ *
+ * Available custom variables:
+ * - {{ headline }} : provides the headline text, with link from the call to
+ * action, if that URL has been defined.
+ * - {{ media}} : image or video
+ * - {{ date }} : the AP-style date
+ * - {{ copy }} : copy text
+ * - {{ cta }} : A themed call-to-action button
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('utexas_featured_highlight/utexas-featured-highlight') }}
+{%
+  set classes = [
+    'utexas-featured-highlight',
+    style|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {% if media %}
+    <div class="image-wrapper">
+      {{ media }}
+    </div>
+  {% endif %}  
+  <div class="content-wrapper">
+    {{ date }}
+    {% if headline %}
+      <h2 class="ut-headline">{{ headline }}</h2>
+    {% endif %}
+    {{ copy }}
+    {{ cta }}
+  </div>
+</div>

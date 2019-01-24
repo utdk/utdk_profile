@@ -2,11 +2,11 @@ langcode: en
 status: true
 dependencies:
   module:
-    - node
+    - block_content
     - utexas_featured_highlight
-id: node.field_flex_page_fh
-field_name: field_flex_page_fh
-entity_type: node
+id: block_content.field_block_featured_highlight
+field_name: field_block_featured_highlight
+entity_type: block_content
 type: utexas_featured_highlight
 settings: {  }
 module: utexas_featured_highlight

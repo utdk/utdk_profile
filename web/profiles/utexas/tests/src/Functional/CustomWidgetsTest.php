@@ -7,7 +7,6 @@ use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Tests\utexas\Traits\FeaturedHighlightTestTrait;
 use Drupal\Tests\utexas\Traits\FlexContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\PhotoContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\PromoListTestTrait;
@@ -24,7 +23,6 @@ class CustomWidgetsTest extends BrowserTestBase {
   use EntityTestTrait;
   use ImageFieldCreationTrait;
   use InstallTestTrait;
-  use FeaturedHighlightTestTrait;
   use FlexContentAreaTestTrait;
   use PhotoContentAreaTestTrait;
   use PromoListTestTrait;
@@ -70,7 +68,6 @@ class CustomWidgetsTest extends BrowserTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
-    $this->verifyFeaturedHighlight();
     $this->verifyFlexContentArea();
     $this->verifyPhotoContentArea();
     $this->verifyQuickLinks();

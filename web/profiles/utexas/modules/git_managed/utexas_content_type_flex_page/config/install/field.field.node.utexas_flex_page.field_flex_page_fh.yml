@@ -4,9 +4,8 @@ dependencies:
   config:
     - field.storage.node.field_flex_page_fh
     - node.type.utexas_flex_page
-    - paragraphs.paragraphs_type.utexas_featured_highlight
   module:
-    - entity_reference_revisions
+    - utexas_featured_highlight
 id: node.utexas_flex_page.field_flex_page_fh
 field_name: field_flex_page_fh
 entity_type: node
@@ -17,25 +16,5 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  handler: 'default:paragraph'
-  handler_settings:
-    target_bundles:
-      utexas_featured_highlight: utexas_featured_highlight
-    target_bundles_drag_drop:
-      utexas_flex_content_area:
-        weight: 8
-        enabled: false
-      utexas_image_link:
-        weight: 9
-        enabled: false
-      utexas_photo_content_area:
-        weight: 10
-        enabled: false
-      utexas_quick_links:
-        weight: 13
-        enabled: false
-      utexas_featured_highlight:
-        enabled: true
-        weight: 14
-field_type: entity_reference_revisions
+settings: {  }
+field_type: utexas_featured_highlight
