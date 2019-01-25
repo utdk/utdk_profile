@@ -40,37 +40,6 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
     foreach ($items as $delta => $item) {
-      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->image)) {
-        // Format image.
-        $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        $image_render_array = [];
-        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
-          $image = new \stdClass();
-          $image->title = NULL;
-          $image->alt = $media_attributes[0]['alt'];
-          $image->entity = $file;
-          $image->width = NULL;
-          $image->height = NULL;
-          $image_render_array = [
-            '#theme' => 'responsive_image_formatter',
-            '#item' => $image,
-            '#item_attributes' => [
-              'class' => 'ut-img--fluid',
-            ],
-            '#responsive_image_style_id' => $responsive_image_style_name,
-            '#cache' => [
-              'tags' => $cache_tags,
-            ],
-          ];
-        }
-        // Add the file entity to the cache dependencies.
-        // This will clear our cache when this entity updates.
-        $renderer = \Drupal::service('renderer');
-        $renderer->addCacheableDependency($image_render_array, $file);
-      }
-      else {
-        $image_render_array = [];
-      }
       // Format headline.
       $headline = $item->headline ?? '';
       // Format links.
@@ -97,6 +66,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase {
       if (!empty($item->link_uri)) {
         $url = Url::fromUri($item->link_uri);
         $link = $url->toString();
+        // If CTA present wrap headline in its URL.
         if (isset($item->headline)) {
           $headline = Link::fromTextAndUrl($item->headline, Url::fromUri($item->link_uri));
         }
@@ -113,6 +83,38 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase {
         ];
         $url->setOptions($link_options);
         $cta = Link::fromTextAndUrl($item->link_text, $url);
+      }
+      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->image)) {
+        // Format image.
+        $media_attributes = $media->get('field_utexas_media_image')->getValue();
+        $image_render_array = [];
+        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+          $image = new \stdClass();
+          $image->title = NULL;
+          $image->alt = $media_attributes[0]['alt'];
+          $image->entity = $file;
+          $image->width = NULL;
+          $image->height = NULL;
+          $image_render_array = [
+            '#theme' => 'responsive_image_formatter',
+            '#item' => $image,
+            '#item_attributes' => [
+              'class' => 'ut-img--fluid',
+            ],
+            '#responsive_image_style_id' => $responsive_image_style_name,
+            '#cache' => [
+              'tags' => $cache_tags,
+            ],
+            '#url' => $link ?? '',
+          ];
+        }
+        // Add the file entity to the cache dependencies.
+        // This will clear our cache when this entity updates.
+        $renderer = \Drupal::service('renderer');
+        $renderer->addCacheableDependency($image_render_array, $file);
+      }
+      else {
+        $image_render_array = [];
       }
       $elements[] = [
         '#theme' => 'utexas_flex_content_area',
