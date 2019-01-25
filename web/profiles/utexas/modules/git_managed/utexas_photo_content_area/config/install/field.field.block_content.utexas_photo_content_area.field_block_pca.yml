@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_flex_page_pca
-    - node.type.utexas_flex_page
+    - block_content.type.utexas_photo_content_area
+    - field.storage.block_content.field_block_pca
   module:
     - utexas_photo_content_area
-id: node.utexas_flex_page.field_flex_page_pca
-field_name: field_flex_page_pca
-entity_type: node
-bundle: utexas_flex_page
+id: block_content.utexas_photo_content_area.field_block_pca
+field_name: field_block_pca
+entity_type: block_content
+bundle: utexas_photo_content_area
 label: 'Photo Content Area'
 description: ''
 required: false

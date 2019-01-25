@@ -12,5 +12,6 @@ dependencies:
   - responsive_image
   - text
   - utexas_image_styles
+  - utexas_photo_content_area
 version: 8.x-1.0
 package: UTexas

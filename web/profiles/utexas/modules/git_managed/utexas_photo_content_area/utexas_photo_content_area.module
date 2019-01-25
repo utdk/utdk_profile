@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_photo_content_area.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_photo_content_area_theme() {
+  $variables = [
+    'utexas_photo_content_area' => [
+      'variables' => [
+        'image' => NULL,
+        'photo_credit' => NULL,
+        'headline' => NULL,
+        'copy' => NULL,
+        'links' => [],
+      ],
+      'template' => 'utexas-photo-content-area',
+    ],
+  ];
+  return $variables;
+}

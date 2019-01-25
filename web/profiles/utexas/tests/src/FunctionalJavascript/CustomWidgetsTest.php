@@ -10,6 +10,7 @@ use Drupal\Tests\utexas\Traits\FeaturedHighlightTestTrait;
 use Drupal\Tests\utexas\Traits\HeroTestTrait;
 use Drupal\Tests\utexas\Traits\ImageLinkTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
+use Drupal\Tests\utexas\Traits\PhotoContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\PromoUnitTestTrait;
 use Drupal\Tests\utexas\Traits\ResourcesTestTrait;
@@ -27,6 +28,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   use ImageFieldCreationTrait;
   use ImageLinkTestTrait;
   use InstallTestTrait;
+  use PhotoContentAreaTestTrait;
   use PromoListTestTrait;
   use PromoUnitTestTrait;
   use ResourcesTestTrait;
@@ -71,6 +73,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
     $this->verifyResources();
     $this->verifyFeaturedHighlight();
     $this->verifyImageLink();
+    $this->verifyPhotoContentArea();
     $this->verifyPromoUnit();
     $this->verifyPromoList();
   }

@@ -24,6 +24,7 @@ dependencies:
     - utexas_featured_highlight
     - utexas_hero
     - utexas_image_link
+    - utexas_photo_content_area
     - utexas_promo_list
     - utexas_promo_unit
     - utexas_quick_links
@@ -102,16 +103,10 @@ content:
     type: utexas_image_link
     region: content
   field_flex_page_pca:
-    type: entity_reference_paragraphs
-    weight: 12
-    settings:
-      title: 'Photo Content Area'
-      title_plural: 'Photo Content Areas'
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
+    weight: 130
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_photo_content_area
     region: content
   field_flex_page_pl:
     weight: 129

@@ -1,0 +1,10 @@
+name: 'Photo Content Area'
+type: module
+description: 'A field with photo, credit, headline, copy, and links.'
+core: 8.x
+package: UTexas
+dependencies:
+  - block_content
+  - field
+  - layout_builder
+  - utexas_photo_content_area

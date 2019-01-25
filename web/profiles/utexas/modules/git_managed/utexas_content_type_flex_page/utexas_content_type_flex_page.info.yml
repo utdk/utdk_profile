@@ -31,8 +31,8 @@ dependencies:
   - utexas_media_types
   - utexas_paragraph_flex_content_area
   - 'utexas_paragraph_flex_content_area:utexas_paragraph_flex_content_area'
-  - utexas_paragraph_photo_content_area
   - 'utexas_paragraph_types:utexas_paragraph_types'
+  - utexas_photo_content_area
   - utexas_promo_list
   - utexas_promo_unit
   - utexas_quick_links

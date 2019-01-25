@@ -12,84 +12,50 @@ trait PhotoContentAreaTestTrait {
    */
   public function verifyPhotoContentArea() {
     $assert = $this->assertSession();
-    // 1. Verify a user has access to the content type.
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Add the Photo Content Area paragraph type.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
-    // 3. Verify the correct field schemae exist.
-    $fields = [
-      'edit-field-flex-page-pca-0-subform-field-utexas-pca-image-0-upload',
-      'edit-field-flex-page-pca-0-subform-field-utexas-pca-credit-0-value',
-      'edit-field-flex-page-pca-0-subform-field-utexas-pca-headline-0-value',
-      'edit-field-flex-page-pca-0-subform-field-utexas-pca-copy-0-value',
-      'edit-field-flex-page-pca-0-subform-field-utexas-pca-links-0-uri',
-      'edit-field-flex-page-pca-0-subform-field-utexas-pca-links-0-title',
-    ];
-    foreach ($fields as $field) {
-      $assert->fieldExists($field);
-    }
+    $page = $this->getSession()->getPage();
+    $this->drupalGet('block/add/utexas_photo_content_area');
 
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // 2. Add the Photo Content Area paragraph type.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
-    // 2. Submit a Photo Content Area with no photo.
-    $edit = [
-      'title[0][value]' => 'Photo Content Area Test',
-      'field_flex_page_pca[0][subform][field_utexas_pca_headline][0][value]' => 'Headline',
-    ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    $this->assertRaw('Image field is required.');
-    $this->drupalPostForm(NULL, [
-      'files[field_flex_page_pca_0_subform_field_utexas_pca_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
-    ],
-      'edit-submit');
-    $this->assertRaw('Alternative text field is required.');
+    // Verify widget field schema.
+    $this->clickLink('Add media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
 
-    $this->assertAllowed("/node/add/utexas_flex_page");
-    // 1. Add the Photo Content Area paragraph type.
-    $this->getSession()->getPage()->find('css', '#edit-field-flex-page-pca-add-more-add-more-button-utexas-photo-content-area')->click();
-    $edit = [
-      'title[0][value]' => 'Photo Content Area Test',
-      'files[field_flex_page_pca_0_subform_field_utexas_pca_image_0]' => \Drupal::service('file_system')->realpath($this->testImage),
-      'field_flex_page_pca[0][subform][field_utexas_pca_headline][0][value]' => 'Headline',
-      'field_flex_page_pca[0][subform][field_utexas_pca_copy][0][value]' => 'Copy Value',
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][0][title]' => 'External Link',
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][0][uri]' => 'https://example.com',
-    ];
-    // 2. Submit the form now to trigger the the alt text field.
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
-    // 3. Set alt text.
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_pca[0][subform][field_utexas_pca_image][0][alt]' => 'Alt text',
-    ],
-      'edit-submit');
-    $node = $this->drupalGetNodeByTitle('Photo Content Area Test');
-    $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
-    // 4. Verify headline, is present.
-    $this->assertRaw('Headline');
-    // 5. Verify link, delta 0, is present, and is an external link.
-    $this->assertRaw('Copy Value');
-    $this->assertRaw('<a href="https://example.com" class="ut-link">External Link</a>');
-    // 6. Verify an image is present.
-    $picture_tag = $this->getSession()->getPage()->find('css', 'picture')->getHtml();
-    $this->assertTrue(strpos($picture_tag, 'photo_content_area/image-test'));
+    $this->submitForm([
+      'info[0][value]' => 'Photo Content Area Test',
+      'field_block_pca[0][photo_credit]' => 'Photo Content Area Photo Credit',
+      'field_block_pca[0][headline]' => 'Photo Content Area Headline',
+      'field_block_pca[0][copy][value]' => 'Photo Content Area Copy',
+      'field_block_pca[0][links][0][url]' => 'https://photocontentarea.test',
+      'field_block_pca[0][links][0][title]' => 'Photo Content Area Link',
+    ], 'Save');
+    $assert->pageTextContains('Photo Content Area Photo Content Area Test has been created.');
 
-    // Edit the node to add a second photo content area link.
-    $this->drupalGet('node/' . $node->id() . '/edit');
-    $basic_page = $this->drupalGetNodeByTitle('Test Basic Page');
-    $this->drupalPostForm(NULL, [
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][title]' => 'Internal Link',
-      'field_flex_page_pca[0][subform][field_utexas_pca_links][1][uri]' => '/node/' . $basic_page->id(),
-    ],
-      'edit-submit');
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
 
-    $this->drupalGet('node/' . $node->id());
-    // 7. Verify link, delta 1, is present, and is an internal link.
-    $this->assertRaw('<a href="/test-basic-page" class="ut-link">Internal Link</a>');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementTextContains('css', 'div.caption span', 'Photo Content Area Photo Credit');
+    $assert->elementTextContains('css', 'h2.ut-headline', 'Photo Content Area Headline');
+    $assert->pageTextContains('Photo Content Area Copy');
+    $assert->linkByHrefExists('https://photocontentarea.test');
+    // Verify responsive image is present.
+    $expected_path = 'utexas_image_style_450w_600h/public/image-test';
+    $assert->elementAttributeContains('css', '.photo-wrapper picture img', 'src', $expected_path);
 
-    $this->drupalGet('node/' . $node->id() . '/delete');
-    $this->submitForm([], 'Delete');
+    // Remove the block from the system.
+    $this->drupalGet('admin/structure/block/manage/photocontentareatest/delete');
+    $this->submitForm([], 'Remove');
   }
 
 }
