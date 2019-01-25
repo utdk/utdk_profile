@@ -1,0 +1,34 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Flex Content Area.
+ *
+ * Available custom variables:
+ * - image : FCA image
+ * - headline : headline
+ * - copy : copy text
+ * - link.url: The URL of the each link.
+ * - link.title: The text of each link.
+ * - cta: call to action button
+ * @ingroup themeable
+ */
+#}
+<div class="image-wrapper">
+  {{ image }}
+</div>
+<div class="content-wrapper">
+  <h3 class="ut-headline">{{ headline }}</h3>
+  <div class="ut-copy">
+    <p>{{ copy }}</p>
+  </div>
+  {% if links %}
+    <ul class="link-list">
+      {% for link in links %}
+        <li>
+          {{ link(link.title, link.url, { 'class':['ut-link']} ) }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {{cta}}
+</div>

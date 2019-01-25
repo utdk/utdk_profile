@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: utexas_flex_content_area
-label: 'Flex Content Area'
-icon_uuid: null
-description: 'Flex Content Area has attached Image, Headline, Copy, Links and Call to Action fields.'
-behavior_plugins: {  }

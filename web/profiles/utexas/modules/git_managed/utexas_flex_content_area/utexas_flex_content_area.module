@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_flex_content_area.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_flex_content_area_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_flex_content_area' => [
+      'variables' => [
+        'image' => NULL,
+        'headline' => NULL,
+        'copy' => NULL,
+        'links' => [],
+        'cta' => NULL,
+      ],
+      'template' => 'utexas-flex-content-area',
+    ],
+  ];
+  return $variables;
+}

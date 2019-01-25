@@ -24,6 +24,7 @@ dependencies:
     - layout_discovery
     - text
     - user
+    - utexas_flex_content_area
     - utexas_featured_highlight
     - utexas_hero
     - utexas_image_link
@@ -51,6 +52,23 @@ third_party_settings:
               id: 'extra_field_block:node:utexas_flex_page:links'
             additional: {  }
             weight: 0
+          dc54b5f2-fbab-4c5d-bd3b-f2bb721e5258:
+            uuid: dc54b5f2-fbab-4c5d-bd3b-f2bb721e5258
+            region: content
+            configuration:
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              id: 'field_block:node:utexas_flex_page:field_flex_page_fh'
+              formatter:
+                type: entity_reference_revisions_entity_view
+                label: hidden
+                settings:
+                  view_mode: default
+                  link: ''
+                third_party_settings: {  }
+            additional: {  }
+            weight: 1
           c3687cc7-fc91-47fa-99ae-62b39c4e0b59:
             uuid: c3687cc7-fc91-47fa-99ae-62b39c4e0b59
             region: content
@@ -68,8 +86,8 @@ third_party_settings:
                 third_party_settings: {  }
             additional: {  }
             weight: 2
-          4ca678b9-8741-4318-8ab4-1777c24a5bc9:
-            uuid: 4ca678b9-8741-4318-8ab4-1777c24a5bc9
+          d714f196-82ac-4b5c-ad1a-bbec85999a75:
+            uuid: d714f196-82ac-4b5c-ad1a-bbec85999a75
             region: content
             configuration:
               label_display: '0'
@@ -223,7 +241,7 @@ third_party_settings:
                 third_party_settings: {  }
                 type: utexas_resources
             additional: {  }
-            weight: 18
+            weight: 19
           c1a13113-3722-483c-93ca-f23eba682666:
             uuid: c1a13113-3722-483c-93ca-f23eba682666
             region: content
@@ -238,7 +256,7 @@ third_party_settings:
                 third_party_settings: {  }
                 type: utexas_photo_content_area
             additional: {  }
-            weight: 19
+            weight: 20
   layout_builder_restrictions:
     allowed_blocks:
       'Chaos tools': {  }
@@ -271,22 +289,18 @@ bundle: utexas_flex_page
 mode: default
 content:
   field_flex_page_fca_a:
-    type: entity_reference_revisions_entity_view
-    weight: 2
+    weight: 114
     label: hidden
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_flex_content_area
     region: content
   field_flex_page_fca_b:
-    type: entity_reference_revisions_entity_view
-    weight: 3
+    weight: 115
     label: hidden
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_flex_content_area
     region: content
   field_flex_page_fh:
     weight: 114

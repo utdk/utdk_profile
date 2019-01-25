@@ -21,6 +21,7 @@ dependencies:
     - paragraphs
     - path
     - text
+    - utexas_flex_content_area
     - utexas_featured_highlight
     - utexas_hero
     - utexas_image_link
@@ -55,28 +56,16 @@ content:
       display_label: true
     third_party_settings: {  }
   field_flex_page_fca_a:
-    type: entity_reference_paragraphs
-    weight: 7
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
+    weight: 130
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_flex_content_area
     region: content
   field_flex_page_fca_b:
-    type: entity_reference_paragraphs
-    weight: 8
-    settings:
-      title: Paragraph
-      title_plural: Paragraphs
-      edit_mode: open
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: _none
+    weight: 131
+    settings: {  }
     third_party_settings: {  }
+    type: utexas_flex_content_area
     region: content
   field_flex_page_fh:
     weight: 130
