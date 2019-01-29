@@ -45,7 +45,7 @@ class UTexasHeroWidget extends WidgetBase {
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->subheading : NULL,
       '#size' => '60',
-      '#description' => $this->t('Optional. Displays directly beneath the heading. For best appearance, use no more than 140 characters. Note: this field is only visible in hero styles 4, 5 and 6.'),
+      '#description' => $this->t('Optional. Displays directly beneath the heading. For best appearance, use no more than 140 characters. Note: this field is not visible in the default display or in hero style 2.'),
       '#maxlength' => 255,
     ];
     $element['caption'] = [

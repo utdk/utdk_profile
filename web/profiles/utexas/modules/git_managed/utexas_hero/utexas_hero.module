@@ -35,6 +35,16 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'utexas-hero-1',
     ],
+    'utexas_hero_2' => [
+      'variables' => [
+        'media_identifier' => NULL,
+        'heading' => NULL,
+        'cta_uri' => NULL,
+        'cta_title' => NULL,
+        'alt' => NULL,
+      ],
+      'template' => 'utexas-hero-2',
+    ],
   ];
   return $variables;
 }
@@ -60,6 +70,7 @@ function _utexas_hero_simplify_layout_form(&$form) {
   $map = [
     'default' => "Default: Large media with optional caption",
     'utexas_hero_1' => "Style 1: Bold heading & subheading on burnt orange background, floated right",
+    'utexas_hero_2' => "Style 2: Bold heading on dark background, anchored at base of media",
   ];
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();

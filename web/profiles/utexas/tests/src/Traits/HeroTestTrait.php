@@ -72,6 +72,21 @@ trait HeroTestTrait {
     $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
+    // Set display to "Hero Style 2".
+    $this->drupalGet('admin/structure/block/manage/herotest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_hero_2',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', '.hero--photo-gradient');
+    // Verify that the correct image style is being applied.
+    // Since the screen width is 900, we expect an image style of 900w.
+    $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-gradient").css("background-image")');
+    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $this->assertTrue($pos !== FALSE);
+
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/herotest/delete');
     $this->submitForm([], 'Remove');
