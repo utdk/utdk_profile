@@ -18,7 +18,6 @@ dependencies:
     - field.field.node.utexas_flex_page.layout_builder__layout
     - node.type.utexas_flex_page
   module:
-    - paragraphs
     - path
     - text
     - utexas_flex_content_area
