@@ -3,11 +3,13 @@ jobs:
   build:
     working_directory: ~/site_build
     docker:
-      # "Browsers" container image includes unnecessary components and won't allow for apache to run on port 80.
-      # See https://circleci.com/docs/2.0/circleci-images/ for documentation about Pre-Built CircleCI Docker Images. 
-      - image: circleci/php:7.1-apache
+      - image: circleci/php:7.2-apache-node-browsers
         environment:
           - MYSQL_HOST=127.0.0.1
+          - BROWSERTEST_OUTPUT_DIRECTORY=/var/www/site_build/web/sites/simpletest/browser_output
+          - SIMPLETEST_BASE_URL=http://localhost:8080
+          - SIMPLETEST_DB=mysql://root:ubuntu@127.0.0.1:3306/circle_test
+          - SYMFONY_DEPRECATIONS_HELPER=disabled
       - image: mysql:5.7
         environment:
           - MYSQL_USER=root
@@ -18,8 +20,9 @@ jobs:
           - MYSQL_ROOT_HOST=%
     steps:
       - checkout
+      # Begin envionment setup.
       # Run apt-get update before installing any packages with apt.
-      # Install required dependencies. 
+      # Install required dependencies.
       - run:
           name: Apt Get Update
           command: sudo apt-get update
@@ -38,33 +41,25 @@ jobs:
       - run:
           name: Install mysql-client
           command: sudo apt-get install mysql-client
-          
       - run:
           name: Configure shell
           command: |
             echo -e "Host github.austin.utexas.edu\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
             echo 'export PATH=/var/www/site_build/vendor/bin:$PATH' >> $BASH_ENV
-            
       - run: 
           name: Configure Drush
           command: |
             mkdir ~/.drush
             cp .circleci/fixtures/aliases.drushrc.php ~/.drush/aliases.drushrc.php
-            
       - run: 
           name: Configure docroot
           command: sudo mv /home/circleci/site_build /var/www/site_build
-       
       # Set up script creates docroot - run before vhost configuration so the docroot is present.    
       - run: 
           name: Set up and install Drupal
           command: |
             cd /var/www/site_build
             bash setup.sh
-            cp .circleci/fixtures/settings.php /var/www/site_build/web/sites/default/settings.local.php
-            drush @test si utexas --site-name="Drupal Kit Rocks" install_configure_form.enable_update_status_module=NULL -y
-            drush @test en simpletest -y
-      
       # Modifications to envars required to make Apache run as circle user.
       # Project must be checked out into home directory - move code to more conventional directory for Apache.     
       - run: 
@@ -75,27 +70,51 @@ jobs:
             sudo a2ensite circle-vhost.conf
             sudo a2enmod rewrite
             sudo service apache2 restart
-
+      # Ensure vhost is setup correctly before proceeding.
+      #- run: 
+      #  name: Vhost setup smoke test.
+      #   command: |
+      #     HTTP_STATUS=$(curl -I -s  http://localhost:8080 | grep HTTP)
+      #     echo "$HTTP_STATUS"
+      #     if [[ "$HTTP_STATUS" != *"200"* ]]; then
+      #       exit 1
+      #     fi
       - run: 
-         name: Vhost setup smoke test
+          name: Prepare HTML output directory for testing.
+          command: |
+            if [ ! -d /var/www/site_build/web/sites/simpletest/browser_output ]; then
+              mkdir -p /var/www/site_build/web/sites/simpletest/browser_output
+            fi
+            chmod -R 774 /var/www/site_build/web/sites/simpletest
+      - run:
+         name: Start chromedriver.
+         command: chromedriver --whitelisted-ips=127.0.0.1 --headless
+         background: true
+      - run:
+         name: Copy custom modules for testing.
          command: |
-           HTTP_STATUS=$(curl -I -s  http://localhost:8080/user/login | grep HTTP)
-           echo "$HTTP_STATUS"
-           if [[ "$HTTP_STATUS" != *"200"* ]]; then
-             exit 1
+           if [ ! -d /var/www/site_build/web/modules/contrib ]; then
+              mkdir -p /var/www/site_build/web/modules/contrib
            fi
-                                 
+           cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_breadcrumbs_visibility /var/www/site_build/web/modules/contrib/utexas_breadcrumbs_visibility
+           cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_page_title_visibility  /var/www/site_build/web/modules/contrib/utexas_page_title_visibility
+
+      # Begin testing.
       - run:
           name: Run tests
           command: |
             mkdir -p /tmp/test-results
-            cd /var/www/site_build/web
-            php core/scripts/run-tests.sh PHPUnit --dburl mysql://root:ubuntu@127.0.0.1:3306/circle_test --url http://localhost:8080 --module utexas --verbose --color --xml /tmp/test-results --suppress-deprecations --concurrency 20
-             
+            cd /var/www/site_build
+            vendor/bin/phpunit -c /var/www/site_build/.circleci/fixtures/functional-js.phpunit.xml --stop-on-failure --testsuite=functional-javascript --verbose --debug --group=utexas
+            vendor/bin/phpunit -c /var/www/site_build/web/core/phpunit.xml.dist --stop-on-failure --testsuite=functional --verbose --debug --group=utexas
+       
+      # Save artifacats.
       - store_artifacts:
           path: /tmp/test-results
-          destination: PHPUnit
-          
+          destination: PHPUnit  
       - store_artifacts:
           path: /var/www/site_build/web/sites/simpletest
           destination: SimpleTest
+      - store_artifacts:
+          path: /var/www/site_build/web/sites/simpletest/browser_output
+          destination: FunctionalJavascript

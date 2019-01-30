@@ -6,7 +6,6 @@ git config core.hooksPath web/profiles/utexas/tests/git-hooks
 cp example.gitignore .gitignore
 cp example.composer.json composer.json
 cp example.pantheon.yml pantheon.yml
-cp example.circle.yml circle.yml
 composer update -o
 if [ ! -d "web/sites/default/config" ]; then
   mkdir web/sites/default/config
