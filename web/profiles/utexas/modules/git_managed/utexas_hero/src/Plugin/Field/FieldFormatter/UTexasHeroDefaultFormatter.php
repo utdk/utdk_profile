@@ -12,7 +12,7 @@ use Drupal\Core\Url;
  *
  * @FieldFormatter(
  *   id = "utexas_hero",
- *   label = @Translation("Hero (Default)"),
+ *   label = @Translation("Default: Large media with optional caption"),
  *   field_types = {
  *     "utexas_hero"
  *   }

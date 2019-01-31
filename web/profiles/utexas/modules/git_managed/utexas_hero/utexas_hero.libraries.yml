@@ -1,0 +1,6 @@
+hero-style-1:
+  version: 1.x
+  css:
+    theme:
+      css/hero-style-base.css: {}
+      css/hero-style-1.css: {}

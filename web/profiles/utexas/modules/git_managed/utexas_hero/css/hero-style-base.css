@@ -1,0 +1,10 @@
+.ut-hero {
+  position: relative;
+}
+
+.ut-hero .hero-content {
+    height: 100%;
+    margin: auto;
+    max-width: 73.75em;
+    padding: 0 1rem;
+}

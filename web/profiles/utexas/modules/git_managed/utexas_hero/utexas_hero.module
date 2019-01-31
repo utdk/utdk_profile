@@ -5,6 +5,8 @@
  * Contains utexas_hero.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -22,6 +24,51 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'utexas-hero',
     ],
+    'utexas_hero_1' => [
+      'variables' => [
+        'media_identifier' => NULL,
+        'heading' => NULL,
+        'subheading' => NULL,
+        'cta_uri' => NULL,
+        'cta_title' => NULL,
+        'alt' => NULL,
+      ],
+      'template' => 'utexas-hero-1',
+    ],
   ];
   return $variables;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_hero_form_layout_builder_update_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_hero_simplify_layout_form($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_hero_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_hero_simplify_layout_form($form);
+}
+
+/**
+ * Helper function for Layout Builder form alters.
+ */
+function _utexas_hero_simplify_layout_form(&$form) {
+  $map = [
+    'default' => "Default: Large media with optional caption",
+    'utexas_hero_1' => "Style 1: Bold heading & subheading on burnt orange background, floated right",
+  ];
+  if (isset($form['settings']['block_form'])) {
+    $bundle = $form['settings']['block_form']['#block']->bundle();
+    if ($bundle === 'utexas_hero') {
+      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
+        if (in_array($machine_name, array_keys($map))) {
+          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
+        }
+      }
+    }
+  }
 }
