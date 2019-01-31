@@ -26,6 +26,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
+    $cache_tags = $this->generateCacheTags('utexas_responsive_image_pu_landscape');
     foreach ($items as $delta => $item) {
       $instances = [];
       $promo_unit_items = unserialize($item->promo_unit_items);
@@ -65,7 +66,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
           }
           if (!empty($i['image'])) {
             $responsive_image_style_name = 'utexas_responsive_image_pu_landscape';
-            $instances[$key]['image'] = $this->generateImageRenderArray($i['image'][0], $responsive_image_style_name, $i['link']['url']);
+            $instances[$key]['image'] = $this->generateImageRenderArray($i['image'][0], $responsive_image_style_name, $i['link']['url'], $cache_tags);
           }
         }
       }
@@ -81,25 +82,32 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
   }
 
   /**
+   * Helper method to generate cache tags.
+   */
+  protected function generateCacheTags($responsive_image_style_name) {
+    // Collect cache tags to be added for each item in the field.
+    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
+    $image_styles_to_load = [];
+    $cache_tags = [];
+    if ($responsive_image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
+      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
+    }
+    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
+    foreach ($image_styles as $image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
+    }
+    return $cache_tags;
+  }
+
+  /**
    * Helper method to prepare image array.
    */
-  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url) {
+  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url, $cache_tags) {
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($image)) {
       $media_attributes = $media->get('field_utexas_media_image')->getValue();
-      // Collect cache tags to be added for each item in the field.
-      $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
-      $image_styles_to_load = [];
-      $cache_tags = [];
-      if ($responsive_image_style) {
-        $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
-        $image_styles_to_load = $responsive_image_style->getImageStyleIds();
-      }
-      $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
-      foreach ($image_styles as $image_style) {
-        $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
-      }
       if (!empty($link_url)) {
         $link = Url::fromUri($link_url);
       }

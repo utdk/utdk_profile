@@ -23,6 +23,7 @@ class UTexasPromoUnitPortraitFormatter extends UTexasPromoUnitDefaultFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
+    $cache_tags = $this->generateCacheTags('utexas_responsive_image_pu_portrait');
     $instances = [];
     foreach ($elements as $delta => $item) {
       $promo_unit_items = unserialize($items[$delta]->promo_unit_items);
@@ -32,7 +33,7 @@ class UTexasPromoUnitPortraitFormatter extends UTexasPromoUnitDefaultFormatter {
           $link = $promo_unit_items[$key]['item']['link']['url'];
           if (!empty($image)) {
             $responsive_image_style_name = 'utexas_responsive_image_pu_portrait';
-            $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image[0], $responsive_image_style_name, $link);
+            $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image[0], $responsive_image_style_name, $link, $cache_tags);
           }
         }
       }

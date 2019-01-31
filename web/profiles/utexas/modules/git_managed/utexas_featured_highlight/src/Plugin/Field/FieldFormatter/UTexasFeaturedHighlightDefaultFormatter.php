@@ -82,12 +82,23 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_fh';
+    // Collect cache tags to be added for each item in the field.
+    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
+    $image_styles_to_load = [];
+    $cache_tags = [];
+    if ($responsive_image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
+      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
+    }
+    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
+    foreach ($image_styles as $image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
+    }
     foreach ($items as $delta => $item) {
 
       if (isset($item->date)) {
         $options = [
           'always_display_year' => 1,
-          'display_day' => 1,
           'display_noon_and_midnight' => 1,
           'timezone' => '',
           'display_day' => 0,
@@ -126,18 +137,6 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $image_render_array = [];
       if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        // Collect cache tags to be added for each item in the field.
-        $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
-        $image_styles_to_load = [];
-        $cache_tags = [];
-        if ($responsive_image_style) {
-          $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
-          $image_styles_to_load = $responsive_image_style->getImageStyleIds();
-        }
-        $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
-        foreach ($image_styles as $image_style) {
-          $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
-        }
         if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $image = new \stdClass();
           $image->title = NULL;

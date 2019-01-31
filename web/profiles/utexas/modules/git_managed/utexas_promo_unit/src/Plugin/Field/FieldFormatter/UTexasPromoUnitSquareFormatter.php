@@ -3,8 +3,6 @@
 namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' formatter.
@@ -25,6 +23,7 @@ class UTexasPromoUnitSquareFormatter extends UTexasPromoUnitDefaultFormatter {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
+    $cache_tags = $this->generateCacheTags('utexas_responsive_image_pu_square');
     $instances = [];
     foreach ($elements as $delta => $item) {
       $promo_unit_items = unserialize($items[$delta]->promo_unit_items);
@@ -34,7 +33,7 @@ class UTexasPromoUnitSquareFormatter extends UTexasPromoUnitDefaultFormatter {
           $link = $promo_unit_items[$key]['item']['link']['url'];
           if (!empty($image)) {
             $responsive_image_style_name = 'utexas_responsive_image_pu_square';
-            $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image[0], $responsive_image_style_name, $link);
+            $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image[0], $responsive_image_style_name, $link, $cache_tags);
           }
         }
       }
