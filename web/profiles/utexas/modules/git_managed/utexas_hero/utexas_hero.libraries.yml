@@ -10,3 +10,9 @@ hero-style-2:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-2.css: {}
+hero-style-3:
+  version: 1.x
+  css:
+    theme:
+      css/hero-style-base.css: {}
+      css/hero-style-3.css: {}

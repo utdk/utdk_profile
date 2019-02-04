@@ -1,0 +1,44 @@
+.ut-hero.hero--photo-white-notch {
+  background-size: cover;
+  height: 300px;
+}
+
+@media screen and (min-width: 900px) {
+  .ut-hero.hero--photo-white-notch {
+    height: 543px;
+  }
+}
+.ut-hero.hero--photo-white-notch .hero-content {
+  bottom: 0;
+  height: auto;
+  max-width: 100%;
+  position: absolute;
+  width: 100%;
+}
+.ut-hero.hero--photo-white-notch .hero-callout {
+  background-color: #fff;
+  margin: auto;
+  max-width: 73.75em;
+  padding: 1rem 1.25rem;
+}
+
+@media screen and (min-width: 900px) {
+  .ut-hero.hero--photo-white-notch .hero-callout {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.ut-hero.hero--photo-white-notch .hero-headline {
+  color: #333f48;
+}
+.ut-hero.hero--photo-white-notch .hero-subhead {
+  margin-bottom: .5rem;
+  padding-right: 10px;
+}
+
+@media screen and (min-width: 900px) {
+  .ut-hero.hero--photo-white-notch .hero-subhead {
+    float: left;
+  }
+}
