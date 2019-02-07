@@ -116,6 +116,20 @@ trait HeroTestTrait {
     $expected_path = 'utexas_image_style_720w_389h/public/image-test.png';
     $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
 
+    // Set display to "Hero Style 5".
+    $this->drupalGet('admin/structure/block/manage/herotest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_hero_5',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', '.ut-hero.hero--half-n-half');
+    // Verify that the correct image style is being applied.
+    $background_image_url = $this->getSession()->evaluateScript('jQuery(".ut-hero.hero--half-n-half").css("background-image")');
+    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $this->assertTrue($pos !== FALSE);
+
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/herotest/delete');
     $this->submitForm([], 'Remove');
