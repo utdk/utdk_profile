@@ -29,6 +29,8 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
         'media_identifier' => NULL,
         'heading' => NULL,
         'subheading' => NULL,
+        'caption' => NULL,
+        'credit' => NULL,
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
@@ -39,6 +41,9 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
       'variables' => [
         'media_identifier' => NULL,
         'heading' => NULL,
+        'subheading' => NULL,
+        'caption' => NULL,
+        'credit' => NULL,
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
@@ -50,11 +55,25 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
         'media_identifier' => NULL,
         'heading' => NULL,
         'subheading' => NULL,
+        'caption' => NULL,
+        'credit' => NULL,
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
       ],
       'template' => 'utexas-hero-3',
+    ],
+    'utexas_hero_4' => [
+      'variables' => [
+        'media' => NULL,
+        'heading' => NULL,
+        'subheading' => NULL,
+        'caption' => NULL,
+        'credit' => NULL,
+        'cta_uri' => NULL,
+        'cta_title' => NULL,
+      ],
+      'template' => 'utexas-hero-4',
     ],
   ];
   return $variables;
@@ -83,6 +102,7 @@ function _utexas_hero_simplify_layout_form(&$form) {
     'utexas_hero_1' => "Style 1: Bold heading & subheading on burnt orange background, floated right",
     'utexas_hero_2' => "Style 2: Bold heading on dark background, anchored at base of media",
     'utexas_hero_3' => "Style 3: White bottom pane with heading, subheading and burnt orange call to action",
+    'utexas_hero_4' => "Style 4: Centered image with dark bottom pane containing heading, subheading and call-to-action",
   ];
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();

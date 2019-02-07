@@ -102,6 +102,20 @@ trait HeroTestTrait {
     $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
+    // Set display to "Hero Style 4".
+    $this->drupalGet('admin/structure/block/manage/herotest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_hero_4',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', '.ut-hero.hero--blue-bar');
+    // Verify responsive image is present within the link.
+    $assert->elementExists('css', 'picture source');
+    $expected_path = 'utexas_image_style_720w_389h/public/image-test.png';
+    $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
+
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/herotest/delete');
     $this->submitForm([], 'Remove');

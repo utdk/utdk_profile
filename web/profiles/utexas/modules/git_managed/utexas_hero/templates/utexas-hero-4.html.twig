@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Template for the Hero field.
+ *
+ * Available variables:
+ * - media: An image or video -- ensure that you handle display for either.
+ * - heading: a string of text meant to be prominently displayed
+ * - subheading: a string of text, subsidiary to the heading
+ * - caption: descriptive string for the media
+ * - credit: attribution string for the media
+ * - cta_uri: a URI. May be use to wrap other elements.
+ * - cta_title: a string of text meant to be displayed as a button.
+ *
+ */
+#}
+<div class="ut-hero hero--blue-bar">
+  <div class="hero-content">
+    {% if media %}
+    <div class="hero-img">
+      {{ media }}
+    </div>
+    {% endif %}
+    <div class="hero-callout">
+      <div class="text-box">
+        {% if heading %}
+          <div class="hero-headline">{{ heading }}</div>
+        {% endif %}
+        {% if subheading %}
+          <div class="hero-subhead">{{ subheading }}</div>
+        {% endif %}
+      </div>
+      {% if cta_uri %}
+      <div class="hero-cta">
+        {{ link(cta_title, cta_uri, { 'class': ['ut-btn--hero']}) }}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

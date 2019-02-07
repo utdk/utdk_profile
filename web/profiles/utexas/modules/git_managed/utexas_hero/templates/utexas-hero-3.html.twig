@@ -11,7 +11,7 @@
  * - cta_title: a string of text meant to be displayed as a button.
  *
  */
-#} 
+#}
 {% if media_identifier %}
   <div id="{{ media_identifier }}" class="ut-hero hero--photo-white-notch">
     <span class="sr-only">{{ alt }}</span>
@@ -22,13 +22,13 @@
           {% if heading %}
             <div class="hero-headline">{{ heading }}</div>
           {% endif %}
-          {% if subheading %}      
+          {% if subheading %}
             <div class="hero-subhead">{{ subheading }}</div>
           {% endif %}
         </div>
-        {% if cta_uri %}  
+        {% if cta_uri %}
           <div class="hero-cta">
-            {{ link(cta_title, cta_uri, { 'class':['ut-btn']} ) }}
+            {{ link(cta_title, cta_uri, { 'class': ['ut-btn']}) }}
           </div>
         {% endif %}
       </div>
