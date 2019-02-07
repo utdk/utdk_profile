@@ -46,12 +46,12 @@ trait HeroTestTrait {
 
     $this->drupalGet('<front>');
     // Verify page output.
-    $assert->pageTextContains('Hero Heading');
-    $assert->pageTextContains('Hero Subheading');
+    $assert->pageTextNotContains('Hero Heading');
+    $assert->pageTextNotContains('Hero Subheading');
     $assert->pageTextContains('Hero Caption');
     $assert->pageTextContains('Hero Credit');
-    $assert->linkByHrefExists('https://hero.test');
-    $assert->pageTextContains('Hero CTA');
+    $assert->linkByHrefNotExists('https://hero.test');
+    $assert->pageTextNotContains('Hero CTA');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', 'picture source');
     $expected_path = 'utexas_image_style_720w_389h/public/image-test.png';

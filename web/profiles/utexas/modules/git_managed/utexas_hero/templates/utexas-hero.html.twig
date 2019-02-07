@@ -13,27 +13,17 @@
  * - cta_title: a string of text meant to be displayed as a button.
  *
  */
-#} 
-{% if media %}
-  {{ media }}
-{% endif %}
-
-{% if heading %}
-  {{ heading }}
-{% endif %}
-
-{% if subheading %}
-  {{ subheading }}
-{% endif %}
-
-{% if caption %}
-  {{ caption }}
-{% endif %}
-
-{% if credit %}
-  {{ credit }}
-{% endif %}
-
-{% if cta_uri %}
-  {{ link(cta_title, cta_uri, { 'class':['ut-link']} ) }}
-{% endif %}
+#}
+<div class="ut-hero">
+  {% if media %}
+    {{ media }}
+  {% endif %}
+  <p class="hero--caption-credit-wrapper">
+    {% if caption %}
+      <span class="hero-caption">{{ caption }}</span>
+    {% endif %}
+    {% if credit %}
+      <span class="credit">{{ credit }}</span>
+    {% endif %}
+  </p>
+</div>

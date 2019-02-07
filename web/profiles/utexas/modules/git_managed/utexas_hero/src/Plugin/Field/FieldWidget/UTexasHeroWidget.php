@@ -51,7 +51,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['caption'] = [
       '#title' => $this->t('Caption'),
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->subheading : NULL,
+      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->caption : NULL,
       '#size' => '60',
       '#description' => $this->t('Optional text to display directly beneath the media.'),
       '#maxlength' => 255,
@@ -59,7 +59,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['credit'] = [
       '#title' => $this->t('Credit'),
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->subheading : NULL,
+      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->credit : NULL,
       '#size' => '60',
       '#description' => $this->t('Optional way to provide attribution, displayed directly beneath the media.'),
       '#maxlength' => 255,

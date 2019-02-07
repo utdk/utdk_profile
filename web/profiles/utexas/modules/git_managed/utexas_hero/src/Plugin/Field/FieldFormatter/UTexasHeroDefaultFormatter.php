@@ -12,7 +12,7 @@ use Drupal\Core\Url;
  *
  * @FieldFormatter(
  *   id = "utexas_hero",
- *   label = @Translation("Default: Large media with optional caption"),
+ *   label = @Translation("Default: Large media with optional caption and credit"),
  *   field_types = {
  *     "utexas_hero"
  *   }
@@ -54,9 +54,9 @@ class UTexasHeroDefaultFormatter extends FormatterBase {
           $cta['title'] = $item->link_title;
         }
       }
+      $image_render_array = [];
       if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        $image_render_array = [];
         if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $image = new \stdClass();
           $image->title = NULL;
@@ -67,10 +67,9 @@ class UTexasHeroDefaultFormatter extends FormatterBase {
           $image->height = NULL;
           $image_render_array = [
             '#theme' => 'responsive_image_formatter',
-            '#item' => $image,
+            '#item' => $image ?? '',
             '#item_attributes' => [],
             '#responsive_image_style_id' => $responsive_image_style_name,
-            '#url' => $link ?? '',
             '#cache' => [
               'tags' => $cache_tags,
             ],
@@ -88,6 +87,7 @@ class UTexasHeroDefaultFormatter extends FormatterBase {
         '#cta_uri' => $cta['uri'],
       ];
     }
+    $elements['#attached']['library'][] = 'utexas_hero/hero-default';
     return $elements;
   }
 

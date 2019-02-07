@@ -79,7 +79,7 @@ function utexas_hero_form_layout_builder_add_block_alter(&$form, FormStateInterf
  */
 function _utexas_hero_simplify_layout_form(&$form) {
   $map = [
-    'default' => "Default: Large media with optional caption",
+    'default' => "Default: Large media with optional caption and credit line",
     'utexas_hero_1' => "Style 1: Bold heading & subheading on burnt orange background, floated right",
     'utexas_hero_2' => "Style 2: Bold heading on dark background, anchored at base of media",
     'utexas_hero_3' => "Style 3: White bottom pane with heading, subheading and burnt orange call to action",
