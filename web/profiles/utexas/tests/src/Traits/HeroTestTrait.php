@@ -126,7 +126,7 @@ trait HeroTestTrait {
     // Verify page output.
     $assert->elementExists('css', '.ut-hero.hero--half-n-half');
     // Verify that the correct image style is being applied.
-    $background_image_url = $this->getSession()->evaluateScript('jQuery(".ut-hero.hero--half-n-half").css("background-image")');
+    $background_image_url = $this->getSession()->evaluateScript('jQuery(".ut-hero.hero--half-n-half .hero-img").css("background-image")');
     $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
