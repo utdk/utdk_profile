@@ -75,6 +75,18 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'utexas-hero-4',
     ],
+    'utexas_hero_5' => [
+      'variables' => [
+        'media' => NULL,
+        'heading' => NULL,
+        'subheading' => NULL,
+        'caption' => NULL,
+        'credit' => NULL,
+        'cta_uri' => NULL,
+        'cta_title' => NULL,
+      ],
+      'template' => 'utexas-hero-5',
+    ],
   ];
   return $variables;
 }
