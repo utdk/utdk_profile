@@ -4,21 +4,22 @@
  * Template for the Hero field, Style 5.
  *
  * Available variables:
- * - media: An image or video -- ensure that you handle display for either.
- * - heading: a string of text meant to be prominently displayed
- * - subheading: a string of text, subsidiary to the heading
- * - caption: descriptive string for the media
- * - credit: attribution string for the media
+ * - media_identifier: A dynamic ID that uniquely identifies the CSS for the background image.
+ * - heading: a string of text meant to be prominently displayed.
+ * - subheading: a string of text, subsidiary to the heading.
+ * - caption: descriptive string for the media.
+ * - credit: attribution string for the media.
  * - cta_uri: a URI. May be use to wrap other elements.
  * - cta_title: a string of text meant to be displayed as a button.
+ * - alt: the alt text as provided by the media entity.
  *
  */
 #}
 <div class="ut-hero hero--half-n-half">
   <div class="hero-content">
-    {% if media %}
-    <div class="hero-img">
-      {{ media }}
+    {% if media_identifier %}
+    <div id="{{ media_identifier }}" class="hero-img">
+      <span class="sr-only">{{ alt }}</span>
     </div>
     {% endif %}
     <div class="hero-callout">
