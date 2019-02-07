@@ -1,6 +1,9 @@
 <?php
+
 namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
+
 use Drupal\Core\Field\FieldItemListInterface;
+
 /**
  * Plugin implementation of the 'utexas_hero' formatter.
  *
@@ -13,6 +16,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  * )
  */
 class UTexasHeroStyle5Formatter extends UTexasHeroDefaultFormatter {
+
   /**
    * {@inheritdoc}
    */
@@ -23,4 +27,5 @@ class UTexasHeroStyle5Formatter extends UTexasHeroDefaultFormatter {
     }
     return $elements;
   }
+
 }
