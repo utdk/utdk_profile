@@ -28,3 +28,9 @@ hero-style-4:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-4.css: {}
+hero-style-5:
+  version: 1.x
+  css:
+    theme:
+      css/hero-style-base.css: {}
+      css/hero-style-5.css: {}

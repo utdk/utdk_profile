@@ -109,6 +109,7 @@ class UTexasHeroStyle5Formatter extends FormatterBase {
         '#cta_uri' => $cta['uri'],
       ];
     }
+    $elements['#attached']['library'][] = 'utexas_hero/hero-style-5';
     return $elements;
   }
 

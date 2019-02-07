@@ -1,0 +1,46 @@
+.ut-hero.hero--half-n-half .hero-content {
+  height: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (min-width: 900px) {
+  .ut-hero.hero--half-n-half .hero-content {
+    flex-direction: row-reverse;
+  }
+}
+
+.ut-hero.hero--half-n-half .hero-img {
+  background-size: cover;
+  height: 300px;
+}
+.ut-hero.hero--half-n-half .hero-img, .ut-hero.hero--half-n-half .hero-callout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+@media screen and (min-width: 900px) {
+  .ut-hero.hero--half-n-half .hero-img {
+    flex: 1;
+    height: 543px;
+  }
+  .ut-hero.hero--half-n-half .hero-callout {
+    flex: 1;
+  }
+}
+
+.ut-hero.hero--half-n-half .text-box, .ut-hero.hero--half-n-half .hero-cta {
+  padding: 1rem;
+  width: 100%;
+}
+.ut-hero.hero--half-n-half .hero-headline {
+  color: #333f48;
+  padding: .625rem 0;
+}
+@media screen and (min-width: 900px) {
+  .ut-hero.hero--half-n-half .text-box, .ut-hero.hero--half-n-half .hero-cta {
+    padding: 1rem 1.25rem;
+    width: 70%;
+  }
+}
