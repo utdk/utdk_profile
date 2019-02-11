@@ -90,6 +90,28 @@ trait EntityTestTrait {
   }
 
   /**
+   * Creates a test video in Drupal and returns the media MID.
+   *
+   * @return string
+   *   The MID.
+   */
+  protected function createTestMediaVideoExternal() {
+
+    $video_media = Media::create([
+      'name' => 'Video 1',
+      'bundle' => 'utexas_video_external',
+      'uid' => '1',
+      'langcode' => Language::LANGCODE_NOT_SPECIFIED,
+      'status' => '1',
+      'field_media_oembed_video' => [
+        'value' => "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      ],
+    ]);
+    $video_media->save();
+    return $video_media->id();
+  }
+
+  /**
    * Populates & saves a basic page to the database.
    *
    * @return int
