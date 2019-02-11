@@ -8,6 +8,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\media\MediaInterface;
 use Drupal\date_ap_style\ApStyleDateFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -82,20 +83,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_fh';
-    // Collect cache tags to be added for each item in the field.
-    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
-    $image_styles_to_load = [];
-    $cache_tags = [];
-    if ($responsive_image_style) {
-      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
-      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
-    }
-    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
-    foreach ($image_styles as $image_style) {
-      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
-    }
     foreach ($items as $delta => $item) {
-
       if (isset($item->date)) {
         $options = [
           'always_display_year' => 1,
@@ -110,6 +98,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $timezone = \Drupal::config('system.date')->get('timezone');
         $item->date = $this->apStyleDateFormatter->formatTimestamp(strtotime($item->date), $options, $timezone['default'], Language::LANGCODE_NOT_SPECIFIED);
       }
+      $link = '';
       $headline = $item->headline ?? '';
       if (!empty($item->link_uri)) {
         $url = Url::fromUri($item->link_uri);
@@ -134,38 +123,16 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $url->setOptions($link_options);
         $cta = Link::fromTextAndUrl($item->link_text, $url);
       }
-      $image_render_array = [];
+      $media_render_array = [];
       if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
-        $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
-          $image = new \stdClass();
-          $image->title = NULL;
-          $image->alt = $media_attributes[0]['alt'];
-          $image->entity = $file;
-          $image->uri = $file->getFileUri();
-          $image->width = NULL;
-          $image->height = NULL;
-          $image_render_array = [
-            '#theme' => 'responsive_image_formatter',
-            '#item' => $image,
-            '#item_attributes' => [],
-            '#responsive_image_style_id' => $responsive_image_style_name,
-            '#url' => $link ?? '',
-            '#cache' => [
-              'tags' => $cache_tags,
-            ],
-          ];
+        if ($media->bundle() == 'utexas_image') {
+          $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $link);
         }
-
-        // Add the file entity to the cache dependencies.
-        // This will clear our cache when this entity updates.
-        $renderer = \Drupal::service('renderer');
-        $renderer->addCacheableDependency($image_render_array, $file);
       }
       $elements[] = [
         '#theme' => 'utexas_featured_highlight',
         '#headline' => $headline,
-        '#media' => $image_render_array,
+        '#media' => $media_render_array,
         '#copy' => check_markup($item->copy_value, $item->copy_format),
         '#date' => $item->date,
         '#cta' => $cta ?? '',
@@ -173,6 +140,73 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       ];
     }
     return $elements;
+  }
+
+  /**
+   * Prepare an image render array.
+   *
+   * @param \Drupal\media\MediaInterface $media
+   *   A Drupal media entity object.
+   * @param string $responsive_image_style_name
+   *   The machine name of a responsive image style.
+   * @param string $link
+   *   A URI, or empty string.
+   *
+   * @return string[]
+   *   An image render array.
+   */
+  private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name, $link) {
+    $media_render_array = [];
+    $media_attributes = $media->get('field_utexas_media_image')->getValue();
+    if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+      $image = new \stdClass();
+      $image->title = NULL;
+      $image->alt = $media_attributes[0]['alt'];
+      $image->entity = $file;
+      $image->uri = $file->getFileUri();
+      $image->width = NULL;
+      $image->height = NULL;
+      $media_render_array = [
+        '#theme' => 'responsive_image_formatter',
+        '#item' => $image,
+        '#item_attributes' => [],
+        '#responsive_image_style_id' => $responsive_image_style_name,
+        '#url' => $link,
+        '#cache' => [
+          'tags' => $this->generateImageCacheTags($responsive_image_style_name),
+        ],
+      ];
+      // Add the file entity to the cache dependencies.
+      // This will clear our cache when this entity updates.
+      $renderer = \Drupal::service('renderer');
+      $renderer->addCacheableDependency($media_render_array, $file);
+    }
+    return $media_render_array;
+  }
+
+  /**
+   * Prepare cache tags.
+   *
+   * @param string $responsive_image_style_name
+   *   The machine name of a responsive image style.
+   *
+   * @return string[]
+   *   An cache tag array.
+   */
+  private function generateImageCacheTags($responsive_image_style_name) {
+    // Collect cache tags to be added for each item in the field.
+    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
+    $image_styles_to_load = [];
+    $cache_tags = [];
+    if ($responsive_image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
+      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
+    }
+    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
+    foreach ($image_styles as $image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
+    }
+    return $cache_tags;
   }
 
 }

@@ -25,7 +25,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['media'] = [
       '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image'],
+      '#target_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => t('Media'),
