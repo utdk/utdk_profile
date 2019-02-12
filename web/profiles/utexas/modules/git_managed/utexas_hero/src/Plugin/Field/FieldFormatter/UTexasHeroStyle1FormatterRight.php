@@ -9,7 +9,11 @@ use Drupal\Core\Field\FieldItemListInterface;
  *
  * @FieldFormatter(
  *   id = "utexas_hero_1_right",
+<<<<<<< HEAD
  *   label = @Translation("Style 1: Bold heading & subheading on burnt orange background, image anchored right"),
+=======
+ *   label = @Translation("Style 1: Bold heading & subheading on burnt orange background, floated right"),
+>>>>>>> a801037... Adding left and right hero style 1 formatters with view modes and theme changes
  *   field_types = {
  *     "utexas_hero"
  *   }
