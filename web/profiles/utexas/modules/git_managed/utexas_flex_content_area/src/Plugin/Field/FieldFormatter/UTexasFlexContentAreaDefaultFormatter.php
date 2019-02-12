@@ -65,7 +65,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase {
       // Format CTA.
       if (!empty($item->link_uri)) {
         $url = Url::fromUri($item->link_uri);
-        $link = $url->toString();
+        $cta_uri = $url->toString();
         // If CTA present wrap headline in its URL.
         if (isset($item->headline)) {
           $headline = Link::fromTextAndUrl($item->headline, Url::fromUri($item->link_uri));
@@ -105,7 +105,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase {
             '#cache' => [
               'tags' => $cache_tags,
             ],
-            '#url' => $link ?? '',
+            '#url' => $cta_uri ?? '',
           ];
         }
         // Add the file entity to the cache dependencies.
