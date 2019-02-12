@@ -2,6 +2,7 @@
 
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -133,6 +134,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_fh';
     foreach ($items as $delta => $item) {
+      $id = Html::getUniqueId('featured-highlight');
       if (isset($item->date)) {
         $options = [
           'always_display_year' => 1,
@@ -181,12 +183,25 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
 
           case 'utexas_video_external':
             $media_render_array = $this->generateVideoRenderArray($media);
+            $css = "
+            #" . $id . ".utexas-featured-highlight .image-wrapper {
+              height: " . $media_render_array['#height'] . "px;
+              margin-bottom: 0rem;
+            }";
+            $elements['#attached']['html_head'][] = [
+              [
+                '#tag' => 'style',
+                '#value' => $css,
+              ],
+              'featured-highlight-' . $id,
+            ];
             break;
         }
       }
       $elements[] = [
         '#theme' => 'utexas_featured_highlight',
         '#headline' => $headline,
+        '#media_identifier' => $id,
         '#media' => $media_render_array,
         '#copy' => check_markup($item->copy_value, $item->copy_format),
         '#date' => $item->date,
@@ -213,8 +228,18 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
     $field_media_oembed_video = $media->get('field_media_oembed_video')->getValue();
     $value = $field_media_oembed_video[0]['value'];
     // These can be hardcoded, if we prefer to constrain the iframe display.
-    $max_width = 0;
+    $max_width = 300;
     $max_height = 0;
+
+    try {
+      $resource_url = $this->urlResolver->getResourceUrl($value, $max_width, $max_height);
+      $resource = $this->resourceFetcher->fetchResource($resource_url);
+      $max_width = $resource->getWidth();
+      $max_height = $resource->getHeight();
+    }
+    catch (ResourceException $exception) {
+      $this->logger->error("Could not retrieve the remote URL (@url).", ['@url' => $value]);
+    }
 
     if (empty($value)) {
       return $media_render_array;
@@ -229,16 +254,6 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       ],
     ]);
 
-    try {
-      $resource_url = $this->urlResolver->getResourceUrl($value, $max_width, $max_height);
-      $resource = $this->resourceFetcher->fetchResource($resource_url);
-      $max_width = $resource->getWidth() + 10;
-      $max_height = $resource->getHeight() + 10;
-    }
-    catch (ResourceException $exception) {
-      $this->logger->error("Could not retrieve the remote URL (@url).", ['@url' => $value]);
-    }
-
     // Render videos and rich content in an iframe for security reasons.
     // @see: https://oembed.com/#section3
     $media_render_array = [
@@ -249,9 +264,10 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         'frameborder' => 0,
         'scrolling' => FALSE,
         'allowtransparency' => TRUE,
-        'width' => $max_width,
-        'height' => $max_height,
+        'width' => "100%",
+        'height' => "100%",
       ],
+      '#height' => $max_height + 5,
     ];
 
     // Add the media entity to the cache dependencies.
