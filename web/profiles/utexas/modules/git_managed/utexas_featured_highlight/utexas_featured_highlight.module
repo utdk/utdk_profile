@@ -15,6 +15,7 @@ function utexas_featured_highlight_theme($existing, $type, $theme, $path) {
     'utexas_featured_highlight' => [
       'variables' => [
         'headline' => NULL,
+        'media_identifier' => NULL,
         'media' => NULL,
         'date' => NULL,
         'copy' => NULL,
