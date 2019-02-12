@@ -18,9 +18,11 @@
 </div>
 <div class="content-wrapper">
   <h3 class="ut-headline">{{ headline }}</h3>
-  <div class="ut-copy">
-    <p>{{ copy }}</p>
-  </div>
+  {% if copy %}
+    <div class="ut-copy">
+        {{ copy }}
+    </div>
+  {% endif %}
   {% if links %}
     <ul class="link-list">
       {% for link in links %}
