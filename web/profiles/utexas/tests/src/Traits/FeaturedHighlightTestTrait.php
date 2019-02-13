@@ -111,8 +111,8 @@ trait FeaturedHighlightTestTrait {
 
     $this->drupalGet('<front>');
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
-    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "490");
-    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "280");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "100%");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/featuredhighlightvideotest/delete');
