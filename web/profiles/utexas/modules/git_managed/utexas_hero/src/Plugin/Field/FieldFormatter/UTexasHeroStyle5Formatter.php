@@ -64,8 +64,8 @@ class UTexasHeroStyle5Formatter extends FormatterBase {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
         if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $uri = $file->getFileUri();
-          // Exclude GIFs from image style to allow for animation.
-          if ($file->getMimeType() != 'image/gif') {
+          // Check if image styles have been disabled (e.g., animated GIF)
+          if (!$item->disable_image_styles) {
             // Apply an image style in an attempt to optimize huge images.
             $large_src = $large_image_style->buildUrl($uri);
             $medium_src = $medium_image_style->buildUrl($uri);

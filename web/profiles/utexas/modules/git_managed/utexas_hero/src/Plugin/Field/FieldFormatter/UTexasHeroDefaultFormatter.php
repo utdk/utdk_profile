@@ -65,15 +65,25 @@ class UTexasHeroDefaultFormatter extends FormatterBase {
           $image->uri = $file->getFileUri();
           $image->width = NULL;
           $image->height = NULL;
-          $image_render_array = [
-            '#theme' => 'responsive_image_formatter',
-            '#item' => $image ?? '',
-            '#item_attributes' => [],
-            '#responsive_image_style_id' => $responsive_image_style_name,
-            '#cache' => [
-              'tags' => $cache_tags,
-            ],
-          ];
+          // Check if image styles have been disabled (e.g., animated GIF)
+          if (!$item->disable_image_styles) {
+            $image_render_array = [
+              '#theme' => 'responsive_image_formatter',
+              '#item' => $image,
+              '#item_attributes' => [],
+              '#responsive_image_style_id' => $responsive_image_style_name,
+              '#cache' => [
+                'tags' => $cache_tags,
+              ],
+            ];
+          }
+          else {
+            $image_render_array = [
+              '#theme' => 'image',
+              '#uri' => $image->uri,
+              '#alt' => $image->alt,
+            ];
+          }
         }
       }
       $elements[] = [
