@@ -6,7 +6,7 @@ use Drupal\Component\Utility\Random;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\core\Language\Language;
+use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\file\Entity\File;
@@ -93,6 +93,9 @@ class UTexasHero extends FieldItemBase {
           'length' => 512,
           'binary' => FALSE,
         ],
+        'disable_image_styles' => [
+          'type' => 'int',
+        ],
       ],
     ];
 
@@ -109,6 +112,7 @@ class UTexasHero extends FieldItemBase {
     $values['caption'] = $random->sentences(2);
     $values['credit'] = $random->sentences(2);
     $values['link_title'] = $random->sentences(1);
+    $values['disable_image_styles'] = 0;
     // // Set of possible top-level domains for sample link value.
     $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
     // // Set random length for the domain name.
