@@ -23,6 +23,7 @@ class UTexasHeroWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    $field_name = $this->fieldDefinition->getName();
     $element['media'] = [
       '#type' => 'media_library_element',
       '#target_bundles' => ['utexas_image'],
@@ -31,6 +32,17 @@ class UTexasHeroWidget extends WidgetBase {
       '#title' => t('Image'),
       '#default_value' => isset($items[$delta]->media) ? $items[$delta]->media : 0,
       '#description' => t('Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'),
+    ];
+    $element['disable_image_styles'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Disable image size optimization.'),
+      '#description' => t('Check this if you need to display an animated GIF or have specific image dimensions requirements.'),
+      '#default_value' => $items[$delta]->disable_image_styles ?? 0,
+      '#states' => [
+        'invisible' => [
+          ':input[name="' . $field_name . '[' . $delta . '][media][media_library_selection]"]' => ['value' => "0"],
+        ],
+      ],
     ];
     $element['heading'] = [
       '#title' => $this->t('Heading'),
