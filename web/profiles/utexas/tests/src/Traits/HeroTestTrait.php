@@ -13,6 +13,50 @@ trait HeroTestTrait {
   public function verifyHero() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+    $this->getSession()->resizeWindow(900, 2000);
+
+    // Verify image styles can be disabled.
+    $this->drupalGet('block/add/utexas_hero');
+    $this->clickLink('Add media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
+
+    $assert->elementExists('css', '#edit-field-block-hero-0-disable-image-styles');
+    // Disable image style.
+    $this->submitForm([
+      'info[0][value]' => 'Hero Image Style Test',
+      'field_block_hero[0][heading]' => 'Hero Heading',
+      'field_block_hero[0][subheading]' => 'Hero Subheading',
+      'field_block_hero[0][caption]' => 'Hero Caption',
+      'field_block_hero[0][credit]' => 'Hero Credit',
+      'field_block_hero[0][cta][link][url]' => 'https://hero.test',
+      'field_block_hero[0][cta][link][title]' => 'Hero CTA',
+      'field_block_hero[0][disable_image_styles]' => '1',
+    ], 'Save');
+
+    $assert->pageTextContains('Hero Hero Image Style Test has been created.');
+
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
+
+    $this->drupalGet('<front>');
+    // Verify image styles are disabled.
+    $expected_path = '/files/image-test.png';
+    $assert->elementAttributeContains('css', '.ut-hero img', 'src', $expected_path);
+    // Remove the block from the system.
+    $this->drupalGet('admin/structure/block/manage/heroimagestyletest/delete');
+    $this->submitForm([], 'Remove');
+
     $this->drupalGet('block/add/utexas_hero');
 
     // Verify widget field schema.
@@ -167,6 +211,7 @@ trait HeroTestTrait {
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/herotest/delete');
     $this->submitForm([], 'Remove');
+
   }
 
 }
