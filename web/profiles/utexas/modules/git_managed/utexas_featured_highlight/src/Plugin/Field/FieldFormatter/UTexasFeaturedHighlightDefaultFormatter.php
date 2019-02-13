@@ -228,7 +228,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
     $field_media_oembed_video = $media->get('field_media_oembed_video')->getValue();
     $value = $field_media_oembed_video[0]['value'];
     // These can be hardcoded, if we prefer to constrain the iframe display.
-    $max_width = 300;
+    $max_width = 330;
     $max_height = 0;
 
     try {
