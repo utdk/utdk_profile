@@ -27,3 +27,8 @@
 .utexas-featured-highlight.dark .content-wrapper .ut-headline {
   color:#ffffff;
 }
+
+.utexas-featured-highlight div.image-wrapper {
+  min-width: 330px;
+  margin-bottom: 1rem;
+}
