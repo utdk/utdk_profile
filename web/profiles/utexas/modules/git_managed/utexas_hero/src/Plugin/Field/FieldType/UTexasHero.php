@@ -51,7 +51,7 @@ class UTexasHero extends FieldItemBase {
     $properties['link_title'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Link Title'))
       ->setRequired(FALSE);
-    $properties['disable_image_styles'] = DataDefinition::create('int')
+    $properties['disable_image_styles'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Disable Image Styles'))
       ->setRequired(FALSE);
     return $properties;
