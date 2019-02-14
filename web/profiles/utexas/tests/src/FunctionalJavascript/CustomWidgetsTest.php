@@ -57,6 +57,13 @@ class CustomWidgetsTest extends WebDriverTestBase {
   protected $testImage;
 
   /**
+   * An video Media ID to be used with file rendering.
+   *
+   * @var string
+   */
+  protected $testVideo;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -65,15 +72,16 @@ class CustomWidgetsTest extends WebDriverTestBase {
     $this->initializeFlexPageEditor();
     $this->drupalLogin($this->testUser);
     $this->testImage = $this->createTestMediaImage();
+    $this->testVideo = $this->createTestMediaVideoExternal();
   }
 
   /**
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
+    $this->verifyFeaturedHighlight();
     $this->verifyHero();
     $this->verifyResources();
-    $this->verifyFeaturedHighlight();
     $this->verifyImageLink();
     $this->verifyFlexContentArea();
     $this->verifyPhotoContentArea();

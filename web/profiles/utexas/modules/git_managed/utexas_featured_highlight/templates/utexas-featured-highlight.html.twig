@@ -20,7 +20,7 @@
     style|clean_class,
   ]
 %}
-<div{{ attributes.addClass(classes) }}>
+<div id="{{ media_identifier }}" {{ attributes.addClass(classes) }}>
   {% if media %}
     <div class="image-wrapper">
       {{ media }}

@@ -2,15 +2,22 @@
 
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Language\Language;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\date_ap_style\ApStyleDateFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\date_ap_style\ApStyleDateFormatter;
+use Drupal\media\IFrameUrlHelper;
+use Drupal\media\MediaInterface;
+use Drupal\media\OEmbed\ResourceException;
+use Drupal\media\OEmbed\ResourceFetcherInterface;
+use Drupal\media\OEmbed\UrlResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -34,6 +41,34 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   protected $apStyleDateFormatter;
 
   /**
+   * The iFrame URL helper service.
+   *
+   * @var \Drupal\media\IFrameUrlHelper
+   */
+  protected $iFrameUrlHelper;
+
+  /**
+   * The oEmbed resource fetcher.
+   *
+   * @var \Drupal\media\OEmbed\ResourceFetcherInterface
+   */
+  protected $resourceFetcher;
+
+  /**
+   * The oEmbed URL resolver service.
+   *
+   * @var \Drupal\media\OEmbed\UrlResolverInterface
+   */
+  protected $urlResolver;
+
+  /**
+   * The logger service.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * Constructs a TimestampAgoFormatter object.
    *
    * @param string $plugin_id
@@ -52,11 +87,23 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
    *   Any third party settings.
    * @param \Drupal\date_ap_style\ApStyleDateFormatter $date_formatter
    *   The date formatter.
+   * @param \Drupal\media\IFrameUrlHelper $iframe_url_helper
+   *   The iFrame URL helper service.
+   * @param \Drupal\media\OEmbed\ResourceFetcherInterface $resource_fetcher
+   *   The oEmbed resource fetcher service.
+   * @param \Drupal\media\OEmbed\UrlResolverInterface $url_resolver
+   *   The oEmbed URL resolver service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
+   *   The logger factory service.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ApStyleDateFormatter $date_formatter) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ApStyleDateFormatter $date_formatter, IFrameUrlHelper $iframe_url_helper, ResourceFetcherInterface $resource_fetcher, UrlResolverInterface $url_resolver, LoggerChannelFactoryInterface $logger_factory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
 
     $this->apStyleDateFormatter = $date_formatter;
+    $this->iFrameUrlHelper = $iframe_url_helper;
+    $this->resourceFetcher = $resource_fetcher;
+    $this->urlResolver = $url_resolver;
+    $this->logger = $logger_factory->get('media');
   }
 
   /**
@@ -72,7 +119,11 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('date_ap_style.formatter')
+      $container->get('date_ap_style.formatter'),
+      $container->get('media.oembed.iframe_url_helper'),
+      $container->get('media.oembed.resource_fetcher'),
+      $container->get('media.oembed.url_resolver'),
+      $container->get('logger.factory')
     );
   }
 
@@ -82,20 +133,8 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_fh';
-    // Collect cache tags to be added for each item in the field.
-    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
-    $image_styles_to_load = [];
-    $cache_tags = [];
-    if ($responsive_image_style) {
-      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
-      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
-    }
-    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
-    foreach ($image_styles as $image_style) {
-      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
-    }
     foreach ($items as $delta => $item) {
-
+      $id = Html::getUniqueId('featured-highlight');
       if (isset($item->date)) {
         $options = [
           'always_display_year' => 1,
@@ -110,6 +149,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $timezone = \Drupal::config('system.date')->get('timezone');
         $item->date = $this->apStyleDateFormatter->formatTimestamp(strtotime($item->date), $options, $timezone['default'], Language::LANGCODE_NOT_SPECIFIED);
       }
+      $link = '';
       $headline = $item->headline ?? '';
       if (!empty($item->link_uri)) {
         $url = Url::fromUri($item->link_uri);
@@ -134,38 +174,35 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $url->setOptions($link_options);
         $cta = Link::fromTextAndUrl($item->link_text, $url);
       }
-      $image_render_array = [];
+      $media_render_array = [];
       if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
-        $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
-          $image = new \stdClass();
-          $image->title = NULL;
-          $image->alt = $media_attributes[0]['alt'];
-          $image->entity = $file;
-          $image->uri = $file->getFileUri();
-          $image->width = NULL;
-          $image->height = NULL;
-          $image_render_array = [
-            '#theme' => 'responsive_image_formatter',
-            '#item' => $image,
-            '#item_attributes' => [],
-            '#responsive_image_style_id' => $responsive_image_style_name,
-            '#url' => $link ?? '',
-            '#cache' => [
-              'tags' => $cache_tags,
-            ],
-          ];
-        }
+        switch ($media->bundle()) {
+          case 'utexas_image':
+            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $link);
+            break;
 
-        // Add the file entity to the cache dependencies.
-        // This will clear our cache when this entity updates.
-        $renderer = \Drupal::service('renderer');
-        $renderer->addCacheableDependency($image_render_array, $file);
+          case 'utexas_video_external':
+            $media_render_array = $this->generateVideoRenderArray($media);
+            $css = "
+            #" . $id . ".utexas-featured-highlight .image-wrapper {
+              height: " . $media_render_array['#height'] . "px;
+              margin-bottom: 0rem;
+            }";
+            $elements['#attached']['html_head'][] = [
+              [
+                '#tag' => 'style',
+                '#value' => $css,
+              ],
+              'featured-highlight-' . $id,
+            ];
+            break;
+        }
       }
       $elements[] = [
         '#theme' => 'utexas_featured_highlight',
         '#headline' => $headline,
-        '#media' => $image_render_array,
+        '#media_identifier' => $id,
+        '#media' => $media_render_array,
         '#copy' => check_markup($item->copy_value, $item->copy_format),
         '#date' => $item->date,
         '#cta' => $cta ?? '',
@@ -173,6 +210,138 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       ];
     }
     return $elements;
+  }
+
+  /**
+   * Prepare a video render array.
+   *
+   * @param \Drupal\media\MediaInterface $media
+   *   A Drupal media entity object.
+   *
+   * @return string[]
+   *   A video render array.
+   */
+  private function generateVideoRenderArray(MediaInterface $media) {
+    // The logic of this is largely based on
+    // Drupal\media\Plugin\Field\FieldFormatter\OembedFormatter.
+    $media_render_array = [];
+    $field_media_oembed_video = $media->get('field_media_oembed_video')->getValue();
+    $value = $field_media_oembed_video[0]['value'];
+    // These can be hardcoded, if we prefer to constrain the iframe display.
+    $max_width = 330;
+    $max_height = 0;
+
+    try {
+      $resource_url = $this->urlResolver->getResourceUrl($value, $max_width, $max_height);
+      $resource = $this->resourceFetcher->fetchResource($resource_url);
+      $max_width = $resource->getWidth();
+      $max_height = $resource->getHeight();
+    }
+    catch (ResourceException $exception) {
+      $this->logger->error("Could not retrieve the remote URL (@url).", ['@url' => $value]);
+    }
+
+    if (empty($value)) {
+      return $media_render_array;
+    }
+
+    $url = Url::fromRoute('media.oembed_iframe', [], [
+      'query' => [
+        'url' => $value,
+        'max_width' => $max_width,
+        'max_height' => $max_height,
+        'hash' => $this->iFrameUrlHelper->getHash($value, $max_width, $max_height),
+      ],
+    ]);
+
+    // Render videos and rich content in an iframe for security reasons.
+    // @see: https://oembed.com/#section3
+    $media_render_array = [
+      '#type' => 'html_tag',
+      '#tag' => 'iframe',
+      '#attributes' => [
+        'src' => $url->toString(),
+        'frameborder' => 0,
+        'scrolling' => FALSE,
+        'allowtransparency' => TRUE,
+        'width' => "100%",
+        'height' => "100%",
+      ],
+      '#height' => $max_height + 5,
+    ];
+
+    // Add the media entity to the cache dependencies.
+    // This will clear our cache when this entity updates.
+    $renderer = \Drupal::service('renderer');
+    $renderer->addCacheableDependency($media_render_array, $media);
+    return $media_render_array;
+  }
+
+  /**
+   * Prepare an image render array.
+   *
+   * @param \Drupal\media\MediaInterface $media
+   *   A Drupal media entity object.
+   * @param string $responsive_image_style_name
+   *   The machine name of a responsive image style.
+   * @param string $link
+   *   A URI, or empty string.
+   *
+   * @return string[]
+   *   An image render array.
+   */
+  private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name, $link) {
+    $media_render_array = [];
+    $media_attributes = $media->get('field_utexas_media_image')->getValue();
+    if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+      $image = new \stdClass();
+      $image->title = NULL;
+      $image->alt = $media_attributes[0]['alt'];
+      $image->entity = $file;
+      $image->uri = $file->getFileUri();
+      $image->width = NULL;
+      $image->height = NULL;
+      $media_render_array = [
+        '#theme' => 'responsive_image_formatter',
+        '#item' => $image,
+        '#item_attributes' => [],
+        '#responsive_image_style_id' => $responsive_image_style_name,
+        '#url' => $link,
+        '#cache' => [
+          'tags' => $this->generateImageCacheTags($responsive_image_style_name),
+        ],
+      ];
+      // Add the file entity to the cache dependencies.
+      // This will clear our cache when this entity updates.
+      $renderer = \Drupal::service('renderer');
+      $renderer->addCacheableDependency($media_render_array, $file);
+    }
+    return $media_render_array;
+  }
+
+  /**
+   * Prepare cache tags.
+   *
+   * @param string $responsive_image_style_name
+   *   The machine name of a responsive image style.
+   *
+   * @return string[]
+   *   An cache tag array.
+   */
+  private function generateImageCacheTags($responsive_image_style_name) {
+    // Collect cache tags to be added for each item in the field.
+    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
+    $image_styles_to_load = [];
+    $cache_tags = [];
+    if ($responsive_image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
+      $image_styles_to_load = $responsive_image_style->getImageStyleIds();
+    }
+    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
+    foreach ($image_styles as $image_style) {
+      $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
+    }
+    return $cache_tags;
   }
 
 }
