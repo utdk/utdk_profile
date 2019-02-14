@@ -78,6 +78,45 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('admin/structure/block/manage/featuredhighlighttest/delete');
     $this->submitForm([], 'Remove');
 
+    // Test rendering of YouTube video.
+    $this->drupalGet('block/add/utexas_featured_highlight');
+
+    // Verify widget field schema.
+    $this->clickLink('Add media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Video 1');
+    // Select the 2nd media item (should be "Video 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[1]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
+
+    $this->submitForm([
+      'info[0][value]' => 'Featured Highlight Video Test',
+      'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
+      'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
+      'field_block_featured_highlight[0][link][url]' => 'https://featuredhighlight.test',
+      'field_block_featured_highlight[0][link][title]' => 'Featured Highlight Link',
+      'field_block_featured_highlight[0][date]' => '01-17-2019',
+    ], 'Save');
+    $assert->pageTextContains('Featured Highlight Featured Highlight Video Test has been created.');
+
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
+
+    $this->drupalGet('<front>');
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "100%");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
+
+    // Remove the block from the system.
+    $this->drupalGet('admin/structure/block/manage/featuredhighlightvideotest/delete');
+    $this->submitForm([], 'Remove');
   }
 
 }
