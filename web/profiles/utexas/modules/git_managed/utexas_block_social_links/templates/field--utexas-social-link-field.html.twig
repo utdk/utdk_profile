@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Theme override for a field.
+ * Theme override for Utexas Social Link field.
  *
  * To override output, copy the "field.html.twig" from the templates directory
  * to your theme's directory and customize it, just like customizing other
@@ -36,9 +36,7 @@
  * @see template_preprocess_field()
  */
 #}
-
 {% set wrapper_class = 'block__ut-social-links' %}
-
 <div{{ attributes.addClass(wrapper_class) }}>
   <div class='block__ut-social-links--items'>
     {% for item in items %}

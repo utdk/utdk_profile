@@ -1,15 +1,16 @@
 {#
 /**
  * @file
- * Custom theme implementation to display a Featured Highight.
+ * Custom theme implementation to display a Featured Highlight field.
  *
  * Available custom variables:
- * - {{ headline }} : provides the headline text, with link from the call to
+ * - headline : provides the headline text, with link from the call to
  * action, if that URL has been defined.
- * - {{ media}} : image or video
- * - {{ date }} : the AP-style date
- * - {{ copy }} : copy text
- * - {{ cta }} : A themed call-to-action button
+ * - media: An image or video field.
+ * - date: AP-style date field.
+ * - copy: The Featured Highlight copy field.
+ * - cta: A themed call-to-action button.
+ *
  * @ingroup themeable
  */
 #}
@@ -25,7 +26,7 @@
     <div class="image-wrapper">
       {{ media }}
     </div>
-  {% endif %}  
+  {% endif %}
   <div class="content-wrapper">
     {{ date }}
     {% if headline %}
