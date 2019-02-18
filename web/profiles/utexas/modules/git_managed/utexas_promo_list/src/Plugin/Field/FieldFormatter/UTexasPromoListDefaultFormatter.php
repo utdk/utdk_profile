@@ -55,7 +55,8 @@ class UTexasPromoListDefaultFormatter extends FormatterBase {
             $url->setAbsolute();
             $instances[$key]['link'] = $url->toString();
           }
-          if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($i['image'][0])) {
+          $image_render_array = [];
+          if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($i['image'])) {
             $media_attributes = $media->get('field_utexas_media_image')->getValue();
             $image_render_array = [];
             if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
