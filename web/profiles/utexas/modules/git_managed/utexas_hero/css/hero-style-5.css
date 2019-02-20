@@ -14,6 +14,16 @@
   background-size: cover;
   height: 300px;
 }
+.ut-hero.hero--half-n-half .hero-img.center {
+  background-position: center;
+}
+.ut-hero.hero--half-n-half .hero-img.left {
+  background-position: left;
+}
+.ut-hero.hero--half-n-half .hero-img.right {
+  background-position: right;
+}
+
 .ut-hero.hero--half-n-half .hero-img, .ut-hero.hero--half-n-half .hero-callout {
   display: flex;
   justify-content: center;

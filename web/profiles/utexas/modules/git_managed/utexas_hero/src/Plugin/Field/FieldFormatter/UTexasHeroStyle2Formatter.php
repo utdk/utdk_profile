@@ -14,7 +14,7 @@ use Drupal\Core\Url;
  *
  * @FieldFormatter(
  *   id = "utexas_hero_2",
- *   label = @Translation("Style 2: Bold heading on dark background, anchored at base of media"),
+ *   label = @Translation("Style 2: Bold heading on dark background, anchored at base of media, image anchored center"),
  *   field_types = {
  *     "utexas_hero"
  *   }
@@ -106,6 +106,7 @@ class UTexasHeroStyle2Formatter extends FormatterBase {
         '#heading' => $item->heading,
         '#cta_title' => $cta['title'],
         '#cta_uri' => $cta['uri'],
+        '#anchor_position' => 'center',
       ];
     }
     $elements['#attached']['library'][] = 'utexas_hero/hero-style-2';

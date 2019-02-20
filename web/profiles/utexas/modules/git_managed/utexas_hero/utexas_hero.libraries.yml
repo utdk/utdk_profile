@@ -34,3 +34,7 @@ hero-style-5:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-5.css: {}
+hero_formatters_split:
+  version: 1.x
+  js:
+    js/hero-formatters-split.js: {}

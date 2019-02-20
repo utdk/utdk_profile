@@ -13,7 +13,7 @@
  */
 #}
 {% if media_identifier %}
-  <div id="{{ media_identifier }}" class="ut-hero hero--photo-gradient">
+  <div id="{{ media_identifier }}" class="ut-hero hero--photo-gradient {{ anchor_position }}">
     <span class="sr-only">{{ alt }}</span>
     {% if heading or subheading or cta_uri %}
       <div class="hero-content">

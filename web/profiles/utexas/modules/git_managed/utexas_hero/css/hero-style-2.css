@@ -3,6 +3,16 @@
   height: 300px;
 }
 
+.ut-hero.hero--photo-gradient.center {
+  background-position: center;
+}
+.ut-hero.hero--photo-gradient.left {
+  background-position: left;
+}
+.ut-hero.hero--photo-gradient.right {
+  background-position: right;
+}
+
 @media screen and (min-width: 900px) {
   .ut-hero.hero--photo-gradient {
     height: 543px;

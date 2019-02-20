@@ -14,7 +14,7 @@ use Drupal\Core\Url;
  *
  * @FieldFormatter(
  *   id = "utexas_hero_1",
- *   label = @Translation("Style 1: Bold heading & subheading on burnt orange background, floated right"),
+ *   label = @Translation("Style 1: Bold heading & subheading on burnt orange background, image centered"),
  *   field_types = {
  *     "utexas_hero"
  *   }
@@ -80,7 +80,7 @@ class UTexasHeroStyle1Formatter extends FormatterBase {
           #" . $id . ".hero-img {
             background-image: url(" . $large_src . ");
           }
-          @media screen and (max-width: 900px) { 
+          @media screen and (max-width: 900px) {
             #" . $id . ".hero-img {
               background-image: url(" . $medium_src . ");
             }
@@ -107,6 +107,7 @@ class UTexasHeroStyle1Formatter extends FormatterBase {
         '#subheading' => $item->subheading,
         '#cta_title' => $cta['title'],
         '#cta_uri' => $cta['uri'],
+        '#anchor_position' => 'center',
       ];
     }
     $elements['#attached']['library'][] = 'utexas_hero/hero-style-1';

@@ -1,67 +1,76 @@
 /* Image */
 .ut-hero.hero--photo-orange-insert .hero-img {
-    background-size: cover;
-    height: 300px;
+  background-size: cover;
+  height: 300px;
 }
 @media screen and (min-width: 900px) {
   .ut-hero.hero--photo-orange-insert .hero-img {
-      height: 543px;
+    height: 543px;
   }
+}
+.ut-hero .center {
+  background-position: center;
+}
+.ut-hero .left {
+  background-position: left;
+}
+.ut-hero .right {
+  background-position: right;
 }
 
 /* Text */
 .ut-hero.hero--photo-orange-insert .hero-content {
-    background: #bf5700;
-    height: auto;
-    margin: auto;
-    max-width: 73.75em;
-    padding: .75rem 1rem;
+  background: #bf5700;
+  height: auto;
+  margin: auto;
+  max-width: 73.75em;
+  padding: .75rem 1rem;
 }
 @media screen and (min-width: 1200px) {
   .ut-hero.hero--photo-orange-insert .hero-content {
-      right: calc((100% - 72.75rem) / 2);
-      width: 443px;
+    right: calc((100% - 72.75rem) / 2);
+    width: 443px;
   }
 }
 @media screen and (min-width: 900px) {
   .ut-hero.hero--photo-orange-insert .hero-content {
-      align-self: center;
-      background: #bf5700;
-      background: linear-gradient(to bottom, rgba(191,87,0,0.5) 0%, rgba(191,87,0,0.9)  82%, rgba(191,87,0,0.9) 100%);
-      height: 80%;
-      padding: 2rem;
-      position: absolute;
-      right: 1rem;
-      top: 10%;
-      width: 44%;
+    align-self: center;
+    background: #bf5700;
+    background: linear-gradient(to bottom, rgba(191,87,0,0.5) 0%, rgba(191,87,0,0.9)  82%, rgba(191,87,0,0.9) 100%);
+    height: 80%;
+    padding: 2rem;
+    position: absolute;
+    right: 1rem;
+    top: 10%;
+    width: 44%;
   }
 }
 
 .ut-hero.hero--photo-orange-insert .hero-callout {
-    color: #fff;
-    display: flex;
-    flex-direction: column;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 @media screen and (min-width: 900px) {
   .ut-hero.hero--photo-orange-insert .hero-callout {
-      height: 100%;
+    height: 100%;
   }
 }
 
 .ut-hero .ut-btn--hero {
-    background: transparent;
-    color: #fff;
-    display: inline-block;
-    padding: .5rem 1rem;
+  background: transparent;
+  color: #fff;
+  display: inline-block;
+  padding: .5rem 1rem;
 }
 .ut-hero.hero--photo-orange-insert .hero-cta {
-    margin-top: auto;
+  margin-top: auto;
 }
 .ut-hero.hero--photo-orange-insert .ut-btn--hero {
-    float: none;
+  float: none;
 }
 @media screen and (min-width: 900px) {
   .ut-hero.hero--photo-orange-insert .ut-btn--hero {
-      float: right;
+    float: right;
   }
 }

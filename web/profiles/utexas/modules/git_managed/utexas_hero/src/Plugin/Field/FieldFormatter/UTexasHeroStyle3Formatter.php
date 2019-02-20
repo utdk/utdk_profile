@@ -14,7 +14,7 @@ use Drupal\Core\Url;
  *
  * @FieldFormatter(
  *   id = "utexas_hero_3",
- *   label = @Translation("Style 3: White bottom pane with heading, subheading and burnt orange call to action"),
+ *   label = @Translation("Style 3: White bottom pane with heading, subheading and burnt orange call to action, image anchored center"),
  *   field_types = {
  *     "utexas_hero"
  *   }
@@ -107,6 +107,7 @@ class UTexasHeroStyle3Formatter extends FormatterBase {
         '#subheading' => $item->subheading,
         '#cta_title' => $cta['title'],
         '#cta_uri' => $cta['uri'],
+        '#anchor_position' => 'center',
       ];
     }
     $elements['#attached']['library'][] = 'utexas_hero/hero-style-3';

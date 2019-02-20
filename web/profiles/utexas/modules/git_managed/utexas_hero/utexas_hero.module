@@ -34,6 +34,7 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
+        'anchor_position' => NULL,
       ],
       'template' => 'utexas-hero-1',
     ],
@@ -47,6 +48,7 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
+        'anchor_position' => NULL,
       ],
       'template' => 'utexas-hero-2',
     ],
@@ -60,6 +62,7 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
+        'anchor_position' => NULL,
       ],
       'template' => 'utexas-hero-3',
     ],
@@ -85,6 +88,7 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
         'cta_uri' => NULL,
         'cta_title' => NULL,
         'alt' => NULL,
+        'anchor_position' => NULL,
       ],
       'template' => 'utexas-hero-5',
     ],
@@ -97,6 +101,15 @@ function utexas_hero_theme($existing, $type, $theme, $path) {
  */
 function utexas_hero_form_layout_builder_update_block_alter(&$form, FormStateInterface $form_state, $form_id) {
   _utexas_hero_simplify_layout_form($form);
+  _utexas_hero_formatter_split_entity_type_validation($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_hero_form_search_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_hero_simplify_layout_form($form);
+  _utexas_hero_formatter_split_entity_type_validation($form);
 }
 
 /**
@@ -104,6 +117,7 @@ function utexas_hero_form_layout_builder_update_block_alter(&$form, FormStateInt
  */
 function utexas_hero_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state, $form_id) {
   _utexas_hero_simplify_layout_form($form);
+  _utexas_hero_formatter_split_entity_type_validation($form);
 }
 
 /**
@@ -112,11 +126,19 @@ function utexas_hero_form_layout_builder_add_block_alter(&$form, FormStateInterf
 function _utexas_hero_simplify_layout_form(&$form) {
   $map = [
     'default' => "Default: Large media with optional caption and credit line",
-    'utexas_hero_1' => "Style 1: Bold heading & subheading on burnt orange background, floated right",
-    'utexas_hero_2' => "Style 2: Bold heading on dark background, anchored at base of media",
-    'utexas_hero_3' => "Style 3: White bottom pane with heading, subheading and burnt orange call to action",
+    'utexas_hero_1' => "Style 1: Bold heading & subheading on burnt orange background, image centered",
+    'utexas_hero_1_left' => "Style 1: Bold heading & subheading on burnt orange background, image anchored left",
+    'utexas_hero_1_right' => "Style 1: Bold heading & subheading on burnt orange background, image anchored right",
+    'utexas_hero_2' => "Style 2: Bold heading on dark background, anchored at base of media, image centered",
+    'utexas_hero_2_left' => "Style 2: Bold heading on dark background, anchored at base of media, image anchored left",
+    'utexas_hero_2_right' => "Style 2: Bold heading on dark background, anchored at base of media, image anchored right",
+    'utexas_hero_3' => "Style 3: White bottom pane with heading, subheading and burnt orange call to action, image anchored center",
+    'utexas_hero_3_left' => "Style 3: White bottom pane with heading, subheading and burnt orange call to action, image anchored left",
+    'utexas_hero_3_right' => "Style 3: White bottom pane with heading, subheading and burnt orange call to action, image anchored right",
     'utexas_hero_4' => "Style 4: Centered image with dark bottom pane containing heading, subheading and call-to-action",
-    'utexas_hero_5' => "Style 5: Medium image, floated right, with large heading, subheading and burnt orange call-to-action",
+    'utexas_hero_5' => "Style 5: Medium image, floated right, with large heading, subheading and burnt orange call-to-action, image centered",
+    'utexas_hero_5_left' => "Style 5: Medium image, floated right, with large heading, subheading and burnt orange call-to-action, image anchored left",
+    'utexas_hero_5_right' => "Style 5: Medium image, floated right, with large heading, subheading and burnt orange call-to-action, image anchored right",
   ];
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();
@@ -128,4 +150,43 @@ function _utexas_hero_simplify_layout_form(&$form) {
       }
     }
   }
+}
+
+/**
+ * Helper function for Layout Builder to validate if hero block or node type.
+ */
+function _utexas_hero_formatter_split_entity_type_validation(&$form) {
+  // Checking if form contains an inline hero block.
+  if (isset($form['settings']['block_form'])) {
+    $bundle = $form['settings']['block_form']['#block']->bundle();
+    if ($bundle === 'utexas_hero') {
+      $form = _add_new_hero_image_form_elements($form, 'block');
+    }
+  }
+  // Checking if form contains a reusable hero block.
+  if (isset($form['settings']['view_mode'])) {
+    $selector = $form['settings']['view_mode']['#options'];
+    $option_keys = array_keys($selector);
+    foreach ($option_keys as $option) {
+      if (strpos($option, 'utexas_hero') !== FALSE) {
+        $form = _add_new_hero_image_form_elements($form, 'block');
+        break;
+      }
+    }
+  }
+  // Checking if node form is of type hero.
+  if (isset($form['settings']['formatter'])) {
+    $formatter = $form['settings']['formatter']['type']['#default_value'];
+    if (strpos($formatter, 'utexas_hero') !== FALSE) {
+      $form = _add_new_hero_image_form_elements($form, 'node');
+    }
+  }
+}
+
+/**
+ * Helper function that creates the necessary form elements to pick a style.
+ */
+function _add_new_hero_image_form_elements($form, $entity_type) {
+  $form['#attached']['library'][] = 'utexas_hero/hero_formatters_split';
+  return $form;
 }

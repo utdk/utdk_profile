@@ -9,12 +9,13 @@
  * - subheading: a string of text, subsidiary to the heading
  * - cta_uri: a URI. May be use to wrap other elements.
  * - cta_title: a string of text meant to be displayed as a button.
+ * - anchor_position: a css class that specifies the image position preference.
  *
  */
 #}
 <div class="ut-hero hero--photo-orange-insert">
   {% if media_identifier %}
-  <div id="{{ media_identifier }}" class="hero-img">
+  <div id="{{ media_identifier }}" class="hero-img {{ anchor_position }}">
     <span class="sr-only">{{ alt }}</span>
   </div>
   {% endif %}

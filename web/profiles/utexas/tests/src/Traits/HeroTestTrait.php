@@ -66,6 +66,25 @@ trait HeroTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementExists('css', '.hero--photo-orange-insert .hero-img');
+    // Verify anchor class is set.
+    $assert->elementExists('css', '.hero--photo-orange-insert .center');
+    // Verify that the correct image style is being applied.
+    // Since the screen width is 900, we expect an image style of 900w.
+    $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-orange-insert .hero-img").css("background-image")');
+    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $this->assertTrue($pos !== FALSE);
+
+    // Set display to "Hero Style 1 Left".
+    $this->drupalGet('admin/structure/block/manage/herotest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_hero_1_left',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', '.hero--photo-orange-insert .hero-img');
+    // Verify anchor class is set.
+    $assert->elementExists('css', '.hero--photo-orange-insert .left');
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-orange-insert .hero-img").css("background-image")');
@@ -79,8 +98,23 @@ trait HeroTestTrait {
       'settings[view_mode]' => 'utexas_hero_2',
     ], 'Save block');
     $this->drupalGet('<front>');
-    // Verify page output.
-    $assert->elementExists('css', '.hero--photo-gradient');
+    // Verify page output with anchor.
+    $assert->elementExists('css', '.hero--photo-gradient.center');
+    // Verify that the correct image style is being applied.
+    // Since the screen width is 900, we expect an image style of 900w.
+    $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-gradient").css("background-image")');
+    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $this->assertTrue($pos !== FALSE);
+
+    // Set display to "Hero Style 2 Right".
+    $this->drupalGet('admin/structure/block/manage/herotest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_hero_2_right',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output with anchor.
+    $assert->elementExists('css', '.hero--photo-gradient.right');
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-gradient").css("background-image")');
