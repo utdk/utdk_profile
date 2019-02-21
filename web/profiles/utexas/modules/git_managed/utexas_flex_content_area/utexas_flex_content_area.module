@@ -5,6 +5,8 @@
  * Contains utexas_flex_content_area.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -22,4 +24,40 @@ function utexas_flex_content_area_theme($existing, $type, $theme, $path) {
     ],
   ];
   return $variables;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_flex_content_area_form_layout_builder_update_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_flex_content_area_simplify_layout_form($form);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_flex_content_area_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  _utexas_flex_content_area_simplify_layout_form($form);
+}
+
+/**
+ * Helper function for Layout Builder form alters.
+ */
+function _utexas_flex_content_area_simplify_layout_form(&$form) {
+  $map = [
+    'default' => "Display two items per row.",
+    'utexas_flex_content_area_1' => "Display one item per row.",
+    'utexas_flex_content_area_3' => "Display three items per row.",
+    'utexas_flex_content_area_4' => "Display four items per row.",
+  ];
+  if (isset($form['settings']['block_form'])) {
+    $bundle = $form['settings']['block_form']['#block']->bundle();
+    if ($bundle === 'utexas_flex_content_area') {
+      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
+        if (in_array($machine_name, array_keys($map))) {
+          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
+        }
+      }
+    }
+  }
 }

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - block_content.type.utexas_flex_content_area
+    - core.entity_view_mode.block_content.utexas_flex_content_area_4
     - field.field.block_content.utexas_flex_content_area.field_block_fca
   module:
     - layout_builder
@@ -10,16 +11,18 @@ dependencies:
 third_party_settings:
   layout_builder:
     sections: {  }
-id: block_content.utexas_flex_content_area.default
+    allow_custom: false
+    enabled: false
+id: block_content.utexas_flex_content_area.utexas_flex_content_area_4
 targetEntityType: block_content
 bundle: utexas_flex_content_area
-mode: default
+mode: utexas_flex_content_area_4
 content:
   field_block_fca:
     weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: utexas_flex_content_area
+    type: utexas_flex_content_area_4
     region: content
 hidden: {  }

@@ -13,7 +13,7 @@ use Drupal\Core\Cache\Cache;
  *
  * @FieldFormatter(
  *   id = "utexas_flex_content_area",
- *   label = @Translation("Flex Content Area (Two per row)"),
+ *   label = @Translation("Display two items per row."),
  *   field_types = {
  *     "utexas_flex_content_area"
  *   }
@@ -124,9 +124,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase {
         '#links' => $links,
         '#cta' => $cta ?? '',
       ];
-      $elements['#items'][$delta] = new \StdClass();
+      $elements['#items'][$delta] = new \stdClass();
       $elements['#items'][$delta]->_attributes = [
-        'class' => ['ut-flex-content-area'],
+        'class' => ['ut-flex-content-area', 'two-col'],
       ];
       $elements['#attributes']['class'][] = 'ut-flex-content-area-wrapper';
     }
