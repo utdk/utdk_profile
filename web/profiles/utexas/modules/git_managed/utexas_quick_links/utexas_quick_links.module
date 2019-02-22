@@ -43,20 +43,53 @@ function utexas_quick_links_form_layout_builder_add_block_alter(&$form, FormStat
  * Helper function for Layout Builder form alters.
  */
 function _utexas_quick_links_simplify_layout_form(&$form) {
-  $map = [
-    'default' => "Display links in 1 column",
-    'utexas_quick_links_2' => "Display links in 2 columns",
-    'utexas_quick_links_3' => "Display links in 3 columns",
-    'utexas_quick_links_4' => "Display links in 4 columns",
-  ];
+  $is_quick_links = FALSE;
+  // Check inline block view mode labels.
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();
     if ($bundle === 'utexas_quick_links') {
-      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
-        if (in_array($machine_name, array_keys($map))) {
-          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
-        }
+      $is_quick_links = TRUE;
+    }
+  }
+  // Check reusable block view mode labels.
+  if (isset($form['settings']['provider'])) {
+    if ($form['settings']['provider']['#value'] == 'block_content') {
+      $options = array_keys($form['settings']['view_mode']['#options']);
+      if (in_array('utexas_quick_links_2', $options)) {
+        $is_quick_links = TRUE;
       }
     }
   }
+  if ($is_quick_links) {
+    $form['settings']['view_mode']['#options'] = _update_quick_links_view_mode_labels($form['settings']['view_mode']['#options']);
+  }
+}
+
+/**
+ * Helper function for updating view mode labels.
+ */
+function _update_quick_links_view_mode_labels($options) {
+  $formatterManager = \Drupal::service('plugin.manager.field.formatter');
+  $definitions = $formatterManager->getDefinitions();
+  $map = _utexas_quick_links_mapping_formatter_labels($definitions, 'utexas_quick_links');
+  // Use keys from the available $options to get the matching key-value pairs.
+  return array_intersect_key($map, $options);
+}
+
+/**
+ * Helper function for generating a mapped array of the widget formatter labels.
+ */
+function _utexas_quick_links_mapping_formatter_labels($definitions, $widget_type) {
+  $map = [];
+  foreach ($definitions as $key => $value) {
+    if (strpos($key, $widget_type) !== FALSE) {
+      $map[$key] = $definitions[$key]['label']->__toString();
+    }
+  }
+  // Convert first key to "default" to be used by view modes.
+  $map['default'] = $map[$widget_type];
+  unset($map[$widget_type]);
+  // Sort the array by machine name.
+  asort($map);
+  return $map;
 }

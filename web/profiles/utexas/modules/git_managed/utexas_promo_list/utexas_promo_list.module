@@ -43,19 +43,53 @@ function utexas_promo_list_form_layout_builder_add_block_alter(&$form, FormState
  * Helper function for Layout Builder form alters.
  */
 function _utexas_promo_list_simplify_layout_form(&$form) {
-  $map = [
-    'default' => "Single list full (1 item per row)",
-    'utexas_promo_list_2' => "Single list responsive (2 items per row)",
-    'utexas_promo_list_3' => "Two lists, side-by-side",
-  ];
+  $is_promo_list = FALSE;
+  // Massage Inline Block View mode labels.
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();
     if ($bundle === 'utexas_promo_list') {
-      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
-        if (in_array($machine_name, array_keys($map))) {
-          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
-        }
+      $is_promo_list = TRUE;
+    }
+  }
+  // Massage Reusable Block View mode labels.
+  if (isset($form['settings']['provider'])) {
+    if ($form['settings']['provider']['#value'] == 'block_content') {
+      $options = $form['settings']['view_mode']['#options'];
+      if (in_array('utexas_promo_list_3', array_keys($options))) {
+        $is_promo_list = TRUE;
       }
     }
   }
+  if ($is_promo_list) {
+    $form['settings']['view_mode']['#options'] = _utexas_promo_list_update_view_mode_labels($form['settings']['view_mode']['#options']);
+  }
+}
+
+/**
+ * Helper function for updating view mode labels.
+ */
+function _utexas_promo_list_update_view_mode_labels($options) {
+  $formatterManager = \Drupal::service('plugin.manager.field.formatter');
+  $definitions = $formatterManager->getDefinitions();
+  $map = _utexas_promo_list_mapping_formatter_labels($definitions, 'utexas_promo_list');
+  // Use the keys from the available $options for the matching key-value pairs.
+  return array_intersect_key($map, $options);
+}
+
+/**
+ * Helper function for generating a mapped array of the widget formatter labels.
+ */
+function _utexas_promo_list_mapping_formatter_labels($definitions, $widget_type) {
+  $map = [];
+  foreach ($definitions as $key => $value) {
+    if (strpos($key, $widget_type) !== FALSE) {
+      $map[$key] = $definitions[$key]['label']->__toString();
+    }
+  }
+  // Convert first key to "default" to be used by view modes.
+  $map['default'] = $map[$widget_type];
+  unset($map[$widget_type]);
+  // Sort the arra by machine name.
+  asort($map);
+  return $map;
 }

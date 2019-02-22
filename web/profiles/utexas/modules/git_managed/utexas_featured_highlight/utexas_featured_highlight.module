@@ -46,19 +46,53 @@ function utexas_featured_highlight_form_layout_builder_add_block_alter(&$form, F
  * Helper function for Layout Builder form alters.
  */
 function _utexas_featured_highlight_simplify_layout_form(&$form) {
-  $map = [
-    'default' => "Limestone (Light)",
-    'utexas_featured_highlight_2' => "Bluebonnet (Medium)",
-    'utexas_featured_highlight_3' => "Charcoal (Dark)",
-  ];
+  $is_featured_highlight = FALSE;
+  // Check inline block view mode labels.
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();
     if ($bundle === 'utexas_featured_highlight') {
-      foreach ($form['settings']['view_mode']['#options'] as $machine_name => $label) {
-        if (in_array($machine_name, array_keys($map))) {
-          $form['settings']['view_mode']['#options'][$machine_name] = $map[$machine_name];
-        }
+      $is_featured_highlight = TRUE;
+    }
+  }
+  // Check reusable block view mode labels.
+  if (isset($form['settings']['provider'])) {
+    if ($form['settings']['provider']['#value'] == 'block_content') {
+      $options = array_keys($form['settings']['view_mode']['#options']);
+      if (in_array('utexas_featured_highlight_2', $options)) {
+        $is_featured_highlight = TRUE;
       }
     }
   }
+  if ($is_featured_highlight) {
+    $form['settings']['view_mode']['#options'] = _update_featured_highlight_view_mode_labels($form['settings']['view_mode']['#options']);
+  }
+}
+
+/**
+ * Helper function for updating view mode labels.
+ */
+function _update_featured_highlight_view_mode_labels($options) {
+  $formatterManager = \Drupal::service('plugin.manager.field.formatter');
+  $definitions = $formatterManager->getDefinitions();
+  $map = _utexas_featured_highlight_mapping_formatter_labels($definitions, 'utexas_featured_highlight');
+  // Use keys from the available $options to get the matching key-value pairs.
+  return array_intersect_key($map, $options);
+}
+
+/**
+ * Helper function for generating a mapped array of the widget formatter labels.
+ */
+function _utexas_featured_highlight_mapping_formatter_labels($definitions, $widget_type) {
+  $map = [];
+  foreach ($definitions as $key => $value) {
+    if (strpos($key, $widget_type) !== FALSE) {
+      $map[$key] = $definitions[$key]['label']->__toString();
+    }
+  }
+  // Convert first key to "default" to be used by view modes.
+  $map['default'] = $map[$widget_type];
+  unset($map[$widget_type]);
+  // Sort the array by machine name.
+  asort($map);
+  return $map;
 }
