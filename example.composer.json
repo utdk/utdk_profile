@@ -117,11 +117,15 @@
     ],
     "post-install-cmd": [
       "@drupal-scaffold",
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "npm ci install",
+      "git config core.hooksPath .github/git-hooks"
     ],
     "post-update-cmd": [
       "@drupal-scaffold",
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+      "npm ci install",
+      "git config core.hooksPath .github/git-hooks"
     ],
     "test-utexas": [
       "php web/core/scripts/run-tests.sh --php /usr/local/bin/php PHPUnit --suppress-deprecations --dburl mysql://drupal8:drupal8@database/drupal8 --url http://utdk8.lndo.site --module utexas --concurrency 4 --verbose"

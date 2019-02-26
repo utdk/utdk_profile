@@ -1,8 +1,10 @@
-# Currently, this file simply copies "example." files in the docroot to
-# non-example equivalents. Run "sh setup.sh" and then "composer install"
-# In the future, it might be used for additional things!
+#!/bin/bash
 
-git config core.hooksPath web/profiles/utexas/tests/git-hooks
+# Currently, this file copies the example files listed below to 
+# make them functional; this is so that downstream developers 
+# may use their own versions of these files without introducing
+# conflicts.
+
 cp example.gitignore .gitignore
 cp example.composer.json composer.json
 cp example.pantheon.yml pantheon.yml
