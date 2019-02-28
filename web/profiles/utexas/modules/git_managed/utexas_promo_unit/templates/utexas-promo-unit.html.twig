@@ -16,16 +16,11 @@
  */
 #}
 
-{%
-  set classes = [
-    'utexas-promo-unit',
-  ]
-%}
 {% if headline %}
   <h3 class="ut-headline--underline">{{ headline }}</h3>
 {% endif %}
 {% for item in promo_unit_items %}
-  <div class="{{ classes }}">
+  <div class="utexas-promo-unit">
     {% if item.image %}
       <div class="image-wrapper {{ image_display }}">
         {{ item.image }}
