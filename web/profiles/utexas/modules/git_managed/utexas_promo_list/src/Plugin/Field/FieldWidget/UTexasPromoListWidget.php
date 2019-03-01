@@ -108,8 +108,14 @@ class UTexasPromoListWidget extends WidgetBase {
           }
           else {
             if (isset($item['item']['image']['media_library_selection'])) {
+              if (is_array($item['item']['image']['media_library_selection'])) {
+                $image_id = $item['item']['image']['media_library_selection'][0];
+              }
+              else {
+                $image_id = $item['item']['image']['media_library_selection'];
+              }
               // @see MediaLibraryElement.php
-              $value['promo_list_items'][$key]['item']['image'] = $item['item']['image']['media_library_selection'];
+              $value['promo_list_items'][$key]['item']['image'] = $image_id;
             }
             $value['promo_list_items'][$key]['item']['link'] = $item['item']['link']['url'];
           }
