@@ -20,12 +20,14 @@ dependencies:
   module:
     - layout_builder
     - layout_builder_restrictions
+    - layout_discovery
     - text
     - user
     - utexas_featured_highlight
     - utexas_flex_content_area
     - utexas_hero
     - utexas_image_link
+    - utexas_layouts
     - utexas_photo_content_area
     - utexas_promo_list
     - utexas_promo_unit
@@ -35,16 +37,27 @@ third_party_settings:
   layout_builder:
     allow_custom: true
     enabled: true
-    sections: {  }
+    sections:
+      -
+        layout_id: layout_utexas_fullwidth
+        layout_settings:
+          class: ''
+          blur: 0
+          background-accent: '0'
+        components: {  }
+      -
+        layout_id: layout_onecol
+        layout_settings: {  }
+        components: {  }
   layout_builder_restrictions:
     allowed_blocks:
-      'Chaos Tools': {  }
-      Content: {  }
-      'Content fields':
+      'Chaos tools': {  }
+      Content:
         - 'field_block:node:utexas_flex_page:field_flex_page_fh'
         - 'field_block:node:utexas_flex_page:field_flex_page_fca_a'
-        - 'field_block:node:utexas_flex_page:field_flex_page_fca_b'
         - 'field_block:node:utexas_flex_page:field_flex_page_hi'
+        - 'field_block:node:utexas_flex_page:field_flex_page_fca_b'
+        - 'field_block:node:utexas_flex_page:field_flex_page_il_a'
         - 'field_block:node:utexas_flex_page:field_flex_page_il_b'
         - 'field_block:node:utexas_flex_page:field_flex_page_pca'
         - 'field_block:node:utexas_flex_page:field_flex_page_pl'
@@ -53,12 +66,10 @@ third_party_settings:
         - 'field_block:node:utexas_flex_page:field_flex_page_resource'
         - 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_a'
         - 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_b'
-        - 'field_block:node:utexas_flex_page:field_flex_page_il_a'
       core: {  }
       Forms: {  }
       System: {  }
       User: {  }
-      'User fields': {  }
       'UTexas Required Links': {  }
     allowed_layouts:
       - layout_utexas_fullwidth

@@ -14,6 +14,7 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\PhotoContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\PromoUnitTestTrait;
+use Drupal\Tests\utexas\Traits\QuickLinksTestTrait;
 use Drupal\Tests\utexas\Traits\ResourcesTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
@@ -33,6 +34,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   use PhotoContentAreaTestTrait;
   use PromoListTestTrait;
   use PromoUnitTestTrait;
+  use QuickLinksTestTrait;
   use ResourcesTestTrait;
   use TestFileCreationTrait;
   use UserTestTrait;
@@ -79,10 +81,13 @@ class CustomWidgetsTest extends WebDriverTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
+    $page = $this->getSession()->getPage();
+    $this->getSession()->resizeWindow(900, 2000);
+    $this->verifyImageLink();
+    $this->verifyQuickLinks();
     $this->verifyFeaturedHighlight();
     $this->verifyHero();
     $this->verifyResources();
-    $this->verifyImageLink();
     $this->verifyFlexContentArea();
     $this->verifyPhotoContentArea();
     $this->verifyPromoUnit();

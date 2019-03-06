@@ -13,7 +13,6 @@ trait HeroTestTrait {
   public function verifyHero() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
 
     // Verify image styles can be disabled.
     $this->drupalGet('block/add/utexas_hero');

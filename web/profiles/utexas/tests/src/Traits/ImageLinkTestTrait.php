@@ -11,31 +11,12 @@ trait ImageLinkTestTrait {
    * Test schema.
    */
   public function verifyImageLink() {
+
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->drupalGet('node/add/utexas_flex_page');
 
-    // Verify that both media widget instances are present.
-    $assert->pageTextContains('Image Link A');
-    $image_link_a_wrapper = $assert->elementExists('css', '#edit-field-flex-page-il-a-base');
-    $image_link_a_wrapper->click();
-    $image_link_a_button = $assert->elementExists('css', '#edit-field-flex-page-il-a-0-image-media-library-open-button');
-    $image_link_a_button->click();
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Media library');
-    $assert->pageTextContains('Image 1');
-    // Select the first media item (should be "Image 1").
-    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[0]->click();
-    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
-    $assert->assertWaitOnAjaxRequest();
-
-    $assert->pageTextContains('Image Link B');
-    $image_link_a_wrapper = $assert->elementExists('css', '#edit-field-flex-page-il-b-base');
-    $image_link_a_wrapper->click();
-    $image_link_a_button = $assert->elementExists('css', '#edit-field-flex-page-il-b-0-image-media-library-open-button');
-    $image_link_a_button->click();
+    $this->drupalGet('block/add/utexas_image_link');
+    $this->clickLink('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Media library');
     $assert->pageTextContains('Image 1');
@@ -47,10 +28,18 @@ trait ImageLinkTestTrait {
     $assert->assertWaitOnAjaxRequest();
 
     $this->submitForm([
-      'title[0][value]' => 'Image Link Test',
-      'field_flex_page_il_a[0][link][url]' => 'https://imagelink.test',
-      'field_flex_page_il_b[0][link][url]' => '/node/1',
+      'info[0][value]' => 'Image Link Test',
+      'field_block_il[0][link][url]' => 'https://imagelink.test',
     ], 'Save');
+
+    $assert->pageTextContains('Image Link Image Link Test has been created.');
+
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
+    $this->drupalGet('<front>');
 
     // Verify page output.
     $assert->linkByHrefExists('https://imagelink.test');
@@ -58,13 +47,49 @@ trait ImageLinkTestTrait {
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w/public/image-test.png';
     $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'src', $expected_path);
-    // Verify Image Link B link is internal.
-    $assert->linkByHrefExists('/image-link-test');
 
-    // Delete the node from the system.
-    $node = $this->drupalGetNodeByTitle('Image Link Test');
-    $this->drupalGet('node/' . $node->id() . '/delete');
-    $this->submitForm([], 'Delete');
+    $this->drupalGet('admin/structure/block/manage/imagelinktest/delete');
+    $this->submitForm([], 'Remove');
+
+    // Test internal links.
+    $basic_page_id = $this->createBasicPage();
+    $this->drupalGet('block/add/utexas_image_link');
+    $this->clickLink('Add media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->assertWaitOnAjaxRequest();
+
+    $this->submitForm([
+      'info[0][value]' => 'Image Link Test 2',
+      'field_block_il[0][link][url]' => '/node/' . $basic_page_id,
+    ], 'Save');
+
+    $assert->pageTextContains('Image Link Image Link Test 2 has been created.');
+
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
+    $this->drupalGet('<front>');
+
+    // Verify page output.
+    // Verify responsive image is present within the link.
+    $assert->elementExists('css', 'a picture source');
+    $expected_path = 'utexas_image_style_500w/public/image-test.png';
+    $assert->elementAttributeContains('css', 'a[href^="/node/1"] picture img', 'src', $expected_path);
+
+    $this->drupalGet('admin/structure/block/manage/imagelinktest2/delete');
+    $this->submitForm([], 'Remove');
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $storage_handler->delete($entities);
   }
 
 }
