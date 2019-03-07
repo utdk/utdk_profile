@@ -34,9 +34,10 @@ trait WysiwygTestTrait {
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $node = $this->drupalGetNodeByTitle('WYSIWYG Test');
     $this->drupalGet('node/' . $node->id());
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertRaw('WYSIWYG A Body');
-    $this->assertRaw('WYSIWYG B Body');
+    // Per UX decision (see UDK8-889), fields do NOT initially
+    // display.
+    $assert->pageTextNotContains('WYSIWYG A Body');
+    $assert->pageTextNotContains('WYSIWYG B Body');
 
     // Clean configuration introduced by test.
     $node = $this->drupalGetNodeByTitle('WYSIWYG Test');
