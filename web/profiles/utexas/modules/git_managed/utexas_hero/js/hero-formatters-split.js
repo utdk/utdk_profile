@@ -58,13 +58,18 @@
     var entity_type_dom = ((entity_type === "node")
     ? ".js-form-item-settings-formatter-type"
     : ".js-form-item-settings-view-mode");
-    // Validate custom selectors exist in sidebar, and add them if they don't.
-    if ($("#edit-hero-style").length === 0) {
-      $(entity_type_dom).after(anchor_position_selector)
-      .after(hero_style_selector);
-      // Once custom selectors are in, hide official formatter/view mode field.
-      $(entity_type_dom).hide();
-    }
+
+    $(entity_type_dom).each(function (index) {
+      if ($(this).find('select option[value=utexas_hero]').length) {
+        // Validate custom selectors exist in sidebar, and add them if they don't.
+        if ($("#edit-hero-style").length === 0) {
+          $(entity_type_dom).after(anchor_position_selector)
+            .after(hero_style_selector);
+          // Once custom selectors are in, hide official formatter/view mode field.
+          $(entity_type_dom).hide();
+        }
+      }
+    });
   }
 
   /**
@@ -166,12 +171,17 @@
    */
   function splitDefaultStyleAndSetAnchorValue(default_style) {
     default_style = default_style.split("utexas_hero_");
-    var style_and_anchor = default_style[1].split("_");
-    default_style = "utexas_hero_" + style_and_anchor[0];
-    var anchor = ((style_and_anchor[1] !== undefined)
-      ? style_and_anchor[1] : "center");
-    $("select[name='anchor_position']").val(anchor);
-    return default_style;
+    if (default_style.length > 1) {
+      var style_and_anchor = default_style[1].split("_");
+      default_style = "utexas_hero_" + style_and_anchor[0];
+      var anchor = ((style_and_anchor[1] !== undefined)
+        ? style_and_anchor[1] : "center");
+      $("select[name='anchor_position']").val(anchor);
+      return default_style;
+    }
+    else {
+      return default_style[0];
+    }
   }
 
   // Initializing Drupal behavior to create custom selectors.
@@ -183,6 +193,16 @@
       if (entity_type === "invalid"){
         return false;
       }
+      // Pick a selector to append selectors based on entity type.
+      var entity_type_dom = ((entity_type === "node")
+        ? ".js-form-item-settings-formatter-type"
+        : ".js-form-item-settings-view-mode");
+
+      $(entity_type_dom).each(function (index) {
+        if ($(this).find('select option[value=utexas_hero]').length) {
+          return false;
+        }
+      });
       // Setting formatter/view mode formatter type based on entity type.
       var formatter_type = ((entity_type === "node")
         ? "settings[formatter][type]" : "settings[view_mode]");
