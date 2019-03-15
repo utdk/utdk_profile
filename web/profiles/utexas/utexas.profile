@@ -52,7 +52,7 @@ function utexas_install_tasks() {
  * This will enable modules and do configuration via batch.
  *
  * This creates an operations array defining what batch should do, including
- * what it should do when it's finished.
+ * what it should do when it is finished.
  */
 function utexas_install_batch_processing(&$install_state) {
   $modules_to_install = \Drupal::state()->get('utexas-install.modules_to_enable', []);

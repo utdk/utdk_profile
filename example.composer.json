@@ -77,7 +77,8 @@
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
     "webflo/drupal-core-strict": "8.6.7",
-    "zaporylie/composer-drupal-optimizations": "1.0.2"
+    "zaporylie/composer-drupal-optimizations": "1.0.2",
+    "drupal/redirect": "1.3"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
@@ -155,6 +156,7 @@
         "drupal/layout_builder_restrictions",
         "drupal/linkit",
         "drupal/pathauto",
+        "drupal/redirect",
         "drupal/token",
         "drupal/entity_browser"
       ],
