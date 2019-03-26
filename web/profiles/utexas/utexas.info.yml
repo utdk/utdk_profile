@@ -33,6 +33,7 @@ dependencies:
   # Contrib
   - adminimal_admin_toolbar
   - feed_block
+  - google_tag
   - metatag
   - pathauto
   - redirect

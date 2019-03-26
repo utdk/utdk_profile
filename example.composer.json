@@ -79,6 +79,7 @@
     "oomphinc/composer-installers-extender": "1.1.2",
     "webflo/drupal-core-strict": "8.6.7",
     "zaporylie/composer-drupal-optimizations": "1.0.2",
+    "drupal/google_tag": "1.1",
     "drupal/redirect": "1.3"
   },
   "require-dev": {
@@ -166,6 +167,7 @@
         "drupal/metatag",
         "drupal/page_manager",
         "drupal/pathauto",
+        "drupal/google_tag",
         "drupal/redirect",
         "drupal/restui",
         "drupal/schema_metatag",
