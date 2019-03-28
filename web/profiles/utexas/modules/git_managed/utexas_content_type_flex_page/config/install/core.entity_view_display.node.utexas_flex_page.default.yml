@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.utexas_flex_page.field_flex_page_hi
     - field.field.node.utexas_flex_page.field_flex_page_il_a
     - field.field.node.utexas_flex_page.field_flex_page_il_b
+    - field.field.node.utexas_flex_page.field_flex_page_metatags
     - field.field.node.utexas_flex_page.field_flex_page_pca
     - field.field.node.utexas_flex_page.field_flex_page_pl
     - field.field.node.utexas_flex_page.field_flex_page_pu
@@ -21,6 +22,7 @@ dependencies:
     - layout_builder
     - layout_builder_restrictions
     - layout_discovery
+    - metatag
     - text
     - user
     - utexas_featured_highlight
@@ -122,6 +124,13 @@ content:
     third_party_settings: {  }
     type: utexas_image_link
     region: content
+  field_flex_page_metatags:
+    weight: 116
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: metatag_empty_formatter
+    region: main
   field_flex_page_pca:
     weight: 114
     label: above

@@ -17,6 +17,7 @@ dependencies:
   - layout_builder_restrictions
   - layout_discovery
   - menu_ui
+  - metatag
   - node
   - path
   - text
