@@ -29,11 +29,13 @@
         <h3 class="ut-headline">
           {{ item.headline }}
         </h3>
-        {% for link in item.links %}
+        {% if item.links %}
           <ul class="link-list">
-            <li>{{ link }}</li>
+            {% for link in item.links %}
+                <li>{{ link }}</li>
+            {% endfor %}
           </ul>
-        {% endfor %}
+        {% endif %}
       </div>
     </div>
   {% endfor %}
