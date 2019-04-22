@@ -1,0 +1,11 @@
+.stacked-display .utexas-promo-unit {
+  flex-direction: column;
+}
+.stacked-display .utexas-promo-unit .image-wrapper {
+  flex: 0 0 100%;
+  margin-right: 0;
+}
+.stacked-display .utexas-promo-unit img {
+  margin-bottom: .75rem;
+  width: 100%;
+}

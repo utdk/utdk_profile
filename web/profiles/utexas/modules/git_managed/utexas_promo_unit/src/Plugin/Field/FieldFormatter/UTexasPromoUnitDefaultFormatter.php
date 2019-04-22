@@ -76,6 +76,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
         '#promo_unit_items' => $instances,
         '#image_display' => 'landscape-image',
       ];
+      $elements[$delta]['#attached']['library'][] = 'utexas_promo_unit/promo-units';
     }
     return $elements;
 
