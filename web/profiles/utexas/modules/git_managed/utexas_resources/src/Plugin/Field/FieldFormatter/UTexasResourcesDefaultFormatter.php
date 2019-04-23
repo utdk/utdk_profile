@@ -13,7 +13,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *
  * @FieldFormatter(
  *   id = "utexas_resources",
- *   label = @Translation("Default 'Resources' display"),
+ *   label = @Translation("Default display"),
  *   field_types = {
  *     "utexas_resources"
  *   }
@@ -112,6 +112,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase {
         '#resource_items' => $instances,
       ];
     }
+    $elements['#attached']['library'][] = 'utexas_resources/resources';
     return $elements;
 
   }

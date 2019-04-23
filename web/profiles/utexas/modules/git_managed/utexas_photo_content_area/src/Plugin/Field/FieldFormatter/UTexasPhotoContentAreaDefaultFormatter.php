@@ -11,7 +11,7 @@ use Drupal\Core\Cache\Cache;
  *
  * @FieldFormatter(
  *   id = "utexas_photo_content_area",
- *   label = @Translation("Photo Content Area (Default)"),
+ *   label = @Translation("Default display"),
  *   field_types = {
  *     "utexas_photo_content_area"
  *   }
@@ -87,6 +87,7 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase {
         '#links' => $links,
       ];
     }
+    $elements['#attached']['library'][] = 'utexas_photo_content_area/photo-content-area';
     return $elements;
   }
 

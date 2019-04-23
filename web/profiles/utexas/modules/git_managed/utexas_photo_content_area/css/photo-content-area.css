@@ -1,0 +1,12 @@
+.stacked-display .ut-photo-content-area {
+  flex-direction: column;
+  flex: 0 0 100%;
+}
+.stacked-display .ut-photo-content-area .photo-wrapper img {
+  width: 100%;
+  max-width: 100%;
+}
+.stacked-display .ut-photo-content-area .photo-wrapper .caption {
+  width: 100%;
+  max-width: 100%;
+}
