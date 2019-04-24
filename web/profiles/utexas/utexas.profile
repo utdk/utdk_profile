@@ -37,6 +37,11 @@ function utexas_install_tasks() {
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
+    'utexas_install_cleanup' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
     'utexas_finish_installation' => [
       'display_name' => t('Installation complete'),
       'display' => TRUE,
@@ -125,6 +130,16 @@ function utexas_install_demo_content(&$install_state) {
     ];
     return $batch;
   }
+}
+
+/**
+ * Perform final cleanup tasks.
+ */
+function utexas_install_cleanup(&$install_state) {
+  // Remove default search entities.
+  $search_storage = \Drupal::entityManager()->getStorage('search_page');
+  $entities = $search_storage->loadMultiple(['node_search', 'user_search']);
+  $search_storage->delete($entities);
 }
 
 /**

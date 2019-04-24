@@ -35,6 +35,7 @@ dependencies:
   - breadcrumbs_visibility
   - feed_block
   - google_tag
+  - google_cse
   - metatag
   - pathauto
   - page_title_visibility
