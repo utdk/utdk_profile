@@ -46,32 +46,32 @@ jobs:
           command: |
             echo -e "Host github.austin.utexas.edu\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
             echo 'export PATH=/var/www/site_build/vendor/bin:$PATH' >> $BASH_ENV
-      - run:
+      - run: 
           name: Configure Drush
           command: |
             mkdir ~/.drush
             cp .circleci/fixtures/aliases.drushrc.php ~/.drush/aliases.drushrc.php
-      - run:
+      - run: 
           name: Configure docroot
           command: sudo mv /home/circleci/site_build /var/www/site_build
-      # Set up script creates docroot - run before vhost configuration so the docroot is present.
-      - run:
+      # Set up script creates docroot - run before vhost configuration so the docroot is present.    
+      - run: 
           name: Set up and install Drupal
           command: |
             cd /var/www/site_build
             bash setup.sh
       # Modifications to envars required to make Apache run as circle user.
-      # Project must be checked out into home directory - move code to more conventional directory for Apache.
-      - run:
+      # Project must be checked out into home directory - move code to more conventional directory for Apache.     
+      - run: 
           name: Configure Apache and vhost
-          command: |
+          command: | 
             sudo cp /var/www/site_build/.circleci/fixtures/circle-vhost.conf /etc/apache2/sites-available
             sudo cp /var/www/site_build/.circleci/fixtures/envvars /etc/apache2/envvars
             sudo a2ensite circle-vhost.conf
             sudo a2enmod rewrite
             sudo service apache2 restart
       # Ensure vhost is setup correctly before proceeding.
-      #- run:
+      #- run: 
       #  name: Vhost setup smoke test.
       #   command: |
       #     HTTP_STATUS=$(curl -I -s  http://localhost:8080 | grep HTTP)
@@ -79,7 +79,7 @@ jobs:
       #     if [[ "$HTTP_STATUS" != *"200"* ]]; then
       #       exit 1
       #     fi
-      - run:
+      - run: 
           name: Prepare HTML output directory for testing.
           command: |
             if [ ! -d /var/www/site_build/web/sites/simpletest/browser_output ]; then
@@ -97,6 +97,7 @@ jobs:
               mkdir -p /var/www/site_build/web/modules/contrib
            fi
            cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_breadcrumbs_visibility /var/www/site_build/web/modules/contrib/utexas_breadcrumbs_visibility
+           cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_page_title_visibility  /var/www/site_build/web/modules/contrib/utexas_page_title_visibility
 
       # Begin testing.
       - run:
@@ -106,11 +107,11 @@ jobs:
             cd /var/www/site_build
             vendor/bin/phpunit -c /var/www/site_build/.circleci/fixtures/functional-js.phpunit.xml --stop-on-failure --testsuite=functional-javascript --verbose --debug --group=utexas
             vendor/bin/phpunit -c /var/www/site_build/web/core/phpunit.xml.dist --stop-on-failure --testsuite=functional --verbose --debug --group=utexas
-
+       
       # Save artifacats.
       - store_artifacts:
           path: /tmp/test-results
-          destination: PHPUnit
+          destination: PHPUnit  
       - store_artifacts:
           path: /var/www/site_build/web/sites/simpletest
           destination: SimpleTest
