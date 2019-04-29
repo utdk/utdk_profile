@@ -36,6 +36,7 @@ dependencies:
   - google_tag
   - metatag
   - pathauto
+  - page_title_visibility
   - redirect
   # Custom
   - utexas_text_format_flex_html
@@ -44,7 +45,6 @@ dependencies:
   - utexas_favicons
   - utexas_layouts
   - utexas_breadcrumbs_visibility
-  - utexas_page_title_visibility
 install: []
 themes:
   - bartik
