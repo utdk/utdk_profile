@@ -97,7 +97,6 @@ jobs:
               mkdir -p /var/www/site_build/web/modules/contrib
            fi
            cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_breadcrumbs_visibility /var/www/site_build/web/modules/contrib/utexas_breadcrumbs_visibility
-           cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_page_title_visibility  /var/www/site_build/web/modules/contrib/utexas_page_title_visibility
 
       # Begin testing.
       - run:

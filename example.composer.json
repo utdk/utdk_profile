@@ -46,10 +46,6 @@
     },
     {
       "type": "vcs",
-      "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_page_title_visibility.git"
-    },
-    {
-      "type": "vcs",
       "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git"
     }
   ],
@@ -69,11 +65,11 @@
     "drupal/layout_builder_restrictions": "1.3",
     "drupal/linkit": "5.0-beta8",
     "drupal/metatag": "1.8",
+    "drupal/page_title_visibility": "1.1",
     "drupal/pathauto": "1.3",
     "drush/drush": "~8",
     "utexas/forty_acres": "dev-master",
     "utexas/utexas_breadcrumbs_visibility": "1.0-alpha3",
-    "utexas/utexas_page_title_visibility": "1.0-alpha3",
     "utexas/utexas_qualtrics_filter": "1.0-alpha2",
     "rvtraveller/qs-composer-installer": "1.1",
     "oomphinc/composer-installers-extender": "1.1.2",
@@ -166,6 +162,7 @@
         "drupal/linkit",
         "drupal/metatag",
         "drupal/page_manager",
+        "drupal/page_title_visibility",
         "drupal/pathauto",
         "drupal/google_tag",
         "drupal/redirect",
