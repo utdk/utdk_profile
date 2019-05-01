@@ -90,13 +90,6 @@ jobs:
          name: Start chromedriver.
          command: chromedriver --whitelisted-ips=127.0.0.1 --headless
          background: true
-      - run:
-         name: Copy custom modules for testing.
-         command: |
-           if [ ! -d /var/www/site_build/web/modules/contrib ]; then
-              mkdir -p /var/www/site_build/web/modules/contrib
-           fi
-           cp -r /var/www/site_build/web/profiles/utexas/modules/composer_managed/custom/utexas_breadcrumbs_visibility /var/www/site_build/web/modules/contrib/utexas_breadcrumbs_visibility
 
       # Begin testing.
       - run:
