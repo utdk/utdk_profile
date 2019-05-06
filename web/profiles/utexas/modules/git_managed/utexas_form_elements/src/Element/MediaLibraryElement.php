@@ -6,7 +6,6 @@ use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\media\Entity\Media;
@@ -210,12 +209,9 @@ class MediaLibraryElement extends FormElement {
    */
   public static function updateWidget(array $form, FormStateInterface $form_state) {
     $triggering_element = $form_state->getTriggeringElement();
-    $wrapper_id = $triggering_element['#ajax']['wrapper'];
     $length = end($triggering_element['#parents']) === 'remove_button' ? -3 : -1;
     $parents = array_slice($triggering_element['#array_parents'], 0, $length);
     $element = NestedArray::getValue($form, $parents);
-    $response = new AjaxResponse();
-    $response->addCommand(new ReplaceCommand("#$wrapper_id", $element));
     return $element;
   }
 
