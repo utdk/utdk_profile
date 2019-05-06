@@ -3,12 +3,15 @@
 namespace Drupal\utexas_form_elements\Element;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Ajax\AjaxResponse;
+use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Serialization\Json;
-use Drupal\Core\Url;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\media\Entity\Media;
+use Drupal\media_library\MediaLibraryUiBuilder;
+use Drupal\media_library\MediaLibraryState;
 
 /**
  * Defines an element for using the media library.
@@ -26,6 +29,13 @@ use Drupal\media\Entity\Media;
  *   ];
  */
 class MediaLibraryElement extends FormElement {
+
+  /**
+   * The prefix to use with a field ID for media library opener IDs.
+   *
+   * @var string
+   */
+  protected static $openerIdPrefix = 'field:';
 
   /**
    * {@inheritdoc}
@@ -87,7 +97,15 @@ class MediaLibraryElement extends FormElement {
         ],
       ],
     ];
+    // Create a new media library URL with the correct state parameters.
+    $allowed_media_type_ids = $element['#target_bundles'] ?? FALSE;
+    $selected_type_id = reset($allowed_media_type_ids);
+    // The opener ID is used by the select form and the upload form to add the
+    // selected/uploaded media items to the widget.
+    $opener_id = static::$openerIdPrefix . $field_name . $id_suffix;
+
     if ($media_item = \Drupal::entityTypeManager()->getStorage($entity_type)->load($element['#value'])) {
+      $remaining = !empty($media_item) ? 0 : 1;
       $element['selection'] = [
         '#type' => 'container',
         '#attributes' => [
@@ -118,35 +136,33 @@ class MediaLibraryElement extends FormElement {
         ],
       ];
     }
-
-    $query = [
-      'media_library_widget_id' => $field_name . $id_suffix,
-      'media_library_allowed_types' => $element['#target_bundles'] ?? FALSE,
-      'media_library_remaining' => 1,
-    ];
-    $dialog_options = Json::encode([
-      'dialogClass' => 'media-library-widget-modal',
-      'height' => '75%',
-      'width' => '75%',
-      'title' => t('Media library'),
-    ]);
-
+    $remaining = !empty($media_item) ? 0 : 1;
+    $state = MediaLibraryState::create($opener_id, $allowed_media_type_ids, $selected_type_id, $remaining);
     // Add a button that will load the Media library in a modal using AJAX.
     $element['media_library_open_button'] = [
-      '#type' => 'link',
-      '#title' => empty($media_item) ? t('Add media') : t('Replace media'),
+      '#type' => 'submit',
+      '#value' => t('Set media'),
       '#name' => $field_name . '-media-library-open-button' . $id_suffix,
-      '#url' => Url::fromRoute('view.media_library.widget', [], [
-        'query' => $query,
-      ]),
       '#attributes' => [
-        'class' => ['button', 'use-ajax', 'media-library-open-button'],
-        'data-dialog-type' => 'modal',
-        'data-dialog-options' => $dialog_options,
+        'class' => [
+          'media-library-open-button',
+          'js-media-library-open-button',
+        ],
+        // The jQuery UI dialog automatically moves focus to the first :tabbable
+        // element of the modal, so we need to disable refocus on the button.
+        'data-disable-refocus' => 'true',
       ],
-      // Prevent errors in other widgets from preventing addition.
+      '#media_library_state' => $state,
+      '#ajax' => [
+        'callback' => [static::class, 'openMediaLibrary'],
+        'progress' => [
+          'type' => 'throbber',
+          'message' => t('Opening media library.'),
+        ],
+      ],
+      '#submit' => [],
+      // Allow the media library to be opened even if there are form errors.
       '#limit_validation_errors' => $limit_validation_errors,
-      '#access' => TRUE,
     ];
 
     // This hidden field and button are used to add new item to the widget.
@@ -168,7 +184,6 @@ class MediaLibraryElement extends FormElement {
       '#ajax' => [
         'callback' => [static::class, 'updateWidget'],
         'wrapper' => $wrapper_id,
-        'disable-refocus' => TRUE,
       ],
       '#attributes' => [
         'data-media-library-widget-update' => $field_name . $id_suffix,
@@ -195,10 +210,32 @@ class MediaLibraryElement extends FormElement {
    */
   public static function updateWidget(array $form, FormStateInterface $form_state) {
     $triggering_element = $form_state->getTriggeringElement();
+    $wrapper_id = $triggering_element['#ajax']['wrapper'];
     $length = end($triggering_element['#parents']) === 'remove_button' ? -3 : -1;
     $parents = array_slice($triggering_element['#array_parents'], 0, $length);
     $element = NestedArray::getValue($form, $parents);
+    $response = new AjaxResponse();
+    $response->addCommand(new ReplaceCommand("#$wrapper_id", $element));
     return $element;
+  }
+
+  /**
+   * AJAX callback to open the library modal.
+   *
+   * @param array $form
+   *   The form array.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state.
+   *
+   * @return \Drupal\Core\Ajax\AjaxResponse
+   *   An AJAX response to open the media library.
+   */
+  public static function openMediaLibrary(array $form, FormStateInterface $form_state) {
+    $triggering_element = $form_state->getTriggeringElement();
+    $library_ui = \Drupal::service('media_library.ui_builder')->buildUi($triggering_element['#media_library_state']);
+    $dialog_options = MediaLibraryUiBuilder::dialogOptions();
+    return (new AjaxResponse())
+      ->addCommand(new OpenModalDialogCommand($dialog_options['title'], $library_ui, $dialog_options));
   }
 
   /**
@@ -218,7 +255,6 @@ class MediaLibraryElement extends FormElement {
     $parents = array_slice($triggering_element['#array_parents'], 0, $length);
     $element = NestedArray::getValue($form, $parents);
     $element['media_library_selection']['#value'] = 0;
-    $element['media_library_open_button']['#title'] = t('Add media');
     unset($element['selection']);
     return $element;
   }
