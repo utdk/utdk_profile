@@ -4,6 +4,7 @@ namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Tests\utexas\Traits\InstallTestTrait;
 
 /**
  * Verifies minimal installation completes with nothing enabled.
@@ -11,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group utexas
  */
 class MinimalInstallationTest extends BrowserTestBase {
+  use InstallTestTrait;
 
   /**
    * Use the 'utexas' installation profile.
@@ -18,6 +20,14 @@ class MinimalInstallationTest extends BrowserTestBase {
    * @var string
    */
   protected $profile = 'utexas';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp() {
+    $this->utexasSharedSetup();
+    parent::setUp();
+  }
 
   /**
    * {@inheritdoc}
