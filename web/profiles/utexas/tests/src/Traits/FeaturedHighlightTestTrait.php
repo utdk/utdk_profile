@@ -16,15 +16,15 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('block/add/utexas_featured_highlight');
 
     // Verify widget field schema.
-    $this->clickLink('Add media');
+    $page->pressButton('Set media');
     $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
-    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $assert->assertWaitOnAjaxRequest();
 
     $this->submitForm([
@@ -82,15 +82,18 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('block/add/utexas_featured_highlight');
 
     // Verify widget field schema.
-    $this->clickLink('Add media');
+    $page->pressButton('Set media');
     $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Media library');
+    $assert->pageTextContains('Add or select media');
+    $this->clickLink("Video (External)");
+    $assert->assertWaitOnAjaxRequest();
+
     $assert->pageTextContains('Video 1');
-    // Select the 2nd media item (should be "Video 1").
+    // Select the 1st video media item (should be "Video 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
-    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Select media');
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $assert->assertWaitOnAjaxRequest();
 
     $this->submitForm([

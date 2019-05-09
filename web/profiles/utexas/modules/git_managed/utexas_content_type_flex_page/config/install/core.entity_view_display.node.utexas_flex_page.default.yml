@@ -47,10 +47,12 @@ third_party_settings:
           blur: 0
           background-accent: '0'
         components: {  }
+        third_party_settings: {  }
       -
         layout_id: layout_onecol
         layout_settings: {  }
         components: {  }
+        third_party_settings: {  }
   layout_builder_restrictions:
     allowed_blocks:
       'Chaos tools': {  }
