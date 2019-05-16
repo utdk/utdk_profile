@@ -13,7 +13,7 @@ third_party_settings:
     sections: {  }
     allow_custom: false
     enabled: false
-id: block_content.utexas_promo_list.promo_list_2
+id: block_content.utexas_promo_list.utexas_promo_list_2
 targetEntityType: block_content
 bundle: utexas_promo_list
 mode: utexas_promo_list_2

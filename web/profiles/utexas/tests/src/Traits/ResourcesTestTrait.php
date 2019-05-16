@@ -64,6 +64,15 @@ trait ResourcesTestTrait {
     $assert->elementExists('css', 'picture source');
     $expected_path = 'utexas_image_style_400w_250h/public/image-test';
     $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
+    // Verify stacked display adding class to markup.
+    $this->drupalGet('admin/structure/block/manage/resourcestest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_resources_2',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', 'div.stacked-display div.ut-resources-wrapper');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/resourcestest/delete');

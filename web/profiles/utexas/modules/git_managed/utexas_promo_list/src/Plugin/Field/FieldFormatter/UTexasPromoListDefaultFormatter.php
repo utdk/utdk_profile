@@ -70,7 +70,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase {
               $image_render_array = [
                 '#theme' => 'responsive_image_formatter',
                 '#item' => $image,
-                '#item_attributes' => ['class' => ['image-wrapper']],
+                '#item_attributes' => ['class' => ['ut-img--fluid']],
                 '#responsive_image_style_id' => $responsive_image_style_name,
                 '#url' => $instances[$key]['link'] ?? '',
                 '#cache' => [
@@ -91,9 +91,9 @@ class UTexasPromoListDefaultFormatter extends FormatterBase {
         '#headline' => $item->headline,
         '#promo_list_items' => $instances,
         '#wrapper' => '',
-        '#columns' => 'col-12',
       ];
     }
+    $elements['#attached']['library'][] = 'utexas_promo_list/promo-lists';
     return $elements;
   }
 

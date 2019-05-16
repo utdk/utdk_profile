@@ -68,7 +68,7 @@ trait PromoListTestTrait {
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
-    $assert->elementExists('css', 'div.two-column-responsive > div.utexas-promo-list');
+    $assert->elementExists('css', 'div.ut-promo-list-wrapper.two-column-responsive');
 
     // Set display to "Two Columns".
     $this->drupalGet('admin/structure/block/manage/promolisttest');
@@ -78,7 +78,17 @@ trait PromoListTestTrait {
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
-    $assert->elementExists('css', 'div.row > div.col-12.col-lg-6');
+    $assert->elementExists('css', 'div.ut-promo-list-wrapper.two-side-by-side');
+
+    // Set display to "Stacked".
+    $this->drupalGet('admin/structure/block/manage/promolisttest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_promo_list_4',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', 'div.stacked-display > div.ut-promo-list-wrapper');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promolisttest/delete');

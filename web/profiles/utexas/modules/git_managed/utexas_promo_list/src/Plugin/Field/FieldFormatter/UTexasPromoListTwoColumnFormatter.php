@@ -23,8 +23,13 @@ class UTexasPromoListTwoColumnFormatter extends UTexasPromoListDefaultFormatter 
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
     foreach ($elements as $delta => $item) {
-      $elements[$delta]['#wrapper'] = 'row';
-      $elements[$delta]['#columns'] = 'col-12 col-lg-6';
+      if (gettype($delta) === 'integer') {
+        $elements[$delta]['#wrapper'] = 'two-side-by-side';
+        $elements['#items'][$delta] = new \stdClass();
+        $elements['#items'][$delta]->_attributes = [
+          'class' => ['ut-promo-list-side-by-side-wrapper'],
+        ];
+      }
     }
     return $elements;
   }

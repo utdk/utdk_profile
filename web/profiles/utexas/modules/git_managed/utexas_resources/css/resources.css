@@ -1,3 +1,41 @@
 .stacked-display .utexas-resource {
   flex-direction: column;
 }
+
+.utexas-resource {
+  display: flex;
+  margin: 0 0 20px 0;
+  background-color: #fbfbf9;
+  border: 1px solid #f2f1ed;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 900px) {
+  .utexas-resource {
+    flex-direction: row;
+  }
+}
+
+.utexas-resource .image-wrapper {
+  flex: 0 0 50%;
+  line-height: 0;
+}
+
+.utexas-resource .data-wrapper {
+  flex: 0 0 50%;
+  padding: 20px;
+}
+
+.utexas-resource .ut-headline {
+  padding-top: 0;
+}
+
+.utexas-resource .link-list {
+  list-style-type: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.utexas-resource .link-list li {
+  padding-bottom: 9px;
+}

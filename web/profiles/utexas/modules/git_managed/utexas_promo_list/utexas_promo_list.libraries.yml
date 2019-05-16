@@ -1,0 +1,5 @@
+promo-lists:
+  version: 1.x
+  css:
+    theme:
+      css/promo-lists.css: {}

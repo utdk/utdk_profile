@@ -20,21 +20,40 @@
     wrapper|clean_class,
   ]
 %}
-<h3 class="ut-headline--underline">{{ headline }}</h3>
+{% if wrapper != 'two-side-by-side' %}
+  <h3 class="ut-headline--underline">{{ headline }}</h3>
+{% endif %}
 <div{{ attributes.addClass(classes) }}>
-{% for item in promo_list_items %}
-  <div class="{{ columns }}">
-    {{ item.image }}
-    <div class="content">
-      {% if item.link and item.headline %}
-      <a href="{{ item.link }}" class="ut-link">
-        <h3 class="ut-headline">{{ item.headline }}</h3>
-      </a>
-      {% elseif item.headline %}
-        <h3 class="ut-headline">{{ item.headline }}</h3>
+  {% if wrapper == 'two-side-by-side' %}
+    <h3 class="ut-headline--underline">{{ headline }}</h3>
+  {% endif %}
+  {% for item in promo_list_items %}
+    <div class="promo-list">
+      {% if item.image %}
+        <div class="image-wrapper">
+          {% if item.link %}
+            <a href="{{ item.link }}">
+              {{ item.image }}
+            </a>
+          {% else %}
+            {{ item.image }}
+          {% endif %}
+        </div>
       {% endif %}
-      {{ item.copy }}
+      <div class="content">
+        {% if item.link and item.headline %}
+          <a href="{{ item.link }}" class="ut-link">
+            <h3 class="ut-headline">{{ item.headline }}</h3>
+          </a>
+        {% elseif item.headline %}
+          <h3 class="ut-headline">{{ item.headline }}</h3>
+        {% endif %}
+        {% if item.copy %}
+          <div class="ut-copy">
+            {{ item.copy }}
+          </div>
+        {% endif %}
+      </div>
     </div>
-  </div>
-{% endfor %}
+  {% endfor %}
 </div>

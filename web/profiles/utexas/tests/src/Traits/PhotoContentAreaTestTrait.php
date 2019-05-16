@@ -52,6 +52,15 @@ trait PhotoContentAreaTestTrait {
     // Verify responsive image is present.
     $expected_path = 'utexas_image_style_450w_600h/public/image-test';
     $assert->elementAttributeContains('css', '.photo-wrapper picture img', 'src', $expected_path);
+    // Verify stacked display formatter adding class to markup.
+    $this->drupalGet('admin/structure/block/manage/photocontentareatest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_photo_content_area_2',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $assert->elementExists('css', 'div.stacked-display div.ut-photo-content-area');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/photocontentareatest/delete');

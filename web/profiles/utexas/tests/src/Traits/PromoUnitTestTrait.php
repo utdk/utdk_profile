@@ -77,6 +77,42 @@ trait PromoUnitTestTrait {
     $expected_path = 'utexas_image_style_112w_112h/public/image-test.png';
     $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
 
+    // Set display to "Landscape Stacked".
+    $this->drupalGet('admin/structure/block/manage/promounittest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_promo_unit_4',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
+    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementExists('css', 'div.stacked-display div.utexas-promo-unit');
+
+    // Set display to "Portrait Stacked".
+    $this->drupalGet('admin/structure/block/manage/promounittest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_promo_unit_5',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $expected_path = 'utexas_image_style_120w_150h/public/image-test.png';
+    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementExists('css', 'div.stacked-display div.utexas-promo-unit');
+
+    // Set display to "Square Stacked".
+    $this->drupalGet('admin/structure/block/manage/promounittest');
+    $this->submitForm([
+      'region' => 'content',
+      'settings[view_mode]' => 'utexas_promo_unit_6',
+    ], 'Save block');
+    $this->drupalGet('<front>');
+    // Verify page output.
+    $expected_path = 'utexas_image_style_112w_112h/public/image-test.png';
+    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementExists('css', 'div.stacked-display div.utexas-promo-unit');
+
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promounittest/delete');
     $this->submitForm([], 'Remove');
