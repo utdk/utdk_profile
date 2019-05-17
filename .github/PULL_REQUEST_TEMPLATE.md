@@ -36,9 +36,11 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 <!--- Include notes for both functional testing & code review -->
 0. `git fetch && git checkout ` this branch
 1. `si` (e.g., `alias si='lando drush si utexas -y install_configure_form.enable_update_status_module=NULL --account-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-mail="wcs-drupal-site-admins@utlists.utexas.edu" --site-name="Drupal Kit Rocks"'`)
-2. `lando test web/profiles/utexas/tests/src/Functional`
-3. `lando test-js web/profiles/utexas/tests/src/FunctionalJavascript`
-0.
+2.
+
+<!--- Steps for running tests locally with lando. Use as needed.-->
+<!--- 0. `lando test web/profiles/utexas/tests/src/Functional` -->
+<!--- 0. `lando test-js web/profiles/utexas/tests/src/FunctionalJavascript` -->
 
 ## Potential Reviewers
 
