@@ -2,7 +2,6 @@ pipeline {
     options {
         disableConcurrentBuilds()
         ansiColor('xterm')
-        //throttle(categories: ['runs-docker-containers']) 
     }
     agent any
     environment {

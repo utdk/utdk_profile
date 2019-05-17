@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Drush alias for CircleCI tests.
+ * Drush alias for CI tests.
  */
 
  $aliases['utdk8'] = array(
