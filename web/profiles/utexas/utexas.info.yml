@@ -46,6 +46,7 @@ dependencies:
   - utexas_block_required_links
   - utexas_favicons
   - utexas_layouts
+  - utexas_site_announcement
 install: []
 themes:
   - bartik

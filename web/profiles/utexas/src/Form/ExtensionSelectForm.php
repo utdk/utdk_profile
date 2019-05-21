@@ -130,7 +130,14 @@ class ExtensionSelectForm extends FormBase {
     // This array is passed to state, where it can be processed in
     // the next installation step.
     $values = $form_state->getValues();
-    $modules_to_install = [];
+    // First define modules that should be installed by default
+    // which are not exposed in the installation options.
+    // These are modules which are not profile dependencies,
+    // but are also considered common enough not to necessitate
+    // exposing as an installation option.
+    $modules_to_install = [
+      'utexas_site_announcement',
+    ];
     if ($values['utexas_enable_flex_page_content_type'] == 1) {
       $modules_to_install[] = 'utexas_content_type_flex_page';
     }

@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_homepage_alert.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_site_announcement_theme() {
+  return [
+    'utexas_site_announcement' => [
+      'variables' => [
+        'title' => NULL,
+        'icon' => NULL,
+        'message' => NULL,
+        'cta' => NULL,
+        'background_color' => NULL,
+        'text_color' => NULL,
+        'unique_id' => NULL,
+      ],
+      'template' => 'utexas-site-announcement',
+    ],
+  ];
+}

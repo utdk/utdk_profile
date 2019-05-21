@@ -55,4 +55,26 @@ trait UserTestTrait {
     $this->drupalLogin($this->testUser);
   }
 
+  /**
+   * Create a generic admin user with common permissions.
+   *
+   * @param array $extra_permissions
+   *   Optionally provide extra permissions for the user.
+   *
+   * @return \Drupal\user\Entity\User
+   *   The user object for usage in the test.
+   */
+  protected function initializeAdminUser(array $extra_permissions = []) {
+    $standard_permissions = [
+      'administer site configuration',
+      'use text format restricted_html',
+      'view the administration theme',
+    ];
+    if (!empty($extra_permissions)) {
+      $standard_permissions = array_merge($standard_permissions, $extra_permissions);
+    }
+    $user = $this->drupalCreateUser($standard_permissions);
+    return $user;
+  }
+
 }
