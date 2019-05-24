@@ -34,9 +34,14 @@
 ## XDebug
 This should provide "out of the box" xdebugging ability
 Test steps:
+<<<<<<< HEAD
 * Add `XDEBUG_ENABLED=1` to your `docksal-local.env`, and do a `fin up` to reload the containers with XDebug enabled. If you haven't already setup a `php.ini`, add one, or update `/etc/php/php.ini` settings with desired XDebug preferences (see `.docksal/example-php-mysql-overrides/etc/php/php.ini`), and do a `fin project restart` to apply the new settings. *NOTE*: Having `XDEBUG_ENABLED=1` will slow down performance, so consider setting back to `0` and running `fin up` to unload it if not actively using.
 * Download [VSCode debug extension](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug)
 * Go to the "debug" tab and start debugging:
+=======
+* Download [VSCode debug extension](https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug)
+* Checkout this branch, `fin init-site`, go to "debug" tab and start debugging:
+>>>>>>> a0187d1... UDK8-1014 - Add initial Docksal scaffolding (#625)
 ![image](https://media.github.austin.utexas.edu/user/68/files/3fc12580-6cd4-11e9-9ecc-98090c974553)
 * When you refresh the site in a spot where that code executes, it should jump you into vscode
 ![image](https://media.github.austin.utexas.edu/user/68/files/7e56e000-6cd4-11e9-90f0-58c9ac48b006)
