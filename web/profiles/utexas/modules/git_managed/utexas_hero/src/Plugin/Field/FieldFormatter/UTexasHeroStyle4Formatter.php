@@ -4,7 +4,6 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Url;
 
 /**
@@ -18,7 +17,7 @@ use Drupal\Core\Url;
  *   }
  * )
  */
-class UTexasHeroStyle4Formatter extends FormatterBase {
+class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -27,14 +26,14 @@ class UTexasHeroStyle4Formatter extends FormatterBase {
     $elements = [];
 
     $responsive_image_style_name = 'utexas_responsive_image_hi';
-    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style_name);
     $image_styles_to_load = [];
     $cache_tags = [];
     if ($responsive_image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
       $image_styles_to_load = $responsive_image_style->getImageStyleIds();
     }
-    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
+    $image_styles = $this->entityTypeManager->getStorage('image_style')->loadMultiple($image_styles_to_load);
     foreach ($image_styles as $image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
@@ -55,9 +54,9 @@ class UTexasHeroStyle4Formatter extends FormatterBase {
         }
       }
       $image_render_array = [];
-      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
+      if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+        if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $image = new \stdClass();
           $image->title = NULL;
           $image->alt = $media_attributes[0]['alt'];

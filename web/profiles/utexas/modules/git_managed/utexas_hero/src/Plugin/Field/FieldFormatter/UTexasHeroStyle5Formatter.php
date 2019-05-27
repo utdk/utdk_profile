@@ -5,7 +5,6 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 
@@ -20,7 +19,7 @@ use Drupal\Core\Url;
  *   }
  * )
  */
-class UTexasHeroStyle5Formatter extends FormatterBase {
+class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -34,13 +33,13 @@ class UTexasHeroStyle5Formatter extends FormatterBase {
     $small_image_style_name = 'utexas_image_style_600w';
 
     // First load image styles & store their style in the cache for this page.
-    $large_image_style = \Drupal::entityTypeManager()->getStorage('image_style')->load($large_image_style_name);
+    $large_image_style = $this->entityTypeManager->getStorage('image_style')->load($large_image_style_name);
     $cache_tags = Cache::mergeTags($cache_tags, $large_image_style->getCacheTags());
 
-    $medium_image_style = \Drupal::entityTypeManager()->getStorage('image_style')->load($medium_image_style_name);
+    $medium_image_style = $this->entityTypeManager->getStorage('image_style')->load($medium_image_style_name);
     $cache_tags = Cache::mergeTags($cache_tags, $medium_image_style->getCacheTags());
 
-    $small_image_style = \Drupal::entityTypeManager()->getStorage('image_style')->load($small_image_style_name);
+    $small_image_style = $this->entityTypeManager->getStorage('image_style')->load($small_image_style_name);
     $cache_tags = Cache::mergeTags($cache_tags, $small_image_style->getCacheTags());
 
     foreach ($items as $delta => $item) {
@@ -60,9 +59,9 @@ class UTexasHeroStyle5Formatter extends FormatterBase {
       }
       $id = Html::getUniqueId($name);
       $background_image = new Attribute();
-      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
+      if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+        if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $uri = $file->getFileUri();
           // Check if image styles have been disabled (e.g., animated GIF)
           if (!$item->disable_image_styles) {

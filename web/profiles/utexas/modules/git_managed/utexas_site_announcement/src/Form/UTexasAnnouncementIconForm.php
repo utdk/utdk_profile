@@ -4,18 +4,66 @@ namespace Drupal\utexas_site_announcement\Form;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\utexas_site_announcement\Services\UTexasAnnouncementIconOptions;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\utexas_site_announcement\Services\UTexasAnnouncementIconOptions;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class UTexasAnnouncementIconForm.
  */
 class UTexasAnnouncementIconForm extends EntityForm {
 
-  use MessengerTrait;
+  /**
+   * The file system service.
+   *
+   * @var \Drupal\Core\File\FileSystemInterface
+   */
+  protected $fileSystem;
+
+  /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The messenger.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * Constructs the UTexasAnnouncementIconForm object.
+   *
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
+   * @param \Drupal\Core\File\FileSystemInterface $file_system
+   *   The file handler.
+   */
+  public function __construct(RendererInterface $renderer, MessengerInterface $messenger, FileSystemInterface $file_system = NULL) {
+    $this->renderer = $renderer;
+    $this->messenger = $messenger;
+    $this->fileSystem = $file_system;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('renderer'),
+      $container->get('messenger'),
+      $container->get('file_system')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -89,8 +137,8 @@ class UTexasAnnouncementIconForm extends EntityForm {
       // The user is uploading a new SVG.
       $temp_image_data = file_get_contents($temp_image_file->getFileUri());
       $destination = 'public://announcement_icons/';
-      \Drupal::service('file_system')->prepareDirectory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
-      $unmanaged_file = \Drupal::service('file_system')->saveData($temp_image_data, $destination . $temp_image_file->getFilename());
+      $this->fileSystem->prepareDirectory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+      $unmanaged_file = $this->fileSystem->saveData($temp_image_data, $destination . $temp_image_file->getFilename());
       $utexas_site_announcement->set('icon', $unmanaged_file);
       $temp_image_file->delete();
     }
@@ -180,7 +228,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
             '#items' => $errors_new,
           ],
         ];
-        $error_message = \Drupal::service('renderer')->renderPlain($render_array);
+        $error_message = $this->renderer->renderPlain($render_array);
       }
       else {
         $error_message = reset($errors_new);

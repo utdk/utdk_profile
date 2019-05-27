@@ -68,9 +68,9 @@ class BackgroundAccent extends DefaultConfigLayout {
   public function build(array $regions) {
     $build = parent::build($regions);
     if (!empty($this->configuration['background-accent'])) {
-      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($this->configuration['background-accent'])) {
+      if ($media = $this->entityTypeManager->getStorage('media')->load($this->configuration['background-accent'])) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
-        if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+        if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $uri = $file->getFileUri();
           $build['#attributes']['class'][] = 'background-accent';
           $build['#background_image'] = new Attribute();

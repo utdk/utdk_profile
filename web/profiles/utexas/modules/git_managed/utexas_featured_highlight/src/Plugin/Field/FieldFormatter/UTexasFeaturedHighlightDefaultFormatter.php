@@ -2,8 +2,10 @@
 
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Language\Language;
@@ -12,6 +14,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\date_ap_style\ApStyleDateFormatter;
 use Drupal\media\IFrameUrlHelper;
 use Drupal\media\MediaInterface;
@@ -69,6 +72,27 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   protected $logger;
 
   /**
+   * The entity type manager service.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The Config.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * Constructs a TimestampAgoFormatter object.
    *
    * @param string $plugin_id
@@ -95,15 +119,23 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
    *   The oEmbed URL resolver service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager service.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory services.
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ApStyleDateFormatter $date_formatter, IFrameUrlHelper $iframe_url_helper, ResourceFetcherInterface $resource_fetcher, UrlResolverInterface $url_resolver, LoggerChannelFactoryInterface $logger_factory) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, $label, $view_mode, array $third_party_settings, ApStyleDateFormatter $date_formatter, IFrameUrlHelper $iframe_url_helper, ResourceFetcherInterface $resource_fetcher, UrlResolverInterface $url_resolver, LoggerChannelFactoryInterface $logger_factory, EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, ConfigFactoryInterface $config_factory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-
     $this->apStyleDateFormatter = $date_formatter;
     $this->iFrameUrlHelper = $iframe_url_helper;
     $this->resourceFetcher = $resource_fetcher;
     $this->urlResolver = $url_resolver;
     $this->logger = $logger_factory->get('media');
+    $this->entityTypeManager = $entity_type_manager;
+    $this->renderer = $renderer;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -123,7 +155,10 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $container->get('media.oembed.iframe_url_helper'),
       $container->get('media.oembed.resource_fetcher'),
       $container->get('media.oembed.url_resolver'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('entity_type.manager'),
+      $container->get('renderer'),
+      $container->get('config.factory')
     );
   }
 
@@ -146,7 +181,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
           'use_all_day' => 0,
           'capitalize_noon_and_midnight' => 0,
         ];
-        $timezone = \Drupal::config('system.date')->get('timezone');
+        $timezone = $this->configFactory->get('system.date')->get('timezone');
         $item->date = $this->apStyleDateFormatter->formatTimestamp(strtotime($item->date), $options, $timezone['default'], Language::LANGCODE_NOT_SPECIFIED);
       }
       $link = '';
@@ -175,7 +210,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $cta = Link::fromTextAndUrl($item->link_text, $url);
       }
       $media_render_array = [];
-      if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($item->media)) {
+      if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         switch ($media->bundle()) {
           case 'utexas_image':
             $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $link);
@@ -272,8 +307,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
 
     // Add the media entity to the cache dependencies.
     // This will clear our cache when this entity updates.
-    $renderer = \Drupal::service('renderer');
-    $renderer->addCacheableDependency($media_render_array, $media);
+    $this->renderer->addCacheableDependency($media_render_array, $media);
     return $media_render_array;
   }
 
@@ -293,7 +327,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name, $link) {
     $media_render_array = [];
     $media_attributes = $media->get('field_utexas_media_image')->getValue();
-    if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {
+    if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
       $image = new \stdClass();
       $image->title = NULL;
       $image->alt = $media_attributes[0]['alt'];
@@ -313,8 +347,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       ];
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
-      $renderer = \Drupal::service('renderer');
-      $renderer->addCacheableDependency($media_render_array, $file);
+      $this->renderer->addCacheableDependency($media_render_array, $file);
     }
     return $media_render_array;
   }
@@ -330,14 +363,14 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
    */
   private function generateImageCacheTags($responsive_image_style_name) {
     // Collect cache tags to be added for each item in the field.
-    $responsive_image_style = \Drupal::entityTypeManager()->getStorage('responsive_image_style')->load($responsive_image_style_name);
+    $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style_name);
     $image_styles_to_load = [];
     $cache_tags = [];
     if ($responsive_image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $responsive_image_style->getCacheTags());
       $image_styles_to_load = $responsive_image_style->getImageStyleIds();
     }
-    $image_styles = \Drupal::entityTypeManager()->getStorage('image_style')->loadMultiple($image_styles_to_load);
+    $image_styles = $this->entityTypeManager->getStorage('image_style')->loadMultiple($image_styles_to_load);
     foreach ($image_styles as $image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
