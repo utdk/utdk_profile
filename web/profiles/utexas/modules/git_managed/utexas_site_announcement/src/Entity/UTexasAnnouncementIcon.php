@@ -24,6 +24,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "utexas_announcement_icon",
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "icon",
+ *     "uuid",
+ *   },
  *   admin_permission = "administer utexas announcement icons",
  *   entity_keys = {
  *     "id" = "id",

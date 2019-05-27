@@ -4,6 +4,7 @@ namespace Drupal\utexas_site_announcement\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Url;
 use Drupal\Core\File\FileSystemInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -12,6 +13,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Builds the form to delete UTexas Announcement Icon entities.
  */
 class UtexasAnnouncementIconDeleteForm extends EntityConfirmFormBase {
+
+  use MessengerTrait;
 
   /**
    * The file system.
@@ -66,7 +69,7 @@ class UtexasAnnouncementIconDeleteForm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
 
-    drupal_set_message(
+    $this->messenger()->addStatus(
       $this->t('content @type: deleted @label.',
         [
           '@type' => $this->entity->bundle(),

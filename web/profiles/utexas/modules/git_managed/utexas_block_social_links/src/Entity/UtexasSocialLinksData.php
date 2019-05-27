@@ -24,6 +24,12 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "utexas_social_links_data",
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "icon",
+ *     "uuid",
+ *   },
  *   admin_permission = "administer social links data config",
  *   entity_keys = {
  *     "id" = "id",

@@ -5,22 +5,26 @@
  * Install file for utexas_block_social_links.
  */
 
+use Drupal\Core\File\FileSystemInterface;
+
 /**
  * Implements hook_install().
  *
  * @ingroup utexas_block_social_links
  */
 function utexas_block_social_links_install() {
+  /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+  $file_system = \Drupal::service('file_system');
   // Create default social networks.
   $social_networks_entity_manager = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data');
   $filedir = 'public://social_icons/';
-  file_prepare_directory($filedir, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+  $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
   $dir = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
   $default_icons = file_scan_directory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
   foreach ($default_icons as $key => $value) {
     $uri = $value->uri;
     $file = file_get_contents($uri);
-    $saved_file = file_unmanaged_save_data($file, $filedir . $value->filename, FILE_EXISTS_REPLACE);
+    $saved_file = \Drupal::service('file_system')->saveData($file, $filedir . $value->filename);
     $social_networks_entity_manager->create([
       'id' => $key,
       'label' => ucwords($key),

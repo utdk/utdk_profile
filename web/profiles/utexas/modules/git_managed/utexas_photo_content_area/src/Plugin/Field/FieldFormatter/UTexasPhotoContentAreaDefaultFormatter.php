@@ -5,6 +5,7 @@ namespace Drupal\utexas_photo_content_area\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'utexas_photo_content_area' formatter.

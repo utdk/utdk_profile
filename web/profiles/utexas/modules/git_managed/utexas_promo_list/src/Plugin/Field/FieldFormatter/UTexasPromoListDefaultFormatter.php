@@ -40,7 +40,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase {
     }
     foreach ($items as $delta => $item) {
       $instances = [];
-      $promo_list_items = unserialize($item->promo_list_items);
+      $promo_list_items = is_string($item->promo_list_items) ? unserialize($item->promo_list_items) : $item->promo_list_items;
       if (!empty($promo_list_items)) {
         foreach ($promo_list_items as $key => $instance) {
           $i = $instance['item'];
@@ -56,7 +56,8 @@ class UTexasPromoListDefaultFormatter extends FormatterBase {
             $instances[$key]['link'] = $url->toString();
           }
           $image_render_array = [];
-          if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($i['image'])) {
+          $image = is_array($i['image']) ? $i['image'][0] : $i['image'];
+          if ($media = \Drupal::entityTypeManager()->getStorage('media')->load($image)) {
             $media_attributes = $media->get('field_utexas_media_image')->getValue();
             $image_render_array = [];
             if ($file = \Drupal::entityTypeManager()->getStorage('file')->load($media_attributes[0]['target_id'])) {

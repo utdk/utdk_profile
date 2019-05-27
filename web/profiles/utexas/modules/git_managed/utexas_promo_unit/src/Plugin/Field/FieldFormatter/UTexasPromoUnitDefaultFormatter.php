@@ -65,8 +65,9 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase {
             $instances[$key]['link'] = $link;
           }
           if (!empty($i['image'])) {
+            $image = is_array($i['image']) ? $i['image'][0] : $i['image'];
             $responsive_image_style_name = 'utexas_responsive_image_pu_landscape';
-            $instances[$key]['image'] = $this->generateImageRenderArray($i['image'], $responsive_image_style_name, $i['link']['url'], $cache_tags);
+            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $i['link']['url'], $cache_tags);
           }
         }
       }

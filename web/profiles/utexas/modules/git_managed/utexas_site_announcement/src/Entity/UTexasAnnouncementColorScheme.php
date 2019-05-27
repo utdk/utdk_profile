@@ -23,6 +23,13 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     },
  *   },
  *   config_prefix = "utexas_announcement_color_scheme",
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "background_color",
+ *     "text_color",
+ *     "uuid",
+ *   },
  *   admin_permission = "administer utexas announcement color schemes",
  *   entity_keys = {
  *     "id" = "id",

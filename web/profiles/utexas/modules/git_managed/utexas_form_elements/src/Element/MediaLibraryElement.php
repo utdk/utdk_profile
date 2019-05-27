@@ -102,8 +102,8 @@ class MediaLibraryElement extends FormElement {
     // The opener ID is used by the select form and the upload form to add the
     // selected/uploaded media items to the widget.
     $opener_id = static::$openerIdPrefix . $field_name . $id_suffix;
-
-    if ($media_item = \Drupal::entityTypeManager()->getStorage($entity_type)->load($element['#value'])) {
+    $media_reference = is_array($element['#value']) ? $element['#value'][0] : $element['#value'];
+    if ($media_item = \Drupal::entityTypeManager()->getStorage($entity_type)->load($media_reference)) {
       $remaining = !empty($media_item) ? 0 : 1;
       $element['selection'] = [
         '#type' => 'container',

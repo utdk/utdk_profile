@@ -10,11 +10,7 @@
       "request": "launch",
       "port": 9000,
       "pathMappings": {
-<<<<<<< HEAD
         "/var/www/": "${workspaceRoot}"
-=======
-        "/var/www/web": "${workspaceRoot}"
->>>>>>> a0187d1... UDK8-1014 - Add initial Docksal scaffolding (#625)
       },
     },
     {

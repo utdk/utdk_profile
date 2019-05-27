@@ -4,12 +4,15 @@ namespace Drupal\utexas_site_announcement\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Cache\Cache;
 
 /**
  * Class UTexasAnnouncementColorSchemeForm.
  */
 class UTexasAnnouncementColorSchemeForm extends EntityForm {
+
+  use MessengerTrait;
 
   /**
    * {@inheritdoc}
@@ -84,13 +87,13 @@ class UTexasAnnouncementColorSchemeForm extends EntityForm {
     $status = $utexas_site_announcement->save();
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created configuration for %label.', [
+        $this->messenger()->addStatus($this->t('Created configuration for %label.', [
           '%label' => $utexas_site_announcement->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved configuration for %label.', [
+        $this->messenger()->addStatus($this->t('Saved configuration for %label.', [
           '%label' => $utexas_site_announcement->label(),
         ]));
     }

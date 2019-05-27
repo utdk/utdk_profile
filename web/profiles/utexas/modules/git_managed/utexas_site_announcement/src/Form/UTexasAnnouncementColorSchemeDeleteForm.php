@@ -4,12 +4,15 @@ namespace Drupal\utexas_site_announcement\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Url;
 
 /**
  * Builds the form to delete UTexas Announcement Color Scheme entities.
  */
 class UTexasAnnouncementColorSchemeDeleteForm extends EntityConfirmFormBase {
+
+  use MessengerTrait;
 
   /**
    * {@inheritdoc}
@@ -38,7 +41,7 @@ class UTexasAnnouncementColorSchemeDeleteForm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
 
-    drupal_set_message(
+    $this->messenger()->addStatus(
       $this->t('content @type: deleted @label.',
         [
           '@type' => $this->entity->bundle(),

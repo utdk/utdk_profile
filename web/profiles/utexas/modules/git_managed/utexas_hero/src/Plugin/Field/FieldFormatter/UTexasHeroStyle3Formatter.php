@@ -72,9 +72,9 @@ class UTexasHeroStyle3Formatter extends FormatterBase {
             $small_src = $small_image_style->buildUrl($uri);
           }
           else {
-            $large_src = $file->url();
-            $medium_src = $file->url();
-            $small_src = $file->url();
+            $large_src = $file->toUrl();
+            $medium_src = $file->toUrl();
+            $small_src = $file->toUrl();
           }
           $css = "
           #" . $id . ".ut-hero {

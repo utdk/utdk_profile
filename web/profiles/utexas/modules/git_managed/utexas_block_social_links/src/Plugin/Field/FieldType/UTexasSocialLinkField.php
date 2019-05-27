@@ -87,9 +87,10 @@ class UTexasSocialLinkField extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
+    $random = new Random();
     $options = UTexasSocialLinkOptions::getOptionsArray();
     $values['social_account_name'] = array_rand($options);
-    $values['social_account_url'] = 'https://' . Random::word(5) . '.com';
+    $values['social_account_url'] = 'https://' . $random->word(5) . '.com';
     return $values;
   }
 
