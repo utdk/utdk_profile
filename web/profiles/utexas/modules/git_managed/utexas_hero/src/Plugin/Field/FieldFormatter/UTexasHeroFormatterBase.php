@@ -5,7 +5,6 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -13,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * A base class for use with all hero formatters.
  */
-class UTexasHeroFormatterBase extends FormatterBase implements ContainerFactoryPluginInterface {
+abstract class UTexasHeroFormatterBase extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * The entity type manager service.
@@ -72,13 +71,6 @@ class UTexasHeroFormatterBase extends FormatterBase implements ContainerFactoryP
       $container->get('entity_type.manager'),
       $container->get('renderer')
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
-    return [];
   }
 
 }
