@@ -19,7 +19,6 @@ trait QuickLinksTestTrait {
     $this->getSession()->getPage()->find('css', '#edit-field-block-ql-0-links-actions-add-link')->click();
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.js-form-item-field-block-ql-0-links-1-url');
-    $this->createScreenshot('_available_blocks.png');
     $this->submitForm([
       'info[0][value]' => 'Quick Links Test',
       'field_block_ql[0][headline]' => 'Quick Links Headline',

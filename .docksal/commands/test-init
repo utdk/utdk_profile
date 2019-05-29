@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Configure the testing directories.
+
+# Copy over defaults
+cp -r ./.docksal/drupal/testing-defaults ./.docksal/drupal/testing 
+
+# This command is meant as a helper to replace "http://web" in the PHPUnit testing files to whatever 
+# the actual host name is being used. This makes for easier analysis of test results.
+
+perl -pi -e "s/http:\/\/web/http:\/\/${VIRTUAL_HOST}/g" ./.docksal/drupal/testing/phpunit.xml
+perl -pi -e "s/http:\/\/web/http:\/\/${VIRTUAL_HOST}/g" ./.docksal/drupal/testing/phpunit-js.xml
