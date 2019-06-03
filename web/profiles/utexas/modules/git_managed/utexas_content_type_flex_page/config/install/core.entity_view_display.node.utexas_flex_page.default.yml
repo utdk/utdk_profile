@@ -32,25 +32,15 @@ third_party_settings:
         third_party_settings: {  }
   layout_builder_restrictions:
     allowed_blocks:
-      'Chaos tools': {  }
-      Content:
-        - 'field_block:node:utexas_flex_page:field_flex_page_fh'
-        - 'field_block:node:utexas_flex_page:field_flex_page_fca_a'
-        - 'field_block:node:utexas_flex_page:field_flex_page_hi'
-        - 'field_block:node:utexas_flex_page:field_flex_page_fca_b'
-        - 'field_block:node:utexas_flex_page:field_flex_page_il_a'
-        - 'field_block:node:utexas_flex_page:field_flex_page_il_b'
-        - 'field_block:node:utexas_flex_page:field_flex_page_pca'
-        - 'field_block:node:utexas_flex_page:field_flex_page_pl'
-        - 'field_block:node:utexas_flex_page:field_flex_page_pu'
-        - 'field_block:node:utexas_flex_page:field_flex_page_ql'
-        - 'field_block:node:utexas_flex_page:field_flex_page_resource'
-        - 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_a'
-        - 'field_block:node:utexas_flex_page:field_flex_page_wysiwyg_b'
+      'Chaos Tools': {  }
+      Content: {  }
+      'Content fields': {  }
       core: {  }
       Forms: {  }
       System: {  }
       User: {  }
+      'User fields': {  }
+      utexas: {  }
       'UTexas Required Links': {  }
     allowed_layouts:
       - layout_utexas_fullwidth
