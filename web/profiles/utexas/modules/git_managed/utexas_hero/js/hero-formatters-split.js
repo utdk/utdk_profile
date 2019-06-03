@@ -60,7 +60,7 @@
     : ".js-form-item-settings-view-mode");
 
     $(entity_type_dom).each(function (index) {
-      if ($(this).find('select option[value=utexas_hero]').length) {
+      if ($(this).find('select option[value=utexas_hero_1_left]') !== null) {
         // Validate custom selectors exist in sidebar, and add them if they don't.
         if ($("#edit-hero-style").length === 0) {
           $(entity_type_dom).after(anchor_position_selector)
@@ -197,9 +197,8 @@
       var entity_type_dom = ((entity_type === "node")
         ? ".js-form-item-settings-formatter-type"
         : ".js-form-item-settings-view-mode");
-
       $(entity_type_dom).each(function (index) {
-        if ($(this).find('select option[value=utexas_hero]').length) {
+        if ($(this).find('select option[value=utexas_hero_1_left]').length === null) {
           return false;
         }
       });
