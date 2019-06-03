@@ -2,20 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.utexas_flex_page.field_flex_page_fca_a
-    - field.field.node.utexas_flex_page.field_flex_page_fca_b
-    - field.field.node.utexas_flex_page.field_flex_page_fh
-    - field.field.node.utexas_flex_page.field_flex_page_hi
-    - field.field.node.utexas_flex_page.field_flex_page_il_a
-    - field.field.node.utexas_flex_page.field_flex_page_il_b
     - field.field.node.utexas_flex_page.field_flex_page_metatags
-    - field.field.node.utexas_flex_page.field_flex_page_pca
-    - field.field.node.utexas_flex_page.field_flex_page_pl
-    - field.field.node.utexas_flex_page.field_flex_page_pu
-    - field.field.node.utexas_flex_page.field_flex_page_ql
-    - field.field.node.utexas_flex_page.field_flex_page_resource
-    - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_a
-    - field.field.node.utexas_flex_page.field_flex_page_wysiwyg_b
     - field.field.node.utexas_flex_page.layout_builder__layout
     - node.type.utexas_flex_page
   module:
@@ -23,18 +10,8 @@ dependencies:
     - layout_builder_restrictions
     - layout_discovery
     - metatag
-    - text
     - user
-    - utexas_featured_highlight
-    - utexas_flex_content_area
-    - utexas_hero
-    - utexas_image_link
     - utexas_layouts
-    - utexas_photo_content_area
-    - utexas_promo_list
-    - utexas_promo_unit
-    - utexas_quick_links
-    - utexas_resources
 third_party_settings:
   layout_builder:
     allow_custom: true
@@ -84,48 +61,6 @@ targetEntityType: node
 bundle: utexas_flex_page
 mode: default
 content:
-  field_flex_page_fca_a:
-    weight: 114
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_flex_content_area
-    region: content
-  field_flex_page_fca_b:
-    weight: 115
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_flex_content_area
-    region: content
-  field_flex_page_fh:
-    weight: 114
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_featured_highlight
-    region: content
-  field_flex_page_hi:
-    weight: 114
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_hero
-    region: content
-  field_flex_page_il_a:
-    weight: 110
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_image_link
-    region: content
-  field_flex_page_il_b:
-    weight: 111
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_image_link
-    region: content
   field_flex_page_metatags:
     weight: 116
     label: above
@@ -133,55 +68,6 @@ content:
     third_party_settings: {  }
     type: metatag_empty_formatter
     region: main
-  field_flex_page_pca:
-    weight: 114
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_photo_content_area
-    region: content
-  field_flex_page_pl:
-    weight: 112
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_promo_list
-    region: content
-  field_flex_page_pu:
-    weight: 112
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_promo_unit
-    region: content
-  field_flex_page_ql:
-    weight: 109
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_quick_links
-    region: content
-  field_flex_page_resource:
-    weight: 113
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: utexas_resources
-    region: content
-  field_flex_page_wysiwyg_a:
-    weight: 107
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
-  field_flex_page_wysiwyg_b:
-    weight: 108
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
   links:
     weight: 0
     region: content
