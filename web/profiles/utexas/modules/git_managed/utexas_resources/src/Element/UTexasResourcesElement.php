@@ -48,7 +48,7 @@ class UtexasResourcesElement extends FormElement {
     ];
     // Retrieve the form element that is using this widget.
     // The structure of $element['#parents'] will be similar to:
-    // [0] => field_flex_page_resource
+    // [0] => field_MACHINE_NAME
     // [1] => 0
     // [2] => resource_items
     // [3] => 0
