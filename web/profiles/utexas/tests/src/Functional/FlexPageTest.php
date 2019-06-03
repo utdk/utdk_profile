@@ -7,7 +7,6 @@ use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\FlexPageRevisionsTestTrait;
-use Drupal\Tests\utexas\Traits\WysiwygTestTrait;
 
 /**
  * Verifies Flex Page nodes revisions work without issue.
@@ -19,7 +18,6 @@ class FlexPageTest extends BrowserTestBase {
   use UserTestTrait;
   use InstallTestTrait;
   use FlexPageRevisionsTestTrait;
-  use WysiwygTestTrait;
 
   /**
    * Use the 'utexas' installation profile.
@@ -48,7 +46,6 @@ class FlexPageTest extends BrowserTestBase {
    */
   public function testFlexPage() {
     $this->verifyRevisioning();
-    $this->verifyWysiwyg();
   }
 
 }
