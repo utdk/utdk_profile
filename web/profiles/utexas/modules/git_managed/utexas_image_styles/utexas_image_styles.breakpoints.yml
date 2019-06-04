@@ -7,14 +7,14 @@ utexas_image_styles.mobile:
     - 2x
 utexas_image_styles.narrow:
   label: tablet
-  mediaQuery: 'all and (min-width: 600px) and (max-width: 999px)'
+  mediaQuery: 'all and (min-width: 600px) and (max-width: 899px)'
   weight: 1
   multipliers:
     - 1x
     - 2x
 utexas_image_styles.wide:
   label: desktop
-  mediaQuery: 'all and (min-width: 1000px)'
+  mediaQuery: 'all and (min-width: 900px)'
   weight: 2
   multipliers:
     - 1x
