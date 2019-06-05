@@ -16,38 +16,54 @@ dependencies:
   - datetime
   - editor
   - image
+  - file
+  - media_library
   - menu_link_content
   - menu_ui
   - node
   - options
-  - page_cache
   - path
-  - dynamic_page_cache
-  - taxonomy
-  - dblog
-  - toolbar
-  - file
-  - views
-  - automated_cron
   - search
+  - taxonomy
+  - toolbar
+  - views
+install:
+  # Core
+  - automated_cron
+  - dblog
+  - dynamic_page_cache
+  - page_cache
   # Contrib
   - adminimal_admin_toolbar
   - breadcrumbs_visibility
+  - features
   - feed_block
   - google_tag
   - google_cse
+  - layout_builder_modal
+  - layout_builder_restrictions
   - metatag
+  - menu_block
   - pathauto
   - page_title_visibility
   - redirect
   # Custom
-  - utexas_text_format_flex_html
-  - utexas_call_to_action
   - utexas_block_required_links
+  - utexas_call_to_action
   - utexas_favicons
+  - utexas_featured_highlight
+  - utexas_flex_content_area
+  - utexas_hero
+  - utexas_image_link
   - utexas_layouts
+  - utexas_media_types
+  - utexas_photo_content_area
+  - utexas_promo_list
+  - utexas_promo_unit
+  - utexas_quick_links
+  - utexas_resources
   - utexas_site_announcement
-install: []
+  - utexas_text_format_flex_html
 themes:
   - bartik
   - adminimal_theme

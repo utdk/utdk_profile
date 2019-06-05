@@ -135,10 +135,7 @@ class ExtensionSelectForm extends FormBase {
     // These are modules which are not profile dependencies,
     // but are also considered common enough not to necessitate
     // exposing as an installation option.
-    $modules_to_install = [
-      'utexas_site_announcement',
-      'menu_block',
-    ];
+    $modules_to_install = [];
     if ($values['utexas_enable_flex_page_content_type'] == 1) {
       $modules_to_install[] = 'utexas_content_type_flex_page';
     }

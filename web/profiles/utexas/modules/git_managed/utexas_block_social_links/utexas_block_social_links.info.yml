@@ -5,7 +5,6 @@ core: 8.x
 dependencies:
   - block_content
   - config_update
-  - features
   - field
   - text
   - utexas_block_social_links

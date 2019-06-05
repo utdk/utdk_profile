@@ -6,5 +6,4 @@ package: UTexas
 dependencies:
   - block_content
   - field
-  - 'utexas_form_elements:utexas_form_elements'
-  - utexas_quick_links
+  - utexas_form_elements
