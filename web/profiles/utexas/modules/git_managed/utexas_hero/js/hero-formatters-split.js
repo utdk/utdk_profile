@@ -55,9 +55,7 @@
       </div>`
     ;
     // Pick a selector to append selectors based on entity type.
-    var entity_type_dom = ((entity_type === "node")
-    ? ".js-form-item-settings-formatter-type"
-    : ".js-form-item-settings-view-mode");
+    var entity_type_dom = ((entity_type === "node") ? ".js-form-item-settings-formatter-type" : ".js-form-item-settings-view-mode");
 
     $(entity_type_dom).each(function (index) {
       if ($(this).find('select option[value=utexas_hero_1_left]') !== null) {
@@ -82,8 +80,7 @@
    */
   function validateNodeEntityAndConvertDefaultToUtexasHero(hero_style,
   entity_type) {
-    return ((entity_type === "node" && hero_style === "default")
-    ? "utexas_hero" : hero_style);
+    return ((entity_type === "node" && hero_style === "default") ? "utexas_hero" : hero_style);
   }
 
   /**
@@ -96,8 +93,7 @@
    */
   function validateAnchor(hero_style, anchor) {
     // Don't add suffix if using default or style 4. And hide the form item.
-    if(hero_style === "default" || hero_style === "utexas_hero"
-    || hero_style === "utexas_hero_4") {
+    if (hero_style === "default" || hero_style === "utexas_hero" || hero_style === "utexas_hero_4") {
       anchor = "";
       $("#edit-anchor-position").prop("disabled", true);
     } else {
@@ -123,15 +119,11 @@
   function updateSelectors(entity_type, formatter_type,
   anchor="", hero_style="") {
     // If no hero style passed as argument, grab the current value.
-    hero_style = ((hero_style === "")
-      ? $("select[name='hero_style'] option:selected").val() : hero_style);
+    hero_style = ((hero_style === "") ? $("select[name='hero_style'] option:selected").val() : hero_style);
     // If no anchor passed as argument, grab the current value
-    anchor = ((anchor === "")
-      ? "_" + $( "select[name='anchor_position'] option:selected").val()
-      : anchor);
+    anchor = ((anchor === "") ? "_" + $( "select[name='anchor_position'] option:selected").val() : anchor);
     // Massage hero style value.
-    hero_style = validateNodeEntityAndConvertDefaultToUtexasHero(hero_style,
-      entity_type);
+    hero_style = validateNodeEntityAndConvertDefaultToUtexasHero(hero_style, entity_type);
     // Massage anchor value.
     anchor = validateAnchor(hero_style, anchor);
     // Set official formatter/view mode value.
@@ -145,14 +137,13 @@
    * @return {string} The entity_type value which will define if the custom
    *    selectors should be created or not.
    */
-  function initializeLibraryWhenValidEntityType(){
+  function initializeLibraryWhenValidEntityType() {
     var entity_type;
     // Check if the layout sidebar has a formatter or view mode, if not, exit.
-    if($("#drupal-off-canvas")
-    .has(".js-form-item-settings-formatter-type").length){
+    if ($("#drupal-off-canvas").has(".js-form-item-settings-formatter-type").length || $("#layout-builder-modal").has(".js-form-item-settings-formatter-type").length) {
       entity_type = "node";
-    } else if ($("#drupal-off-canvas")
-    .has(".js-form-item-settings-view-mode").length) {
+    } 
+    else if ($("#drupal-off-canvas").has(".js-form-item-settings-view-mode").length || $("#layout-builder-modal").has(".js-form-item-settings-view-mode").length) {
       entity_type = "block";
     } else {
       entity_type = "invalid";
@@ -174,8 +165,7 @@
     if (default_style.length > 1) {
       var style_and_anchor = default_style[1].split("_");
       default_style = "utexas_hero_" + style_and_anchor[0];
-      var anchor = ((style_and_anchor[1] !== undefined)
-        ? style_and_anchor[1] : "center");
+      var anchor = ((style_and_anchor[1] !== undefined) ? style_and_anchor[1] : "center");
       $("select[name='anchor_position']").val(anchor);
       return default_style;
     }
@@ -194,24 +184,20 @@
         return false;
       }
       // Pick a selector to append selectors based on entity type.
-      var entity_type_dom = ((entity_type === "node")
-        ? ".js-form-item-settings-formatter-type"
-        : ".js-form-item-settings-view-mode");
+      var entity_type_dom = ((entity_type === "node") ? ".js-form-item-settings-formatter-type" : ".js-form-item-settings-view-mode");
       $(entity_type_dom).each(function (index) {
         if ($(this).find('select option[value=utexas_hero_1_left]').length === null) {
           return false;
         }
       });
       // Setting formatter/view mode formatter type based on entity type.
-      var formatter_type = ((entity_type === "node")
-        ? "settings[formatter][type]" : "settings[view_mode]");
+      var formatter_type = ((entity_type === "node") ? "settings[formatter][type]" : "settings[view_mode]");
       // Creating selectors if not already present.
       createSelectors(entity_type);
       // Initializing variables required by selector operations.
       var default_style = $("select[name='" + formatter_type + "']").val();
       // Convert any entity type default value into "default".
-      default_style = ((default_style === undefined || default_style === "full"
-      || default_style === "utexas_hero") ? "default" : default_style);
+      default_style = ((default_style === undefined || default_style === "full" || default_style === "utexas_hero") ? "default" : default_style);
       // If not the default style, retrieve hero style and set anchor value.
       if (default_style !== "default") {
         default_style = splitDefaultStyleAndSetAnchorValue(default_style);
