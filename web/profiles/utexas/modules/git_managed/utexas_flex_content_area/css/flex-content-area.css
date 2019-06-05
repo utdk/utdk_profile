@@ -9,7 +9,7 @@
   flex: 0 0 100%;
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (min-width: 600px) {
   .ut-flex-content-area.one-col {
     flex: 0 0 100%;
   }
