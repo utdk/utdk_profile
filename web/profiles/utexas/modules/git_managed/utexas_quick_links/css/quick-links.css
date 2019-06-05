@@ -41,8 +41,8 @@
   padding-right: 0;
 }
 
-/* 2, 3, 4 columns goes to 1 column if under 640px */
-@media screen and (max-width: 640px) {
+/* 2, 3, 4 columns goes to 1 column if under 600px */
+@media screen and (max-width: 599px) {
 
   .utexas-quick-links.two ul.link-list li,
   .utexas-quick-links.three ul.link-list li,
@@ -52,8 +52,8 @@
   }
 }
 
-/* 2 columns goes to 1 column if between 641 and 1000px */
-@media screen and (min-width: 641px) and (max-width: 1000px) {
+/* 2 columns goes to 1 column if between 600 and 899px */
+@media screen and (min-width: 600px) and (max-width: 899px) {
   .utexas-quick-links.two ul.link-list li {
     width: 100%;
   }
@@ -64,8 +64,8 @@
   }
 }
 
-/* 3 columns goes to 2 columns if between 641 and 1000px */
-@media screen and (min-width: 641px) and (max-width: 1000px) {
+/* 3 columns goes to 2 columns if between 600 and 899px */
+@media screen and (min-width: 600px) and (max-width: 899px) {
   .utexas-quick-links.three ul.link-list li {
     width: 50%;
   }
@@ -76,8 +76,8 @@
   }
 }
 
-/* 4 columns goes to 3 columns if between 641 and 1000px */
-@media screen and (min-width: 641px) and (max-width: 1000px) {
+/* 4 columns goes to 3 columns if between 600 and 899px */
+@media screen and (min-width: 600px) and (max-width: 899px) {
   .utexas-quick-links.four ul.link-list li {
     width: 50%;
   }
