@@ -36,7 +36,7 @@ pipeline {
                                                 chromedriver -v
                                                 wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
                                                 unzip chromedriver_linux64.zip
-                                                mv mv chromedriver /usr/local/bin/chromedriver
+                                                mv chromedriver /usr/local/bin/chromedriver
                                                 which chromedriver
                                                 chromedriver -v
 
