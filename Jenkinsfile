@@ -34,7 +34,12 @@ pipeline {
 
                                                 which chromedriver
                                                 chromedriver -v
-                                                
+                                                wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
+                                                unzip chromedriver_linux64.zip
+                                                mv mv chromedriver /usr/local/bin/chromedriver
+                                                which chromedriver
+                                                chromedriver -v
+
                                                 ### Set up ssh connections - need to connect to github.austin for composer managed dependencies...
                                                 #eval `ssh-agent`
                                                 #ssh-add $KEY
