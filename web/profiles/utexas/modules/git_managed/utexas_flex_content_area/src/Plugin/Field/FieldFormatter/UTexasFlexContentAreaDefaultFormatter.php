@@ -127,6 +127,8 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         $links = [];
       }
       // Format CTA.
+      $cta_uri = "";
+      $cta = "";
       if (!empty($item->link_uri)) {
         $url = Url::fromUri($item->link_uri);
         $cta_uri = $url->toString();
