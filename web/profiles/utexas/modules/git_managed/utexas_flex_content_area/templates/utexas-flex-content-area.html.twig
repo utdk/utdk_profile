@@ -15,9 +15,11 @@
  * @ingroup themeable
  */
 #}
-<div class="image-wrapper">
-  {{ image }}
-</div>
+{% if image %}
+  <div class="image-wrapper">
+    {{ image }}
+  </div>
+{% endif %}
 <div class="content-wrapper">
   <h3 class="ut-headline">{{ headline }}</h3>
   {% if copy %}
