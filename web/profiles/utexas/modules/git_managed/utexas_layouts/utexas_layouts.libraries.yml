@@ -16,3 +16,8 @@ utexas_66_33:
     theme:
       layouts/66_33/layout.css: {}
       layouts/background-accent.css: {}
+layout_builder_ui:
+  version: 1.0
+  css:
+    theme:
+      theme/layout-builder-ui.css: {}

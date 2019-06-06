@@ -1,0 +1,15 @@
+.layout-builder-block {
+  padding: 1.5em;
+  cursor: move;
+  cursor: grab;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  outline: 1px solid #800080;
+}
+
+.layout-builder__section .ui-sortable-helper {
+  box-shadow: 5px 5px 5px #666;
+  -moz-box-shadow: 5px 5px 5px #666;
+  -webkit-box-shadow: 5px 5px 5px #666;
+  cursor: grabbing;
+}

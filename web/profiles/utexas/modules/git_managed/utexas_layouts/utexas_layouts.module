@@ -14,3 +14,10 @@ function utexas_layouts_preprocess_layout(&$variables) {
     $variables['background_image'] = $variables['content']['#background_image'];
   }
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function utexas_layouts_preprocess_page(&$variables) {
+  $variables['#attached']['library'][] = 'utexas_layouts/layout_builder_ui';
+}
