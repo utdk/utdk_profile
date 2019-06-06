@@ -183,6 +183,10 @@ class SocialLinksTest extends BrowserTestBase {
     $this->drupalGet("<front>");
     $this->assertRaw($svgFile2Markup);
 
+    $this->drupalGet('/admin/structure/social-links/test/delete');
+    $this->drupalPostForm(NULL, [], 'edit-submit');
+    $this->assertRaw("deleted test");
+
     // Logout with the current user.
     $this->drupalLogout();
 

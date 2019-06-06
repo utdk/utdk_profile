@@ -40,6 +40,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   links = {
  *     "add-form" = "/admin/structure/social-links/add",
  *     "edit-form" = "/admin/structure/social-links/{utexas_social_links_data}/edit",
+ *     "delete-form" = "/admin/structure/social-links/{utexas_social_links_data}/delete",
  *     "collection" = "/admin/structure/social-links"
  *   }
  * )
