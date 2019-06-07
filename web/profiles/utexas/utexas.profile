@@ -244,7 +244,7 @@ function _utexas_install_header_content() {
     $link = MenuLinkContent::create([
       'title'      => 'Header Link ' . $i,
       'link'       => ['uri' => 'internal:/'],
-      'menu_name'  => 'header_menu',
+      'menu_name'  => 'header',
       'weight'     => $i,
     ]);
     $link->save();

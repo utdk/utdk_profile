@@ -2,19 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.header_menu
+    - system.menu.header
   module:
     - system
   theme:
     - forty_acres
-id: header_menu
+id: header
 theme: forty_acres
 region: header_secondary
 weight: 0
 provider: null
-plugin: 'system_menu_block:header_menu'
+plugin: 'system_menu_block:header'
 settings:
-  id: 'system_menu_block:header_menu'
+  id: 'system_menu_block:header'
   label: 'Header Menu'
   provider: system
   label_display: '0'
