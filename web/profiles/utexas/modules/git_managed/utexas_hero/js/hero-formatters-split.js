@@ -58,11 +58,10 @@
     var entity_type_dom = ((entity_type === "node") ? ".js-form-item-settings-formatter-type" : ".js-form-item-settings-view-mode");
 
     $(entity_type_dom).each(function (index) {
-      if ($(this).find('select option[value=utexas_hero_1_left]') !== null) {
+      if ($(this).find('select option[value=utexas_hero_1_left]').length) {
         // Validate custom selectors exist in sidebar, and add them if they don't.
         if ($("#edit-hero-style").length === 0) {
-          $(entity_type_dom).after(anchor_position_selector)
-            .after(hero_style_selector);
+          $(entity_type_dom).after(anchor_position_selector).after(hero_style_selector);
           // Once custom selectors are in, hide official formatter/view mode field.
           $(entity_type_dom).hide();
         }
