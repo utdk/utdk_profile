@@ -52,6 +52,11 @@ pipeline {
                                                 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
                                                 export COMPOSER_ALLOW_SUPERUSER
 
+                                                ## Install specific version of chromedriver...
+                                                wget https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
+                                                unzip chromedriver_linux64.zip
+                                                mv chromedriver /usr/local/bin/chromedriver
+
                                                 ## Setup vhost...
                                                 cp -R $WORKSPACE/.pipeline-fixtures/utdk8-vhost.conf /etc/apache2/sites-available
                                                 cp -R $WORKSPACE /var/www/utdk8
