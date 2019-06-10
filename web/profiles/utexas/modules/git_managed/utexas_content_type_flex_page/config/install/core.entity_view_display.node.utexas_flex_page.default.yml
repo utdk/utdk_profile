@@ -46,6 +46,22 @@ third_party_settings:
       - layout_utexas_fullwidth
       - layout_utexas_50_50
       - layout_utexas_66_33
+    entity_view_mode_restriction:
+      allowed_blocks:
+        'Chaos Tools': {  }
+        Content: {  }
+        'Content fields': {  }
+        Forms: {  }
+        System: {  }
+        'UTexas Required Links': {  }
+        User: {  }
+        'User fields': {  }
+        core: {  }
+        utexas: {  }
+      allowed_layouts:
+        - layout_utexas_fullwidth
+        - layout_utexas_50_50
+        - layout_utexas_66_33
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page
