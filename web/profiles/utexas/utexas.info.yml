@@ -36,6 +36,7 @@ install:
   # Contrib
   - adminimal_admin_toolbar
   - breadcrumbs_visibility
+  - ckeditorheight
   - features
   - feed_block
   - google_tag

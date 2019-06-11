@@ -66,8 +66,8 @@ init_settings ()
 	copy_settings_file "${PROJECT_ROOT}/.docksal/drupal/default.settings.php" "${SITEDIR_PATH}/settings.php"
 	copy_settings_file "${PROJECT_ROOT}/.docksal/drupal/default.settings.local.php" "${SITEDIR_PATH}/settings.local.php"
 	# Create folder for simpletest snapshots
-	create_dir "${PROJECT_ROOT}/web/sites/simpletest"
-	create_dir "${PROJECT_ROOT}/web/sites/simpletest/browser_output"
+	create_dir "${PROJECT_ROOT}/${DOCROOT}/sites/simpletest"
+	create_dir "${PROJECT_ROOT}/${DOCROOT}/sites/simpletest/browser_output"
 	# Copy over XDebug files
 	create_dir "${PROJECT_ROOT}/.vscode"
 	copy_settings_file "${PROJECT_ROOT}/.docksal/xdebug/launch.json" "${PROJECT_ROOT}/.vscode/launch.json"
