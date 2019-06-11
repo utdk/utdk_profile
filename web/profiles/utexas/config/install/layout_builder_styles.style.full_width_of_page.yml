@@ -1,0 +1,9 @@
+uuid: 8d181af7-c7d9-4146-b635-c10a882f9966
+langcode: en
+status: true
+dependencies: {  }
+id: full_width_of_page
+label: 'Full width of page'
+classes: container-fluid
+type: section
+block_restrictions: {  }
