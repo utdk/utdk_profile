@@ -8,7 +8,6 @@ dependencies:
   module:
     - layout_builder
     - layout_builder_restrictions
-    - layout_discovery
     - metatag
     - user
     - utexas_layouts
@@ -23,11 +22,6 @@ third_party_settings:
           class: ''
           blur: 0
           background-accent: '0'
-        components: {  }
-        third_party_settings: {  }
-      -
-        layout_id: layout_onecol
-        layout_settings: {  }
         components: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
