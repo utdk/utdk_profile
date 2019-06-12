@@ -72,18 +72,12 @@ class FullWidthTest extends WebDriverTestBase {
     $node->save();
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
-    $this->clickLink('Add Section');
-    $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('One column');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Add section');
+    $this->clickLink('Configure section');
     $assert->assertWaitOnAjaxRequest();
     // A "container" class is added to the section by default.
     $assert->elementExists('css', '.layout-builder__layout.container');
     $assert->elementNotExists('css', '.layout-builder__layout.container-fluid');
     // Set the section to "Full width of page".
-    $this->clickLink('Configure section');
-    $assert->assertWaitOnAjaxRequest();
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "full_width_of_page");
     $page->pressButton('Update');
     $assert->assertWaitOnAjaxRequest();
