@@ -104,7 +104,6 @@ class MediaLibraryElement extends FormElement {
     $opener_id = static::$openerIdPrefix . $field_name . $id_suffix;
     $media_reference = is_array($element['#value']) ? $element['#value'][0] : $element['#value'];
     if ($media_item = \Drupal::entityTypeManager()->getStorage($entity_type)->load($media_reference)) {
-      $remaining = !empty($media_item) ? 0 : 1;
       $element['selection'] = [
         '#type' => 'container',
         '#attributes' => [
@@ -135,8 +134,7 @@ class MediaLibraryElement extends FormElement {
         ],
       ];
     }
-    $remaining = !empty($media_item) ? 0 : 1;
-    $state = MediaLibraryState::create($opener_id, $allowed_media_type_ids, $selected_type_id, $remaining);
+    $state = MediaLibraryState::create($opener_id, $allowed_media_type_ids, $selected_type_id, 1);
     // Add a button that will load the Media library in a modal using AJAX.
     $element['media_library_open_button'] = [
       '#type' => 'submit',
