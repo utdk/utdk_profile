@@ -1,0 +1,5 @@
+name: 'UTexas Devel'
+type: module
+description: 'Internal tools for testing & development'
+core: 8.x
+package: UTexas

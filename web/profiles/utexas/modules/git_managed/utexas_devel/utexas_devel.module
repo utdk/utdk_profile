@@ -1,0 +1,149 @@
+<?php
+
+/**
+ * @file
+ * Module for UTDK development.
+ */
+
+use Drupal\node\Entity\Node;
+use Drupal\layout_builder\Section;
+
+require_once 'includes/featured_highlight.inc';
+require_once 'includes/flex_content_area.inc';
+require_once 'includes/photo_content_area.inc';
+require_once 'includes/promo_list.inc';
+require_once 'includes/promo_unit.inc';
+require_once 'includes/hero.inc';
+require_once 'includes/quick_links.inc';
+require_once 'includes/resources.inc';
+
+/**
+ * Helper function to save layout builder pages.
+ */
+function _utexas_devel_create_page_from_configuration($title, $block1, $block2) {
+  $block1_id = md5('block' . $block1['block_revision_id']);
+  $block2_id = md5('block' . $block2['block_revision_id']);
+  $section_array = [
+    'layout_id' => 'layout_utexas_fullwidth',
+    'layout_settings' => [
+      'layout_builder_styles_style' => 'full_width_of_page',
+    ],
+    'components' => [
+      $block1_id => [
+        'uuid' => $block1_id,
+        'region' => 'main',
+        'configuration' => $block1,
+        'additional' => [],
+        'weight' => 0,
+      ],
+    ],
+  ];
+  $sections[] = Section::fromArray($section_array);
+  $section_array = [
+    'layout_id' => 'layout_utexas_50_50',
+    'layout_settings' => [
+      'layout_builder_styles_style' => 'full_width_of_page',
+    ],
+    'components' => [
+      $block1_id => [
+        'uuid' => $block1_id,
+        'region' => 'left',
+        'configuration' => $block1,
+        'additional' => [],
+        'weight' => 0,
+      ],
+      $block2_id => [
+        'uuid' => $block2_id,
+        'region' => 'right',
+        'configuration' => $block2,
+        'additional' => [],
+        'weight' => 0,
+      ],
+    ],
+  ];
+  $sections[] = Section::fromArray($section_array);
+  $section_array = [
+    'layout_id' => 'layout_utexas_66_33',
+    'layout_settings' => [
+      'layout_builder_styles_style' => 'full_width_of_page',
+    ],
+    'components' => [
+      $block1_id => [
+        'uuid' => $block1_id,
+        'region' => 'main',
+        'configuration' => $block1,
+        'additional' => [],
+        'weight' => 0,
+      ],
+      $block2_id => [
+        'uuid' => $block2_id,
+        'region' => 'sidebar',
+        'configuration' => $block2,
+        'additional' => [],
+        'weight' => 0,
+      ],
+    ],
+  ];
+  $sections[] = Section::fromArray($section_array);
+  $section_array = [
+    'layout_id' => 'layout_utexas_fullwidth',
+    'components' => [
+      $block1_id => [
+        'uuid' => $block1_id,
+        'region' => 'main',
+        'configuration' => $block1,
+        'additional' => [],
+        'weight' => 0,
+      ],
+    ],
+  ];
+  $sections[] = Section::fromArray($section_array);
+  $section_array = [
+    'layout_id' => 'layout_utexas_50_50',
+    'components' => [
+      $block1_id => [
+        'uuid' => $block1_id,
+        'region' => 'left',
+        'configuration' => $block1,
+        'additional' => [],
+        'weight' => 0,
+      ],
+      $block2_id => [
+        'uuid' => $block2_id,
+        'region' => 'right',
+        'configuration' => $block2,
+        'additional' => [],
+        'weight' => 0,
+      ],
+    ],
+  ];
+  $sections[] = Section::fromArray($section_array);
+  $section_array = [
+    'layout_id' => 'layout_utexas_66_33',
+    'components' => [
+      $block1_id => [
+        'uuid' => $block1_id,
+        'region' => 'main',
+        'configuration' => $block1,
+        'additional' => [],
+        'weight' => 0,
+      ],
+      $block2_id => [
+        'uuid' => $block2_id,
+        'region' => 'sidebar',
+        'configuration' => $block2,
+        'additional' => [],
+        'weight' => 0,
+      ],
+    ],
+  ];
+  $sections[] = Section::fromArray($section_array);
+
+  $node = Node::create(['type' => 'utexas_flex_page']);
+  $node->set('title', $title);
+  $node->set('uid', '1');
+  $node->set('layout_builder__layout', $sections);
+  $node->status = 1;
+  $node->enforceIsNew();
+  $node->save();
+}
