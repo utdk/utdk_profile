@@ -6,7 +6,7 @@
  */
 
 /**
- * Helper function for creating Featured Highlights.
+ * Helper function for creating Flex Content Areas.
  */
 function _utexas_devel_create_flex_content_area($media_id) {
   $blockEntityManager = \Drupal::service('entity.manager')
