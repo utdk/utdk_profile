@@ -2,7 +2,6 @@
 
 namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Template\Attribute;
@@ -57,7 +56,7 @@ class UTexasHeroStyle2Formatter extends UTexasHeroFormatterBase {
           $cta['title'] = $item->link_title;
         }
       }
-      $id = Html::getUniqueId($name);
+      'a' . $id = substr(md5(uniqid(mt_rand(), TRUE)), 0, 5);
       $background_image = new Attribute();
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
