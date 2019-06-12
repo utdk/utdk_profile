@@ -88,6 +88,7 @@ class FullWidthTest extends WebDriverTestBase {
     $page->pressButton('Update');
     $assert->assertWaitOnAjaxRequest();
     // A "container-fluid" class is added to the section.
+    $assert->elementNotExists('css', '.layout-builder__layout.container');
     $assert->elementExists('css', '.layout-builder__layout.container-fluid');
   }
 
