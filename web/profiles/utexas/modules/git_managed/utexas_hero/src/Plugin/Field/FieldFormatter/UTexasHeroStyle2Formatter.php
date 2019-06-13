@@ -56,7 +56,7 @@ class UTexasHeroStyle2Formatter extends UTexasHeroFormatterBase {
           $cta['title'] = $item->link_title;
         }
       }
-      'a' . $id = substr(md5(uniqid(mt_rand(), TRUE)), 0, 5);
+      $id = 'a' . substr(md5(uniqid(mt_rand(), TRUE)), 0, 5);
       $background_image = new Attribute();
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
