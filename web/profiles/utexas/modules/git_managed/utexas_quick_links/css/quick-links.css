@@ -109,8 +109,6 @@
 }
 .field-border .utexas-quick-links li {
   padding-bottom: 10px;
-  font-size: 0.875rem;
-  line-height: 1.125rem;
   font-weight: 600; /* Landscape phones and down */
 }
 
@@ -141,8 +139,6 @@
 }
 .field-background .utexas-quick-links .ut-headline {
   display: inline-block;
-  font-size: 1.0625rem;
-  line-height: 1.4375rem;
   color: #373737;
   background-color: #fef7ed;
   border: 1px solid #f0ede6;
@@ -151,7 +147,6 @@
 }
 .field-background .utexas-quick-links .ut-copy p {
   color: #474541;
-  font-size: 1rem;
   margin-bottom: 10px;
 }
 
