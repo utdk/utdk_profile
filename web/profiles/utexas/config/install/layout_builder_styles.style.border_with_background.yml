@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+id: border_with_background
+label: 'Border with background'
+classes: "field-border\r\nfield-background"
+type: component
+block_restrictions:
+  - 'field_block:block_content:utexas_quick_links:field_block_ql'
+  - 'inline_block:utexas_quick_links'
