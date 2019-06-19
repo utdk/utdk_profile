@@ -1,6 +1,8 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+  - utexas_quick_links
 id: border_with_background
 label: 'Border with background'
 classes: "field-border\r\nfield-background"
