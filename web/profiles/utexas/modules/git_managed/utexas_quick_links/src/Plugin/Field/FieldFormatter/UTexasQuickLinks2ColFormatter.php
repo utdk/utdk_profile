@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *
  * @FieldFormatter(
  *   id = "utexas_quick_links_2",
- *   label = @Translation("Display Links in 2 columns."),
+ *   label = @Translation("Display Links in 2 columns"),
  *   field_types = {
  *     "utexas_quick_links"
  *   },

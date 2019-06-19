@@ -11,7 +11,7 @@ use Drupal\Core\Url;
  *
  * @FieldFormatter(
  *   id = "utexas_quick_links",
- *   label = @Translation("Display Links in 1 column."),
+ *   label = @Translation("Display Links in 1 column"),
  *   field_types = {
  *     "utexas_quick_links"
  *   },

@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @FieldFormatter(
  *   id = "utexas_flex_content_area",
- *   label = @Translation("Display 2 items per row."),
+ *   label = @Translation("Display 2 items per row"),
  *   field_types = {
  *     "utexas_flex_content_area"
  *   }

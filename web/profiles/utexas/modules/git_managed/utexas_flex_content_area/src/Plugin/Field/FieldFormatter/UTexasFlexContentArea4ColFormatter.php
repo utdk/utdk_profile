@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *
  * @FieldFormatter(
  *   id = "utexas_flex_content_area_4",
- *   label = @Translation("Display 4 items per row."),
+ *   label = @Translation("Display 4 items per row"),
  *   field_types = {
  *     "utexas_flex_content_area"
  *   }
