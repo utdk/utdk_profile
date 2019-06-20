@@ -1,3 +1,7 @@
+.utexas-quick-links {
+  margin-bottom: 2.25rem;
+}
+
 /* Styling for Quick Link columns. */
 .utexas-quick-links ul.link-list {
   display: flex;
@@ -9,7 +13,11 @@
   width: 100%;
   box-sizing: border-box;
   padding-right: 1rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 1.875rem;
+}
+
+.utexas-quick-links ul.link-list li:last-child {
+  padding-bottom: 0;
 }
 
 /* Two Columns. */
@@ -91,58 +99,59 @@
 
 /* Border styles */
 .field-border .utexas-quick-links {
-  padding: 0;
+  padding: 0 0 20px;
   background-color: #fff;
-  border: 1px solid #e1ddd2;
+  border: 1px solid #f0ede6;
   margin-bottom: 35px;
 }
 .field-border .utexas-quick-links .ut-headline {
   margin: 0 0 10px 0;
+  padding: 15px;
   line-height: 1.625rem;
   color: #2d2a28;
   font-weight: 600;
+  border-bottom: 1px solid #f0ede6;
 }
 .field-border .utexas-quick-links ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.field-border .utexas-quick-links li {
+.field-border .utexas-quick-links ul.link-list li {
   padding-bottom: 10px;
   font-weight: 600;
-}
-
-/* Add padding due to border */
-.field-border .utexas-quick-links .ut-headline {
-  padding: 10px 15px;
+  padding: 10px 0;
 }
 .field-border .utexas-quick-links .ut-copy,
 .field-border .utexas-quick-links .link-list {
   padding: 0 15px;
 }
-.field-border .utexas-quick-links li {
-  padding: 10px 0 0 0;
+.field-border .utexas-quick-links .ut-copy p {
+  margin-bottom: 10px;
 }
 
 /* Background style */
 .field-background .utexas-quick-links {
-  border: 0;
   background-color: #fffdfa;
-  border-left: 1px solid #f0ede6;
-  border-right: 1px solid #f0ede6;
-  border-bottom: 1px solid #f0ede6;
   padding-bottom: 20px;
 }
 .field-background .utexas-quick-links .ut-headline {
-  display: inline-block;
   color: #373737;
   background-color: #fef7ed;
-  border: 1px solid #f0ede6;
-  width: 100%;
   font-weight: 700;
+  padding: 15px;
+}
+.field-background .utexas-quick-links .ut-copy {
+  padding-left: 15px;
 }
 .field-background .utexas-quick-links .ut-copy p {
   color: #474541;
   margin-bottom: 10px;
+  /* padding: 0 15px; */
 }
-
+.field-background .utexas-quick-links .link-list {
+  padding: 0 15px;
+}
+.field-background .utexas-quick-links .link-list li {
+  padding: 10px 0;
+}
