@@ -14,12 +14,7 @@
  * @ingroup themeable
  */
 #}
-
 {% spaceless %}
-<div style="display: table">
-  <div style="display: table-row">
-      <div style="display: table-cell">{{ element.url }}</div>
-      <div style="display: table-cell">{{ element.title }}</div>
-  </div>
-</div>
+  {{ element.url }}
+  {{ element.title }}
 {% endspaceless %}
