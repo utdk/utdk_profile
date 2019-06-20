@@ -109,7 +109,7 @@
 }
 .field-border .utexas-quick-links li {
   padding-bottom: 10px;
-  font-weight: 600; /* Landscape phones and down */
+  font-weight: 600;
 }
 
 /* Add padding due to border */
@@ -122,15 +122,11 @@
 }
 .field-border .utexas-quick-links li {
   padding: 10px 0 0 0;
-  font-weight: 100; /* Landscape phones and down */
 }
 
 /* Background style */
 .field-background .utexas-quick-links {
   border: 0;
-  background-color: inherit;
-}
-.field-background .utexas-quick-links {
   background-color: #fffdfa;
   border-left: 1px solid #f0ede6;
   border-right: 1px solid #f0ede6;
