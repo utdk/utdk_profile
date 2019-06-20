@@ -16,10 +16,6 @@
   padding-bottom: 1.875rem;
 }
 
-.utexas-quick-links ul.link-list li:last-child {
-  padding-bottom: 0;
-}
-
 /* Two Columns. */
 .utexas-quick-links.two ul.link-list li {
   width: 50%;
