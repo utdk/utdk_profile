@@ -138,7 +138,7 @@
   color: #373737;
   background-color: #fef7ed;
   border: 1px solid #f0ede6;
-  width: -webkit-fill-available;
+  width: 100%;
   font-weight: 700;
 }
 .field-background .utexas-quick-links .ut-copy p {
