@@ -1,0 +1,10 @@
+#layout-builder-modal .utexas-link-form-element input,
+.utexas-link-form-element input {
+  width: 95%;
+}
+.utexas-link-form-element {
+  display: flex;
+}
+.utexas-link-form-element > div {
+  flex: 0 0 50%;
+}
