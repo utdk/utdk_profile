@@ -6,5 +6,5 @@
   display: flex;
 }
 .utexas-link-form-element > div {
-  flex: 0 0 50%;
+  flex: 1 0 50%;
 }
