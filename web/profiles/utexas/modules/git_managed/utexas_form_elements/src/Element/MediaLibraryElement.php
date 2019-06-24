@@ -191,7 +191,6 @@ class MediaLibraryElement extends FormElement {
       // Prevent errors in other widgets from preventing updates.
       '#limit_validation_errors' => $limit_validation_errors,
     ];
-    $element['#attached']['library'][] = 'utexas_form_elements/link-element';
     return $element;
   }
 

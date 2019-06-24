@@ -53,6 +53,7 @@ class UtexasLinkElement extends FormElement {
       '#placeholder' => 'Text to display',
       '#access' => isset($element['#suppress_display']) ? FALSE : TRUE,
     ];
+    $element['#attached']['library'][] = 'utexas_form_elements/link-element';
 
     return $element;
   }
