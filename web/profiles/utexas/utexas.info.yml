@@ -41,6 +41,7 @@ install:
   - feed_block
   - google_tag
   - google_cse
+  - inline_form_errors
   - layout_builder_modal
   - layout_builder_restrictions
   - layout_builder_styles
