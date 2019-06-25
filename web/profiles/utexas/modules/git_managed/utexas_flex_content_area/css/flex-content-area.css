@@ -24,11 +24,11 @@
   }
 }
 
-.layout--utexas-66-33--container .layout__region--sidebar .ut-flex-content-area-wrapper {
+.utexas-layout--twocol--67-33 .layout__region--second .ut-flex-content-area-wrapper {
   flex-direction: column;
 }
 
-.layout--utexas-66-33--container .layout__region--sidebar .ut-flex-content-area {
+.utexas-layout--twocol--67-33 .layout__region--second .ut-flex-content-area {
   flex-direction: column;
   flex: 0 0 100%;
 }

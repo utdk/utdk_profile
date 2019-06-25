@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\utexas_layouts\Plugin\Layout;
+namespace Drupal\utexas_layouts\Traits;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Template\Attribute;
@@ -9,13 +9,12 @@ use Drupal\image\Entity\ImageStyle;
 /**
  * Defines layout configuration that includes an option for a background accent.
  */
-class BackgroundAccent extends DefaultConfigLayout {
+trait BackgroundAccentTrait {
 
   /**
    * {@inheritdoc}
    */
-  public function defaultConfiguration() {
-    $config = parent::defaultConfiguration();
+  public function backgroundConfiguration() {
     $config['blur'] = FALSE;
     return $config;
   }
@@ -23,8 +22,7 @@ class BackgroundAccent extends DefaultConfigLayout {
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-    $form = parent::buildConfigurationForm($form, $form_state);
+  public function backgroundConfigurationForm(array $form, FormStateInterface $form_state) {
     $validators = [
       'file_validate_extensions' => ['jpg jpeg png gif'],
     ];
@@ -50,8 +48,7 @@ class BackgroundAccent extends DefaultConfigLayout {
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
-    parent::submitConfigurationForm($form, $form_state);
+  public function submitBackgroundConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['blur'] = $form_state->getValue('blur');
     if ($form_state->getValue('background-accent')) {
       $this->configuration['background-accent'] = $form_state->getValue('background-accent')['media_library_selection'];
@@ -65,8 +62,7 @@ class BackgroundAccent extends DefaultConfigLayout {
   /**
    * {@inheritdoc}
    */
-  public function build(array $regions) {
-    $build = parent::build($regions);
+  public function buildBackground(&$build) {
     if (!empty($this->configuration['background-accent'])) {
       if ($media = $this->entityTypeManager->getStorage('media')->load($this->configuration['background-accent'])) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();

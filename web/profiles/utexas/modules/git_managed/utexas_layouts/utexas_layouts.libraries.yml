@@ -4,17 +4,11 @@ utexas_fullwidth:
     theme:
       layouts/fullwidth/layout.css: {}
       layouts/background-accent.css: {}
-utexas_50_50:
+twocol:
   version: 1.0
   css:
     theme:
-      layouts/50_50/layout.css: {}
-      layouts/background-accent.css: {}
-utexas_66_33:
-  version: 1.0
-  css:
-    theme:
-      layouts/66_33/layout.css: {}
+      layouts/twocol/twocol.css: {}
       layouts/background-accent.css: {}
 layout_builder_ui:
   version: 1.0

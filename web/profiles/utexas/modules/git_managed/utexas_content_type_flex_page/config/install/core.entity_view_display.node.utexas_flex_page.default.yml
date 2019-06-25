@@ -25,21 +25,6 @@ third_party_settings:
         components: {  }
         third_party_settings: {  }
   layout_builder_restrictions:
-    allowed_blocks:
-      'Chaos Tools': {  }
-      Content: {  }
-      'Content fields': {  }
-      core: {  }
-      Forms: {  }
-      System: {  }
-      User: {  }
-      'User fields': {  }
-      utexas: {  }
-      'UTexas Required Links': {  }
-    allowed_layouts:
-      - layout_utexas_fullwidth
-      - layout_utexas_50_50
-      - layout_utexas_66_33
     entity_view_mode_restriction:
       allowed_blocks:
         'Chaos Tools': {  }
@@ -54,8 +39,7 @@ third_party_settings:
         utexas: {  }
       allowed_layouts:
         - layout_utexas_fullwidth
-        - layout_utexas_50_50
-        - layout_utexas_66_33
+        - layout_utexas_twocol
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page
