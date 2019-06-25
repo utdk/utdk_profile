@@ -58,7 +58,8 @@ class UTexasResourcesWidget extends WidgetBase {
     $element['resource_items']['#suffix'] = '</div>';
     for ($i = 0; $i < $item_count; $i++) {
       $element['resource_items'][$i] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
+        '#title' => $this->t('Resource item %number', ['%number' => $i + 1]),
       ];
       $element['resource_items'][$i]['item'] = [
         '#type' => 'utexas_resource',

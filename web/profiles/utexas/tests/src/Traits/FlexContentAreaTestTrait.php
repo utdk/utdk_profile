@@ -14,6 +14,10 @@ trait FlexContentAreaTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_flex_content_area');
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
 
     // Verify widget field schema.
     $page->pressButton('Set media');
@@ -32,27 +36,30 @@ trait FlexContentAreaTestTrait {
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Add another item');
     $assert->assertWaitOnAjaxRequest();
-
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
     $this->submitForm([
       'info[0][value]' => 'Flex Content Area Test',
-      'field_block_fca[0][headline]' => 'Flex Content Area Headline',
-      'field_block_fca[0][copy][value]' => 'Flex Content Area Copy',
-      'field_block_fca[0][links][0][url]' => 'https://utexas.edu',
-      'field_block_fca[0][links][0][title]' => 'Flex Content Area External Link',
-      'field_block_fca[0][cta_wrapper][link][url]' => 'https://utexas.edu',
-      'field_block_fca[0][cta_wrapper][link][title]' => 'Flex Content Area Call to Action',
-      'field_block_fca[1][headline]' => 'Flex Content Area Headline 2',
-      'field_block_fca[1][copy][value]' => 'Flex Content Area Copy 2',
-      'field_block_fca[1][links][0][url]' => 'https://utexas.edu',
-      'field_block_fca[1][links][0][title]' => 'Flex Content Area External Link 2',
-      'field_block_fca[1][cta_wrapper][link][url]' => 'https://utexas.edu',
-      'field_block_fca[1][cta_wrapper][link][title]' => 'Flex Content Area Call to Action 2',
-      'field_block_fca[2][headline]' => 'Flex Content Area Headline 3',
-      'field_block_fca[2][copy][value]' => '',
-      'field_block_fca[2][links][0][url]' => '',
-      'field_block_fca[2][links][0][title]' => '',
-      'field_block_fca[2][cta_wrapper][link][url]' => '',
-      'field_block_fca[2][cta_wrapper][link][title]' => '',
+      'field_block_fca[0][flex_content_area][headline]' => 'Flex Content Area Headline',
+      'field_block_fca[0][flex_content_area][copy][value]' => 'Flex Content Area Copy',
+      'field_block_fca[0][flex_content_area][links][0][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][links][0][title]' => 'Flex Content Area External Link',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action',
+      'field_block_fca[1][flex_content_area][headline]' => 'Flex Content Area Headline 2',
+      'field_block_fca[1][flex_content_area][copy][value]' => 'Flex Content Area Copy 2',
+      'field_block_fca[1][flex_content_area][links][0][url]' => 'https://utexas.edu',
+      'field_block_fca[1][flex_content_area][links][0][title]' => 'Flex Content Area External Link 2',
+      'field_block_fca[1][flex_content_area][cta_wrapper][link][url]' => 'https://utexas.edu',
+      'field_block_fca[1][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action 2',
+      'field_block_fca[2][flex_content_area][headline]' => 'Flex Content Area Headline 3',
+      'field_block_fca[2][flex_content_area][copy][value]' => '',
+      'field_block_fca[2][flex_content_area][links][0][url]' => '',
+      'field_block_fca[2][flex_content_area][links][0][title]' => '',
+      'field_block_fca[2][flex_content_area][cta_wrapper][link][url]' => '',
+      'field_block_fca[2][flex_content_area][cta_wrapper][link][title]' => '',
     ], 'Save');
     $assert->pageTextContains('Flex Content Area Test has been created.');
 

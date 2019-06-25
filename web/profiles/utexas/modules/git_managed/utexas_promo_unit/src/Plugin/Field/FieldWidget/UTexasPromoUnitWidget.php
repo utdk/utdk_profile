@@ -58,7 +58,8 @@ class UTexasPromoUnitWidget extends WidgetBase {
     $element['promo_unit_items']['#suffix'] = '</div>';
     for ($i = 0; $i < $item_count; $i++) {
       $element['promo_unit_items'][$i] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
+        '#title' => $this->t('Promo unit item %number', ['%number' => $i + 1]),
       ];
       $element['promo_unit_items'][$i]['item'] = [
         '#type' => 'utexas_promo_unit',

@@ -14,6 +14,8 @@ trait ResourcesTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_resources');
+    $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-0');
+    $fieldset[0]->click();
 
     // Verify widget field schema.
     $page->pressButton('Set media');
@@ -34,6 +36,10 @@ trait ResourcesTestTrait {
     // Verify that multiple resource collections can be added.
     $page->pressButton('Add another collection');
     $assert->assertWaitOnAjaxRequest();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
 
     $this->submitForm([
       'info[0][value]' => 'Resources Test',

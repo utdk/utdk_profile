@@ -60,7 +60,8 @@ class UTexasPromoListWidget extends WidgetBase {
     ];
     for ($i = 0; $i < $item_count; $i++) {
       $element['promo_list_items'][$i] = [
-        '#type' => 'fieldset',
+        '#type' => 'details',
+        '#title' => $this->t('Promo list item %number', ['%number' => $i + 1]),
       ];
       $element['promo_list_items'][$i]['item'] = [
         '#type' => 'utexas_promo_list',

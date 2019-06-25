@@ -14,6 +14,10 @@ trait PromoListTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_list');
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
 
     // Verify widget field schema.
     $page->pressButton('Set media');
@@ -30,6 +34,10 @@ trait PromoListTestTrait {
     // Verify the custom "Add promo list item" button works.
     $page->pressButton('Add promo list item');
     $assert->assertWaitOnAjaxRequest();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
 
     $this->submitForm([
       'info[0][value]' => 'Promo List Test',

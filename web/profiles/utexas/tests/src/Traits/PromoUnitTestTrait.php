@@ -14,7 +14,10 @@ trait PromoUnitTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_unit');
-
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
     // Verify widget field schema.
     $page->pressButton('Set media');
     $assert->assertWaitOnAjaxRequest();
