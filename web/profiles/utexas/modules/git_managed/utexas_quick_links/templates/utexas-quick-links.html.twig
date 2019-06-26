@@ -15,8 +15,12 @@
  */
 #}
 <div class="utexas-quick-links {{ columns }}">
-  <h3 class="ut-headline">{{ headline }}</h3>
-  <div class="ut-copy">{{ copy }}</div>
+  {% if headline %}
+    <h3 class="ut-headline">{{ headline }}</h3>
+  {% endif %} 
+  {% if copy %}
+    <div class="ut-copy">{{ copy }}</div>
+  {% endif %} 
   <ul class="link-list">
       {% for link in links %}
       <li>
