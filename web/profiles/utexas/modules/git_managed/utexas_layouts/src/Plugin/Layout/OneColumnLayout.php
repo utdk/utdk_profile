@@ -21,6 +21,7 @@ class OneColumnLayout extends DefaultConfigLayout {
    */
   public function defaultConfiguration() {
     $config = $this->backgroundConfiguration();
+    $config += $this->backgroundColorConfiguration();
     return $config;
   }
 
@@ -29,6 +30,7 @@ class OneColumnLayout extends DefaultConfigLayout {
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = $this->backgroundConfigurationForm($form, $form_state);
+    $form += $this->backgroundColorConfigurationForm($form, $form_state);
     return $form;
   }
 
@@ -43,6 +45,7 @@ class OneColumnLayout extends DefaultConfigLayout {
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->submitBackgroundConfigurationForm($form, $form_state);
+    $this->submitBackgroundColorConfigurationForm($form, $form_state);
   }
 
   /**
@@ -51,6 +54,7 @@ class OneColumnLayout extends DefaultConfigLayout {
   public function build(array $regions) {
     $build = parent::build($regions);
     $this->buildBackground($build);
+    $this->buildBackgroundColor($build);
     return $build;
   }
 
