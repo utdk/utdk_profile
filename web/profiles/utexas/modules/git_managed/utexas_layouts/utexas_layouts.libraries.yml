@@ -31,4 +31,5 @@ background-colors:
   version: 1.0
   css:
     theme:
+      layouts/background-accent.css: {}
       theme/background-colors.css: {}
