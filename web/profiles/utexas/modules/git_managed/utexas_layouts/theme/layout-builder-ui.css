@@ -12,3 +12,68 @@
   -webkit-box-shadow: 5px 5px 5px #666;
   cursor: grabbing;
 }
+
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="074d6a"] + label::after {
+  background-color: #074d6a;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="138791"] + label::after {
+  background-color: #138791;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="f9fafb"] + label::after {
+  background-color: #f9fafb;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="e6ebed"] + label::after {
+  background-color: #e6ebed;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="c4cdd4"] + label::after {
+  background-color: #c4cdd4;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="7d8a92"] + label::after {
+  background-color: #7d8a92;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="5e686e"] + label::after {
+  background-color: #5e686e;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="3e4549"] + label::after {
+  background-color: #3e4549;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="487d39"] + label::after {
+  background-color: #487d39;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="9d4700"] + label::after {
+  background-color: #9d4700;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="ebeced"] + label::after {
+  background-color: #ebeced;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="c2c5c8"] + label::after {
+  background-color: #c2c5c8;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="858c91"] + label::after {
+  background-color: #858c91;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="1f262b"] + label::after {
+  background-color: #1f262b;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="fbfbf9"] + label::after {
+  background-color: #fbfbf9;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="f2f1ed"] + label::after {
+  background-color: #f2f1ed;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="e6e4dc"] + label::after {
+  background-color: #e6e4dc;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="aba89e"] + label::after {
+  background-color: #aba89e;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="807e76"] + label::after {
+  background-color: #807e76;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="56544e"] + label::after {
+  background-color: #56544e;
+}
+#drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input + label::after {
+  content: "   ";
+  white-space: pre;
+}

@@ -27,3 +27,8 @@ layout_builder_ui:
   css:
     theme:
       theme/layout-builder-ui.css: {}
+background-colors:
+  version: 1.0
+  css:
+    theme:
+      theme/background-colors.css: {}

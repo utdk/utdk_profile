@@ -4,6 +4,7 @@ namespace Drupal\utexas_layouts\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
+use Drupal\utexas_layouts\Traits\BackgroundColorTrait;
 use Drupal\utexas_layouts\Traits\MultiWidthLayoutTrait;
 
 /**
@@ -11,7 +12,7 @@ use Drupal\utexas_layouts\Traits\MultiWidthLayoutTrait;
  */
 class TwoColumnLayout extends DefaultConfigLayout {
 
-  use BackgroundAccentTrait, MultiWidthLayoutTrait;
+  use BackgroundAccentTrait, BackgroundColorTrait, MultiWidthLayoutTrait;
 
   /**
    * {@inheritdoc}
@@ -31,6 +32,7 @@ class TwoColumnLayout extends DefaultConfigLayout {
    */
   public function defaultConfiguration() {
     $config = $this->backgroundConfiguration();
+    $config += $this->backgroundColorConfiguration();
     $config += $this->multiWidthConfiguration();
     return $config;
   }
@@ -40,6 +42,7 @@ class TwoColumnLayout extends DefaultConfigLayout {
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = $this->multiWidthConfigurationForm($form, $form_state);
+    $form += $this->backgroundColorConfigurationForm($form, $form_state);
     $form += $this->backgroundConfigurationForm($form, $form_state);
     return $form;
   }
@@ -56,6 +59,7 @@ class TwoColumnLayout extends DefaultConfigLayout {
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->submitBackgroundConfigurationForm($form, $form_state);
+    $this->submitBackgroundColorConfigurationForm($form, $form_state);
     $this->submitMultiWidthConfigurationForm($form, $form_state);
   }
 
@@ -65,6 +69,7 @@ class TwoColumnLayout extends DefaultConfigLayout {
   public function build(array $regions) {
     $build = parent::build($regions);
     $this->buildBackground($build);
+    $this->buildBackgroundColor($build);
     $this->buildMultiWidth($build);
     return $build;
   }

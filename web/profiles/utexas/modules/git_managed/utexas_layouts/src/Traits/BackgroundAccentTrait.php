@@ -26,7 +26,11 @@ trait BackgroundAccentTrait {
     $validators = [
       'file_validate_extensions' => ['jpg jpeg png gif'],
     ];
-    $form['background-accent'] = [
+    $form['background-accent-wrapper'] = [
+      '#type' => 'details',
+      '#title' => 'Background image',
+    ];
+    $form['background-accent-wrapper']['background-accent'] = [
       '#type' => 'media_library_element',
       '#target_bundles' => ['utexas_image'],
       '#cardinality' => 1,
@@ -36,7 +40,7 @@ trait BackgroundAccentTrait {
       '#description' => $this->t('Optionally, display an image behind section content. Ideal size is 1500x500 pixels.'),
       '#weight' => 1,
     ];
-    $form['blur'] = [
+    $form['background-accent-wrapper']['blur'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Apply blur to image?'),
       '#default_value' => $this->configuration['blur'],
@@ -50,8 +54,9 @@ trait BackgroundAccentTrait {
    */
   public function submitBackgroundConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['blur'] = $form_state->getValue('blur');
-    if ($form_state->getValue('background-accent')) {
-      $this->configuration['background-accent'] = $form_state->getValue('background-accent')['media_library_selection'];
+    $wrapper = $form_state->getValue('background-accent-wrapper');
+    if (!empty($wrapper['background-accent'])) {
+      $this->configuration['background-accent'] = $wrapper['background-accent']['media_library_selection'];
     }
     else {
       // There is no image.

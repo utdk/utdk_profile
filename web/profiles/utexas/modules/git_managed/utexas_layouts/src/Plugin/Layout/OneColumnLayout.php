@@ -4,6 +4,7 @@ namespace Drupal\utexas_layouts\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
+use Drupal\utexas_layouts\Traits\BackgroundColorTrait;
 
 /**
  * Configurable one column layout plugin class.
@@ -13,7 +14,7 @@ use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
  */
 class OneColumnLayout extends DefaultConfigLayout {
 
-  use BackgroundAccentTrait;
+  use BackgroundAccentTrait, BackgroundColorTrait;
 
   /**
    * {@inheritdoc}
