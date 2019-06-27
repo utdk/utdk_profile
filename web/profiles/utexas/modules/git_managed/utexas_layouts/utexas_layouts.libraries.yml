@@ -27,6 +27,8 @@ layout_builder_ui:
   css:
     theme:
       theme/layout-builder-ui.css: {}
+  js:
+    js/layout-builder-form-error.js: {}
 background-colors:
   version: 1.0
   css:
