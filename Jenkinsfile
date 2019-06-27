@@ -72,7 +72,7 @@ pipeline {
                                                 if [ ! -d "web/sites/default/config" ]; then
                                                     mkdir web/sites/default/config
                                                 fi
-                                                composer install --optimize-autoloader
+                                                php -d memory_limit=-1 /usr/local/bin/composer install --optimize-autoloader
 
                                                 ## Ensure composer installed executables are in path...
                                                 export PATH=/var/www/utdk8/vendor/bin:$PATH
