@@ -14,13 +14,15 @@ margin: 0.75rem 1rem 1.75rem 1rem;
 /* Pad all regions so that non-background accent regions that
 follow a background-accent region have spacing */
 .layout__region--first,
-.layout__region--second {
+.layout__region--second,
+.layout__region--third {
   padding-top:1rem;
 }
 
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
 .background-accent .layout__region--first,
-.background-accent .layout__region--second {
+.background-accent .layout__region--second,
+.background-accent .layout__region--third {
   padding-top:1rem;
   padding-bottom:1rem;
 }

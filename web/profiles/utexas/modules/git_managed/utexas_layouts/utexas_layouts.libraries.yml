@@ -10,6 +10,12 @@ twocol:
     theme:
       layouts/twocol/twocol.css: {}
       layouts/background-accent.css: {}
+threecol:
+  version: 1.0
+  css:
+    theme:
+      layouts/threecol/threecol.css: {}
+      layouts/background-accent.css: {}
 layout_builder_ui:
   version: 1.0
   css:

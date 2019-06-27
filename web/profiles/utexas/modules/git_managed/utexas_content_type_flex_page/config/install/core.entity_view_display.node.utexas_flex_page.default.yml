@@ -40,6 +40,7 @@ third_party_settings:
       allowed_layouts:
         - layout_utexas_fullwidth
         - layout_utexas_twocol
+        - layout_utexas_threecol
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page
