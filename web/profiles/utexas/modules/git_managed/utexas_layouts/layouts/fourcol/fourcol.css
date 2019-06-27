@@ -1,0 +1,23 @@
+/*
+ * @file
+ * Provides the layout styles for two-column layout section.
+ */
+
+ .utexas-layout--fourcol {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.utexas-layout--fourcol > .layout__region {
+  flex: 0 1 100%;
+}
+
+@media screen and (min-width: 40em) {
+  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--first,
+  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--second,
+  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--third,
+  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--fourth {
+    flex: 0 1 25%;
+  }
+
+}

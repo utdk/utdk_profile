@@ -41,6 +41,7 @@ third_party_settings:
         - layout_utexas_fullwidth
         - layout_utexas_twocol
         - layout_utexas_threecol
+        - layout_utexas_fourcol
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page

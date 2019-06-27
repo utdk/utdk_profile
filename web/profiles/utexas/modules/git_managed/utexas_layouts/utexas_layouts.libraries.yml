@@ -16,6 +16,12 @@ threecol:
     theme:
       layouts/threecol/threecol.css: {}
       layouts/background-accent.css: {}
+fourcol:
+  version: 1.0
+  css:
+    theme:
+      layouts/fourcol/fourcol.css: {}
+      layouts/background-accent.css: {}
 layout_builder_ui:
   version: 1.0
   css:
