@@ -32,19 +32,6 @@ class BackgroundColorTest extends WebDriverTestBase {
    * @var \Drupal\user\UserInterface
    */
   protected $testUser;
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * An video Media ID to be used with file rendering.
-   *
-   * @var string
-   */
-  protected $testVideo;
 
   /**
    * {@inheritdoc}
