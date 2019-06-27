@@ -73,6 +73,21 @@ class BackgroundColorTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
 
+    $this->clickLink('Configure section');
+    $assert->assertWaitOnAjaxRequest();
+
+    $checkbox_selector = '.layout-builder-configure-section details';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[1]->click();
+
+    $edit = ['layout_settings[background-color-wrapper][background-color]' => "none"];
+    $this->submitForm($edit, t('Update'));
+    $assert->assertWaitOnAjaxRequest();
+    // A "background" class is added to the section. The correct color is found.
+    $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
+    $actual_background = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout").css("background-color")');
+    $this->assertSame("rgba(0, 0, 0, 0)", $actual_background);
+
     $color_palette = [
       '074d6a' => 'rgb(7, 77, 106)',
       '138791' => 'rgb(19, 135, 145)',
