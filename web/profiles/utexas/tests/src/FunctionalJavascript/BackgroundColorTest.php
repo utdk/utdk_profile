@@ -54,14 +54,12 @@ class BackgroundColorTest extends WebDriverTestBase {
     parent::setUp();
     $this->initializeFlexPageEditor();
     $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestMediaImage();
-    $this->testVideo = $this->createTestMediaVideoExternal();
   }
 
   /**
-   * Test any custom widgets sequentially, using the same installation.
+   * Test background color configuration.
    */
-  public function testCustomWidgets() {
+  public function testBackgroundColors() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
