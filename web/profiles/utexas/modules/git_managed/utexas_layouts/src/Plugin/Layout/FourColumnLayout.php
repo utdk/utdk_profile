@@ -4,6 +4,7 @@ namespace Drupal\utexas_layouts\Plugin\Layout;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
+use Drupal\utexas_layouts\Traits\BackgroundColorTrait;
 
 /**
  * Configurable four column layout plugin class.
@@ -13,21 +14,14 @@ use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
  */
 class FourColumnLayout extends DefaultConfigLayout {
 
-  use BackgroundAccentTrait;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function defaultConfiguration() {
-    $config = $this->backgroundConfiguration();
-    return $config;
-  }
+  use BackgroundAccentTrait, BackgroundColorTrait;
 
   /**
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = $this->backgroundConfigurationForm($form, $form_state);
+    $form += $this->backgroundColorConfigurationForm($form, $form_state);
     return $form;
   }
 
@@ -42,6 +36,7 @@ class FourColumnLayout extends DefaultConfigLayout {
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->submitBackgroundConfigurationForm($form, $form_state);
+    $this->submitBackgroundColorConfigurationForm($form, $form_state);
   }
 
   /**
@@ -51,6 +46,7 @@ class FourColumnLayout extends DefaultConfigLayout {
     $build = parent::build($regions);
     $build['#attributes']['class'][] = $this->getPluginDefinition()->getTemplate();
     $this->buildBackground($build);
+    $this->buildBackgroundColor($build);
     return $build;
   }
 
