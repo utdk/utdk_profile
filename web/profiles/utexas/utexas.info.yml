@@ -50,6 +50,7 @@ install:
   - pathauto
   - page_title_visibility
   - redirect
+  - svg_upload_sanitizer
   # Custom
   - utexas_block_required_links
   - utexas_call_to_action

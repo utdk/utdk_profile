@@ -9,7 +9,6 @@ use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Core\Render\Markup;
-use Drupal\Component\Utility\Random;
 
 /**
  * Verifies Social Links field schema & validation.
@@ -129,22 +128,14 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertRaw('</svg>');
 
     // Create test SVG.
-    $location = 'public://';
-    $random_util = new Random();
-    $svg_filename = $random_util->word(5);
-    $svg_tag = $random_util->word(5);
-    $svg_data = "<svg><title>" . $svg_tag . "</title></svg>";
-    file_put_contents($location . $svg_filename . '.svg', $svg_data);
-    $saved_file = file_save_data($location . $svg_filename . '.svg', 'public://' . $svg_filename . '.svg', FILE_EXISTS_REPLACE);
-    // Determine markup for evaluating presence of SVG in rendered page.
-    $svgFile1FileContents = file_get_contents($saved_file->getFileUri());
+    $svgFile1FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/check.svg');
     $svgFile1Markup = Markup::create($svgFile1FileContents);
     // Add a custom Social Network with 1st test SVG.
     $this->drupalGet("/admin/structure/social-links/add");
     $edit = [
       'label' => 'test',
       'id' => 'test',
-      'files[icon]' => \Drupal::service('file_system')->realpath($saved_file->getFileUri()),
+      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/check.svg'),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
@@ -160,28 +151,22 @@ class SocialLinksTest extends BrowserTestBase {
     // Go to homepage and confirm test network is rendering with test svg path.
     $this->drupalGet("<front>");
     $this->assertRaw("https://testsocial.com");
-    $this->assertRaw($svgFile1Markup);
+    $this->assertRaw('<path d="M6.464 13.676c-.194.194-.513.194-.707 0l-4.96-4.955c-.194-.193-.194-.513 0-.707l1.405-1.407c.194-.195.512-.195.707 0l2.849 2.848c.194.193.513.193.707 0l6.629-6.626c.195-.194.514-.194.707 0l1.404 1.404c.193.194.193.513 0 .707l-8.741 8.736z"></path>');
 
     // Go back and change icon.
-    $svg_filename = $random_util->word(5);
-    $svg_tag = $random_util->word(5);
-    $svg_data = "<svg><title>" . $svg_tag . "</title></svg>";
-    file_put_contents($location . $svg_filename . '.svg', $svg_data);
-    $saved_file = file_save_data($location . $svg_filename . '.svg', 'public://' . $svg_filename . '.svg', FILE_EXISTS_REPLACE);
-    // Determine markup for evaluating presence of SVG in rendered page.
-    $svgFile2FileContents = file_get_contents($saved_file->getFileUri());
+    $svgFile2FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/location.svg');
     $svgFile2Markup = Markup::create($svgFile2FileContents);
 
     // Edit the existing custom Social Network test network.
     $this->drupalGet('/admin/structure/social-links/test/edit');
     $edit = [
-      'files[icon]' => \Drupal::service('file_system')->realpath($saved_file->getFileUri()),
+      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/location.svg'),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
     // Go to homepage & confirm test network is rendering with test 2 svg path.
     $this->drupalGet("<front>");
-    $this->assertRaw($svgFile2Markup);
+    $this->assertRaw('<path d="M5.4749999,0 C2.43935876,0 0,2.45021982 0,5.50153207 C0,8.5518841 5.4749999,16.0038459 5.4749999,16.0038459 C5.4749999,16.0038459 10.9499998,8.5518841 10.9499998,5.50153207 C10.9499998,2.45021982 8.51064105,0 5.4749999,0 Z M5.89615374,8.00192294 C4.48158136,8.00192294 3.36923071,6.89054251 3.36923071,5.4749999 C3.36923071,4.06042752 4.48061114,2.94807687 5.89615374,2.94807687 C7.31072613,2.94807687 8.42307678,4.0594573 8.42307678,5.4749999 C8.42307678,6.89051825 7.31075039,8.00192294 5.89615374,8.00192294 Z"></path>');
 
     // Logout with the current user.
     $this->drupalLogout();
