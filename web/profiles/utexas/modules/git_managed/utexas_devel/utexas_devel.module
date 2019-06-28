@@ -23,68 +23,11 @@ require_once 'includes/resources.inc';
 function _utexas_devel_create_page_from_configuration($title, $block1, $block2) {
   $block1_id = md5('block' . $block1['block_revision_id']);
   $block2_id = md5('block' . $block2['block_revision_id']);
-  $section_array = [
-    'layout_id' => 'layout_utexas_fullwidth',
-    'layout_settings' => [
-      'layout_builder_styles_style' => 'full_width_of_page',
-    ],
-    'components' => [
-      $block1_id => [
-        'uuid' => $block1_id,
-        'region' => 'main',
-        'configuration' => $block1,
-        'additional' => [],
-        'weight' => 0,
-      ],
-    ],
-  ];
-  $sections[] = Section::fromArray($section_array);
-  $section_array = [
-    'layout_id' => 'layout_utexas_50_50',
-    'layout_settings' => [
-      'layout_builder_styles_style' => 'full_width_of_page',
-    ],
-    'components' => [
-      $block1_id => [
-        'uuid' => $block1_id,
-        'region' => 'left',
-        'configuration' => $block1,
-        'additional' => [],
-        'weight' => 0,
-      ],
-      $block2_id => [
-        'uuid' => $block2_id,
-        'region' => 'right',
-        'configuration' => $block2,
-        'additional' => [],
-        'weight' => 0,
-      ],
-    ],
-  ];
-  $sections[] = Section::fromArray($section_array);
-  $section_array = [
-    'layout_id' => 'layout_utexas_66_33',
-    'layout_settings' => [
-      'layout_builder_styles_style' => 'full_width_of_page',
-    ],
-    'components' => [
-      $block1_id => [
-        'uuid' => $block1_id,
-        'region' => 'main',
-        'configuration' => $block1,
-        'additional' => [],
-        'weight' => 0,
-      ],
-      $block2_id => [
-        'uuid' => $block2_id,
-        'region' => 'sidebar',
-        'configuration' => $block2,
-        'additional' => [],
-        'weight' => 0,
-      ],
-    ],
-  ];
-  $sections[] = Section::fromArray($section_array);
+  // Reuse blocks 1 & 2 for blocks 3 & 4.
+  $block3_id = md5('block3' . $block1['block_revision_id']);
+  $block4_id = md5('block4' . $block1['block_revision_id']);
+
+  // One column section.
   $section_array = [
     'layout_id' => 'layout_utexas_fullwidth',
     'components' => [
@@ -97,47 +40,133 @@ function _utexas_devel_create_page_from_configuration($title, $block1, $block2) 
       ],
     ],
   ];
+  $section_array_full_width = $section_array;
+  $section_array_full_width['layout_settings'] = [
+    'layout_builder_styles_style' => 'full_width_of_page',
+  ];
   $sections[] = Section::fromArray($section_array);
+  $sections[] = Section::fromArray($section_array_full_width);
+
+  // Two column section.
+  $twocol_widths_to_test = [
+    '50-50',
+    '33-67',
+    '67-33',
+    '25-75',
+    '75-25',
+  ];
+  foreach ($twocol_widths_to_test as $width) {
+    $section_array = [
+      'layout_id' => 'layout_utexas_twocol',
+      'layout_settings' => [
+        'column_widths' => $width,
+      ],
+      'components' => [
+        $block1_id => [
+          'uuid' => $block1_id,
+          'region' => 'first',
+          'configuration' => $block1,
+          'additional' => [],
+          'weight' => 0,
+        ],
+        $block2_id => [
+          'uuid' => $block2_id,
+          'region' => 'second',
+          'configuration' => $block2,
+          'additional' => [],
+          'weight' => 0,
+        ],
+      ],
+    ];
+    $section_array_full_width = $section_array;
+    $section_array_full_width['layout_settings']['layout_builder_styles_style'] = 'full_width_of_page';
+    $sections[] = Section::fromArray($section_array);
+    $sections[] = Section::fromArray($section_array_full_width);
+  }
+
+  // Three column section.
+  $threecol_widths_to_test = [
+    '25-50-25',
+    '33-34-33',
+    '25-25-50',
+    '50-25-25',
+  ];
+  foreach ($threecol_widths_to_test as $width) {
+    $section_array = [
+      'layout_id' => 'layout_utexas_threecol',
+      'layout_settings' => [
+        'column_widths' => $width,
+      ],
+      'components' => [
+        $block1_id => [
+          'uuid' => $block1_id,
+          'region' => 'first',
+          'configuration' => $block1,
+          'additional' => [],
+          'weight' => 0,
+        ],
+        $block2_id => [
+          'uuid' => $block2_id,
+          'region' => 'second',
+          'configuration' => $block2,
+          'additional' => [],
+          'weight' => 0,
+        ],
+        $block3_id => [
+          'uuid' => $block3_id,
+          'region' => 'third',
+          'configuration' => $block1,
+          'additional' => [],
+          'weight' => 0,
+        ],
+      ],
+    ];
+    $section_array_full_width = $section_array;
+    $section_array_full_width['layout_settings']['layout_builder_styles_style'] = 'full_width_of_page';
+    $sections[] = Section::fromArray($section_array);
+    $sections[] = Section::fromArray($section_array_full_width);
+  }
+
+  // Four column section.
   $section_array = [
-    'layout_id' => 'layout_utexas_50_50',
+    'layout_id' => 'layout_utexas_fourcol',
     'components' => [
       $block1_id => [
         'uuid' => $block1_id,
-        'region' => 'left',
+        'region' => 'first',
         'configuration' => $block1,
         'additional' => [],
         'weight' => 0,
       ],
       $block2_id => [
         'uuid' => $block2_id,
-        'region' => 'right',
+        'region' => 'second',
         'configuration' => $block2,
         'additional' => [],
         'weight' => 0,
       ],
-    ],
-  ];
-  $sections[] = Section::fromArray($section_array);
-  $section_array = [
-    'layout_id' => 'layout_utexas_66_33',
-    'components' => [
-      $block1_id => [
-        'uuid' => $block1_id,
-        'region' => 'main',
+      $block3_id => [
+        'uuid' => $block3_id,
+        'region' => 'third',
         'configuration' => $block1,
         'additional' => [],
         'weight' => 0,
       ],
-      $block2_id => [
-        'uuid' => $block2_id,
-        'region' => 'sidebar',
+      $block4_id => [
+        'uuid' => $block4_id,
+        'region' => 'fourth',
         'configuration' => $block2,
         'additional' => [],
         'weight' => 0,
       ],
     ],
   ];
+  $section_array_full_width = $section_array;
+  $section_array_full_width['layout_settings'] = [
+    'layout_builder_styles_style' => 'full_width_of_page',
+  ];
   $sections[] = Section::fromArray($section_array);
+  $sections[] = Section::fromArray($section_array_full_width);
 
   $node = Node::create(['type' => 'utexas_flex_page']);
   $node->set('title', $title);
