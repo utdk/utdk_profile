@@ -1,8 +1,8 @@
-utexas_fullwidth:
+onecol:
   version: 1.0
   css:
     theme:
-      layouts/fullwidth/layout.css: {}
+      layouts/onecol/layout.css: {}
       layouts/background-accent.css: {}
 twocol:
   version: 1.0

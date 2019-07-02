@@ -36,7 +36,7 @@ follow a background-accent region have spacing */
   margin-left:0rem;
   margin-right:0rem;
 }
-.background-accent .layout--utexas-fullwidth--container > .layout__region--main {
+.background-accent .utexas-layout--onecol > .layout__region--main {
   margin-left:0.75rem;
   margin-right:0.75rem;
 }
@@ -49,7 +49,7 @@ follow a background-accent region have spacing */
   }
   .background-accent .utexas-layout--twocol > .layout__region--first,
   .background-accent .utexas-layout--twocol > .layout__region--second,
-  .background-accent .layout--utexas-fullwidth--container > .layout__region--main {
+  .background-accent .utexas-layout--onecol > .layout__region--main {
     margin-left:0.25rem;
     margin-right:0.25rem;
   }

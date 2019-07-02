@@ -29,7 +29,7 @@ function _utexas_devel_create_page_from_configuration($title, $block1, $block2) 
 
   // One column section.
   $section_array = [
-    'layout_id' => 'layout_utexas_fullwidth',
+    'layout_id' => 'layout_utexas_onecol',
     'components' => [
       $block1_id => [
         'uuid' => $block1_id,

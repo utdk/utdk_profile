@@ -1,9 +1,9 @@
-layout_utexas_fullwidth:
+layout_utexas_onecol:
   label: 'One column'
-  path: layouts/fullwidth
+  path: layouts/onecol
   class: '\Drupal\utexas_layouts\Plugin\Layout\OneColumnLayout'
-  template: layout--utexas-fullwidth
-  library: utexas_layouts/utexas_fullwidth
+  template: layout--utexas-onecol
+  library: utexas_layouts/onecol
   category: 'Columns: 1'
   default_region: main
   icon_map:
