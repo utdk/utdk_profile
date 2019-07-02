@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\block\BlockForm;
 
 /**
  * Implements hook_theme().
@@ -77,6 +78,29 @@ function _update_featured_highlight_view_mode_labels($options) {
   $map = _utexas_featured_highlight_mapping_formatter_labels($definitions, 'utexas_featured_highlight');
   // Use keys from the available $options to get the matching key-value pairs.
   return array_intersect_key($map, $options);
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add logic to the place block form.
+ */
+function utexas_featured_highlight_form_block_form_alter(&$form, &$form_state, $form_id) {
+  $bundle = FALSE;
+  $form_object = $form_state->getFormObject();
+  if ($form_object instanceof BlockForm) {
+    /** @var \Drupal\block\Entity\Block $entity */
+    $entity = $form_object->getEntity();
+    $uuid = $entity->getPlugin()->getDerivativeId();
+    /** @var Drupal\block_content\Entity\BlockContent $block_content */
+    if (isset($uuid)) {
+      $block_content = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+      $bundle = $block_content->bundle();
+      if ($bundle == 'utexas_featured_highlight') {
+        $form['settings']['view_mode']['#options'] = _update_featured_highlight_view_mode_labels($form['settings']['view_mode']['#options']);
+      }
+    }
+  }
 }
 
 /**
