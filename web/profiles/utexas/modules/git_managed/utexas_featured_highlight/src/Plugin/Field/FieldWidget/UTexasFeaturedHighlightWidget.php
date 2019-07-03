@@ -50,7 +50,11 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       '#type' => 'date',
       '#default_value' => isset($items[$delta]->date) ? $items[$delta]->date : NULL,
     ];
-    $element['link'] = [
+    $element['cta_wrapper'] = [
+      '#type' => 'fieldset',
+      '#title' => t('Call to Action'),
+    ];
+    $element['cta_wrapper']['link'] = [
       '#prefix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
         '%internal' => '/node/add',
         '%external' => 'https://example.com',
@@ -83,8 +87,8 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
         $value['image'] = 0;
       }
       if (isset($value['link']['url'])) {
-        $value['link_uri'] = $value['link']['url'] ?? '';
-        $value['link_text'] = $value['link']['title'] ?? '';
+        $value['link_uri'] = $value['cta_wrapper']['link']['url'] ?? '';
+        $value['link_text'] = $value['cta_wrapper']['link']['title'] ?? '';
       }
       // Split the "text_format" form element data into our field's schema.
       $value['copy_value'] = $value['copy']['value'];
