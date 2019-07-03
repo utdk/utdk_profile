@@ -81,8 +81,12 @@ class UTexasHeroWidget extends WidgetBase {
       '#title' => t('Call to Action'),
     ];
     $element['cta']['link'] = [
+      '#prefix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
+        '%internal' => '/node/add',
+        '%external' => 'https://example.com',
+        '%front' => '<front>',
+      ]),
       '#type' => 'utexas_link_element',
-      '#description' => $this->t('Enter an internal path such as /node/add or an external URL such as https://example.com.'),
       '#default_value' => [
         'url' => $items[$delta]->link_uri ?? '',
         'title' => $items[$delta]->link_title ?? '',

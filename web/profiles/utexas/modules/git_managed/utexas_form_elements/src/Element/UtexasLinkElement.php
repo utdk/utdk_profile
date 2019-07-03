@@ -41,7 +41,6 @@ class UtexasLinkElement extends FormElement {
       '#title' => t('URL'),
       '#default_value' => isset($element['#default_value']['url']) ? static::getUriAsDisplayableString($element['#default_value']['url']) : NULL,
       '#element_validate' => [[get_called_class(), 'validateUriElement']],
-      '#placeholder' => 'External URL (https://) or internal path (e.g., /node/1)',
       '#process_default_value' => FALSE,
       '#description' => $element['#description'] ?? '',
     ];
@@ -50,7 +49,6 @@ class UtexasLinkElement extends FormElement {
       '#type' => 'textfield',
       '#title' => t('Link text'),
       '#default_value' => isset($element['#default_value']['title']) ? $element['#default_value']['title'] : '',
-      '#placeholder' => 'Text to display',
       '#access' => isset($element['#suppress_display']) ? FALSE : TRUE,
     ];
     $element['#attached']['library'][] = 'utexas_form_elements/link-element';

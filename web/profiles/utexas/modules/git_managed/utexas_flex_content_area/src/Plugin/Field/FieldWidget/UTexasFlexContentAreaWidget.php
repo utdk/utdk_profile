@@ -71,7 +71,12 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
       static::setWidgetState($parents, $field_name, $form_state, $widget_state);
     }
     $wrapper_id = Html::getUniqueId('ajax-wrapper');
-    $element['flex_content_area']['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
+    $element['flex_content_area']['links']['#prefix'] = $this->t('<div id=":wrapper">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
+      ':wrapper' => $wrapper_id,
+      '%internal' => '/node/add',
+      '%external' => 'https://example.com',
+      '%front' => '<front>',
+    ]);
     $element['flex_content_area']['links']['#suffix'] = '</div>';
     for ($i = 0; $i < $link_count; $i++) {
       $element['flex_content_area']['links'][$i] = [
@@ -101,6 +106,11 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
       '#title' => t('Call to Action'),
     ];
     $element['flex_content_area']['cta_wrapper']['link'] = [
+      '#prefix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
+        '%internal' => '/node/add',
+        '%external' => 'https://example.com',
+        '%front' => '<front>',
+      ]),
       '#type' => 'utexas_link_element',
       '#default_value' => [
         'url' => $items[$delta]->link_uri ?? '',

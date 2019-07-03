@@ -61,6 +61,7 @@ class UTexasSocialLinkWidget extends WidgetBase {
     for ($i = 0; $i < $item_count; $i++) {
       $element['social_account_links'][$i] = [
         '#type' => 'container',
+        '#prefix' => t('Only external URLs allowed.'),
       ];
       $element['social_account_links'][$i]['social_account_name'] = [
         '#type' => 'select',
@@ -130,7 +131,7 @@ class UTexasSocialLinkWidget extends WidgetBase {
   }
 
   /**
-   * {@inheritDoc}.
+   * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through field instances (not link instances).

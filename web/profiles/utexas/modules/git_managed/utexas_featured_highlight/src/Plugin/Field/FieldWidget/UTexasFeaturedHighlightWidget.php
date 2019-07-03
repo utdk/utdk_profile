@@ -51,6 +51,11 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       '#default_value' => isset($items[$delta]->date) ? $items[$delta]->date : NULL,
     ];
     $element['link'] = [
+      '#prefix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
+        '%internal' => '/node/add',
+        '%external' => 'https://example.com',
+        '%front' => '<front>',
+      ]),
       '#type' => 'utexas_link_element',
       '#default_value' => [
         'url' => $items[$delta]->link_uri ?? '',
