@@ -15,9 +15,9 @@
  * @ingroup themeable
  */
 #}
-{% if image %}
-  <div class="image-wrapper">
-    {{ image }}
+{% if media %}
+  <div data-ratio="{{ media_ratio }}" class="image-wrapper">
+    {{ media }}
   </div>
 {% endif %}
 <div class="content-wrapper">

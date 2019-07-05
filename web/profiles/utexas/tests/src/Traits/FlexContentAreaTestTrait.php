@@ -96,6 +96,53 @@ trait FlexContentAreaTestTrait {
     $this->drupalGet('admin/structure/block/manage/flexcontentareatest/delete');
     $this->submitForm([], 'Remove');
 
+    // Test rendering of YouTube video.
+    $this->drupalGet('block/add/utexas_flex_content_area');
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+
+    // Verify widget field schema.
+    $page->pressButton('Set media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Add or select media');
+    $this->clickLink("Video (External)");
+    $assert->assertWaitOnAjaxRequest();
+
+    $assert->pageTextContains('Video 1');
+    // Select the 1st video media item (should be "Video 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $assert->assertWaitOnAjaxRequest();
+
+    $this->submitForm([
+      'info[0][value]' => 'Flex Content Area Video Test',
+      'field_block_fca[0][flex_content_area][headline]' => 'Flex Content Area Headline',
+      'field_block_fca[0][flex_content_area][copy][value]' => 'Flex Content Area Copy',
+      'field_block_fca[0][flex_content_area][links][0][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][links][0][title]' => 'Flex Content Area External Link',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action',
+    ], 'Save');
+    $assert->pageTextContains('Flex Content Area Flex Content Area Video Test has been created.');
+
+    // Place Block in "Content" region on all pages.
+    $this->submitForm([
+      'region' => 'content',
+    ], 'Save block');
+    $assert->pageTextContains('The block configuration has been saved.');
+
+    $this->drupalGet('<front>');
+    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
+    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'width', "100%");
+    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'height', "100%");
+
+    // Remove the block from the system.
+    $this->drupalGet('admin/structure/block/manage/flexcontentareavideotest/delete');
+    $this->submitForm([], 'Remove');
   }
 
 }

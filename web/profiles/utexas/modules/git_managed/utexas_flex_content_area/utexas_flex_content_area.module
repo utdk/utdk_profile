@@ -15,7 +15,8 @@ function utexas_flex_content_area_theme($existing, $type, $theme, $path) {
   $variables = [
     'utexas_flex_content_area' => [
       'variables' => [
-        'image' => NULL,
+        'media' => NULL,
+        'media_ratio' => NULL,
         'headline' => NULL,
         'copy' => NULL,
         'links' => [],
