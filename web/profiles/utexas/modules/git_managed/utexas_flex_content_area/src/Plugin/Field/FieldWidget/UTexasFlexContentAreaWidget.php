@@ -32,11 +32,11 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     ];
     $element['flex_content_area']['image'] = [
       '#type' => 'media_library_element',
-      '#description' => t('Image will be scaled and cropped to a 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.<br>One file only.<br>32 MB limit.<br>Allowed types: png gif jpg jpeg.'),
+      '#description' => t('If using an image, note that it will be scaled and cropped to 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.'),
       '#target_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
       '#cardinality' => 1,
-      '#title' => t('Image'),
+      '#title' => t('Media'),
       '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : 0,
     ];
     $element['flex_content_area']['headline'] = [
