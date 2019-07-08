@@ -104,7 +104,7 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_1',
+      'edit-hero-style' => 'utexas_hero_1',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -121,7 +121,8 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_1_left',
+      'edit-hero-style' => 'utexas_hero_1',
+      'edit-anchor-position' => 'left',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -138,7 +139,8 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_2',
+      'edit-hero-style' => 'utexas_hero_2',
+      'edit-anchor-position' => 'center',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output with anchor.
@@ -153,7 +155,8 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_2_right',
+      'edit-hero-style' => 'utexas_hero_2',
+      'edit-anchor-position' => 'right',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output with anchor.
@@ -168,7 +171,7 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_3',
+      'edit-hero-style' => 'utexas_hero_3',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -183,7 +186,7 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_4',
+      'edit-hero-style' => 'utexas_hero_4',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -197,7 +200,7 @@ trait HeroTestTrait {
     $this->drupalGet('admin/structure/block/manage/herotest');
     $this->submitForm([
       'region' => 'content',
-      'settings[view_mode]' => 'utexas_hero_5',
+      'edit-hero-style' => 'utexas_hero_5',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
