@@ -1,4 +1,5 @@
-/* default view mode = Limestone (Light) */
+/* Background colors and font colors. */
+/* Default view mode = Limestone (Light) */
 .utexas-featured-highlight {
   background-color: #d6d2c4;
   color: #000;
@@ -6,8 +7,9 @@
 .utexas-featured-highlight .content-wrapper .ut-headline a,
 .utexas-featured-highlight .content-wrapper .ut-headline {
   color: #000;
+  padding-top: 0;
+  font-size: 2rem;
 }
-
 /* Bluebonnet (Medium) */
 .utexas-featured-highlight.medium {
   background-color: #005f86;
@@ -15,9 +17,8 @@
 }
 .utexas-featured-highlight.medium .content-wrapper .ut-headline a,
 .utexas-featured-highlight.medium .content-wrapper .ut-headline {
-  color:#ffffff;
+  color: #ffffff;
 }
-
 /* Charcoal (Dark) */
 .utexas-featured-highlight.dark {
   background-color: #333f48;
@@ -25,10 +26,63 @@
 }
 .utexas-featured-highlight.dark .content-wrapper .ut-headline a,
 .utexas-featured-highlight.dark .content-wrapper .ut-headline {
-  color:#ffffff;
+  color: #ffffff;
 }
 
-.utexas-featured-highlight div.image-wrapper {
-  min-width: 330px;
+/* Featured Highlight layout styles. */
+.utexas-featured-highlight {
+  display: flex;
+  align-items: center;
+  margin: 0 0 1.25rem 0;
+  flex-direction: column;
+  padding: 60px 10px;
+}
+
+@media all and (min-width: 900px) {
+  .utexas-featured-highlight {
+    flex-direction: row;
+  }
+}
+
+/* Image Wrapper. */
+.utexas-featured-highlight .image-wrapper {
+  min-width: auto;
   margin-bottom: 1rem;
+}
+
+@media all and (min-width: 900px) {
+  .utexas-featured-highlight .image-wrapper {
+    min-width: 250px;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .utexas-featured-highlight .image-wrapper {
+    min-width: 330px;
+  }
+}
+
+.utexas-featured-highlight .content-wrapper {
+  padding-left: 30px;
+}
+
+@media all and (min-width: 900px) {
+  .utexas-featured-highlight .image-wrapper {
+    min-width: 250px;
+  }
+}
+
+@media all and (min-width: 1200px) {
+  .utexas-featured-highlight .image-wrapper {
+    min-width: 330px;
+  }
+}
+
+/* Content wrapper */
+.utexas-featured-highlight .content-wrapper {
+  padding-left: 30px;
+}
+.utexas-featured-highlight .content-wrapper .ut-date {
+  font-style: italic;
+  margin-bottom: .75rem;
 }
