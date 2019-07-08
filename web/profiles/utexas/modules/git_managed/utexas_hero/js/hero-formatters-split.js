@@ -144,7 +144,11 @@
     } 
     else if ($("#drupal-off-canvas").has(".js-form-item-settings-view-mode").length || $("#layout-builder-modal").has(".js-form-item-settings-view-mode").length) {
       entity_type = "block";
-    } else {
+    } 
+    else if ($(".block-form").has(".js-form-item-settings-view-mode").length || $("#layout-builder-modal").has(".js-form-item-settings-view-mode").length) {
+      entity_type = "block";
+    }
+    else {
       entity_type = "invalid";
     }
     return entity_type;
