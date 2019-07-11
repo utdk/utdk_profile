@@ -3,7 +3,7 @@
  * Provides the layout styles for two-column layout section.
  */
 
- .utexas-layout--fourcol {
+.utexas-layout--fourcol {
   display: flex;
   flex-wrap: wrap;
 }
@@ -19,5 +19,16 @@
   .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--fourth {
     flex: 0 1 25%;
   }
+}
 
+/* Default between-column margins */
+.utexas-layout--fourcol .layout__region--first,
+.utexas-layout--fourcol .layout__region--second,
+.utexas-layout--fourcol .layout__region--third {
+  padding-right: 15px;
+}
+.utexas-layout--fourcol .layout__region--second,
+.utexas-layout--fourcol .layout__region--third,
+.utexas-layout--fourcol .layout__region--fourth {
+  padding-left: 15px;
 }
