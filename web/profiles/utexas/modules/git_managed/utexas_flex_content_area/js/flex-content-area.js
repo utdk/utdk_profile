@@ -4,10 +4,15 @@
     attach: function () {
       $('.ut-flex-content-area').each(function () {
         var containerWidth = $(this).find('.image-wrapper').width();
-        var ratio = $(this).find('.image-wrapper').attr('data-ratio');
-        var newHeight = ratio * containerWidth;
-        var wrapper = $(this).find('.image-wrapper');
-        wrapper.height(newHeight + "px");
+        if ($(this).find('.image-wrapper > iframe').length) {
+          var ratio = $(this).find('.image-wrapper').attr('data-ratio');
+          if (ratio !== "") {
+            console.log(ratio);
+            var newHeight = ratio * containerWidth;
+            var wrapper = $(this).find('.image-wrapper > iframe');
+            wrapper.height(newHeight + "px");
+          }
+        }
       });
     }
   };
