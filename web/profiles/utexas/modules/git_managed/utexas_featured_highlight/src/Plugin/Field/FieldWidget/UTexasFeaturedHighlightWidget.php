@@ -86,7 +86,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       else {
         $value['image'] = 0;
       }
-      if (isset($value['link']['url'])) {
+      if (isset($value['cta_wrapper']['link']['url'])) {
         $value['link_uri'] = $value['cta_wrapper']['link']['url'] ?? '';
         $value['link_text'] = $value['cta_wrapper']['link']['title'] ?? '';
       }

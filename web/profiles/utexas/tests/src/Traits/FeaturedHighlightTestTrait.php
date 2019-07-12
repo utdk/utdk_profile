@@ -31,8 +31,8 @@ trait FeaturedHighlightTestTrait {
       'info[0][value]' => 'Featured Highlight Test',
       'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
       'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
-      'field_block_featured_highlight[0][link][url]' => 'https://featuredhighlight.test',
-      'field_block_featured_highlight[0][link][title]' => 'Featured Highlight Link',
+      'field_block_featured_highlight[0][cta_wrapper][link][url]' => 'https://featuredhighlight.test',
+      'field_block_featured_highlight[0][cta_wrapper][link][title]' => 'Featured Highlight Link',
       'field_block_featured_highlight[0][date]' => '01-17-2019',
     ], 'Save');
     $assert->pageTextContains('Featured Highlight Featured Highlight Test has been created.');
@@ -100,8 +100,8 @@ trait FeaturedHighlightTestTrait {
       'info[0][value]' => 'Featured Highlight Video Test',
       'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
       'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
-      'field_block_featured_highlight[0][link][url]' => 'https://featuredhighlight.test',
-      'field_block_featured_highlight[0][link][title]' => 'Featured Highlight Link',
+      'field_block_featured_highlight[0][cta_wrapper][link][url]' => 'https://featuredhighlight.test',
+      'field_block_featured_highlight[0][cta_wrapper][link][title]' => 'Featured Highlight Link',
       'field_block_featured_highlight[0][date]' => '01-17-2019',
     ], 'Save');
     $assert->pageTextContains('Featured Highlight Featured Highlight Video Test has been created.');
