@@ -58,8 +58,12 @@ class UTexasQuickLinksWidget extends WidgetBase {
       static::setWidgetState($parents, $field_name, $form_state, $widget_state);
     }
     $wrapper_id = Html::getUniqueId('ajax-wrapper');
-    $element['links']['#prefix'] = $this->t('<div id=":wrapper">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
-      ':wrapper' => $wrapper_id,
+    $element['links'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('List of links'),
+    ];
+    $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
+    $element['links']['#description'] = $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [
       '%internal' => '/node/add',
       '%external' => 'https://example.com',
       '%front' => '<front>',

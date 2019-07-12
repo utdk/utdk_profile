@@ -110,7 +110,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
       '#title' => t('Call to Action'),
     ];
     $element['flex_content_area']['cta_wrapper']['link'] = [
-      '#suffix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
+      '#suffix' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [
         '%internal' => '/node/add',
         '%external' => 'https://example.com',
         '%front' => '<front>',

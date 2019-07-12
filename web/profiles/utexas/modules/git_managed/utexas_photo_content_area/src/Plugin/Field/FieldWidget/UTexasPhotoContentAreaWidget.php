@@ -80,13 +80,13 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     $element['links'] = [
       '#type' => 'fieldset',
       '#title' => 'List of links',
+      '#description' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div></div>', [
+        '%internal' => '/node/add',
+        '%external' => 'https://example.com',
+        '%front' => '<front>',
+      ]),
     ];
-    $element['links']['#prefix'] = $this->t('<div id=":wrapper">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
-      ':wrapper' => $wrapper_id,
-      '%internal' => '/node/add',
-      '%external' => 'https://example.com',
-      '%front' => '<front>',
-    ]);
+    $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
     $element['links']['#suffix'] = '</div>';
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
