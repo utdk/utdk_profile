@@ -79,7 +79,7 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     $wrapper_id = Html::getUniqueId('ajax-wrapper');
     $element['links'] = [
       '#type' => 'fieldset',
-      '#title' => 'List of links',
+      '#title' => $this->t('List of links'),
       '#description' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div></div>', [
         '%internal' => '/node/add',
         '%external' => 'https://example.com',
