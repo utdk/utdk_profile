@@ -6,3 +6,6 @@
 form svg {
   width: 50px;
 }
+.field--type-utexas-social-link-field .form-item input[value="Add social link item"] {
+  margin-top: 1em;
+}

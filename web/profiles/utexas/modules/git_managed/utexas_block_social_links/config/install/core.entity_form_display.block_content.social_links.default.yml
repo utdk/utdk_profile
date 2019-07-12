@@ -12,7 +12,7 @@ bundle: social_links
 mode: default
 content:
   field_utexas_sl_social_links:
-    weight: 26
+    weight: 2
     settings: {  }
     third_party_settings: {  }
     type: utexas_social_link_widget

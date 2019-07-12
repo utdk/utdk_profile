@@ -29,13 +29,21 @@ class UTexasSocialLinkFormatter extends FormatterBase {
     $elements = [];
     $icons = UTexasSocialLinkOptions::getIcons();
     foreach ($items as $delta => $item) {
-      if ($item->social_account_name && $item->social_account_url) {
-        if (!empty($icons[$item->social_account_name]) && $icon = file_get_contents($icons[$item->social_account_name])) {
-          $icon_markup = Markup::create($icon);
-          $linked_icon = Link::fromTextAndUrl($icon_markup, Url::fromUri($item->social_account_url));
-          $renderable = $linked_icon->toRenderable();
-          $elements[$delta] = $renderable;
+      if ($item->social_account_links) {
+        $social_account_links = unserialize($item->social_account_links);
+        foreach ($social_account_links as $key => $val) {
+          if (!empty($icons[$val['social_account_name']]) && $icon = file_get_contents($icons[$val['social_account_name']])) {
+            $icon_markup = Markup::create($icon);
+            $linked_icon = Link::fromTextAndUrl($icon_markup, Url::fromUri($val['social_account_url']));
+            $renderable = $linked_icon->toRenderable();
+            $elements[$delta]['links'][$key] = $renderable;
+          }
         }
+      }
+      if ($item->headline) {
+        $elements[$delta]['headline'] = [
+          '#markup' => $item->headline,
+        ];
       }
     }
     return $elements;

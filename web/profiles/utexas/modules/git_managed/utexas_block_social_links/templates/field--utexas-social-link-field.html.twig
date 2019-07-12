@@ -38,9 +38,14 @@
 #}
 {% set wrapper_class = 'block__ut-social-links' %}
 <div{{ attributes.addClass(wrapper_class) }}>
-  <div class='block__ut-social-links--items'>
-    {% for item in items %}
-      <div{{ item.attributes }}>{{ item.content }}</div>
-    {% endfor %}
-  </div>
+  {% for item in items %}
+    {% if item.content.headline %}
+      <div class='ut-headline'>{{ item.content.headline }}</div>
+    {% endif %}
+    <div class='block__ut-social-links--items'>
+      {% for link in item.content.links %}
+        <div>{{ link }}</div>
+      {% endfor %}
+    </div>
+  {% endfor %}
 </div>

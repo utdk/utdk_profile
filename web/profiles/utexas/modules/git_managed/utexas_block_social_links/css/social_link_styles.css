@@ -9,3 +9,8 @@
 .block__ut-social-links--items > div {
   margin-right: 5px;
 }
+
+.block__ut-social-links .ut-headline {
+  font-size: 1.125rem;
+  margin-bottom: 8.5px;
+}

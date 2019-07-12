@@ -54,17 +54,18 @@ class SocialLinksTest extends BrowserTestBase {
     $assert = $this->assertSession();
     // 1. Verify a user has access to the block type.
     $this->assertAllowed("/block/add/social_links");
-    // 3. Verify the correct field schemae exist.
+    // 2. Verify the correct field schemae exist.
     $fields = [
       'edit-info-0-value',
-      'edit-field-utexas-sl-social-links-0-social-account-url',
-      'edit-field-utexas-sl-social-links-0-social-account-name',
+      'edit-field-utexas-sl-social-links-0-headline',
+      'edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-name',
+      'edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-url',
     ];
     foreach ($fields as $field) {
       $assert->fieldExists($field);
     }
     $page = $this->getSession()->getPage();
-    $social_link_options = $page->findAll('css', '#edit-field-utexas-sl-social-links-0-social-account-name option');
+    $social_link_options = $page->findAll('css', '#edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-name option');
     $options = [];
     foreach ($social_link_options as $key => $option) {
       $options[] = $option->getValue();
@@ -89,47 +90,33 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertAllowed("/block/add/social_links");
     $edit = [
       'info[0][value]' => 'Social Links Test',
-      'field_utexas_sl_social_links[0][social_account_name]' => 'instagram',
-      'field_utexas_sl_social_links[0][social_account_url]' => 'https://instagram.com/our-site',
+      'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'instagram',
+      'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => 'https://instagram.com/our-site',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
     // Verify the block has been created.
     $block = $this->drupalGetBlockByInfo('Social Links Test');
     $this->drupalGet("/block/" . $block->id());
-
+    $page->pressButton('edit-field-utexas-sl-social-links-0-social-account-links-actions-add');
     $edit = [
-      'field_utexas_sl_social_links[1][social_account_name]' => 'twitter',
-      'field_utexas_sl_social_links[1][social_account_url]' => 'https://twitter.com/our-site',
+      'field_utexas_sl_social_links[0][social_account_links][1][social_account_name]' => 'twitter',
+      'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => 'https://twitter.com/our-site',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
     // Return to the block interface.
     $this->drupalGet("/block/" . $block->id());
+    $page->pressButton('edit-field-utexas-sl-social-links-0-social-account-links-actions-add');
 
     // Verify that an external link is required for the URL.
     $edit = [
-      'field_utexas_sl_social_links[2][social_account_name]' => 'facebook',
-      'field_utexas_sl_social_links[2][social_account_url]' => 'blah',
+      'field_utexas_sl_social_links[0][social_account_links][2][social_account_name]' => 'facebook',
+      'field_utexas_sl_social_links[0][social_account_links][2][social_account_url]' => 'blah',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->assertRaw('1 error has been found');
 
-    $this->drupalGet("/block/" . $block->id());
-    $social_link_0 = $this->getSession()->getPage()->find('css', '#edit-field-utexas-sl-social-links-0-social-account-url');
-    $value = $social_link_0->getValue();
-    $this->assertTrue($value == 'https://instagram.com/our-site');
-    $social_link_2 = $this->getSession()->getPage()->find('css', '#edit-field-utexas-sl-social-links-2-social-account-url');
-    $value = $social_link_2->getValue();
-    $this->assertTrue($value == '');
-    $this->drupalGet('<front>');
-    $this->assertRaw('<svg');
-    $this->assertRaw('<title id="facebook-title">Facebook</title>');
-    $this->assertRaw('<path');
-    $this->assertRaw('</svg>');
-
-    // Create test SVG.
-    $svgFile1FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/check.svg');
-    $svgFile1Markup = Markup::create($svgFile1FileContents);
     // Add a custom Social Network with 1st test SVG.
     $this->drupalGet("/admin/structure/social-links/add");
     $edit = [
@@ -139,18 +126,20 @@ class SocialLinksTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
-    // Edit the default social links block and add test network.
+    // Edit the default social links block and add test network and headline.
     $sitewide_social_block_id = $this->drupalGetBlockByInfo('Sitewide Social Media Links')->id();
     $this->drupalGet("/block/" . $sitewide_social_block_id);
     $edit = [
-      'field_utexas_sl_social_links[0][social_account_name]' => 'test',
-      'field_utexas_sl_social_links[0][social_account_url]' => "https://testsocial.com",
+      'field_utexas_sl_social_links[0][headline]' => 'Headline Test',
+      'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'test',
+      'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => "https://testsocial.com",
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
     // Go to homepage and confirm test network is rendering with test svg path.
     $this->drupalGet("<front>");
     $this->assertRaw("https://testsocial.com");
+    $this->assertRaw("Headline Test");
     $this->assertRaw('<path d="M6.464 13.676c-.194.194-.513.194-.707 0l-4.96-4.955c-.194-.193-.194-.513 0-.707l1.405-1.407c.194-.195.512-.195.707 0l2.849 2.848c.194.193.513.193.707 0l6.629-6.626c.195-.194.514-.194.707 0l1.404 1.404c.193.194.193.513 0 .707l-8.741 8.736z"></path>');
 
     // Go back and change icon.

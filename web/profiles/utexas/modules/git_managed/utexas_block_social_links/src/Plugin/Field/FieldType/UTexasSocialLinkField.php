@@ -29,12 +29,11 @@ class UTexasSocialLinkField extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     // Prevent early t() calls by using TranslatableMarkup class directly.
-    $properties['social_account_name'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Icon key'))
-      ->setSetting('case_sensitive', TRUE)
-      ->setRequired(TRUE);
-    $properties['social_account_url'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('URL'))
+    $properties['headline'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Headline'))
+      ->setSetting('case_sensitive', TRUE);
+    $properties['social_account_links'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Social Links Data'))
       ->setSetting('case_sensitive', TRUE)
       ->setRequired(TRUE);
     return $properties;
@@ -46,15 +45,14 @@ class UTexasSocialLinkField extends FieldItemBase {
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $schema = [
       'columns' => [
-        'social_account_name' => [
+        'headline' => [
           'type' => 'varchar_ascii',
           'length' => 255,
           'binary' => TRUE,
         ],
-        'social_account_url' => [
-          'type' => 'varchar_ascii',
-          'length' => 512,
-          'binary' => TRUE,
+        'social_account_links' => [
+          'type' => 'blob',
+          'size' => 'normal',
         ],
       ],
     ];
@@ -65,32 +63,16 @@ class UTexasSocialLinkField extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function getConstraints() {
-    $constraints = parent::getConstraints();
-
-    $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
-    $constraints[] = $constraint_manager->create('ComplexData', [
-      'social_account_url' => [
-        'Length' => [
-          'max' => 512,
-          'maxMessage' => t('%name: may not be longer than @max characters.', [
-            '%name' => $this->getFieldDefinition()->getLabel(),
-            '@max' => 512,
-          ]),
-        ],
-      ],
-    ]);
-    return $constraints;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
     $random = new Random();
     $options = UTexasSocialLinkOptions::getOptionsArray();
-    $values['social_account_name'] = array_rand($options);
-    $values['social_account_url'] = 'https://' . $random->word(5) . '.com';
+    $values['headline'] = $random->word(3);
+    $values['social_account_links'] = serialize([
+      [
+        'social_account_name' => array_rand($options),
+        'social_account_url' => 'https://' . $random->word(5) . '.com',
+      ],
+    ]);
     return $values;
   }
 
@@ -98,8 +80,8 @@ class UTexasSocialLinkField extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    $value = $this->get('social_account_url')->getValue();
-    return $value === NULL || $value === '';
+    $value = $this->get('social_account_links')->getValue();
+    return $value === NULL || $value === '' || empty($value);
   }
 
 }
