@@ -2,7 +2,7 @@
 background-color: #fff;
 border: 1px solid #333f48;
 padding:1.25rem;
-margin: 0.75rem 1rem 1.75rem 1rem;
+margin: 0.75rem 0;
 }
 
 /* Prevent images with height:100% from overflowing their container */
@@ -63,7 +63,7 @@ follow a background-accent region have spacing */
 
 /* Ensure that the "Configure" button is visible with blurred background images */
 #layout-builder .configure-section {
-  background:#fff; 
+  background:#fff;
 }
 #layout-builder .remove-section {
   margin-left:1rem;
