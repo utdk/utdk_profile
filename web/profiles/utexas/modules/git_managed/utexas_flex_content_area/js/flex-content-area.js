@@ -7,7 +7,6 @@
         if ($(this).find('.image-wrapper > iframe').length) {
           var ratio = $(this).find('.image-wrapper').attr('data-ratio');
           if (ratio !== "") {
-            console.log(ratio);
             var newHeight = ratio * containerWidth;
             var wrapper = $(this).find('.image-wrapper > iframe');
             wrapper.height(newHeight + "px");
