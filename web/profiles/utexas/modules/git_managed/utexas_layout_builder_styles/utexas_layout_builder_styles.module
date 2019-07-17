@@ -10,5 +10,5 @@
  */
 function utexas_layout_builder_styles_preprocess_page(&$variables) {
   // Add border styling to all pages.
-  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/border-with-background';
+  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/border-styles';
 }

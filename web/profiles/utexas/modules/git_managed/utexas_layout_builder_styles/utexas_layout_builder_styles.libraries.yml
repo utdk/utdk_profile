@@ -1,5 +1,6 @@
-border-with-background:
+border-styles:
   version: 1.0
   css:
     theme:
       css/border-with-background.css: {}
+      css/centered-headline.css: {}

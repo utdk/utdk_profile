@@ -100,6 +100,22 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-field-background');
+
+    // Border without background.
+    $assert->elementNotExists('css', '.utexas-field-border.utexas-centered-headline');
+    $this->drupalGet('/node/' . $node->id());
+    $this->clickLink('Layout');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Add Block');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Recent content');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->elementExists('css', 'select[name="layout_builder_style"] option[value="utexas_border_without_background"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "utexas_border_without_background");
+    $page->pressButton('Add Block');
+    $assert->assertWaitOnAjaxRequest();
+    // Border & background classes are added to the section.
+    $assert->elementExists('css', '.utexas-field-border.utexas-centered-headline');
   }
 
 }
