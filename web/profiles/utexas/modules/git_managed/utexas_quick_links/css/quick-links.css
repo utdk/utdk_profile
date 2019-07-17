@@ -48,7 +48,6 @@
 
 /* 2, 3, 4 columns goes to 1 column if under 600px */
 @media screen and (max-width: 599px) {
-
   .utexas-quick-links.two ul.link-list li,
   .utexas-quick-links.three ul.link-list li,
   .utexas-quick-links.four ul.link-list li {
@@ -91,62 +90,4 @@
   .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
     padding-right: 1rem;
   }
-}
-
-/* Border styles */
-.field-border .utexas-quick-links {
-  padding: 0 0 20px;
-  background-color: #fff;
-  border: 1px solid #f0ede6;
-  margin-bottom: 35px;
-}
-.field-border .utexas-quick-links .ut-headline {
-  margin: 0 0 10px 0;
-  padding: 15px;
-  line-height: 1.625rem;
-  color: #2d2a28;
-  font-weight: 600;
-  border-bottom: 1px solid #f0ede6;
-}
-.field-border .utexas-quick-links ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-.field-border .utexas-quick-links ul.link-list li {
-  padding-bottom: 10px;
-  font-weight: 600;
-  padding: 10px 0;
-}
-.field-border .utexas-quick-links .ut-copy,
-.field-border .utexas-quick-links .link-list {
-  padding: 0 15px;
-}
-.field-border .utexas-quick-links .ut-copy p {
-  margin-bottom: 10px;
-}
-
-/* Background style */
-.field-background .utexas-quick-links {
-  background-color: #fffdfa;
-  padding-bottom: 20px;
-}
-.field-background .utexas-quick-links .ut-headline {
-  color: #373737;
-  background-color: #fef7ed;
-  font-weight: 700;
-  padding: 15px;
-}
-.field-background .utexas-quick-links .ut-copy {
-  padding-left: 15px;
-}
-.field-background .utexas-quick-links .ut-copy p {
-  color: #474541;
-  margin-bottom: 10px;
-}
-.field-background .utexas-quick-links .link-list {
-  padding: 0 15px;
-}
-.field-background .utexas-quick-links .link-list li {
-  padding: 10px 0;
 }

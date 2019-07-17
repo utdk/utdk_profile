@@ -10,11 +10,11 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 /**
- * Verifies custom compound field schema, validation, & output.
+ * Verifies default Layout Builder Styles are present & add expected classes.
  *
  * @group utexas
  */
-class FullWidthTest extends WebDriverTestBase {
+class LayoutBuilderStylesTest extends WebDriverTestBase {
   use EntityTestTrait;
   use InstallTestTrait;
   use TestFileCreationTrait;
@@ -61,7 +61,7 @@ class FullWidthTest extends WebDriverTestBase {
   /**
    * Test any custom widgets sequentially, using the same installation.
    */
-  public function testCustomWidgets() {
+  public function testStyles() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
@@ -84,6 +84,22 @@ class FullWidthTest extends WebDriverTestBase {
     // A "container-fluid" class is added to the section.
     $assert->elementNotExists('css', '.layout-builder__layout.container');
     $assert->elementExists('css', '.layout-builder__layout.container-fluid');
+
+    // Border with background.
+    $assert->elementNotExists('css', '.utexas-field-border.utexas-field-background');
+    $this->drupalGet('/node/' . $node->id());
+    $this->clickLink('Layout');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Add Block');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Recent content');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->elementExists('css', 'select[name="layout_builder_style"] option[value="utexas_border_with_background"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "utexas_border_with_background");
+    $page->pressButton('Add Block');
+    $assert->assertWaitOnAjaxRequest();
+    // Border & background classes are added to the section.
+    $assert->elementExists('css', '.utexas-field-border.utexas-field-background');
   }
 
 }

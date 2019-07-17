@@ -110,7 +110,7 @@ trait PromoListTestTrait {
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
-    $assert->elementExists('css', 'div.stacked-display > div.ut-promo-list-wrapper');
+    $assert->elementExists('css', 'div.stacked-display > div.utexas-promo-list-container > div.ut-promo-list-wrapper');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promolisttest/delete');

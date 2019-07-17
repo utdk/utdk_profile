@@ -60,6 +60,7 @@ install:
   - utexas_hero
   - utexas_image_link
   - utexas_layouts
+  - utexas_layout_builder_styles
   - utexas_media_types
   - utexas_photo_content_area
   - utexas_promo_list
