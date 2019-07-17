@@ -1,10 +1,17 @@
 #layout-builder-modal .utexas-link-form-element input,
 .utexas-link-form-element input {
-  width: 95%;
+  width: 90%;
 }
 .utexas-link-form-element {
+  padding: 0 10px;
   display: flex;
 }
 .utexas-link-form-element > div {
   flex: 1 0 50%;
+}
+.utexas-link-form-element:nth-child(even) {
+  background-color: #f0f0f0;
+}
+.utexas-link-form-element:nth-child(odd) {
+  background-color: #ffffff;
 }
