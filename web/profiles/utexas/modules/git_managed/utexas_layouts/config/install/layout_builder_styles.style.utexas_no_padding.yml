@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+  - layout_builder_styles
+id: utexas_no_padding
+label: 'No padding between columns'
+classes: utexas-layout-no-padding
+type: section
+block_restrictions: {  }

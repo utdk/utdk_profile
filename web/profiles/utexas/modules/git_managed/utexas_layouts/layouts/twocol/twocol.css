@@ -12,17 +12,25 @@
   flex: 0 1 100%;
 }
 
+/* Default between-column margins */
+.utexas-layout--twocol .layout__region--first {
+  padding-right: 15px;
+}
+.utexas-layout--twocol .layout__region--second {
+  padding-left: 15px;
+}
+/* Reset for between-column margins */
+.utexas-layout--twocol.utexas-layout-no-padding .layout__region--first {
+  padding-right: 0;
+}
+.utexas-layout--twocol.utexas-layout-no-padding .layout__region--second {
+  padding-left: 0;
+}
+
 @media screen and (min-width: 40em) {
   .utexas-layout--twocol.utexas-layout--twocol--50-50 > .layout__region--first,
   .utexas-layout--twocol.utexas-layout--twocol--50-50 > .layout__region--second {
     flex: 0 1 50%;
-  }
-
-  .utexas-layout--twocol .layout__region--first {
-    padding-right: 15px;
-  }
-  .utexas-layout--twocol .layout__region--second {
-    padding-left: 15px;
   }
 
   .utexas-layout--twocol.utexas-layout--twocol--33-67 > .layout__region--first,

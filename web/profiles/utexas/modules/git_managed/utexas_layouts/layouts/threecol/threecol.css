@@ -44,3 +44,12 @@
 .utexas-layout--threecol .layout__region--third {
   padding-left: 15px;
 }
+/* Reset for between-column margin */
+.utexas-layout--threecol.utexas-layout-no-padding .layout__region--first,
+.utexas-layout--threecol.utexas-layout-no-padding .layout__region--second {
+  padding-right: 0;
+}
+.utexas-layout--threecol.utexas-layout-no-padding .layout__region--second,
+.utexas-layout--threecol.utexas-layout-no-padding .layout__region--third {
+  padding-left: 0;
+}

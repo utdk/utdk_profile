@@ -116,6 +116,20 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-centered-headline');
+    $assert->elementExists('css', '.field-border.field-background');
+
+    // No padding between columns.
+    $assert->elementNotExists('css', '.utexas-layout-no-padding');
+    $this->drupalGet('/node/' . $node->id());
+    $this->clickLink('Layout');
+    $this->clickLink('Configure section');
+    $assert->assertWaitOnAjaxRequest();
+    // Set the section to "Full width of page".
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "utexas_no_padding");
+    $page->pressButton('Update');
+    $assert->assertWaitOnAjaxRequest();
+    // A "utexas-layout-no-padding" class is added to the section.
+    $assert->elementExists('css', '.utexas-layout-no-padding');
   }
 
 }
