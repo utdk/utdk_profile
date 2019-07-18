@@ -32,6 +32,7 @@ install:
   - automated_cron
   - dblog
   - dynamic_page_cache
+  - inline_form_errors
   - page_cache
   # Contrib
   - adminimal_admin_toolbar
@@ -41,7 +42,7 @@ install:
   - feed_block
   - google_tag
   - google_cse
-  - inline_form_errors
+  - iframe_title_filter
   - layout_builder_modal
   - layout_builder_restrictions
   - layout_builder_styles
@@ -49,7 +50,9 @@ install:
   - menu_block
   - pathauto
   - page_title_visibility
+  - pathologic
   - redirect
+  - responsive_tables_filter
   - svg_upload_sanitizer
   # Custom
   - utexas_block_required_links

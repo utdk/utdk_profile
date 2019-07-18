@@ -7,6 +7,9 @@ dependencies:
   - ckeditor
   - editor
   - filter
+  - iframe_title_filter
   - linkit
-  - utexas_qualtrics_filter
+  - pathologic
+  - responsive_tables_filter
   - utexas_linkit_flex_html
+  - utexas_qualtrics_filter
