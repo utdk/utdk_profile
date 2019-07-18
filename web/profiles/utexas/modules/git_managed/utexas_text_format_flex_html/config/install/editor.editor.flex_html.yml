@@ -16,6 +16,10 @@ settings:
           items:
             - Bold
             - Italic
+            - Strike
+            - HorizontalRule
+            - SpecialChar
+            - RemoveFormat
         -
           name: Linking
           items:
@@ -26,20 +30,38 @@ settings:
           items:
             - BulletedList
             - NumberedList
+            - Outdent
+            - Indent
         -
           name: Media
           items:
             - Blockquote
             - DrupalImage
+            - Table
         -
           name: 'Block Formatting'
           items:
             - Format
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - JustifyBlock
         -
           name: Tools
           items:
             - Source
             - qualtricsbutton
+        -
+          name: Editing
+          items:
+            - Undo
+            - Redo
+            - Cut
+            - Copy
+            - Paste
+            - PasteText
+            - PasteFromWord
+            - Maximize
   plugins:
     stylescombo:
       styles: ''
