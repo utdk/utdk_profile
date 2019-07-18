@@ -46,7 +46,7 @@ pipeline {
                                                 #apt-get install -y php7.2-mysql
                                                 docker-php-ext-install gd
                                                 docker-php-ext-install mysqli pdo pdo_mysql
-                                                apt-get install mysql-client
+                                                apt-get install mariadb-client
 
                                                 ## Install composer...
                                                 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
