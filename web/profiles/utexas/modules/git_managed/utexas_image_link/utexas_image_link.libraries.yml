@@ -2,5 +2,4 @@ image-link-default:
   version: 1.x
   css:
     theme:
-      css/image-link-style-base.css: {}
-      css/image-link-default.css: {}
+      css/image-link.css: {}
