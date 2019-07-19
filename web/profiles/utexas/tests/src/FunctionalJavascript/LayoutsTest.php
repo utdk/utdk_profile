@@ -26,12 +26,14 @@ class LayoutsTest extends WebDriverTestBase {
    * @var string
    */
   protected $profile = 'utexas';
+
   /**
    * An user with permissions to administer content types and image styles.
    *
    * @var \Drupal\user\UserInterface
    */
   protected $testUser;
+
   /**
    * An image uri to be used with file uploads.
    *
