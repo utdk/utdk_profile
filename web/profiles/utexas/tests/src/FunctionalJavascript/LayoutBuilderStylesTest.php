@@ -116,7 +116,6 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-centered-headline');
-    $assert->elementExists('css', '.field-border.field-background');
 
     // No padding between columns.
     $assert->elementNotExists('css', '.utexas-layout-no-padding');
