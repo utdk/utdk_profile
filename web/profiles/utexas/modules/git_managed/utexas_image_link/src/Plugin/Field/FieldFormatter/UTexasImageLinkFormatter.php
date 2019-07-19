@@ -145,6 +145,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
         'utexas-image-link',
       ],
     ];
+    $elements['#attached']['library'][] = 'utexas_image_link/image-link-default';
     return $elements;
   }
 
