@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-  - layout_builder_styles
-id: border_with_background
-label: 'Border with background'
-classes: "field-border\r\nfield-background"
-type: component
