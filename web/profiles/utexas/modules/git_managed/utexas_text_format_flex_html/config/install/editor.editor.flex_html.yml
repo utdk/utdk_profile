@@ -16,9 +16,12 @@ settings:
           items:
             - Bold
             - Italic
+            - Underline
             - Strike
             - HorizontalRule
             - SpecialChar
+            - Superscript
+            - Subscript
             - RemoveFormat
         -
           name: Linking
