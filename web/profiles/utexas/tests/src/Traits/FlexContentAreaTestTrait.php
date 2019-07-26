@@ -75,7 +75,7 @@ trait FlexContentAreaTestTrait {
     $assert->elementTextContains('css', 'h3.ut-headline', 'Flex Content Area Headline');
     $assert->pageTextContains('Flex Content Area Copy');
     $assert->linkByHrefExists('https://utexas.edu');
-    $assert->elementTextContains('css', 'a.ut-btn--small', 'Flex Content Area Call to Action');
+    $assert->elementTextContains('css', 'a.ut-btn', 'Flex Content Area Call to Action');
     // Verify responsive image is present within the link.
     $expected_path = 'utexas_image_style_340w_227h/public/image-test.png';
     $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
@@ -84,10 +84,10 @@ trait FlexContentAreaTestTrait {
     $assert->elementTextContains('css', '.ut-flex-content-area:nth-child(2) h3.ut-headline', 'Flex Content Area Headline 2');
     $assert->pageTextContains('Flex Content Area Copy 2');
     $assert->linkExists('Flex Content Area External Link 2');
-    $assert->elementTextContains('css', '.ut-flex-content-area:nth-child(2) a.ut-btn--small', 'Flex Content Area Call to Action 2');
+    $assert->elementTextContains('css', '.ut-flex-content-area:nth-child(2) a.ut-btn', 'Flex Content Area Call to Action 2');
 
     // Empty Flex Content Area instance 3 elements do not render.
-    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) a.ut-btn--small');
+    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) a.ut-btn');
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .ut-copy');
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .link-list');
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .image-wrapper');

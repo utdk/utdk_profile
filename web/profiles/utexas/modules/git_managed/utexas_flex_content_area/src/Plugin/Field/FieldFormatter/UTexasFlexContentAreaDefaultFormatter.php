@@ -194,7 +194,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         $link_options = [
           'attributes' => [
             'class' => [
-              'ut-btn--small',
+              'ut-btn',
             ],
           ],
         ];
