@@ -46,6 +46,7 @@ install:
   - layout_builder_modal
   - layout_builder_restrictions
   - layout_builder_styles
+  - media_library_theme_reset
   - metatag
   - menu_block
   - pathauto
