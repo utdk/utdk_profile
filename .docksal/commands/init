@@ -4,6 +4,9 @@
 ##
 ## Usage: fin init
 
+# Include helper functions
+. $(dirname "$0")/helper-functions
+
 # Abort if anything fails
 set -e
 
@@ -33,7 +36,15 @@ fi
 echo "Waiting 10s for MySQL to initialize...";
 sleep 10
 
-echo-green "Containers are up and refreshed!";
 echo    # move to a new line
+echo -e "${green_bg} Step 2 ${NC}${green} Initializing VS Code configuration...${NC}"
+create_dir "${PROJECT_ROOT}/.vscode"
+# Copy over XDebug files
+copy_settings_file "${PROJECT_ROOT}/.docksal/xdebug/launch.json" "${PROJECT_ROOT}/.vscode/launch.json"
+# Copy over default VS Code settings
+copy_settings_file "${PROJECT_ROOT}/.docksal/vscode/default.settings.json" "${PROJECT_ROOT}/.vscode/settings.json"
+echo    # move to a new line
+
+echo-green "Containers are up and refreshed, and VS Code is configured for settings and XDebug!";
 
 #-------------------------- END: Execution --------------------------------

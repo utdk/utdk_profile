@@ -6,6 +6,9 @@
 ##
 ## Usage: fin init-site
 
+# Include helper functions
+. $(dirname "$0")/helper-functions
+
 # Abort if anything fails
 set -e
 
@@ -17,38 +20,6 @@ DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
 SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
 
 #-------------------------- END: Settings --------------------------------
-
-#-------------------------- Helper functions --------------------------------
-
-# Copy a settings file.
-# Skips if the destination file already exists.
-# @param $1 source file
-# @param $2 destination file
-copy_settings_file()
-{
-	local source="$1"
-	local dest="$2"
-
-	if [[ ! -f $dest ]]; then
-		echo "Copying ${dest}..."
-		cp $source $dest
-	else
-		echo "${dest} already in place."
-	fi
-}
-
-create_dir()
-{
-	local dir="$1"
-	if [[ ! -d $dir ]]; then
-		echo "Making directory: ${dir}..."
-		mkdir $dir
-	else
-		echo "Directory ${dir} already exists."
-	fi
-}
-
-#-------------------------- END: Helper functions --------------------------------
 
 #-------------------------- Functions --------------------------------
 
@@ -68,14 +39,11 @@ init_settings ()
 	# Create folder for simpletest snapshots
 	create_dir "${PROJECT_ROOT}/${DOCROOT}/sites/simpletest"
 	create_dir "${PROJECT_ROOT}/${DOCROOT}/sites/simpletest/browser_output"
-	# Copy over XDebug files
-	create_dir "${PROJECT_ROOT}/.vscode"
-	copy_settings_file "${PROJECT_ROOT}/.docksal/xdebug/launch.json" "${PROJECT_ROOT}/.vscode/launch.json"
 }
 
 # Install site
 site_install ()
-{	
+{
 	cd $DOCROOT_PATH
 
 	# We disable email sending here so site-install does not return an error
