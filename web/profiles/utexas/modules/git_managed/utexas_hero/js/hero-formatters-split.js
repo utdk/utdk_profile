@@ -2,11 +2,119 @@
   "use strict";
 
   /**
-   * Creates the custom selectors DOM objects and append them to a form item.
-   * @param {string} entity_type The entity type which could be either "node"
-   *     or "block". This will define to which item the DOM is appended.
+   * @file
+   *
+   * Hero formatter split progressive enhancement definition.
+   *
+   * To facilitate the usage of more than 10 image styles/view modes for the
+   * hero, we create 2 different HTML select elements: one for the style,
+   * and one for anchor positioning. The combination of both decide
+   * which of the original image styles gets picked. This choice then
+   * modifies the now hidden original select element. Drupal then saves
+   * things as it normally would. This is purely a user facing change,
+   * not a data storage change.
    */
-  function createSelectors(entity_type) {
+
+  /**
+   * Define a Drupal behavior to create custom hero select elements.
+   */
+  Drupal.behaviors.utexasHeroCustomSelectors = {
+    attach: function (context, settings) {
+      // 1. Hero styles may be accessed via field formatter or view mode.
+      // Determine which of these is active, or exit if neither.
+      var form_mode = getFormMode();
+      if (form_mode === null) {
+        return;
+      }
+      // Determine original select HTML element, depending on the form mode.
+      var form_mode_dom =
+      (form_mode === "formatter" ? ".js-form-item-settings-formatter-type"
+      : ".js-form-item-settings-view-mode");
+      // If there is no hero default selector, we are not on a hero
+      // configuration form.
+      $(form_mode_dom).each(function() {
+        if ($(form_mode_dom)
+        .find("select option[value=utexas_hero_1_left]").length === null) {
+          return;
+        }
+      });
+      // Set the formatter type which differ between formatter and view mode.
+      var formatter_type =
+      (form_mode === "view_mode" ? "settings[" + form_mode + "]"
+      : "settings[" + form_mode + "][type]");
+      // Set jquery element for original hidden select element.
+      var original_select_element = $("select[name='" + formatter_type + "']");
+      var current_formatter_style = original_select_element.val();
+      // Since formatter and view mode don't have a consistent value for the
+      // default select element, we attempt to set the value to "default" if the
+      // current style is indeed set to any of the default values.
+      var default_style = ((current_formatter_style === undefined
+      || current_formatter_style === "full"
+      || current_formatter_style === "utexas_hero") ? "default"
+      : current_formatter_style);
+      // Access helper function to split the current formatter into custom
+      // style and anchor position.
+      var style_and_anchor = getStyleAndAnchorValue(default_style);
+
+      // 2. Create custom select HTML elements if not already present.
+      createSelectors(form_mode_dom);
+
+      // 3. Set values of custom select HTML elements.
+      // Update the value in the style custom select element.
+      $("select[name='hero_style']")
+      .val(default_style !== "default" ? style_and_anchor.style
+      : default_style);
+      // Update the value in the anchor custom select element.
+      if (default_style !== "default") {
+        $("select[name='anchor_position']").val(style_and_anchor.anchor);
+      }
+      // Convert default_style if "default" is set but we use a formatter form
+      // mode.
+      default_style = (form_mode === "formatter"
+      && default_style === "default" ? "utexas_hero"
+      : default_style);
+      // Update the values in the original hidden select element.
+      original_select_element.val(default_style);
+      // Toggle anchor select element if current hero don't use anchor.
+      toggleAnchorSelectElement(default_style);
+
+      // 4. Watch for changes on the custom select elements, and keep
+      // the original select element in sync.
+
+      // Watch the hero style custom select element.
+      $("select[name='hero_style']", context).change(function() {
+        var hero_style = "";
+        $("select[name='hero_style'] option:selected").each(function() {
+          // Get the hero style and convert to utexas_hero if form mode is set
+          // to formatter.
+          hero_style = (form_mode === "formatter"
+          && $("select[name='hero_style'] option:selected").val() === "default"
+          ? "utexas_hero"
+          : $("select[name='hero_style'] option:selected").val());
+        });
+        updateSelectors(original_select_element, "", hero_style);
+      });
+
+      // Watch the hero anchor custom select element.
+      $("select[name='anchor_position']", context).change(function() {
+        var anchor;
+        $("select[name='anchor_position'] option:selected").each(function() {
+          anchor = "_" + $("select[name='anchor_position'] option:selected")
+          .val();
+        });
+        updateSelectors(original_select_element, anchor, "");
+      });
+    }
+  };
+
+
+
+  /**
+   * Create the custom select HTML elements and appends them to the form.
+   * @param {string} form_mode_dom The parent element where we create and set
+   *     the new selectors into.
+   */
+  function createSelectors(form_mode_dom) {
     var hero_style_selector =
       `<div class="js-form-item form-item js-form-type-select
       form-item-hero-style js-form-item-hero-style">
@@ -54,182 +162,121 @@
         </div>
       </div>`
     ;
-    // Pick a selector to append selectors based on entity type.
-    var entity_type_dom = ((entity_type === "node") ? ".js-form-item-settings-formatter-type" : ".js-form-item-settings-view-mode");
-
-    $(entity_type_dom).each(function (index) {
-      if ($(this).find('select option[value=utexas_hero_1_left]').length) {
-        // Validate custom selectors exist in sidebar, and add them if they don't.
+    // We loop through each element within the parent DOM.
+    $(form_mode_dom).each(function() {
+      // Check if hero style default selector is present.
+      if ($(form_mode_dom)
+      .find("select option[value=utexas_hero_1_left]").length) {
+        // Validate custom selectors exist and create them if they don't.
         if ($("#edit-hero-style").length === 0) {
-          $(entity_type_dom).after(anchor_position_selector).after(hero_style_selector);
-          // Once custom selectors are in, hide official formatter/view mode field.
-          $(entity_type_dom).hide();
+          $(form_mode_dom).after(anchor_position_selector)
+          .after(hero_style_selector);
+          // Hide the original selector after appending the custom ones.
+          $(form_mode_dom).hide();
         }
       }
     });
   }
 
   /**
-   * Converts the "default" formatter value to "utexas_hero" if entity type.
-   * is of the type "node".
-   * @param {string} hero_style The hero style that we will validate/convert.
-   * @param {string} entity_type The entity type which could be either "node"
-   *     or "block". This will determine if the hero_style should be converted.
-   * @return {string} The hero style machine name to be used for the formatter.
-   */
-  function validateNodeEntityAndConvertDefaultToUtexasHero(hero_style,
-  entity_type) {
-    return ((entity_type === "node" && hero_style === "default") ? "utexas_hero" : hero_style);
-  }
-
-  /**
-   * Disable the anchor position selector for styles that don't require it.
-   * Also, massage the hero_style value if anchor is set to "center".
-   * @param {string} hero_style The current picked hero style.
-   * @param {string} anchor The anchor value to be validated/converted
-   * @return {string} The massaged anchor value which if set to center will
-   *    return an empty string.
-   */
-  function validateAnchor(hero_style, anchor) {
-    // Don't add suffix if using default or style 4. And hide the form item.
-    if (hero_style === "default" || hero_style === "utexas_hero" || hero_style === "utexas_hero_4") {
-      anchor = "";
-      $("#edit-anchor-position").prop("disabled", true);
-    } else {
-      $("#edit-anchor-position").removeAttr("disabled");
-    }
-    // Don't add suffix if this is center.
-    anchor = ((anchor === "_center") ? "" : anchor);
-    return anchor;
-  }
-
-  /**
-   * Update all of the selector values/status based on certain criteria.
-   * @param {string} entity_type The entity type which could be "node" or
-   *    "block".
-   * @param {string} formatter_type This variable defines the HTML "name"
-   *    attribute that belongs to the original formatter/view mode selector.
+   * Update the values and state of the select elements.
+   *
+   * @param {string} original_select_element This variable defines the HTML
+   *    original hidden select element.
    * @param {string} anchor (Optional) The anchor value which could be "center",
    *    "left" or "right". Also used to validate the selector visibility.
    * @param {string} hero_style (Optional) The hero style that will be massaged
    *    and define the official formatter/view mode value. Will also be used to
    *    validate and massage the hero_style value.
    */
-  function updateSelectors(entity_type, formatter_type,
-  anchor="", hero_style="") {
-    // If no hero style passed as argument, grab the current value.
-    hero_style = ((hero_style === "") ? $("select[name='hero_style'] option:selected").val() : hero_style);
-    // If no anchor passed as argument, grab the current value
-    anchor = ((anchor === "") ? "_" + $( "select[name='anchor_position'] option:selected").val() : anchor);
-    // Massage hero style value.
-    hero_style = validateNodeEntityAndConvertDefaultToUtexasHero(hero_style, entity_type);
-    // Massage anchor value.
-    anchor = validateAnchor(hero_style, anchor);
-    // Set official formatter/view mode value.
-    $("select[name='" + formatter_type + "']").val(hero_style + anchor);
+  function updateSelectors(original_select_element, anchor="", hero_style="") {
+    // If no hero style passed as argument, get the current value.
+    hero_style = ((hero_style === "")
+    ? $("select[name='hero_style'] option:selected").val()
+    : hero_style);
+    // If no anchor passed as argument, get the current value
+    anchor = ((anchor === "")
+    ? "_" + $( "select[name='anchor_position'] option:selected").val()
+    : anchor);
+    // Massage the custom anchor position value.
+    toggleAnchorSelectElement(hero_style);
+    var disabled_anchor = ($("#edit-anchor-position").prop("disabled") ? true
+    : false);
+    // Don't add suffix if anchor is center or anchor select is disabled.
+    anchor = ((anchor === "_center" || disabled_anchor) ? ""
+    : anchor);
+    // Update original formatter select element value.
+    original_select_element.val(hero_style + anchor);
   }
 
   /**
-   * Validate if the entity type in the layout sidebar is a valid type by
-   * looking up for certain DOM elements, and define the entity_type value
-   * based on the result.
-   * @return {string} The entity_type value which will define if the custom
-   *    selectors should be created or not.
+   * Return either formatter or view_mode depending on context the
+   * utexas_hero field is being used.
+   * This will vary between node, inline block, reusable block, etc.
+   * @return {string} Returns the form_mode if valid, or null if not
    */
-  function initializeLibraryWhenValidEntityType() {
-    var entity_type;
+  function getFormMode() {
+    var form_mode = null;
     // Check if the layout sidebar has a formatter or view mode, if not, exit.
-    if ($("#drupal-off-canvas").has(".js-form-item-settings-formatter-type").length || $("#layout-builder-modal").has(".js-form-item-settings-formatter-type").length) {
-      entity_type = "node";
-    } 
-    else if ($("#drupal-off-canvas").has(".js-form-item-settings-view-mode").length || $("#layout-builder-modal").has(".js-form-item-settings-view-mode").length) {
-      entity_type = "block";
-    } 
-    else if ($(".block-form").has(".js-form-item-settings-view-mode").length || $("#layout-builder-modal").has(".js-form-item-settings-view-mode").length) {
-      entity_type = "block";
+    if ($("#drupal-off-canvas")
+    .has(".js-form-item-settings-formatter-type").length
+    || $("#layout-builder-modal")
+    .has(".js-form-item-settings-formatter-type").length) {
+      form_mode = "formatter";
     }
-    else {
-      entity_type = "invalid";
+    else if ($("#drupal-off-canvas")
+    .has(".js-form-item-settings-view-mode").length
+    || $("#layout-builder-modal")
+    .has(".js-form-item-settings-view-mode").length) {
+      form_mode = "view_mode";
     }
-    return entity_type;
+    else if ($(".block-form").has(".js-form-item-settings-view-mode").length
+    || $("#layout-builder-modal")
+    .has(".js-form-item-settings-view-mode").length) {
+      form_mode = "view_mode";
+    }
+    return form_mode;
   }
 
   /**
-   * Grabs the default value formatter/view mode value, splits the string into
-   * two variables, one for the hero style, and one for the anchor that is set.
-   * @param {string} default_style Prevalidated variable which should contain
+   * Return the current style and anchor values from the default Drupal
+   * select element.
+   *
+   * @param {string} default_style Should contain
    *    a value similar to "utexas_hero_X_[anchor]" where X is a number that
    *    defines the style number to select in the custom hero style selector.
    *    And an optional anchor that defines the value of the anchor selector.
-   * @return {string} The default hero style value that can now be set and used.
+   * @return {array} The style and anchor settings.
    */
-  function splitDefaultStyleAndSetAnchorValue(default_style) {
-    default_style = default_style.split("utexas_hero_");
-    if (default_style.length > 1) {
-      var style_and_anchor = default_style[1].split("_");
-      default_style = "utexas_hero_" + style_and_anchor[0];
-      var anchor = ((style_and_anchor[1] !== undefined) ? style_and_anchor[1] : "center");
-      $("select[name='anchor_position']").val(anchor);
-      return default_style;
-    }
-    else {
-      return default_style[0];
-    }
+  function getStyleAndAnchorValue(default_style) {
+    // Split and return an array.
+    var default_style_split = default_style.split("utexas_hero_");
+    // Will return the style and anchor if found, e.g. ['1', 'left'],
+    // or 'utexas_hero'.
+    var style_and_anchor = (default_style_split[1] !== undefined
+    ? default_style_split[1].split("_")
+    : "utexas_hero");
+    var anchorDefined = style_and_anchor[1] !== undefined;
+    return {
+      "style" : "utexas_hero_" + style_and_anchor[0],
+      "anchor" : (anchorDefined ? style_and_anchor[1]
+      : "center"),
+    };
   }
 
-  // Initializing Drupal behavior to create custom selectors.
-  Drupal.behaviors.utexasHeroCustomSelectors = {
-    attach: function (context, settings) {
-      // Initializing variable names based on entity type.
-      var entity_type = initializeLibraryWhenValidEntityType();
-      // If what entity_type is not node or block, don't proceed.
-      if (entity_type === "invalid"){
-        return false;
-      }
-      // Pick a selector to append selectors based on entity type.
-      var entity_type_dom = ((entity_type === "node") ? ".js-form-item-settings-formatter-type" : ".js-form-item-settings-view-mode");
-      $(entity_type_dom).each(function (index) {
-        if ($(this).find('select option[value=utexas_hero_1_left]').length === null) {
-          return false;
-        }
-      });
-      // Setting formatter/view mode formatter type based on entity type.
-      var formatter_type = ((entity_type === "node") ? "settings[formatter][type]" : "settings[view_mode]");
-      // Creating selectors if not already present.
-      createSelectors(entity_type);
-      // Initializing variables required by selector operations.
-      var default_style = $("select[name='" + formatter_type + "']").val();
-      // Convert any entity type default value into "default".
-      default_style = ((default_style === undefined || default_style === "full" || default_style === "utexas_hero") ? "default" : default_style);
-      // If not the default style, retrieve hero style and set anchor value.
-      if (default_style !== "default") {
-        default_style = splitDefaultStyleAndSetAnchorValue(default_style);
-      }
-      // Setting default values to view mode/formatter and hero_style fields.
-      var formatter_default_style =
-      validateNodeEntityAndConvertDefaultToUtexasHero(default_style,
-      entity_type);
-      $("select[name='" + formatter_type + "']").val(formatter_default_style);
-      $("select[name='hero_style']").val(default_style);
-      // Select `utexas_hero_x` view mode based on Hero Styles select option.
-      $("select[name='hero_style']", context).change(function() {
-        var hero_style = "";
-        $("select[name='hero_style'] option:selected").each(function() {
-          hero_style = $(this).val();
-        });
-        updateSelectors(entity_type, formatter_type, "", hero_style);
-      })
-      .trigger("change");
-      // Select view mode based on suffix `left`, `right` or `center`.
-      $("select[name='anchor_position']", context).change(function() {
-        var anchor;
-        $("select[name='anchor_position'] option:selected").each(function() {
-          anchor = "_" + $(this).val();
-        });
-        updateSelectors(entity_type, formatter_type, anchor, "");
-      })
-      .trigger("change");
+  /**
+   * Toggle anchor select element state depending on selected hero style.
+   *
+   * @param {string} hero_style The current hero style.
+   */
+  function toggleAnchorSelectElement(hero_style) {
+    // Disable anchor select element if using default or style 4.
+    if (hero_style === "default" || hero_style === "utexas_hero"
+    || hero_style === "utexas_hero_4") {
+      $("#edit-anchor-position").prop("disabled", true);
+    } else {
+      $("#edit-anchor-position").removeAttr("disabled");
     }
-  };
+  }
 
 })(jQuery, Drupal);
