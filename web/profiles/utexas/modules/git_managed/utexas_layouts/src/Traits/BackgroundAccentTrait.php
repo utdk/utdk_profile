@@ -81,7 +81,7 @@ trait BackgroundAccentTrait {
             $src = ImageStyle::load('utexas_image_style_1600w_500h')->buildUrl($uri);
           }
           else {
-            $src = $file->toUrl();
+            $src = $file->createFileUrl();
           }
           if (!empty($this->configuration['blur'])) {
             // Apply blur effect first to prevent mangled UTF8 encoding on $src.

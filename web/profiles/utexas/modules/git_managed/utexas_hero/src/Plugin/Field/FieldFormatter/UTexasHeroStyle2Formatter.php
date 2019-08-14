@@ -70,9 +70,9 @@ class UTexasHeroStyle2Formatter extends UTexasHeroFormatterBase {
             $small_src = $small_image_style->buildUrl($uri);
           }
           else {
-            $large_src = $file->toUrl();
-            $medium_src = $file->toUrl();
-            $small_src = $file->toUrl();
+            $large_src = $file->createFileUrl();
+            $medium_src = $file->createFileUrl();
+            $small_src = $file->createFileUrl();
           }
           $css = "
           #" . $id . ".hero--photo-gradient {

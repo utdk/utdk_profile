@@ -164,7 +164,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
           '%label' => $utexas_site_announcement->label(),
         ]));
     }
-    $form_state->setRedirectUrl($utexas_site_announcement->toUrl('collection'));
+    $form_state->setRedirectUrl($utexas_site_announcement->createFileUrl('collection'));
     Cache::invalidateTags(['utexas_site_announcement']);
   }
 

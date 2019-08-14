@@ -70,15 +70,15 @@ class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
             $small_src = $small_image_style->buildUrl($uri);
           }
           else {
-            $large_src = $file->toUrl();
-            $medium_src = $file->toUrl();
-            $small_src = $file->toUrl();
+            $large_src = $file->createFileUrl();
+            $medium_src = $file->createFileUrl();
+            $small_src = $file->createFileUrl();
           }
           $css = "
           .hero--half-n-half #" . $id . ".hero-img {
             background-image: url(" . $large_src . ");
           }
-          @media screen and (max-width: 900px) { 
+          @media screen and (max-width: 900px) {
             .hero--half-n-half #" . $id . ".hero-img {
               background-image: url(" . $medium_src . ");
             }
