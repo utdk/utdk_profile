@@ -164,7 +164,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
           '%label' => $utexas_block_social_links->label(),
         ]));
     }
-    $form_state->setRedirectUrl($utexas_block_social_links->createFileUrl('collection'));
+    $form_state->setRedirectUrl($utexas_block_social_links->toUrl('collection'));
     Cache::invalidateTags(['utexas_social_links_block']);
   }
 
