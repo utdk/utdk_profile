@@ -21,7 +21,7 @@ class UTexasSocialLinkOptions {
   public static function getOptionsArray() {
     $social_link_entities = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data')->loadMultiple();
     $social_links_options = [];
-    foreach ($social_link_entities as $key => $value) {
+    foreach ($social_link_entities as $value) {
       $id = $value->get('id');
       $label = $value->get('label');
       $social_links_options[$id] = $label;
@@ -40,7 +40,7 @@ class UTexasSocialLinkOptions {
   public static function getIcons() {
     $social_link_entities = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data')->loadMultiple();
     $social_links_icons = [];
-    foreach ($social_link_entities as $key => $value) {
+    foreach ($social_link_entities as $value) {
       $id = $value->get('id');
       $icon_path = $value->get('icon');
       $social_links_icons[$id] = $icon_path;

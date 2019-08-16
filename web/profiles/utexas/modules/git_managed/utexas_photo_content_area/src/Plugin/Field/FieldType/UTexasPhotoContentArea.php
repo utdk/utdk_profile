@@ -139,7 +139,6 @@ class UTexasPhotoContentArea extends FieldItemBase {
       $image_index = array_rand($images[$extension][$min_resolution][$max_resolution]);
       $file = $images[$extension][$min_resolution][$max_resolution][$image_index];
     }
-    list($width, $height) = getimagesize($file->getFileUri());
     $image_media = Media::create([
       'name' => 'Image 1',
       'bundle' => 'utexas_image',
@@ -154,10 +153,6 @@ class UTexasPhotoContentArea extends FieldItemBase {
     ]);
     $image_media->save();
     $values['image'] = $image_media->id();
-    // Set of possible top-level domains for sample link value.
-    $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
-    // Set random length for the domain name.
-    $domain_length = mt_rand(7, 15);
     $values['links'] = serialize([
       ['url' => 'https://utexas.edu', 'title' => 'UT Homepage'],
       ['url' => 'https://news.utexas.edu', 'title' => 'UT News'],

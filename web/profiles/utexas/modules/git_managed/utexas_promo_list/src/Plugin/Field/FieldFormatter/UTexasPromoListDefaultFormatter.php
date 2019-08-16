@@ -102,7 +102,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
     foreach ($image_styles as $image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $instances = [];
       $promo_list_items = is_string($item->promo_list_items) ? unserialize($item->promo_list_items) : $item->promo_list_items;
       if (!empty($promo_list_items)) {

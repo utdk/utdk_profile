@@ -32,11 +32,11 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     ];
     $element['flex_content_area']['image'] = [
       '#type' => 'media_library_element',
-      '#description' => t('If using an image, note that it will be scaled and cropped to 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.'),
+      '#description' => $this->t('If using an image, note that it will be scaled and cropped to 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.'),
       '#target_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
       '#cardinality' => 1,
-      '#title' => t('Media'),
+      '#title' => $this->t('Media'),
       '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : 0,
     ];
     $element['flex_content_area']['headline'] = [
@@ -74,7 +74,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $element['flex_content_area']['links'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('List of links'),
-      '#description' => t("Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.", [
+      '#description' => $this->t("Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.", [
         '%internal' => '/node/add',
         '%external' => 'https://example.com',
         '%front' => '<front>',
@@ -107,7 +107,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     ];
     $element['flex_content_area']['cta_wrapper'] = [
       '#type' => 'fieldset',
-      '#title' => t('Call to Action'),
+      '#title' => $this->t('Call to Action'),
     ];
     $element['flex_content_area']['cta_wrapper']['link'] = [
       '#suffix' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [
@@ -138,8 +138,8 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
    */
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
-    $wrapper = array_pop($element['#parents']);
-    $details = array_pop($element['#parents']);
+    array_pop($element['#parents']);
+    array_pop($element['#parents']);
     // The field_delta will be the last (nearest) element in the #parents array.
     $field_delta = array_pop($element['#parents']);
     // The field_name will be the penultimate element in the #parents array.

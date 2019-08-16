@@ -74,7 +74,7 @@ class UTexasAnnouncementColorSchemeForm extends EntityForm {
     foreach ($color_fields_to_validate as $field => $val) {
       if (!preg_match($hex_code_regex, $val)) {
         // The value is not a valid hex code.
-        $form_state->setErrorByName($field, t('%hex is an invalid hex code.', ['%hex' => $val]));
+        $form_state->setErrorByName($field, $this->t('%hex is an invalid hex code.', ['%hex' => $val]));
       }
     }
   }

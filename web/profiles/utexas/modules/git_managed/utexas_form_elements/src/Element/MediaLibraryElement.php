@@ -262,8 +262,6 @@ class MediaLibraryElement extends FormElement {
    *   The form state.
    */
   public static function updateItem(array $form, FormStateInterface $form_state) {
-    $button = $form_state->getTriggeringElement();
-    $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
     $form_state->setRebuild();
   }
 
@@ -282,7 +280,6 @@ class MediaLibraryElement extends FormElement {
     $button = $form_state->getTriggeringElement();
     $element = NestedArray::getValue($form, array_slice($button['#array_parents'], 0, -1));
 
-    $field_state = static::getFieldState($element, $form_state);
     $media = static::getNewMediaItem($element, $form_state);
     if (empty($media)) {
       return;

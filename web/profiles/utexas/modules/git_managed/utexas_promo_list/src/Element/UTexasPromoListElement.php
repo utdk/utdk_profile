@@ -30,9 +30,6 @@ class UtexasPromoListElement extends FormElement {
    * Process handler for the link form element.
    */
   public static function processLinkElement(&$element, FormStateInterface $form_state, &$form) {
-    $validators = [
-      'file_validate_extensions' => ['jpg jpeg png gif'],
-    ];
     $element['headline'] = [
       '#type' => 'textfield',
       '#title' => t('Item Headline'),

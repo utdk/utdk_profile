@@ -214,9 +214,6 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
             break;
         }
       }
-      else {
-        $image_render_array = [];
-      }
       $elements[] = [
         '#theme' => 'utexas_flex_content_area',
         '#media' => $media_render_array,

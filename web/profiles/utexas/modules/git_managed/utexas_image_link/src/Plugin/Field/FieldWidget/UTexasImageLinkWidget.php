@@ -28,9 +28,9 @@ class UTexasImageLinkWidget extends WidgetBase {
       '#target_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#cardinality' => 1,
-      '#title' => t('Image'),
+      '#title' => $this->t('Image'),
       '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : 0,
-      '#description' => t('This image will fill the width of the region it is placed in.'),
+      '#description' => $this->t('This image will fill the width of the region it is placed in.'),
     ];
     $element['link'] = [
       '#prefix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [

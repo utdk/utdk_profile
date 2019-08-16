@@ -113,8 +113,7 @@ function utexas_beacon_cron() {
     try {
       // Use 'debug' => true for more info.
       $endpoint_uri = \Drupal::state()->get('utexas_beacon_endpoint_uri') ?? 'https://drupal-beacon.its.utexas.edu/beacon-end.php';
-      $request = $client->post($endpoint_uri, ['headers' => $headers, 'body' => $encoded_data]);
-      $response = $request->getBody();
+      $client->post($endpoint_uri, ['headers' => $headers, 'body' => $encoded_data]);
       \Drupal::logger('utexas_beacon')->notice('Beacon data logged to ITS Drupal Team.');
     }
     catch (RequestException $e) {

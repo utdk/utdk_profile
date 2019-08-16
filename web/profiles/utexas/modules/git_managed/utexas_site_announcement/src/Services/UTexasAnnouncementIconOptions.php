@@ -18,7 +18,7 @@ class UTexasAnnouncementIconOptions {
   public static function getLabels() {
     $entities = \Drupal::entityTypeManager()->getStorage('utexas_announcement_icon')->loadMultiple();
     $options = [];
-    foreach ($entities as $key => $value) {
+    foreach ($entities as $value) {
       $id = $value->get('id');
       $label = $value->get('label');
       $options[$id] = $label;
@@ -35,7 +35,7 @@ class UTexasAnnouncementIconOptions {
   public static function getIcons() {
     $entities = \Drupal::entityTypeManager()->getStorage('utexas_announcement_icon')->loadMultiple();
     $icons = [];
-    foreach ($entities as $key => $value) {
+    foreach ($entities as $value) {
       $id = $value->get('id');
       $icon_path = $value->get('icon');
       $icons[$id] = $icon_path;

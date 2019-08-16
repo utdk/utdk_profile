@@ -102,7 +102,7 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
     foreach ($image_styles as $image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $links = unserialize($item->links);
       // Ensure that links without title text print the URL.
       if (!empty($links)) {

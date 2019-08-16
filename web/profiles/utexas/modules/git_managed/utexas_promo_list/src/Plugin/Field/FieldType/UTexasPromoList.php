@@ -74,7 +74,6 @@ class UTexasPromoList extends FieldItemBase {
       $values['promo_list_items'][$i]['item']['copy']['value'] = $random->sentences(mt_rand(1, 2));
       $values['promo_list_items'][$i]['item']['copy']['format'] = 'flex_html';
       // Attributes for sample image.
-      static $images = [];
       $min_resolution = '100x100';
       $max_resolution = '600x600';
       $extensions = ['png', 'gif', 'jpg', 'jpeg'];
@@ -99,8 +98,6 @@ class UTexasPromoList extends FieldItemBase {
         $file_system->prepareDirectory($destination_dir, FileSystemInterface::CREATE_DIRECTORY);
         $destination = $destination_dir . '/' . basename($path);
         $file = file_move($image, $destination);
-        $images[$extension][$min_resolution][$max_resolution][$file->id()] = $file;
-        list($width, $height) = getimagesize($file->getFileUri());
         $image_media = Media::create([
           'name' => 'Image 1',
           'bundle' => 'utexas_image',

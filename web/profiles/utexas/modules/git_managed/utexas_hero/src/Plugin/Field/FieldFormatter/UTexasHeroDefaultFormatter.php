@@ -38,7 +38,7 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
 
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $cta['title'] = '';
       $cta['uri'] = '';
       if (!empty($item->link_uri)) {

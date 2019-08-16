@@ -221,7 +221,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
         // This is needed because only one error per element is supported.
         $render_array = [
           'error' => [
-            '#markup' => t('One or more files could not be uploaded.'),
+            '#markup' => $this->t('One or more files could not be uploaded.'),
           ],
           'item_list' => [
             '#theme' => 'item_list',

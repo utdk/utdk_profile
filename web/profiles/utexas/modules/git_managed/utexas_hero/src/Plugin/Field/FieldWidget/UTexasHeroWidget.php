@@ -29,14 +29,14 @@ class UTexasHeroWidget extends WidgetBase {
       '#target_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#cardinality' => 1,
-      '#title' => t('Image'),
+      '#title' => $this->t('Image'),
       '#default_value' => isset($items[$delta]->media) ? $items[$delta]->media : 0,
-      '#description' => t('Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'),
+      '#description' => $this->t('Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'),
     ];
     $element['disable_image_styles'] = [
       '#type' => 'checkbox',
-      '#title' => t('Disable image size optimization.'),
-      '#description' => t('Check this if you need to display an animated GIF or have specific image dimensions requirements.'),
+      '#title' => $this->t('Disable image size optimization.'),
+      '#description' => $this->t('Check this if you need to display an animated GIF or have specific image dimensions requirements.'),
       '#default_value' => $items[$delta]->disable_image_styles ?? 0,
       '#states' => [
         'invisible' => [
@@ -78,7 +78,7 @@ class UTexasHeroWidget extends WidgetBase {
     ];
     $element['cta'] = [
       '#type' => 'fieldset',
-      '#title' => t('Call to Action'),
+      '#title' => $this->t('Call to Action'),
     ];
     $element['cta']['link'] = [
       '#suffix' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [

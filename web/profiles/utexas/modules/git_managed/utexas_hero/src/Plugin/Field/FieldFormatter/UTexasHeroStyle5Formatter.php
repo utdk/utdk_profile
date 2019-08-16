@@ -24,7 +24,6 @@ class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $name = 'hero-style-5';
     $cache_tags = [];
     $elements = [];
     $large_image_style_name = 'utexas_image_style_2250w_900h';
@@ -57,7 +56,6 @@ class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
         }
       }
       $id = 'a' . substr(md5(uniqid(mt_rand(), TRUE)), 0, 5);
-      $background_image = new Attribute();
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
         if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {

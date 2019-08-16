@@ -103,7 +103,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
     foreach ($image_styles as $image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $instances = [];
       $resource_items = unserialize($item->resource_items);
       if (!empty($resource_items)) {

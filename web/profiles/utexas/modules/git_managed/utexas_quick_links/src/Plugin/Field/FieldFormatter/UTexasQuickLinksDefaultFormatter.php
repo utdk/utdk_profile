@@ -26,7 +26,7 @@ class UTexasQuickLinksDefaultFormatter extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
 
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $links = unserialize($item->links);
       // Ensure that links without title text print the URL.
       if (!empty($links)) {

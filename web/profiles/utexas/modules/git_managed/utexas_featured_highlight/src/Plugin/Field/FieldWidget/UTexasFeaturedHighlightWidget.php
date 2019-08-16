@@ -28,7 +28,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       '#target_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
       '#cardinality' => 1,
-      '#title' => t('Media'),
+      '#title' => $this->t('Media'),
       '#default_value' => isset($items[$delta]->media) ? $items[$delta]->media : 0,
     ];
     $element['headline'] = [
@@ -52,7 +52,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
     ];
     $element['cta_wrapper'] = [
       '#type' => 'fieldset',
-      '#title' => t('Call to Action'),
+      '#title' => $this->t('Call to Action'),
     ];
     $element['cta_wrapper']['link'] = [
       '#suffix' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [

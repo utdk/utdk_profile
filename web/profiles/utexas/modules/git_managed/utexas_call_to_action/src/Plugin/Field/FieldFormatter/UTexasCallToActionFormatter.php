@@ -24,8 +24,6 @@ class UTexasCallToActionFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = [];
-    $entity = $items->getEntity();
-
     foreach ($items as $delta => $item) {
       $url = $item->getUrl() ?: Url::fromRoute('<none>');
       $element[$delta] = [

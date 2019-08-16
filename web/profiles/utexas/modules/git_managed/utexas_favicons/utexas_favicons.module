@@ -65,7 +65,7 @@ function utexas_favicons_preprocess_html(&$variables) {
     ],
   ];
 
-  foreach ($icons as $key => $value) {
+  foreach ($icons as $value) {
     $sized_icons = [
       '#tag' => 'link',
       '#attributes' => [

@@ -23,9 +23,6 @@ trait BackgroundAccentTrait {
    * {@inheritdoc}
    */
   public function backgroundConfigurationForm(array $form, FormStateInterface $form_state) {
-    $validators = [
-      'file_validate_extensions' => ['jpg jpeg png gif'],
-    ];
     $form['background-accent-wrapper'] = [
       '#type' => 'details',
       '#title' => 'Background image',

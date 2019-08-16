@@ -4,7 +4,7 @@ PHP_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.php' '*.inc' '
 CSS_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.css')
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 PHPCS_BIN=/vendor/bin/phpcs
-RULESET=/vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml
+RULESET=/vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
 PHP_STAN_BIN=/vendor/bin/phpstan
 STYLELINTER=/node_modules/.bin/stylelint
 

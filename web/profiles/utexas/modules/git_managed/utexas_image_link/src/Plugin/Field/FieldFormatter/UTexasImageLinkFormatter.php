@@ -102,7 +102,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
     foreach ($image_styles as $image_style) {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       if (!empty($item->link)) {
         $url = Url::fromUri($item->link);
         $link = $url->toString();

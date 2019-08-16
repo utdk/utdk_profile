@@ -30,14 +30,14 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
       '#type' => 'media_library_element',
       '#target_bundles' => ['utexas_image'],
       '#delta' => $delta,
-      '#description' => 'Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 1800x2400 pixels to maintain resolution & avoid cropping.',
+      '#description' => $this->t('Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 1800x2400 pixels to maintain resolution & avoid cropping.'),
       '#cardinality' => 1,
-      '#title' => t('Image'),
+      '#title' => $this->t('Image'),
       '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : 0,
     ];
     $element['photo_credit'] = [
       '#title' => 'Photo Credit',
-      '#description' => 'Optional attribution displayed below the photo.',
+      '#description' => $this->t('Optional attribution displayed below the photo.'),
       '#type' => 'textfield',
       '#default_value' => $items[$delta]->photo_credit ?? NULL,
       '#size' => '60',
@@ -47,7 +47,7 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     $element['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
-      '#description' => 'Displays below the photo in narrow column widths; to the right of the photo in wide column widths.',
+      '#description' => $this->t('Displays below the photo in narrow column widths; to the right of the photo in wide column widths.'),
       '#default_value' => $items[$delta]->headline ?? NULL,
       '#size' => '60',
       '#placeholder' => '',
@@ -128,11 +128,11 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
    */
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
+    array_pop($element['#parents']);
     // The field_delta will be the last (nearest) element in the #parents array.
-    $wrapper = array_pop($element['#parents']);
     $field_delta = array_pop($element['#parents']);
-    $field_name = array_pop($element['#parents']);
     // The field_name will be the penultimate element in the #parents array.
+    $field_name = array_pop($element['#parents']);
     $parents = [$field_name, 'widget'];
     // Increment the items count.
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);

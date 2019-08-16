@@ -143,8 +143,8 @@ class UTexasPromoListWidget extends WidgetBase {
    */
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
+    array_pop($element['#parents']);
     // The field_delta will be the last (nearest) element in the #parents array.
-    $wrapper = array_pop($element['#parents']);
     $field_delta = array_pop($element['#parents']);
     // The field_name will be the penultimate element in the #parents array.
     $field_name = array_pop($element['#parents']);

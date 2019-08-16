@@ -24,7 +24,6 @@ class UTexasPromoUnitSquareFormatter extends UTexasPromoUnitDefaultFormatter {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
     $cache_tags = $this->generateCacheTags('utexas_responsive_image_pu_square');
-    $instances = [];
     foreach ($elements as $delta => $item) {
       $promo_unit_items = unserialize($items[$delta]->promo_unit_items);
       if (!empty($item['#promo_unit_items'])) {

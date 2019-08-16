@@ -30,7 +30,7 @@ class UTexasSocialLinkWidget extends WidgetBase {
     $element['headline'] = [
       '#type' => 'textfield',
       '#title' => 'Headline',
-      '#description' => 'Provide an optional headline to appear above the icons.',
+      '#description' => $this->t('Provide an optional headline to appear above the icons.'),
       '#default_value' => $items[$delta]->headline ?? '',
     ];
 
@@ -61,7 +61,7 @@ class UTexasSocialLinkWidget extends WidgetBase {
     for ($i = 0; $i < $item_count; $i++) {
       $element['social_account_links'][$i] = [
         '#type' => 'container',
-        '#prefix' => t('Only external URLs allowed.'),
+        '#prefix' => $this->t('Only external URLs allowed.'),
       ];
       $element['social_account_links'][$i]['social_account_name'] = [
         '#type' => 'select',
@@ -106,8 +106,8 @@ class UTexasSocialLinkWidget extends WidgetBase {
    */
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
+    array_pop($element['#parents']);
     // The field_delta will be the last (nearest) element in the #parents array.
-    $wrapper = array_pop($element['#parents']);
     $field_delta = array_pop($element['#parents']);
     // The field_name will be the penultimate element in the #parents array.
     $field_name = array_pop($element['#parents']);

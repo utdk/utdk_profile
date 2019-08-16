@@ -168,7 +168,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_fh';
-    foreach ($items as $delta => $item) {
+    foreach ($items as $item) {
       $id = Html::getUniqueId('featured-highlight');
       if (isset($item->date)) {
         $options = [

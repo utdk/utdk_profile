@@ -161,7 +161,6 @@ class UTexasHero extends FieldItemBase {
       $image_index = array_rand($images[$extension][$min_resolution][$max_resolution]);
       $file = $images[$extension][$min_resolution][$max_resolution][$image_index];
     }
-    list($width, $height) = getimagesize($file->getFileUri());
     $image_media = Media::create([
       'name' => 'Image 1',
       'bundle' => 'utexas_image',

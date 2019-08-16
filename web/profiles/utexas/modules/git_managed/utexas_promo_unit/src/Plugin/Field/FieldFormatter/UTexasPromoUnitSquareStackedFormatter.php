@@ -23,7 +23,6 @@ class UTexasPromoUnitSquareStackedFormatter extends UTexasPromoUnitSquareFormatt
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
-    $instances = [];
     foreach ($elements as $delta => $item) {
       foreach ($items as $delta => $item) {
         $elements['#items'][$delta] = new \stdClass();
