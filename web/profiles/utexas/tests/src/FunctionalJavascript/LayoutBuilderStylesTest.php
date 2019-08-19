@@ -70,6 +70,13 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
       'title'       => 'Test Flex Page',
     ]);
     $node->save();
+
+    // Set the configuration to allow multiple styles per block.
+    $this->drupalGet('admin/config/content/layout_builder_style/config');
+    $page->selectFieldOption('edit-multiselect-multiple', 'multiple');
+    $page->selectFieldOption('edit-form-type-multiple-select', 'multiple-select');
+    $page->pressButton('Save configuration');
+
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     $this->clickLink('Configure section');
@@ -78,7 +85,10 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->elementExists('css', '.layout-builder__layout.container');
     $assert->elementNotExists('css', '.layout-builder__layout.container-fluid');
     // Set the section to "Full width of page".
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "full_width_of_page");
+    $assert->assertWaitOnAjaxRequest();
+
+    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="full_width_of_page"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "full_width_of_page", TRUE);
     $page->pressButton('Update');
     $assert->assertWaitOnAjaxRequest();
     // A "container-fluid" class is added to the section.
@@ -94,8 +104,9 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Recent content');
     $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', 'select[name="layout_builder_style"] option[value="utexas_border_with_background"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "utexas_border_with_background");
+    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_with_background"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_with_background", TRUE);
+
     $page->pressButton('Add Block');
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
@@ -110,8 +121,8 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Recent content');
     $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', 'select[name="layout_builder_style"] option[value="utexas_border_without_background"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "utexas_border_without_background");
+    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_without_background"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_without_background", TRUE);
     $page->pressButton('Add Block');
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
@@ -123,8 +134,9 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $this->clickLink('Layout');
     $this->clickLink('Configure section');
     $assert->assertWaitOnAjaxRequest();
-    // Set the section to "Full width of page".
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style", "utexas_no_padding");
+    // Set the section to "No padding".
+    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_no_padding"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_no_padding", TRUE);
     $page->pressButton('Update');
     $assert->assertWaitOnAjaxRequest();
     // A "utexas-layout-no-padding" class is added to the section.
