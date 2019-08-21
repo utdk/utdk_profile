@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Call To Action module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_call_to_action_install() {
+  drupal_set_installed_schema_version('utexas_call_to_action', '8100');
+}
+
+

@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Form Elements module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_form_elements_install() {
+  drupal_set_installed_schema_version('utexas_form_elements', '8100');
+}

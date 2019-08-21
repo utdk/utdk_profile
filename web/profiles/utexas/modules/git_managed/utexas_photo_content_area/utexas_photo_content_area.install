@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Photo Content Area module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_photo_content_area_install() {
+  drupal_set_installed_schema_version('utexas_photo_content_area', '8100');
+}

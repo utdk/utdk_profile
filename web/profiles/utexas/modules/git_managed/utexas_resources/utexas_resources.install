@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Reources module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_resources_install() {
+  drupal_set_installed_schema_version('utexas_resources', '8100');
+}

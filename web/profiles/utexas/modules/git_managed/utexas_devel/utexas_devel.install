@@ -14,6 +14,7 @@ use Drupal\media\Entity\Media;
  * Implements hook_install().
  */
 function utexas_devel_install() {
+  drupal_set_installed_schema_version('utexas_devel', '8100');
   $file_system = \Drupal::service('file_system');
   $filedir = 'public://utexas_devel/';
   $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);

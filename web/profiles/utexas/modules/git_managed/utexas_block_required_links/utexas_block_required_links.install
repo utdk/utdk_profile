@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Block Required Links module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_block_required_links_install() {
+  drupal_set_installed_schema_version('utexas_block_required_links', '8100');
+}
+

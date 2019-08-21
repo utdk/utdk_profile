@@ -11,6 +11,7 @@
  * @ingroup utexas_site_announcement
  */
 function utexas_site_announcement_install() {
+  drupal_set_installed_schema_version('utexas_site_announcement', '8100');
   // Create default announcement icons.
   $site_announcement_icon_entity_manager = \Drupal::entityTypeManager()->getStorage('utexas_announcement_icon');
   $filedir = 'public://announcement_icons/';

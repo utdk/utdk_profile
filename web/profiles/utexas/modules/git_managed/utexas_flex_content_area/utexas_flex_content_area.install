@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Flex Content Area module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_flex_content_area_install() {
+  drupal_set_installed_schema_version('utexas_flex_content_area', '8100');
+}
+
