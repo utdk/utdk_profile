@@ -3,9 +3,9 @@
 PHP_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.php' '*.inc' '*.yml' '*.module' '*.install')
 CSS_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.css')
 GIT_ROOT="$(git rev-parse --show-toplevel)"
-PHPCS_BIN=/vendor/bin/phpcs
-RULESET=/vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
-PHP_STAN_BIN=/vendor/bin/phpstan
+PHPCS_BIN=../../../vendor/bin/phpcs
+RULESET=../../../vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
+PHP_STAN_BIN=../../../vendor/bin/phpstan
 STYLELINTER=/node_modules/.bin/stylelint
 
 if [ ! -f "$GIT_ROOT""$STYLELINTER" ]; then
@@ -13,12 +13,12 @@ if [ ! -f "$GIT_ROOT""$STYLELINTER" ]; then
     exit 1
 fi
 
-if [ ! -f "$GIT_ROOT""$PHP_STAN_BIN" ]; then
+if [ ! -f "$PHP_STAN_BIN" ]; then
     echo "WARNING: PHPStan was not found. You probably need to run 'composer install'."
     exit 1
 fi
 
-if [ ! -f "$GIT_ROOT""$PHPCS_BIN" ]; then
+if [ ! -f "$PHPCS_BIN" ]; then
     echo "WARNING: PHPCS was not found. You probably need to run 'composer install'."
     exit 1
 fi
@@ -27,7 +27,7 @@ echo "To bypass pre-commit checks, add '--no-verify' to your commit command"
 
 if [ ! -z "$PHP_LIST" ]; then
     # PHP linting
-    "$GIT_ROOT""$PHPCS_BIN" --standard="$GIT_ROOT""$RULESET" ${PHP_LIST}
+    "$PHPCS_BIN" --standard="$RULESET" ${PHP_LIST}
 fi
 
 # If a PHPCS violation has been found, exit without further sniffing
@@ -37,7 +37,7 @@ fi
 
 if [ ! -z "$PHP_LIST" ]; then
     # PHP static analysis
-    "$GIT_ROOT""$PHP_STAN_BIN" analyse ${PHP_LIST}
+    "$PHP_STAN_BIN" analyse ${PHP_LIST}
 fi
 
 # If a PHPStan violation has been found, exit without further sniffing

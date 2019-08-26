@@ -1,7 +1,0 @@
-# IMPORTANT NOTE:
-# If you plan to deploy this site using a web/ docroot on Pantheon, you must
-# include a pantheon.yml file that includes the web_docroot declaration shown
-# below. Copy this example file to pantheon.yml.
-api_version: 1
-web_docroot: true
-php_version: 7.0
