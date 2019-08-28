@@ -50,7 +50,6 @@ trait BackgroundAccentTrait {
    * {@inheritdoc}
    */
   public function submitBackgroundConfigurationForm(array &$form, FormStateInterface $form_state) {
-    $this->configuration['blur'] = $form_state->getValue('blur');
     $wrapper = $form_state->getValue('background-accent-wrapper');
     if (!empty($wrapper['background-accent'])) {
       $this->configuration['background-accent'] = $wrapper['background-accent']['media_library_selection'];
@@ -58,6 +57,9 @@ trait BackgroundAccentTrait {
     else {
       // There is no image.
       $this->configuration['background-accent'] = 0;
+    }
+    if (!empty($wrapper['blur'])) {
+      $this->configuration['blur'] = $wrapper['blur'];
     }
   }
 
