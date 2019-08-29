@@ -73,6 +73,12 @@ function utexas_install_cleanup(&$install_state) {
   $search_storage = \Drupal::entityManager()->getStorage('search_page');
   $entities = $search_storage->loadMultiple(['node_search', 'user_search']);
   $search_storage->delete($entities);
+  // Setting default country and timezone.
+  \Drupal::configFactory()
+    ->getEditable('system.date')
+    ->set('timezone.default', 'America/Chicago')
+    ->set('country.default', 'US')
+    ->save(TRUE);
 }
 
 /**

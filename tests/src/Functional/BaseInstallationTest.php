@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @group utexas
  */
-class FullInstallationTest extends BrowserTestBase {
+class BaseInstallationTest extends BrowserTestBase {
   use InstallTestTrait;
   use EntityTestTrait;
   use UserTestTrait;
@@ -35,24 +35,12 @@ class FullInstallationTest extends BrowserTestBase {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function installParameters() {
-    $parameters = parent::installParameters();
-    // Add specific installation form parameters here, e.g.:
-    $parameters['forms']['utexas_select_extensions']['utexas_enable_flex_page_content_type'] = 1;
-    $parameters['forms']['utexas_select_extensions']['utexas_enable_fp_editor_role'] = 1;
-    $parameters['forms']['utexas_select_extensions']['utexas_enable_social_links'] = 1;
-    return $parameters;
-  }
-
-  /**
    * Verifies that all installation options are checked.
    *
    * When all installation options are checked, all components and optional
    * components are subsequently enabled.
    */
-  public function testFullInstallation() {
+  public function testBaseInstallation() {
     $modules = [
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
