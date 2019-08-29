@@ -5,7 +5,6 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
-use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\user\RoleInterface;
 
 /**
@@ -55,17 +54,6 @@ function utexas_install() {
     ->getEditable('system.site')
     ->set('default_langcode', 'en')
     ->save(TRUE);
-
-  // Add footer menu links.
-  for ($i = 1; $i < 6; $i++) {
-    $link = MenuLinkContent::create([
-      'title'      => 'Footer Link ' . $i,
-      'link'       => ['uri' => 'internal:/'],
-      'menu_name'  => 'footer',
-      'weight'     => $i,
-    ]);
-    $link->save();
-  }
 
   // Allow all users to use search.
   user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, ['search content']);

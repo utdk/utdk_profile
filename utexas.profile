@@ -9,7 +9,6 @@
  * almost anything in the profile runs.
  */
 
-use Drupal\utexas\Form\ExtensionSelectForm;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
@@ -20,18 +19,6 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
  */
 function utexas_install_tasks() {
   return [
-    'utexas_select_extensions' => [
-      'display_name' => t('Flavors of Texas'),
-      'display' => TRUE,
-      'type' => 'form',
-      'function' => ExtensionSelectForm::class,
-    ],
-    'utexas_install_batch_processing' => [
-      'display_name' => t('Apply flavoring'),
-      'display' => TRUE,
-      'type' => 'batch',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    ],
     'utexas_install_demo_content' => [
       'display' => FALSE,
       'type' => 'batch',
@@ -52,54 +39,6 @@ function utexas_install_tasks() {
 }
 
 /**
- * Custom installation batch process.
- *
- * This will enable modules and do configuration via batch.
- *
- * This creates an operations array defining what batch should do, including
- * what it should do when it is finished.
- */
-function utexas_install_batch_processing(&$install_state) {
-  $modules_to_install = \Drupal::state()->get('utexas-install.modules_to_enable', []);
-  $operations = [];
-  // Each of the modules set in previous step will be enabled.
-  foreach ($modules_to_install as $module) {
-    $operations[] = [
-      'utexas_enable_module', [$module],
-    ];
-  }
-
-  // Add theme installation options to batch.
-  $operations[] = ['utexas_install_theme', ['forty_acres']];
-
-  $batch = [
-    'title' => t('Adding UTexas flavors...'),
-    'operations' => $operations,
-    'error_message' => t('The installation has encountered an error.'),
-  ];
-  return $batch;
-}
-
-/**
- * Helper batch callback to enable a module.
- */
-function utexas_enable_module($module) {
-  \Drupal::service('module_installer')->install([$module], TRUE);
-}
-
-/**
- * Helper batch callback to configure and enable theme.
- */
-function utexas_install_theme($theme) {
-  // Default to Bartik.
-  \Drupal::service('theme_installer')->install([$theme], TRUE);
-  \Drupal::configFactory()
-    ->getEditable('system.theme')
-    ->set('default', $theme)
-    ->save();
-}
-
-/**
  * Batch installation of demo content.
  *
  * This simply invokes any implementations of hook_utexas_demo_content().
@@ -107,29 +46,23 @@ function utexas_install_theme($theme) {
  * ensure that the implementing modules are already installed.
  */
 function utexas_install_demo_content(&$install_state) {
-  $create_default_content = \Drupal::state()->get('utexas-install.default_content', FALSE);
-  if ($create_default_content) {
-
-    // Function call to create footer demo content.
-    _utexas_install_footer_content();
-
-    // Function call to create header demo content.
-    _utexas_install_header_content();
-
-    $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
-    $operations = [];
-    // Each of the modules with 'utexas_demo_content' implementations
-    // will be  added as a batch job.
-    foreach ($implementations as $module) {
-      $operations[] = [$module . '_utexas_demo_content', []];
-    }
-    $batch = [
-      'title' => t('Generating demo content...'),
-      'operations' => $operations,
-      'error_message' => t('Demo content generation has encountered an error.'),
-    ];
-    return $batch;
+  // Function call to create footer demo content.
+  _utexas_install_footer_content();
+  // Function call to create header demo content.
+  _utexas_install_header_content();
+  $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
+  $operations = [];
+  // Each of the modules with 'utexas_demo_content' implementations
+  // will be  added as a batch job.
+  foreach ($implementations as $module) {
+    $operations[] = [$module . '_utexas_demo_content', []];
   }
+  $batch = [
+    'title' => t('Generating demo content...'),
+    'operations' => $operations,
+    'error_message' => t('Demo content generation has encountered an error.'),
+  ];
+  return $batch;
 }
 
 /**
@@ -179,6 +112,17 @@ function utexas_page_attachments(array &$attachments) {
  * Populate footer regions with demo content.
  */
 function _utexas_install_footer_content() {
+  // Add footer menu links.
+  for ($i = 1; $i < 6; $i++) {
+    $link = MenuLinkContent::create([
+      'title'      => 'Footer Link ' . $i,
+      'link'       => ['uri' => 'internal:/'],
+      'menu_name'  => 'footer',
+      'weight'     => $i,
+    ]);
+    $link->save();
+  }
+
   // Create block with textarea in Left Footer region.
   $block = BlockContent::create([
     'info' => 'UTexas Block Footer Textarea',
