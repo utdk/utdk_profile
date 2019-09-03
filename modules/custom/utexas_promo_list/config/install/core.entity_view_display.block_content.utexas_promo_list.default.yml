@@ -6,7 +6,6 @@ dependencies:
     - field.field.block_content.utexas_promo_list.field_block_pl
   module:
     - layout_builder
-    - utexas_promo_list
 third_party_settings:
   layout_builder:
     sections: {  }

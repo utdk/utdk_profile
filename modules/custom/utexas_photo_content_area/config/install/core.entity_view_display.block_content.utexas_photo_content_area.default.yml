@@ -6,7 +6,6 @@ dependencies:
     - field.field.block_content.utexas_photo_content_area.field_block_pca
   module:
     - layout_builder
-    - utexas_photo_content_area
 third_party_settings:
   layout_builder:
     sections: {  }

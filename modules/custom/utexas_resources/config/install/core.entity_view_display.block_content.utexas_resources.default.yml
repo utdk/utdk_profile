@@ -6,7 +6,6 @@ dependencies:
     - field.field.block_content.utexas_resources.field_block_resources
   module:
     - layout_builder
-    - utexas_resources
 third_party_settings:
   layout_builder:
     sections: {  }

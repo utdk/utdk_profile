@@ -17,6 +17,7 @@ matchers:
       bundles: {  }
       group_by_bundle: true
       substitution_type: canonical
+      limit: 100
   785d157f-eb72-4a67-a465-4cb567df29bf:
     uuid: 785d157f-eb72-4a67-a465-4cb567df29bf
     id: email

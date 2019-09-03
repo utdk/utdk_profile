@@ -1,9 +1,8 @@
 langcode: en
 status: true
-dependencies:
-  module:
-  - layout_builder_styles
+dependencies: {  }
 id: utexas_border_without_background
 label: 'Border without background'
 classes: "utexas-field-border\r\nutexas-centered-headline"
 type: component
+block_restrictions: null

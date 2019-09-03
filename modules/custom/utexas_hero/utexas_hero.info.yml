@@ -6,5 +6,7 @@ package: UTexas
 dependencies:
   - block_content
   - field
+  - layout_builder
   - responsive_image
+  - utexas_hero
   - utexas_image_styles

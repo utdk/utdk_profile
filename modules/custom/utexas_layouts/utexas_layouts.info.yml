@@ -1,7 +1,8 @@
-name: UTexas Layouts
+name: 'UTexas Layouts'
 type: module
-description: Layouts designed to work with the UT Drupal Kit
-core: '8.x'
+description: 'Layouts designed to work with the UT Drupal Kit'
+core: 8.x
 dependencies:
-  - layout_discovery
   - layout_builder_styles
+  - layout_discovery
+package: UTexas

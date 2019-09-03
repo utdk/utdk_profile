@@ -4,8 +4,6 @@ dependencies:
   config:
     - block_content.type.utexas_image_link
     - field.field.block_content.utexas_image_link.field_block_il
-  module:
-    - utexas_image_link
 id: block_content.utexas_image_link.default
 targetEntityType: block_content
 bundle: utexas_image_link

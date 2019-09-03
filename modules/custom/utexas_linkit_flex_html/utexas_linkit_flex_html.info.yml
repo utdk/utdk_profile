@@ -3,8 +3,8 @@ description: 'Linkit Flex HTML profile'
 type: module
 core: 8.x
 dependencies:
+  - editor_advanced_link
   - linkit
   - node
-  - editor_advanced_link
 version: 8.x-1.0
 package: UTexas

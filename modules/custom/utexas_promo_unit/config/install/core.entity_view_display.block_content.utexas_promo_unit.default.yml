@@ -5,7 +5,8 @@ dependencies:
     - block_content.type.utexas_promo_unit
     - field.field.block_content.utexas_promo_unit.field_block_pu
   module:
-    - utexas_promo_unit
+    - layout_builder
+    - layout_builder_restrictions
 third_party_settings:
   layout_builder:
     allow_custom: false

@@ -1,8 +1,6 @@
 langcode: en
 status: true
-dependencies:
-  module:
-  - layout_builder_styles
+dependencies: {  }
 id: full_width_of_page
 label: 'Full width of page'
 classes: container-fluid

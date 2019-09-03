@@ -1,8 +1,6 @@
 langcode: en
 status: true
-dependencies:
-  module:
-  - layout_builder_styles
+dependencies: {  }
 id: utexas_no_padding
 label: 'No padding between columns'
 classes: utexas-layout-no-padding

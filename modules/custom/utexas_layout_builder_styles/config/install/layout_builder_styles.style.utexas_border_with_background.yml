@@ -1,9 +1,8 @@
 langcode: en
 status: true
-dependencies:
-  module:
-  - layout_builder_styles
+dependencies: {  }
 id: utexas_border_with_background
 label: 'Border with background'
 classes: "utexas-field-border\r\nutexas-field-background"
 type: component
+block_restrictions: null

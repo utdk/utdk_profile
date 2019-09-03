@@ -8,7 +8,6 @@ dependencies:
   module:
     - layout_builder
     - layout_builder_restrictions
-    - utexas_promo_unit
 third_party_settings:
   layout_builder:
     allow_custom: false

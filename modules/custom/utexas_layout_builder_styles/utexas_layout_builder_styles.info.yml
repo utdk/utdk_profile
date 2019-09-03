@@ -1,6 +1,7 @@
-name: UTexas Layout Builder Styles
+name: 'UTexas Layout Builder Styles'
 type: module
-description: Block and section level styling for Layout Builder
-core: '8.x'
+description: 'Block and section level styling for Layout Builder'
+core: 8.x
 dependencies:
   - layout_builder_styles
+package: UTexas
