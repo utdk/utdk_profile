@@ -3,7 +3,7 @@
   background-image: none;
   border-bottom: 1px solid #e6ebed;
   height: auto;
-  padding: 50px 0;
+  padding: 0;
 }
 
 @media screen and (min-width: 900px) {
