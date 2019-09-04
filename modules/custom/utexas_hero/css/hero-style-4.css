@@ -5,6 +5,9 @@
   height: auto;
   padding: 0;
 }
+.container-fluid .ut-hero.hero--blue-bar .hero-content {
+  padding: 0;
+}
 
 @media screen and (min-width: 900px) {
   .ut-hero.hero--blue-bar {
