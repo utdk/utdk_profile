@@ -28,23 +28,9 @@
   ],
   "support": {
     "email": "drupal-kit-support@utlists.utexas.edu",
-    "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared/issues",
-    "source": "https://github.austin.utexas.edu/eis1-wcs/utdk8-shared"
+    "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues",
+    "source": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile"
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.austin.utexas.edu:eis1-wcs/forty_acres.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git"
-    }
-  ],
   "require": {
     "composer/installers": "1.6.0",
     "cweagans/composer-patches": "1.6",
