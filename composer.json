@@ -31,6 +31,16 @@
     "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues",
     "source": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile"
   },
+  "repositories": {
+    "drupal": {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    "utexas": {
+      "type": "composer",
+      "url": "https://artifacts.austin.utexas.edu/eis1-wcms"
+    }
+  },
   "require": {
     "composer/installers": "1.6.0",
     "cweagans/composer-patches": "1.6",
