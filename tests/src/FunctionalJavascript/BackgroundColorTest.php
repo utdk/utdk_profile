@@ -39,7 +39,7 @@ class BackgroundColorTest extends WebDriverTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeFlexPageEditor();
+    $this->initializeContentEditor();
     $this->drupalLogin($this->testUser);
   }
 

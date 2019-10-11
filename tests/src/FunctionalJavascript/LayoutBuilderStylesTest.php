@@ -52,7 +52,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeFlexPageEditor();
+    $this->initializeSiteManager();
     $this->drupalLogin($this->testUser);
     $this->testImage = $this->createTestMediaImage();
     $this->testVideo = $this->createTestMediaVideoExternal();

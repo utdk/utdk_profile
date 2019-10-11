@@ -29,6 +29,11 @@ function utexas_install_tasks() {
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
+    'utexas_install_post_installation_modules' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
     'utexas_finish_installation' => [
       'display_name' => t('Installation complete'),
       'display' => TRUE,
@@ -83,6 +88,19 @@ function utexas_install_cleanup(&$install_state) {
   \Drupal::service('features.manager')->import([
     'utexas_role_flex_page_editor',
   ], TRUE);
+}
+
+/**
+ * Perform final module installation task.
+ */
+function utexas_install_post_installation_modules(&$install_state) {
+  // Add modules that depend on installation configuration.
+  $modules = [
+    'utexas_role_site_manager',
+    'utexas_role_content_editor',
+  ];
+  // Install modules.
+  \Drupal::service('module_installer')->install($modules);
 }
 
 /**

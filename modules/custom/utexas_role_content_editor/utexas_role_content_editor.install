@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Role Content Editor module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_role_content_editor_install() {
+  drupal_set_installed_schema_version('utexas_role_content_editor', '8100');
+}

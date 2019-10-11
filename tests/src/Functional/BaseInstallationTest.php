@@ -44,7 +44,10 @@ class BaseInstallationTest extends BrowserTestBase {
     $modules = [
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
-      'utexas_role_flex_page_editor',
+      'utexas_role_content_editor',
+      'utexas_role_site_manager',
+      'field_ui',
+      'block',
     ];
     foreach ($modules as $module) {
       $module_enabled = \Drupal::moduleHandler()->moduleExists($module);
@@ -170,24 +173,42 @@ class BaseInstallationTest extends BrowserTestBase {
     $default_language = $this->config('system.site')->get('default_langcode');
     $this->assertEqual($default_language, 'en');
 
-    // Test Flex Page Editor Role permissions.
-    $this->initializeFlexPageEditor();
+    // Test Content Editor Role permissions.
+    $this->initializeContentEditor();
     // @todo: investigate why this addRole apparently needs to happen here,
-    // in addition to the one defined in initializeFlexPageEditor @jmf3658.
-    $this->testUser->addRole('utexas_flex_page_editor');
+    // in addition to the one defined in initializeContentEditor @jmf3658.
+    $this->testUser->addRole('utexas_role_content_editor');
     $this->testUser->save();
     $this->drupalLogin($this->testUser);
-    // Make sure that a Flex Page Editor has default access to the
+    // Make sure that a Content Editor has default access to the
     // Flex HTML format.
     $flex_html = FilterFormat::load('flex_html');
-    $this->assertTrue($flex_html->access('use', $this->testUser), 'A Flex Page Editor has default access to the Flex HTML format.');
-    // Make sure that a Flex Page Editor doesn't have access to the
+    $this->assertTrue($flex_html->access('use', $this->testUser), 'A Content Editor has default access to the Flex HTML format.');
+    // Make sure that a Content Editor doesn't have access to the
     // Full HTML format.
     $full_html = FilterFormat::load('full_html');
-    $this->assertFalse($full_html->access('use', $this->testUser), 'A Flex Page Editor does not have access to the Full HTML format.');
+    $this->assertFalse($full_html->access('use', $this->testUser), 'A Content Editor does not have access to the Full HTML format.');
     // Verify that 'Flex HTML' is at the top of the filter_formats list.
     $formats = array_keys(filter_formats());
     $this->assertTrue($formats[0] == 'flex_html', 'Flex HTML is at the top of the filter_formats list.');
+    // Make sure a Content Editor doesn't have access to Field UI.
+    $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
+    $this->assertSession()->statusCodeEquals(403);
+    // Make sure a Content Editor has access to Block UI.
+    $this->drupalGet('admin/structure/block');
+    $this->assertSession()->statusCodeEquals(200);
+
+    // Test Site Manager Role permissions.
+    $this->initializeSiteManager();
+    // Make sure a Site Manager doesn't have access to Field UI.
+    $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
+    $this->assertSession()->statusCodeEquals(403);
+    // Make sure a Site Manager has access to Block UI.
+    $this->drupalGet('admin/structure/block');
+    $this->assertSession()->statusCodeEquals(200);
+    // Make sure a Site Manager doesn't have access to the permissions page.
+    $this->drupalGet('admin/people/permissions');
+    $this->assertSession()->statusCodeEquals(403);
   }
 
   /**

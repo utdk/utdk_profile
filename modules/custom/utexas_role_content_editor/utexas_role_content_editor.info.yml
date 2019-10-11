@@ -1,6 +1,6 @@
-name: 'UTexas Role Flex Page Editor'
+name: 'UTexas Role Content Editor'
 type: module
-description: 'Defines a role and permissions for editing the Flex Page Content Type'
+description: 'Defines a role and permissions for Content Editor'
 core: 8.x
 package: UTexas
 dependencies:

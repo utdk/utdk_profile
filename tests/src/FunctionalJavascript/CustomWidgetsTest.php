@@ -71,7 +71,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeFlexPageEditor();
+    $this->initializeContentEditor();
     $this->drupalLogin($this->testUser);
     $this->testImage = $this->createTestMediaImage();
     $this->testVideo = $this->createTestMediaVideoExternal();

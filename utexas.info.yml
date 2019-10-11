@@ -73,7 +73,6 @@ install:
   - utexas_promo_unit
   - utexas_quick_links
   - utexas_resources
-  - utexas_role_flex_page_editor
   - utexas_site_announcement
   - utexas_text_format_flex_html
 themes:

@@ -38,7 +38,7 @@ class FlexPageTest extends BrowserTestBase {
   protected function setUp() {
     $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeFlexPageEditor();
+    $this->initializeContentEditor();
   }
 
   /**
