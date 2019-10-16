@@ -74,7 +74,7 @@
     "oomphinc/composer-installers-extender": "1.1.2",
     "rvtraveller/qs-composer-installer": "1.1",
     "utexas/forty_acres": "dev-master",
-    "utexas/utexas_qualtrics_filter": "1.0-alpha2",
+    "utexas/utexas_qualtrics_filter": "1.0-alpha3",
     "zaporylie/composer-drupal-optimizations": "1.0.2"
   },
   "conflict": {
