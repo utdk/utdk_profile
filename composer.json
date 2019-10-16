@@ -87,6 +87,7 @@
     "sort-packages": true
   },
   "extra": {
+    "installer-name": "utexas",
     "installer-types": [
       "utexas-module",
       "utexas-theme"
