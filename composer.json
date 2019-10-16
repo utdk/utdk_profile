@@ -1,7 +1,7 @@
 {
   "name": "utexas/utdk_profile",
   "description": "UTDK Drupal 8.x installation profile",
-  "type": "utexas-profile",
+  "type": "drupal-profile",
   "keywords": [
     "Drupal",
     "UTexas"
