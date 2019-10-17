@@ -9,37 +9,14 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Mark Fullmer",
-      "email": "jfullmer@austin.utexas.edu",
-      "homepage": "https://markfullmer.com",
-      "role": "Developer"
-    },
-    {
-      "name": "Tyler Fahey",
-      "email": "tfahey@austin.utexas.edu",
-      "homepage": "https://tylerfahey.com",
-      "role": "Developer"
-    },
-    {
-      "name": "Michael Marsello",
-      "email": "mmarsello@austin.utexas.edu",
-      "role": "Developer"
+      "name": "UT Austin ITS Campus Solutions – Web Content Management Solutions Team",
+      "email": "drupal-kit-support@utlists.utexas.edu"
     }
   ],
   "support": {
     "email": "drupal-kit-support@utlists.utexas.edu",
     "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues",
     "source": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile"
-  },
-  "repositories": {
-    "drupal": {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    },
-    "utexas": {
-      "type": "composer",
-      "url": "https://artifacts.austin.utexas.edu/eis1-wcms"
-    }
   },
   "require": {
     "composer/installers": "1.6.0",
@@ -81,24 +58,5 @@
     "drupal/drupal": "*"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "config": {
-    "process-timeout": 0,
-    "sort-packages": true
-  },
-  "extra": {
-    "installer-name": "utexas",
-    "installer-types": [
-      "utexas-module",
-      "utexas-theme"
-    ],
-    "installer-paths": {
-      "web/profiles/utexas/modules/custom/{$name}": [
-        "utexas/utexas_qualtrics_filter"
-      ],
-      "web/profiles/utexas/themes/custom/{$name}": [
-        "utexas/forty_acres"
-      ]
-    }
-  }
+  "prefer-stable": true
 }
