@@ -58,5 +58,19 @@
     "drupal/drupal": "*"
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "extra": {
+    "composer-scaffold": {
+      "file-mapping": {
+        "[web-root]/sites/default/settings.php": {
+          "path": "assets/example.settings.php",
+          "overwrite": false
+        },
+        "[web-root]/.gitignore": {
+          "path": "assets/example.gitignore",
+          "overwrite": false
+        }
+      }
+    }
+  }
 }
