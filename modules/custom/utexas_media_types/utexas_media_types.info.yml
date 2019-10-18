@@ -13,3 +13,4 @@ dependencies:
   - path
   - user
   - utexas_image_styles
+core_incompatible: false

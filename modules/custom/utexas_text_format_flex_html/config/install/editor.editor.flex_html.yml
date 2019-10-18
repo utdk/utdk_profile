@@ -38,8 +38,8 @@ settings:
         -
           name: Media
           items:
+            - DrupalMediaLibrary
             - Blockquote
-            - DrupalImage
             - Table
         -
           name: 'Block Formatting'
