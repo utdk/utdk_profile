@@ -19,7 +19,7 @@
     "source": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile"
   },
   "require": {
-    "composer/installers": "1.6.0",
+    "composer/installers": "1.7.0",
     "cweagans/composer-patches": "1.6",
     "drupal/admin_toolbar": "1.25",
     "drupal/adminimal_admin_toolbar": "1.8",
