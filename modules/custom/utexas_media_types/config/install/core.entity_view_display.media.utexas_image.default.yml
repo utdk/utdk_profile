@@ -25,7 +25,7 @@ third_party_settings:
               provider: layout_builder
               label_display: '0'
               formatter:
-                label: inline
+                label: hidden
                 type: entity_reference_label
                 settings:
                   link: false
@@ -79,7 +79,7 @@ third_party_settings:
               id: 'field_block:media:utexas_image:field_utexas_media_image'
               label_display: ''
               formatter:
-                label: above
+                label: hidden
                 settings:
                   image_style: ''
                   image_link: ''
