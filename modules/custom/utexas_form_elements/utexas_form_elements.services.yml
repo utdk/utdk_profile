@@ -1,0 +1,4 @@
+services:
+  utexas_form_elements.opener.form_element:
+    class: Drupal\utexas_form_elements\MediaLibraryFormElementOpener
+    arguments: ['@entity_type.manager']

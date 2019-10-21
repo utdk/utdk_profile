@@ -134,7 +134,11 @@ class MediaLibraryElement extends FormElement {
         ],
       ];
     }
-    $state = MediaLibraryState::create($opener_id, $allowed_media_type_ids, $selected_type_id, 1);
+    $opener_parameters = [
+      'field_widget_id' => $opener_id,
+      'field_name' => $field_name,
+    ];
+    $state = MediaLibraryState::create('utexas_form_elements.opener.form_element', $allowed_media_type_ids, $selected_type_id, 1, $opener_parameters);
     // Add a button that will load the Media library in a modal using AJAX.
     $element['media_library_open_button'] = [
       '#type' => 'submit',
@@ -167,7 +171,7 @@ class MediaLibraryElement extends FormElement {
       '#type' => 'hidden',
       '#attributes' => [
         // This is used to pass the selection from the modal to the widget.
-        'data-media-library-widget-value' => $field_name . $id_suffix,
+        'data-media-library-form-element-value' => $opener_id,
       ],
       '#default_value' => $element['#value'],
     ];
@@ -183,7 +187,7 @@ class MediaLibraryElement extends FormElement {
         'wrapper' => $wrapper_id,
       ],
       '#attributes' => [
-        'data-media-library-widget-update' => $field_name . $id_suffix,
+        'data-media-library-form-element-update' => $opener_id,
         'class' => ['js-hide'],
       ],
       '#validate' => [[static::class, 'validateItem']],
