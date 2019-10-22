@@ -26,6 +26,13 @@ class SiteAnnouncementTest extends WebDriverTestBase {
   protected $profile = 'utexas';
 
   /**
+   * Specify the theme to be used in testing.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'forty_acres';
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {

@@ -89,7 +89,7 @@ trait ImageLinkTestTrait {
     $this->submitForm([], 'Remove');
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
-    $storage_handler->delete($entities);
+    //$storage_handler->delete($entities);
   }
 
 }

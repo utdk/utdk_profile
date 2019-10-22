@@ -25,6 +25,14 @@ class FlexPageTest extends BrowserTestBase {
    * @var string
    */
   protected $profile = 'utexas';
+
+  /**
+   * Specify the theme to be used in testing.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'forty_acres';
+
   /**
    * An user with permissions to administer content types and image styles.
    *

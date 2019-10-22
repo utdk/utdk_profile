@@ -26,6 +26,14 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
    * @var string
    */
   protected $profile = 'utexas';
+
+  /**
+   * Specify the theme to be used in testing.
+   *
+   * @var string
+   */
+  protected $defaultTheme = 'forty_acres';
+
   /**
    * An user with permissions to administer content types and image styles.
    *
@@ -79,6 +87,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
 
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
+    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Configure Section 1');
     $assert->assertWaitOnAjaxRequest();
     // A "container" class is added to the section by default.
@@ -100,14 +109,14 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Block');
+    $this->clickLink('Add block');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Recent content');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_with_background"]');
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_with_background", TRUE);
 
-    $page->pressButton('Add Block');
+    $page->pressButton('Add block');
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-field-background');
@@ -117,13 +126,13 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Block');
+    $this->clickLink('Add block');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Recent content');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_without_background"]');
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_without_background", TRUE);
-    $page->pressButton('Add Block');
+    $page->pressButton('Add block');
     $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-centered-headline');
