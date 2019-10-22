@@ -78,13 +78,13 @@ class LayoutsTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     // Remove existing one column layout.
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('One column');
     $assert->assertWaitOnAjaxRequest();
@@ -115,13 +115,13 @@ class LayoutsTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     // Remove existing one column layout.
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Two column');
     $assert->assertWaitOnAjaxRequest();
@@ -138,13 +138,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--50-50');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 33-67 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Two column');
     $assert->assertWaitOnAjaxRequest();
@@ -152,13 +152,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--33-67');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 67-33 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Two column');
     $assert->assertWaitOnAjaxRequest();
@@ -166,13 +166,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--67-33');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 25-75 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Two column');
     $assert->assertWaitOnAjaxRequest();
@@ -180,13 +180,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--25-75');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 75-25 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Two column');
     $assert->assertWaitOnAjaxRequest();
@@ -194,7 +194,7 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--75-25');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
   }
@@ -217,13 +217,13 @@ class LayoutsTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     // Remove existing one column layout.
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Three column');
     $assert->assertWaitOnAjaxRequest();
@@ -239,13 +239,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--25-50-25');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 33-34-33 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Three column');
     $assert->assertWaitOnAjaxRequest();
@@ -253,13 +253,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--33-34-33');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 50-25-25 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Three column');
     $assert->assertWaitOnAjaxRequest();
@@ -267,13 +267,13 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--50-25-25');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // 25-25-50 ratio generates expected CSS.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Three column');
     $assert->assertWaitOnAjaxRequest();
@@ -281,7 +281,7 @@ class LayoutsTest extends WebDriverTestBase {
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--25-25-50');
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
   }
@@ -304,13 +304,13 @@ class LayoutsTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     // Remove existing one column layout.
-    $this->clickLink('Remove section');
+    $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
 
     // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Add Section');
+    $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Four column');
     $assert->assertWaitOnAjaxRequest();

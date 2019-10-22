@@ -58,7 +58,7 @@ class BackgroundColorTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
 
-    $this->clickLink('Configure section');
+    $this->clickLink('Configure Section 1');
     $assert->assertWaitOnAjaxRequest();
 
     $checkbox_selector = '.layout-builder-configure-section details';
@@ -104,7 +104,7 @@ class BackgroundColorTest extends WebDriverTestBase {
    * Helper function for iterating over color tests.
    */
   private function verifyBgColor($input_hex, $expected_rgb, $assert, $page) {
-    $this->clickLink('Configure section');
+    $this->clickLink('Configure Section 1');
     $assert->assertWaitOnAjaxRequest();
 
     $checkbox_selector = '.layout-builder-configure-section details';

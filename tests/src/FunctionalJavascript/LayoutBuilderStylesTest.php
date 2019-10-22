@@ -79,7 +79,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
 
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
-    $this->clickLink('Configure section');
+    $this->clickLink('Configure Section 1');
     $assert->assertWaitOnAjaxRequest();
     // A "container" class is added to the section by default.
     $assert->elementExists('css', '.layout-builder__layout.container');
@@ -132,7 +132,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->elementNotExists('css', '.utexas-layout-no-padding');
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
-    $this->clickLink('Configure section');
+    $this->clickLink('Configure Section 1');
     $assert->assertWaitOnAjaxRequest();
     // Set the section to "No padding".
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_no_padding"]');
