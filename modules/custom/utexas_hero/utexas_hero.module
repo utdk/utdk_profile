@@ -218,12 +218,11 @@ function utexas_hero_form_block_form_alter(&$form, &$form_state, $form_id) {
   if ($form_object instanceof BlockForm) {
     /** @var \Drupal\block\Entity\Block $entity */
     $entity = $form_object->getEntity();
-    // Verify this is a content block.
-    if ($entity->getEntityType()->getGroup() == 'content') {
-      $uuid = $entity->getPlugin()->getDerivativeId();
-      /** @var Drupal\block_content\Entity\BlockContent $block_content */
-      if (isset($uuid)) {
-        $block_content = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+    $uuid = $entity->getPlugin()->getDerivativeId();
+    /** @var Drupal\block_content\Entity\BlockContent $block_content */
+    if (isset($uuid)) {
+      $block_content = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+      if (method_exists($block_content, 'bundle')) {
         $bundle = $block_content->bundle();
         if ($bundle == 'utexas_hero') {
           $form['settings']['view_mode']['#options'] = _update_hero_view_mode_labels($form['settings']['view_mode']['#options']);
