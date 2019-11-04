@@ -5,7 +5,7 @@
  * Drush alias for CI tests.
  */
 
- $aliases['utdk8'] = array(
-   'root' => '/var/www/utdk8/web',
+ $aliases['utdk'] = array(
+   'root' => '/var/www/utdk_scaffold/web',
    'uri' => 'http://localhost:8080',
  );

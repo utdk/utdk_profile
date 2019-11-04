@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="/var/www/utdk8/web/core/tests/bootstrap.php" colors="true"
+<phpunit bootstrap="/var/www/utdk_scaffold/web/core/tests/bootstrap.php" colors="true"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutChangesToGlobalState="true"
@@ -15,16 +15,16 @@
   </php>
   <testsuites>
     <testsuite name="unit">
-      <file>/var/www/utdk8/web/core/tests/TestSuites/UnitTestSuite.php</file>
+      <file>/var/www/utdk_scaffold/web/core/tests/TestSuites/UnitTestSuite.php</file>
     </testsuite>
     <testsuite name="kernel">
-      <file>/var/www/utdk8/web/core/tests/TestSuites/KernelTestSuite.php</file>
+      <file>/var/www/utdk_scaffold/web/core/tests/TestSuites/KernelTestSuite.php</file>
     </testsuite>
     <testsuite name="functional">
-      <file>/var/www/utdk8/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
+      <file>/var/www/utdk_scaffold/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>/var/www/utdk8/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      <file>/var/www/utdk_scaffold/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
   <listeners>
@@ -37,11 +37,11 @@
   <!-- Filter for coverage reports. -->
   <filter>
     <whitelist>
-      <directory>/var/www/utdk8/web/core/includes</directory>
-      <directory>/var/www/utdk8/web/core/lib</directory>
-      <directory>/var/www/utdk8/web/core/modules</directory>
-      <directory>/var/www/utdk8/web/modules</directory>
-      <directory>/var/www/utdk8/web/sites</directory>
+      <directory>/var/www/utdk_scaffold/web/core/includes</directory>
+      <directory>/var/www/utdk_scaffold/web/core/lib</directory>
+      <directory>/var/www/utdk_scaffold/web/core/modules</directory>
+      <directory>/var/www/utdk_scaffold/web/modules</directory>
+      <directory>/var/www/utdk_scaffold/web/sites</directory>
       <!-- Exclude all test modules, tests etc -->
       <exclude-pattern>*/tests/*</exclude-pattern>
      </whitelist>
