@@ -107,6 +107,8 @@ trait HeroTestTrait {
     $viewMode = $page->find('css', '#edit-settings-view-mode');
     // Set the ID value for the view mode into a variable if no custom JS found.
     $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 1: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
       $selector => 'utexas_hero_1',
@@ -139,6 +141,9 @@ trait HeroTestTrait {
         'edit-anchor-position' => 'left',
       ];
     };
+    // Get and print selector found for logging purposes.
+    $selector = $viewMode->isVisible() ? 'edit-settings-view-mode' : 'edit-hero-style';
+    fwrite(STDOUT, print_r('Selector found for Hero Style 1 Left: ' . $selector . '. ', TRUE));
     $this->submitForm($formValues, 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -157,6 +162,8 @@ trait HeroTestTrait {
     $viewMode = $page->find('css', '#edit-settings-view-mode');
     // Set the ID value for the view mode into a variable if no custom JS found.
     $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 2: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
       $selector => 'utexas_hero_2',
@@ -187,6 +194,9 @@ trait HeroTestTrait {
         'edit-anchor-position' => 'right',
       ];
     };
+    // Get and print selector found for logging purposes.
+    $selector = $viewMode->isVisible() ? 'edit-settings-view-mode' : 'edit-hero-style';
+    fwrite(STDOUT, print_r('Selector found for Hero Style 2 Right: ' . $selector . '. ', TRUE));
     $this->submitForm($formValues, 'Save block');
     $this->drupalGet('<front>');
     // Verify page output with anchor.
@@ -203,6 +213,8 @@ trait HeroTestTrait {
     $viewMode = $page->find('css', '#edit-settings-view-mode');
     // Set the ID value for the view mode into a variable if no custom JS found.
     $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 3: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
       $selector => 'utexas_hero_3',
@@ -222,6 +234,8 @@ trait HeroTestTrait {
     $viewMode = $page->find('css', '#edit-settings-view-mode');
     // Set the ID value for the view mode into a variable if no custom JS found.
     $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 4: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
       $selector => 'utexas_hero_4',
@@ -240,6 +254,8 @@ trait HeroTestTrait {
     $viewMode = $page->find('css', '#edit-settings-view-mode');
     // Set the ID value for the view mode into a variable if no custom JS found.
     $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 5: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
       $selector => 'utexas_hero_5',
