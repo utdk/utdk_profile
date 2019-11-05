@@ -27,11 +27,17 @@
       </div>
     {% endif %}
     <div class="data-wrapper">
-      <h3 class="ut-headline">
-        {{ item.headline }}
-      </h3>
-      <p>{{ item.copy }}</p>
-      {{ item.link }}
+      {% if item.headline %}
+        <h3 class="ut-headline">
+          {{ item.headline }}
+        </h3>
+      {% endif %}
+      {% if item.copy %}
+        {{ item.copy }}
+      {% endif %}
+      {% if item.link %}
+        {{ item.link }}
+      {% endif %}
     </div>
   </div>
 {% endfor %}
