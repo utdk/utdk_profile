@@ -7,26 +7,27 @@ distribution:
   name: UTexas
 dependencies:
   # Core
-  - block
-  - breakpoint
-  - block_content
-  - ckeditor
-  - config
-  - contextual
-  - datetime
-  - editor
-  - image
-  - file
-  - media_library
-  - menu_link_content
-  - menu_ui
-  - node
-  - options
-  - path
-  - search
-  - taxonomy
-  - toolbar
-  - views
+  - drupal:block
+  - drupal:big_pipe
+  - drupal:breakpoint
+  - drupal:block_content
+  - drupal:ckeditor
+  - drupal:config
+  - drupal:contextual
+  - drupal:datetime
+  - drupal:editor
+  - drupal:image
+  - drupal:file
+  - drupal:media_library
+  - drupal:menu_link_content
+  - drupal:menu_ui
+  - drupal:node
+  - drupal:options
+  - drupal:path
+  - drupal:search
+  - drupal:taxonomy
+  - drupal:toolbar
+  - drupal:views
 install:
   # Core
   - automated_cron
