@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains install and update functions for the UTexas Text Format Flex Html module.
+ * Contains install and update functions for UTexas Text Format Flex Html.
  */
 
 /**
@@ -10,4 +10,13 @@
  */
 function utexas_text_format_flex_html_install() {
   drupal_set_installed_schema_version('utexas_text_format_flex_html', '8100');
+}
+
+/**
+ * Issue #777: Move URL filter after Qualtrics Filter.
+ */
+function utexas_text_format_flex_html_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
 }
