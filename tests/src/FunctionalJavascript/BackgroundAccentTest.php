@@ -10,11 +10,11 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 /**
- * Verifies background colors can be added to sections.
+ * Verifies background colors/images can be added to sections.
  *
  * @group utexas
  */
-class BackgroundColorTest extends WebDriverTestBase {
+class BackgroundAccentTest extends WebDriverTestBase {
   use EntityTestTrait;
   use InstallTestTrait;
   use TestFileCreationTrait;
@@ -49,6 +49,57 @@ class BackgroundColorTest extends WebDriverTestBase {
     parent::setUp();
     $this->initializeContentEditor();
     $this->drupalLogin($this->testUser);
+  }
+
+  /**
+   * Test background color configuration.
+   */
+  public function testBackgroundImage() {
+    // Add an image to the Media Library.
+    $this->testImage = $this->createTestMediaImage();
+
+    $assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $this->getSession()->resizeWindow(900, 2000);
+    $node = Node::create([
+      'type'        => 'utexas_flex_page',
+      'title'       => 'Test Flex Page',
+    ]);
+    $node->save();
+    $this->drupalGet('/node/' . $node->id());
+    $this->clickLink('Layout');
+
+    // Access the section configuration toolbar.
+    $this->clickLink('Configure Section 1');
+    $assert->assertWaitOnAjaxRequest();
+    $checkbox_selector = '.layout-builder-configure-section details';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[1]->click();
+
+    // Add a background image
+    $assert->pageTextContains('Background image');
+    $settings_selectors = '.layout-builder-configure-section details';
+    $settings = $page->findAll('css', $settings_selectors);
+    $settings[0]->click();
+    $page->pressButton('Set media');
+    $assert->assertWaitOnAjaxRequest();
+    $assert->pageTextContains('Add or select media');
+    $assert->pageTextContains('Image 1');
+    // Select the first media item (should be "Image 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $assert->assertWaitOnAjaxRequest();
+
+    // Save the section configuration.
+    $this->submitForm([], t('Update'));
+    $assert->assertWaitOnAjaxRequest();
+    // A "background-accent" class is added to the section
+    $assert->elementExists('css', '.layout-builder__layout.background-accent');
+    $actual_background_image = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("background-image")');
+    // The background image style matches the uploaded image.
+    $this->assertContains("utexas_image_style_1600w_500h/public/image-test.png", $actual_background_image);
   }
 
   /**
