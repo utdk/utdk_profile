@@ -76,7 +76,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[1]->click();
 
-    // Add a background image
+    // Add a background image.
     $assert->pageTextContains('Background image');
     $settings_selectors = '.layout-builder-configure-section details';
     $settings = $page->findAll('css', $settings_selectors);
@@ -93,9 +93,9 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $assert->assertWaitOnAjaxRequest();
 
     // Save the section configuration.
-    $this->submitForm([], $this->t('Update'));
+    $this->submitForm([], 'Update');
     $assert->assertWaitOnAjaxRequest();
-    // A "background-accent" class is added to the section
+    // A "background-accent" class is added to the section.
     $assert->elementExists('css', '.layout-builder__layout.background-accent');
     $actual_background_image = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("background-image")');
     // The background image style matches the uploaded image.
@@ -116,7 +116,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $settings = $page->findAll('css', $settings_selectors);
     $settings[0]->click();
     $edit = ['layout_settings[background-accent-wrapper][blur]' => "1"];
-    $this->submitForm($edit, $this->t('Update'));
+    $this->submitForm($edit, 'Update');
     $assert->assertWaitOnAjaxRequest();
     $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
     // Blur is present.
@@ -127,7 +127,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
   /**
    * Test background color configuration.
    */
-  public function DDDtestBackgroundColors() {
+  public function testBackgroundColors() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
@@ -147,7 +147,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $checkboxes[1]->click();
 
     $edit = ['layout_settings[background-color-wrapper][background-color]' => "none"];
-    $this->submitForm($edit, $this->t('Update'));
+    $this->submitForm($edit, 'Update');
     $assert->assertWaitOnAjaxRequest();
     // A "background" class is added to the section. The correct color is found.
     $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
@@ -193,7 +193,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $checkboxes[1]->click();
 
     $edit = ['layout_settings[background-color-wrapper][background-color]' => $input_hex];
-    $this->submitForm($edit, $this->t('Update'));
+    $this->submitForm($edit, 'Update');
     $assert->assertWaitOnAjaxRequest();
     // A "background" class is added to the section. The correct color is found.
     $assert->elementExists('css', '.layout-builder__layout.utexas-bg-' . $input_hex);
