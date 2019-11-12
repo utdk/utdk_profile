@@ -32,13 +32,7 @@
       <div class="promo-list">
         {% if item.image %}
           <div class="image-wrapper">
-            {% if item.link %}
-              <a href="{{ item.link }}">
-                {{ item.image }}
-              </a>
-            {% else %}
-              {{ item.image }}
-            {% endif %}
+            {{ item.image }}
           </div>
         {% endif %}
         <div class="content">
