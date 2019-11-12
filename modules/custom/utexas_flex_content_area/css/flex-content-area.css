@@ -20,6 +20,12 @@
     flex: 0 0 32%;
   }
   .ut-flex-content-area.four-col {
+    flex: 0 0 49%;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .ut-flex-content-area.four-col {
     flex: 0 0 24%;
   }
 }
