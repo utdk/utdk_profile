@@ -8,13 +8,14 @@
  * - headline : The Flex Content Area headline field.
  * - copy : The Flex Content Area copy field.
  * - links: The array for the links field.
- *  - url: The URL of the each link.
- *  - title: The text of each link.
- * - cta: call to action button
+ *   - url: The URL of the each link.
+ *   - title: The text of each link.
+ * - cta: call to action button.
  *
  * @ingroup themeable
  */
 #}
+
 {% if media %}
   <div data-ratio="{{ media_ratio }}" class="image-wrapper">
     {{ media }}
@@ -31,10 +32,10 @@
     <ul class="link-list">
       {% for link in links %}
         <li>
-          {{ link(link.title, link.url, { 'class':['ut-link']} ) }}
+          {{ link(link.title, link.url, { 'class': ['ut-link']}) }}
         </li>
       {% endfor %}
     </ul>
   {% endif %}
-  {{cta}}
+  {{ cta }}
 </div>

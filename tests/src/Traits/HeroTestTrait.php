@@ -100,11 +100,18 @@ trait HeroTestTrait {
     $expected_path = 'utexas_image_style_720w_389h/public/image-test.png';
     $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
 
+    // @TODO: Figure how to load custom JS on Jenkins, to avoid conditional form submission.
     // Set display to "Hero Style 1".
     $this->drupalGet('admin/structure/block/manage/herotest');
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Set the ID value for the view mode into a variable if no custom JS found.
+    $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 1: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_1',
+      $selector => 'utexas_hero_1',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -119,11 +126,25 @@ trait HeroTestTrait {
 
     // Set display to "Hero Style 1 Left".
     $this->drupalGet('admin/structure/block/manage/herotest');
-    $this->submitForm([
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Create form array with view mode structure.
+    $formValues = [
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_1',
-      'edit-anchor-position' => 'left',
-    ], 'Save block');
+      'edit-settings-view-mode' => 'utexas_hero_1_left',
+    ];
+    // If custom JS found, update array with formatter split structure.
+    if (!$viewMode->isVisible()) {
+      $formValues = [
+        'region' => 'content',
+        'edit-hero-style' => 'utexas_hero_1',
+        'edit-anchor-position' => 'left',
+      ];
+    };
+    // Get and print selector found for logging purposes.
+    $selector = $viewMode->isVisible() ? 'edit-settings-view-mode' : 'edit-hero-style';
+    fwrite(STDOUT, print_r('Selector found for Hero Style 1 Left: ' . $selector . '. ', TRUE));
+    $this->submitForm($formValues, 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementExists('css', '.hero--photo-orange-insert .hero-img');
@@ -137,14 +158,19 @@ trait HeroTestTrait {
 
     // Set display to "Hero Style 2".
     $this->drupalGet('admin/structure/block/manage/herotest');
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Set the ID value for the view mode into a variable if no custom JS found.
+    $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 2: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_2',
-      'edit-anchor-position' => 'center',
+      $selector => 'utexas_hero_2',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output with anchor.
-    $assert->elementExists('css', '.hero--photo-gradient.center');
+    $assert->elementExists('css', '.hero--photo-gradient');
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-gradient").css("background-image")');
@@ -153,11 +179,25 @@ trait HeroTestTrait {
 
     // Set display to "Hero Style 2 Right".
     $this->drupalGet('admin/structure/block/manage/herotest');
-    $this->submitForm([
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Create form array with view mode structure.
+    $formValues = [
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_2',
-      'edit-anchor-position' => 'right',
-    ], 'Save block');
+      'edit-settings-view-mode' => 'utexas_hero_2_right',
+    ];
+    // If custom JS found, update array with formatter split structure.
+    if (!$viewMode->isVisible()) {
+      $formValues = [
+        'region' => 'content',
+        'edit-hero-style' => 'utexas_hero_2',
+        'edit-anchor-position' => 'right',
+      ];
+    };
+    // Get and print selector found for logging purposes.
+    $selector = $viewMode->isVisible() ? 'edit-settings-view-mode' : 'edit-hero-style';
+    fwrite(STDOUT, print_r('Selector found for Hero Style 2 Right: ' . $selector . '. ', TRUE));
+    $this->submitForm($formValues, 'Save block');
     $this->drupalGet('<front>');
     // Verify page output with anchor.
     $assert->elementExists('css', '.hero--photo-gradient.right');
@@ -169,9 +209,15 @@ trait HeroTestTrait {
 
     // Set display to "Hero Style 3".
     $this->drupalGet('admin/structure/block/manage/herotest');
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Set the ID value for the view mode into a variable if no custom JS found.
+    $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 3: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_3',
+      $selector => 'utexas_hero_3',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -184,9 +230,15 @@ trait HeroTestTrait {
 
     // Set display to "Hero Style 4".
     $this->drupalGet('admin/structure/block/manage/herotest');
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Set the ID value for the view mode into a variable if no custom JS found.
+    $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 4: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_4',
+      $selector => 'utexas_hero_4',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
@@ -198,9 +250,15 @@ trait HeroTestTrait {
 
     // Set display to "Hero Style 5".
     $this->drupalGet('admin/structure/block/manage/herotest');
+    // Find view mode.
+    $viewMode = $page->find('css', '#edit-settings-view-mode');
+    // Set the ID value for the view mode into a variable if no custom JS found.
+    $selector = ($viewMode->isVisible()) ? 'edit-settings-view-mode' : 'edit-hero-style';
+    // Print selector found for logging purposes.
+    fwrite(STDOUT, print_r('Selector found for Hero Style 5: ' . $selector . '. ', TRUE));
     $this->submitForm([
       'region' => 'content',
-      'edit-hero-style' => 'utexas_hero_5',
+      $selector => 'utexas_hero_5',
     ], 'Save block');
     $this->drupalGet('<front>');
     // Verify page output.
