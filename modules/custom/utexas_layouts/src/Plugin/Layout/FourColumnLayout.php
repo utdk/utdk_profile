@@ -19,6 +19,16 @@ class FourColumnLayout extends DefaultConfigLayout {
   /**
    * {@inheritdoc}
    */
+  public function defaultConfiguration() {
+    $config = parent::defaultConfiguration();
+    $config += $this->backgroundConfiguration();
+    $config += $this->backgroundColorConfiguration();
+    return $config;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = $this->backgroundConfigurationForm($form, $form_state);
     $form += $this->backgroundColorConfigurationForm($form, $form_state);
