@@ -199,6 +199,7 @@ class LayoutsTest extends WebDriverTestBase {
     $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
+    $assert->assertWaitOnAjaxRequest();
   }
 
   /**
@@ -268,6 +269,7 @@ class LayoutsTest extends WebDriverTestBase {
     $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
+    $assert->assertWaitOnAjaxRequest();
   }
 
   /**
@@ -276,12 +278,12 @@ class LayoutsTest extends WebDriverTestBase {
   public function fourColumnLayout() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Four column');
     $assert->assertWaitOnAjaxRequest();
+    // Background color & accent are present.
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="layout_settings-media-library-open-button-layout_settings-background-accent-wrapper-background-accent"]');
 
