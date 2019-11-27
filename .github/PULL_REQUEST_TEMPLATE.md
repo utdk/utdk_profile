@@ -2,7 +2,7 @@
 
 ## Motivation/Purpose of Changes
 <!--- Why is this change needed? Links to existing issues are great. -->
-See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
+Fixes #
 
 ## Proposed Resolution/Implementation
 <!--- Describe any implementation choices you made that are noteworthy -->
@@ -12,10 +12,10 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 <!--- (If relevant) -->
 
 ## Types of changes
-<!--- Put an `x` in all the boxes that apply: -->
-- [ ] Bug fix (non-breaking change which fixes an issue)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or feature that would cause existing functionality to change)
+<!--- Put an `x` in all that apply: -->
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
 
 ## Checklist:
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
@@ -25,22 +25,28 @@ See https://issues.its.utexas.edu/projects/UDK8/issues/UDK8-NNN
 - [ ] Code meets syntax standards
 - [ ] Namespacing follows team conventions
 - [ ] Change requires a change to the documentation.
-- [ ] I have updated the documentation accordingly.
+  - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
-- [ ] Combo change (this change requires specific changes from another repo, such as  `forty_acres` or `utexas_migrate`). If yes, specify repo and branch:
+- [ ] Combo change (this change requires specific changes from another repo). If yes, specify repo and branch:
   - [ ] forty_acres: [`branch`]
   - [ ] utexas_migrate [`branch`]
   - [ ] other: [`update with the repo`: `branch`]
 
-## Testing steps
+## Reference: installing a site off this branch
 <!--- Include notes for both functional testing & code review -->
-0. `git fetch && git checkout ` this branch
-1. `si` (e.g., `alias si='fin init && fin init-site'`)
-2.
+0. `git clone git@github.austin.utexas.edu:eis1-wcs/utdk_scaffold.git && cd utdk_scaffold`
+0. `composer require utexas/utdk_profile:dev-<BRANCH-NAME>`
+0. `composer run-script dev-scaffold`
+0. `fin init && fin init-site`
 
-<!--- Steps for running tests locally with lando. Use as needed.-->
-<!--- 0. `fin test web/profiles/utexas/tests/src/Functional` -->
-<!--- 0. `fin test-js web/profiles/utexas/tests/src/FunctionalJavascript` -->
+## Reference: running tests locally
+0. `fin test web/profiles/utexas/tests/src/Functional`
+0. `fin test-js web/profiles/utexas/tests/src/FunctionalJavascript`
+
+## Testing steps
+0. Perform a thorough code review.
+0. 
+0. 
 
 ## Potential Reviewers
 
