@@ -52,14 +52,12 @@ class BackgroundAccentTest extends WebDriverTestBase {
   }
 
   /**
-   * Test background color configuration.
+   * Initial action for all background tests.
    */
-  public function testBackgroundImage() {
+  public function testSectionBackgrounds() {
     // Add an image to the Media Library.
     $this->testImage = $this->createTestMediaImage();
 
-    $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
     $node = Node::create([
       'type'        => 'utexas_flex_page',
@@ -69,6 +67,15 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
 
+    $this->backgroundImage();
+  }
+
+  /**
+   * Test background color configuration.
+   */
+  public function backgroundImage() {
+    $assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
     // Access the section configuration toolbar.
     $this->clickLink('Configure Section 1');
     $assert->assertWaitOnAjaxRequest();
@@ -121,39 +128,20 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
     // Blur is present.
     $this->assertSame('blur(5px)', $actual_filter);
-
+    // Cleanup.
+    $this->clickLink('Remove Section 1');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Remove');
+    $assert->assertWaitOnAjaxRequest();
   }
 
   /**
    * Test background color configuration.
    */
-  public function testBackgroundColors() {
+  public function backgroundColors() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
-
-    $this->clickLink('Configure Section 1');
-    $assert->assertWaitOnAjaxRequest();
-
-    $checkbox_selector = '.layout-builder-configure-section details';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
-
-    $edit = ['layout_settings[background-color-wrapper][background-color]' => "none"];
-    $this->submitForm($edit, 'Update');
-    $assert->assertWaitOnAjaxRequest();
-    // A "background" class is added to the section. The correct color is found.
-    $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
-    $actual_background = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout").css("background-color")');
-    $this->assertSame("rgba(0, 0, 0, 0)", $actual_background);
-
+    // The available hex colors & their corresponding rgb values.
     $color_palette = [
       '074d6a' => 'rgb(7, 77, 106)',
       '138791' => 'rgb(19, 135, 145)',
@@ -176,9 +164,32 @@ class BackgroundAccentTest extends WebDriverTestBase {
       '807e76' => 'rgb(128, 126, 118)',
       '56544e' => 'rgb(86, 84, 78)',
     ];
-    foreach ($color_palette as $hex => $rgb) {
-      $this->verifyBgColor($hex, $rgb, $assert, $page);
+
+    $this->clickLink('Add section');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('One column');
+    $assert->assertWaitOnAjaxRequest();
+
+    $checkbox_selector = '.layout-builder-configure-section details';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[1]->click();
+
+    // Verify all colors present.
+    foreach (array_keys($color_palette) as $hex) {
+      $assert->elementExists('css', 'input[value="' . $hex . '"]');
     }
+
+    $edit = ['layout_settings[background-color-wrapper][background-color]' => "none"];
+    $this->submitForm($edit, 'Update');
+    $assert->assertWaitOnAjaxRequest();
+    // A "background" class is added to the section. The correct color is found.
+    $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
+    $actual_background = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout").css("background-color")');
+    $this->assertSame("rgba(0, 0, 0, 0)", $actual_background);
+
+    // Verify rendering of only one color.
+    $this->verifyBgColor('56544e', $color_palette['56544e'], $assert, $page);
+
   }
 
   /**
