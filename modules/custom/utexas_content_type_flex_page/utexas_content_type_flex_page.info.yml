@@ -26,3 +26,4 @@ dependencies:
   - user
   - utexas_layouts
 version: 8.x-1.0
+core_incompatible: false
