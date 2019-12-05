@@ -25,6 +25,14 @@ fi
 
 echo "To bypass pre-commit checks, add '--no-verify' to your commit command"
 
+
+composer validate --no-check-all --strict
+
+# If a composer violation has been found, exit without further sniffing
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
+
 if [ ! -z "$PHP_LIST" ]; then
     # PHP linting
     "$PHPCS_BIN" --standard="$RULESET" ${PHP_LIST}
