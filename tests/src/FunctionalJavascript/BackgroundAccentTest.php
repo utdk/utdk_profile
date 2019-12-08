@@ -68,6 +68,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $this->clickLink('Layout');
 
     $this->backgroundImage();
+    $this->backgroundColors();
   }
 
   /**
