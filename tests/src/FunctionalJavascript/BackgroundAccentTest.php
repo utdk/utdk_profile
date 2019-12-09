@@ -181,7 +181,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     }
 
     $edit = ['layout_settings[background-color-wrapper][background-color]' => "none"];
-    $this->submitForm($edit, 'Update');
+    $this->submitForm($edit, 'Add section');
     $assert->assertWaitOnAjaxRequest();
     // A "background" class is added to the section. The correct color is found.
     $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
