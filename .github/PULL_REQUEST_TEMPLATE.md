@@ -37,7 +37,7 @@ Fixes #
 0. `git clone git@github.austin.utexas.edu:eis1-wcs/utdk_scaffold.git && cd utdk_scaffold`
 0. `composer require utexas/utdk_profile:dev-<BRANCH-NAME>`
 0. `composer run-script dev-scaffold`
-0. `fin init && fin init-site`
+0. `fin init && fin init-site --wcs`
 
 ## Reference: running tests locally
 0. `fin test web/profiles/utexas/tests/src/Functional`
