@@ -20,12 +20,12 @@
   .utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--second,
   .utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--second,
   .utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--third {
-    flex: 0 1 25%;
+    flex: 0 1 23%;
   }
   .utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--second,
   .utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--third,
   .utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--first {
-    flex: 0 1 50%;
+    flex: 0 1 48.75%;
   }
   .utexas-layout--threecol.utexas-layout--threecol--33-34-33 > .layout__region--first,
   .utexas-layout--threecol.utexas-layout--threecol--33-34-33 > .layout__region--second,
@@ -34,23 +34,6 @@
   }
 }
 
-/* Default between-column margins */
-.utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--first,
-.utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--second,
-.utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--first,
-.utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--second,
-.utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--first,
-.utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--second {
-  padding-right: 15px;
-}
-.utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--third,
-.utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--second,
-.utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--third,
-.utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--second,
-.utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--third,
-.utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--second {
-  padding-left: 15px;
-}
 /* Reset for between-column margin */
 .utexas-layout--threecol.utexas-layout-no-padding .layout__region--first,
 .utexas-layout--threecol.utexas-layout-no-padding .layout__region--second {
