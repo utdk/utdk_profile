@@ -10,7 +10,6 @@
  */
 function utexas_beacon_drush_command() {
   $items = [];
-
   $items['beacon-info'] = array(
     'description' => "Get site information digest",
     'examples' => [
