@@ -50,4 +50,4 @@ Fixes #
 
 ## Potential Reviewers
 
-@eis1-wcs/drupal-utdkd8
+@eis1-wcs/drupal-utdk
