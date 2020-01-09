@@ -13,7 +13,7 @@
   flex: 0 1 100%;
 }
 
-@media screen and (min-width: 40em) {
+@media screen and (min-width: 600px) {
   .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--first,
   .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--second,
   .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--third,
