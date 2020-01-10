@@ -53,7 +53,7 @@ trait FeaturedHighlightTestTrait {
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w_300h/public/image-test';
     $assert->elementAttributeContains('css', 'a[href^="https://featuredhighlight.test"] picture img', 'src', $expected_path);
-
+/
     // Set display to "Bluebonnet (Medium)".
     $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
     $this->submitForm([
