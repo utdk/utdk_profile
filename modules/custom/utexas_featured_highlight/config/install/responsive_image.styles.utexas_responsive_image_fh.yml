@@ -3,10 +3,7 @@ status: true
 dependencies:
   config:
     - image.style.utexas_image_style_1000w_600h
-    - image.style.utexas_image_style_250w_150h
-    - image.style.utexas_image_style_330w_200h
     - image.style.utexas_image_style_500w_300h
-    - image.style.utexas_image_style_660w_400h
   module:
     - utexas_image_styles
 id: utexas_responsive_image_fh
@@ -16,22 +13,22 @@ image_style_mappings:
     breakpoint_id: utexas_image_styles.wide
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_330w_200h
+    image_mapping: utexas_image_style_500w_300h
   -
     breakpoint_id: utexas_image_styles.wide
     multiplier: 2x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_660w_400h
+    image_mapping: utexas_image_style_1000w_600h
   -
     breakpoint_id: utexas_image_styles.narrow
     multiplier: 1x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_250w_150h
+    image_mapping: utexas_image_style_500w_300h
   -
     breakpoint_id: utexas_image_styles.narrow
     multiplier: 2x
     image_mapping_type: image_style
-    image_mapping: utexas_image_style_500w_300h
+    image_mapping: utexas_image_style_1000w_600h
   -
     breakpoint_id: utexas_image_styles.mobile
     multiplier: 1x
@@ -43,4 +40,4 @@ image_style_mappings:
     image_mapping_type: image_style
     image_mapping: utexas_image_style_1000w_600h
 breakpoint_group: utexas_image_styles
-fallback_image_style: utexas_image_style_250w_150h
+fallback_image_style: utexas_image_style_500w_300h

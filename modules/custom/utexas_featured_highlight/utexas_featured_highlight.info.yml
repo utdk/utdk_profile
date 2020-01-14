@@ -11,3 +11,4 @@ dependencies:
   - responsive_image
   - utexas_featured_highlight
   - utexas_image_styles
+core_incompatible: false

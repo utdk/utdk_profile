@@ -51,7 +51,7 @@ trait FeaturedHighlightTestTrait {
     $assert->pageTextContains('Jan. 17, 2019');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', 'a picture source');
-    $expected_path = 'utexas_image_style_250w_150h/public/image-test';
+    $expected_path = 'utexas_image_style_500w_300h/public/image-test';
     $assert->elementAttributeContains('css', 'a[href^="https://featuredhighlight.test"] picture img', 'src', $expected_path);
 
     // Set display to "Bluebonnet (Medium)".
