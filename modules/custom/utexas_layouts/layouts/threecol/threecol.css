@@ -34,7 +34,7 @@
   }
 }
 
-/* Reset for between-column margin */
+/* Reset for no-padding-column */
 .utexas-layout--threecol.utexas-layout--threecol--25-50-25.utexas-layout-no-padding  > .layout__region--first,
 .utexas-layout--threecol.utexas-layout--threecol--25-50-25.utexas-layout-no-padding  > .layout__region--third,
 .utexas-layout--threecol.utexas-layout--threecol--25-25-50.utexas-layout-no-padding  > .layout__region--first,

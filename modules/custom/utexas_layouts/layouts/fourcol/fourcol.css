@@ -22,14 +22,11 @@
   }
 }
 
+
 /* Reset for between-column margin */
 .utexas-layout--fourcol.utexas-layout-no-padding .layout__region--first,
 .utexas-layout--fourcol.utexas-layout-no-padding .layout__region--second,
-.utexas-layout--fourcol.utexas-layout-no-padding .layout__region--third {
-  padding-right: 0;
-}
-.utexas-layout--fourcol.utexas-layout-no-padding .layout__region--second,
 .utexas-layout--fourcol.utexas-layout-no-padding .layout__region--third,
 .utexas-layout--fourcol.utexas-layout-no-padding .layout__region--fourth {
-  padding-left: 0;
+  flex: 1 1 23%;
 }
