@@ -9,5 +9,15 @@
  * Implements hook_install().
  */
 function utexas_form_elements_install() {
-  drupal_set_installed_schema_version('utexas_form_elements', '8100');
+  drupal_set_installed_schema_version('utexas_form_elements', '8101');
+}
+
+/**
+ * Enable Media Library Form Element.
+ */
+function utexas_form_elements_update_8101() {
+  // Install the module.
+  // This replaces the previously used custom media_library_element.
+  // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/775.
+  \Drupal::service('module_installer')->install(['media_library_form_element']);
 }

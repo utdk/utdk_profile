@@ -24,8 +24,8 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['media'] = [
-      '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image', 'utexas_video_external'],
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
@@ -79,12 +79,9 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       if (empty($value['date'])) {
         unset($value['date']);
       }
-      if (isset($value['media']['media_library_selection'])) {
-        // @see MediaLibraryElement.php
-        $value['media'] = $value['media']['media_library_selection'];
-      }
-      else {
-        $value['image'] = 0;
+      if (empty($value['media'])) {
+        // A null media value should be saved as 0
+        $value['media'] = 0;
       }
       if (isset($value['cta_wrapper']['link']['url'])) {
         $value['link_uri'] = $value['cta_wrapper']['link']['url'] ?? '';

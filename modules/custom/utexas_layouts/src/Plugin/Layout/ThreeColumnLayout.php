@@ -30,7 +30,8 @@ class ThreeColumnLayout extends DefaultConfigLayout {
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
-    $config = $this->backgroundConfiguration();
+    $config = parent::defaultConfiguration();
+    $config += $this->backgroundConfiguration();
     $config += $this->backgroundColorConfiguration();
     $config += $this->multiWidthConfiguration();
     return $config;

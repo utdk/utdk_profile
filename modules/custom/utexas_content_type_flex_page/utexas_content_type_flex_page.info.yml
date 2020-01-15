@@ -14,8 +14,6 @@ dependencies:
   - 'drupal:user'
   - field
   - layout_builder
-  - 'layout_builder_modal:layout_builder_modal'
-  - layout_builder_restrictions
   - 'layout_builder_restrictions:layout_builder_restrictions'
   - layout_discovery
   - menu_ui
@@ -26,3 +24,4 @@ dependencies:
   - user
   - utexas_layouts
 version: 8.x-1.0
+core_incompatible: false

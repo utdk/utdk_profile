@@ -45,8 +45,10 @@ function _utexas_beacon_prepare_data() {
   $site_data['admin_email'] = $site_config->get('mail');
   $site_data['drupal_version'] = Drupal::VERSION;
   $site_data['php_version'] = phpversion();
-  $site_data['page_builder_enabled'] = 0;
-  $site_data['utlogin_enabled'] = 0;
+  $site_data['http_host'] = $_SERVER['HTTP_HOST'] ?? 'N/A';
+  $site_data['logname'] = $_SERVER['LOGNAME'] ?? 'N/A';
+  $site_data['request_uri'] = $_SERVER['REQUEST_URI'] ?? 'N/A';
+  $site_data['pantheon_site_name'] = $_SERVER['PANTHEON_SITE_NAME'] ?? 'N/A';
 
   // Installation profile information.
   $active_profile = \Drupal::installProfile();
@@ -54,7 +56,6 @@ function _utexas_beacon_prepare_data() {
   $site_data['active_installation_profile_distribution_name'] = $profile_information['name'];
   $site_data['active_installation_profile_version'] = $profile_information['version'];
 
-  // TODO: Update theme and custom module information when these are finalized.
   // Theme information.
   $site_data['current_theme'] = \Drupal::configFactory()->getEditable('system.theme')->get('default', 'machine_name');
   if ($site_data['current_theme'] == 'forty_acres') {
@@ -62,23 +63,15 @@ function _utexas_beacon_prepare_data() {
     $site_data['forty_acres_version'] = $forty_acres_info['version'];
   }
 
-  // Custom module information.
+  // Module information.
   $moduleHandler = \Drupal::service('module_handler');
-  if ($moduleHandler->moduleExists('utexas_page_builder')) {
-    $site_data['page_builder_enabled'] = 1;
-    $page_builder_info = system_get_info('module', 'utexas_page_builder');
-    $site_data['page_builder_version'] = $page_builder_info['version'];
+  if ($moduleHandler->moduleExists('google_tag')) {
+    $config = \Drupal::config('google_tag.settings');
+    $site_data['google_tag_manager_code'] = $config->get('container_id') ?? '';
   }
-  if ($moduleHandler->moduleExists('utlogin')) {
-    $site_data['utlogin_enabled'] = 1;
-    $utlogin_info = system_get_info('module', 'utlogin');
-    $site_data['utlogin_version'] = $utlogin_info['version'];
-  }
-  if ($moduleHandler->moduleExists('utexas_google_cse')) {
-    // TODO: Get CSE ID when D8 module is available.
-  }
-  if ($moduleHandler->moduleExists('utexas_google_tag_manager')) {
-    // TODO: Get GTM ID when D8 module is available.
+  if ($moduleHandler->moduleExists('google_cse')) {
+    $config = \Drupal::config('search.page.google_cse_search');
+    $site_data['google_cse_id'] = $config->get('configuration')['cx'] ?? '';
   }
   return $site_data;
 }
@@ -99,7 +92,6 @@ function utexas_beacon_cron() {
   // Only send data once a day.
   if ($cron_last && $today > $cron_day) {
     $site_data_for_post = _utexas_beacon_prepare_data();
-
     // Prepare the data.
     $encoded_data = Json::encode($site_data_for_post);
     $utexas_beacon_settings = \Drupal::config('utexas_beacon.settings');

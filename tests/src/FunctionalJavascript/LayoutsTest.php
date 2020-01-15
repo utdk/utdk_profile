@@ -68,9 +68,10 @@ class LayoutsTest extends WebDriverTestBase {
   }
 
   /**
-   * One column functionality.
+   * Initial action for all layout tests.
    */
-  public function test1ColumnLayout() {
+  public function testLayouts() {
+    // Create a node & remove default section.
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
@@ -80,60 +81,54 @@ class LayoutsTest extends WebDriverTestBase {
     ]);
     $node->save();
     $this->drupalGet('/node/' . $node->id());
-
-    // Four column functionality.
-    $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     // Remove existing one column layout.
     $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
-
-    // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
+
+    $this->oneColumnLayout();
+    $this->twoColumnLayout();
+    $this->threeColumnLayout();
+    $this->fourColumnLayout();
+  }
+
+  /**
+   * One column functionality.
+   */
+  public function oneColumnLayout() {
+    $assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
     $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('One column');
     $assert->assertWaitOnAjaxRequest();
+    // Verify Background accent & color options available.
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
-    $assert->elementExists('css', 'input[name="layout_settings-media-library-open-button-layout_settings-background-accent-wrapper-background-accent"]');
-
-    // Fourcol class present.
+    $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
     $page->pressButton('Add section');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', '.layout--utexas-onecol');
+    // Cleanup.
+    $this->clickLink('Remove Section 1');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Remove');
+    $assert->assertWaitOnAjaxRequest();
   }
 
   /**
    * Two column functionality.
    */
-  public function test2ColumnLayout() {
+  public function twoColumnLayout() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-
-    // Two column functionality.
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
-    // Remove existing one column layout.
-    $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Remove');
-
-    // Background color & accent are present.
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Two column');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
-    $assert->elementExists('css', 'input[name="layout_settings-media-library-open-button-layout_settings-background-accent-wrapper-background-accent"]');
+    $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="50-50"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="33-67"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="67-33"]');
@@ -204,38 +199,21 @@ class LayoutsTest extends WebDriverTestBase {
     $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
+    $assert->assertWaitOnAjaxRequest();
   }
 
   /**
    * Three column functionality.
    */
-  public function test3ColumnLayout() {
+  public function threeColumnLayout() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-
-    // Two column functionality.
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
-    // Remove existing one column layout.
-    $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Remove');
-
-    // Background color & accent are present.
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Three column');
     $assert->assertWaitOnAjaxRequest();
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
-    $assert->elementExists('css', 'input[name="layout_settings-media-library-open-button-layout_settings-background-accent-wrapper-background-accent"]');
+    $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="25-50-25"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="33-34-33"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="50-25-25"]');
@@ -291,38 +269,23 @@ class LayoutsTest extends WebDriverTestBase {
     $this->clickLink('Remove Section 1');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Remove');
+    $assert->assertWaitOnAjaxRequest();
   }
 
   /**
    * Four column functionality.
    */
-  public function test4ColumnLayout() {
+  public function fourColumnLayout() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-
-    // Four column functionality.
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
-    // Remove existing one column layout.
-    $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Remove');
-
-    // Background color & accent are present.
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add section');
     $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Four column');
     $assert->assertWaitOnAjaxRequest();
+    // Background color & accent are present.
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
-    $assert->elementExists('css', 'input[name="layout_settings-media-library-open-button-layout_settings-background-accent-wrapper-background-accent"]');
+    $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
 
     // Fourcol class present.
     $page->pressButton('Add section');

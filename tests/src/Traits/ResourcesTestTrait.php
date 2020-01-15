@@ -18,7 +18,7 @@ trait ResourcesTestTrait {
     $fieldset[0]->click();
 
     // Verify widget field schema.
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');

@@ -101,23 +101,14 @@ class UTexasPromoListWidget extends WidgetBase {
       if (!empty($value['promo_list_items'])) {
         foreach ($value['promo_list_items'] as $key => $item) {
           if (empty($item['item']['headline'])
-          && empty($item['item']['image']['media_library_selection'])
+          && empty($item['item']['image'])
           && empty($item['item']['copy']['value'])
           && empty($item['item']['link']['url'])) {
             // Remove empty links.
             unset($value['promo_list_items'][$key]);
           }
           else {
-            if (isset($item['item']['image']['media_library_selection'])) {
-              if (is_array($item['item']['image']['media_library_selection'])) {
-                $image_id = $item['item']['image']['media_library_selection'][0];
-              }
-              else {
-                $image_id = $item['item']['image']['media_library_selection'];
-              }
-              // @see MediaLibraryElement.php
-              $value['promo_list_items'][$key]['item']['image'] = $image_id;
-            }
+            $value['promo_list_items'][$key]['item']['image'] = $item['item']['image'] ?? 0;
             $value['promo_list_items'][$key]['item']['link'] = $item['item']['link']['url'];
           }
         }

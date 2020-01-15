@@ -108,17 +108,13 @@ class UTexasResourcesWidget extends WidgetBase {
             }
           }
           if (empty($item['item']['headline'])
-            && $item['item']['image']['media_library_selection'] == 0
+            && $item['item']['image'] == 0
             && empty($item['item']['links'])) {
             // Remove empty resource items.
             unset($value['resource_items'][$key]);
           }
           else {
-            // Clean up empty link deltas as a courtesy.
-            if (isset($item['item']['image']['media_library_selection'])) {
-              // @see MediaLibraryElement.php
-              $value['resource_items'][$key]['item']['image'] = $item['item']['image']['media_library_selection'];
-            }
+            $value['resource_items'][$key]['item']['image'] = $item['item']['image'] ?? 0;
           }
         }
         if (!empty($value['resource_items'])) {

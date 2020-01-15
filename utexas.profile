@@ -119,13 +119,6 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
   $user_1_name = 'site-admin';
   // Set default admin account name to site-admin for UI-based installs.
   $form['admin_account']['account']['name']['#default_value'] = $user_1_name;
-  // Set default admin account name to site-admin for drush-based installs.
-  if (PHP_SAPI == 'cli' && function_exists('drush_main')) {
-    $account_name = drush_get_option('account-name', FALSE);
-    if (!$account_name) {
-      $form['admin_account']['account']['name']['#value'] = $user_1_name;
-    }
-  }
 }
 
 /**

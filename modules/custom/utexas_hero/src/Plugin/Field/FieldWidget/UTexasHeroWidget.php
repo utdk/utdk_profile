@@ -25,8 +25,8 @@ class UTexasHeroWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
     $element['media'] = [
-      '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image'],
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
@@ -102,11 +102,8 @@ class UTexasHeroWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through (potential) field instances.
     foreach ($values as &$value) {
-      if (isset($value['media']['media_library_selection'])) {
-        // @see MediaLibraryElement.php
-        $value['media'] = $value['media']['media_library_selection'];
-      }
-      else {
+      if (empty($value['media'])) {
+        // A null media value should be saved as 0.
         $value['media'] = 0;
       }
       if (isset($value['cta']['link']['url'])) {

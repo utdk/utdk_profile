@@ -16,7 +16,7 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('block/add/utexas_featured_highlight');
 
     // Verify widget field schema.
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');
@@ -51,7 +51,7 @@ trait FeaturedHighlightTestTrait {
     $assert->pageTextContains('Jan. 17, 2019');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', 'a picture source');
-    $expected_path = 'utexas_image_style_250w_150h/public/image-test';
+    $expected_path = 'utexas_image_style_500w_300h/public/image-test';
     $assert->elementAttributeContains('css', 'a[href^="https://featuredhighlight.test"] picture img', 'src', $expected_path);
 
     // Set display to "Bluebonnet (Medium)".
@@ -82,7 +82,7 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('block/add/utexas_featured_highlight');
 
     // Verify widget field schema.
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $this->clickLink("Video (External)");

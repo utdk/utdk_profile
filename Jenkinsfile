@@ -28,7 +28,7 @@ pipeline {
                                      * Set-up web container and run tests.
                                      * Apt-get update first.
                                      */
-                                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '8a64da57-a631-4776-a4c2-d28ea52166eb', usernameVariable: 'ARTIFACTORY_USER', passwordVariable: 'ARTIFACTORY_API_KEY']]) {
+                                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '13ef4320-1a63-4e0a-ae25-49d3a2f902b0', usernameVariable: 'ARTIFACTORY_USER', passwordVariable: 'ARTIFACTORY_API_KEY']]) {
                                         withCredentials([sshUserPrivateKey(credentialsId: '8df01156-ee87-4ac3-a2b2-c1629cbe82b4', keyFileVariable: 'KEY', passphraseVariable: 'PASS', usernameVariable: 'USER')]) {
                                             try {
                                                 sh '''

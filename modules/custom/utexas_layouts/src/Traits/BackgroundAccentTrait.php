@@ -28,8 +28,8 @@ trait BackgroundAccentTrait {
       '#title' => 'Background image',
     ];
     $form['background-accent-wrapper']['background-accent'] = [
-      '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image'],
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['utexas_image'],
       '#cardinality' => 1,
       '#default_value' => !empty($this->configuration['background-accent']) ? $this->configuration['background-accent'] : 0,
       '#name' => 'background_accent',

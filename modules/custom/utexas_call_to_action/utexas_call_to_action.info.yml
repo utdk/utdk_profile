@@ -12,3 +12,4 @@ dependencies:
   - utexas_call_to_action
 version: 8.x-1.0
 package: UTexas
+core_incompatible: false

@@ -8,6 +8,7 @@ dependencies:
   - field
   - layout_builder
   - layout_builder_restrictions
+  - media_library_form_element
   - responsive_image
   - utexas_image_styles
   - utexas_promo_unit

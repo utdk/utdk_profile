@@ -19,8 +19,10 @@ third_party_settings:
       -
         layout_id: layout_utexas_onecol
         layout_settings:
-          class: ''
+          label: ''
           blur: 0
+          background-color: none
+          class: ''
           background-accent: '0'
         components: {  }
         third_party_settings: {  }

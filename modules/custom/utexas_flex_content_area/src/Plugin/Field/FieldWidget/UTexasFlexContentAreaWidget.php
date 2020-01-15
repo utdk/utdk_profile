@@ -31,9 +31,9 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
       '#title' => $this->t('Flex Content Area %number', ['%number' => $delta + 1]),
     ];
     $element['flex_content_area']['image'] = [
-      '#type' => 'media_library_element',
+      '#type' => 'media_library',
       '#description' => $this->t('If using an image, note that it will be scaled and cropped to 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.'),
-      '#target_bundles' => ['utexas_image', 'utexas_video_external'],
+      '#allowed_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
@@ -170,11 +170,8 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $return = [];
     foreach ($values as $delta => $wrapper) {
       $value = $wrapper['flex_content_area'];
-      if (isset($value['image']['media_library_selection'])) {
-        // @see MediaLibraryElement.php
-        $value['image'] = $value['image']['media_library_selection'];
-      }
-      else {
+      if (empty($value['image'])) {
+        // A null media value should be saved as 0
         $value['image'] = 0;
       }
       // Links are stored as a serialized array.

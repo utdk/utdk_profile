@@ -1,14 +1,14 @@
 .background-accent .block {
-background-color: #fff;
-border: 1px solid #333f48;
-padding:1.25rem;
-margin: 0.75rem 0;
+  background-color: #fff;
+  border: 1px solid #333f48;
+  padding: 1.25rem;
+  margin: 0.75rem 0;
 }
 
 /* Prevent images with height:100% from overflowing their container */
 .background-accent {
-  overflow:hidden;
-  position:relative;
+  overflow: hidden;
+  position: relative;
 }
 
 /* Pad all regions so that non-background accent regions that
@@ -17,7 +17,7 @@ follow a background-accent region have spacing */
 .layout__region--second,
 .layout__region--third,
 .layout__region--fourth {
-  padding-top:1rem;
+  padding-top: 1rem;
 }
 
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
@@ -25,46 +25,46 @@ follow a background-accent region have spacing */
 .background-accent .layout__region--second,
 .background-accent .layout__region--third,
 .background-accent .layout__region--fourth {
-  padding-top:1rem;
-  padding-bottom:1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .background-accent .utexas-layout--twocol > .layout__region--first {
-  margin-left:1rem;
-  margin-right:0rem;
+  margin-left: 1rem;
+  margin-right: 0;
 }
 .background-accent .utexas-layout--twocol > .layout__region--second {
-  margin-left:0rem;
-  margin-right:0rem;
+  margin-left: 0;
+  margin-right: 0;
 }
 .background-accent .utexas-layout--onecol > .layout__region--main {
-  margin-left:0.75rem;
-  margin-right:0.75rem;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 /* Reduce vertical padding on widgets on small screens */
-@media screen and (max-width: 40em) {
+@media screen and (max-width: 600px) {
   .background-accent .layout__region--first,
   .background-accent .layout__region--second {
-    padding-top:0.5rem;
-    padding-bottom:0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
   .background-accent .utexas-layout--twocol > .layout__region--first,
   .background-accent .utexas-layout--twocol > .layout__region--second,
   .background-accent .utexas-layout--onecol > .layout__region--main {
-    margin-left:0.25rem;
-    margin-right:0.25rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
   }
   .background-accent .utexas-layout--twocol > .layout__region--first {
-    padding-bottom:0rem;
+    padding-bottom: 0;
   }
   .background-accent .utexas-layout--twocol > .layout__region--second {
-    padding-top:0rem;
+    padding-top: 0;
   }
 }
 
 /* Ensure that the "Configure" button is visible with blurred background images */
 #layout-builder .configure-section {
-  background:#fff;
+  background: #fff;
 }
 #layout-builder .remove-section {
-  margin-left:1rem;
+  margin-left: 1rem;
 }

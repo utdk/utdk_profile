@@ -16,7 +16,7 @@ trait ImageLinkTestTrait {
     $page = $this->getSession()->getPage();
 
     $this->drupalGet('block/add/utexas_image_link');
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');
@@ -54,7 +54,7 @@ trait ImageLinkTestTrait {
     // Test internal links.
     $basic_page_id = $this->createBasicPage();
     $this->drupalGet('block/add/utexas_image_link');
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');
