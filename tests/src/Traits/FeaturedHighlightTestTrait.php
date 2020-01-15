@@ -16,7 +16,7 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('block/add/utexas_featured_highlight');
 
     // Verify widget field schema.
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');
@@ -82,7 +82,7 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('block/add/utexas_featured_highlight');
 
     // Verify widget field schema.
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $this->clickLink("Video (External)");

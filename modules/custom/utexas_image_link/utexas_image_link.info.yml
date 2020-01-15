@@ -7,6 +7,7 @@ dependencies:
   - block_content
   - field
   - responsive_image
+  - media_library_form_element
   - utexas_form_elements
   - utexas_image_link
   - utexas_image_styles

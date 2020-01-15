@@ -39,8 +39,8 @@ class UtexasPromoUnitElement extends FormElement {
       '#default_value' => isset($element['#default_value']['headline']) ? $element['#default_value']['headline'] : '',
     ];
     $element['image'] = [
-      '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image'],
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['utexas_image'],
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),

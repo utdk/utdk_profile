@@ -24,8 +24,8 @@ class UTexasImageLinkWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['image'] = [
-      '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image'],
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
@@ -54,11 +54,8 @@ class UTexasImageLinkWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through (potential) field instances.
     foreach ($values as &$value) {
-      if (isset($value['image']['media_library_selection'])) {
-        // @see MediaLibraryElement.php
-        $value['image'] = $value['image']['media_library_selection'];
-      }
-      else {
+      if (empty($value['image'])) {
+        // A null media value should be saved as 0
         $value['image'] = 0;
       }
       // We only want the 'url' part of the link for image link.

@@ -27,8 +27,8 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
     $element['image'] = [
-      '#type' => 'media_library_element',
-      '#target_bundles' => ['utexas_image'],
+      '#type' => 'media_library',
+      '#allowed_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#description' => $this->t('Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 1800x2400 pixels to maintain resolution & avoid cropping.'),
       '#cardinality' => 1,
@@ -157,11 +157,8 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through field instances (not link instances).
     foreach ($values as &$value) {
-      if (isset($value['image']['media_library_selection'])) {
-        // @see MediaLibraryElement.php
-        $value['image'] = $value['image']['media_library_selection'];
-      }
-      else {
+      if (empty($value['image'])) {
+        // A null media value should be saved as 0.
         $value['image'] = 0;
       }
       // Links are stored as a serialized array.

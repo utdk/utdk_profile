@@ -107,10 +107,7 @@ class UTexasPromoUnitWidget extends WidgetBase {
             unset($value['promo_unit_items'][$key]);
           }
           else {
-            if (isset($item['item']['image']['media_library_selection'])) {
-              // @see MediaLibraryElement.php
-              $value['promo_unit_items'][$key]['item']['image'] = $item['item']['image']['media_library_selection'];
-            }
+            $value['promo_unit_items'][$key]['item']['image'] = $item['item']['image'] ?? 0;
           }
         }
         if (!empty($value['promo_unit_items'])) {

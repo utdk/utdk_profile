@@ -89,7 +89,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $settings_selectors = '.layout-builder-configure-section details';
     $settings = $page->findAll('css', $settings_selectors);
     $settings[0]->click();
-    $page->pressButton('Set media');
+    $page->pressButton('Add media');
     $assert->assertWaitOnAjaxRequest();
     $assert->pageTextContains('Add or select media');
     $assert->pageTextContains('Image 1');
