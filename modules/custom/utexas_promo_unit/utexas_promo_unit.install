@@ -2,12 +2,21 @@
 
 /**
  * @file
- * Contains install and update functions for the UTexas Promo Unit module.
+ * Install and update functions for the UTexas Promo Unit module.
  */
 
 /**
  * Implements hook_install().
  */
 function utexas_promo_unit_install() {
-  drupal_set_installed_schema_version('utexas_promo_unit', '8100');
+  drupal_set_installed_schema_version('utexas_promo_unit', '8101');
+}
+
+/**
+ * Update configuration related to Layout Builder Restrictions.
+ */
+function utexas_promo_unit_update_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_promo_unit',
+  ], TRUE);
 }

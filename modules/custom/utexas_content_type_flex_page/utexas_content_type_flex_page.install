@@ -2,12 +2,21 @@
 
 /**
  * @file
- * Contains install and update functions for the UTexas Content Type Flex Page module.
+ * Install and update functions for the Flex Page.
  */
 
 /**
  * Implements hook_install().
  */
 function utexas_content_type_flex_page_install() {
-  drupal_set_installed_schema_version('utexas_content_type_flex_page', '8100');
+  drupal_set_installed_schema_version('utexas_content_type_flex_page', '8101');
+}
+
+/**
+ * Update configuration related to Layout Builder sections.
+ */
+function utexas_content_type_flex_page_update_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_content_type_flex_page',
+  ], TRUE);
 }
