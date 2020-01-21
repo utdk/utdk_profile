@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-PHP_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.php' '*.inc' '*.yml' '*.module' '*.install')
+PHP_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.php' '*.inc' '*.yml' '*.module' '*.install', '*.profile')
+PHP_EXTENSIONS="php,inc,module,install,profile"
 CSS_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.css')
 GIT_ROOT="$(git rev-parse --show-toplevel)"
 PHPCS_BIN=../../../vendor/bin/phpcs
-RULESET=../../../vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
+PHPCS_DRUPALPRACTICE_RULESET=../../../vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
+PHPCS_DRUPAL_RULESET=../../../vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml
 PHP_STAN_BIN=../../../vendor/bin/phpstan
 STYLELINTER=/node_modules/.bin/stylelint
 
@@ -34,8 +36,18 @@ if [[ $? -ne 0 ]] ; then
 fi
 
 if [ ! -z "$PHP_LIST" ]; then
-    # PHP linting
-    "$PHPCS_BIN" --standard="$RULESET" ${PHP_LIST}
+    # PHPCS 'DrupalPractice' ruleset check.
+    "$PHPCS_BIN" --standard="$PHPCS_DRUPALPRACTICE_RULESET" ${PHP_LIST} --extensions=$PHP_EXTENSIONS
+fi
+
+# If a PHPCS violation has been found, exit without further sniffing
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
+
+if [ ! -z "$PHP_LIST" ]; then
+    # PHPCS 'Drupal' ruleset check.
+    "$PHPCS_BIN" --standard="$PHPCS_DRUPAL_RULESET" ${PHP_LIST} --extensions=$PHP_EXTENSIONS
 fi
 
 # If a PHPCS violation has been found, exit without further sniffing
