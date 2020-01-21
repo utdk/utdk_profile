@@ -23,7 +23,7 @@ Fixes #
 <!--- Put an `x` in all the boxes that apply: -->
 - [ ] Automated tests pass <!--- If tests don't pass because of a known reason, elaborate on the test and issue -->
 - [ ] Code meets syntax standards
-- [ ] Namespacing follows team conventions
+- [ ] Namespacing follows [team conventions](https://github.austin.utexas.edu/eis1-wcs/d8-standards/blob/master/Naming_Conventions.md)
 - [ ] Change requires a change to the documentation.
   - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
