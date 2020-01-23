@@ -12,7 +12,7 @@ use Drupal\Component\Utility\NestedArray;
  *
  * @FormElement("utexas_resource")
  */
-class UtexasResourcesElement extends FormElement {
+class UTexasResourcesElement extends FormElement {
 
   /**
    * {@inheritdoc}

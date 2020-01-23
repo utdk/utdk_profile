@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FormElement("utexas_promo_list")
  */
-class UtexasPromoListElement extends FormElement {
+class UTexasPromoListElement extends FormElement {
 
   /**
    * {@inheritdoc}

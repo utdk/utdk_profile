@@ -11,7 +11,7 @@ use Drupal\Core\Entity\Routing\AdminHtmlRouteProvider;
  * @see Drupal\Core\Entity\Routing\AdminHtmlRouteProvider
  * @see Drupal\Core\Entity\Routing\DefaultHtmlRouteProvider
  */
-class UtexasAnnouncementColorSchemeHtmlRouteProvider extends AdminHtmlRouteProvider {
+class UTexasAnnouncementColorSchemeHtmlRouteProvider extends AdminHtmlRouteProvider {
 
   /**
    * {@inheritdoc}

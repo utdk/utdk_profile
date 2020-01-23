@@ -78,7 +78,7 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     $page->findLink('Add Announcement Icon')->click();
     $web_assert->pageTextContains('Add announcement icon');
     $page->findField('label')->setValue("Test Icon");
-    $upload_field = $web_assert->waitForElementVisible('css', 'input[type="file"]');
+    $web_assert->waitForElementVisible('css', 'input[type="file"]');
     $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
     $default_icons = file_scan_directory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
     $test_file_path = $default_icons['beacon']->uri;
@@ -175,9 +175,7 @@ class SiteAnnouncementTest extends WebDriverTestBase {
    */
   public function testSiteAnnouncementCreation() {
     $this->getSession()->resizeWindow(1200, 2000);
-    $session = $this->getSession();
     $web_assert = $this->assertSession();
-    $page = $session->getPage();
     // Create a test node.
     $test_page = $this->createBasicPage();
 

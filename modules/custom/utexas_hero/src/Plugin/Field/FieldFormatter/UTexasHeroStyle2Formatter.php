@@ -4,7 +4,6 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 
 /**

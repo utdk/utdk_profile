@@ -13,7 +13,6 @@ trait QuickLinksTestTrait {
   public function verifyQuickLinks() {
     $assert = $this->assertSession();
     $basic_page_id = $this->createBasicPage();
-    $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_quick_links');
     // Add the Quick Links block type.
     $this->getSession()->getPage()->find('css', '#edit-field-block-ql-0-links-actions-add-link')->click();

@@ -55,7 +55,7 @@ trait UserTestTrait {
     $this->drupalLogin($this->testUser);
   }
 
-   /**
+  /**
    * Create a user with Site Manager specific role.
    */
   protected function initializeSiteManager() {

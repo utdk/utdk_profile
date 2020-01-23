@@ -69,7 +69,6 @@ class FlexHTMLTest extends WebDriverTestBase {
    * Test any FlexHTML settings sequentially, using the same installation.
    */
   public function testFlexHtml() {
-    $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
     $this->verifyQualtricsFilterOutput();
   }

@@ -55,7 +55,7 @@ class UTexasImageLinkWidget extends WidgetBase {
     // This loop is through (potential) field instances.
     foreach ($values as &$value) {
       if (empty($value['image'])) {
-        // A null media value should be saved as 0
+        // A null media value should be saved as 0.
         $value['image'] = 0;
       }
       // We only want the 'url' part of the link for image link.

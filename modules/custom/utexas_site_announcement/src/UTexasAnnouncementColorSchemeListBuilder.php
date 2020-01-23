@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityInterface;
 /**
  * Provides a listing of UTexas Announcement Color Scheme entities.
  */
-class UtexasAnnouncementColorSchemeListBuilder extends ConfigEntityListBuilder {
+class UTexasAnnouncementColorSchemeListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}

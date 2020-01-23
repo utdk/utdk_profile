@@ -9,7 +9,7 @@ use Drupal\Core\Render\Markup;
 /**
  * Provides a listing of UTexas Announcement Icon entities.
  */
-class UtexasAnnouncementIconListBuilder extends ConfigEntityListBuilder {
+class UTexasAnnouncementIconListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}

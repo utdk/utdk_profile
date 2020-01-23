@@ -55,7 +55,7 @@ class InstallationComplete extends FormBase {
     $form['#title'] = $this->t('Hook em!');
     $form['message'] = [
       'info' => [
-        '#markup' => t('Congratulations, you installed UT Drupal Kit! If you are not redirected in 5 seconds, <a href="@url">click here</a> to proceed to your site.', [
+        '#markup' => $this->t('Congratulations, you installed UT Drupal Kit! If you are not redirected in 5 seconds, <a href="@url">click here</a> to proceed to your site.', [
           '@url' => $redirect,
         ]),
       ],

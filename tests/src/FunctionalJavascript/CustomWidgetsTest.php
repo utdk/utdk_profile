@@ -89,7 +89,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
-    $page = $this->getSession()->getPage();
+    $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
     $this->verifyImageLink();
     $this->verifyQuickLinks();

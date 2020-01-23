@@ -62,7 +62,6 @@ class BaseInstallationTest extends BrowserTestBase {
     }
     // Assert that Forty Acres is the active theme.
     $default_theme = \Drupal::config('system.theme')->get('default');
-    $active_theme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
     $this->assertEqual($default_theme, 'forty_acres');
 
     // Assert country and timezone set to US and America/Chicago.
