@@ -49,6 +49,7 @@ install:
   - layout_builder_styles
   - media_library_theme_reset
   - metatag
+  - metatag_twitter_cards
   - menu_block
   - pathauto
   - page_title_visibility

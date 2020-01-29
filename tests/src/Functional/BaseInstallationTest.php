@@ -186,6 +186,16 @@ class BaseInstallationTest extends BrowserTestBase {
     $default_language = $this->config('system.site')->get('default_langcode');
     $this->assertEqual($default_language, 'en');
 
+    // Verify default metatag configuration.
+    $expected_metatag_defaults = [
+      'title' => '[current-page:title] | [site:name]',
+      'canonical_url' => '[current-page:url]',
+      'twitter_cards_page_url' => '[current-page:url] ',
+      'twitter_cards_title' => '[current-page:title] | [site:name]',
+    ];
+    $actual_metatag_defaults = $this->config('metatag.metatag_defaults.global')->get('tags');
+    $this->assertEqual($actual_metatag_defaults, $expected_metatag_defaults);
+
     // Test Content Editor Role permissions.
     $this->initializeContentEditor();
     // @todo: investigate why this addRole apparently needs to happen here,
