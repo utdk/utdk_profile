@@ -44,6 +44,7 @@ trait PromoListTestTrait {
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
+    $basic_page_id = $this->createBasicPage();
 
     $this->submitForm([
       'info[0][value]' => 'Promo List Test',
@@ -55,7 +56,7 @@ trait PromoListTestTrait {
       'field_block_pl[1][headline]' => 'Promo List 2 Headline',
       'field_block_pl[1][promo_list_items][0][item][headline]' => 'List 2 item 1',
       'field_block_pl[1][promo_list_items][0][item][copy][value]' => 'Copy text for list 2 item 1',
-      'field_block_pl[1][promo_list_items][0][item][link][url]' => '/node/1',
+      'field_block_pl[1][promo_list_items][0][item][link][url]' => '/node/' . $basic_page_id,
     ], 'Save');
     $assert->pageTextContains('Promo List Promo List Test has been created.');
 
@@ -75,7 +76,7 @@ trait PromoListTestTrait {
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
     $assert->linkByHrefExists('https://promolist.test');
-    $assert->linkByHrefExists('node/1');
+    $assert->linkByHrefExists('test-basic-page');
 
     // Verify responsive image is present within the link.
     $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(1) a picture source');
@@ -115,6 +116,10 @@ trait PromoListTestTrait {
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promolisttest/delete');
     $this->submitForm([], 'Remove');
+    // Remove test page.
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $storage_handler->delete($entities);
   }
 
 }

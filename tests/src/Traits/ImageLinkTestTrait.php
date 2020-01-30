@@ -83,10 +83,11 @@ trait ImageLinkTestTrait {
     // Verify responsive image is present within the link.
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w/public/image-test.png';
-    $assert->elementAttributeContains('css', 'a[href^="/node/1"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', 'a[href^="/test-basic-page"] picture img', 'src', $expected_path);
 
     $this->drupalGet('admin/structure/block/manage/imagelinktest2/delete');
     $this->submitForm([], 'Remove');
+    // Remove test page.
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
     $storage_handler->delete($entities);

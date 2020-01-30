@@ -65,7 +65,7 @@ trait PromoUnitTestTrait {
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2)', 'Promo Unit 1 Copy');
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(3)', 'Promo Unit 2 Copy');
     $assert->linkByHrefExists('https://promounit.test');
-    $assert->linkByHrefExists('node/' . $basic_page_id);
+    $assert->linkByHrefExists('test-basic-page');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', '.utexas-promo-unit:nth-child(2) a picture source');
     $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
@@ -132,6 +132,7 @@ trait PromoUnitTestTrait {
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promounittest/delete');
     $this->submitForm([], 'Remove');
+
     // Remove test node.
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
