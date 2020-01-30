@@ -117,6 +117,11 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             else {
               $link_title = $i['link']['title'];
             }
+            // Convert the headline to a link, if present.
+            if (!empty($i['headline'])) {
+              $headline_url = Url::fromUri($i['link']['url']);
+              $instances[$key]['headline'] = Link::fromTextAndUrl($i['headline'], $headline_url);
+            }
             $link_options = [
               'attributes' => [
                 'class' => [

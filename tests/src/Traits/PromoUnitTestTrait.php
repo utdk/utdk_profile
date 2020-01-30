@@ -35,6 +35,7 @@ trait PromoUnitTestTrait {
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $assert->assertWaitOnAjaxRequest();
 
+    $basic_page_id = $this->createBasicPage();
     $this->submitForm([
       'info[0][value]' => 'Promo Unit Test',
       'field_block_pu[0][headline]' => 'Promo Unit Container Headline',
@@ -44,7 +45,7 @@ trait PromoUnitTestTrait {
       'field_block_pu[0][promo_unit_items][0][item][link][title]' => 'Promo Unit External Link',
       'field_block_pu[0][promo_unit_items][1][item][headline]' => 'Promo Unit 2 Headline',
       'field_block_pu[0][promo_unit_items][1][item][copy][value]' => 'Promo Unit 2 Copy',
-      'field_block_pu[0][promo_unit_items][1][item][link][url]' => '/node/1',
+      'field_block_pu[0][promo_unit_items][1][item][link][url]' => '/node/' . $basic_page_id,
       'field_block_pu[0][promo_unit_items][1][item][link][title]' => 'Promo Unit Internal Link',
     ], 'Save');
     $assert->pageTextContains('Promo Unit Promo Unit Test has been created.');
@@ -64,7 +65,7 @@ trait PromoUnitTestTrait {
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2)', 'Promo Unit 1 Copy');
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(3)', 'Promo Unit 2 Copy');
     $assert->linkByHrefExists('https://promounit.test');
-    $assert->linkByHrefExists('/node/1');
+    $assert->linkByHrefExists('node/' . $basic_page_id);
     // Verify responsive image is present within the link.
     $assert->elementExists('css', '.utexas-promo-unit:nth-child(2) a picture source');
     $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
@@ -131,6 +132,10 @@ trait PromoUnitTestTrait {
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promounittest/delete');
     $this->submitForm([], 'Remove');
+    // Remove test node.
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $storage_handler->delete($entities);
   }
 
 }
