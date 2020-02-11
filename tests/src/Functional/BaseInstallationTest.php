@@ -200,7 +200,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->initializeContentEditor();
     // @todo: investigate why this addRole apparently needs to happen here,
     // in addition to the one defined in initializeContentEditor @jmf3658.
-    $this->testUser->addRole('utexas_role_content_editor');
+    $this->testUser->addRole('utexas_content_editor');
     $this->testUser->save();
     $this->drupalLogin($this->testUser);
     // Make sure that a Content Editor has default access to the

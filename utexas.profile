@@ -75,7 +75,7 @@ function utexas_install_demo_content(&$install_state) {
  */
 function utexas_install_cleanup(&$install_state) {
   // Remove default search entities.
-  $search_storage = \Drupal::entityManager()->getStorage('search_page');
+  $search_storage = \Drupal::entityTypeManager()->getStorage('search_page');
   $entities = $search_storage->loadMultiple(['node_search', 'user_search']);
   $search_storage->delete($entities);
   // Set default country and timezone after form completion.
@@ -84,10 +84,6 @@ function utexas_install_cleanup(&$install_state) {
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')
     ->save(TRUE);
-  // Ensure Flex Page Editor has any permissions installed after it.
-  \Drupal::service('features.manager')->import([
-    'utexas_role_flex_page_editor',
-  ], TRUE);
 }
 
 /**
