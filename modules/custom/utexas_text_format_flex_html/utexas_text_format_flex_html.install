@@ -20,3 +20,12 @@ function utexas_text_format_flex_html_8101() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #975: Add "start" and "type" to allowed <ol> attributes for creation of nested ordered lists with CKEditor.
+ */
+function utexas_text_format_flex_html_8102() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}
