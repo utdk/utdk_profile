@@ -45,7 +45,7 @@ class UTexasPromoUnitElement extends FormElement {
       '#name' => 'image',
       '#title' => t('Image'),
       '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : 0,
-      '#description' => t('Image will be scaled and cropped to a 1:1 ratio. Ideally, upload an image of 170x170 pixels to maintain resolution & avoid cropping.'),
+      '#description' => t('Upload an image with aspect ratio appropriate to the view mode you select (see below). To accommodate high resolution screens, images should have dimensions of at least 440 pixels.'),
       '#upload_validators' => $validators,
       '#upload_location' => 'public://promo_unit_items/',
     ];
