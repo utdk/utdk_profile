@@ -63,6 +63,7 @@ class UTexasPromoListElement extends FormElement {
       ]),
       '#suppress_display' => TRUE,
     ];
+    $element['#attached']['library'][] = 'utexas_promo_list/promo-list-widget';
     return $element;
   }
 

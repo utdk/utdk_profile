@@ -1,5 +1,10 @@
-promo-lists:
+promo-list-formatter:
   version: 1.x
   css:
     theme:
-      css/promo-lists.css: {}
+      css/promo-list-formatter.css: {}
+promo-list-widget:
+  version: 1.x
+  css:
+    theme:
+      css/promo-list-widget.css: {}

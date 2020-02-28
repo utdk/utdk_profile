@@ -120,8 +120,8 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
             $instances[$key]['link'] = $url->toString();
           }
           $image_render_array = [];
-          $image = is_array($i['image']) ? $i['image'][0] : $i['image'];
-          if ($media = $this->entityTypeManager->getStorage('media')->load($image)) {
+          $image = isset($i['image']) ? $i['image'] : FALSE;
+          if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
             $media_attributes = $media->get('field_utexas_media_image')->getValue();
             $image_render_array = [];
             if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
@@ -157,7 +157,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
         '#wrapper' => '',
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_promo_list/promo-lists';
+    $elements['#attached']['library'][] = 'utexas_promo_list/promo-list-formatter';
     return $elements;
   }
 

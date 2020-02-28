@@ -94,6 +94,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
     $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
     $this->verifyNoDuplicateMenuBlocks();
+    $this->verifyPromoList();
     $this->verifyResources();
     $this->verifyImageLink();
     $this->verifyQuickLinks();
@@ -102,7 +103,6 @@ class CustomWidgetsTest extends WebDriverTestBase {
     $this->verifyFlexContentArea();
     $this->verifyPhotoContentArea();
     $this->verifyPromoUnit();
-    $this->verifyPromoList();
   }
 
 }
