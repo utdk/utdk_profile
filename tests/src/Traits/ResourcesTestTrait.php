@@ -14,7 +14,7 @@ trait ResourcesTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_resources');
-    $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-0');
+    $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
     $fieldset[0]->click();
 
     // Verify widget field schema.
@@ -36,6 +36,7 @@ trait ResourcesTestTrait {
     // Verify that multiple resource collections can be added.
     $page->pressButton('Add another collection');
     $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Show row weights');
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
@@ -44,12 +45,14 @@ trait ResourcesTestTrait {
     $this->submitForm([
       'info[0][value]' => 'Resources Test',
       'field_block_resources[0][headline]' => 'Resource Container Headline',
-      'field_block_resources[0][resource_items][0][item][headline]' => 'Resource 1 Headline',
-      'field_block_resources[0][resource_items][0][item][links][0][url]' => 'https://resource.test',
-      'field_block_resources[0][resource_items][0][item][links][0][title]' => 'Resource External Link',
-      'field_block_resources[0][resource_items][0][item][links][1][url]' => '/node',
-      'field_block_resources[0][resource_items][0][item][links][1][title]' => 'Resource Internal Link',
-      'field_block_resources[0][resource_items][1][item][headline]' => 'Resource 2 Headline',
+      'field_block_resources[0][resource_items][items][0][details][item][headline]' => 'Resource 1 Headline',
+      'field_block_resources[0][resource_items][items][0][details][item][links][0][url]' => 'https://resource.test',
+      'field_block_resources[0][resource_items][items][0][details][item][links][0][title]' => 'Resource External Link',
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][url]' => '/node',
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][title]' => 'Resource Internal Link',
+      'field_block_resources[0][resource_items][items][1][details][item][headline]' => 'Resource 2 Headline',
+      'field_block_resources[0][resource_items][items][0][weight]' => 1,
+      'field_block_resources[0][resource_items][items][1][weight]' => 0,
     ], 'Save');
     $assert->pageTextContains('Resources Resources Test has been created.');
 
@@ -62,8 +65,9 @@ trait ResourcesTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Resource Container Headline');
-    $assert->elementTextContains('css', 'h3.ut-headline', 'Resource 1 Headline');
-    $assert->pageTextContains('Resource 2 Headline');
+    // User-supplied weighting of resource items is respected.
+    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[1]/div/h3', 'Resource 2 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[2]/div[2]/h3', 'Resource 1 Headline');
     $assert->pageTextContains('Resource Internal Link');
     $assert->linkByHrefExists('https://resource.test');
     // Verify responsive image is present within the link.
