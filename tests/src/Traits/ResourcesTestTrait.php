@@ -84,6 +84,13 @@ trait ResourcesTestTrait {
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display div.ut-resources-wrapper');
 
+    // Reset block weighting system.
+    $this->drupalGet('/admin/structure/block/block-content');
+    $checkbox_selector = '.views-field-operations li.edit';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $page->pressButton('Hide row weights');
+
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/resourcestest/delete');
     $this->submitForm([], 'Remove');

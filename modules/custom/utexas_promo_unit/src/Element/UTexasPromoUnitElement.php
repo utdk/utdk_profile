@@ -67,7 +67,7 @@ class UTexasPromoUnitElement extends FormElement {
         'title' => $element['#default_value']['link']['title'] ?? '',
       ],
     ];
-
+    $element['#attached']['library'][] = 'utexas_promo_unit/promo-unit-widget';
     return $element;
   }
 

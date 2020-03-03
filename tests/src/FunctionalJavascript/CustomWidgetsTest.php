@@ -96,13 +96,13 @@ class CustomWidgetsTest extends WebDriverTestBase {
     $this->verifyNoDuplicateMenuBlocks();
     $this->verifyPromoList();
     $this->verifyResources();
+    $this->verifyPromoUnit();
     $this->verifyImageLink();
     $this->verifyQuickLinks();
     $this->verifyFeaturedHighlight();
     $this->verifyHero();
     $this->verifyFlexContentArea();
     $this->verifyPhotoContentArea();
-    $this->verifyPromoUnit();
   }
 
 }

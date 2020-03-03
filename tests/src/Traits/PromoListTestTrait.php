@@ -66,7 +66,6 @@ trait PromoListTestTrait {
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][headline]', 'List 2 item 1');
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 2 item 1');
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][url]', '/node/' . $basic_page_id);
-
     $page->pressButton('edit-submit');
     $assert->pageTextContains('Promo List Promo List Test has been created.');
 
@@ -125,6 +124,13 @@ trait PromoListTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display > div.utexas-promo-list-container > div.ut-promo-list-wrapper');
+
+    // Reset block weighting system.
+    $this->drupalGet('/admin/structure/block/block-content');
+    $checkbox_selector = '.views-field-operations li.edit';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $page->pressButton('Hide row weights');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promolisttest/delete');
