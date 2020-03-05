@@ -7,3 +7,4 @@ dependencies:
   - image
   - responsive_image
   - utexas_image_styles
+core_incompatible: false
