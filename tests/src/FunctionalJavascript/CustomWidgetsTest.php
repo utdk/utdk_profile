@@ -17,6 +17,7 @@ use Drupal\Tests\utexas\Traits\PromoUnitTestTrait;
 use Drupal\Tests\utexas\Traits\QuickLinksTestTrait;
 use Drupal\Tests\utexas\Traits\ResourcesTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
+use Drupal\Tests\utexas\Traits\LayoutBuilderIntegrationTestTrait;
 
 /**
  * Verifies custom compound field schema, validation, & output.
@@ -38,6 +39,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
   use ResourcesTestTrait;
   use TestFileCreationTrait;
   use UserTestTrait;
+  use LayoutBuilderIntegrationTestTrait;
 
   /**
    * Use the 'utexas' installation profile.
@@ -89,17 +91,18 @@ class CustomWidgetsTest extends WebDriverTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
-    $page = $this->getSession()->getPage();
+    $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
+    $this->verifyNoDuplicateMenuBlocks();
+    $this->verifyPromoList();
+    $this->verifyResources();
+    $this->verifyPromoUnit();
     $this->verifyImageLink();
     $this->verifyQuickLinks();
     $this->verifyFeaturedHighlight();
     $this->verifyHero();
-    $this->verifyResources();
     $this->verifyFlexContentArea();
     $this->verifyPhotoContentArea();
-    $this->verifyPromoUnit();
-    $this->verifyPromoList();
   }
 
 }

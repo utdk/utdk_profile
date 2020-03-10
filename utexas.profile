@@ -75,7 +75,7 @@ function utexas_install_demo_content(&$install_state) {
  */
 function utexas_install_cleanup(&$install_state) {
   // Remove default search entities.
-  $search_storage = \Drupal::entityManager()->getStorage('search_page');
+  $search_storage = \Drupal::entityTypeManager()->getStorage('search_page');
   $entities = $search_storage->loadMultiple(['node_search', 'user_search']);
   $search_storage->delete($entities);
   // Set default country and timezone after form completion.
@@ -84,10 +84,6 @@ function utexas_install_cleanup(&$install_state) {
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')
     ->save(TRUE);
-  // Ensure Flex Page Editor has any permissions installed after it.
-  \Drupal::service('features.manager')->import([
-    'utexas_role_flex_page_editor',
-  ], TRUE);
 }
 
 /**
@@ -248,4 +244,30 @@ function _utexas_install_header_content() {
     }
     $i++;
   }
+}
+
+/**
+ * Implements template_preprocess_form_element().
+ */
+function utexas_preprocess_form_element(&$variables) {
+  $field_types_to_affect = [
+    'checkbox',
+    'email',
+    'entity_autocomplete',
+    'link',
+    'managed_file',
+    'number',
+    'radio',
+    'select',
+    'textarea',
+    'textfield',
+  ];
+  if (in_array($variables['element']['#type'], $field_types_to_affect)) {
+    // Position Form API field descriptions directly below their field labels.
+    // Note: we should consider removing & replacing this if and when
+    // https://www.drupal.org/node/2318757 becomes available.
+    $variables['description_display'] = 'before';
+  }
+  // Known fields that are not compatible with the `description_display`
+  // setting: date, link, item, Media Library, textarea with text format.
 }

@@ -14,7 +14,6 @@ trait FlexHTMLTestTrait {
    */
   public function verifyQualtricsFilterOutput() {
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
     // Create node object with Qualtrics embed syntax.
     $node = Node::create([
       'type'        => 'page',

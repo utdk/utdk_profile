@@ -2,7 +2,7 @@ name: UTexas
 type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
 core: 8.x
-version: '3.0.0-beta.3'
+version: '3.0.0-beta.4'
 distribution:
   name: UTexas
 dependencies:
@@ -49,6 +49,7 @@ install:
   - layout_builder_styles
   - media_library_theme_reset
   - metatag
+  - metatag_twitter_cards
   - menu_block
   - pathauto
   - page_title_visibility

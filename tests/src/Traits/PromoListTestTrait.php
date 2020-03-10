@@ -11,6 +11,9 @@ trait PromoListTestTrait {
    * Verify promo unit widget schema & output.
    */
   public function verifyPromoList() {
+    // Enlarge the viewport so that all Promo Lists are clickable.
+    $this->getSession()->resizeWindow(1200, 3000);
+
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_list');
@@ -31,32 +34,39 @@ trait PromoListTestTrait {
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $assert->assertWaitOnAjaxRequest();
 
-    // Verify the custom "Add promo list item" button works.
-    $page->pressButton('Add promo list item');
+    // Verify the custom "Add Promo List item" button works.
+    $page->pressButton('Add Promo List item');
     $assert->assertWaitOnAjaxRequest();
 
-    // Verify multiple lists can be added.
-    // Verify that multiple resource collections can be added.
+    // Multiple Promo List collections can be added.
     $page->pressButton('Add another item');
     $assert->assertWaitOnAjaxRequest();
 
+    // Multiple list items can be added.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
+    $page->pressButton('Show row weights');
+    $basic_page_id = $this->createBasicPage();
 
-    $this->submitForm([
-      'info[0][value]' => 'Promo List Test',
-      'field_block_pl[0][headline]' => 'Promo List 1 Headline',
-      'field_block_pl[0][promo_list_items][0][item][headline]' => 'List 1 item 1',
-      'field_block_pl[0][promo_list_items][1][item][headline]' => 'List 1 item 2',
-      'field_block_pl[0][promo_list_items][0][item][copy][value]' => 'Copy text for list 1 item 1',
-      'field_block_pl[0][promo_list_items][0][item][link][url]' => 'https://promolist.test',
-      'field_block_pl[1][headline]' => 'Promo List 2 Headline',
-      'field_block_pl[1][promo_list_items][0][item][headline]' => 'List 2 item 1',
-      'field_block_pl[1][promo_list_items][0][item][copy][value]' => 'Copy text for list 2 item 1',
-      'field_block_pl[1][promo_list_items][0][item][link][url]' => '/node/1',
-    ], 'Save');
+    $page->fillField('edit-info-0-value', 'Promo List Test');
+    $page->fillField('field_block_pl[0][headline]', 'Promo List 1 Headline');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 2');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 1 item 1');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][url]', 'https://promolist.test');
+
+    // Use weighting fields to reverse the order of Promo List items 1 & 2.
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][weight]', '1');
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][weight]', '0');
+
+    // Populate Promo List collection #2.
+    $page->fillField('field_block_pl[1][headline]', 'Promo List 2 Headline');
+    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][headline]', 'List 2 item 1');
+    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 2 item 1');
+    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][url]', '/node/' . $basic_page_id);
+    $page->pressButton('edit-submit');
     $assert->pageTextContains('Promo List Promo List Test has been created.');
 
     // Place Block in "Content" region on all pages.
@@ -67,20 +77,23 @@ trait PromoListTestTrait {
     $assert->pageTextContains('The block configuration has been saved.');
 
     $this->drupalGet('<front>');
-    // Verify page output.
+
+    // Promo List items 1 & 2 have been reordered.
+    $assert->elementTextContains('css', '#block-promolisttest div.promo-list:nth-child(1) h3.ut-headline', 'List 1 item 2');
+    $assert->elementTextContains('css', '#block-promolisttest div.promo-list:nth-child(2) h3.ut-headline', 'List 1 item 1');
+
+    // Other input is present.
     $assert->elementTextContains('css', '#block-promolisttest div div:nth-child(1) h3.ut-headline--underline', 'Promo List 1 Headline');
     $assert->elementTextContains('css', '#block-promolisttest div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
-    $assert->pageTextContains('List 1 item 2');
-    $assert->pageTextContains('List 2 item 1');
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
     $assert->linkByHrefExists('https://promolist.test');
-    $assert->linkByHrefExists('node/1');
+    $assert->linkByHrefExists('test-basic-page');
 
     // Verify responsive image is present within the link.
-    $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(1) a picture source');
+    $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a picture source');
     $expected_path = 'utexas_image_style_64w_64h/public/image-test.png';
-    $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(1) a[href^="https://promolist.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a[href^="https://promolist.test"] picture img', 'src', $expected_path);
 
     // Set display to "Responsive".
     $this->drupalGet('admin/structure/block/manage/promolisttest');
@@ -112,9 +125,22 @@ trait PromoListTestTrait {
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display > div.utexas-promo-list-container > div.ut-promo-list-wrapper');
 
+    // Reset block weighting system.
+    $this->drupalGet('/admin/structure/block/block-content');
+    $checkbox_selector = '.views-field-operations li.edit';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $page->pressButton('Hide row weights');
+
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promolisttest/delete');
     $this->submitForm([], 'Remove');
+    // Remove test page.
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $storage_handler->delete($entities);
+    // Reset to the standard window width.
+    $this->getSession()->resizeWindow(900, 2000);
   }
 
 }

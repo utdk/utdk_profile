@@ -34,4 +34,3 @@ function utexas_block_social_links_install() {
       ->save();
   }
 }
-

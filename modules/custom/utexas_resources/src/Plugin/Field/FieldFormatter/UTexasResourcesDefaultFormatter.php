@@ -114,7 +114,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
           }
           // Initialize image render array as false in case images aren't found.
           $image_render_array = FALSE;
-          if ($media = $this->entityTypeManager->getStorage('media')->load($i['image'])) {
+          if (!empty($i['image']) && $media = $this->entityTypeManager->getStorage('media')->load($i['image'])) {
             $media_attributes = $media->get('field_utexas_media_image')->getValue();
             $image_render_array = [];
             if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
@@ -175,7 +175,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
         '#resource_items' => $instances,
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_resources/resources';
+    $elements['#attached']['library'][] = 'utexas_resources/resources-formatter';
     return $elements;
 
   }

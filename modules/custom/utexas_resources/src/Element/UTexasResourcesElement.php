@@ -12,7 +12,7 @@ use Drupal\Component\Utility\NestedArray;
  *
  * @FormElement("utexas_resource")
  */
-class UtexasResourcesElement extends FormElement {
+class UTexasResourcesElement extends FormElement {
 
   /**
    * {@inheritdoc}
@@ -49,18 +49,17 @@ class UtexasResourcesElement extends FormElement {
     // Retrieve the form element that is using this widget.
     // The structure of $element['#parents'] will be similar to:
     // [0] => field_MACHINE_NAME
-    // [1] => 0
-    // [2] => resource_items
-    // [3] => 0
-    // [4] => item
-    // ... where [1] is the field delta and [3] is the resource item delta.
+    // [1] => 0 (variable counter for field cardinality)
+    // [2] => 'resource_items' (static placeholder)
+    // [3] => 'items' (static placeholder)
+    // [4] => 0 (variable counter for resource item delta)
+    // [5] => 'item' (static placeholder)
+    // ... where [1] is the field delta and [4] is the resource item delta.
     $field_name = $element['#parents'][0];
     $field_delta = $element['#parents'][1];
-    $resource_delta = $element['#parents'][3];
+    $resource_delta = $element['#parents'][4];
     $parents = [$field_name];
-
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
-
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
     $link_count = $widget_state[$field_name][$field_delta][$resource_delta]["counter"] ?? NULL;
 
@@ -113,6 +112,7 @@ class UtexasResourcesElement extends FormElement {
         'wrapper' => $wrapper_id,
       ],
     ];
+    $element['#attached']['library'][] = 'utexas_resources/resources-widget';
 
     return $element;
   }
@@ -134,7 +134,7 @@ class UtexasResourcesElement extends FormElement {
     // The field_delta will be the last (nearest) element in the #parents array.
     $field_name = $element['#parents'][0];
     $field_delta = $element['#parents'][1];
-    $resource_delta = $element['#parents'][3];
+    $resource_delta = $element['#parents'][4];
 
     // The field_name will be the penultimate element in the #parents array.
     $parents = [$field_name];

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains install and update functions for the UTexas Block Required Links module.
+ * Contains install and update functions for UTexas Block Required Links.
  */
 
 /**
@@ -11,4 +11,3 @@
 function utexas_block_required_links_install() {
   drupal_set_installed_schema_version('utexas_block_required_links', '8100');
 }
-

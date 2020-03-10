@@ -20,7 +20,7 @@ use Drupal\Component\Utility\Html;
  * @Block(
  *   id = "utexas_announcement",
  *   admin_label = @Translation("Site Announcement"),
- *   category = @Translation("utexas")
+ *   category = @Translation("UTexas")
  * )
  */
 class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInterface {

@@ -50,18 +50,18 @@ trait UserTestTrait {
   protected function initializeContentEditor() {
     $this->testUser = $this->drupalCreateUser();
     $testUser = user_load_by_name($this->testUser->getAccountName());
-    $testUser->addRole('utexas_role_content_editor');
+    $testUser->addRole('utexas_content_editor');
     $testUser->save();
     $this->drupalLogin($this->testUser);
   }
 
-   /**
+  /**
    * Create a user with Site Manager specific role.
    */
   protected function initializeSiteManager() {
     $this->testUser = $this->drupalCreateUser();
     $testUser = user_load_by_name($this->testUser->getAccountName());
-    $testUser->addRole('utexas_role_site_manager');
+    $testUser->addRole('utexas_site_manager');
     $testUser->save();
     $this->drupalLogin($this->testUser);
   }

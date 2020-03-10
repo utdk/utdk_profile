@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FormElement("utexas_promo_list")
  */
-class UtexasPromoListElement extends FormElement {
+class UTexasPromoListElement extends FormElement {
 
   /**
    * {@inheritdoc}
@@ -63,6 +63,7 @@ class UtexasPromoListElement extends FormElement {
       ]),
       '#suppress_display' => TRUE,
     ];
+    $element['#attached']['library'][] = 'utexas_promo_list/promo-list-widget';
     return $element;
   }
 

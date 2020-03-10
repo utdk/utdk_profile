@@ -191,6 +191,32 @@ class BackgroundAccentTest extends WebDriverTestBase {
     // Verify rendering of only one color.
     $this->verifyBgColor('56544e', $color_palette['56544e'], $assert, $page);
 
+    // White background is added automatically when a menu block is placed.
+    $this->clickLink('Add block');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Main navigation');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Add block');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Save layout');
+    $assert->assertWaitOnAjaxRequest();
+    $this->createScreenshot('foo.png');
+    $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent nav").css("background-color")');
+    $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
+
+    // White background is added automatically when a generic block is placed.
+    $this->clickLink('Layout');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Add block');
+    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Recent content');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Add block');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Save layout');
+    $assert->assertWaitOnAjaxRequest();
+    $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent div.block").css("background-color")');
+    $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
   }
 
   /**

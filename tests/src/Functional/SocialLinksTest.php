@@ -75,7 +75,7 @@ class SocialLinksTest extends BrowserTestBase {
     $page = $this->getSession()->getPage();
     $social_link_options = $page->findAll('css', '#edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-name option');
     $options = [];
-    foreach ($social_link_options as $key => $option) {
+    foreach (array_values($social_link_options) as $option) {
       $options[] = $option->getValue();
     }
     $available_icons = [
@@ -152,7 +152,7 @@ class SocialLinksTest extends BrowserTestBase {
 
     // Go back and change icon.
     $svgFile2FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/location.svg');
-    $svgFile2Markup = Markup::create($svgFile2FileContents);
+    Markup::create($svgFile2FileContents);
 
     // Edit the existing custom Social Network test network.
     $this->drupalGet('/admin/structure/social-links/test/edit');

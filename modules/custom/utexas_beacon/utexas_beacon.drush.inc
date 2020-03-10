@@ -10,13 +10,13 @@
  */
 function utexas_beacon_drush_command() {
   $items = [];
-  $items['beacon-info'] = array(
+  $items['beacon-info'] = [
     'description' => "Get site information digest",
     'examples' => [
       'drush beacon-info',
     ],
-    'aliases' => array('utb'),
-  );
+    'aliases' => ['utb'],
+  ];
   return $items;
 }
 

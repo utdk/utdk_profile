@@ -21,3 +21,28 @@ function utexas_layouts_preprocess_layout(&$variables) {
 function utexas_layouts_preprocess_page(&$variables) {
   $variables['#attached']['library'][] = 'utexas_layouts/layout_builder_ui';
 }
+
+/**
+ * Implements hook_plugin_filter_TYPE_alter().
+ *
+ * Suppress display of system blocks in Block Library & Layout Builder
+ * when menu_blocks equivalents are present.
+ */
+function utexas_layouts_plugin_filter_block_alter(array &$definitions, array $extra, $consumer) {
+  if (in_array($consumer, ['block_ui', 'layout_builder'])) {
+    foreach ($definitions as $id => $definition) {
+      // Is this a core-provided menu block?
+      if ($definition['provider'] === 'system' && strpos($id, 'system_menu_block:') !== FALSE) {
+        // Extract the machine name of the menu.
+        $split_system_block_name = explode(':', $id);
+        // Generate the menu_block equivalent key to compare.
+        $menu_block_name = 'menu_block:' . $split_system_block_name[1];
+        // If a menu_block equivalent exists, suppress the core menu from
+        // being displayed as an available option.
+        if (array_search($menu_block_name, array_keys($definitions)) !== FALSE) {
+          unset($definitions[$id]);
+        }
+      }
+    }
+  }
+}

@@ -171,7 +171,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     foreach ($values as $delta => $wrapper) {
       $value = $wrapper['flex_content_area'];
       if (empty($value['image'])) {
-        // A null media value should be saved as 0
+        // A null media value should be saved as 0.
         $value['image'] = 0;
       }
       // Links are stored as a serialized array.

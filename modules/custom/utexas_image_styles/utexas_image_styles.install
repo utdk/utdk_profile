@@ -6,8 +6,10 @@
  */
 
 /**
- * Implements hook_install().
+ * Issue #986: Add new image style for consistent square aspect ratio - width and height both 500px.
  */
-function utexas_image_styles_install() {
-  drupal_set_installed_schema_version('utexas_image_styles', '8100');
+function utexas_image_styles_update_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_image_styles',
+  ], TRUE);
 }

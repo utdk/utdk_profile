@@ -31,12 +31,12 @@ class UTexasResourcesWidget extends WidgetBase {
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]->headline) ? $items[$delta]->headline : NULL,
       '#size' => '60',
-      '#description' => $this->t('Optionally add a title for the collection of resources.'),
+      '#description' => $this->t('Optionally add a title for these resource collections.'),
       '#maxlength' => 255,
     ];
 
     // Gather the number of links in the form already.
-    $items = unserialize($items[$delta]->resource_items);
+    $items = !empty($items[$delta]->resource_items) ? unserialize($items[$delta]->resource_items) : [];
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
@@ -53,26 +53,10 @@ class UTexasResourcesWidget extends WidgetBase {
       $widget_state[$field_name][$delta]["counter"] = $item_count;
       static::setWidgetState($parents, $field_name, $form_state, $widget_state);
     }
+    $element['resource_items'] = $this->buildDraggableItems($items, $item_count);
     $wrapper_id = Html::getUniqueId('ajax-wrapper');
     $element['resource_items']['#prefix'] = '<div id="' . $wrapper_id . '">';
     $element['resource_items']['#suffix'] = '</div>';
-    for ($i = 0; $i < $item_count; $i++) {
-      $element['resource_items'][$i] = [
-        '#type' => 'details',
-        '#title' => $this->t('Resource item %number', ['%number' => $i + 1]),
-      ];
-      $element['resource_items'][$i]['item'] = [
-        '#type' => 'utexas_resource',
-        '#default_value' => [
-          'headline' => $items[$i]['item']['headline'] ?? '',
-          'image' => $items[$i]['item']['image'] ?? '',
-          'links' => $items[$i]['item']['links'] ?? FALSE,
-        ],
-      ];
-    }
-    // We limit form validation so that other elements are not validated
-    // during this submit button's refresh action. See
-    // See https://www.drupal.org/project/drupal/issues/2476569
     $element['resource_items']['actions']['add'] = [
       '#type' => 'submit',
       '#name' => $field_name . $delta,
@@ -89,44 +73,120 @@ class UTexasResourcesWidget extends WidgetBase {
   }
 
   /**
+   * Create a tabledrag container for all resource items.
+   *
+   * @param array $items
+   *   Any stored resource items.
+   * @param int $item_count
+   *   Items to be populated. Will change on ajax submit for add more.
+   *
+   * @return array
+   *   A render array of a draggable table of items.
+   */
+  protected function buildDraggableItems(array $items, $item_count) {
+    $group_class = 'group-order-weight';
+    // Build table.
+    $form['items'] = [
+      '#type' => 'table',
+      '#header' => [
+        $this->t('Resource collections'),
+        $this->t('Weight'),
+      ],
+      '#empty' => $this->t('No collections.'),
+      '#tableselect' => FALSE,
+      '#tabledrag' => [
+        [
+          'action' => 'order',
+          'relationship' => 'sibling',
+          'group' => $group_class,
+        ],
+      ],
+    ];
+
+    // Build rows.
+    for ($i = 0; $i < $item_count; $i++) {
+      $form['items'][$i]['#attributes']['class'][] = 'draggable';
+      $form['items'][$i]['#weight'] = $i;
+
+      // Label column.
+      $form['items'][$i]['details'] = [
+        '#type' => 'details',
+        '#title' => $this->t('Resource collection %number %headline', [
+          '%number' => $i + 1,
+          '%headline' => isset($items[$i]['item']['headline']) ? '(' . $items[$i]['item']['headline'] . ')' : '',
+        ]),
+      ];
+      $form['items'][$i]['details']['item'] = [
+        '#type' => 'utexas_resource',
+        '#default_value' => [
+          'headline' => $items[$i]['item']['headline'] ?? '',
+          'image' => $items[$i]['item']['image'] ?? '',
+          'links' => $items[$i]['item']['links'] ?? FALSE,
+        ],
+      ];
+      // Weight column.
+      $form['items'][$i]['weight'] = [
+        '#type' => 'weight',
+        '#title' => $this->t('Weight for Resource item @key', ['@key' => $i]),
+        '#title_display' => 'invisible',
+        '#default_value' => $i,
+        '#attributes' => ['class' => [$group_class]],
+      ];
+    }
+    return $form;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    // This loop is through field instances (not link instances).
-    foreach ($values as &$value) {
-      // Links are stored as a serialized array.
-      if (!empty($value['resource_items'])) {
-        foreach ($value['resource_items'] as $key => $item) {
-          if (!isset($item['item'])) {
-            unset($value['resource_items'][$key]);
-            continue;
+    $storage = [];
+    // Loop through field deltas. In fields with 1 resource field allowed,
+    // there will only be one delta. We nevertheless need to support unlimited
+    // cardinality, hence the loop.
+    foreach ($values as $delta => $field) {
+      if (isset($field['headline'])) {
+        // The overall group headline.
+        $storage[$delta]['headline'] = $field['headline'];
+      }
+      if (isset($field['resource_items'])) {
+        // Re-sort by the order provided by tabledrag.
+        usort($field['resource_items']['items'], function ($item1, $item2) {
+          return $item1['weight'] <=> $item2['weight'];
+        });
+        foreach ($field['resource_items']['items'] as $weight => $item) {
+          $elements = $item['details']['item'];
+          $storage[$delta]['resource_items'][$weight]['item'] = [];
+          if (!empty($elements['headline'])) {
+            $storage[$delta]['resource_items'][$weight]['item']['headline'] = $elements['headline'];
           }
-          unset($value['resource_items'][$key]['item']['links']['actions']);
-          foreach ($item['item']['links'] as $delta => $link) {
-            if (empty($link['url']) || $link['url'] == '') {
-              unset($item['item']['links'][$delta]);
+          if (!empty($elements['image'])) {
+            $storage[$delta]['resource_items'][$weight]['item']['image'] = $elements['image'];
+          }
+          if (isset($elements['links'])) {
+            foreach ($elements['links'] as $link) {
+              if (!empty($link['url']) && !$link['url'] == '') {
+                $storage[$delta]['resource_items'][$weight]['item']['links'][] = $link;
+              }
             }
           }
-          if (empty($item['item']['headline'])
-            && $item['item']['image'] == 0
-            && empty($item['item']['links'])) {
-            // Remove empty resource items.
-            unset($value['resource_items'][$key]);
+          // Remove empty collections
+          // (i.e., user has manually emptied the field contents).
+          if (empty($storage[$delta]['resource_items'][$weight]['item'])) {
+            unset($storage[$delta]['resource_items'][$weight]);
           }
-          else {
-            $value['resource_items'][$key]['item']['image'] = $item['item']['image'] ?? 0;
-          }
-        }
-        if (!empty($value['resource_items'])) {
-          $value['resource_items'] = serialize($value['resource_items']);
-        }
-        else {
-          unset($value['resource_items']);
         }
       }
+      // If no Resource collections have been added, remove the empty array.
+      if (empty($storage[$delta]['resource_items'])) {
+        unset($storage[$delta]['resource_items']);
+      }
+      else {
+        // Resource items are stored in a serialized array.
+        $storage[$delta]['resource_items'] = serialize($storage[$delta]['resource_items']);
+      }
     }
-
-    return $values;
+    return $storage;
   }
 
   /**

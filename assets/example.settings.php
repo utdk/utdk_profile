@@ -13,9 +13,9 @@ $settings['container_yamls'][] = __DIR__ . '/services.yml';
 /**
  * Place the config directory outside of the Drupal root.
  */
-$config_directories = array(
+$config_directories = [
   CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
-);
+];
 
 /**
  * If there is a local settings file, then include it.

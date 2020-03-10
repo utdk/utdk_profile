@@ -117,6 +117,11 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             else {
               $link_title = $i['link']['title'];
             }
+            // Convert the headline to a link, if present.
+            if (!empty($i['headline'])) {
+              $headline_url = Url::fromUri($i['link']['url']);
+              $instances[$key]['headline'] = Link::fromTextAndUrl($i['headline'], $headline_url);
+            }
             $link_options = [
               'attributes' => [
                 'class' => [
@@ -129,7 +134,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             $instances[$key]['link'] = $link;
           }
           if (!empty($i['image'])) {
-            $image = is_array($i['image']) ? $i['image'][0] : $i['image'];
+            $image = isset($i['image']) ? $i['image'] : FALSE;
             $responsive_image_style_name = 'utexas_responsive_image_pu_landscape';
             $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $i['link']['url'], $cache_tags);
           }
@@ -141,7 +146,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
         '#promo_unit_items' => $instances,
         '#image_display' => 'landscape-image',
       ];
-      $elements[$delta]['#attached']['library'][] = 'utexas_promo_unit/promo-units';
+      $elements[$delta]['#attached']['library'][] = 'utexas_promo_unit/promo-unit-formatter';
     }
     return $elements;
 
@@ -172,7 +177,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
   protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url, $cache_tags) {
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
-    if ($media = $this->entityTypeManager->getStorage('media')->load($image)) {
+    if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
       $media_attributes = $media->get('field_utexas_media_image')->getValue();
       if (!empty($link_url)) {
         $link = Url::fromUri($link_url);

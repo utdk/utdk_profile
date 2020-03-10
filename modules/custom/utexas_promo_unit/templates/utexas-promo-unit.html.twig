@@ -27,14 +27,8 @@
       </div>
     {% endif %}
     <div class="data-wrapper">
-      {% if item.headline and item.link %}
-        <h3 class="ut-headline">
-          <a href="{{ item.link.url.uri }}">{{ item.headline }}</a>
-        </h3>
-        {% else %}
-        <h3 class="ut-headline">
-          {{ item.headline }}
-        </h3>
+      {% if item.headline %}
+        <h3 class="ut-headline">{{ item.headline }}</h3>
       {% endif %}
       {% if item.copy %}
         {{ item.copy }}

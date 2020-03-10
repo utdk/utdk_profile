@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Builds the form to delete UTexas Announcement Icon entities.
  */
-class UtexasAnnouncementIconDeleteForm extends EntityConfirmFormBase {
+class UTexasAnnouncementIconDeleteForm extends EntityConfirmFormBase {
 
   use MessengerTrait;
 

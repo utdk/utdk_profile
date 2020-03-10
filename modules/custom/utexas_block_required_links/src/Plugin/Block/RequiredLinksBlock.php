@@ -9,6 +9,7 @@ use Drupal\Core\Block\BlockBase;
  *
  * @Block(
  *  id = "required_links_block",
+ *  category = @Translation("UTexas"),
  *  admin_label = @Translation("Required Links Block"),
  * )
  */

@@ -13,7 +13,6 @@ trait QuickLinksTestTrait {
   public function verifyQuickLinks() {
     $assert = $this->assertSession();
     $basic_page_id = $this->createBasicPage();
-    $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_quick_links');
     // Add the Quick Links block type.
     $this->getSession()->getPage()->find('css', '#edit-field-block-ql-0-links-actions-add-link')->click();
@@ -40,7 +39,7 @@ trait QuickLinksTestTrait {
     // Verify Quick Links link, delta 0, is present, and is an external link.
     $this->assertRaw('<a href="https://tylerfahey.com" class="ut-link">Quick Links Link!</a>');
     // Verify Quick Links link, delta 1, is present, and is an internal link.
-    $this->assertRaw('<a href="/node/' . $basic_page_id . '" class="ut-link">Quick Links Link Number 2!</a>');
+    $this->assertRaw('<a href="/test-basic-page" class="ut-link">Quick Links Link Number 2!</a>');
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/quicklinkstest/delete');
     $this->submitForm([], 'Remove');

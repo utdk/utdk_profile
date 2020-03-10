@@ -80,7 +80,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
         unset($value['date']);
       }
       if (empty($value['media'])) {
-        // A null media value should be saved as 0
+        // A null media value should be saved as 0.
         $value['media'] = 0;
       }
       if (isset($value['cta_wrapper']['link']['url'])) {

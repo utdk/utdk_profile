@@ -12,7 +12,6 @@ trait FlexPageRevisionsTestTrait {
    */
   public function verifyRevisioning() {
     // Generate a test node for testing that revisions can be accessed.
-    $basic_page_id = $this->createBasicPage();
     $this->assertAllowed("/node/add/utexas_flex_page");
     // // 1. Add Node title and revision information.
     $edit = [
