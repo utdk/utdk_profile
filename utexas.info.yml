@@ -37,6 +37,7 @@ install:
   - page_cache
   # Contrib
   - adminimal_admin_toolbar
+  - admin_toolbar_links_access_filter
   - breadcrumbs_visibility
   - ckeditorheight
   - features
