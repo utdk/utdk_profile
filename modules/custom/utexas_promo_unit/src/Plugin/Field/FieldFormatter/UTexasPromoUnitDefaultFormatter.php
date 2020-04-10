@@ -128,7 +128,6 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             if (!empty($i['headline'])) {
               $headline_url = Url::fromUri($i['link']['url']);
               $headline_url->setOptions($link_options);
-              ksm($headline_url);
               $instances[$key]['headline'] = Link::fromTextAndUrl($i['headline'], $headline_url);
             }
             $link_url->setOptions($link_options);
