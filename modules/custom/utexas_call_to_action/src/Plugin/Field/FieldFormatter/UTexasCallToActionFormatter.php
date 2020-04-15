@@ -13,7 +13,7 @@ use Drupal\Core\Url;
  *   id = "utexas_call_to_action_formatter",
  *   label = @Translation("UTexas Call to Action"),
  *   field_types = {
- *     "link"
+ *     "utexas_link_element"
  *   }
  * )
  */

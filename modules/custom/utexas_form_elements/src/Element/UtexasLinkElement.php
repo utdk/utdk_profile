@@ -5,6 +5,7 @@ namespace Drupal\utexas_form_elements\Element;
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Defines an element for a single link + title field.
@@ -44,6 +45,29 @@ class UtexasLinkElement extends FormElement {
       '#process_default_value' => FALSE,
       '#description' => $element['#description'] ?? '',
     ];
+    $targets_available = [
+      '_blank' => 'Open in new window',
+    ];
+    $default_value = !empty($element['#default_value']['options']['attributes']['target']) ? $element['#default_value']['options']['attributes']['target'] : [];
+    $element['options']['attributes']['target'] = [
+      '#type' => 'checkboxes',
+      '#title' => t('Link Behavior'),
+      '#options' => $targets_available,
+      '#default_value' => $default_value,
+    ];
+    $targets_available = [
+      'lock-icon' => 'Lock icon (i.e., "authentication required")',
+      'external-link' => 'Outbound link',
+      'ut-btn' => 'Button link',
+      'ut-link--darker' => "Dark burnt orange link",
+    ];
+    $default_value = !empty($element['#default_value']['options']['attributes']['class']) ? $element['#default_value']['options']['attributes']['class'] : [];
+    $element['options']['attributes']['class'] = [
+      '#type' => 'checkboxes',
+      '#title' => t('Link Display'),
+      '#options' => $targets_available,
+      '#default_value' => $default_value,
+    ];
 
     $element['title'] = [
       '#type' => 'textfield',
@@ -54,6 +78,35 @@ class UtexasLinkElement extends FormElement {
     $element['#attached']['library'][] = 'utexas_form_elements/link-element';
 
     return $element;
+  }
+
+  /**
+   * Builds the \Drupal\Core\Url object for a link field item.
+   *
+   * @param \Drupal\core\Url $url
+   *   A Drupal core Url object.
+   * @param array $options
+   *   Contains a 'target' and 'class' array.
+   *
+   * @return \Drupal\Core\Url
+   *   A Url object.
+   */
+  public static function buildUrl(Url $url, array $options = []) {
+    $options += $url->getOptions();
+    // Add optional 'target' attribute to link options.
+    if (!empty($options['classes'])) {
+      foreach ($options['classes'] as $key => $value) {
+        if ($value != '') {
+          $options['attributes']['classes'][] = $key;
+        }
+      }
+    }
+    // Add optional 'target' attribute to link options.
+    if (!empty($options['target'])) {
+      $options['attributes']['target'] = $options['target'];
+    }
+    $url->setOptions($options);
+    return $url;
   }
 
   /**
