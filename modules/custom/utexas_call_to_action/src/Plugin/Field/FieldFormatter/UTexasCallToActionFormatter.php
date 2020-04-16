@@ -33,9 +33,13 @@ class UTexasCallToActionFormatter extends FormatterBase {
       ];
       $element[$delta]['#url'] = $url;
 
-      $classes = ['ut-btn', 'button'];
-      $classes[] = isset($item->getValue()['options']['attributes']['class']) ? $item->getValue()['options']['attributes']['class'] : '';
-      $element[$delta]['#options'] += ['attributes' => ['class' => $classes]];
+      $icon_object = $item->getValue();
+      if (isset($icon_object['options']['attributes']['class'])) {
+        // Cast into array to comply with Drupal link options syntax.
+        $icon_object['options']['attributes']['class'] = [$icon_object['options']['attributes']['class']];
+      }
+      $element[$delta]['#options']['attributes'] = isset($icon_object['options']['attributes']) ? $icon_object['options']['attributes'] : ['class' => []];
+      $element[$delta]['#options']['attributes']['class'] += ['button', 'ut-btn'];
     }
     return $element;
   }
