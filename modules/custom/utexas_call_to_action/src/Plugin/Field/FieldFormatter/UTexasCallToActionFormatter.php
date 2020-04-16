@@ -13,7 +13,7 @@ use Drupal\Core\Url;
  *   id = "utexas_call_to_action_formatter",
  *   label = @Translation("UTexas Call to Action"),
  *   field_types = {
- *     "utexas_link_element"
+ *     "link"
  *   }
  * )
  */
@@ -32,7 +32,10 @@ class UTexasCallToActionFormatter extends FormatterBase {
         '#options' => [],
       ];
       $element[$delta]['#url'] = $url;
-      $element[$delta]['#options'] += ['attributes' => ['class' => ['ut-btn', 'button']]];
+
+      $classes = ['ut-btn', 'button'];
+      $classes[] = isset($item->getValue()['options']['attributes']['class']) ? $item->getValue()['options']['attributes']['class'] : '';
+      $element[$delta]['#options'] += ['attributes' => ['class' => $classes]];
     }
     return $element;
   }
