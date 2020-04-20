@@ -25,13 +25,15 @@ class UTexasCallToActionFormatter extends LinkFormatter {
     // Load items and append cta button classes before link conversion.
     foreach ($items as $delta => $item) {
       $cta_values = $item->getValue();
+      $link_classes = [
+        'button',
+        'ut-btn',
+      ];
       if (isset($cta_values['options']['attributes']['class'])) {
-        $cta_values['options']['attributes']['class'] .= ' button ut-btn';
+        // Append any existing class to the classes that should be rendered.
+        $link_classes[] = $cta_values['options']['attributes']['class'];
       }
-      // If link has no options array, use _attributes to attach classes.
-      else {
-        $cta_values['_attributes']['class'] = 'button ut-btn';
-      }
+      $cta_values['options']['attributes']['class'] = $link_classes;
       $items[$delta]->setValue($cta_values);
     }
     // Call Link viewElements method to convert CTA into link with our classes.
