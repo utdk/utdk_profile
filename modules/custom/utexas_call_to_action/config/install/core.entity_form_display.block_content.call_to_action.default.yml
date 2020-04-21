@@ -17,7 +17,7 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-    type: link_default
+    type: utexas_link_widget
     region: content
   info:
     type: string_textfield

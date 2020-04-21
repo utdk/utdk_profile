@@ -10,6 +10,7 @@ dependencies:
   - link
   - text
   - utexas_call_to_action
+  - utexas_form_elements
 version: 8.x-1.0
 package: UTexas
 core_incompatible: false
