@@ -17,3 +17,10 @@ function utexas_form_elements_theme($existing, $type, $theme, $path) {
   ];
   return $variables;
 }
+
+/**
+ * Implements hook_field_widget_info_alter().
+ */
+function utexas_form_elements_field_widget_info_alter(array &$definitions) {
+  $definitions['options_buttons']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\OptionsButtonsWidget';
+}
