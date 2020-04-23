@@ -22,5 +22,12 @@ function utexas_form_elements_theme($existing, $type, $theme, $path) {
  * Implements hook_field_widget_info_alter().
  */
 function utexas_form_elements_field_widget_info_alter(array &$definitions) {
+  // Alter "Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsButtonsWidget".
   $definitions['options_buttons']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\OptionsButtonsWidget';
+  // Alter "Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsSelectWidget".
+  $definitions['options_select']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\OptionsSelectWidget';
+  // Alter "Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget".
+  $definitions['entity_reference_autocomplete']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget';
+  // Alter "Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteTagsWidget".
+  $definitions['entity_reference_autocomplete_tags']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\EntityReferenceAutocompleteTagsWidget';
 }

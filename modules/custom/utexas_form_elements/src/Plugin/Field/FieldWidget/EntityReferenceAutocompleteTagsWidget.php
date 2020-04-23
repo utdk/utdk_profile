@@ -4,26 +4,23 @@ namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsButtonsWidget as BaseOptionsButtonsWidget;
+use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteTagsWidget as BaseAutocompleteWidget;
 use Drupal\utexas_form_elements\Traits\TaxonomyDescriptionTrait;
 
 /**
- * Alters the default 'options_buttons' widget.
+ * Alters the default 'entity_reference_autocomplete_tags' widget.
  *
  * @FieldWidget(
- *   id = "options_buttons",
- *   label = @Translation("Check boxes/radio buttons"),
+ *   id = "entity_reference_autocomplete_tags",
+ *   label = @Translation("Autocomplete (Tags style)"),
+ *   description = @Translation("An autocomplete text field with tagging support."),
  *   field_types = {
- *     "boolean",
- *     "entity_reference",
- *     "list_integer",
- *     "list_float",
- *     "list_string",
+ *     "entity_reference"
  *   },
  *   multiple_values = TRUE
  * )
  */
-class OptionsButtonsWidget extends BaseOptionsButtonsWidget {
+class EntityReferenceAutocompleteTagsWidget extends BaseAutocompleteWidget {
 
   use TaxonomyDescriptionTrait;
 
@@ -35,7 +32,7 @@ class OptionsButtonsWidget extends BaseOptionsButtonsWidget {
     $type = $items->getFieldDefinition()->getType();
     $settings = $items->getFieldDefinition()->getSettings();
     if ($type == 'entity_reference' && $settings['target_type'] == 'taxonomy_term') {
-      $element = $this->addDynamicTaxonomyDescription($element, $items);
+      $element['target_id'] = $this->addDynamicTaxonomyDescription($element['target_id'], $items);
     }
     return $element;
   }

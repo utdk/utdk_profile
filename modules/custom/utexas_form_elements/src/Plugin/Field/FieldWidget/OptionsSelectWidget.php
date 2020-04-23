@@ -4,26 +4,25 @@ namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsButtonsWidget as BaseOptionsButtonsWidget;
+use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsSelectWidget as BaseOptionsSelectWidget;
 use Drupal\utexas_form_elements\Traits\TaxonomyDescriptionTrait;
 
 /**
- * Alters the default 'options_buttons' widget.
+ * Alters the default 'options_select' widget.
  *
  * @FieldWidget(
- *   id = "options_buttons",
- *   label = @Translation("Check boxes/radio buttons"),
+ *   id = "options_select",
+ *   label = @Translation("Select list"),
  *   field_types = {
- *     "boolean",
  *     "entity_reference",
  *     "list_integer",
  *     "list_float",
- *     "list_string",
+ *     "list_string"
  *   },
  *   multiple_values = TRUE
  * )
  */
-class OptionsButtonsWidget extends BaseOptionsButtonsWidget {
+class OptionsSelectWidget extends BaseOptionsSelectWidget {
 
   use TaxonomyDescriptionTrait;
 
