@@ -14,7 +14,7 @@ use Drupal\Tests\utexas\Traits\UserTestTrait;
  *
  * @group utexas
  */
-class BackgroundAccentTest extends WebDriverTestBase {
+class SectionBackgroundAccentTest extends WebDriverTestBase {
   use EntityTestTrait;
   use InstallTestTrait;
   use TestFileCreationTrait;

@@ -93,9 +93,7 @@ pipeline {
                                                     service apache2 restart
 
                                                     ## Prepare for testing...
-                                                    if [ ! -d /var/www/utdk_scaffold/web/sites/simpletest/browser_output ]; then
-                                                      mkdir -p /var/www/utdk_scaffold/web/sites/simpletest/browser_output
-                                                    fi
+                                                    mkdir -p $BROWSERTEST_OUTPUT_DIRECTORY
                                                     chown -R www-data:www-data /var/www/utdk_scaffold
                                                     chmod -R 774 /var/www/utdk_scaffold
                                                     mkdir -p /tmp/test-results
@@ -104,8 +102,8 @@ pipeline {
                                                     chromedriver --whitelisted-ips=127.0.0.1 --headless &
 
                                                     ## Run tests...
-                                                    su -s /bin/bash -c '/var/www/utdk_scaffold/vendor/bin/phpunit -c /var/www/utdk_scaffold/web/core/phpunit.xml.dist --stop-on-failure --testsuite=functional --verbose --debug --group=utexas' www-data
                                                     su -s /bin/bash -c '/var/www/utdk_scaffold/vendor/bin/phpunit -c $WORKSPACE/.pipeline-fixtures/functional-js.phpunit.xml --stop-on-failure --testsuite=functional-javascript --verbose --debug --group=utexas' www-data
+                                                    su -s /bin/bash -c '/var/www/utdk_scaffold/vendor/bin/phpunit -c /var/www/utdk_scaffold/web/core/phpunit.xml.dist --stop-on-failure --testsuite=functional --verbose --debug --group=utexas' www-data
 
                                                     ### Debug steps ###
                                                     ### Uncomment lines 97 - 112 to help ensure environment and site are working as expected.
@@ -118,21 +116,21 @@ pipeline {
                                                     #    exit 1
                                                     #fi
                                                     # Can you connect to the MYSQL container?
-                                                    #mysql -h utdk_db -u root -p"utdkftw"                              
+                                                    #mysql -h utdk_db -u root -p"utdkftw"
 
                                                 '''
                                             }
                                             catch (exc) {
                                                 sh '''
-                                                    if [ -d /var/www/utdk_scaffold/web/sites/simpletest/browser_output ]; then
-                                                        cp -R /var/www/utdk_scaffold/web/sites/simpletest/browser_output $WORKSPACE/browser_output
+                                                    if [ -d $BROWSERTEST_OUTPUT_DIRECTORY ]; then
+                                                        cp -R $BROWSERTEST_OUTPUT_DIRECTORY $WORKSPACE/browser_output
                                                         chown -R 995:1001 $WORKSPACE/browser_output
                                                     fi
                                                     exit 1
                                                 '''
                                             }
                                         }
-                                    }   
+                                    }
                                 }
                             }
                         }
@@ -152,10 +150,10 @@ pipeline {
             echo 'Success!'
         }
         unstable {
-            archiveArtifacts '$WORKSPACE/browser_output/**'
+            archiveArtifacts 'browser_output/**'
         }
         failure {
-            archiveArtifacts '$WORKSPACE/browser_output/**'
+            archiveArtifacts 'browser_output/**'
         }
     }
 }
