@@ -36,18 +36,13 @@ class UtexasLinkOptionsHelper {
     // Handle lock icons using class attribute form element.
     $class_options = [
       '0' => $this->t('No icon'),
-      'ut-cta-link--lock' => $this->t('Authentication required icon'),
-      'ut-cta-link--external' => $this->t('External link icon'),
+      'ut-cta-link--lock' => $this->t('Authentication required icon <span class="ut-cta-link--lock"></span>'),
+      'ut-cta-link--external' => $this->t('External link icon <span class="ut-cta-link--external"></span>'),
     ];
     $element['options']['attributes']['class'] = [
       '#type' => 'radios',
       '#title' => $this->t('Link Appearance'),
       '#options' => $class_options,
-      '#attributes' => [
-        'class' => [
-          'utexas-link-options-attributes-class',
-        ],
-      ],
     ];
 
     $element['#attached']['library'][] = 'utexas_form_elements/link-options';
