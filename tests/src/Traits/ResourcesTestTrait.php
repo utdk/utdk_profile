@@ -42,14 +42,20 @@ trait ResourcesTestTrait {
       $fieldset->click();
     }
 
+    // Create test node.
+    $basic_page_id = $this->createBasicPage();
+
     $this->submitForm([
       'info[0][value]' => 'Resources Test',
       'field_block_resources[0][headline]' => 'Resource Container Headline',
       'field_block_resources[0][resource_items][items][0][details][item][headline]' => 'Resource 1 Headline',
-      'field_block_resources[0][resource_items][items][0][details][item][links][0][url]' => 'https://resource.test',
+      'field_block_resources[0][resource_items][items][0][details][item][links][0][uri]' => 'https://resource.test',
       'field_block_resources[0][resource_items][items][0][details][item][links][0][title]' => 'Resource External Link',
-      'field_block_resources[0][resource_items][items][0][details][item][links][1][url]' => '/node',
+      'field_block_resources[0][resource_items][items][0][details][item][links][0][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_resources[0][resource_items][items][0][details][item][links][0][options][attributes][class]' => 'ut-cta-link--external',
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][uri]' => '/node/' . $basic_page_id,
       'field_block_resources[0][resource_items][items][0][details][item][links][1][title]' => 'Resource Internal Link',
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][options][attributes][class]' => 'ut-cta-link--lock',
       'field_block_resources[0][resource_items][items][1][details][item][headline]' => 'Resource 2 Headline',
       'field_block_resources[0][resource_items][items][0][weight]' => 1,
       'field_block_resources[0][resource_items][items][1][weight]' => 0,
@@ -70,6 +76,10 @@ trait ResourcesTestTrait {
     $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[2]/div[2]/h3', 'Resource 1 Headline');
     $assert->pageTextContains('Resource Internal Link');
     $assert->linkByHrefExists('https://resource.test');
+    // Verify links exist with options.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', 'picture source');
     $expected_path = 'utexas_image_style_400w_250h/public/image-test';
@@ -94,6 +104,11 @@ trait ResourcesTestTrait {
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/resourcestest/delete');
     $this->submitForm([], 'Remove');
+
+    // Remove test node.
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $storage_handler->delete($entities);
   }
 
 }

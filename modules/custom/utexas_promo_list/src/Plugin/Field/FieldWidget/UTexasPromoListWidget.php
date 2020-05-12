@@ -163,8 +163,10 @@ class UTexasPromoListWidget extends WidgetBase {
           if (!empty($elements['copy']['value'])) {
             $storage[$delta]['promo_list_items'][$weight]['item']['copy'] = $elements['copy'];
           }
-          if (!empty($elements['link']['url'])) {
-            $storage[$delta]['promo_list_items'][$weight]['item']['link'] = $elements['link']['url'];
+          if (!empty($elements['link']['uri'])) {
+            $storage[$delta]['promo_list_items'][$weight]['item']['link']['uri'] = $elements['link']['uri'];
+            $storage[$delta]['promo_list_items'][$weight]['item']['link']['title'] = $elements['link']['title'];
+            $storage[$delta]['promo_list_items'][$weight]['item']['link']['options'] = $elements['link']['options'];
           }
           // Remove empty items
           // (i.e., user has manually emptied the field contents).

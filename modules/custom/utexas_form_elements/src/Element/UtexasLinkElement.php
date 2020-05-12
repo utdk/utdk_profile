@@ -6,8 +6,15 @@ use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Entity\Element\EntityAutocomplete;
 use Drupal\Core\Form\FormStateInterface;
 
+@trigger_error('The ' . __NAMESPACE__ . '\UtexasLinkElement is deprecated in utdk_profile:3.0.0-beta.5 and is removed from utdk_profile3.0.0. See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1083', E_USER_DEPRECATED);
+
 /**
  * Defines an element for a single link + title field.
+ *
+ * @deprecated in UT Drupal Kit 3.0.0-beta.5 and is removed from 3.0.0.
+ *   Use \Drupal\utexas_form_elements\Element\UtexasLinkOptionsElement.
+ *
+ * @see https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1083
  *
  * @FormElement("utexas_link_element")
  */
@@ -17,6 +24,7 @@ class UtexasLinkElement extends FormElement {
    * {@inheritdoc}
    */
   public function getInfo() {
+
     $class = get_class($this);
     return [
       '#input' => TRUE,
@@ -32,6 +40,7 @@ class UtexasLinkElement extends FormElement {
    * Process handler for the link form element.
    */
   public static function processLinkElement(&$element, FormStateInterface $form_state, &$form) {
+
     $element['url'] = [
       '#type' => 'entity_autocomplete',
       '#target_type' => 'node',
@@ -74,6 +83,7 @@ class UtexasLinkElement extends FormElement {
    * @see static::getUserEnteredStringAsUri()
    */
   protected static function getUriAsDisplayableString($uri) {
+
     $scheme = parse_url($uri, PHP_URL_SCHEME);
 
     // By default, the displayable string is the URI.
@@ -112,6 +122,7 @@ class UtexasLinkElement extends FormElement {
    * Disallows saving inaccessible or untrusted URLs.
    */
   public static function validateUriElement($element, FormStateInterface $form_state, $form) {
+
     $uri = static::getUserEnteredStringAsUri($element['#value']);
     $form_state->setValueForElement($element, $uri);
 
@@ -145,6 +156,7 @@ class UtexasLinkElement extends FormElement {
    * @see static::getUriAsDisplayableString()
    */
   protected static function getUserEnteredStringAsUri($string) {
+
     // By default, assume the entered string is an URI.
     $uri = trim($string);
 

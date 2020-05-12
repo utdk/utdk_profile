@@ -196,8 +196,10 @@ class SiteAnnouncementTest extends WebDriverTestBase {
       'edit-icon-beacon' => 'beacon',
       'edit-scheme-yellow-black' => 'yellow_black',
       'edit-message-value' => 'It looks like we got a tornado coming, folks! Take shelter!',
-      'edit-cta-url' => 'https://tylerfahey.com',
+      'edit-cta-uri' => 'https://tylerfahey.com',
       'edit-cta-title' => 'How to get help',
+      'edit-cta-options-attributes-target-blank' => ['_blank' => '_blank'],
+      'edit-cta-options-attributes-class-ut-cta-link-lock' => 'ut-cta-link--external',
     ], 'Save configuration');
 
     $web_assert->pageTextContains('The configuration options have been saved.');
@@ -211,8 +213,10 @@ class SiteAnnouncementTest extends WebDriverTestBase {
       $this->drupalGet($path);
       $web_assert->elementTextContains('css', 'h2.announcement-title', "Tornado warning");
       $web_assert->elementTextContains('css', '.announcement-body', 'It looks like we got a tornado coming, folks! Take shelter!');
-      $web_assert->elementTextContains('css', '#block-siteannouncement .ut-btn.cta a', 'How to get help');
-      $web_assert->elementAttributeContains('css', '#block-siteannouncement .ut-btn.cta a', 'href', 'https://tylerfahey.com');
+      $web_assert->elementTextContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'How to get help');
+      $web_assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'href', 'https://tylerfahey.com');
+      $web_assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'target', '_blank');
+      $web_assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'rel', 'noopener noreferrer');
       $web_assert->responseContains('#ffeb63');
       $web_assert->responseContains('#000000');
       // Beginning of beacon.svg data.
@@ -225,7 +229,7 @@ class SiteAnnouncementTest extends WebDriverTestBase {
       'edit-state-homepage' => 'homepage',
       'edit-icon-bullhorn' => 'bullhorn',
       'edit-scheme-green-white' => 'green_white',
-      'edit-cta-url' => 'https://utexas.edu',
+      'edit-cta-uri' => 'https://utexas.edu',
     ], 'Save configuration');
     $web_assert->pageTextContains('The configuration options have been saved.');
 
@@ -233,8 +237,8 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     $this->drupalGet('<front>');
     $web_assert->elementTextContains('css', 'h2.announcement-title', "Tornado warning");
     $web_assert->elementTextContains('css', '.announcement-body', 'It looks like we got a tornado coming, folks! Take shelter!');
-    $web_assert->elementTextContains('css', '#block-siteannouncement .ut-btn.cta a', 'How to get help');
-    $web_assert->elementAttributeContains('css', '#block-siteannouncement .ut-btn.cta a', 'href', 'https://utexas.edu');
+    $web_assert->elementTextContains('css', '#block-siteannouncement .cta a.ut-btn', 'How to get help');
+    $web_assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-btn', 'href', 'https://utexas.edu');
     $web_assert->responseContains('#43695b');
     $web_assert->responseContains('#ffffff');
     // Beginning of bullhorn.svg data.

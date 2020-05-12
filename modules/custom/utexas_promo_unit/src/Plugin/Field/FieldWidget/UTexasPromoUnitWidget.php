@@ -166,7 +166,7 @@ class UTexasPromoUnitWidget extends WidgetBase {
           if (!empty($elements['copy']['value'])) {
             $storage[$delta]['promo_unit_items'][$weight]['item']['copy'] = $elements['copy'];
           }
-          if (!empty($elements['link']['url'])) {
+          if (!empty($elements['link']['uri'])) {
             $storage[$delta]['promo_unit_items'][$weight]['item']['link'] = $elements['link'];
           }
           // Remove empty items

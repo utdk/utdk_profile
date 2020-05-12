@@ -31,10 +31,10 @@
           <div class="hero-subhead">{{ subheading }}</div>
         {% endif %}
       </div>
-      {% if cta_uri %}
-      <div class="hero-cta">
-        {{ link(cta_title, cta_uri, { 'class': ['ut-btn--secondary']}) }}
-      </div>
+      {% if cta %}
+        <div class="hero-cta">
+          {{ cta }}
+        </div>
       {% endif %}
     </div>
   </div>

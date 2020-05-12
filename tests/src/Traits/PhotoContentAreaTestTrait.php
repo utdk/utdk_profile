@@ -32,8 +32,10 @@ trait PhotoContentAreaTestTrait {
       'field_block_pca[0][photo_credit]' => 'Photo Content Area Photo Credit',
       'field_block_pca[0][headline]' => 'Photo Content Area Headline',
       'field_block_pca[0][copy][value]' => 'Photo Content Area Copy',
-      'field_block_pca[0][links][0][url]' => 'https://photocontentarea.test',
+      'field_block_pca[0][links][0][uri]' => 'https://photocontentarea.test',
       'field_block_pca[0][links][0][title]' => 'Photo Content Area Link',
+      'field_block_pca[0][links][0][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_pca[0][links][0][options][attributes][class]' => 'ut-cta-link--external',
     ], 'Save');
     $assert->pageTextContains('Photo Content Area Photo Content Area Test has been created.');
 
@@ -49,6 +51,9 @@ trait PhotoContentAreaTestTrait {
     $assert->elementTextContains('css', 'h2.ut-headline', 'Photo Content Area Headline');
     $assert->pageTextContains('Photo Content Area Copy');
     $assert->linkByHrefExists('https://photocontentarea.test');
+    // Verify links exist with options.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify responsive image is present.
     $expected_path = 'utexas_image_style_450w_600h/public/image-test';
     $assert->elementAttributeContains('css', '.photo-wrapper picture img', 'src', $expected_path);

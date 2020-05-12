@@ -4,7 +4,8 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Url;
+
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero' formatter.
@@ -39,20 +40,10 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
     }
 
     foreach ($items as $item) {
-      $cta['title'] = '';
-      $cta['uri'] = '';
-      if (!empty($item->link_uri)) {
-        $url = Url::fromUri($item->link_uri);
-        $cta['uri'] = $url;
-        if (empty($item->link_title)) {
-          $url = Url::fromUri($item->link_uri);
-          $url->setAbsolute();
-          $cta['title'] = $url->toString();
-        }
-        else {
-          $cta['title'] = $item->link_title;
-        }
-      }
+      $cta_item['link']['uri'] = $item->link_uri;
+      $cta_item['link']['title'] = $item->link_title ?? NULL;
+      $cta_item['link']['options'] = $item->link_options ?? [];
+      $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
       $image_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
@@ -92,8 +83,7 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
         '#subheading' => $item->subheading,
         '#caption' => $item->caption,
         '#credit' => $item->credit,
-        '#cta_title' => $cta['title'],
-        '#cta_uri' => $cta['uri'],
+        '#cta' => $cta,
       ];
     }
     $elements['#attached']['library'][] = 'utexas_hero/hero-style-4';

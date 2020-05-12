@@ -4,7 +4,6 @@ namespace Drupal\utexas_flex_content_area\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -18,6 +17,7 @@ use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
  * Plugin implementation of the 'utexas_flex_content_area' formatter.
@@ -160,47 +160,22 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       // Format links.
       $links = unserialize($item->links);
       if (!empty($links)) {
-        foreach ($links as $link) {
-          if (!empty($link['title'])) {
-            $url = Url::fromUri($link['url']);
-            $url->setAbsolute();
-            $link = Link::fromTextAndUrl($link['title'], $url);
-          }
-          // Ensure that links without title text print the URL.
-          else {
-            $url = Url::fromUri($link['url']);
-            $url->setAbsolute();
-            $link['title'] = $url->toString();
-          }
+        foreach ($links as $key => $link) {
+          $link['link'] = $link;
+          $links[$key] = UtexasLinkOptionsHelper::buildLink($link, ['ut-link']);
         }
       }
       else {
         $links = [];
       }
       // Format CTA.
-      $cta_uri = "";
-      $cta = "";
-      if (!empty($item->link_uri)) {
-        $url = Url::fromUri($item->link_uri);
-        $cta_uri = $url->toString();
-        // If CTA present wrap headline in its URL.
-        if (isset($item->headline)) {
-          $headline = Link::fromTextAndUrl($item->headline, Url::fromUri($item->link_uri));
-        }
-        if (empty($item->link_text)) {
-          $url->setAbsolute();
-          $item->link_text = $url->toString();
-        }
-        $link_options = [
-          'attributes' => [
-            'class' => [
-              'ut-btn',
-            ],
-          ],
-        ];
-        $url->setOptions($link_options);
-        $cta = Link::fromTextAndUrl($item->link_text, $url);
-      }
+      $cta_item = $item->toArray();
+      $cta_item['link']['title'] = $cta_item['link_text'] ?? NULL;
+      $cta_item['link']['uri'] = $cta_item['link_uri'];
+      $cta_item['link']['options'] = $cta_item['link_options'];
+      $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
+      $cta_uri = ($cta !== NULL) ? $cta_item['link']['uri'] : '';
+
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
         switch ($media->bundle()) {

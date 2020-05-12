@@ -4,15 +4,16 @@ namespace Drupal\utexas_site_announcement\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Render\Markup;
 use Drupal\Core\Entity\EntityTypeManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Render\Markup;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Component\Utility\Html;
+
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a 'Site Announcement' block.
@@ -134,10 +135,11 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
       '#title' => $this->t("Call to Action"),
     ];
     $form['cta_wrapper']['cta'] = [
-      '#type' => 'utexas_link_element',
+      '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'url' => $config['cta']['url'] ?? '',
+        'uri' => $config['cta']['uri'] ?? '',
         'title' => $config['cta']['title'] ?? '',
+        'options' => $config['cta']['options'] ?? [],
       ],
     ];
     return $form;
@@ -168,9 +170,9 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
   public function build() {
     $cta = "";
     $config = $this->getConfiguration();
-    if (!empty($config['cta']['url'])) {
-      $title = $config['cta']['title'] !== "" ? $config['cta']['title'] : $config['cta']['url'];
-      $cta = Link::fromTextAndUrl($title, Url::fromUri($config['cta']['url']));
+    if (!empty($config['cta']['uri'])) {
+      $link_item['link'] = $config['cta'];
+      $cta = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-btn']);
     }
 
     // @todo: sanitize svg?

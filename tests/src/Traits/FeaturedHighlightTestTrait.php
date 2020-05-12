@@ -31,8 +31,10 @@ trait FeaturedHighlightTestTrait {
       'info[0][value]' => 'Featured Highlight Test',
       'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
       'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
-      'field_block_featured_highlight[0][cta_wrapper][link][url]' => 'https://featuredhighlight.test',
+      'field_block_featured_highlight[0][cta_wrapper][link][uri]' => 'https://featuredhighlight.test',
       'field_block_featured_highlight[0][cta_wrapper][link][title]' => 'Featured Highlight Link',
+      'field_block_featured_highlight[0][cta_wrapper][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_featured_highlight[0][cta_wrapper][link][options][attributes][class]' => 'ut-cta-link--external',
       'field_block_featured_highlight[0][date]' => '01-17-2019',
     ], 'Save');
     $assert->pageTextContains('Featured Highlight Featured Highlight Test has been created.');
@@ -53,6 +55,9 @@ trait FeaturedHighlightTestTrait {
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w_300h/public/image-test';
     $assert->elementAttributeContains('css', 'a[href^="https://featuredhighlight.test"] picture img', 'src', $expected_path);
+    // Verify link exists with options.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
 
     // Set display to "Bluebonnet (Medium)".
     $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
@@ -100,7 +105,7 @@ trait FeaturedHighlightTestTrait {
       'info[0][value]' => 'Featured Highlight Video Test',
       'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
       'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
-      'field_block_featured_highlight[0][cta_wrapper][link][url]' => 'https://featuredhighlight.test',
+      'field_block_featured_highlight[0][cta_wrapper][link][uri]' => 'https://featuredhighlight.test',
       'field_block_featured_highlight[0][cta_wrapper][link][title]' => 'Featured Highlight Link',
       'field_block_featured_highlight[0][date]' => '01-17-2019',
     ], 'Save');

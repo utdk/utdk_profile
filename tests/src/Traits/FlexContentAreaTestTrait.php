@@ -44,21 +44,25 @@ trait FlexContentAreaTestTrait {
       'info[0][value]' => 'Flex Content Area Test',
       'field_block_fca[0][flex_content_area][headline]' => 'Flex Content Area Headline',
       'field_block_fca[0][flex_content_area][copy][value]' => 'Flex Content Area Copy',
-      'field_block_fca[0][flex_content_area][links][0][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][links][0][uri]' => 'https://utexas.edu',
       'field_block_fca[0][flex_content_area][links][0][title]' => 'Flex Content Area External Link',
-      'field_block_fca[0][flex_content_area][cta_wrapper][link][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][uri]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][links][0][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_fca[0][flex_content_area][links][0][options][attributes][class]' => 'ut-cta-link--lock',
       'field_block_fca[0][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][options][attributes][class]' => 'ut-cta-link--external',
       'field_block_fca[1][flex_content_area][headline]' => 'Flex Content Area Headline 2',
       'field_block_fca[1][flex_content_area][copy][value]' => 'Flex Content Area Copy 2',
-      'field_block_fca[1][flex_content_area][links][0][url]' => 'https://utexas.edu',
+      'field_block_fca[1][flex_content_area][links][0][uri]' => 'https://utexas.edu',
       'field_block_fca[1][flex_content_area][links][0][title]' => 'Flex Content Area External Link 2',
-      'field_block_fca[1][flex_content_area][cta_wrapper][link][url]' => 'https://utexas.edu',
+      'field_block_fca[1][flex_content_area][cta_wrapper][link][uri]' => 'https://utexas.edu',
       'field_block_fca[1][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action 2',
       'field_block_fca[2][flex_content_area][headline]' => 'Flex Content Area Headline 3',
       'field_block_fca[2][flex_content_area][copy][value]' => '',
-      'field_block_fca[2][flex_content_area][links][0][url]' => '',
+      'field_block_fca[2][flex_content_area][links][0][uri]' => '',
       'field_block_fca[2][flex_content_area][links][0][title]' => '',
-      'field_block_fca[2][flex_content_area][cta_wrapper][link][url]' => '',
+      'field_block_fca[2][flex_content_area][cta_wrapper][link][uri]' => '',
       'field_block_fca[2][flex_content_area][cta_wrapper][link][title]' => '',
     ], 'Save');
     $assert->pageTextContains('Flex Content Area Test has been created.');
@@ -76,6 +80,10 @@ trait FlexContentAreaTestTrait {
     $assert->pageTextContains('Flex Content Area Copy');
     $assert->linkByHrefExists('https://utexas.edu');
     $assert->elementTextContains('css', 'a.ut-btn', 'Flex Content Area Call to Action');
+    // Verify link exists with options.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive image is present within the link.
     $expected_path = 'utexas_image_style_340w_227h/public/image-test.png';
     $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
@@ -122,9 +130,9 @@ trait FlexContentAreaTestTrait {
       'info[0][value]' => 'Flex Content Area Video Test',
       'field_block_fca[0][flex_content_area][headline]' => 'Flex Content Area Headline',
       'field_block_fca[0][flex_content_area][copy][value]' => 'Flex Content Area Copy',
-      'field_block_fca[0][flex_content_area][links][0][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][links][0][uri]' => 'https://utexas.edu',
       'field_block_fca[0][flex_content_area][links][0][title]' => 'Flex Content Area External Link',
-      'field_block_fca[0][flex_content_area][cta_wrapper][link][url]' => 'https://utexas.edu',
+      'field_block_fca[0][flex_content_area][cta_wrapper][link][uri]' => 'https://utexas.edu',
       'field_block_fca[0][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action',
     ], 'Save');
     $assert->pageTextContains('Flex Content Area Flex Content Area Video Test has been created.');

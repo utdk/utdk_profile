@@ -24,20 +24,23 @@ class UTexasHeroWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
+    // Get the form item that this widget is being applied to.
+    /** @var \Drupal\link\LinkItemInterface $item */
+    $item = $items[$delta];
     $element['media'] = [
       '#type' => 'media_library',
       '#allowed_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
-      '#default_value' => isset($items[$delta]->media) ? $items[$delta]->media : 0,
+      '#default_value' => isset($item->media) ? $item->media : 0,
       '#description' => $this->t('Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'),
     ];
     $element['disable_image_styles'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Disable image size optimization.'),
       '#description' => $this->t('Check this if you need to display an animated GIF or have specific image dimensions requirements.'),
-      '#default_value' => $items[$delta]->disable_image_styles ?? 0,
+      '#default_value' => $item->disable_image_styles ?? 0,
       '#states' => [
         'invisible' => [
           ':input[name="' . $field_name . '[' . $delta . '][media][media_library_selection]"]' => ['value' => "0"],
@@ -47,7 +50,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['heading'] = [
       '#title' => $this->t('Heading'),
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->heading) ? $items[$delta]->heading : NULL,
+      '#default_value' => isset($item->heading) ? $item->heading : NULL,
       '#size' => '60',
       '#description' => $this->t('Optional, but recommended to provide alternative textual explanation of the media.'),
       '#maxlength' => 255,
@@ -55,7 +58,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['subheading'] = [
       '#title' => $this->t('Subheading'),
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->subheading : NULL,
+      '#default_value' => isset($item->subheading) ? $item->subheading : NULL,
       '#size' => '60',
       '#description' => $this->t('Optional. Displays directly beneath the heading. For best appearance, use no more than 140 characters. Note: this field is not visible in the default display or in hero style 2.'),
       '#maxlength' => 255,
@@ -63,7 +66,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['caption'] = [
       '#title' => $this->t('Caption'),
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->caption : NULL,
+      '#default_value' => isset($item->subheading) ? $item->caption : NULL,
       '#size' => '60',
       '#description' => $this->t('Optional text to display directly beneath the media.'),
       '#maxlength' => 255,
@@ -71,7 +74,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['credit'] = [
       '#title' => $this->t('Credit'),
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->subheading) ? $items[$delta]->credit : NULL,
+      '#default_value' => isset($item->subheading) ? $item->credit : NULL,
       '#size' => '60',
       '#description' => $this->t('Optional way to provide attribution, displayed directly beneath the media.'),
       '#maxlength' => 255,
@@ -81,15 +84,11 @@ class UTexasHeroWidget extends WidgetBase {
       '#title' => $this->t('Call to Action'),
     ];
     $element['cta']['link'] = [
-      '#suffix' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [
-        '%internal' => '/node/add',
-        '%external' => 'https://example.com',
-        '%front' => '<front>',
-      ]),
-      '#type' => 'utexas_link_element',
+      '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'url' => $items[$delta]->link_uri ?? '',
-        'title' => $items[$delta]->link_title ?? '',
+        'uri' => $item->link_uri ?? '',
+        'title' => $item->link_title ?? '',
+        'options' => isset($item->link_options) ? $item->link_options : [],
       ],
     ];
 
@@ -106,9 +105,10 @@ class UTexasHeroWidget extends WidgetBase {
         // A null media value should be saved as 0.
         $value['media'] = 0;
       }
-      if (isset($value['cta']['link']['url'])) {
-        $value['link_uri'] = $value['cta']['link']['url'] ?? '';
+      if (isset($value['cta']['link']['uri'])) {
+        $value['link_uri'] = $value['cta']['link']['uri'] ?? '';
         $value['link_title'] = $value['cta']['link']['title'] ?? '';
+        $value['link_options'] = $value['cta']['link']['options'] ?? [];
       }
     }
     return $values;

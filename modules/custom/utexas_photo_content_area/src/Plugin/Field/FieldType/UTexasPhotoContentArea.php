@@ -154,8 +154,8 @@ class UTexasPhotoContentArea extends FieldItemBase {
     $image_media->save();
     $values['image'] = $image_media->id();
     $values['links'] = serialize([
-      ['url' => 'https://utexas.edu', 'title' => 'UT Homepage'],
-      ['url' => 'https://news.utexas.edu', 'title' => 'UT News'],
+      ['uri' => 'https://utexas.edu', 'title' => 'UT Homepage'],
+      ['uri' => 'https://news.utexas.edu', 'title' => 'UT News'],
     ]);
     return $values;
   }

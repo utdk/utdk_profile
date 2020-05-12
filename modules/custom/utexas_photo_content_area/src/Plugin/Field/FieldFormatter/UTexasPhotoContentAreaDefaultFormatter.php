@@ -4,12 +4,13 @@ namespace Drupal\utexas_photo_content_area\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -104,13 +105,11 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
     }
     foreach ($items as $item) {
       $links = unserialize($item->links);
-      // Ensure that links without title text print the URL.
       if (!empty($links)) {
         foreach ($links as &$link) {
-          if (empty($link['title'])) {
-            $url = Url::fromUri($link['url']);
-            $url->setAbsolute();
-            $link['title'] = $url->toString();
+          if (!empty($link['uri'])) {
+            $link_item['link'] = $link;
+            $link = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link']);
           }
         }
       }

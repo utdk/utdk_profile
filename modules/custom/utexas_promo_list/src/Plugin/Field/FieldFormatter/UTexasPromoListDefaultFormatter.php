@@ -5,11 +5,15 @@ namespace Drupal\utexas_promo_list\Plugin\Field\FieldFormatter;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -107,46 +111,23 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
       $promo_list_items = is_string($item->promo_list_items) ? unserialize($item->promo_list_items) : $item->promo_list_items;
       if (!empty($promo_list_items)) {
         foreach ($promo_list_items as $key => $instance) {
-          $i = $instance['item'];
-          if (!empty($i['headline'])) {
-            $instances[$key]['headline'] = $i['headline'];
-          }
-          if (!empty($i['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($i['copy']['value'], $i['copy']['format']);
-          }
-          if (!empty($i['link'])) {
-            $url = Url::fromUri($i['link']);
-            $url->setAbsolute();
-            $instances[$key]['link'] = $url->toString();
-          }
-          $image_render_array = [];
-          $image = isset($i['image']) ? $i['image'] : FALSE;
-          if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
-            $media_attributes = $media->get('field_utexas_media_image')->getValue();
-            $image_render_array = [];
-            if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
-              $image = new \stdClass();
-              $image->title = NULL;
-              $image->alt = $media_attributes[0]['alt'];
-              $image->entity = $file;
-              $image->uri = $file->getFileUri();
-              $image->width = NULL;
-              $image->height = NULL;
-              $image_render_array = [
-                '#theme' => 'responsive_image_formatter',
-                '#item' => $image,
-                '#item_attributes' => ['class' => ['ut-img--fluid']],
-                '#responsive_image_style_id' => $responsive_image_style_name,
-                '#url' => $instances[$key]['link'] ?? '',
-                '#cache' => [
-                  'tags' => $cache_tags,
-                ],
-              ];
+          $instance_item = $instance['item'];
+          if (!empty($instance_item['headline'])) {
+            $instances[$key]['headline'] = $instance_item['headline'];
+            // Convert the headline to a link, if present.
+            if (!empty($instance_item['link']['uri'])) {
+              $instances[$key]['headline'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker'], $instance_item['headline']);
             }
-            // Add the file entity to the cache dependencies.
-            // This will clear our cache when this entity updates.
-            $this->renderer->addCacheableDependency($image_render_array, $file);
-            $instances[$key]['image'] = $image_render_array;
+          }
+          if (!empty($instance_item['copy']['value'])) {
+            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
+          }
+          if (!empty($instance_item['link']['uri'])) {
+            $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker']);
+          }
+          if (!empty($instance_item['image'])) {
+            $image = isset($instance_item['image']) ? $instance_item['image'] : FALSE;
+            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $instance_item['link']['uri'], $cache_tags);
           }
         }
       }
@@ -159,6 +140,44 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
     }
     $elements['#attached']['library'][] = 'utexas_promo_list/promo-list-formatter';
     return $elements;
+  }
+
+  /**
+   * Helper method to prepare image array.
+   */
+  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_uri, $cache_tags) {
+    // Initialize image render array as false in case that images are not found.
+    $image_render_array = FALSE;
+    if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
+      $media_attributes = $media->get('field_utexas_media_image')->getValue();
+      if (!empty($link_uri)) {
+        $link_url = Url::fromUri($link_uri);
+      }
+      $image_render_array = [];
+      if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
+        $image = new \stdClass();
+        $image->title = NULL;
+        $image->alt = $media_attributes[0]['alt'];
+        $image->entity = $file;
+        $image->uri = $file->getFileUri();
+        $image->width = NULL;
+        $image->height = NULL;
+        $image_render_array = [
+          '#theme' => 'responsive_image_formatter',
+          '#item' => $image,
+          '#item_attributes' => ['class' => ['ut-img--fluid']],
+          '#responsive_image_style_id' => $responsive_image_style_name,
+          '#url' => $link_url ?? '',
+          '#cache' => [
+            'tags' => $cache_tags,
+          ],
+        ];
+      }
+      // Add the file entity to the cache dependencies.
+      // This will clear our cache when this entity updates.
+      $this->renderer->addCacheableDependency($image_render_array, $file);
+    }
+    return $image_render_array;
   }
 
 }

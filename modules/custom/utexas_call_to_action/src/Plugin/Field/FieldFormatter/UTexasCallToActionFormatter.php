@@ -3,8 +3,7 @@
 namespace Drupal\utexas_call_to_action\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Url;
+use Drupal\link\Plugin\Field\FieldFormatter\LinkFormatter;
 
 /**
  * Plugin implementation of the 'utexas_call_to_action_formatter' formatter.
@@ -17,23 +16,28 @@ use Drupal\Core\Url;
  *   }
  * )
  */
-class UTexasCallToActionFormatter extends FormatterBase {
+class UTexasCallToActionFormatter extends LinkFormatter {
 
   /**
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $element = [];
+    // Load items and append cta button classes before link conversion.
     foreach ($items as $delta => $item) {
-      $url = $item->getUrl() ?: Url::fromRoute('<none>');
-      $element[$delta] = [
-        '#type' => 'link',
-        '#title' => $item->title,
-        '#options' => [],
+      $cta_values = $item->getValue();
+      $link_classes = [
+        'button',
+        'ut-btn',
       ];
-      $element[$delta]['#url'] = $url;
-      $element[$delta]['#options'] += ['attributes' => ['class' => ['ut-btn', 'button']]];
+      if (isset($cta_values['options']['attributes']['class'])) {
+        // Append any existing class to the classes that should be rendered.
+        $link_classes[] = $cta_values['options']['attributes']['class'];
+      }
+      $cta_values['options']['attributes']['class'] = $link_classes;
+      $items[$delta]->setValue($cta_values);
     }
+    // Call Link viewElements method to convert CTA into link with our classes.
+    $element = parent::viewElements($items, $langcode);
     return $element;
   }
 

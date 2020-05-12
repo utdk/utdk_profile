@@ -23,18 +23,23 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    // Get the form item that this widget is being applied to.
+    /** @var \Drupal\link\LinkItemInterface $item */
+    $item = $items[$delta];
+
     $element['media'] = [
       '#type' => 'media_library',
       '#allowed_bundles' => ['utexas_image', 'utexas_video_external'],
       '#delta' => $delta,
+      '#description' => '',
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
-      '#default_value' => isset($items[$delta]->media) ? $items[$delta]->media : 0,
+      '#default_value' => isset($item->media) ? $item->media : 0,
     ];
     $element['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->headline) ? $items[$delta]->headline : NULL,
+      '#default_value' => isset($item->headline) ? $item->headline : NULL,
       '#size' => '60',
       '#placeholder' => '',
       '#maxlength' => 255,
@@ -42,28 +47,24 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
     $element['copy'] = [
       '#title' => 'Copy',
       '#type' => 'text_format',
-      '#default_value' => isset($items[$delta]->copy_value) ? $items[$delta]->copy_value : NULL,
-      '#format' => $items[$delta]->copy_format ?? 'restricted_html',
+      '#default_value' => isset($item->copy_value) ? $item->copy_value : NULL,
+      '#format' => $item->copy_format ?? 'restricted_html',
     ];
     $element['date'] = [
       '#title' => 'Date',
       '#type' => 'date',
-      '#default_value' => isset($items[$delta]->date) ? $items[$delta]->date : NULL,
+      '#default_value' => isset($item->date) ? $item->date : NULL,
     ];
     $element['cta_wrapper'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Call to Action'),
     ];
     $element['cta_wrapper']['link'] = [
-      '#suffix' => $this->t('<div class="description">Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.</div>', [
-        '%internal' => '/node/add',
-        '%external' => 'https://example.com',
-        '%front' => '<front>',
-      ]),
-      '#type' => 'utexas_link_element',
+      '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'url' => $items[$delta]->link_uri ?? '',
-        'title' => $items[$delta]->link_text ?? '',
+        'uri' => isset($item->link_uri) ? $item->link_uri : NULL,
+        'title' => isset($item->link_text) ? $item->link_text : NULL,
+        'options' => isset($item->link_options) ? $item->link_options : [],
       ],
     ];
 
@@ -79,18 +80,28 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       if (empty($value['date'])) {
         unset($value['date']);
       }
+
+      // A null media value should be saved as 0.
       if (empty($value['media'])) {
-        // A null media value should be saved as 0.
         $value['media'] = 0;
       }
-      if (isset($value['cta_wrapper']['link']['url'])) {
-        $value['link_uri'] = $value['cta_wrapper']['link']['url'] ?? '';
+
+      // A null headline value should be removed so that the twig template
+      // can easily check for an empty value.
+      if (empty($value['headline'])) {
+        unset($value['headline']);
+      }
+
+      if (isset($value['cta_wrapper']['link']['uri'])) {
+        $value['link_uri'] = $value['cta_wrapper']['link']['uri'];
         $value['link_text'] = $value['cta_wrapper']['link']['title'] ?? '';
+        $value['link_options'] = $value['cta_wrapper']['link']['options'] ?? [];
       }
       // Split the "text_format" form element data into our field's schema.
       $value['copy_value'] = $value['copy']['value'];
       $value['copy_format'] = $value['copy']['format'];
     }
+
     return $values;
   }
 

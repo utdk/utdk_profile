@@ -129,9 +129,9 @@ class UTexasResources extends FieldItemBase {
       $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
       // // Set random length for the domain name.
       $domain_length = mt_rand(7, 15);
-      $values['resource_items'][$i]['item']['links'][0]['url'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
+      $values['resource_items'][$i]['item']['links'][0]['uri'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
       $values['resource_items'][$i]['item']['links'][0]['title'] = ucfirst($random->word(mt_rand(5, 10)));
-      $values['resource_items'][$i]['item']['links'][1]['url'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
+      $values['resource_items'][$i]['item']['links'][1]['uri'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
       $values['resource_items'][$i]['item']['links'][1]['title'] = ucfirst($random->word(mt_rand(5, 10)));
     }
     $values['resource_items'] = serialize($values['resource_items']);

@@ -55,7 +55,9 @@ trait PromoListTestTrait {
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
     $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 2');
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 1 item 1');
-    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][url]', 'https://promolist.test');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][uri]', 'https://promolist.test');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--external');
 
     // Use weighting fields to reverse the order of Promo List items 1 & 2.
     $page->fillField('field_block_pl[0][promo_list_items][items][0][weight]', '1');
@@ -65,7 +67,8 @@ trait PromoListTestTrait {
     $page->fillField('field_block_pl[1][headline]', 'Promo List 2 Headline');
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][headline]', 'List 2 item 1');
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 2 item 1');
-    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][url]', '/node/' . $basic_page_id);
+    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][uri]', '/node/' . $basic_page_id);
+    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--lock');
     $page->pressButton('edit-submit');
     $assert->pageTextContains('Promo List Promo List Test has been created.');
 
@@ -89,6 +92,11 @@ trait PromoListTestTrait {
     $assert->pageTextContains('Copy text for list 2 item 1');
     $assert->linkByHrefExists('https://promolist.test');
     $assert->linkByHrefExists('test-basic-page');
+
+    // Verify links exist with options.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementExists('css', '.ut-cta-link--lock');
 
     // Verify responsive image is present within the link.
     $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a picture source');

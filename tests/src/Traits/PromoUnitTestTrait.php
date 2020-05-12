@@ -42,12 +42,15 @@ trait PromoUnitTestTrait {
       'field_block_pu[0][headline]' => 'Promo Unit Container Headline',
       'field_block_pu[0][promo_unit_items][items][0][details][item][headline]' => 'Promo Unit 1 Headline',
       'field_block_pu[0][promo_unit_items][items][0][details][item][copy][value]' => 'Promo Unit 1 Copy',
-      'field_block_pu[0][promo_unit_items][items][0][details][item][link][url]' => 'https://promounit.test',
+      'field_block_pu[0][promo_unit_items][items][0][details][item][link][uri]' => 'https://promounit.test',
       'field_block_pu[0][promo_unit_items][items][0][details][item][link][title]' => 'Promo Unit External Link',
+      'field_block_pu[0][promo_unit_items][items][0][details][item][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_pu[0][promo_unit_items][items][0][details][item][link][options][attributes][class]' => 'ut-cta-link--external',
       'field_block_pu[0][promo_unit_items][items][1][details][item][headline]' => 'Promo Unit 2 Headline',
       'field_block_pu[0][promo_unit_items][items][1][details][item][copy][value]' => 'Promo Unit 2 Copy',
-      'field_block_pu[0][promo_unit_items][items][1][details][item][link][url]' => '/node/' . $basic_page_id,
+      'field_block_pu[0][promo_unit_items][items][1][details][item][link][uri]' => '/node/' . $basic_page_id,
       'field_block_pu[0][promo_unit_items][items][1][details][item][link][title]' => 'Promo Unit Internal Link',
+      'field_block_pu[0][promo_unit_items][items][1][details][item][link][options][attributes][class]' => 'ut-cta-link--lock',
       'field_block_pu[0][promo_unit_items][items][0][weight]' => 1,
       'field_block_pu[0][promo_unit_items][items][1][weight]' => 0,
     ], 'Save');
@@ -70,6 +73,10 @@ trait PromoUnitTestTrait {
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2)', 'Promo Unit 2 Copy');
     $assert->linkByHrefExists('https://promounit.test');
     $assert->linkByHrefExists('test-basic-page');
+    // Verify links exist with options.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive image is present within the link.
     $assert->elementExists('css', '.utexas-promo-unit:nth-child(3) a picture source');
     $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
