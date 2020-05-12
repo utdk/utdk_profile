@@ -4,13 +4,15 @@ namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -96,48 +98,27 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
       $promo_unit_items = unserialize($item->promo_unit_items);
       if (!empty($promo_unit_items)) {
         foreach ($promo_unit_items as $key => $instance) {
-          $i = $instance['item'];
-          if (!empty($i['headline'])) {
-            $instances[$key]['headline'] = $i['headline'];
-          }
-          if (!empty($i['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($i['copy']['value'], $i['copy']['format']);
-          }
-          if (!empty($i['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($i['copy']['value'], $i['copy']['format']);
-          }
-          if (!empty($i['link']['url'])) {
-            // Ensure that links without title text print the URL.
-            $link_url = Url::fromUri($i['link']['url']);
-            if (empty($i['link']['title'])) {
-              $url = Url::fromUri($i['link']['url']);
-              $url->setAbsolute();
-              $link_title = $url->toString();
-            }
-            else {
-              $link_title = $i['link']['title'];
-            }
-            $link_options = [
-              'attributes' => [
-                'class' => [
-                  'ut-link--darker',
-                ],
-              ],
-            ];
+          $instance_item = $instance['item'];
+          if (!empty($instance_item['headline'])) {
+            $instances[$key]['headline'] = $instance_item['headline'];
             // Convert the headline to a link, if present.
-            if (!empty($i['headline'])) {
-              $headline_url = Url::fromUri($i['link']['url']);
-              $headline_url->setOptions($link_options);
-              $instances[$key]['headline'] = Link::fromTextAndUrl($i['headline'], $headline_url);
+            if (!empty($instance_item['link']['uri'])) {
+              $instances[$key]['headline'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker'], $instance_item['headline']);
             }
-            $link_url->setOptions($link_options);
-            $link = Link::fromTextAndUrl($link_title, $link_url);
-            $instances[$key]['link'] = $link;
           }
-          if (!empty($i['image'])) {
-            $image = isset($i['image']) ? $i['image'] : FALSE;
+          if (!empty($instance_item['copy']['value'])) {
+            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
+          }
+          if (!empty($instance_item['copy']['value'])) {
+            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
+          }
+          if (!empty($instance_item['link']['uri'])) {
+            $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker']);
+          }
+          if (!empty($instance_item['image'])) {
+            $image = isset($instance_item['image']) ? $instance_item['image'] : FALSE;
             $responsive_image_style_name = 'utexas_responsive_image_pu_landscape';
-            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $i['link']['url'], $cache_tags);
+            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $instance_item['link']['uri'], $cache_tags);
           }
         }
       }

@@ -21,9 +21,9 @@
           {% if heading %}
             <div class="hero-headline">{{ heading }}</div>
           {% endif %}
-          {% if cta_uri %}
+          {% if cta %}
             <div class="hero-cta">
-              {{ link(cta_title, cta_uri, { 'class': ['ut-btn']}) }}
+              {{ cta }}
             </div>
           {% endif %}
         </div>

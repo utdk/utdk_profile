@@ -81,20 +81,16 @@ class UTexasResourcesElement extends FormElement {
     $element['links'] = [
       '#type' => 'fieldset',
       '#title' => t('List of links'),
-      '#description' => t("Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.", [
-        '%internal' => '/node/add',
-        '%external' => 'https://example.com',
-        '%front' => '<front>',
-      ]),
     ];
     $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
     $element['links']['#suffix'] = '</div>';
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
-        '#type' => 'utexas_link_element',
+        '#type' => 'utexas_link_options_element',
         '#default_value' => [
-          'url' => $links[$i]['url'] ?? '',
-          'title' => $links[$i]['title'] ?? '',
+          'uri' => $links[$i]['uri'] ?? NULL,
+          'title' => $links[$i]['title'] ?? NULL,
+          'options' => $links[$i]['options'] ?? [],
         ],
       ];
     }

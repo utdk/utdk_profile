@@ -11,6 +11,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
+use Drupal\Core\TypedData\MapDataDefinition;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 
@@ -53,6 +54,8 @@ class UTexasFlexContentArea extends FieldItemBase {
     $properties['link_text'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('CTA Text'))
       ->setRequired(FALSE);
+    $properties['link_options'] = MapDataDefinition::create()
+      ->setLabel(t('Link Options'));
     return $properties;
   }
 
@@ -93,6 +96,12 @@ class UTexasFlexContentArea extends FieldItemBase {
           'type' => 'varchar',
           'length' => 255,
           'binary' => FALSE,
+        ],
+        'link_options' => [
+          'description' => 'Serialized array of options for the link.',
+          'type' => 'blob',
+          'size' => 'big',
+          'serialize' => TRUE,
         ],
       ],
     ];
@@ -166,15 +175,15 @@ class UTexasFlexContentArea extends FieldItemBase {
     $domain_length = mt_rand(7, 15);
     $values['links'] = serialize([
       [
-        'url' => 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))],
+        'uri' => 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))],
         'title' => ucfirst($random->word(mt_rand(5, 10))),
       ],
       [
-        'url' => 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))],
+        'uri' => 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))],
         'title' => ucfirst($random->word(mt_rand(5, 10))),
       ],
       [
-        'url' => 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))],
+        'uri' => 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))],
         'title' => ucfirst($random->word(mt_rand(5, 10))),
       ],
     ]);

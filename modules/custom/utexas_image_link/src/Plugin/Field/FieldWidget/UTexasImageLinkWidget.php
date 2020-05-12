@@ -23,26 +23,27 @@ class UTexasImageLinkWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    // Get the form item that this widget is being applied to.
+    /** @var \Drupal\link\LinkItemInterface $item */
+    $item = $items[$delta];
+
     $element['image'] = [
       '#type' => 'media_library',
       '#allowed_bundles' => ['utexas_image'],
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
-      '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : 0,
+      '#default_value' => isset($item->image) ? $item->image : 0,
       '#description' => $this->t('This image will fill the width of the region it is placed in.'),
     ];
     $element['link'] = [
-      '#prefix' => $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
-        '%internal' => '/node/add',
-        '%external' => 'https://example.com',
-        '%front' => '<front>',
-      ]),
-      '#type' => 'utexas_link_element',
+      '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'url' => $items[$delta]->link ?? '',
+        'uri' => $item->link ?? NULL,
+        'title' => $item->link_text ?? NULL,
+        'options' => $item->link_options ?? [],
       ],
-      '#suppress_display' => TRUE,
+      '#suppress_title_display' => TRUE,
     ];
 
     return $element;
@@ -54,13 +55,18 @@ class UTexasImageLinkWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through (potential) field instances.
     foreach ($values as &$value) {
+      // A null media value should be saved as 0.
       if (empty($value['image'])) {
-        // A null media value should be saved as 0.
         $value['image'] = 0;
       }
-      // We only want the 'url' part of the link for image link.
-      $value['link'] = $value['link']['url'] ?? '';
+      // We only want the 'uri' part of the link for image link, but for
+      // consistency we leave the code here to store all link values.
+      $value['link_text'] = $value['link']['title'] ?? NULL;
+      $value['link_options'] = $value['link']['options'] ?? NULL;
+      // Since the storage value is 'link', we must assign its value last.
+      $value['link'] = $value['link']['uri'] ?? NULL;
     }
+
     return $values;
   }
 

@@ -63,3 +63,26 @@ function utexas_site_announcement_install() {
       ->save();
   }
 }
+
+/**
+ * Issue #1074: Support custom link options in Site Announcement links.
+ */
+function utexas_site_announcement_update_8101() {
+  $config_factory = \Drupal::configFactory();
+  // Loop through each block configuration.
+  foreach ($config_factory->listAll('block.block.') as $block_config_name) {
+    $block = $config_factory->getEditable($block_config_name);
+    $block_plugin_id = $block->get('plugin');
+    // Check for Site Announcement blocks.
+    if ($block_plugin_id === 'utexas_announcement') {
+      // Only process if configuration still uses 'url' key.
+      if ($block_url = $block->get('settings.cta.url')) {
+        // Create a new setting for 'uri'.
+        $block->set('settings.cta.uri', $block_url);
+        // Delete old setting for 'url'.
+        $block->clear('settings.cta.url');
+        $block->save();
+      }
+    }
+  }
+}

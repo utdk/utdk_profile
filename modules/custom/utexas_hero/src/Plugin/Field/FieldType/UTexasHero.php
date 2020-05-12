@@ -11,6 +11,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
+use Drupal\Core\TypedData\MapDataDefinition;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 
@@ -53,6 +54,8 @@ class UTexasHero extends FieldItemBase {
     $properties['link_title'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Link Title'))
       ->setRequired(FALSE);
+    $properties['link_options'] = MapDataDefinition::create()
+      ->setLabel(t('Link Options'));
     $properties['disable_image_styles'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Disable Image Styles'))
       ->setRequired(FALSE);
@@ -97,6 +100,12 @@ class UTexasHero extends FieldItemBase {
           'type' => 'varchar',
           'length' => 512,
           'binary' => FALSE,
+        ],
+        'link_options' => [
+          'description' => 'Serialized array of options for the link.',
+          'type' => 'blob',
+          'size' => 'big',
+          'serialize' => TRUE,
         ],
         'disable_image_styles' => [
           'type' => 'int',
@@ -182,7 +191,12 @@ class UTexasHero extends FieldItemBase {
    * {@inheritdoc}
    */
   public function isEmpty() {
-    return $this->get('media')->getValue() == 0;
+    return $this->get('media')->getValue() == 0 &&
+    !$this->get('heading')->getValue() &&
+    !$this->get('subheading')->getValue() &&
+    !$this->get('caption')->getValue() &&
+    !$this->get('credit')->getValue() &&
+    !$this->get('link_uri')->getValue();
   }
 
 }

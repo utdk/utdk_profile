@@ -159,10 +159,11 @@ class AnnouncementConfigurationForm extends ConfigFormBase {
       '#title' => $this->t("Call to Action"),
     ];
     $form['cta_wrapper']['cta'] = [
-      '#type' => 'utexas_link_element',
+      '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'url' => $settings['cta']['url'] ?? '',
+        'uri' => $settings['cta']['uri'] ?? '',
         'title' => $settings['cta']['title'] ?? '',
+        'options' => $settings['cta']['options'] ?? '',
       ],
     ];
     return parent::buildForm($form, $form_state);

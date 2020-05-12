@@ -21,6 +21,8 @@ use Drupal\media\MediaInterface;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -184,36 +186,23 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $timezone = $this->configFactory->get('system.date')->get('timezone');
         $item->date = $this->apStyleDateFormatter->formatTimestamp(strtotime($item->date), $options, $timezone['default'], Language::LANGCODE_NOT_SPECIFIED);
       }
-      $link = '';
+
       $headline = $item->headline ?? '';
       if (!empty($item->link_uri)) {
-        $url = Url::fromUri($item->link_uri);
-        $link = $url->toString();
+        $cta_item['link']['uri'] = $item->link_uri;
+        $cta_item['link']['title'] = $item->link_text ?? NULL;
+        $cta_item['link']['options'] = $item->link_options ?? [];
+        $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
 
         if (isset($item->headline)) {
-          $headline = Link::fromTextAndUrl($item->headline, Url::fromUri($item->link_uri));
+          $headline = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-link'], $item->headline);
         }
-
-        if (empty($item->link_text)) {
-          $url->setAbsolute();
-          $item->link_text = $url->toString();
-        }
-
-        $link_options = [
-          'attributes' => [
-            'class' => [
-              'ut-btn',
-            ],
-          ],
-        ];
-        $url->setOptions($link_options);
-        $cta = Link::fromTextAndUrl($item->link_text, $url);
       }
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         switch ($media->bundle()) {
           case 'utexas_image':
-            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $link);
+            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $item->link_uri);
             break;
 
           case 'utexas_video_external':

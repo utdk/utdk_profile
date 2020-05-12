@@ -81,8 +81,8 @@ class UTexasQuickLinks extends FieldItemBase {
     $values['headline'] = $random->word(mt_rand(1, 255));
     $values['copy'] = $random->sentences(mt_rand(1, 2));
     $values['links'] = serialize([
-      ['url' => 'https://utexas.edu', 'title' => 'UT Homepage'],
-      ['url' => 'https://news.utexas.edu', 'title' => 'UT News'],
+      ['uri' => 'https://utexas.edu', 'title' => 'UT Homepage'],
+      ['uri' => 'https://news.utexas.edu', 'title' => 'UT News'],
     ]);
     return $values;
   }

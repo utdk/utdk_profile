@@ -121,7 +121,7 @@ class UTexasPromoUnit extends FieldItemBase {
       $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
       // Set random length for the domain name.
       $domain_length = mt_rand(7, 15);
-      $values['promo_unit_items'][$i]['item']['link']['url'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
+      $values['promo_unit_items'][$i]['item']['link']['uri'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
       $values['promo_unit_items'][$i]['item']['link']['title'] = ucfirst($random->word(mt_rand(5, 10)));
     }
     $values['promo_unit_items'] = serialize($values['promo_unit_items']);

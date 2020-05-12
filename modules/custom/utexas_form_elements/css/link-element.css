@@ -5,6 +5,7 @@
 .utexas-link-form-element {
   padding: 0 10px;
   display: flex;
+  flex-wrap: wrap;
 }
 .utexas-link-form-element > div {
   flex: 1 0 50%;

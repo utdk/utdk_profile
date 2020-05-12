@@ -4,10 +4,16 @@
  * Custom theme implementation for the Image Link field.
  *
  * Available variables:
- * - image: The image (linked, if a link was provided).
- * - link: The URL (typically not used on its own).
+ * - image: The image.
+ * - link: The link object.
  *
  * @ingroup themeable
  */
 #}
-{{ image }}
+
+{% if link.url %}
+  {{ link(image, link.url) }}
+{% else %}
+	{{ image }}
+{% endif %}
+

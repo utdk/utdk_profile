@@ -165,7 +165,7 @@ class UTexasResourcesWidget extends WidgetBase {
           }
           if (isset($elements['links'])) {
             foreach ($elements['links'] as $link) {
-              if (!empty($link['url']) && !$link['url'] == '') {
+              if (!empty($link['uri']) && !$link['uri'] == '') {
                 $storage[$delta]['resource_items'][$weight]['item']['links'][] = $link;
               }
             }

@@ -11,6 +11,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\Language;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
+use Drupal\Core\TypedData\MapDataDefinition;
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
 
@@ -39,6 +40,12 @@ class UTexasImageLink extends FieldItemBase {
     $properties['link'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Link'))
       ->setRequired(FALSE);
+    $properties['link_text'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Link Text'))
+      ->setRequired(FALSE);
+    $properties['link_options'] = MapDataDefinition::create()
+      ->setLabel(t('Link Options'));
+
 
     return $properties;
   }
@@ -56,6 +63,17 @@ class UTexasImageLink extends FieldItemBase {
           'type' => 'varchar',
           'length' => 255,
           'binary' => FALSE,
+        ],
+        'link_text' => [
+          'description' => 'The link text.',
+          'type' => 'varchar',
+          'length' => 255,
+        ],
+        'link_options' => [
+          'description' => 'Serialized array of options for the link.',
+          'type' => 'blob',
+          'size' => 'big',
+          'serialize' => TRUE,
         ],
       ],
     ];

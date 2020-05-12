@@ -63,18 +63,14 @@ class UTexasQuickLinksWidget extends WidgetBase {
       '#title' => $this->t('List of links'),
     ];
     $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
-    $element['links']['#description'] = $this->t('Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
-      '%internal' => '/node/add',
-      '%external' => 'https://example.com',
-      '%front' => '<front>',
-    ]);
     $element['links']['#suffix'] = '</div>';
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
-        '#type' => 'utexas_link_element',
+        '#type' => 'utexas_link_options_element',
         '#default_value' => [
-          'url' => $links[$i]['url'] ?? '',
+          'uri' => $links[$i]['uri'] ?? '',
           'title' => $links[$i]['title'] ?? '',
+          'options' => $links[$i]['options'] ?? [],
         ],
       ];
     }
@@ -141,7 +137,7 @@ class UTexasQuickLinksWidget extends WidgetBase {
       // Links are stored as a serialized array.
       if (!empty($value['links'])) {
         foreach ($value['links'] as $key => $link) {
-          if (empty($link['url'])) {
+          if (empty($link['uri'])) {
             // Remove empty links.
             unset($value['links'][$key]);
           }

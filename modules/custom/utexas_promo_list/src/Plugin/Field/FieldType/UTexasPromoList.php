@@ -120,7 +120,7 @@ class UTexasPromoList extends FieldItemBase {
       $tlds = ['com', 'net', 'gov', 'org', 'edu', 'biz', 'info'];
       // Set random length for the domain name.
       $domain_length = mt_rand(7, 15);
-      $values['promo_list_items'][$i]['item']['link'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
+      $values['promo_list_items'][$i]['item']['link']['uri'] = 'http://www.' . $random->word($domain_length) . '.' . $tlds[mt_rand(0, (count($tlds) - 1))];
     }
     $values['promo_list_items'] = serialize($values['promo_list_items']);
     return $values;

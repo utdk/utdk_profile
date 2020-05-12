@@ -4,13 +4,14 @@ namespace Drupal\utexas_resources\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -108,13 +109,13 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
       $resource_items = unserialize($item->resource_items);
       if (!empty($resource_items)) {
         foreach ($resource_items as $key => $instance) {
-          $i = $instance['item'];
-          if (!empty($i['headline'])) {
-            $instances[$key]['headline'] = $i['headline'];
+          $instance_item = $instance['item'];
+          if (!empty($instance_item['headline'])) {
+            $instances[$key]['headline'] = $instance_item['headline'];
           }
           // Initialize image render array as false in case images aren't found.
           $image_render_array = FALSE;
-          if (!empty($i['image']) && $media = $this->entityTypeManager->getStorage('media')->load($i['image'])) {
+          if (!empty($instance_item['image']) && $media = $this->entityTypeManager->getStorage('media')->load($instance_item['image'])) {
             $media_attributes = $media->get('field_utexas_media_image')->getValue();
             $image_render_array = [];
             if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
@@ -140,31 +141,13 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
             $this->renderer->addCacheableDependency($image_render_array, $file);
             $instances[$key]['image'] = $image_render_array;
           }
-          if (!empty($i['links'])) {
-            foreach ($i['links'] as $l) {
-              if ($l['url'] == '') {
+          if (!empty($instance_item['links'])) {
+            foreach ($instance_item['links'] as $link) {
+              if ($link['uri'] == '') {
                 continue;
               }
-              // Ensure that links without title text print the URL.
-              $link_url = Url::fromUri($l['url']);
-              if (empty($l['title'])) {
-                $url = $link_url;
-                $url->setAbsolute();
-                $link_title = $url->toString();
-              }
-              else {
-                $link_title = $l['title'];
-              }
-              $link_options = [
-                'attributes' => [
-                  'class' => [
-                    'ut-link--darker',
-                  ],
-                ],
-              ];
-              $link_url->setOptions($link_options);
-              $link = Link::fromTextAndUrl($link_title, $link_url);
-              $instances[$key]['links'][] = $link;
+              $link_item['link'] = $link;
+              $instances[$key]['links'][] = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link--darker']);
             }
           }
         }

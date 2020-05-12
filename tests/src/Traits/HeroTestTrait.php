@@ -35,7 +35,7 @@ trait HeroTestTrait {
       'field_block_hero[0][subheading]' => 'Hero Subheading',
       'field_block_hero[0][caption]' => 'Hero Caption',
       'field_block_hero[0][credit]' => 'Hero Credit',
-      'field_block_hero[0][cta][link][url]' => 'https://hero.test',
+      'field_block_hero[0][cta][link][uri]' => 'https://hero.test',
       'field_block_hero[0][cta][link][title]' => 'Hero CTA',
       'field_block_hero[0][disable_image_styles]' => '1',
     ], 'Save');
@@ -76,8 +76,10 @@ trait HeroTestTrait {
       'field_block_hero[0][subheading]' => 'Hero Subheading',
       'field_block_hero[0][caption]' => 'Hero Caption',
       'field_block_hero[0][credit]' => 'Hero Credit',
-      'field_block_hero[0][cta][link][url]' => 'https://hero.test',
+      'field_block_hero[0][cta][link][uri]' => 'https://hero.test',
       'field_block_hero[0][cta][link][title]' => 'Hero CTA',
+      'field_block_hero[0][cta][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
+      'field_block_hero[0][cta][link][options][attributes][class]' => 'ut-cta-link--external',
     ], 'Save');
     $assert->pageTextContains('Hero Hero Test has been created.');
 
@@ -93,6 +95,7 @@ trait HeroTestTrait {
     $assert->pageTextNotContains('Hero Subheading');
     $assert->pageTextContains('Hero Caption');
     $assert->pageTextContains('Hero Credit');
+    // The default display does not include a CTA.
     $assert->linkByHrefNotExists('https://hero.test');
     $assert->pageTextNotContains('Hero CTA');
     // Verify responsive image is present within the link.
@@ -123,6 +126,11 @@ trait HeroTestTrait {
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-orange-insert .hero-img").css("background-image")');
     $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
+    // The Hero style 1 does include a CTA.
+    $assert->linkByHrefExists('https://hero.test');
+    $assert->pageTextContains('Hero CTA');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
 
     // Set display to "Hero Style 1 Left".
     $this->drupalGet('admin/structure/block/manage/herotest');

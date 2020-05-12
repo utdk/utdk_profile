@@ -52,17 +52,19 @@ class UTexasPromoListElement extends FormElement {
       '#format' => isset($element['#default_value']['copy_format']) ? $element['#default_value']['copy_format'] : 'restricted_html',
     ];
     $element['link'] = [
-      '#type' => 'utexas_link_element',
+      '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'url' => $element['#default_value']['link'] ?? '',
+        'uri' => $element['#default_value']['link']['uri'] ?? NULL,
+        'title' => $element['#default_value']['link']['title'] ?? NULL,
+        'options' => $element['#default_value']['link']['options'] ?? [],
       ],
-      '#description' => t('A valid URL for this promo list. If present, the item headline and image will become links. Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
-        '%internal' => '/node/add',
-        '%external' => 'https://example.com',
-        '%front' => '<front>',
-      ]),
-      '#suppress_display' => TRUE,
+      '#suppress_title_display' => TRUE,
     ];
+    $element['link']['#description'] = t('A valid URL for this promo list. If present, the item headline and image will become links. Start typing the title of a piece of content to select it. You can also enter an internal path such as %internal or an external URL such as %external. Enter %front to link to the front page.', [
+      '%internal' => '/node/add',
+      '%external' => 'https://example.com',
+      '%front' => '<front>',
+    ]);
     $element['#attached']['library'][] = 'utexas_promo_list/promo-list-widget';
     return $element;
   }
