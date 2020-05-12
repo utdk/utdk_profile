@@ -47,7 +47,7 @@
     "drush/drush": "~8",
     "oomphinc/composer-installers-extender": "1.1.2",
     "rvtraveller/qs-composer-installer": "1.1",
-    "utexas/forty_acres": "3.0.0-beta.5",
+    "utexas/forty_acres": "3.0.0-beta.6",
     "utexas/utexas_qualtrics_filter": "1.0.0-beta.1",
     "zaporylie/composer-drupal-optimizations": "1.0.2"
   },
