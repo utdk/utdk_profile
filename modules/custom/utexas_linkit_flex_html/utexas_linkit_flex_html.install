@@ -6,8 +6,10 @@
  */
 
 /**
- * Implements hook_install().
+ * Enable front page linkit matcher.
  */
-function utexas_linkit_flex_html_install() {
-  drupal_set_installed_schema_version('utexas_linkit_flex_html', '8100');
+function utexas_linkit_flex_html_update_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_linkit_flex_html',
+  ], TRUE);
 }
