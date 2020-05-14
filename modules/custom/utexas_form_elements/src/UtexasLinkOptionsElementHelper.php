@@ -85,6 +85,12 @@ class UtexasLinkOptionsElementHelper {
       $input = "/$input";
     }
 
+    if ($is_front) {
+      // - '<front>' -> '/'
+      // - '<front>#foo' -> '/#foo'
+      $input = '/' . substr($input, strlen('<front>'));
+    }
+
     $entity = self::getEntityFromUserInput($input);
     if ($entity) {
       return 'entity:' . $entity->getEntityTypeId() . '/' . $entity->id() . static::getQueryAndFragment($input);
