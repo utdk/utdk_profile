@@ -169,7 +169,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         $links = [];
       }
       // Format CTA.
-      $cta_item = $item->toArray();
+      $cta_item = $item->getValue();
       $cta_item['link']['title'] = $cta_item['link_text'] ?? NULL;
       $cta_item['link']['uri'] = $cta_item['link_uri'];
       $cta_item['link']['options'] = $cta_item['link_options'];
