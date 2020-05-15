@@ -101,6 +101,17 @@ class UtexasLinkOptionsElement extends FormElement {
     $uri_as_url = !empty($uri) ? Url::fromUri($uri)->toString() : '';
     /* End borrowed section. */
 
+    // @todo '<front>' is valid input for BC reasons, may be removed by
+    //   https://www.drupal.org/node/2421941
+    // Display 'internal:/' as '<front>' in form element.
+    if (!empty($uri) && $uri_scheme === 'internal') {
+      $uri_reference = explode(':', $uri, 2)[1];
+      $path = parse_url($uri, PHP_URL_PATH);
+      if ($path === '/') {
+        $uri_as_url = '<front>' . substr($uri_reference, 1);
+      }
+    }
+
     return $uri_as_url;
   }
 
