@@ -23,3 +23,8 @@ matchers:
     id: email
     weight: 0
     settings: {  }
+  28c24f80-9d86-4a13-8e94-d4ba0a4227e7:
+    uuid: 28c24f80-9d86-4a13-8e94-d4ba0a4227e7
+    id: front_page
+    weight: 0
+    settings: {  }
