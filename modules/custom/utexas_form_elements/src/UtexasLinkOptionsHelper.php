@@ -116,11 +116,13 @@ class UtexasLinkOptionsHelper {
     // Get the link url.
     $link_url = Url::fromUri($item['link']['uri']);
 
-    // Get the link options.
-    $link_options = $item['link']['options'];
-
     // Override the link title text if need be.
-    $link_title = $link_title_override ?? $item['link']['title'];
+    if ($link_title_override) {
+      $link_title = $link_title_override;
+    }
+    elseif (isset($item['link']['title'])) {
+      $link_title = $item['link']['title'];
+    }
 
     // Ensure that links without title text print the URL.
     if (empty($link_title)) {
@@ -136,7 +138,14 @@ class UtexasLinkOptionsHelper {
     // hold one value (string) when we start here. It is converted to an
     // array and an element is added to the array for proper processing. If it
     // is already an array, nothing changes.
-    $link_options = $item['link']['options'];
+    $default_options = [
+      'attributes' => [
+        'class' => [
+          '',
+        ],
+      ],
+    ];
+    $link_options = array_key_exists('options', $item['link']) ? $item['link']['options'] : $default_options;
     $link_options_classes = (array) $link_options['attributes']['class'];
     $merged_link_options_classes = array_merge($link_options_classes, $link_type_class);
     $link_options['attributes']['class'] = $merged_link_options_classes;

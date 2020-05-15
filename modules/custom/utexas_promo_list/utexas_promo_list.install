@@ -36,3 +36,47 @@ function utexas_promo_list_update_8101() {
       ->execute();
   }
 }
+
+/**
+ * Issue #1096: Properly re-store link values in expected array format.
+ */
+function utexas_promo_list_update_8102() {
+  // Update 'url' value keys to 'uri' in the blob field. MySQL auto-converts it
+  // back to blob on execute ("save").
+  $database_connection = Database::getConnection();
+  $query = $database_connection->query(
+    "SELECT value FROM {key_value} WHERE name=:name",
+    [
+      ':name' => "block_content.field_schema_data.field_block_pl",
+    ]
+  );
+  $result = $query->fetchAssoc();
+  $fh_tables = array_keys(unserialize($result['value']));
+
+  // Load all Promo List items stored in the database.
+  foreach ($fh_tables as $table_name) {
+    $field_name = 'field_block_pl_promo_list_items';
+    $query = $database_connection->select($table_name, 't');
+    $query->fields('t', ['revision_id', 'delta', $field_name]);
+    $result = $query->execute();
+    // Loop through each Promo List item row.
+    foreach ($result as $record) {
+      $data = unserialize($record->{$field_name});
+      foreach ($data as $delta => $item) {
+        if (isset($data[$delta]['item']['link'])) {
+          // If a Promo List item has a link value, change its key from
+          // 'link' to 'uri'.
+          $data[$delta]['item']['link'] = [
+            'uri' => $data[$delta]['item']['link'],
+          ];
+        }
+      }
+      // After modifying the column data, update the row.
+      $database_connection->update($table_name)
+        ->fields([$field_name => serialize($data)])
+        ->condition('revision_id', $record->revision_id, '=')
+        ->condition('delta', $record->delta, '=')
+        ->execute();
+    }
+  }
+}
