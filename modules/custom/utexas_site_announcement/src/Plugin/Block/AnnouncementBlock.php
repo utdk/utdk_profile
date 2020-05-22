@@ -16,6 +16,10 @@ use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
+ * The path to the configurable page.
+ */
+const UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH = 'admin/config/site-announcement';
+/**
  * Provides a 'Site Announcement' block.
  *
  * @Block(
@@ -217,7 +221,11 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
    * {@inheritdoc}
    */
   protected function blockAccess(AccountInterface $account) {
-    return AccessResult::allowedIfHasPermission($account, 'manage utexas site announcement');
+    // Validate user has permission when accessing config form.
+    if (\Drupal::service('path.current')->getPath() === UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH) {
+      return AccessResult::allowedIfHasPermission($account, 'manage utexas site announcement');
+    }
+    return AccessResult::allowed();
   }
 
   /**
