@@ -202,7 +202,7 @@ class AnnouncementConfigurationForm extends ConfigFormBase {
         'theme' => $this->config('system.theme')->get('default'),
       ]);
       // @todo: how to make this developer-configurable?
-      $block->setRegion('content');
+      $block->setRegion('site_announcement');
     }
     // Set the block enabled/disabled status per form selection.
     if ($config['state'] === "inactive") {
