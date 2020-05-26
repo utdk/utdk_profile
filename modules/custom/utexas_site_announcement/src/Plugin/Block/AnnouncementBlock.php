@@ -218,17 +218,6 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function blockAccess(AccountInterface $account) {
-    // Validate user has permission when accessing config form.
-    if (\Drupal::service('path.current')->getPath() === UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH) {
-      return AccessResult::allowedIfHasPermission($account, 'manage utexas site announcement');
-    }
-    return AccessResult::allowed();
-  }
-
-  /**
    * Generate the inline CSS for the announcement.
    */
   public function generateInlineCss($unique_id, $background_color_hex, $text_color_hex) {
