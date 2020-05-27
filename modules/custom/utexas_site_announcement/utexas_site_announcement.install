@@ -11,7 +11,6 @@
  * @ingroup utexas_site_announcement
  */
 function utexas_site_announcement_install() {
-  drupal_set_installed_schema_version('utexas_site_announcement', '8100');
   // Create default announcement icons.
   $site_announcement_icon_entity_manager = \Drupal::entityTypeManager()->getStorage('utexas_announcement_icon');
   $filedir = 'public://announcement_icons/';
@@ -81,6 +80,27 @@ function utexas_site_announcement_update_8101() {
         $block->set('settings.cta.uri', $block_url);
         // Delete old setting for 'url'.
         $block->clear('settings.cta.url');
+        $block->save();
+      }
+    }
+  }
+}
+
+/**
+ * Issue #1082: Update region for site announcement block.
+ */
+function utexas_site_announcement_update_8102() {
+  $config_factory = \Drupal::configFactory();
+  // Loop through each block configuration.
+  foreach ($config_factory->listAll('block.block.') as $block_config_name) {
+    $block = $config_factory->getEditable($block_config_name);
+    $block_plugin_id = $block->get('plugin');
+    // Check for Site Announcement blocks.
+    if ($block_plugin_id === 'utexas_announcement') {
+      // Only process if region still is "content".
+      if ($block->get('region') === 'content') {
+        // Update region to be "site_announcement"
+        $block->set('region', 'site_announcement');
         $block->save();
       }
     }
