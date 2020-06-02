@@ -53,15 +53,20 @@ trait QuickLinksTestTrait {
     $page->pressButton('Add link');
     $assert->assertWaitOnAjaxRequest();
     // Fill the third link.
-    $page->fillField('field_block_ql[0][links][2][uri]', 'https://quiclinks.test');
+    $page->fillField('field_block_ql[0][links][2][uri]', 'https://quicklinks.test');
     $page->fillField('field_block_ql[0][links][2][title]', 'Third link');
     // Empty second link.
     $page->fillField('field_block_ql[0][links][1][uri]', '');
     $page->fillField('field_block_ql[0][links][1][title]', '');
+    $page->fillField('field_block_ql[0][links][1][options][attributes][class]', '0');
+    $page->uncheckField('field_block_ql[0][links][1][options][attributes][target][_blank]');
     // Save block data and assert links are reordered.
     $page->pressButton('edit-submit');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Quick Links Test')->click();
     // Confirm second link has data from third link previously created.
-    $this->assertSession()->fieldValueEquals('field_block_ql[0][links][1][uri]', 'Third link');
+    $this->assertSession()->fieldValueEquals('field_block_ql[0][links][1][title]', 'Third link');
+    $this->assertSession()->fieldValueEquals('field_block_ql[0][links][1][uri]', 'https://quicklinks.test');
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/quicklinkstest/delete');
     $this->submitForm([], 'Remove');
