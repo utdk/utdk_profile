@@ -137,14 +137,13 @@ class UTexasQuickLinksWidget extends WidgetBase {
       // Links are stored as a serialized array.
       if (!empty($value['links'])) {
         foreach ($value['links'] as $key => $link) {
-          if (empty($link['uri'])) {
-            // Remove empty links.
-            unset($value['links'][$key]);
+          if (!empty($link['uri'])) {
+            $links_to_store[] = $link;
           }
         }
         // Don't serialize an empty array.
-        if (!empty($value['links'])) {
-          $value['links'] = serialize($value['links']);
+        if (!empty($links_to_store)) {
+          $value['links'] = serialize($links_to_store);
         }
         else {
           unset($value['links']);
