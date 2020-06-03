@@ -13,6 +13,8 @@ trait ResourcesTestTrait {
   public function verifyResources() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+
+    // CRUD: CREATE.
     $this->drupalGet('block/add/utexas_resources');
     $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
     $fieldset[0]->click();
@@ -68,6 +70,7 @@ trait ResourcesTestTrait {
     ], 'Save block');
     $assert->pageTextContains('The block configuration has been saved.');
 
+    // CRUD: READ.
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Resource Container Headline');
@@ -94,7 +97,56 @@ trait ResourcesTestTrait {
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display div.ut-resources-wrapper');
 
-    // Reset block weighting system.
+    // CRUD: UPDATE.
+    // Edit block to add more links.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Resources Test')->click();
+    // Reorder instances.
+    $this->submitForm([
+      'field_block_resources[0][resource_items][items][0][weight]' => 1,
+      'field_block_resources[0][resource_items][items][1][weight]' => 0,
+    ], 'Save');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Resources Test')->click();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+
+    $page->pressButton('Add link');
+    $assert->assertWaitOnAjaxRequest();
+
+    // Populate the third link.
+    $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][2][uri]', 'https://thirdlink.test');
+    $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][2][title]', 'Third link');
+
+    // Remove data for the second link
+    // (#1121: Verify links can be removed without loss of data.)
+    $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][uri]', '');
+    $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', '');
+    $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][options][attributes][class]', '0');
+
+    // Save block data and assert links are reordered.
+    $page->pressButton('edit-submit');
+
+    // View the block form.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Resources Test')->click();
+    $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
+    $fieldset[0]->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Confirm second link has data from third link previously created.
+    $this->assertSession()->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', 'Third link');
+    $this->assertSession()->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][links][1][uri]', 'https://thirdlink.test');
+    // Verify data for removed link is not present.
+    $assert->pageTextNotContains('Resources Internal Link');
+
+    // CRUD: DELETE.
+    // Reset block weighting system for subsequent tests.
     $this->drupalGet('/admin/structure/block/block-content');
     $checkbox_selector = '.views-field-operations li.edit';
     $checkboxes = $page->findAll('css', $checkbox_selector);
@@ -102,9 +154,14 @@ trait ResourcesTestTrait {
     $page->pressButton('Hide row weights');
 
     // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/resourcestest/delete');
-    $this->submitForm([], 'Remove');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Resources Test')->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains('Resources Test');
 
+    // TEST CLEANUP //
     // Remove test node.
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
