@@ -49,7 +49,7 @@ trait QuickLinksTestTrait {
     // Edit block to add more links.
     $this->drupalGet('admin/structure/block/block-content');
     $page->findLink('Quick Links Test')->click();
-    // Click button to add new link twice.
+    // Click button to add new link.
     $page->pressButton('Add link');
     $assert->assertWaitOnAjaxRequest();
     // Fill the third link.
