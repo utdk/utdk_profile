@@ -13,6 +13,8 @@ trait PhotoContentAreaTestTrait {
   public function verifyPhotoContentArea() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+
+    // CRUD: CREATE.
     $this->drupalGet('block/add/utexas_photo_content_area');
 
     // Verify widget field schema.
@@ -26,6 +28,11 @@ trait PhotoContentAreaTestTrait {
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $assert->assertWaitOnAjaxRequest();
+    // Add two more link slots.
+    $page->pressButton('Add link');
+    $assert->assertWaitOnAjaxRequest();
+    $page->pressButton('Add link');
+    $assert->assertWaitOnAjaxRequest();
 
     $this->submitForm([
       'info[0][value]' => 'Photo Content Area Test',
@@ -36,6 +43,10 @@ trait PhotoContentAreaTestTrait {
       'field_block_pca[0][links][0][title]' => 'Photo Content Area Link',
       'field_block_pca[0][links][0][options][attributes][target][_blank]' => ['_blank' => '_blank'],
       'field_block_pca[0][links][0][options][attributes][class]' => 'ut-cta-link--external',
+      'field_block_pca[0][links][1][uri]' => 'https://second.test',
+      'field_block_pca[0][links][1][title]' => 'Photo Content Area Second Link',
+      'field_block_pca[0][links][2][uri]' => 'https://third.test',
+      'field_block_pca[0][links][2][title]' => 'Photo Content Area Third Link',
     ], 'Save');
     $assert->pageTextContains('Photo Content Area Photo Content Area Test has been created.');
 
@@ -45,12 +56,15 @@ trait PhotoContentAreaTestTrait {
     ], 'Save block');
     $assert->pageTextContains('The block configuration has been saved.');
 
+    // CRUD: READ.
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'div.caption span', 'Photo Content Area Photo Credit');
     $assert->elementTextContains('css', 'h2.ut-headline', 'Photo Content Area Headline');
     $assert->pageTextContains('Photo Content Area Copy');
     $assert->linkByHrefExists('https://photocontentarea.test');
+    $assert->linkByHrefExists('https://second.test');
+    $assert->linkByHrefExists('https://third.test');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
@@ -67,9 +81,29 @@ trait PhotoContentAreaTestTrait {
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display div.ut-photo-content-area');
 
-    // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/photocontentareatest/delete');
-    $this->submitForm([], 'Remove');
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Photo Content Area Test')->click();
+    // Remove data for the second link
+    // (#1121: Verify links can be removed without loss of data.)
+    $page->fillField('field_block_pca[0][links][1][uri]', '');
+    $page->fillField('field_block_pca[0][links][1][title]', '');
+    $page->pressButton('edit-submit');
+
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Photo Content Area Test')->click();
+    $assert->fieldValueEquals('field_block_pca[0][links][1][title]', 'Photo Content Area Third Link');
+    $assert->fieldValueEquals('field_block_pca[0][links][1][uri]', 'https://third.test');
+    // Verify data for removed link is not present.
+    $assert->pageTextNotContains('https://second.test');
+
+    // CRUD: DELETE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Photo Content Area Test')->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains('Photo Content Area Test');
   }
 
 }
