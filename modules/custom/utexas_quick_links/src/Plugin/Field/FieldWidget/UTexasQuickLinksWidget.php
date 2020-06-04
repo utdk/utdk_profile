@@ -64,6 +64,8 @@ class UTexasQuickLinksWidget extends WidgetBase {
     ];
     $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
     $element['links']['#suffix'] = '</div>';
+    // Ensure array keys are consecutive.
+    $links = array_values($links);
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
         '#type' => 'utexas_link_options_element',
