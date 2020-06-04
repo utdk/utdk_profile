@@ -65,8 +65,8 @@ trait QuickLinksTestTrait {
     $this->drupalGet('admin/structure/block/block-content');
     $page->findLink('Quick Links Test')->click();
     // Confirm second link has data from third link previously created.
-    $this->assertSession()->fieldValueEquals('field_block_ql[0][links][1][title]', 'Third link');
-    $this->assertSession()->fieldValueEquals('field_block_ql[0][links][1][uri]', 'https://quicklinks.test');
+    $assert->fieldValueEquals('field_block_ql[0][links][1][title]', 'Third link');
+    $assert->fieldValueEquals('field_block_ql[0][links][1][uri]', 'https://quicklinks.test');
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/quicklinkstest/delete');
     $this->submitForm([], 'Remove');
