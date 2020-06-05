@@ -8,7 +8,7 @@ namespace Drupal\Tests\utexas\Traits;
 trait PromoListTestTrait {
 
   /**
-   * Verify promo unit widget schema & output.
+   * Verify Promo List widget schema & output.
    */
   public function verifyPromoList() {
     // Enlarge the viewport so that all Promo Lists are clickable.
@@ -139,6 +139,38 @@ trait PromoListTestTrait {
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $page->pressButton('Hide row weights');
+
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Promo List Test')->click();
+    // Add a third item.
+    $page->pressButton('Add Promo List item');
+    $assert->assertWaitOnAjaxRequest();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+
+    // Clear out the data for item 2; add item 3.
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', '');
+    $page->pressButton('image-0-media-library-remove-button-field_block_pl-0-promo_list_items-items-1-details-item');
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][copy][value]', '');
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][link][uri]', '');
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][link][options][attributes][class]', '0');
+    $page->uncheckField('field_block_pl[0][promo_list_items][items][1][details][item][link][options][attributes][target][_blank]');
+    $page->fillField('field_block_pl[0][promo_list_items][items][2][details][item][headline]', 'Promo List 3 Headline');
+    $page->pressButton('edit-submit');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Promo List Test')->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
+    $assert->fieldValueEquals('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'Promo List 3 Headline');
+    // Verify data for removed item is not present.
+    $assert->pageTextNotContains('Promo List 1 Headline');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/promolisttest/delete');
