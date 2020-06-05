@@ -35,7 +35,7 @@ class UTexasSocialLinkWidget extends WidgetBase {
     ];
 
     // Gather the number of links in the form already.
-    $items = unserialize($items[$delta]->social_account_links);
+    $items = (array) unserialize($items[$delta]->social_account_links);
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
@@ -52,6 +52,8 @@ class UTexasSocialLinkWidget extends WidgetBase {
       $widget_state[$field_name][$delta]["counter"] = $item_count;
       static::setWidgetState($parents, $field_name, $form_state, $widget_state);
     }
+    // Ensure array keys are consecutive.
+    $items = array_values($items);
     $wrapper_id = Html::getUniqueId('ajax-wrapper');
     $element['social_account_links'] = [
       '#type' => 'fieldset',
@@ -136,16 +138,17 @@ class UTexasSocialLinkWidget extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // This loop is through field instances (not link instances).
     foreach ($values as &$value) {
+      $links_to_add = [];
       // Links are stored as a serialized array.
       if (!empty($value['social_account_links'])) {
         foreach ($value['social_account_links'] as $key => $item) {
-          if (empty($item['social_account_url'])) {
-            // Remove empty links.
-            unset($value['social_account_links'][$key]);
+          if (!empty($item['social_account_url'])) {
+            // Only save links that have data.
+            $links_to_add[] = $value['social_account_links'][$key];
           }
         }
-        if (!empty($value['social_account_links'])) {
-          $value['social_account_links'] = serialize($value['social_account_links']);
+        if (!empty($links_to_add)) {
+          $value['social_account_links'] = serialize($links_to_add);
         }
       }
     }
