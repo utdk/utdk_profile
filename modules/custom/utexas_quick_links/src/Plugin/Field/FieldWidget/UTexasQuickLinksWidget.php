@@ -64,6 +64,8 @@ class UTexasQuickLinksWidget extends WidgetBase {
     ];
     $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
     $element['links']['#suffix'] = '</div>';
+    // Ensure array keys are consecutive.
+    $links = array_values($links);
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
         '#type' => 'utexas_link_options_element',
@@ -136,15 +138,15 @@ class UTexasQuickLinksWidget extends WidgetBase {
     foreach ($values as &$value) {
       // Links are stored as a serialized array.
       if (!empty($value['links'])) {
+        $links_to_store = [];
         foreach ($value['links'] as $key => $link) {
-          if (empty($link['uri'])) {
-            // Remove empty links.
-            unset($value['links'][$key]);
+          if (!empty($link['uri'])) {
+            $links_to_store[] = $link;
           }
         }
         // Don't serialize an empty array.
-        if (!empty($value['links'])) {
-          $value['links'] = serialize($value['links']);
+        if (!empty($links_to_store)) {
+          $value['links'] = serialize($links_to_store);
         }
         else {
           unset($value['links']);
