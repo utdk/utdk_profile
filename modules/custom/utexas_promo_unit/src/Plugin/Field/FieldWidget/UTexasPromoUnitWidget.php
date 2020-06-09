@@ -37,6 +37,8 @@ class UTexasPromoUnitWidget extends WidgetBase {
 
     // Gather the number of promo units.
     $items = !empty($items[$delta]->promo_unit_items) ? unserialize($items[$delta]->promo_unit_items) : [];
+    // Ensure item keys are consecutive.
+    $items = array_values($items);
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
@@ -181,8 +183,9 @@ class UTexasPromoUnitWidget extends WidgetBase {
         unset($storage[$delta]['promo_unit_items']);
       }
       else {
-        // Promo Unit items are stored in a serialized array.
-        $storage[$delta]['promo_unit_items'] = serialize($storage[$delta]['promo_unit_items']);
+        // Promo Unit items are stored in a serialized array,
+        // with consecutive keys.
+        $storage[$delta]['promo_unit_items'] = serialize(array_values($storage[$delta]['promo_unit_items']));
       }
     }
     return $storage;
