@@ -145,6 +145,37 @@ trait ResourcesTestTrait {
     // Verify data for removed link is not present.
     $assert->pageTextNotContains('Resources Internal Link');
 
+    // Verify Resource collections can be removed.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Resources Test')->click();
+    // Add a third item.
+    $page->pressButton('Add another collection');
+    $assert->assertWaitOnAjaxRequest();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Clear out the data for item 2; add item 3.
+    $this->createScreenshot('before.png');
+    $page->fillField('field_block_resources[0][resource_items][items][1][details][item][headline]', '');
+    $page->fillField('field_block_resources[0][resource_items][items][1][details][item][links][0][uri]', '');
+    $page->fillField('field_block_resources[0][resource_items][items][2][details][item][headline]', 'Resource 3 Headline');
+    $page->pressButton('edit-submit');
+
+    // Go back to the edit form.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Resources Test')->click();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][headline]', 'Resource 3 Headline');
+    // Verify data for removed item is not present.
+    $assert->pageTextNotContains('Resource 2 Headline');
+
     // CRUD: DELETE.
     // Reset block weighting system for subsequent tests.
     $this->drupalGet('/admin/structure/block/block-content');

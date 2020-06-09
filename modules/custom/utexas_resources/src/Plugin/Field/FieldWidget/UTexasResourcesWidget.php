@@ -37,6 +37,8 @@ class UTexasResourcesWidget extends WidgetBase {
 
     // Gather the number of links in the form already.
     $items = !empty($items[$delta]->resource_items) ? unserialize($items[$delta]->resource_items) : [];
+    // Ensure item keys are consecutive.
+    $items = array_values($items);
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
@@ -182,8 +184,9 @@ class UTexasResourcesWidget extends WidgetBase {
         unset($storage[$delta]['resource_items']);
       }
       else {
-        // Resource items are stored in a serialized array.
-        $storage[$delta]['resource_items'] = serialize($storage[$delta]['resource_items']);
+        // Resource items are stored in a serialized array,
+        // with consecutive keys.
+        $storage[$delta]['resource_items'] = serialize(array_values($storage[$delta]['resource_items']));
       }
     }
     return $storage;
