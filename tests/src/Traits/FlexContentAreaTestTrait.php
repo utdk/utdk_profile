@@ -13,11 +13,11 @@ trait FlexContentAreaTestTrait {
   public function verifyFlexContentArea() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+
+    // CRUD: CREATE.
     $this->drupalGet('block/add/utexas_flex_content_area');
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
-    foreach ($fieldsets as $fieldset) {
-      $fieldset->click();
-    }
+    // Expand the collapsed fieldset for populating data.
+    $page->find('css', 'div.field--type-utexas-flex-content-area details')->click();
 
     // Verify widget field schema.
     $page->pressButton('Add media');
@@ -31,40 +31,28 @@ trait FlexContentAreaTestTrait {
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $assert->assertWaitOnAjaxRequest();
 
-    // Add two more instances.
-    $page->pressButton('Add another item');
+    $page->fillField('edit-info-0-value', 'Flex Content Area Test');
+    $one = 'field_block_fca[0][flex_content_area]';
+    $page->fillField($one . '[headline]', 'Flex Content Area Headline 1');
+    $page->fillField($one . '[copy][value]', 'Flex Content Area Copy');
+    $page->fillField($one . '[links][0][title]', 'Flex Content Area External Link');
+    $page->fillField($one . '[links][0][uri]', 'https://utexas.edu');
+    $page->fillField($one . '[links][0][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $page->fillField($one . '[links][0][options][attributes][class]', 'ut-cta-link--lock');
+    // Add slots for two more links on Flex Content Area instance 1.
+    $page->pressButton('Add link');
     $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Add another item');
+    $page->pressButton('Add link');
     $assert->assertWaitOnAjaxRequest();
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
-    foreach ($fieldsets as $fieldset) {
-      $fieldset->click();
-    }
-    $this->submitForm([
-      'info[0][value]' => 'Flex Content Area Test',
-      'field_block_fca[0][flex_content_area][headline]' => 'Flex Content Area Headline',
-      'field_block_fca[0][flex_content_area][copy][value]' => 'Flex Content Area Copy',
-      'field_block_fca[0][flex_content_area][links][0][uri]' => 'https://utexas.edu',
-      'field_block_fca[0][flex_content_area][links][0][title]' => 'Flex Content Area External Link',
-      'field_block_fca[0][flex_content_area][cta_wrapper][link][uri]' => 'https://utexas.edu',
-      'field_block_fca[0][flex_content_area][links][0][options][attributes][target][_blank]' => ['_blank' => '_blank'],
-      'field_block_fca[0][flex_content_area][links][0][options][attributes][class]' => 'ut-cta-link--lock',
-      'field_block_fca[0][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action',
-      'field_block_fca[0][flex_content_area][cta_wrapper][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
-      'field_block_fca[0][flex_content_area][cta_wrapper][link][options][attributes][class]' => 'ut-cta-link--external',
-      'field_block_fca[1][flex_content_area][headline]' => 'Flex Content Area Headline 2',
-      'field_block_fca[1][flex_content_area][copy][value]' => 'Flex Content Area Copy 2',
-      'field_block_fca[1][flex_content_area][links][0][uri]' => 'https://utexas.edu',
-      'field_block_fca[1][flex_content_area][links][0][title]' => 'Flex Content Area External Link 2',
-      'field_block_fca[1][flex_content_area][cta_wrapper][link][uri]' => 'https://utexas.edu',
-      'field_block_fca[1][flex_content_area][cta_wrapper][link][title]' => 'Flex Content Area Call to Action 2',
-      'field_block_fca[2][flex_content_area][headline]' => 'Flex Content Area Headline 3',
-      'field_block_fca[2][flex_content_area][copy][value]' => '',
-      'field_block_fca[2][flex_content_area][links][0][uri]' => '',
-      'field_block_fca[2][flex_content_area][links][0][title]' => '',
-      'field_block_fca[2][flex_content_area][cta_wrapper][link][uri]' => '',
-      'field_block_fca[2][flex_content_area][cta_wrapper][link][title]' => '',
-    ], 'Save');
+    $page->fillField($one . '[links][1][title]', 'Flex Content Area Second Link');
+    $page->fillField($one . '[links][1][uri]', 'https://second.test');
+    $page->fillField($one . '[links][2][title]', 'Flex Content Area Third Link');
+    $page->fillField($one . '[links][2][uri]', 'https://third.test');
+    $page->fillField($one . '[cta_wrapper][link][uri]', 'https://utexas.edu');
+    $page->fillField($one . '[cta_wrapper][link][title]', 'Flex Content Area Call to Action');
+    $page->fillField($one . '[cta_wrapper][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $page->fillField($one . '[cta_wrapper][link][options][attributes][class]', 'ut-cta-link--external');
+    $page->pressButton('edit-submit');
     $assert->pageTextContains('Flex Content Area Test has been created.');
 
     // Place Block in "Content" region on all pages.
@@ -73,12 +61,45 @@ trait FlexContentAreaTestTrait {
     ], 'Save block');
     $assert->pageTextContains('The block configuration has been saved.');
 
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    // Add two more Flex Content Area instances.
+    $page->pressButton('Add another item');
+    $assert->assertWaitOnAjaxRequest();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    // Expand the second fieldset.
+    $fieldsets[1]->click();
+    $two = 'field_block_fca[1][flex_content_area]';
+    $page->fillField($two . '[headline]', 'Flex Content Area Headline 2');
+    $page->fillField($two . '[copy][value]', 'Flex Content Area Copy 2');
+    $page->fillField($two . '[links][0][title]', 'Flex Content Area External Link 2');
+    $page->fillField($two . '[links][0][uri]', 'https://utexas.edu');
+    $page->fillField($two . '[cta_wrapper][link][uri]', 'https://utexas.edu');
+    $page->fillField($two . '[cta_wrapper][link][title]', 'Flex Content Area Call to Action 2');
+    $page->pressButton('edit-submit');
+
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    $page->pressButton('Add another item');
+    $assert->assertWaitOnAjaxRequest();
+    // Expand the third fieldset.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    $fieldsets[2]->click();
+    // Add only a headline to third instance.
+    $three = 'field_block_fca[2][flex_content_area]';
+    $page->fillField($three . '[headline]', 'Flex Content Area Headline 3');
+    $page->pressButton('edit-submit');
+
+    // CRUD: READ.
     $this->drupalGet('<front>');
 
     // Flex Content Area instance 1 is rendered.
     $assert->elementTextContains('css', 'h3.ut-headline', 'Flex Content Area Headline');
     $assert->pageTextContains('Flex Content Area Copy');
     $assert->linkByHrefExists('https://utexas.edu');
+    $assert->linkByHrefExists('https://second.test');
+    $assert->linkByHrefExists('https://third.test');
     $assert->elementTextContains('css', 'a.ut-btn', 'Flex Content Area Call to Action');
     // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
@@ -100,9 +121,40 @@ trait FlexContentAreaTestTrait {
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .link-list');
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .image-wrapper');
 
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    $fieldsets[0]->click();
+
+    // Remove data for the second link
+    // (#1121: Verify links can be removed without loss of data.)
+    $page->fillField('field_block_fca[0][flex_content_area][links][1][uri]', '');
+    $page->fillField('field_block_fca[0][flex_content_area][links][1][title]', '');
+
+    $page->pressButton('edit-submit');
+
+    // Return to the block.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    $fieldsets[0]->click();
+    // Confirm second link has data from third link previously created.
+    $assert->fieldValueEquals('field_block_fca[0][flex_content_area][links][1][title]', 'Flex Content Area Third Link');
+    $assert->fieldValueEquals('field_block_fca[0][flex_content_area][links][1][uri]', 'https://third.test');
+    // Verify data for removed link is not present.
+    $assert->pageTextNotContains('https://second.test');
+
+    // CRUD: DELETE.
     // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/flexcontentareatest/delete');
-    $this->submitForm([], 'Remove');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains('Flex Content Area Test');
 
     // Test rendering of YouTube video.
     $this->drupalGet('block/add/utexas_flex_content_area');

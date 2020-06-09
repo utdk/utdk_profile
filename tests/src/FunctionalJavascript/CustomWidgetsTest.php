@@ -92,7 +92,7 @@ class CustomWidgetsTest extends WebDriverTestBase {
    */
   public function testCustomWidgets() {
     $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
+    $this->getSession()->resizeWindow(1200, 3000);
     $this->verifyNoDuplicateMenuBlocks();
     $this->verifyPromoList();
     $this->verifyResources();

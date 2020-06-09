@@ -63,7 +63,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
     $link_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
     // We have to ensure that there is at least one link field.
-    $links = unserialize($item->links);
+    $links = (array) unserialize($item->links);
     if ($link_count === NULL) {
       if (empty($links)) {
         $link_count = 1;
@@ -81,6 +81,8 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     ];
     $element['flex_content_area']['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
     $element['flex_content_area']['links']['#suffix'] = '</div>';
+    // Ensure array keys are consecutive.
+    $links = array_values($links);
     for ($i = 0; $i < $link_count; $i++) {
       $element['flex_content_area']['links'][$i] = [
         '#type' => 'utexas_link_options_element',
@@ -171,16 +173,17 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
         $value['image'] = 0;
       }
       // Links are stored as a serialized array.
+      $links_to_add = [];
       if (!empty($value['links'])) {
         foreach ($value['links'] as $key => $link) {
-          if (empty($link['uri'])) {
-            // Remove empty links.
-            unset($value['links'][$key]);
+          if (!empty($link['uri'])) {
+            // Only add links with actual content.
+            $links_to_add[] = $value['links'][$key];
           }
         }
         // Don't serialize an empty array.
-        if (!empty($value['links'])) {
-          $value['links'] = serialize($value['links']);
+        if (!empty($links_to_add)) {
+          $value['links'] = serialize($links_to_add);
         }
         else {
           unset($value['links']);
