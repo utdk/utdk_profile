@@ -132,7 +132,6 @@ trait FlexContentAreaTestTrait {
     // (#1121: Verify links can be removed without loss of data.)
     $page->fillField('field_block_fca[0][flex_content_area][links][1][uri]', '');
     $page->fillField('field_block_fca[0][flex_content_area][links][1][title]', '');
-
     $page->pressButton('edit-submit');
 
     // Return to the block.
@@ -146,6 +145,35 @@ trait FlexContentAreaTestTrait {
     $assert->fieldValueEquals('field_block_fca[0][flex_content_area][links][1][uri]', 'https://third.test');
     // Verify data for removed link is not present.
     $assert->pageTextNotContains('https://second.test');
+
+    // Verify Flex Content Area items can be removed.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    // Add a slot for a 3rd Flex Content Area.
+    $page->pressButton('Add another item');
+    $assert->assertWaitOnAjaxRequest();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    $fieldsets[1]->click();
+    $fieldsets[2]->click();
+    // Clear out the data for item 2.
+    $page->fillField('field_block_fca[1][flex_content_area][headline]', '');
+    $page->fillField('field_block_fca[1][flex_content_area][copy][value]', '');
+    $page->fillField('field_block_fca[1][flex_content_area][links][0][uri]', '');
+    $page->fillField('field_block_fca[1][flex_content_area][links][0][title]', '');
+    $page->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][uri]', '');
+    $page->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][title]', '');
+    $page->pressButton('edit-submit');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Flex Content Area Test')->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
+    $assert->fieldValueEquals('field_block_fca[1][flex_content_area][headline]', 'Flex Content Area Headline 3');
+    // Verify data for removed item is not present.
+    $assert->pageTextNotContains('Flex Content Area Headline 2');
 
     // CRUD: DELETE.
     // Remove the block from the system.
