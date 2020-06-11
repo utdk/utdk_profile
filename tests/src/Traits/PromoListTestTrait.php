@@ -24,8 +24,7 @@ trait PromoListTestTrait {
 
     // Verify widget field schema.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $assert->waitForText('Add or select media');
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';

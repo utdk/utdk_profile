@@ -8,7 +8,7 @@ namespace Drupal\Tests\utexas\Traits;
 trait ResourcesTestTrait {
 
   /**
-   * Verify promo unit widget schema & output.
+   * Verify Resources widget schema & output.
    */
   public function verifyResources() {
     $assert = $this->assertSession();
@@ -197,6 +197,85 @@ trait ResourcesTestTrait {
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
     $storage_handler->delete($entities);
+  }
+
+  /**
+   * Verify Resources links within collections are always displayed.
+   */
+  public function verifyResourceCollectionLinks() {
+    $assert = $this->assertSession();
+    $session = $this->getSession();
+    $page = $session->getPage();
+
+    $this->drupalGet("/node/add/utexas_flex_page");
+    $edit = [
+      'title[0][value]' => 'Resource Collection Links Test',
+    ];
+    // Create Flex Page node.
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $node = $this->drupalGetNodeByTitle('Resource Collection Links Test');
+    // Go to layout tab for node.
+    $this->drupalGet('node/' . $node->id() . '/layout');
+    // Add a new resources block.
+    $this->clickLink('Add block');
+    $assert->waitForText('Create custom block');
+    $this->clickLink('Create custom block');
+    $assert->waitForText('Add a new Inline Block');
+    $this->clickLink('Resources');
+    // Verify that the add block has been opened in the modal.
+    $assert->waitForText('Resource Title');
+    // Fill block title.
+    $page->fillField('settings[label]', 'Resources Block');
+    // Add second collection.
+    $page->pressButton('Add another collection');
+    $assert->waitForText('Resource Collection 2');
+    // Retrieve all collection fieldsets into a variable.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details summary');
+    // Open the first collection.
+    $fieldsets[0]->click();
+    // Add second link to first collection, 2 total.
+    $page->pressButton('Add link');
+    $one = 'settings[block_form][field_block_resources][0][resource_items][items][0][details][item]';
+    $assert->waitForElement('css', 'input[name="' . $one . '[links][1][uri]"]');
+
+    // Fill all inputs for first collection.
+    $page->fillField($one . '[headline]', 'Resource Container 1 Headline');
+    $page->fillField($one . '[links][0][title]', 'Link 1');
+    $page->fillField($one . '[links][0][uri]', 'https://resource.test');
+    $page->fillField($one . '[links][1][title]', 'Link 2');
+    $page->fillField($one . '[links][1][uri]', 'https://resource2.test');
+    // Close first collection.
+    $fieldsets[0]->click();
+    $session->wait(3000);
+    // Open second collection after closing first one.
+    $fieldsets[1]->click();
+    $two = 'settings[block_form][field_block_resources][0][resource_items][items][1][details][item]';
+    // Add two more links to second collection, 3 total.
+    $page->pressButton('field_block_resources01');
+    $assert->waitForElement('css', 'input[name="' . $two . '[links][1][uri]"]');
+    $page->pressButton('field_block_resources01');
+    $assert->waitForElement('css', 'input[name="' . $two . '[links][2][uri]"]');
+    // Fill all inputs for second collection.
+    $page->fillField($two . '[headline]', 'Resource Container 1 Headline');
+    $page->fillField($two . '[links][0][title]', 'Link 3');
+    $page->fillField($two . '[links][0][uri]', 'https://resource.test');
+    $page->fillField($two . '[links][1][title]', 'Link 4');
+    $page->fillField($two . '[links][1][uri]', 'https://resource2.test');
+    $page->fillField($two . '[links][2][title]', 'Link 5');
+    $page->fillField($two . '[links][2][uri]', '/');
+    $page->pressButton('Add block');
+    $assert->waitForText('You have unsaved changes.');
+    $this->clickContextualLink('.block-inline-blockutexas-resources', 'Configure');
+    $assert->waitForText('Resource Title');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify there are 5 links between both collections, no missing links.
+    $assert->fieldValueEquals($one . '[links][0][title]', 'Link 1');
+    $assert->fieldValueEquals($one . '[links][1][title]', 'Link 2');
+    $assert->fieldValueEquals($two . '[links][0][title]', 'Link 3');
+    $assert->fieldValueEquals($two . '[links][1][title]', 'Link 4');
+    $assert->fieldValueEquals($two . '[links][2][title]', 'Link 5');
   }
 
 }

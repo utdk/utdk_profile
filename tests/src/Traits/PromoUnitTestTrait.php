@@ -18,7 +18,7 @@ trait PromoUnitTestTrait {
     // CRUD: CREATE.
     // Verify the custom "Add Promo Unit item" button works.
     $page->pressButton('Add Promo Unit item');
-    $assert->assertWaitOnAjaxRequest();
+    $assert->waitForText('Promo Unit item 2');
     $page->pressButton('Show row weights');
 
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
