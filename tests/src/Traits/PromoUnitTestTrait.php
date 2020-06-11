@@ -15,9 +15,10 @@ trait PromoUnitTestTrait {
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_unit');
 
+    // CRUD: CREATE.
     // Verify the custom "Add Promo Unit item" button works.
     $page->pressButton('Add Promo Unit item');
-    $assert->assertWaitOnAjaxRequest();
+    $assert->waitForText('Promo Unit item 2');
     $page->pressButton('Show row weights');
 
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
@@ -63,6 +64,7 @@ trait PromoUnitTestTrait {
     ], 'Save block');
     $assert->pageTextContains('The block configuration has been saved.');
 
+    // CRUD: READ.
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Promo Unit Container Headline');
@@ -147,9 +149,47 @@ trait PromoUnitTestTrait {
     $checkboxes[0]->click();
     $page->pressButton('Hide row weights');
 
-    // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/promounittest/delete');
-    $this->submitForm([], 'Remove');
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Promo Unit Test')->click();
+    // Add a third Promo Unit items.
+    $page->pressButton('Add Promo Unit item');
+    $assert->assertWaitOnAjaxRequest();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+
+    // Clear out the data for item 2; add item 3.
+    $page->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][headline]', '');
+    $page->pressButton('image-0-media-library-remove-button-field_block_pu-0-promo_unit_items-items-1-details-item');
+    $page->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][copy][value]', '');
+    $page->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][link][uri]', '');
+    $page->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][link][title]', '');
+    $page->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][link][options][attributes][class]', '0');
+    $page->uncheckField('field_block_pu[0][promo_unit_items][items][1][details][item][link][options][attributes][target][_blank]');
+    $page->fillField('field_block_pu[0][promo_unit_items][items][2][details][item][headline]', 'Promo Unit 3 Headline');
+    $page->pressButton('edit-submit');
+
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Promo Unit Test')->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
+    $assert->fieldValueEquals('field_block_pu[0][promo_unit_items][items][1][details][item][headline]', 'Promo Unit 3 Headline');
+    // Verify data for removed item is not present.
+    $assert->pageTextNotContains('Promo Unit 1 Headline');
+
+    // CRUD: DELETE.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Promo Unit Test')->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains('Promo Unit Test');
 
     // Remove test node.
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");

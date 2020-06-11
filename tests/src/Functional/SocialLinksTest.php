@@ -94,6 +94,7 @@ class SocialLinksTest extends BrowserTestBase {
     ];
     $this->assertTrue($available_icons == $options);
 
+    // CRUD: CREATE
     // Create a block & validate an external link is required for URL.
     $this->assertAllowed("/block/add/social_links");
     $edit = [
@@ -106,21 +107,37 @@ class SocialLinksTest extends BrowserTestBase {
     // Verify the block has been created.
     $block = $this->drupalGetBlockByInfo('Social Links Test');
     $this->drupalGet("/block/" . $block->id());
+
+    // CRUD: UPDATE.
+    $page->pressButton('edit-field-utexas-sl-social-links-0-social-account-links-actions-add');
     $page->pressButton('edit-field-utexas-sl-social-links-0-social-account-links-actions-add');
     $edit = [
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_name]' => 'twitter',
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => 'https://twitter.com/our-site',
+      'field_utexas_sl_social_links[0][social_account_links][2][social_account_name]' => 'facebook',
+      'field_utexas_sl_social_links[0][social_account_links][2][social_account_url]' => 'https://facebook.com/our-site',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
     // Return to the block interface.
     $this->drupalGet("/block/" . $block->id());
-    $page->pressButton('edit-field-utexas-sl-social-links-0-social-account-links-actions-add');
+    // Remove the 2nd social link instance.
+    $edit = [
+      'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => '',
+    ];
+    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+
+    // Return to the block interface.
+    $this->drupalGet("/block/" . $block->id());
+
+    // Verify subsequent links persist after previous links are removed.
+    $assert->fieldValueEquals('field_utexas_sl_social_links[0][social_account_links][1][social_account_name]', 'facebook');
+    $assert->fieldValueEquals('field_utexas_sl_social_links[0][social_account_links][1][social_account_url]', 'https://facebook.com/our-site');
 
     // Verify that an external link is required for the URL.
     $edit = [
-      'field_utexas_sl_social_links[0][social_account_links][2][social_account_name]' => 'facebook',
-      'field_utexas_sl_social_links[0][social_account_links][2][social_account_url]' => 'blah',
+      'field_utexas_sl_social_links[0][social_account_links][1][social_account_name]' => 'facebook',
+      'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => 'blah',
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
     $this->assertRaw('1 error has been found');
@@ -144,6 +161,7 @@ class SocialLinksTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
+    // CRUD: READ.
     // Go to homepage and confirm test network is rendering with test svg path.
     $this->drupalGet("<front>");
     $this->assertRaw("https://testsocial.com");

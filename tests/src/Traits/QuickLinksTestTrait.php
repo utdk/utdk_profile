@@ -12,6 +12,7 @@ trait QuickLinksTestTrait {
    */
   public function verifyQuickLinks() {
     $assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
     $basic_page_id = $this->createBasicPage();
     $this->drupalGet('block/add/utexas_quick_links');
     // Add the Quick Links block type.
@@ -45,6 +46,29 @@ trait QuickLinksTestTrait {
     // Verify Quick Links link, delta 1, is present, is an internal link, and
     // has appropriate options.
     $this->assertRaw('<a href="/test-basic-page" class="ut-cta-link--lock ut-link">Quick Links Link Number 2!</a>');
+    // Edit block to add more links.
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Quick Links Test')->click();
+    // Click button to add new link.
+    $page->pressButton('Add link');
+    $assert->assertWaitOnAjaxRequest();
+    // Fill the third link.
+    $page->fillField('field_block_ql[0][links][2][uri]', 'https://quicklinks.test');
+    $page->fillField('field_block_ql[0][links][2][title]', 'Third link');
+    // Empty second link.
+    $page->fillField('field_block_ql[0][links][1][uri]', '');
+    $page->fillField('field_block_ql[0][links][1][title]', '');
+    $page->fillField('field_block_ql[0][links][1][options][attributes][class]', '0');
+    $page->uncheckField('field_block_ql[0][links][1][options][attributes][target][_blank]');
+    // Save block data and assert links are reordered.
+    $page->pressButton('edit-submit');
+    $this->drupalGet('admin/structure/block/block-content');
+    $page->findLink('Quick Links Test')->click();
+    // Confirm second link has data from third link previously created.
+    $assert->fieldValueEquals('field_block_ql[0][links][1][title]', 'Third link');
+    $assert->fieldValueEquals('field_block_ql[0][links][1][uri]', 'https://quicklinks.test');
+    // Assert former second link is now gone.
+    $assert->pageTextNotContains('Quick Links Link Number 2!');
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/manage/quicklinkstest/delete');
     $this->submitForm([], 'Remove');

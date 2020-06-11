@@ -46,18 +46,10 @@ class UTexasResourcesElement extends FormElement {
       '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : 0,
       '#description' => t('Image will be automatically cropped to 400 x 250. Upload an image with an aspect ratio equal to 400 x 250 to avoid cropping.'),
     ];
-    // Retrieve the form element that is using this widget.
-    // The structure of $element['#parents'] will be similar to:
-    // [0] => field_MACHINE_NAME
-    // [1] => 0 (variable counter for field cardinality)
-    // [2] => 'resource_items' (static placeholder)
-    // [3] => 'items' (static placeholder)
-    // [4] => 0 (variable counter for resource item delta)
-    // [5] => 'item' (static placeholder)
-    // ... where [1] is the field delta and [4] is the resource item delta.
-    $field_name = $element['#parents'][0];
-    $field_delta = $element['#parents'][1];
-    $resource_delta = $element['#parents'][4];
+    $agnostic_parents = self::makeParentsAgnostic($element['#parents']);
+    $field_name = $agnostic_parents['field_machine_name'];
+    $field_delta = $agnostic_parents['field_delta'];
+    $resource_delta = $agnostic_parents['item_delta'];
     $parents = [$field_name];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
@@ -127,10 +119,11 @@ class UTexasResourcesElement extends FormElement {
    */
   public static function utexasAddMoreSubmit(array $form, FormStateInterface $form_state) {
     $element = self::retrieveAddMoreElement($form, $form_state);
+    $agnostic_parents = self::makeParentsAgnostic($element['#parents']);
     // The field_delta will be the last (nearest) element in the #parents array.
-    $field_name = $element['#parents'][0];
-    $field_delta = $element['#parents'][1];
-    $resource_delta = $element['#parents'][4];
+    $field_name = $agnostic_parents['field_machine_name'];
+    $field_delta = $agnostic_parents['field_delta'];
+    $resource_delta = $agnostic_parents['item_delta'];
 
     // The field_name will be the penultimate element in the #parents array.
     $parents = [$field_name];
@@ -183,6 +176,49 @@ class UTexasResourcesElement extends FormElement {
     // ...$parents..., '#fields', $field_name]),
     // to avoid clashes between field names and $parents parts.
     return array_merge(['field_storage', '#parents'], $parents, ['#fields', $field_name]);
+  }
+
+  /**
+   * Ensure that we only inspect the last 7 items of the array.
+   * This is done, for example, to deal with differences in the array
+   * structure between inline and reusable blocks.
+   *
+   * @param array $parents
+   *   The array of #parents with each resource collection.
+   *
+   * @return array
+   *   The agnostic parents array to use on either inline or reusable blocks.
+   */
+  protected static function makeParentsAgnostic(array $parents) {
+    $reversed_parents = array_reverse($parents);
+    if ($reversed_parents[0] === 'links') {
+      array_shift($reversed_parents);
+    }
+    $sliced_parents = array_slice($reversed_parents, 0, 7);
+    $reversed_parents = array_reverse($sliced_parents);
+    // Retrieve the form element that is using this widget.
+    // The structure of $element['#parents'] will be similar to:
+    // [0] => field_MACHINE_NAME
+    // [1] => 0 (variable counter for field cardinality)
+    // [2] => 'resource_items' (static placeholder)
+    // [3] => 'items' (static placeholder)
+    // [4] => 0 (variable counter for resource item delta)
+    // [5] => 'details' (static placeholder)
+    // [6] => 'item' (static placeholder)
+    // ... where [1] is the field delta and [4] is the resource item delta.
+    // Validate that parents array has expected content after massaging it.
+    if ($reversed_parents[2] !== 'resource_items' ||
+    $reversed_parents[3] !== 'items' ||
+    $reversed_parents[5] !== 'details' ||
+    $reversed_parents[6] !== 'item') {
+      // If the array content has discrepancies, log it into the database.
+      \Drupal::logger('utexas_resources')->warning('The resources parents array has changed, this may cause errors when creating or editing content.');
+    }
+    return [
+      'field_machine_name' => $reversed_parents[0],
+      'field_delta' => $reversed_parents[1],
+      'item_delta' => $reversed_parents[4],
+    ];
   }
 
 }
