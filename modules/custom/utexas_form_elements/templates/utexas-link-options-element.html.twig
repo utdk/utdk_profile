@@ -14,10 +14,9 @@
  * @ingroup themeable
  */
 #}
-{% spaceless %}
-  <div class="utexas-link-form-element">
-    {{ element.uri }}
-    {{ element.title }}
-    {{ element.options }}
-  </div>
-{% endspaceless %}
+<div class="utexas-link-form-element">
+  {{ element.uri|spaceless }}
+  {{ element.title|spaceless }}
+  {{ element.options|spaceless }}
+</div>
+
