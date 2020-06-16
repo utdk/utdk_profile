@@ -104,3 +104,13 @@ function utexas_update_8102() {
     \Drupal::service('module_installer')->install(['admin_toolbar_links_access_filter']);
   }
 }
+
+/**
+ * Disable Big Pipe on sites installed prior to 3.0.0-beta.6.
+ */
+function utexas_update_8103()
+{
+  if (\Drupal::moduleHandler()->moduleExists('big_pipe') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['big_pipe']);
+  }
+}
