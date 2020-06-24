@@ -49,6 +49,9 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     $web_assert = $this->assertSession();
     $page = $session->getPage();
 
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+
     $account = $this->drupalCreateUser([
       'administer site configuration',
     ]);
@@ -80,7 +83,7 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     $page->findField('label')->setValue("Test Icon");
     $web_assert->waitForElementVisible('css', 'input[type="file"]');
     $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
-    $default_icons = file_scan_directory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
+    $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
     $test_file_path = $default_icons['beacon']->uri;
     $page->attachFileToField('files[icon]', $test_file_path);
     $page->pressButton('Save');

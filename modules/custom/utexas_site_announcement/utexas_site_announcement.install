@@ -5,6 +5,8 @@
  * Installation file for utexas_site_announcement.
  */
 
+use Drupal\Core\File\FileSystemInterface;
+
 /**
  * Implements hook_install().
  *
@@ -12,11 +14,13 @@
  */
 function utexas_site_announcement_install() {
   // Create default announcement icons.
+  /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+  $file_system = \Drupal::service('file_system');
   $site_announcement_icon_entity_manager = \Drupal::entityTypeManager()->getStorage('utexas_announcement_icon');
   $filedir = 'public://announcement_icons/';
-  \Drupal::service('file_system')->prepareDirectory($filedir, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+  $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
   $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
-  $default_icons = file_scan_directory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
+  $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
   foreach ($default_icons as $key => $value) {
     $uri = $value->uri;
     $file = file_get_contents($uri);

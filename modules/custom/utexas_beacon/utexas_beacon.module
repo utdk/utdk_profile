@@ -52,14 +52,18 @@ function _utexas_beacon_prepare_data() {
 
   // Installation profile information.
   $active_profile = \Drupal::installProfile();
-  $profile_information = system_get_info('module', $active_profile);
+  /** @var \Drupal\Core\Extension\ProfileExtensionList $extension_list_profile_service */
+  $extension_list_profile_service = \Drupal::service('extension.list.profile');
+  $profile_information = $extension_list_profile_service->getExtensionInfo($active_profile);
   $site_data['active_installation_profile_distribution_name'] = $profile_information['name'];
   $site_data['active_installation_profile_version'] = $profile_information['version'];
 
   // Theme information.
   $site_data['current_theme'] = \Drupal::configFactory()->getEditable('system.theme')->get('default', 'machine_name');
   if ($site_data['current_theme'] == 'forty_acres') {
-    $forty_acres_info = system_get_info('theme', 'forty_acres');
+    /** @var \Drupal\Core\Extension\ThemeExtensionList $extension_list_theme_service */
+    $extension_list_theme_service = \Drupal::service('extension.list.theme');
+    $forty_acres_info = $extension_list_theme_service->getExtensionInfo($site_data['current_theme']);
     $site_data['forty_acres_version'] = $forty_acres_info['version'];
   }
 

@@ -2,6 +2,7 @@ name: 'UTexas Block : Social Links'
 description: 'Provides a custom block type with a configurarable list of social links.'
 type: module
 core: 8.x
+core_version_requirement: ^8 || ^9
 dependencies:
   - block_content
   - config_update
