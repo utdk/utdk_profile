@@ -22,6 +22,6 @@ labels: 'release'
     - `git fetch && git checkout master && git pull origin master && git merge --no-ff release/<version number>`
     - `git tag -a <version number>`
     - `git push origin develop && git push origin master && git push origin <version number>`
-- [ ] [Tag release](https://github.austin.utexas.edu/eis1-wcs/utdk_profile/releases/new) and push tag to GitHub
+- [ ] [Create a new release](https://github.austin.utexas.edu/eis1-wcs/utdk_profile/releases/new) (version number and release title should be the same (e.g., `3.0.0-beta.10`)
 - [ ] Use [gren](https://github.com/github-tools/github-release-notes) generate the release notes `gren release --api-url=https://github.austin.utexas.edu/api/v3 --repo=utdk_profile --username=eis1-wcs --ignore-issues-with="wontfix,release,duplicate,invalid" --override`
 - [ ] Create a documentation release on https://github.austin.utexas.edu/eis1-wcs/utdk_docs (further instructions there)
