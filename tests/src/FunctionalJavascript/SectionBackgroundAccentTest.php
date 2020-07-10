@@ -194,13 +194,12 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
     // White background is added automatically when a menu block is placed.
     $this->clickLink('Add block');
     $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Main navigation');
+    $this->clickLink('Header Menu');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Add block');
     $assert->assertWaitOnAjaxRequest();
     $page->pressButton('Save layout');
     $assert->assertWaitOnAjaxRequest();
-    $this->createScreenshot('foo.png');
     $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent nav").css("background-color")');
     $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
 
