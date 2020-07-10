@@ -1,3 +1,13 @@
+.utexas-promo-unit {
+  background-color: #f9fafb;
+  border: 1px solid #f2f1ed;
+  display: flex;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+}
+.utexas-promo-unit .image-wrapper {
+  margin-right: 1rem;
+}
 .stacked-display .utexas-promo-unit {
   flex-direction: column;
 }
@@ -9,16 +19,6 @@
   margin-bottom: 0.75rem;
   width: 100%;
 }
-.utexas-promo-unit {
-  background-color: #f9fafb;
-  border: 1px solid #f2f1ed;
-  display: flex;
-  margin-bottom: 0.75rem;
-  padding: 0.75rem;
-}
-.utexas-promo-unit .image-wrapper {
-  margin-right: 1rem;
-}
 .utexas-promo-unit .landscape-image {
   flex: 0 0 106px;
 }
@@ -27,6 +27,12 @@
 }
 .utexas-promo-unit .square-image {
   flex: 0 0 67px;
+}
+.utexas-promo-unit .data-wrapper :last-child {
+  margin-bottom: 0;
+}
+.utexas-promo-unit .ut-headline {
+  padding-top: 0;
 }
 
 @media all and (min-width: 900px) {
@@ -65,8 +71,4 @@
   .utexas-promo-unit .square-image {
     flex: 0 0 140px;
   }
-}
-
-.utexas-promo-unit .ut-headline {
-  padding-top: 0;
 }

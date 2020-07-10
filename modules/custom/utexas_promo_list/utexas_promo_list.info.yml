@@ -2,6 +2,7 @@ name: 'UTexas Promo List'
 type: module
 description: 'Provide a compound field with repeatable content, along with a block type for usage.'
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: UTexas
 dependencies:
   - block_content

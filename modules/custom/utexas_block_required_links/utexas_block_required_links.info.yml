@@ -2,4 +2,5 @@ name: 'UTexas Required Links'
 type: module
 description: Provide a plugin block for required links
 core: 8.x
+core_version_requirement: ^8 || ^9
 package: UTexas

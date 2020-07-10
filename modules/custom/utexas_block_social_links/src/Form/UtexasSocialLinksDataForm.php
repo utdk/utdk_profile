@@ -186,10 +186,10 @@ class UtexasSocialLinksDataForm extends EntityForm {
    * @param int $replace
    *   (optional) The replace behavior when the destination file already exists.
    *   Possible values include:
-   *   - FILE_EXISTS_REPLACE: Replace the existing file.
-   *   - FILE_EXISTS_RENAME: (default) Append _{incrementing number} until the
+   *   - EXISTS_REPLACE: Replace the existing file.
+   *   - EXISTS_RENAME: (default) Append _{incrementing number} until the
    *     filename is unique.
-   *   - FILE_EXISTS_ERROR: Do nothing and return FALSE.
+   *   - EXISTS_ERROR: Do nothing and return FALSE.
    *
    * @return array|\Drupal\file\FileInterface|null|false
    *   An array of file entities or a single file entity if $delta != NULL. Each
@@ -200,7 +200,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
    *   This function wraps file_save_upload() to allow correct error handling in
    *   forms.
    */
-  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FILE_EXISTS_RENAME) {
+  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileSystemInterface::EXISTS_RENAME) {
     // Get all errors set before calling this method. This will also clear them
     // from $_SESSION.
     $errors_before = $this->messenger()->deleteByType(MessengerInterface::TYPE_ERROR);

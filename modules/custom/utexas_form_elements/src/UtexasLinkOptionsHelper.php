@@ -131,22 +131,11 @@ class UtexasLinkOptionsHelper {
       $link_title = $url->toString();
     }
 
-    // Since there is a check above for an empty link_uri, it is safe to
-    // assume that a link_options value exists as link_options is not nulled
-    // in the utexas_link_options_element defaults or valueCallback().
-    // Note that $link_options['attributes']['class'] is only expected to
-    // hold one value (string) when we start here. It is converted to an
-    // array and an element is added to the array for proper processing. If it
-    // is already an array, nothing changes.
-    $default_options = [
-      'attributes' => [
-        'class' => [
-          '',
-        ],
-      ],
-    ];
-    $link_options = array_key_exists('options', $item['link']) ? $item['link']['options'] : $default_options;
-    $link_options_classes = (array) $link_options['attributes']['class'];
+    // Note that $link_options['attributes']['class'] may only hold one value
+    // (string) when we start here. It is converted to an array if needed.
+    $link_options = $item['link']['options'] ?? [];
+    $link_options_classes = (array) ($link_options['attributes']['class'] ?? []);
+
     $merged_link_options_classes = array_merge($link_options_classes, $link_type_class);
     $link_options['attributes']['class'] = $merged_link_options_classes;
 

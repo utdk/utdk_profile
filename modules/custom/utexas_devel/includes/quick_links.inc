@@ -21,9 +21,9 @@ function _utexas_devel_create_quick_links() {
     'headline' => "Quick Links",
     'copy_value' => "Quick links include a headline, copy text, and links.",
     'links' => serialize([
-      "0" => ['url' => "https://www.utexas.edu", 'title' => "Our commitment to diversity"],
-      "1" => ['url' => "https://www.utexas.edu", 'title' => "Meet our staff"],
-      "2" => ['url' => "https://www.utexas.edu", 'title' => "Student guide"],
+      "0" => ['uri' => "https://www.utexas.edu", 'title' => "Our commitment to diversity"],
+      "1" => ['uri' => "https://www.utexas.edu", 'title' => "Meet our staff"],
+      "2" => ['uri' => "https://www.utexas.edu", 'title' => "Student guide"],
     ]),
   ];
   $block->save();
@@ -46,9 +46,9 @@ function _utexas_devel_create_quick_links() {
     'headline' => "Quick Links",
     'copy_value' => "Quick Links include a headline, copy text, and links.",
     'links' => serialize([
-      "0" => ['url' => "https://www.utexas.edu", 'title' => "Our commitment to diversity"],
-      "1" => ['url' => "https://www.utexas.edu", 'title' => "Meet our staff"],
-      "2" => ['url' => "https://www.utexas.edu", 'title' => "Student guide"],
+      "0" => ['uri' => "https://www.utexas.edu", 'title' => "Our commitment to diversity"],
+      "1" => ['uri' => "https://www.utexas.edu", 'title' => "Meet our staff"],
+      "2" => ['uri' => "https://www.utexas.edu", 'title' => "Student guide"],
     ]),
   ];
   $block->save();

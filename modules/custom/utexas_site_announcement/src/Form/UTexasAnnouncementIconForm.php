@@ -137,7 +137,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
       // The user is uploading a new SVG.
       $temp_image_data = file_get_contents($temp_image_file->getFileUri());
       $destination = 'public://announcement_icons/';
-      $this->fileSystem->prepareDirectory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+      $this->fileSystem->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
       $unmanaged_file = $this->fileSystem->saveData($temp_image_data, $destination . $temp_image_file->getFilename());
       $utexas_site_announcement->set('icon', $unmanaged_file);
       $temp_image_file->delete();
@@ -200,7 +200,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
    *   This function wraps file_save_upload() to allow correct error handling in
    *   forms.
    */
-  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FILE_EXISTS_RENAME) {
+  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileSystemInterface::EXISTS_RENAME) {
     // Get all errors set before calling this method. This will also clear them
     // from $_SESSION.
     $errors_before = $this->messenger()->deleteByType(MessengerInterface::TYPE_ERROR);

@@ -21,9 +21,9 @@ function _utexas_devel_create_photo_content_area($media_id) {
     'headline' => "Photo Content Area",
     'copy_value' => "Photo content Areas include image, headline, credit, copy text, and links.",
     'links' => serialize([
-      "0" => ['url' => "https://www.utexas.edu", 'title' => "Our commitment to diversity"],
-      "1" => ['url' => "https://www.utexas.edu", 'title' => "Meet our staff"],
-      "2" => ['url' => "https://www.utexas.edu", 'title' => "Student guide"],
+      "0" => ['uri' => "https://www.utexas.edu", 'title' => "Our commitment to diversity"],
+      "1" => ['uri' => "https://www.utexas.edu", 'title' => "Meet our staff"],
+      "2" => ['uri' => "https://www.utexas.edu", 'title' => "Student guide"],
     ]),
     'photo_credit' => "Ⓒ Photo by University of Texas at Austin",
     'image' => [$media_id],
@@ -48,9 +48,9 @@ function _utexas_devel_create_photo_content_area($media_id) {
     'headline' => "Photo Content Area",
     'copy_value' => "All fields are optional",
     'links' => serialize([
-      "0" => ['url' => "https://www.utexas.edu", 'title' => "Undergraduate applications"],
-      "1" => ['url' => "https://www.utexas.edu", 'title' => "Graduate applications"],
-      "2" => ['url' => "https://www.utexas.edu", 'title' => "Post-doctoral fellowships"],
+      "0" => ['uri' => "https://www.utexas.edu", 'title' => "Undergraduate applications"],
+      "1" => ['uri' => "https://www.utexas.edu", 'title' => "Graduate applications"],
+      "2" => ['uri' => "https://www.utexas.edu", 'title' => "Post-doctoral fellowships"],
     ]),
     'image' => [$media_id],
   ];
