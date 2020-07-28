@@ -5,7 +5,7 @@ id: utexas_threecol
 label: 'Display items in 3 columns'
 classes: utexas-threecol
 type: component
-weight: 0
+weight: 101
 block_restrictions:
   - 'inline_block:utexas_promo_unit'
   - 'inline_block:utexas_resources'

@@ -5,7 +5,7 @@ id: utexas_fourcol
 label: 'Display items in 4 columns'
 classes: utexas-fourcol
 type: component
-weight: 0
+weight: 102
 block_restrictions:
   - 'inline_block:utexas_promo_unit'
   - 'inline_block:utexas_resources'
