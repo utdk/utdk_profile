@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_twocol
+label: 'Display items in 2 columns'
+classes: utexas-twocol
+type: component
+weight: 0
+block_restrictions:
+  - 'inline_block:utexas_promo_unit'
+  - 'inline_block:utexas_resources'
+  - 'inline_block:social_links'
