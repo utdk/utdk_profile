@@ -42,7 +42,7 @@
     "drupal/pathologic": "1.0-alpha2",
     "drupal/redirect": "1.6.0",
     "drupal/responsive_tables_filter": "1.5.0",
-    "drupal/schema_metatag": "1.6.0",
+    "drupal/schema_metatag": "1.7.0",
     "drupal/svg_upload_sanitizer": "1.1.0",
     "drush/drush": "~8",
     "oomphinc/composer-installers-extender": "1.1.2",
