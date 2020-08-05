@@ -147,7 +147,7 @@ class SocialLinksTest extends BrowserTestBase {
     $edit = [
       'label' => 'test',
       'id' => 'test',
-      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/check.svg'),
+      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/check.svg'),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
@@ -169,13 +169,13 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertRaw('<path d="M6.464 13.676c-.194.194-.513.194-.707 0l-4.96-4.955c-.194-.193-.194-.513 0-.707l1.405-1.407c.194-.195.512-.195.707 0l2.849 2.848c.194.193.513.193.707 0l6.629-6.626c.195-.194.514-.194.707 0l1.404 1.404c.193.194.193.513 0 .707l-8.741 8.736z"></path>');
 
     // Go back and change icon.
-    $svgFile2FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/location.svg');
+    $svgFile2FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/location.svg');
     Markup::create($svgFile2FileContents);
 
     // Edit the existing custom Social Network test network.
     $this->drupalGet('/admin/structure/social-links/test/edit');
     $edit = [
-      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/utexas/tests/fixtures/location.svg'),
+      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/location.svg'),
     ];
     $this->drupalPostForm(NULL, $edit, 'edit-submit');
 
