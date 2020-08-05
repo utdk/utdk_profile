@@ -23,8 +23,8 @@ vendor/
 web/core/
 web/modules/contrib/
 web/themes/contrib/
-web/profiles/utexas/
-web/profiles/utexas/
+web/profiles/contrib/utexas/
+web/profiles/contrib/utexas/
 web/.csslintrc
 web/.editorconfig
 web/.eslintignore

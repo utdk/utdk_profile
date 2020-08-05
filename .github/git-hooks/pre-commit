@@ -4,10 +4,10 @@ PHP_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.php' '*.inc' '
 PHP_EXTENSIONS="php,inc,module,install,profile"
 CSS_LIST=$( git diff --name-only --cached --diff-filter=ACM -- '*.css')
 GIT_ROOT="$(git rev-parse --show-toplevel)"
-PHPCS_BIN=../../../vendor/bin/phpcs
-PHPCS_DRUPALPRACTICE_RULESET=../../../vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
-PHPCS_DRUPAL_RULESET=../../../vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml
-PHP_STAN_BIN=../../../vendor/bin/phpstan
+PHPCS_BIN=../../../../vendor/bin/phpcs
+PHPCS_DRUPALPRACTICE_RULESET=../../../../vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml
+PHPCS_DRUPAL_RULESET=../../../../vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml
+PHP_STAN_BIN=../../../../vendor/bin/phpstan
 STYLELINTER=/node_modules/.bin/stylelint
 
 if [ ! -f "$GIT_ROOT""$STYLELINTER" ]; then
