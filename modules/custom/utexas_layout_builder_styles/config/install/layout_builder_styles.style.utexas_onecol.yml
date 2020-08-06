@@ -1,11 +1,11 @@
 langcode: en
 status: true
 dependencies: {  }
-id: utexas_twocol
-label: 'Limit items to display in 2 columns (by default, columns are not limited)'
-classes: utexas-twocol
+id: utexas_onecol
+label: 'Limit items to display in 1 column (by default, columns are not limited)'
+classes: utexas-onecol
 type: component
-weight: 101
+weight: 100
 block_restrictions:
   - 'inline_block:utexas_promo_unit'
   - 'inline_block:utexas_resources'

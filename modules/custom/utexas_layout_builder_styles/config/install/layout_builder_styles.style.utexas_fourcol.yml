@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_fourcol
-label: 'Display items in 4 columns'
+label: 'Limit items to display in 4 columns (by default, columns are not limited)'
 classes: utexas-fourcol
 type: component
-weight: 102
+weight: 103
 block_restrictions:
   - 'inline_block:utexas_promo_unit'
   - 'inline_block:utexas_resources'
