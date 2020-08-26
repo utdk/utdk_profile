@@ -34,6 +34,15 @@
 .utexas-promo-unit .ut-headline {
   padding-top: 0;
 }
+.utexas-promo-unit a,
+.utexas-promo-unit a:link,
+.utexas-promo-unit a:visited {
+  color: #9D4700;
+}
+.utexas-promo-unit a:hover,
+.utexas-promo-unit a:focus {
+  color: #A04400;
+}
 
 @media all and (min-width: 900px) {
   .utexas-promo-unit {
