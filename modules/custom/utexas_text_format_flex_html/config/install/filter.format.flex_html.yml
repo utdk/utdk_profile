@@ -63,7 +63,7 @@ filters:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -39
+    weight: -38
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
@@ -89,7 +89,7 @@ filters:
     id: filter_iframe_title
     provider: iframe_title_filter
     status: true
-    weight: -40
+    weight: -39
     settings: {  }
   filter_pathologic:
     id: filter_pathologic
@@ -112,7 +112,7 @@ filters:
     id: media_embed
     provider: media
     status: true
-    weight: -38
+    weight: -40
     settings:
       default_view_mode: default
       allowed_media_types: {  }
