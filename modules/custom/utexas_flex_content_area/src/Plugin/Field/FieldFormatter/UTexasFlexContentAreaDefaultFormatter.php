@@ -174,13 +174,13 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       $cta_item['link']['uri'] = $cta_item['link_uri'];
       $cta_item['link']['options'] = $cta_item['link_options'];
       $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
-      $cta_uri = ($cta !== NULL) ? $cta_item['link']['uri'] : '';
+      $image_uri = ($cta !== NULL) ? Url::fromUri($cta_item['link']['uri'])->toString() : '';
 
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
         switch ($media->bundle()) {
           case 'utexas_image':
-            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $cta_uri);
+            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $image_uri);
             break;
 
           case 'utexas_video_external':

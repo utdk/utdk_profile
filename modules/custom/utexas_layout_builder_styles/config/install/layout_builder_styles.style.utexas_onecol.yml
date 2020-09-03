@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_onecol
+label: 'Limit items to display in 1 column (by default, columns are not limited)'
+classes: utexas-onecol
+type: component
+weight: 100
+block_restrictions:
+  - 'inline_block:social_links'

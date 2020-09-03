@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_threecol
+label: 'Limit items to display in 3 columns (by default, columns are not limited)'
+classes: utexas-threecol
+type: component
+weight: 102
+block_restrictions:
+  - 'inline_block:social_links'

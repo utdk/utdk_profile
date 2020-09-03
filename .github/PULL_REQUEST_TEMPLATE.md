@@ -40,13 +40,13 @@ Fixes #
 0. `fin init && fin init-site --wcs`
 
 ## Reference: running tests locally
-0. `fin test web/profiles/utexas/tests/src/Functional`
-0. `fin test-js web/profiles/utexas/tests/src/FunctionalJavascript`
+0. `fin test web/profiles/contrib/utexas/tests/src/Functional`
+0. `fin test-js web/profiles/contrib/utexas/tests/src/FunctionalJavascript`
 
 ## Testing steps
 0. Perform a thorough code review.
-0. 
-0. 
+0.
+0.
 
 ## Potential Reviewers
 

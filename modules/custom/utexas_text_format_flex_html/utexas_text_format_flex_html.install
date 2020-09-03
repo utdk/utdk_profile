@@ -22,3 +22,12 @@ function utexas_text_format_flex_html_update_8102() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #1201: Missing iframe title on video embeds inserted via Media library.
+ */
+function utexas_text_format_flex_html_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

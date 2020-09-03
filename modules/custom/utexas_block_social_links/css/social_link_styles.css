@@ -1,16 +1,23 @@
-.block__ut-social-links--items {
-  display: flex;
-  flex-wrap: wrap;
-}
 .block__ut-social-links--items svg {
   width: 40px;
   height: auto;
 }
-.block__ut-social-links--items > div {
-  margin-right: 5px;
-}
-
 .block__ut-social-links .ut-headline {
   font-size: 1.125rem;
   margin-bottom: 8.5px;
+}
+.block__ut-social-links--items {
+  display: inline-grid;
+  grid-gap: 10px;
+  gap: 10px;
+  grid-template-columns: repeat(12, 1fr); /* Default display -- fill container */
+}
+.utexas-twocol .block__ut-social-links--items {
+  grid-template-columns: repeat(2, 1fr);
+}
+.utexas-threecol .block__ut-social-links--items {
+  grid-template-columns: repeat(3, 1fr);
+}
+.utexas-fourcol .block__ut-social-links--items {
+  grid-template-columns: repeat(4, 1fr);
 }
