@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: utexas_readable
+label: 'Constrain content to readable width'
+classes: utexas-readable
+type: component
+weight: 0
+block_restrictions: {  }

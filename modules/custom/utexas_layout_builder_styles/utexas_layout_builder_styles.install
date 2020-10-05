@@ -23,3 +23,12 @@ function utexas_layout_builder_styles_update_8101() {
     \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
   }
 }
+
+/**
+ * Import custom Layout Builder Style for readable width.
+ */
+function utexas_layout_builder_styles_update_8102() {
+  $config_path = drupal_get_path('module', 'utexas_layout_builder_styles') . '/config/install/layout_builder_styles.style.utexas_readable.yml';
+  $data = Yaml::parse(file_get_contents($config_path));
+  \Drupal::configFactory()->getEditable('layout_builder_styles.style.utexas_readable')->setData($data)->save(TRUE);
+}

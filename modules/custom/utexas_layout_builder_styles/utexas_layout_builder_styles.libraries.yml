@@ -4,3 +4,8 @@ border-styles:
     theme:
       css/border-with-background.css: {}
       css/centered-headline.css: {}
+readable:
+  version: 1.0
+  css:
+    theme:
+      css/readable.css: {}
