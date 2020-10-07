@@ -254,9 +254,9 @@
     flex-direction: row;
     padding: 2rem;
   }
-  .utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--second .content-wrapper,
-  .utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--third .content-wrapper,
-  .utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--first .content-wrapper,
+  .utexas-layout--threecol.utexas-layout--threecol--25-50-25 > .layout__region--second .utexas-featured-highlight .content-wrapper,
+  .utexas-layout--threecol.utexas-layout--threecol--25-25-50 > .layout__region--third .utexas-featured-highlight .content-wrapper,
+  .utexas-layout--threecol.utexas-layout--threecol--50-25-25 > .layout__region--first .utexas-featured-highlight .content-wrapper,
   .utexas-layout--twocol.utexas-layout--twocol--33-67 > .layout__region--second .utexas-featured-highlight .content-wrapper,
   .utexas-layout--twocol.utexas-layout--twocol--25-75 > .layout__region--second .utexas-featured-highlight .content-wrapper,
   .utexas-layout--twocol.utexas-layout--twocol--67-33 > .layout__region--first .utexas-featured-highlight .content-wrapper,
