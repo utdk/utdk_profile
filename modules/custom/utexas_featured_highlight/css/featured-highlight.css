@@ -192,9 +192,7 @@
 
 /* 3 column responsive styles */
 @media screen and (min-width: 900px) {
-  .utexas-layout--threecol.utexas-layout--threecol--50-25-25 .utexas-featured-highlight .image-wrapper,
-  .utexas-layout--threecol.utexas-layout--threecol--25-50-25 .utexas-featured-highlight .image-wrapper,
-  .utexas-layout--threecol.utexas-layout--threecol--25-25-50 .utexas-featured-highlight .image-wrapper {
+  .utexas-layout--threecol .utexas-featured-highlight .image-wrapper {
     min-width: auto;
     padding: 1rem 1rem 0 1rem;
   }
@@ -220,15 +218,13 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .utexas-layout--threecol.utexas-layout--threecol--50-25-25 .utexas-featured-highlight .image-wrapper,
-  .utexas-layout--threecol.utexas-layout--threecol--25-50-25 .utexas-featured-highlight .image-wrapper,
-  .utexas-layout--threecol.utexas-layout--threecol--25-25-50 .utexas-featured-highlight .image-wrapper {
+  .utexas-layout--threecol .utexas-featured-highlight .image-wrapper {
     min-width: 235px;
     padding: 1.5rem 1.5rem 0 1.5rem;
   }
 }
 
-/* 4 column layouts and 3 column 33/34/33 layout */
+/* 4 column layouts. */
 .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region .utexas-featured-highlight .image-wrapper {
   min-width: auto;
 }
