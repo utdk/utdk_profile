@@ -32,3 +32,23 @@ function utexas_layout_builder_styles_update_8102() {
   $data = Yaml::parse(file_get_contents($config_path));
   \Drupal::configFactory()->getEditable('layout_builder_styles.style.utexas_readable')->setData($data)->save(TRUE);
 }
+
+/**
+ * Update 1-4 item per row labels (#1239).
+ */
+function utexas_layout_builder_styles_update_8103() {
+  $styles = [
+    'layout_builder_styles.style.utexas_onecol',
+    'layout_builder_styles.style.utexas_twocol',
+    'layout_builder_styles.style.utexas_threecol',
+    'layout_builder_styles.style.utexas_fourcol',
+  ];
+  // Import each file config individually.
+  foreach ($styles as $style) {
+    $module_handler = \Drupal::service('module_handler');
+    $module_path = $module_handler->getModule('utexas_layout_builder_styles')->getPath();
+    $config_path = $module_path . '/config/install/' . $style . '.yml';
+    $data = Yaml::parse(file_get_contents($config_path));
+    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
+  }
+}

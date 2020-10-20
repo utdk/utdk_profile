@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_twocol
-label: 'Limit items to display in 2 columns (by default, columns are not limited)'
+label: 'Limit to 2 items per row (if no limit is set, items will adjust to fit the available space)'
 classes: utexas-twocol
 type: component
 weight: 101
