@@ -97,14 +97,15 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
     foreach ($items as $item) {
       if (!empty($item->link)) {
         $link_item['link']['uri'] = $item->link;
-        $link_item['link']['title'] = $item->link_title;
+        $link_item['link']['title'] = $item->link_text;
         $link_item['link']['options'] = $item->link_options;
         $link = UtexasLinkOptionsHelper::buildLink($link_item, []);
       }
 
       if (!empty($item->image)) {
+        $alt_override = $item->link_text ?: '';
         $image = isset($item->image) ? $item->image : FALSE;
-        $image_render_array = $this->generateImageRenderArray($image, $responsive_image_style_name, NULL, $cache_tags);
+        $image_render_array = $this->generateImageRenderArray($image, $responsive_image_style_name, NULL, $cache_tags, $alt_override);
       }
 
       $elements[] = [
@@ -142,7 +143,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
   /**
    * Helper method to prepare image array.
    */
-  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url, $cache_tags) {
+  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url, $cache_tags, $alt_override = '') {
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
@@ -154,7 +155,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
       if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
         $image = new \stdClass();
         $image->title = NULL;
-        $image->alt = $media_attributes[0]['alt'];
+        $image->alt = $alt_override ?: $media_attributes[0]['alt'];
         $image->entity = $file;
         $image->uri = $file->getFileUri();
         $image->width = NULL;

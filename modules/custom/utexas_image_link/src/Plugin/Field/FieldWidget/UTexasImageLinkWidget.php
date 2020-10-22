@@ -43,7 +43,7 @@ class UTexasImageLinkWidget extends WidgetBase {
         'title' => $item->link_text ?? NULL,
         'options' => $item->link_options ?? [],
       ],
-      '#suppress_title_display' => TRUE,
+      '#description' => $this->t('Use the "Link text" field to provide wording, visible only to screen readers, that describes the link destination.'),
     ];
 
     return $element;
