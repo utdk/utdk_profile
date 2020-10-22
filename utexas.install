@@ -136,3 +136,12 @@ function utexas_update_8103()
 function utexas_update_8104() {
   user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['search Google CSE']);
 }
+
+/**
+ * Enable Twitter Profile Widget on existing sites.
+ */
+function utexas_update_8105() {
+  if (\Drupal::moduleHandler()->moduleExists('twitter_profile_widget') === FALSE) {
+    \Drupal::service('module_installer')->install(['twitter_profile_widget']);
+  }
+}

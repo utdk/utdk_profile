@@ -58,6 +58,7 @@ install:
   - redirect
   - responsive_tables_filter
   - svg_upload_sanitizer
+  - twitter_profile_widget
   # Custom
   - utexas_beacon
   - utexas_block_required_links

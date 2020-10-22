@@ -44,6 +44,7 @@
     "drupal/responsive_tables_filter": "1.5.0",
     "drupal/schema_metatag": "1.7.0",
     "drupal/svg_upload_sanitizer": "1.1.0",
+    "drupal/twitter_profile_widget": "3.0.0",
     "oomphinc/composer-installers-extender": "1.1.2",
     "rvtraveller/qs-composer-installer": "1.1",
     "utexas/forty_acres": "3.0.0-beta.8",
