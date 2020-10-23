@@ -5,6 +5,7 @@ namespace Drupal\utexas_layouts\Plugin\Layout;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
 use Drupal\utexas_layouts\Traits\BackgroundColorTrait;
+use Drupal\utexas_layouts\Traits\SectionWidthTrait;
 
 /**
  * Configurable four column layout plugin class.
@@ -14,7 +15,14 @@ use Drupal\utexas_layouts\Traits\BackgroundColorTrait;
  */
 class FourColumnLayout extends DefaultConfigLayout {
 
-  use BackgroundAccentTrait, BackgroundColorTrait;
+  use BackgroundAccentTrait, BackgroundColorTrait, SectionWidthTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function sectionWidthConfiguration() {
+    return ['section_width' => 'container'];
+  }
 
   /**
    * {@inheritdoc}
@@ -23,6 +31,7 @@ class FourColumnLayout extends DefaultConfigLayout {
     $config = parent::defaultConfiguration();
     $config += $this->backgroundConfiguration();
     $config += $this->backgroundColorConfiguration();
+    $config += $this->sectionWidthConfiguration();
     return $config;
   }
 
@@ -30,6 +39,7 @@ class FourColumnLayout extends DefaultConfigLayout {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = $this->sectionWidthConfigurationForm($form, $form_state);
     $form = $this->backgroundConfigurationForm($form, $form_state);
     $form += $this->backgroundColorConfigurationForm($form, $form_state);
     return $form;
@@ -47,6 +57,7 @@ class FourColumnLayout extends DefaultConfigLayout {
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->submitBackgroundConfigurationForm($form, $form_state);
     $this->submitBackgroundColorConfigurationForm($form, $form_state);
+    $this->submitSectionWidthConfigurationForm($form, $form_state);
   }
 
   /**
@@ -57,6 +68,7 @@ class FourColumnLayout extends DefaultConfigLayout {
     $build['#attributes']['class'][] = $this->getPluginDefinition()->getTemplate();
     $this->buildBackground($build);
     $this->buildBackgroundColor($build);
+    $this->buildSectionWidth($build);
     return $build;
   }
 

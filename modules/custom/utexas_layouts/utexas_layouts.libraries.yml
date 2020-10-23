@@ -35,3 +35,8 @@ background-colors:
     theme:
       layouts/background-accent.css: {}
       theme/background-colors.css: {}
+section-width:
+  version: 1.0
+  css:
+    theme:
+      layouts/section-width.css: {}

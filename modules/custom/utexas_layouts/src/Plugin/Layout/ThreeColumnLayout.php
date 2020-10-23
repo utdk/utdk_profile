@@ -6,13 +6,21 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_layouts\Traits\BackgroundAccentTrait;
 use Drupal\utexas_layouts\Traits\BackgroundColorTrait;
 use Drupal\utexas_layouts\Traits\MultiWidthLayoutTrait;
+use Drupal\utexas_layouts\Traits\SectionWidthTrait;
 
 /**
  * Configurable three column layout plugin class.
  */
 class ThreeColumnLayout extends DefaultConfigLayout {
 
-  use BackgroundAccentTrait, BackgroundColorTrait, MultiWidthLayoutTrait;
+  use BackgroundAccentTrait, BackgroundColorTrait, MultiWidthLayoutTrait, SectionWidthTrait;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function sectionWidthConfiguration() {
+    return ['section_width' => 'container'];
+  }
 
   /**
    * {@inheritdoc}
@@ -34,6 +42,7 @@ class ThreeColumnLayout extends DefaultConfigLayout {
     $config += $this->backgroundConfiguration();
     $config += $this->backgroundColorConfiguration();
     $config += $this->multiWidthConfiguration();
+    $config += $this->sectionWidthConfiguration();
     return $config;
   }
 
@@ -41,6 +50,7 @@ class ThreeColumnLayout extends DefaultConfigLayout {
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
+    $form = $this->sectionWidthConfigurationForm($form, $form_state);
     $form = $this->multiWidthConfigurationForm($form, $form_state);
     $form += $this->backgroundColorConfigurationForm($form, $form_state);
     $form += $this->backgroundConfigurationForm($form, $form_state);
@@ -61,6 +71,7 @@ class ThreeColumnLayout extends DefaultConfigLayout {
     $this->submitBackgroundConfigurationForm($form, $form_state);
     $this->submitBackgroundColorConfigurationForm($form, $form_state);
     $this->submitMultiWidthConfigurationForm($form, $form_state);
+    $this->submitSectionWidthConfigurationForm($form, $form_state);
   }
 
   /**
@@ -71,6 +82,7 @@ class ThreeColumnLayout extends DefaultConfigLayout {
     $this->buildBackground($build);
     $this->buildBackgroundColor($build);
     $this->buildMultiWidth($build);
+    $this->buildSectionWidth($build);
     return $build;
   }
 
