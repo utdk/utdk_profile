@@ -2,23 +2,26 @@
 
 /**
  * @file
- * Enables modules and site configuration for a standard site installation.
- *
- * The profilename.profile file has access to almost everything a normal Drupal
- * modulename.module file does because Drupal is fully bootstrapped before
- * almost anything in the profile runs.
+ * Enables modules and site configuration for a standard UTDK installation.
  */
 
-use Drupal\utexas\Form\InstallationComplete;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\utexas\Form\InstallationOptions;
+use Drupal\utexas\Form\InstallationComplete;
 
 /**
  * Implements hook_install_tasks().
  */
 function utexas_install_tasks() {
   return [
+    'utexas_installation_options' => [
+      'display_name' => t('Installation options'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => InstallationOptions::class,
+    ],
     'utexas_install_demo_content' => [
       'display' => FALSE,
       'type' => 'batch',
@@ -46,28 +49,32 @@ function utexas_install_tasks() {
 /**
  * Batch installation of demo content.
  *
- * This simply invokes any implementations of hook_utexas_demo_content().
- * It runs after the general `utexas_install_batch_processing` to
- * ensure that the implementing modules are already installed.
+ * This installs specific demo content, then invokes any implementations of
+ * hook_utexas_demo_content().
  */
 function utexas_install_demo_content(&$install_state) {
-  // Function call to create footer demo content.
-  _utexas_install_footer_content();
-  // Function call to create header demo content.
-  _utexas_install_header_content();
-  $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
-  $operations = [];
-  // Each of the modules with 'utexas_demo_content' implementations
-  // will be  added as a batch job.
-  foreach ($implementations as $module) {
-    $operations[] = [$module . '_utexas_demo_content', []];
+  // Note: the equivalent can be achieved during a drush site installation:
+  // drush si utexas utexas_installation_options.default_content=NULL -y .
+  $create_default_content = \Drupal::state()->get('utexas_installation_options.default_content', FALSE);
+  if ($create_default_content) {
+    // Function call to create footer demo content.
+    _utexas_install_footer_content();
+    // Function call to create header demo content.
+    _utexas_install_header_content();
+    $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
+    $operations = [];
+    // Each of the modules with 'utexas_demo_content' implementations
+    // will be  added as a batch job.
+    foreach ($implementations as $module) {
+      $operations[] = [$module . '_utexas_demo_content', []];
+    }
+    $batch = [
+      'title' => t('Generating demo content...'),
+      'operations' => $operations,
+      'error_message' => t('Demo content generation has encountered an error.'),
+    ];
+    return $batch;
   }
-  $batch = [
-    'title' => t('Generating demo content...'),
-    'operations' => $operations,
-    'error_message' => t('Demo content generation has encountered an error.'),
-  ];
-  return $batch;
 }
 
 /**
