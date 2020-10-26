@@ -43,7 +43,7 @@ class UTexasResourcesElement extends FormElement {
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
-      '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : 0,
+      '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : NULL,
       '#description' => t('Image will be automatically cropped to 400 x 250. Upload an image with an aspect ratio equal to 400 x 250 to avoid cropping.'),
     ];
     $agnostic_parents = self::makeParentsAgnostic($element['#parents']);
@@ -175,11 +175,14 @@ class UTexasResourcesElement extends FormElement {
     // $form_state->get(['field_storage', '#parents',
     // ...$parents..., '#fields', $field_name]),
     // to avoid clashes between field names and $parents parts.
-    return array_merge(['field_storage', '#parents'], $parents, ['#fields', $field_name]);
+    return array_merge(
+      ['field_storage', '#parents'], $parents, ['#fields', $field_name]
+    );
   }
 
   /**
    * Ensure that we only inspect the last 7 items of the array.
+   *
    * This is done, for example, to deal with differences in the array
    * structure between inline and reusable blocks.
    *
