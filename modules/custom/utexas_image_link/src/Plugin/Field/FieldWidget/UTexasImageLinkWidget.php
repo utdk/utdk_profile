@@ -33,7 +33,7 @@ class UTexasImageLinkWidget extends WidgetBase {
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
-      '#default_value' => isset($item->image) ? $item->image : 0,
+      '#default_value' => isset($item->image) ? $item->image : NULL,
       '#description' => $this->t('This image will fill the width of the region it is placed in.'),
     ];
     $element['link'] = [
