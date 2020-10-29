@@ -8,3 +8,4 @@ type: component
 weight: 101
 block_restrictions:
   - 'inline_block:social_links'
+  - 'inline_block:utexas_promo_unit'
