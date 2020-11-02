@@ -3,30 +3,25 @@
  * Provides the layout styles for two-column layout section.
  */
 
-.utexas-layout--fourcol {
+.utexas-layout--fourcol .utexas-layout--fourcol-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin-left: -2.5%;
 }
 
-.utexas-layout--fourcol > .layout__region {
-  flex: 0 1 100%;
+.utexas-layout--fourcol .utexas-layout--fourcol-wrapper > .layout__region {
+  flex: 1 1 100%;
+  margin-left: 2.5%;
+}
+
+/* Reset for container fluid with no padding */
+.utexas-layout--fourcol.utexas-layout-no-padding .utexas-layout--fourcol-wrapper,
+.utexas-layout--fourcol.utexas-layout-no-padding .utexas-layout--fourcol-wrapper > * {
+  margin-left: 0;
 }
 
 @media screen and (min-width: 600px) {
-  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--first,
-  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--second,
-  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--third,
-  .utexas-layout--fourcol.utexas-layout--fourcol > .layout__region--fourth {
-    flex: 0 1 23%;
+  .utexas-layout--fourcol .utexas-layout--fourcol-wrapper > .layout__region {
+    flex: 1 1 22.5%;
   }
-}
-
-
-/* Reset for between-column margin */
-.utexas-layout--fourcol.utexas-layout-no-padding .layout__region--first,
-.utexas-layout--fourcol.utexas-layout-no-padding .layout__region--second,
-.utexas-layout--fourcol.utexas-layout-no-padding .layout__region--third,
-.utexas-layout--fourcol.utexas-layout-no-padding .layout__region--fourth {
-  flex: 1 1 23%;
 }
