@@ -155,8 +155,6 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
     }
     foreach ($items as $delta => $item) {
       $media_ratio = "";
-      // Format headline.
-      $headline = $item->headline ?? '';
       // Format links.
       $links = unserialize($item->links);
       if (!empty($links)) {
@@ -173,14 +171,24 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       $cta_item['link']['title'] = $cta_item['link_text'] ?? NULL;
       $cta_item['link']['uri'] = $cta_item['link_uri'];
       $cta_item['link']['options'] = $cta_item['link_options'];
+      // Format headline.
+      $headline = $item->headline ?? '';
+      if (!empty($cta_item['link_uri']) && !empty($item->headline)) {
+        // Convert the headline to a link, if present.
+        $headline = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-link--darker'], $item->headline);
+      }
+      if ($headline) {
+        // Make the CTA non-tab-able if a headline is present.
+        $cta_item['link']['options']['attributes']['tabindex'] = '-1';
+        $cta_item['link']['options']['attributes']['aria-hidden'] = 'true';
+      }
       $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
-      $image_uri = ($cta !== NULL) ? Url::fromUri($cta_item['link']['uri'])->toString() : '';
 
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
         switch ($media->bundle()) {
           case 'utexas_image':
-            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $image_uri);
+            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name);
             break;
 
           case 'utexas_video_external':
@@ -281,13 +289,11 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
    *   A Drupal media entity object.
    * @param string $responsive_image_style_name
    *   The machine name of a responsive image style.
-   * @param string $link
-   *   A URI, or empty string.
    *
    * @return string[]
    *   An image render array.
    */
-  private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name, $link) {
+  private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name) {
     $media_render_array = [];
     $media_attributes = $media->get('field_utexas_media_image')->getValue();
     if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
@@ -305,7 +311,6 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
           'class' => 'ut-img--fluid',
         ],
         '#responsive_image_style_id' => $responsive_image_style_name,
-        '#url' => $link ?? '',
         '#cache' => [
           'tags' => $this->generateImageCacheTags($responsive_image_style_name),
         ],

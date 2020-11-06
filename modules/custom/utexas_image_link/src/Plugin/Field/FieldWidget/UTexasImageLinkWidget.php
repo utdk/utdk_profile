@@ -33,7 +33,7 @@ class UTexasImageLinkWidget extends WidgetBase {
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
-      '#default_value' => isset($item->image) ? $item->image : 0,
+      '#default_value' => isset($item->image) ? $item->image : NULL,
       '#description' => $this->t('This image will fill the width of the region it is placed in.'),
     ];
     $element['link'] = [
@@ -43,7 +43,7 @@ class UTexasImageLinkWidget extends WidgetBase {
         'title' => $item->link_text ?? NULL,
         'options' => $item->link_options ?? [],
       ],
-      '#suppress_title_display' => TRUE,
+      '#description' => $this->t('Use the "Link text" field to provide wording, visible only to screen readers, that describes the link destination.'),
     ];
 
     return $element;

@@ -4,15 +4,12 @@ namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
-
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -113,12 +110,20 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
           }
           if (!empty($instance_item['link']['uri'])) {
-            $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker']);
+            $link_item = [
+              'link' => $instance_item['link'],
+            ];
+            if (!empty($instance_item['headline'])) {
+              // Make the link URL non-tab-able if a headline is present.
+              $link_item['link']['options']['attributes']['tabindex'] = '-1';
+              $link_item['link']['options']['attributes']['aria-hidden'] = 'true';
+            }
+            $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link--darker']);
           }
           if (!empty($instance_item['image'])) {
             $image = isset($instance_item['image']) ? $instance_item['image'] : FALSE;
             $responsive_image_style_name = 'utexas_responsive_image_pu_landscape';
-            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $instance_item['link']['uri'], $cache_tags);
+            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $cache_tags);
           }
         }
       }
@@ -156,14 +161,11 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
   /**
    * Helper method to prepare image array.
    */
-  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_url, $cache_tags) {
+  protected function generateImageRenderArray($image, $responsive_image_style_name, $cache_tags) {
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
       $media_attributes = $media->get('field_utexas_media_image')->getValue();
-      if (!empty($link_url)) {
-        $link = Url::fromUri($link_url);
-      }
       $image_render_array = [];
       if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
         $image = new \stdClass();
@@ -178,7 +180,6 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
           '#item' => $image,
           '#item_attributes' => [],
           '#responsive_image_style_id' => $responsive_image_style_name,
-          '#url' => $link ?? '',
           '#cache' => [
             'tags' => $cache_tags,
           ],

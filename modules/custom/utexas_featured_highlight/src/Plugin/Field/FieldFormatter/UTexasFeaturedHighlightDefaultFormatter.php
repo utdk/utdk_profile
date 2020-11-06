@@ -9,7 +9,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Language\Language;
-use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
@@ -189,20 +188,23 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
 
       $headline = $item->headline ?? '';
       if (!empty($item->link_uri)) {
-        $cta_item['link']['uri'] = $item->link_uri;
-        $cta_item['link']['title'] = $item->link_text ?? NULL;
-        $cta_item['link']['options'] = $item->link_options ?? [];
-        $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
-
+        $link_item['link']['uri'] = $item->link_uri;
+        $link_item['link']['title'] = $item->link_text ?? NULL;
+        $link_item['link']['options'] = $item->link_options ?? [];
         if (isset($item->headline)) {
-          $headline = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-link'], $item->headline);
+          $headline = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link'], $item->headline);
+          // Add CTA-specific attributes & generate link.
+          // Suppress link from screen readers -- redundant.
+          $link_item['link']['options']['attributes']['aria-hidden'] = 'true';
+          $link_item['link']['options']['attributes']['tabindex'] = '-1';
         }
+        $cta = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-btn']);
       }
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         switch ($media->bundle()) {
           case 'utexas_image':
-            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name, $item->link_uri);
+            $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name);
             break;
 
           case 'utexas_video_external':
@@ -307,13 +309,11 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
    *   A Drupal media entity object.
    * @param string $responsive_image_style_name
    *   The machine name of a responsive image style.
-   * @param string $link
-   *   A URI, or empty string.
    *
    * @return string[]
    *   An image render array.
    */
-  private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name, $link) {
+  private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name) {
     $media_render_array = [];
     $media_attributes = $media->get('field_utexas_media_image')->getValue();
     if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
@@ -329,7 +329,6 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         '#item' => $image,
         '#item_attributes' => [],
         '#responsive_image_style_id' => $responsive_image_style_name,
-        '#url' => $link,
         '#cache' => [
           'tags' => $this->generateImageCacheTags($responsive_image_style_name),
         ],

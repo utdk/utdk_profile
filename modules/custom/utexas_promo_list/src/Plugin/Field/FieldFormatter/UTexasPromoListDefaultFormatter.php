@@ -4,16 +4,12 @@ namespace Drupal\utexas_promo_list\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
-
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -127,7 +123,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
           }
           if (!empty($instance_item['image'])) {
             $image = isset($instance_item['image']) ? $instance_item['image'] : FALSE;
-            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $instance_item['link']['uri'], $cache_tags);
+            $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $cache_tags);
           }
         }
       }
@@ -145,14 +141,11 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
   /**
    * Helper method to prepare image array.
    */
-  protected function generateImageRenderArray($image, $responsive_image_style_name, $link_uri, $cache_tags) {
+  protected function generateImageRenderArray($image, $responsive_image_style_name, $cache_tags) {
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
       $media_attributes = $media->get('field_utexas_media_image')->getValue();
-      if (!empty($link_uri)) {
-        $link_url = Url::fromUri($link_uri);
-      }
       $image_render_array = [];
       if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
         $image = new \stdClass();
@@ -167,7 +160,6 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
           '#item' => $image,
           '#item_attributes' => ['class' => ['ut-img--fluid']],
           '#responsive_image_style_id' => $responsive_image_style_name,
-          '#url' => $link_url ?? '',
           '#cache' => [
             'tags' => $cache_tags,
           ],

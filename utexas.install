@@ -55,9 +55,23 @@ function utexas_install() {
     ->getEditable('system.site')
     ->set('default_langcode', 'en')
     ->save(TRUE);
-  // Allow all users to use search.
-  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, ['search content']);
-  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['search content']);
+  // Add permissions to anonymous role.
+  $anon_perms = [
+    'access content',
+    'search Google CSE',
+    'search content',
+    'use text format restricted_html',
+    'view media',
+  ];
+  user_role_grant_permissions(RoleInterface::ANONYMOUS_ID, $anon_perms);
+  // Add permissions to authenticated role.
+  $auth_perms = [
+    'access content',
+    'search Google CSE',
+    'search content',
+    'view media',
+  ];
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, $auth_perms);
   // Add configuration for the Metatag Twitter module to set default
   // page title and URL meta.
   $tags = [
@@ -113,5 +127,21 @@ function utexas_update_8103()
 {
   if (\Drupal::moduleHandler()->moduleExists('big_pipe') === TRUE) {
     \Drupal::service('module_installer')->uninstall(['big_pipe']);
+  }
+}
+
+/**
+ * Add Google CSE permission to Authenticated role.
+ */
+function utexas_update_8104() {
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, ['search Google CSE']);
+}
+
+/**
+ * Enable Twitter Profile Widget on existing sites.
+ */
+function utexas_update_8105() {
+  if (\Drupal::moduleHandler()->moduleExists('twitter_profile_widget') === FALSE) {
+    \Drupal::service('module_installer')->install(['twitter_profile_widget']);
   }
 }

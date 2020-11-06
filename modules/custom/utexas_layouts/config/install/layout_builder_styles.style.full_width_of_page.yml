@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: full_width_of_page
-label: 'Full width of page'
-classes: container-fluid
-type: section
-block_restrictions: {  }

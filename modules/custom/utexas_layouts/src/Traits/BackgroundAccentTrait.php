@@ -31,7 +31,7 @@ trait BackgroundAccentTrait {
       '#type' => 'media_library',
       '#allowed_bundles' => ['utexas_image'],
       '#cardinality' => 1,
-      '#default_value' => !empty($this->configuration['background-accent']) ? $this->configuration['background-accent'] : 0,
+      '#default_value' => !empty($this->configuration['background-accent']) ? $this->configuration['background-accent'] : NULL,
       '#name' => 'background_accent',
       '#title' => $this->t('Background image'),
       '#description' => $this->t('Optionally, display an image behind section content. Ideal size is 1500x500 pixels.'),

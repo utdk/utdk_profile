@@ -1,83 +1,125 @@
+.utexas-promo-unit-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  margin-left: -1%;
+}
+.utexas-promo-unit-container > * {
+  margin: 0 0 1% 1%;
+}
+/* Additional specificty is needed to target .ut-headline--underline . */
+.utexas-promo-unit-container .ut-headline--underline {
+  margin: 0 0 1% 1%;
+  width: 100%;
+}
+
 .utexas-promo-unit {
+  align-content: flex-start;
   background-color: #f9fafb;
   border: 1px solid #f2f1ed;
   display: flex;
-  margin-bottom: 0.75rem;
+  flex: 1 1 0;
+  flex-wrap: wrap;
+  min-width: calc(275px + (2 * 0.75rem));
   padding: 0.75rem;
 }
+
+/* Image Wrapper (Section 1) Styles */
 .utexas-promo-unit .image-wrapper {
-  margin-right: 1rem;
-}
-.stacked-display .utexas-promo-unit {
-  flex-direction: column;
-}
-.stacked-display .utexas-promo-unit .image-wrapper {
-  flex: 0 0 100%;
-  margin-right: 0;
-}
-.stacked-display .utexas-promo-unit img {
-  margin-bottom: 0.75rem;
-  width: 100%;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin: 0 auto 2%;
 }
 .utexas-promo-unit .landscape-image {
-  flex: 0 0 106px;
+  flex-basis: 40%;
+  max-width: 190px;
 }
 .utexas-promo-unit .portrait-image {
-  flex: 0 0 72px;
+  flex-basis: 50%;
+  max-width: 130px;
 }
 .utexas-promo-unit .square-image {
-  flex: 0 0 67px;
+  flex-basis: 50%;
+  max-width: 140px;
 }
-.utexas-promo-unit .data-wrapper :last-child {
-  margin-bottom: 0;
+/* Setting the flex-basis to 100% effectively forces a flex-wrap. */
+.stacked-display .utexas-promo-unit .landscape-image,
+.stacked-display .utexas-promo-unit .portrait-image,
+.stacked-display .utexas-promo-unit .square-image {
+  flex: 0 0 100%;
+  max-width: initial;
 }
-.utexas-promo-unit .ut-headline {
+/* This width needed in case image derivative width is smaller in pixels than
+  its container's width. */
+.utexas-promo-unit .image-wrapper img {
+  width: 100%;
+}
+/* ******************************** */
+
+/* Data Wrapper (Section 2) Styles */
+.utexas-promo-unit .data-wrapper {
+  flex: 1 1 0;
+  margin: 0 0 0 4%;
+  min-width: 175px;
+}
+.utexas-promo-unit .data-wrapper .ut-headline {
   padding-top: 0;
 }
-.utexas-promo-unit a,
-.utexas-promo-unit a:link,
-.utexas-promo-unit a:visited {
-  color: #9D4700;
+/* ****************************** */
+
+/* Items Per Row Styles */
+.utexas-onecol .utexas-promo-unit {
+  flex: 1 0 100%;
 }
-.utexas-promo-unit a:hover,
-.utexas-promo-unit a:focus {
-  color: #A04400;
+.utexas-twocol .utexas-promo-unit {
+  flex: 1 0 49%;
 }
+.utexas-threecol .utexas-promo-unit {
+  flex: 1 0 32%;
+}
+.utexas-fourcol .utexas-promo-unit {
+  flex: 1 0 24%;
+}
+/* ****************************** */
+
+/* Items Per Row -- Placeholder Items Workaround */
+.utexas-promo-unit[aria-hidden="true"] {
+  background: none;
+  border-color: transparent;
+  border-top: none;
+  border-bottom: none;
+  height: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* If there are only 1 or 2 items, do not display placeholders. */
+.utexas-promo-unit:nth-of-type(2)[aria-hidden="true"],
+.utexas-promo-unit:nth-of-type(2)[aria-hidden="true"] ~ .utexas-promo-unit,
+.utexas-promo-unit:nth-of-type(3)[aria-hidden="true"],
+.utexas-promo-unit:nth-of-type(3)[aria-hidden="true"] ~ .utexas-promo-unit {
+  display: none;
+}
+/* ****************************** */
 
 @media all and (min-width: 900px) {
   .utexas-promo-unit {
-    margin-bottom: 1rem;
     padding: 1rem;
-  }
-  .utexas-promo-unit .portrait-image {
-    flex: 0 0 120px;
-  }
-  .utexas-promo-unit .landscape-image {
-    flex: 0 0 176px;
-  }
-  .utexas-promo-unit .square-image {
-    flex: 0 0 112px;
   }
 }
 
 @media all and (min-width: 1200px) {
   .utexas-promo-unit {
-    margin-bottom: 1.25rem;
     padding: 1.25rem;
   }
-  .utexas-promo-unit .image-wrapper {
-    margin-right: 1.25rem;
-  }
-  .utexas-promo-unit.image-wrapper img {
-    width: 100%;
-  }
   .utexas-promo-unit .landscape-image {
-    flex: 0 0 220px;
+    max-width: 220px;
   }
   .utexas-promo-unit .portrait-image {
-    flex: 0 0 150px;
+    max-width: 150px;
   }
   .utexas-promo-unit .square-image {
-    flex: 0 0 140px;
+    max-width: 140px;
   }
 }
