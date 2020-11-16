@@ -9,3 +9,4 @@ weight: 103
 block_restrictions:
   - 'inline_block:social_links'
   - 'inline_block:utexas_promo_unit'
+  - 'inline_block:utexas_quick_links'

@@ -80,3 +80,37 @@ function utexas_layout_builder_styles_update_8104() {
 function utexas_layout_builder_styles_update_8105() {
   StyleUpdateHelper::addStyleToBlock('utexas_promo_unit', 'utexas_onecol');
 }
+
+/**
+ * Issue #1303 : Make 1-4 items per row available on Quick Links.
+ */
+function utexas_layout_builder_styles_update_8106() {
+  $styles = [
+    'layout_builder_styles.style.utexas_onecol',
+    'layout_builder_styles.style.utexas_twocol',
+    'layout_builder_styles.style.utexas_threecol',
+    'layout_builder_styles.style.utexas_fourcol',
+  ];
+  // Import each file config individually.
+  foreach ($styles as $style) {
+    $module_handler = \Drupal::service('module_handler');
+    $module_path = $module_handler->getModule('utexas_layout_builder_styles')->getPath();
+    $config_path = $module_path . '/config/install/' . $style . '.yml';
+    $data = Yaml::parse(file_get_contents($config_path));
+    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
+  }
+}
+
+/**
+ * Issue #1303 : Migrate view mode to Layout Builder Style for Quick Links.
+ */
+function utexas_layout_builder_styles_update_8107() {
+  $style_map = [
+    'default' => 'utexas_onecol',
+    'utexas_quick_links_2' => 'utexas_twocol',
+    'utexas_quick_links_3' => 'utexas_threecol',
+    'utexas_quick_links_4' => 'utexas_fourcol',
+  ];
+
+  StyleUpdateHelper::migrateStyleToBlocksFromViewMode('utexas_quick_links', $style_map);
+}

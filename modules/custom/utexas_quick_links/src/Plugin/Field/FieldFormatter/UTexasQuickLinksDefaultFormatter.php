@@ -45,7 +45,6 @@ class UTexasQuickLinksDefaultFormatter extends FormatterBase {
         '#headline' => $item->headline,
         '#copy' => check_markup($item->copy_value, $item->copy_format),
         '#links' => $links,
-        '#columns' => 'one',
       ];
       $elements['#attached']['library'][] = 'utexas_quick_links/quick-links';
     }
