@@ -1,57 +1,35 @@
 
 /* Border styles */
 .utexas-field-border {
-  padding: 0 0 20px;
-  background-color: #fff;
+  padding: 20px 20px 0;
   border: 1px solid #f0ede6;
-  margin-bottom: 35px;
 }
-.utexas-field-border .ut-headline {
-  margin: 0 0 10px 0;
-  padding: 15px;
+.utexas-field-border > .ut-headline {
+  margin: 0 0 20px;
+  padding: 0 0 15px;
   line-height: 1.625rem;
   color: #2d2a28;
   font-weight: 600;
   border-bottom: 1px solid #f0ede6;
 }
-.utexas-field-border .ut-copy,
-.utexas-field-border .link-list {
-  padding: 0 15px;
-}
-.utexas-field-border .ut-btn--small,
-.utexas-field-border .ut-btn {
-  margin: 0 15px;
-}
 .utexas-field-border .ut-copy p {
   margin-bottom: 10px;
 }
-.utexas-field-border ul.link-list li {
-  padding-bottom: 10px;
-  font-weight: 600;
-  padding: 0 15px;
-}
-.utexas-field-background ul.link-list,
-.utexas-field-background .content-wrapper ul.link-list {
-  padding-right: 15px;
-}
-.utexas-field-background .link-list li {
+
+/* Background style */
+.utexas-field-border.utexas-field-background .link-list li {
   font-weight: 600;
   padding: 10px 0;
 }
-
-/* Background style */
 .utexas-field-background {
   background-color: #fffdfa;
-  padding-bottom: 20px;
 }
-.utexas-field-background .ut-headline {
+.utexas-field-background > .ut-headline {
+  margin: -20px -20px 20px;
   color: #373737;
   background-color: #fef7ed;
   font-weight: 500;
   padding: 15px;
-}
-.utexas-field-background .ut-copy {
-  padding-left: 15px;
 }
 .utexas-field-background .ut-copy p {
   color: #474541;
@@ -59,60 +37,102 @@
 }
 
 /* Quick Links */
+.utexas-field-border .utexas-quick-links {
+  margin-bottom: 20px;
+}
+.utexas-field-border .utexas-quick-links > .ut-headline {
+  margin: 0 0 10px;
+  padding-top: 0;
+}
 .utexas-field-border .utexas-quick-links ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+.utexas-field-border .utexas-quick-links ul li:last-child {
+  padding-bottom: 0;
 }
 .utexas-field-background .utexas-quick-links .link-list a.ut-link {
   font-weight: 600;
 }
 
 /* Flex Content Area */
-.utexas-field-border .ut-flex-content-area-wrapper .ut-headline {
+.utexas-field-background .ut-flex-content-area-wrapper > .ut-headline {
   padding: 15px;
 }
 
 /* Photo Content Area */
+.utexas-field-border .ut-photo-content-area {
+  margin-bottom: 20px;
+}
 .utexas-field-border .ut-photo-content-area .content-wrapper h2 {
   padding-top: 15px;
 }
 
 /* Promo List */
-.utexas-field-border .ut-promo-list-wrapper .promo-list .ut-headline {
-  padding-top: 15px;
+.utexas-field-border .ut-promo-list-wrapper .promo-list {
+  margin: 0;
 }
 .utexas-field-border .utexas-promo-list-container h3.ut-headline--underline {
-  margin: 0 20px 15px;
-  padding-top: 15px;
+  margin: 0 0 15px;
+  padding-top: 0;
 }
 .utexas-field-border .utexas-promo-list-container .content {
   width: 100%;
+}
+.utexas-field-border .utexas-promo-list-container .ut-copy > *:last-child {
+  margin-bottom: 0;
 }
 .utexas-field-background .ut-promo-list-wrapper .promo-list a > .ut-headline {
   color: #373737;
 }
 
 /* Promo Unit */
-.utexas-field-border .utexas-promo-unit .data-wrapper {
-  width: 100%;
+.utexas-field-border .utexas-promo-unit-container .utexas-promo-unit {
+  margin: 0;
 }
 .utexas-field-border .utexas-promo-unit-container h3.ut-headline--underline {
-  margin: 0 20px 15px;
+  margin: 0 0 15px;
+  padding-top: 0;
+}
+.utexas-field-background .utexas-promo-unit .data-wrapper .ut-headline {
   padding-top: 15px;
+}
+.utexas-field-border .utexas-promo-unit-container .utexas-promo-unit-items {
+  margin-bottom: 20px;
+}
+.utexas-field-border .utexas-promo-unit .data-wrapper {
+  width: 100%;
 }
 
 /* Resources */
 .utexas-field-border .ut-resources-wrapper h3.ut-headline--underline {
-  margin: 0 20px 15px;
-  padding-top: 15px;
+  margin: 0 0 15px;
+  padding-top: 0;
 }
 .utexas-field-border .utexas-resource {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Featured Highlight */
+.utexas-field-background .utexas-featured-highlight .ut-headline {
+  background: transparent;
 }
 
 /* Social Links */
 .utexas-field-border .block__ut-social-links--items {
   padding-left: 15px;
+}
+
+/* Feed Block */
+.utexas-field-border.ut-newsreel .ut-cta {
+  padding-bottom: 20px;
+}
+
+/* Twitter feed */
+.utexas-field-border .twitter_widget {
+  margin-bottom: 20px;
+  padding: 1rem;
+  background: #fff;
 }
