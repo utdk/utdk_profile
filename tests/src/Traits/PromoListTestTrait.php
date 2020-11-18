@@ -97,10 +97,13 @@ trait PromoListTestTrait {
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--lock');
 
-    // Verify responsive image is present within the link.
-    $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a picture source');
+    // Verify responsive image is present.
+    $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) picture source');
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a picture source');
+    // Verify expected image.
     $expected_path = 'utexas_image_style_64w_64h/public/image-test.png';
-    $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a[href^="https://promolist.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) picture img', 'src', $expected_path);
 
     // Set display to "Responsive".
     $this->drupalGet('admin/structure/block/manage/promolisttest');
