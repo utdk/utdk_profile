@@ -83,10 +83,12 @@ trait ResourcesTestTrait {
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--lock');
-    // Verify responsive image is present within the link.
+    // Verify responsive and expect image is present.
     $assert->elementExists('css', 'picture source');
     $expected_path = 'utexas_image_style_400w_250h/public/image-test';
-    $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-resource .image-wrapper picture img', 'src', $expected_path);
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.utexas-resource .image-wrapper a picture source');
     // Verify stacked display adding class to markup.
     $this->drupalGet('admin/structure/block/manage/resourcestest');
     $this->submitForm([
