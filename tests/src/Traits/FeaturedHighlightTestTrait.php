@@ -51,13 +51,18 @@ trait FeaturedHighlightTestTrait {
     $assert->pageTextContains('Featured Highlight Copy');
     $assert->linkByHrefExists('https://featuredhighlight.test');
     $assert->pageTextContains('Jan. 17, 2019');
-    // Verify responsive image is present within the link.
-    $assert->elementExists('css', 'a picture source');
+    // Verify responsive image is present.
+    $assert->elementExists('css', '.utexas-featured-highlight .image-wrapper picture source');
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.utexas-featured-highlight .image-wrapper a picture source');
+    // Verify expected image.
     $expected_path = 'utexas_image_style_500w_300h/public/image-test';
-    $assert->elementAttributeContains('css', 'a[href^="https://featuredhighlight.test"] picture img', 'src', $expected_path);
-    // Verify link exists with options.
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper picture img', 'src', $expected_path);
+    // // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    // Verify CTA not tabbable when headline and link present.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'tabindex', '-1');
 
     // Set display to "Bluebonnet (Medium)".
     $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');

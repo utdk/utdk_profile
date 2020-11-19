@@ -104,10 +104,14 @@ trait FlexContentAreaTestTrait {
     // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    // Verify CTA not tabbable when headline and link present.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'tabindex', '-1');
     $assert->elementExists('css', '.ut-cta-link--lock');
-    // Verify responsive image is present within the link.
+    // Verify responsive and expected image is present.
     $expected_path = 'utexas_image_style_340w_227h/public/image-test.png';
-    $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.ut-flex-content-area .image-wrapper picture img', 'src', $expected_path);
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.ut-flex-content-area .image-wrapper a picture source');
 
     // Flex Content Area instance 2 is rendered.
     $assert->elementTextContains('css', '.ut-flex-content-area:nth-child(2) h3.ut-headline', 'Flex Content Area Headline 2');

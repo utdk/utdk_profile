@@ -30,6 +30,7 @@ trait ImageLinkTestTrait {
     $this->submitForm([
       'info[0][value]' => 'Image Link Test',
       'field_block_il[0][link][uri]' => 'https://imagelink.test',
+      'field_block_il[0][link][title]' => 'Alt value',
       'field_block_il[0][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
       'field_block_il[0][link][options][attributes][class]' => 'ut-cta-link--external',
     ], 'Save');
@@ -49,6 +50,8 @@ trait ImageLinkTestTrait {
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w/public/image-test.png';
     $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'src', $expected_path);
+    // Verify responsive image alt attribute is pulled from link title.
+    $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'alt', 'Alt value');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');

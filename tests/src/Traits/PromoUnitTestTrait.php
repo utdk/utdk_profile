@@ -78,11 +78,16 @@ trait PromoUnitTestTrait {
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    // Verify CTA not tabbable when headline and link present.
+    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'tabindex', '-1');
     $assert->elementExists('css', '.ut-cta-link--lock');
-    // Verify responsive image is present within the link.
-    $assert->elementExists('css', '.utexas-promo-unit:nth-child(3) a picture source');
+    // Verify responsive image is present.
+    $assert->elementExists('css', '.utexas-promo-unit:nth-child(3) picture source');
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.utexas-promo-unit:nth-child(3) a picture source');
+    // Verify expected image.
     $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
-    $assert->elementAttributeContains('css', '.utexas-promo-unit:nth-child(3) a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit:nth-child(3) picture img', 'src', $expected_path);
 
     // Set display to "Portrait".
     $this->drupalGet('admin/structure/block/manage/promounittest');
@@ -93,7 +98,7 @@ trait PromoUnitTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $expected_path = 'utexas_image_style_120w_150h/public/image-test.png';
-    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit picture img', 'src', $expected_path);
 
     // Set display to "Square".
     $this->drupalGet('admin/structure/block/manage/promounittest');
@@ -104,7 +109,7 @@ trait PromoUnitTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $expected_path = 'utexas_image_style_112w_112h/public/image-test.png';
-    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit picture img', 'src', $expected_path);
 
     // Set display to "Landscape Stacked".
     $this->drupalGet('admin/structure/block/manage/promounittest');
@@ -115,7 +120,7 @@ trait PromoUnitTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
-    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit picture img', 'src', $expected_path);
     $assert->elementExists('css', 'div.stacked-display div.utexas-promo-unit');
 
     // Set display to "Portrait Stacked".
@@ -127,7 +132,7 @@ trait PromoUnitTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $expected_path = 'utexas_image_style_120w_150h/public/image-test.png';
-    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit picture img', 'src', $expected_path);
     $assert->elementExists('css', 'div.stacked-display div.utexas-promo-unit');
 
     // Set display to "Square Stacked".
@@ -139,7 +144,7 @@ trait PromoUnitTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $expected_path = 'utexas_image_style_112w_112h/public/image-test.png';
-    $assert->elementAttributeContains('css', 'a[href^="https://promounit.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit picture img', 'src', $expected_path);
     $assert->elementExists('css', 'div.stacked-display div.utexas-promo-unit');
 
     // Reset block weighting system.
