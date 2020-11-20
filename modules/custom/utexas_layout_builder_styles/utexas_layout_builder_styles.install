@@ -114,3 +114,37 @@ function utexas_layout_builder_styles_update_8107() {
 
   StyleUpdateHelper::migrateStyleToBlocksFromViewMode('utexas_quick_links', $style_map);
 }
+
+/**
+ * Issue #1312 : Make 1-4 items per row available on Flex Content Areas.
+ */
+function utexas_layout_builder_styles_update_8120() {
+  $styles = [
+    'layout_builder_styles.style.utexas_onecol',
+    'layout_builder_styles.style.utexas_twocol',
+    'layout_builder_styles.style.utexas_threecol',
+    'layout_builder_styles.style.utexas_fourcol',
+  ];
+  // Import each file config individually.
+  foreach ($styles as $style) {
+    $module_handler = \Drupal::service('module_handler');
+    $module_path = $module_handler->getModule('utexas_layout_builder_styles')->getPath();
+    $config_path = $module_path . '/config/install/' . $style . '.yml';
+    $data = Yaml::parse(file_get_contents($config_path));
+    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
+  }
+}
+
+/**
+ * Issue #1312 : Update view modes to Layout Builder Style for FCAs.
+ */
+function utexas_layout_builder_styles_update_8121() {
+  $style_map = [
+    'utexas_flex_content_area_1' => 'utexas_onecol',
+    'default' => 'utexas_twocol',
+    'utexas_flex_content_area_3' => 'utexas_threecol',
+    'utexas_flex_content_area_4' => 'utexas_fourcol',
+  ];
+
+  StyleUpdateHelper::migrateStyleToBlocksFromViewMode('utexas_flex_content_area', $style_map);
+}

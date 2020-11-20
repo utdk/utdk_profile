@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - block_content
-id: block_content.utexas_flex_content_area_3
-label: 'Flex Content Area Three Column'
-targetEntityType: block_content
-cache: true
