@@ -29,10 +29,9 @@ class UTexasPromoUnitSquareFormatter extends UTexasPromoUnitDefaultFormatter {
       if (!empty($item['#promo_unit_items'])) {
         foreach ($item['#promo_unit_items'] as $key => &$instance) {
           $image = $promo_unit_items[$key]['item']['image'];
-          $link = $promo_unit_items[$key]['item']['link']['uri'];
           if (!empty($image)) {
             $responsive_image_style_name = 'utexas_responsive_image_pu_square';
-            $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $link, $cache_tags);
+            $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $cache_tags);
           }
         }
       }
