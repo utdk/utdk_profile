@@ -206,6 +206,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         '#links' => $links,
         '#cta' => $cta ?? '',
       ];
+
+      // Add class to the item.attributes object.
+      $elements['#items'][$delta]->_attributes['class'][] = 'ut-flex-content-area';
     }
     $elements['#attributes']['class'][] = 'ut-flex-content-area-wrapper';
     $elements['#attached']['library'][] = 'utexas_flex_content_area/flex-content-area';

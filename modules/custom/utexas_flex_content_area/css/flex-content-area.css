@@ -8,9 +8,6 @@
   grid-gap: var(--ipr-grid-gap);
   grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
 }
-.ut-flex-content-area-wrapper > div {
-  min-width: var(--ipr-grid-min-min-size);
-}
 
 .utexas-onecol .ut-flex-content-area-wrapper {
   --ipr-grid-min-max-size: 100%;
@@ -26,6 +23,9 @@
 }
 /* ****************************** */
 
-.ut-flex-content-area-wrapper .image-wrapper .ut-img--fluid {
+.ut-flex-content-area {
+  min-width: var(--ipr-grid-min-min-size);
+}
+.ut-flex-content-area .image-wrapper .ut-img--fluid {
   width: 100%;
 }
