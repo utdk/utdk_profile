@@ -21,17 +21,3 @@
 .utexas-fourcol .block__ut-social-links--items {
   grid-template-columns: repeat(4, 1fr);
 }
-
-/* Limited to social link blocks placed using Layout Builder (.layout_region) */
-/* Items Per Row Styles */
-.layout__region .block__ut-social-links--items {
-  --ipr-grid-gap: max(10px, 1vw);
-  --ipr-grid-min-min-size: 40px;
-  --ipr-grid-min-max-size: 40px;
-
-  display: grid;
-  grid-gap: var(--ipr-grid-gap);
-  grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
-}
-/* ****************************** */
-
