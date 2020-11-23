@@ -44,7 +44,7 @@
     {% endif %}
     <div class='block__ut-social-links--items'>
       {% for link in item.content.links %}
-        <div>{{ link }}</div>
+        <div{{item.attributes}}>{{ link }}</div>
       {% endfor %}
     </div>
   {% endfor %}
