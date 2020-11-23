@@ -18,24 +18,25 @@ trait PromoUnitTestTrait {
     // CRUD: CREATE.
     // Verify the custom "Add Promo Unit item" button works.
     $page->pressButton('Add Promo Unit item');
-    $assert->waitForText('Promo Unit item 2');
+    $this->assertNotEmpty($assert->waitForText('Promo Unit item 2'));
     $page->pressButton('Show row weights');
 
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
-    // Verify widget field schema.
+
+    // Open the media library.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
+
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $basic_page_id = $this->createBasicPage();
     $this->submitForm([
@@ -69,25 +70,25 @@ trait PromoUnitTestTrait {
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Promo Unit Container Headline');
     // User-supplied weighting of resource items is respected.
-    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(3) h3.ut-headline', 'Promo Unit 1 Headline');
-    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2) h3.ut-headline', 'Promo Unit 2 Headline');
-    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(3)', 'Promo Unit 1 Copy');
-    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2)', 'Promo Unit 2 Copy');
+    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2) h3.ut-headline', 'Promo Unit 1 Headline');
+    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(1) h3.ut-headline', 'Promo Unit 2 Headline');
+    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2)', 'Promo Unit 1 Copy');
+    $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(1)', 'Promo Unit 2 Copy');
     $assert->linkByHrefExists('https://promounit.test');
     $assert->linkByHrefExists('test-basic-page');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'tabindex', '-1');
+    $assert->elementAttributeContains('css', 'div > a.ut-cta-link--external', 'tabindex', '-1');
     $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive image is present.
-    $assert->elementExists('css', '.utexas-promo-unit:nth-child(3) picture source');
+    $assert->elementExists('css', '.utexas-promo-unit:nth-child(2) picture source');
     // Verify image is not a link after a11y changes.
-    $assert->elementNotExists('css', '.utexas-promo-unit:nth-child(3) a picture source');
+    $assert->elementNotExists('css', '.utexas-promo-unit:nth-child(2) a picture source');
     // Verify expected image.
     $expected_path = 'utexas_image_style_176w_112h/public/image-test.png';
-    $assert->elementAttributeContains('css', '.utexas-promo-unit:nth-child(3) picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-promo-unit:nth-child(2) picture img', 'src', $expected_path);
 
     // Set display to "Portrait".
     $this->drupalGet('admin/structure/block/manage/promounittest');
@@ -159,7 +160,7 @@ trait PromoUnitTestTrait {
     $page->findLink('Promo Unit Test')->click();
     // Add a third Promo Unit items.
     $page->pressButton('Add Promo Unit item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Promo Unit item 3'));
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
     foreach ($fieldsets as $fieldset) {

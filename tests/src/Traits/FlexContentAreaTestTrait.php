@@ -21,15 +21,14 @@ trait FlexContentAreaTestTrait {
 
     // Verify widget field schema.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $page->fillField('edit-info-0-value', 'Flex Content Area Test');
     $one = 'field_block_fca[0][flex_content_area]';
@@ -41,9 +40,15 @@ trait FlexContentAreaTestTrait {
     $page->fillField($one . '[links][0][options][attributes][class]', 'ut-cta-link--lock');
     // Add slots for two more links on Flex Content Area instance 1.
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_fca[0][flex_content_area][links][1][uri]',
+    ]));
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_fca[0][flex_content_area][links][2][uri]',
+    ]));
     $page->fillField($one . '[links][1][title]', 'Flex Content Area Second Link');
     $page->fillField($one . '[links][1][uri]', 'https://second.test');
     $page->fillField($one . '[links][2][title]', 'Flex Content Area Third Link');
@@ -66,7 +71,7 @@ trait FlexContentAreaTestTrait {
     $page->findLink('Flex Content Area Test')->click();
     // Add two more Flex Content Area instances.
     $page->pressButton('Add another item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Flex Content Area 3'));
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
     // Expand the second fieldset.
     $fieldsets[1]->click();
@@ -81,8 +86,7 @@ trait FlexContentAreaTestTrait {
 
     $this->drupalGet('admin/structure/block/block-content');
     $page->findLink('Flex Content Area Test')->click();
-    $page->pressButton('Add another item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Flex Content Area 3'));
     // Expand the third fieldset.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
     $fieldsets[2]->click();
@@ -105,7 +109,7 @@ trait FlexContentAreaTestTrait {
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'tabindex', '-1');
+    $assert->elementAttributeContains('css', 'div.content-wrapper > a.ut-cta-link--external', 'tabindex', '-1');
     $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive and expected image is present.
     $expected_path = 'utexas_image_style_340w_227h/public/image-test.png';
@@ -153,9 +157,6 @@ trait FlexContentAreaTestTrait {
     // Verify Flex Content Area items can be removed.
     $this->drupalGet('admin/structure/block/block-content');
     $page->findLink('Flex Content Area Test')->click();
-    // Add a slot for a 3rd Flex Content Area.
-    $page->pressButton('Add another item');
-    $assert->assertWaitOnAjaxRequest();
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
     $fieldsets[1]->click();
@@ -197,10 +198,9 @@ trait FlexContentAreaTestTrait {
 
     // Verify widget field schema.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $this->clickLink("Video (External)");
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Add Video (External) via URL'));
 
     $assert->pageTextContains('Video 1');
     // Select the 1st video media item (should be "Video 1").
@@ -208,7 +208,7 @@ trait FlexContentAreaTestTrait {
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Flex Content Area Video Test',

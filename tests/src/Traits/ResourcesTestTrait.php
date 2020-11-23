@@ -19,31 +19,38 @@ trait ResourcesTestTrait {
     $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
     $fieldset[0]->click();
 
-    // Verify widget field schema.
+    // Open the media library.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
+
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
+
+    // Insert the media item & verify the media library interface closes.
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     // Verify that multiple links can be added.
-    $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $link_wrapper = $assert->elementExists('css', '[data-drupal-selector="edit-field-block-resources-0-resource-items-items-0-details-item-links"]');
+    $link_wrapper->pressButton('Add link');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][uri]',
+    ]));
 
     // Verify that multiple resource collections can be added.
     $page->pressButton('Add another collection');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Resource collection 2'));
+
+    // Expand all Resource collection fieldsets.
     $page->pressButton('Show row weights');
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
-
     // Create test node.
     $basic_page_id = $this->createBasicPage();
 
@@ -117,7 +124,10 @@ trait ResourcesTestTrait {
     }
 
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_resources[0][resource_items][items][0][details][item][links][2][uri]',
+    ]));
 
     // Populate the third link.
     $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][2][uri]', 'https://thirdlink.test');
@@ -152,14 +162,13 @@ trait ResourcesTestTrait {
     $page->findLink('Resources Test')->click();
     // Add a third item.
     $page->pressButton('Add another collection');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Resource collection 3'));
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
     // Clear out the data for item 2; add item 3.
-    $this->createScreenshot('before.png');
     $page->fillField('field_block_resources[0][resource_items][items][1][details][item][headline]', '');
     $page->fillField('field_block_resources[0][resource_items][items][1][details][item][links][0][uri]', '');
     $page->fillField('field_block_resources[0][resource_items][items][2][details][item][headline]', 'Resource 3 Headline');

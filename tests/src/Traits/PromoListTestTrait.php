@@ -22,24 +22,27 @@ trait PromoListTestTrait {
       $fieldset->click();
     }
 
-    // Verify widget field schema.
+    // Open the media library.
     $page->pressButton('Add media');
-    $assert->waitForText('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
+
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
+
+    // Insert the media item & verify the media library interface closes.
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     // Verify the custom "Add Promo List item" button works.
     $page->pressButton('Add Promo List item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Promo List item 2'));
 
     // Multiple Promo List collections can be added.
     $page->pressButton('Add another item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '[data-drupal-selector="edit-field-block-pl-1-promo-list-items-items"]'));
 
     // Multiple list items can be added.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
@@ -147,7 +150,7 @@ trait PromoListTestTrait {
     $page->findLink('Promo List Test')->click();
     // Add a third item.
     $page->pressButton('Add Promo List item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Promo List item 3'));
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
     foreach ($fieldsets as $fieldset) {

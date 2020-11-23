@@ -17,15 +17,14 @@ trait ImageLinkTestTrait {
 
     $this->drupalGet('block/add/utexas_image_link');
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Image Link Test',
@@ -64,15 +63,14 @@ trait ImageLinkTestTrait {
     $basic_page_id = $this->createBasicPage();
     $this->drupalGet('block/add/utexas_image_link');
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Image Link Test 2',

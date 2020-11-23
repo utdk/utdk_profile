@@ -19,20 +19,26 @@ trait PhotoContentAreaTestTrait {
 
     // Verify widget field schema.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+
     // Add two more link slots.
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_pca[0][links][1][uri]',
+    ]));
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_pca[0][links][2][uri]',
+    ]));
 
     $this->submitForm([
       'info[0][value]' => 'Photo Content Area Test',
@@ -60,7 +66,7 @@ trait PhotoContentAreaTestTrait {
     $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'div.caption span', 'Photo Content Area Photo Credit');
-    $assert->elementTextContains('css', 'h2.ut-headline', 'Photo Content Area Headline');
+    $assert->elementTextContains('css', '.ut-photo-content-area h2.ut-headline', 'Photo Content Area Headline');
     $assert->pageTextContains('Photo Content Area Copy');
     $assert->linkByHrefExists('https://photocontentarea.test');
     $assert->linkByHrefExists('https://second.test');

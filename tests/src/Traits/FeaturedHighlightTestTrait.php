@@ -17,15 +17,14 @@ trait FeaturedHighlightTestTrait {
 
     // Verify widget field schema.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Featured Highlight Test',
@@ -47,7 +46,7 @@ trait FeaturedHighlightTestTrait {
 
     $this->drupalGet('<front>');
     // Verify page output.
-    $assert->elementTextContains('css', 'h2.ut-headline', 'Featured Highlight Headline');
+    $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight Headline');
     $assert->pageTextContains('Featured Highlight Copy');
     $assert->linkByHrefExists('https://featuredhighlight.test');
     $assert->pageTextContains('Jan. 17, 2019');
@@ -62,7 +61,7 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'tabindex', '-1');
+    $assert->elementAttributeContains('css', '.ut-btn.ut-cta-link--external', 'tabindex', '-1');
 
     // Set display to "Bluebonnet (Medium)".
     $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
@@ -93,10 +92,9 @@ trait FeaturedHighlightTestTrait {
 
     // Verify widget field schema.
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $this->clickLink("Video (External)");
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Add Video (External) via URL'));
 
     $assert->pageTextContains('Video 1');
     // Select the 1st video media item (should be "Video 1").
@@ -104,7 +102,7 @@ trait FeaturedHighlightTestTrait {
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Featured Highlight Video Test',
