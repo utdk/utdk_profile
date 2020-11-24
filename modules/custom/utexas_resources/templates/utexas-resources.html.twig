@@ -18,6 +18,7 @@
   {% if headline %}
     <h3 class="ut-headline--underline">{{ headline }}</h3>
   {% endif %}
+  <div class="utexas-resource-items">
   {% for item in resource_items %}
     <div class="utexas-resource">
       {% if item.image %}
@@ -39,4 +40,5 @@
       </div>
     </div>
   {% endfor %}
+  </div>
 </div>
