@@ -25,7 +25,7 @@ use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
  *
  * @group utexas
  */
-class CustomWidgetsTest extends WebDriverTestBase {
+class WidgetsTest extends WebDriverTestBase {
   use EntityTestTrait;
   use FlexContentAreaTestTrait;
   use FeaturedHighlightTestTrait;

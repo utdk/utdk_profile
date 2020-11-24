@@ -13,6 +13,7 @@ trait ResourcesTestTrait {
   public function verifyResources() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+    $session = $this->getSession();
 
     // CRUD: CREATE.
     $this->drupalGet('block/add/utexas_resources');
@@ -20,7 +21,10 @@ trait ResourcesTestTrait {
     $fieldset[0]->click();
 
     // Open the media library.
+    $session->wait(3000);
     $page->pressButton('Add media');
+    $session->wait(3000);
+    // Check for text.
     $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
 

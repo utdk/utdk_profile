@@ -42,8 +42,6 @@
       <directory>/var/www/utdk_scaffold/web/core/modules</directory>
       <directory>/var/www/utdk_scaffold/web/modules</directory>
       <directory>/var/www/utdk_scaffold/web/sites</directory>
-      <!-- Exclude all test modules, tests etc -->
-      <exclude-pattern>*/tests/*</exclude-pattern>
      </whitelist>
   </filter>
 </phpunit>

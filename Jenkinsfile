@@ -57,7 +57,7 @@ pipeline {
                                                     apt-get install mariadb-client
 
                                                     ## Install composer...
-                                                    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+                                                    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.17
                                                     export COMPOSER_ALLOW_SUPERUSER
 
                                                     ### Uncomment lines 56-58 to download/install specific version of chromedriver

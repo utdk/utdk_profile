@@ -87,37 +87,34 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
 
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Configure Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     // A "container" class is added to the section by default.
-    $assert->elementExists('css', '.layout-builder__layout.container');
+    // The one-column layout defaults to "readable" width.
+    $assert->elementExists('css', '.layout-builder__layout.container.readable');
     $assert->elementNotExists('css', '.layout-builder__layout.container-fluid');
-    // Set the section to "Full width of page".
-    $assert->assertWaitOnAjaxRequest();
 
-    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="full_width_of_page"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "full_width_of_page", TRUE);
+    // Set the section to "Full width of page".
+    $assert->elementExists('css', 'select[name="layout_settings[section_width]"] option[value="container-fluid"]');
+    $this->getSession()->getPage()->selectFieldOption("layout_settings[section_width]", "container-fluid", TRUE);
     $page->pressButton('Update');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     // A "container-fluid" class is added to the section.
-    $assert->elementNotExists('css', '.layout-builder__layout.container');
+    $assert->elementNotExists('css', '.layout-builder__layout.container.readable');
     $assert->elementExists('css', '.layout-builder__layout.container-fluid');
 
     // Border with background.
     $assert->elementNotExists('css', '.utexas-field-border.utexas-field-background');
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add block');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
     $this->clickLink('Recent content');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Configure block'));
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_with_background"]');
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_with_background", TRUE);
-
     $page->pressButton('Add block');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout--utexas-onecol h2.ut-headline'));
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-field-background');
 
@@ -125,31 +122,29 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->elementNotExists('css', '.utexas-field-border.utexas-centered-headline');
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add block');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
     $this->clickLink('Recent content');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Configure block'));
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_without_background"]');
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_without_background", TRUE);
     $page->pressButton('Add block');
-    $assert->assertWaitOnAjaxRequest();
     // Border & background classes are added to the section.
-    $assert->elementExists('css', '.utexas-field-border.utexas-centered-headline');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-field-border.utexas-centered-headline'));
 
     // No padding between columns.
     $assert->elementNotExists('css', '.utexas-layout-no-padding');
     $this->drupalGet('/node/' . $node->id());
     $this->clickLink('Layout');
     $this->clickLink('Configure Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     // Set the section to "No padding".
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_no_padding"]');
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_no_padding", TRUE);
     $page->pressButton('Update');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     // A "utexas-layout-no-padding" class is added to the section.
-    $assert->elementExists('css', '.utexas-layout-no-padding');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout-no-padding'));
   }
 
 }

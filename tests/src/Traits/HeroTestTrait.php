@@ -120,9 +120,9 @@ trait HeroTestTrait {
     // Verify anchor class is set.
     $assert->elementExists('css', '.hero--photo-orange-insert .center');
     // Verify that the correct image style is being applied.
-    // Since the screen width is 900, we expect an image style of 900h.
+    // Since the screen width is 1200, we expect utexas_image_style_2250w_900h.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-orange-insert .hero-img").css("background-image")');
-    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $pos = strpos($background_image_url, 'utexas_image_style_2250w_900h/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
     // The Hero style 1 does include a CTA.
     $assert->linkByHrefExists('https://hero.test');
@@ -159,7 +159,7 @@ trait HeroTestTrait {
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-orange-insert .hero-img").css("background-image")');
-    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $pos = strpos($background_image_url, 'utexas_image_style_2250w_900h/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
     // Set display to "Hero Style 2".
@@ -180,7 +180,7 @@ trait HeroTestTrait {
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-gradient").css("background-image")');
-    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $pos = strpos($background_image_url, 'utexas_image_style_2250w_900h/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
     // Set display to "Hero Style 2 Right".
@@ -210,7 +210,7 @@ trait HeroTestTrait {
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".hero--photo-gradient").css("background-image")');
-    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $pos = strpos($background_image_url, 'utexas_image_style_2250w_900h/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
     // Set display to "Hero Style 3".
@@ -231,7 +231,7 @@ trait HeroTestTrait {
     // Verify that the correct image style is being applied.
     // Since the screen width is 900, we expect an image style of 900w.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".ut-hero.hero--photo-white-notch").css("background-image")');
-    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $pos = strpos($background_image_url, 'utexas_image_style_2250w_900h/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
     // Set display to "Hero Style 4".
@@ -271,7 +271,7 @@ trait HeroTestTrait {
     $assert->elementExists('css', '.ut-hero.hero--half-n-half');
     // Verify that the correct image style is being applied.
     $background_image_url = $this->getSession()->evaluateScript('jQuery(".ut-hero.hero--half-n-half .hero-img").css("background-image")');
-    $pos = strpos($background_image_url, 'utexas_image_style_900w/public/image-test.png');
+    $pos = strpos($background_image_url, 'utexas_image_style_2250w_900h/public/image-test.png');
     $this->assertTrue($pos !== FALSE);
 
     // Remove the block from the system.

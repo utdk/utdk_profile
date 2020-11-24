@@ -84,9 +84,10 @@ class LayoutsTest extends WebDriverTestBase {
     $this->clickLink('Layout');
     // Remove existing one column layout.
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     $this->oneColumnLayout();
     $this->twoColumnLayout();
@@ -98,35 +99,38 @@ class LayoutsTest extends WebDriverTestBase {
    * One column functionality.
    */
   public function oneColumnLayout() {
+    $this->clickLink('Layout');
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('One column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     // Verify Background accent & color options available.
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Configure Section 1'));
     $assert->elementExists('css', '.layout--utexas-onecol');
     // Cleanup.
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
   }
 
   /**
    * Two column functionality.
    */
   public function twoColumnLayout() {
+    $this->clickLink('Layout');
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Two column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="50-50"]');
@@ -138,80 +142,85 @@ class LayoutsTest extends WebDriverTestBase {
     // 50-50 ratio generates expected CSS.
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "50%/50%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--50-50');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--50-50'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 33-67 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Two column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "33%/67%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--33-67');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--33-67'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 67-33 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Two column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "67%/33%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--67-33');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--67-33'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 25-75 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Two column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "25%/75%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--25-75');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--25-75'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 75-25 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Two column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "75%/25%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--twocol.utexas-layout--twocol--75-25');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--75-25'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
   }
 
   /**
    * Three column functionality.
    */
   public function threeColumnLayout() {
+    $this->clickLink('Layout');
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Three column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
     $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="25-50-25"]');
@@ -222,75 +231,77 @@ class LayoutsTest extends WebDriverTestBase {
     // 25-50-25 ratio generates expected CSS.
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "25%/50%/25%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--25-50-25');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--25-50-25'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 33-34-33 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Three column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "33%/34%/33%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--33-34-33');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--33-34-33'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 50-25-25 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Three column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "50%/25%/25%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--50-25-25');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--50-25-25'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
 
     // 25-25-50 ratio generates expected CSS.
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Layout');
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Three column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "25%/25%/50%");
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--threecol.utexas-layout--threecol--25-25-50');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--25-25-50'));
     $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
     $page->pressButton('Remove');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
   }
 
   /**
    * Four column functionality.
    */
   public function fourColumnLayout() {
+    $this->clickLink('Layout');
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
     $this->clickLink('Four column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     // Background color & accent are present.
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
 
     // Fourcol class present.
     $page->pressButton('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->elementExists('css', '.utexas-layout--fourcol');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--fourcol'));
   }
 
 }

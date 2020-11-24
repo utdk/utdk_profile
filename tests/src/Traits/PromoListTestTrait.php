@@ -11,9 +11,6 @@ trait PromoListTestTrait {
    * Verify Promo List widget schema & output.
    */
   public function verifyPromoList() {
-    // Enlarge the viewport so that all Promo Lists are clickable.
-    $this->getSession()->resizeWindow(1200, 3000);
-
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_list');
@@ -185,7 +182,6 @@ trait PromoListTestTrait {
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
     $storage_handler->delete($entities);
     // Reset to the standard window width.
-    $this->getSession()->resizeWindow(900, 2000);
   }
 
 }
