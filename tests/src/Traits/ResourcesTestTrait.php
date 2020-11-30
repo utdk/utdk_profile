@@ -86,8 +86,8 @@ trait ResourcesTestTrait {
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Resource Container Headline');
     // User-supplied weighting of resource items is respected.
-    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[1]/div/h3', 'Resource 2 Headline');
-    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[2]/div[2]/h3', 'Resource 1 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div/div[1]/div/h3', 'Resource 2 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div/div[2]/div[2]/h3', 'Resource 1 Headline');
     $assert->pageTextContains('Resource Internal Link');
     $assert->linkByHrefExists('https://resource.test');
     // Verify links exist with options.
