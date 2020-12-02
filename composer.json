@@ -45,7 +45,7 @@
     "drupal/schema_metatag": "2.1.0",
     "drupal/svg_upload_sanitizer": "1.1.0",
     "drupal/twitter_profile_widget": "3.0.0",
-    "utexas/forty_acres": "3.0.0-beta.9",
+    "utexas/forty_acres": "dev-238-composer2",
     "utexas/utexas_qualtrics_filter": "1.0.0-beta.2"
   },
   "conflict": {
