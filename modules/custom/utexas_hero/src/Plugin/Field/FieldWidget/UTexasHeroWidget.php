@@ -33,7 +33,7 @@ class UTexasHeroWidget extends WidgetBase {
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
-      '#default_value' => isset($item->media) ? $item->media : NULL,
+      '#default_value' => !empty($item->media) ? $item->media : NULL,
       '#description' => $this->t('Image will be scaled and cropped to a 87:47 ratio. Upload an image with a minimum resolution of 2280x1232 pixels to maintain quality and avoid cropping.'),
     ];
     $element['disable_image_styles'] = [
