@@ -2,7 +2,10 @@
 
 namespace Drupal\utexas_layout_builder_styles;
 
+use Drupal\Core\Config\Config;
 use Drupal\Core\Database\Database;
+
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Use for programmatically adding/removing styles from Layout Builder data.
@@ -139,6 +142,88 @@ class StyleUpdateHelper {
           }
         }
       }
+    }
+  }
+
+  /**
+   * Modify a single value of a Config entity.
+   *
+   * @param string $config_name
+   *   The config entity machine name.
+   * @param string $key
+   *   The config entity array key to operate on.
+   * @param string $value
+   *   The value to alter.
+   */
+  public static function modifyConfigValue($config_name, $key, $value) {
+    $config_factory = \Drupal::configFactory();
+
+    /** @var \Drupal\Core\Config\Config $config */
+    $config = $config_factory->getEditable($config_name);
+
+    // If config did not already exist, populate it using using existing module
+    // config file.
+    if ($config->isNew()) {
+      self::saveNewConfigurationFromYml($config, $config_name);
+    }
+
+    $current_value = $config->get($key);
+    // If existing configuration value is an array, it needs special processing.
+    if (is_array($current_value)) {
+      // If the value is already in the array, we're done.
+      if (in_array($value, $current_value)) {
+        return;
+      }
+      // Add new value onto end of array.
+      $style_config_value[] = $value;
+      $value = $style_config_value;
+    }
+
+    // Modify config value for given key.
+    $config->set($key, $value)->save();
+  }
+
+  /**
+   * Populate a Config entity from a configuration yaml file.
+   *
+   * @param \Drupal\Core\Config\Config $config
+   *   Cast as Config because we need setData().
+   * @param string $config_name
+   *   The config entity machine name.
+   */
+  public static function saveNewConfigurationFromYml(Config $config, $config_name) {
+    $config_path = drupal_get_path('module', 'utexas_layout_builder_styles') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      $config->setData($data)->save(TRUE);
+    }
+  }
+
+  /**
+   * Remove an array value from configuration entity array.
+   *
+   * @param string $config_name
+   *   The config entity machine name.
+   * @param string $key
+   *   The config entity array key to operate on.
+   * @param string $value
+   *   The value to remove.
+   */
+  public static function removeConfigArrayValue($config_name, $key, $value) {
+    $config_factory = \Drupal::configFactory();
+    /** @var \Drupal\Core\Config\Config $config */
+    $config = $config_factory->getEditable($config_name);
+    $current_value = $config->get($key);
+
+    // If config entity did not already exist, we're done.
+    if ($config->isNew()) {
+      return;
+    }
+
+    // Search for value in array and unset if found.
+    if (($key = array_search($value, $current_value)) !== FALSE) {
+      unset($current_value[$key]);
+      $config->set($key, $current_value)->save();
     }
   }
 

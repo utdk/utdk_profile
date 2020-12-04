@@ -5,7 +5,6 @@
  * Contains install and update functions for UTexas Layout Builder Styles.
  */
 
-use Symfony\Component\Yaml\Yaml;
 use Drupal\utexas_layout_builder_styles\StyleUpdateHelper;
 
 /**
@@ -19,9 +18,7 @@ function utexas_layout_builder_styles_update_8101() {
   ];
   // Import each file config individually.
   foreach ($styles as $style) {
-    $config_path = drupal_get_path('module', 'utexas_layout_builder_styles') . '/config/install/' . $style . '.yml';
-    $data = Yaml::parse(file_get_contents($config_path));
-    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
+    StyleUpdateHelper::modifyConfigValue($style, 'status', 'true');
   }
 }
 
@@ -29,53 +26,47 @@ function utexas_layout_builder_styles_update_8101() {
  * Import custom Layout Builder Style for readable width.
  */
 function utexas_layout_builder_styles_update_8102() {
-  $config_path = drupal_get_path('module', 'utexas_layout_builder_styles') . '/config/install/layout_builder_styles.style.utexas_readable.yml';
-  $data = Yaml::parse(file_get_contents($config_path));
-  \Drupal::configFactory()->getEditable('layout_builder_styles.style.utexas_readable')->setData($data)->save(TRUE);
+  StyleUpdateHelper::modifyConfigValue('layout_builder_styles.style.utexas_readable', 'status', 'true');
 }
 
 /**
- * Update 1-4 item per row labels (#1239).
+ * Issue #1239: Update 1-4 item per row labels.
  */
 function utexas_layout_builder_styles_update_8103() {
-  $styles = [
-    'layout_builder_styles.style.utexas_onecol',
-    'layout_builder_styles.style.utexas_twocol',
-    'layout_builder_styles.style.utexas_threecol',
-    'layout_builder_styles.style.utexas_fourcol',
-  ];
-  // Import each file config individually.
-  foreach ($styles as $style) {
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('utexas_layout_builder_styles')->getPath();
-    $config_path = $module_path . '/config/install/' . $style . '.yml';
-    $data = Yaml::parse(file_get_contents($config_path));
-    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
-  }
+  $layout_builder_style_label = 'Limit to 1 item per row (if no limit is set, items will adjust to fit the available space)';
+  $layout_builer_style = 'layout_builder_styles.style.utexas_onecol';
+  StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'label', $layout_builder_style_label);
+
+  $layout_builder_style_label = 'Limit to 2 items per row (if no limit is set, items will adjust to fit the available space)';
+  $layout_builer_style = 'layout_builder_styles.style.utexas_twocol';
+  StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'label', $layout_builder_style_label);
+
+  $layout_builder_style_label = 'Limit to 3 items per row (if no limit is set, items will adjust to fit the available space)';
+  $layout_builer_style = 'layout_builder_styles.style.utexas_threecol';
+  StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'label', $layout_builder_style_label);
+
+  $layout_builder_style_label = 'Limit to 4 items per row (if no limit is set, items will adjust to fit the available space)';
+  $layout_builer_style = 'layout_builder_styles.style.utexas_fourcol';
+  StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'label', $layout_builder_style_label);
 }
 
 /**
- * Issue #1255: Make 1-4 items per row available on Promo Unit.
+ * Issue #1255: Make 1-4 items per row available for Promo Units.
  */
 function utexas_layout_builder_styles_update_8104() {
-  $styles = [
+  $layout_builder_styles = [
     'layout_builder_styles.style.utexas_onecol',
     'layout_builder_styles.style.utexas_twocol',
     'layout_builder_styles.style.utexas_threecol',
     'layout_builder_styles.style.utexas_fourcol',
   ];
-  // Import each file config individually.
-  foreach ($styles as $style) {
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('utexas_layout_builder_styles')->getPath();
-    $config_path = $module_path . '/config/install/' . $style . '.yml';
-    $data = Yaml::parse(file_get_contents($config_path));
-    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
+  foreach ($layout_builder_styles as $layout_builer_style) {
+    StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'block_restrictions', 'inline_block:utexas_promo_unit');
   }
 }
 
 /**
- * Issue #1255: Set default item per row value to 1 to match previous behavior.
+ * Issue #1255: Set initial items per row value to 1 for existing Promo Units.
  */
 function utexas_layout_builder_styles_update_8105() {
   StyleUpdateHelper::addStyleToBlock('utexas_promo_unit', 'utexas_onecol');
@@ -88,24 +79,21 @@ function utexas_layout_builder_styles_update_8105() {
  * Resources.
  */
 function utexas_layout_builder_styles_update_8106() {
-  $styles = [
+  $layout_builder_styles = [
     'layout_builder_styles.style.utexas_onecol',
     'layout_builder_styles.style.utexas_twocol',
     'layout_builder_styles.style.utexas_threecol',
     'layout_builder_styles.style.utexas_fourcol',
   ];
-  // Import each file config individually.
-  foreach ($styles as $style) {
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('utexas_layout_builder_styles')->getPath();
-    $config_path = $module_path . '/config/install/' . $style . '.yml';
-    $data = Yaml::parse(file_get_contents($config_path));
-    \Drupal::configFactory()->getEditable($style)->setData($data)->save(TRUE);
+  foreach ($layout_builder_styles as $layout_builer_style) {
+    StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'block_restrictions', 'inline_block:utexas_quick_links');
+    StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'block_restrictions', 'inline_block:utexas_flex_content_area');
+    StyleUpdateHelper::modifyConfigValue($layout_builer_style, 'block_restrictions', 'inline_block:utexas_resources');
   }
 }
 
 /**
- * Issue #1303 : Migrate view mode to Layout Builder Style for Quick Links.
+ * Issue #1303 : Update view modes to Layout Builder Styles for existing QLinks.
  */
 function utexas_layout_builder_styles_update_8107() {
   $style_map = [
@@ -119,7 +107,7 @@ function utexas_layout_builder_styles_update_8107() {
 }
 
 /**
- * Issue #1312 : Update view modes to Layout Builder Style for FCAs.
+ * Issue #1312 : Update view modes to Layout Builder Styles for existing FCAs.
  */
 function utexas_layout_builder_styles_update_8108() {
   $style_map = [
@@ -133,7 +121,7 @@ function utexas_layout_builder_styles_update_8108() {
 }
 
 /**
- * Issue #1317: Set initial item per row value to 1 to match previous behavior.
+ * Issue #1317: Set initial items per row value to 1 for existing Resources.
  *
  * This only affects utexas_resources.
  */
