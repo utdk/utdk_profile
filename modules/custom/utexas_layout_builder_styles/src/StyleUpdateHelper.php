@@ -221,8 +221,8 @@ class StyleUpdateHelper {
     }
 
     // Search for value in array and unset if found.
-    if (($key = array_search($value, $current_value)) !== FALSE) {
-      unset($current_value[$key]);
+    if (($found_key = array_search($value, $current_value)) !== FALSE) {
+      unset($current_value[$found_key]);
       $config->set($key, $current_value)->save();
     }
   }
