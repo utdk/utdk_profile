@@ -2,7 +2,7 @@
   background-color: #fff;
   border: 1px solid #333f48;
   padding: 1.25rem;
-  margin: 0.75rem 0;
+  margin: 0;
 }
 
 /* Prevent images with height:100% from overflowing their container */
@@ -11,13 +11,41 @@
   position: relative;
 }
 
+.background-accent .layout__region .block {
+  margin-bottom: 1rem;
+}
+.layout--utexas-onecol.background-accent > div {
+  padding-top: 1rem;
+}
+.background-accent.utexas-layout--twocol .layout__region,
+.background-accent.utexas-layout--threecol .layout__region,
+.background-accent.utexas-layout--fourcol .layout__region {
+  margin-left: 1rem;
+}
+.background-accent .utexas-layout--twocol-wrapper,
+.background-accent .utexas-layout--threecol-wrapper,
+.background-accent .utexas-layout--fourcol-wrapper {
+  margin-left: -1rem;
+}
+
+/* Styling for no-padding layouts */
+.background-accent.utexas-layout-no-padding {
+  padding-left: 0;
+}
+.background-accent.utexas-layout-no-padding.container-fluid .utexas-layout--twocol-wrapper,
+.background-accent.utexas-layout-no-padding.container-fluid .utexas-layout--threecol-wrapper,
+.background-accent.utexas-layout-no-padding.container-fluid .utexas-layout--fourcol-wrapper {
+  margin-left: -1rem;
+}
+
 /* Pad all regions so that non-background accent regions that
 follow a background-accent region have spacing */
 .layout__region--first,
 .layout__region--second,
 .layout__region--third,
-.layout__region--fourth {
-  padding-top: 1rem;
+.layout__region--fourth,
+.layout__region--main {
+  padding-top: 2.5rem;
 }
 
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
@@ -26,7 +54,6 @@ follow a background-accent region have spacing */
 .background-accent .layout__region--third,
 .background-accent .layout__region--fourth {
   padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 .background-accent .utexas-layout--twocol > .layout__region--first {
   margin-left: 1rem;
