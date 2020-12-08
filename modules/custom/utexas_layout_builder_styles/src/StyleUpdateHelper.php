@@ -175,8 +175,8 @@ class StyleUpdateHelper {
         return;
       }
       // Add new value onto end of array.
-      $style_config_value[] = $value;
-      $value = $style_config_value;
+      $current_value[] = $value;
+      $value = $current_value;
     }
 
     // Modify config value for given key.
