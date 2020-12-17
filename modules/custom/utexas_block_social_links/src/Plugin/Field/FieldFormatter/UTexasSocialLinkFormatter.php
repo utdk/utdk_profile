@@ -39,6 +39,7 @@ class UTexasSocialLinkFormatter extends FormatterBase {
                 'class' => [
                   'block__ut-social-links--link',
                 ],
+                'aria-label' => 'Find us on ' . ucfirst($val['social_account_name']),
               ],
             ];
             $linked_icon = Link::fromTextAndUrl($icon_markup, Url::fromUri($val['social_account_url'], $linked_icon_options));
