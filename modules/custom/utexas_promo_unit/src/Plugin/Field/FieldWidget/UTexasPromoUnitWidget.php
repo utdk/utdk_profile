@@ -142,6 +142,7 @@ class UTexasPromoUnitWidget extends WidgetBase {
         '#delta' => ceil($item_count / 2),
         '#attributes' => ['class' => [$group_class]],
       ];
+      $weight++;
     }
     return $form;
   }
