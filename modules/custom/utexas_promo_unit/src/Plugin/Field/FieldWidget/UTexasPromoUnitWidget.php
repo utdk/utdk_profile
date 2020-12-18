@@ -108,10 +108,8 @@ class UTexasPromoUnitWidget extends WidgetBase {
     ];
     // Build rows.
     $weight = 0;
-    // Match Drupal core 'show weights' behavior for > 20 items.
-    if ($item_count >= 20) {
-      $weight = ceil($item_count / 2) * -1;
-    }
+    // Match Drupal core 'show weights' behavior.
+    $weight = ceil($item_count / 2) * -1;
     for ($i = 0; $i < $item_count; $i++) {
       $form['items'][$i]['#attributes']['class'][] = 'draggable';
       $form['items'][$i]['#weight'] = $weight;
