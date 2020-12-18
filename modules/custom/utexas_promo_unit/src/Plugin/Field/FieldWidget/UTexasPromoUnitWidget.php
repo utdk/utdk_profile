@@ -107,9 +107,14 @@ class UTexasPromoUnitWidget extends WidgetBase {
       ],
     ];
     // Build rows.
+    $weight = 0;
+    // Match Drupal core 'show weights' behavior for > 20 items.
+    if ($item_count >= 20) {
+      $weight = ceil($item_count / 2) * -1;
+    }
     for ($i = 0; $i < $item_count; $i++) {
       $form['items'][$i]['#attributes']['class'][] = 'draggable';
-      $form['items'][$i]['#weight'] = $i;
+      $form['items'][$i]['#weight'] = $weight;
       // Label column.
       $form['items'][$i]['details'] = [
         '#type' => 'details',
@@ -131,9 +136,10 @@ class UTexasPromoUnitWidget extends WidgetBase {
       // Weight column.
       $form['items'][$i]['weight'] = [
         '#type' => 'weight',
-        '#title' => $this->t('Weight for promo unit item @key', ['@key' => $i]),
+        '#title' => $this->t('Weight for promo unit item @key', ['@key' => $weight]),
         '#title_display' => 'invisible',
-        '#default_value' => $i,
+        '#default_value' => $weight,
+        '#delta' => ceil($item_count / 2),
         '#attributes' => ['class' => [$group_class]],
       ];
     }
