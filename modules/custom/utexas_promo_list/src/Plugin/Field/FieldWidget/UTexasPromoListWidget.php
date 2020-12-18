@@ -104,7 +104,6 @@ class UTexasPromoListWidget extends WidgetBase {
       ],
     ];
     // Build rows.
-    $weight = 0;
     // Match Drupal core 'show weights' behavior.
     $weight = ceil($item_count / 2) * -1;
     for ($i = 0; $i < $item_count; $i++) {
