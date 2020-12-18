@@ -104,9 +104,12 @@ class UTexasPromoListWidget extends WidgetBase {
       ],
     ];
     // Build rows.
+    $weight = 0;
+    // Match Drupal core 'show weights' behavior.
+    $weight = ceil($item_count / 2) * -1;
     for ($i = 0; $i < $item_count; $i++) {
       $form['items'][$i]['#attributes']['class'][] = 'draggable';
-      $form['items'][$i]['#weight'] = $i;
+      $form['items'][$i]['#weight'] = $weight;
       // Label column.
       $form['items'][$i]['details'] = [
         '#type' => 'details',
@@ -128,11 +131,13 @@ class UTexasPromoListWidget extends WidgetBase {
       // Weight column.
       $form['items'][$i]['weight'] = [
         '#type' => 'weight',
-        '#title' => $this->t('Weight for Promo List item @key', ['@key' => $i]),
+        '#title' => $this->t('Weight for Promo List item @key', ['@key' => $weight]),
         '#title_display' => 'invisible',
-        '#default_value' => $i,
+        '#default_value' => $weight,
+        '#delta' => ceil($item_count / 2),
         '#attributes' => ['class' => [$group_class]],
       ];
+      $weight++;
     }
     return $form;
   }
@@ -182,7 +187,7 @@ class UTexasPromoListWidget extends WidgetBase {
         unset($storage[$delta]['promo_list_items']);
       }
       else {
-        // Promo List items are stored in a serialized array, 
+        // Promo List items are stored in a serialized array,
         // with consecutive keys.
         $storage[$delta]['promo_list_items'] = serialize(array_values($storage[$delta]['promo_list_items']));
       }
