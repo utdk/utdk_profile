@@ -14,9 +14,17 @@
 function utexas_quick_links_post_update_remove_view_modes(&$sandbox) {
   $entity_type_manager = \Drupal::entityTypeManager();
 
-  // Note that since we are deleting the view mode entities using their entity
-  // storage class, we do not have to also explicitly delete the entity view
-  // display entities which depend on them.
+  // Explicitly delete the entity view display entities before removing the
+  // view modes to prevent warnings.
+  $entity_view_displays_array = [
+    'block_content.utexas_quick_links.utexas_quick_links_2',
+    'block_content.utexas_quick_links.utexas_quick_links_3',
+    'block_content.utexas_quick_links.utexas_quick_links_4',
+  ];
+  $entity_view_display_storage = $entity_type_manager->getStorage('entity_view_display');
+  $entity_view_displays = $entity_view_display_storage->loadMultiple($entity_view_displays_array);
+  $entity_view_display_storage->delete($entity_view_displays);
+  // Delete the view modes themselves.
   $entity_view_modes_array = [
     'block_content.utexas_quick_links_2',
     'block_content.utexas_quick_links_3',
