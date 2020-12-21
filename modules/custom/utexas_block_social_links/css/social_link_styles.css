@@ -50,8 +50,11 @@
 .utexas-fourcol .block__ut-social-links--items {
   --ipr-grid-num-columns: 4;
 }
-/* ****************************** */
-
 .layout__region .block__ut-social-links--item {
   margin: auto;
+}
+
+/* Add padding to the bottom on social links blocks if border style is used. */
+.utexas-field-border .block__ut-social-links{
+	padding-bottom: 2.2rem;
 }
