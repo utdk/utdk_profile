@@ -58,3 +58,6 @@
 .utexas-field-border .block__ut-social-links{
 	padding-bottom: 1.625rem;
 }
+.utexas-field-border .block__ut-social-links .ut-headline {
+  padding: 0;
+ }
