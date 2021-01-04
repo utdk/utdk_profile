@@ -66,6 +66,9 @@
 .ut-hero.hero--photo-orange-insert .hero-cta {
   margin-top: auto;
 }
+.ut-hero.hero--photo-orange-insert .hero-cta .ut-btn {
+  border: 1px solid #fff;
+}
 .ut-hero.hero--photo-orange-insert .ut-btn--hero {
   float: none;
 }
