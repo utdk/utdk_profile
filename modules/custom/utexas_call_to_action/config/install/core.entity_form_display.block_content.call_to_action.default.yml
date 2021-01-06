@@ -5,7 +5,7 @@ dependencies:
     - block_content.type.call_to_action
     - field.field.block_content.call_to_action.field_utexas_call_to_action_link
   module:
-    - link
+    - utexas_form_elements
 id: block_content.call_to_action.default
 targetEntityType: block_content
 bundle: call_to_action
