@@ -6,6 +6,18 @@
  */
 
 use Drupal\utexas_layout_builder_styles\StyleUpdateHelper;
+use Drupal\Core\Config\Config;
+
+/**
+ * Implements hook_install().
+ */
+function utexas_layout_builder_styles_install() {
+  // Change Layout Builder Styles' default multiselect option to 'multiple'.
+  $config_factory = \Drupal::configFactory();
+  $config = $config_factory->getEditable('layout_builder_styles.settings');
+  $config->set('multiselect', 'multiple')->save();
+  $config->set('form_type', 'checkboxes')->save();
+}
 
 /**
  * Import multi-column custom Layout Builder Styles.
