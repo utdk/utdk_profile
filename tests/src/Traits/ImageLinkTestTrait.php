@@ -17,19 +17,19 @@ trait ImageLinkTestTrait {
 
     $this->drupalGet('block/add/utexas_image_link');
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Image Link Test',
       'field_block_il[0][link][uri]' => 'https://imagelink.test',
+      'field_block_il[0][link][title]' => 'Alt value',
       'field_block_il[0][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
       'field_block_il[0][link][options][attributes][class]' => 'ut-cta-link--external',
     ], 'Save');
@@ -49,6 +49,8 @@ trait ImageLinkTestTrait {
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w/public/image-test.png';
     $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'src', $expected_path);
+    // Verify responsive image alt attribute is pulled from link title.
+    $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'alt', 'Alt value');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
@@ -61,15 +63,14 @@ trait ImageLinkTestTrait {
     $basic_page_id = $this->createBasicPage();
     $this->drupalGet('block/add/utexas_image_link');
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
       'info[0][value]' => 'Image Link Test 2',

@@ -3,91 +3,34 @@
 }
 
 /* Styling for Quick Link columns. */
+/* Items Per Row Styles */
 .utexas-quick-links ul.link-list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  --ipr-grid-gap: 1vw;
+  --ipr-grid-min-min-size: 200px;
+  --ipr-grid-min-max-size: 275px;
+
+  display: grid;
+  grid-gap: var(--ipr-grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
 }
+
+.utexas-onecol .utexas-quick-links ul.link-list {
+  --ipr-grid-min-max-size: 100%;
+}
+.utexas-twocol .utexas-quick-links ul.link-list {
+  --ipr-grid-min-max-size: calc(50% - var(--ipr-grid-gap));
+}
+.utexas-threecol .utexas-quick-links ul.link-list {
+  --ipr-grid-min-max-size: calc(33.333% - (2 * var(--ipr-grid-gap)));
+}
+.utexas-fourcol .utexas-quick-links ul.link-list {
+  --ipr-grid-min-max-size: calc(25% - (3 * var(--ipr-grid-gap)));
+}
+/* ****************************** */
 
 .utexas-quick-links ul.link-list li {
-  width: 100%;
   box-sizing: border-box;
+  min-width: var(--ipr-grid-min-min-size);
   padding-right: 1rem;
   padding-bottom: 1.875rem;
-}
-
-/* Two Columns. */
-.utexas-quick-links.two ul.link-list li {
-  width: 50%;
-  padding-right: 1rem;
-}
-
-.utexas-quick-links.two ul.link-list li:nth-child(2n+0) {
-  padding-right: 0;
-}
-
-/* Three Columns. */
-.utexas-quick-links.three ul.link-list li {
-  width: 33%;
-  padding-right: 1rem;
-}
-
-.utexas-quick-links.three ul.link-list li:nth-child(3n+0) {
-  padding-right: 0;
-}
-
-/* Four Columns. */
-.utexas-quick-links.four ul.link-list li {
-  width: 25%;
-  padding-right: 1rem;
-}
-
-.utexas-quick-links.four ul.link-list li:nth-child(4n+0) {
-  padding-right: 0;
-}
-
-/* 2, 3, 4 columns goes to 1 column if under 600px */
-@media screen and (max-width: 599px) {
-  .utexas-quick-links.two ul.link-list li,
-  .utexas-quick-links.three ul.link-list li,
-  .utexas-quick-links.four ul.link-list li {
-    width: 100%;
-    padding-right: 1rem;
-  }
-}
-
-/* 2 columns goes to 1 column if between 600 and 899px */
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  .utexas-quick-links.two ul.link-list li {
-    width: 100%;
-  }
-  .utexas-quick-links.three ul.link-list li:nth-child(2n+0),
-  .utexas-quick-links.three ul.link-list li:nth-child(3n+0),
-  .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
-    padding-right: 1rem;
-  }
-}
-
-/* 3 columns goes to 2 columns if between 600 and 899px */
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  .utexas-quick-links.three ul.link-list li {
-    width: 50%;
-  }
-  .utexas-quick-links.three ul.link-list li:nth-child(2n+0),
-  .utexas-quick-links.three ul.link-list li:nth-child(3n+0),
-  .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
-    padding-right: 1rem;
-  }
-}
-
-/* 4 columns goes to 3 columns if between 600 and 899px */
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  .utexas-quick-links.four ul.link-list li {
-    width: 50%;
-  }
-  .utexas-quick-links.three ul.link-list li:nth-child(2n+0),
-  .utexas-quick-links.three ul.link-list li:nth-child(3n+0),
-  .utexas-quick-links.three ul.link-list li:nth-child(4n+0) {
-    padding-right: 1rem;
-  }
 }

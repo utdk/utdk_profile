@@ -11,7 +11,7 @@ trait LayoutBuilderIntegrationTestTrait {
    * Menu Blocks are not duplicated in the settings tray.
    */
   public function verifyNoDuplicateMenuBlocks() {
-    $assert_session = $this->assertSession();
+    $assert = $this->assertSession();
     $session = $this->getSession();
     $page = $session->getPage();
     $this->drupalGet("/node/add/utexas_flex_page");
@@ -22,7 +22,7 @@ trait LayoutBuilderIntegrationTestTrait {
     $node = $this->drupalGetNodeByTitle('Layout Builder Test');
     $this->drupalGet('node/' . $node->id() . '/layout');
     $this->clickLink('Add block');
-    $assert_session->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
 
     // Find all <a> links with text "Header Menu" in the settings tray.
     $headerMenuLink = $page->findAll('xpath', '//*[@id="drupal-off-canvas"]//a[text()="Header Menu"]');

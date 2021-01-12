@@ -12,12 +12,52 @@
   gap: 10px;
   grid-template-columns: repeat(12, 1fr); /* Default display -- fill container */
 }
+
+/* Limited to social link blocks placed using Layout Builder (.layout_region) */
+/* Items Per Row Styles */
+.layout__region .block__ut-social-links--items {
+  --ipr-grid-gap: max(10px, 1vw);
+  --ipr-grid-min-min-size: 40px;
+  --ipr-grid-min-max-size: 40px;
+
+  display: grid;
+  grid-gap: var(--ipr-grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
+}
+
+.utexas-onecol .block__ut-social-links--items,
+.utexas-twocol .block__ut-social-links--items,
+.utexas-threecol .block__ut-social-links--items,
+.utexas-fourcol .block__ut-social-links--items {
+  /* Maximum total width of all grid gaps (gutters) possible at --ipr-grid-num-columns. */
+  --ipr-grid-gap-total: calc((var(--ipr-grid-num-columns) - 1) * var(--ipr-grid-gap));
+  /* Total width of the container minus the width of maximum total possible grid gaps. */
+  --ipr-grid-available-space: calc(100% - var(--ipr-grid-gap-total));
+  /* Total available space divided by the maximum number of columns. */
+  /* Subract 1px from total to prevent odd rounding behavior in Firefox. */
+  --ipr-grid-min-max-size: calc(var(--ipr-grid-available-space) / var(--ipr-grid-num-columns) - 1px);
+}
+
+.utexas-onecol .block__ut-social-links--items {
+  --ipr-grid-num-columns: 1;
+}
 .utexas-twocol .block__ut-social-links--items {
-  grid-template-columns: repeat(2, 1fr);
+  --ipr-grid-num-columns: 2;
 }
 .utexas-threecol .block__ut-social-links--items {
-  grid-template-columns: repeat(3, 1fr);
+  --ipr-grid-num-columns: 3;
 }
 .utexas-fourcol .block__ut-social-links--items {
-  grid-template-columns: repeat(4, 1fr);
+  --ipr-grid-num-columns: 4;
+}
+.layout__region .block__ut-social-links--item {
+  margin: auto;
+}
+
+/* Add padding to the bottom on social links blocks if border style is used. */
+.utexas-field-border .block__ut-social-links {
+  padding-bottom: 1.625rem;
+}
+.utexas-field-border .block__ut-social-links .ut-headline {
+  padding: 0;
 }

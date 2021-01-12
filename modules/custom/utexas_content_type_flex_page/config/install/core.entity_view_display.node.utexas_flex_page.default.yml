@@ -22,6 +22,7 @@ third_party_settings:
           label: ''
           blur: 0
           background-color: none
+          section_width: readable
           class: ''
           background-accent: '0'
         components: {  }

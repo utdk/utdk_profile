@@ -197,7 +197,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
             break;
         }
       }
-      $elements[] = [
+      $elements[$delta] = [
         '#theme' => 'utexas_flex_content_area',
         '#media' => $media_render_array,
         '#headline' => $headline,
@@ -206,12 +206,11 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         '#links' => $links,
         '#cta' => $cta ?? '',
       ];
-      $elements['#items'][$delta] = new \stdClass();
-      $elements['#items'][$delta]->_attributes = [
-        'class' => ['ut-flex-content-area', 'two-col'],
-      ];
-      $elements['#attributes']['class'][] = 'ut-flex-content-area-wrapper';
+
+      // Add class to the item.attributes object.
+      $elements['#items'][$delta]->_attributes['class'][] = 'ut-flex-content-area';
     }
+    $elements['#attributes']['class'][] = 'ut-flex-content-area-wrapper';
     $elements['#attached']['library'][] = 'utexas_flex_content_area/flex-content-area';
     return $elements;
 

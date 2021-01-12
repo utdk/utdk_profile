@@ -17,7 +17,11 @@ trait QuickLinksTestTrait {
     $this->drupalGet('block/add/utexas_quick_links');
     // Add the Quick Links block type.
     $this->getSession()->getPage()->find('css', '#edit-field-block-ql-0-links-actions-add-link')->click();
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_ql[0][links][1][uri]',
+    ]));
+
     $assert->elementExists('css', '.js-form-item-field-block-ql-0-links-1-uri');
     $this->submitForm([
       'info[0][value]' => 'Quick Links Test',
@@ -51,7 +55,10 @@ trait QuickLinksTestTrait {
     $page->findLink('Quick Links Test')->click();
     // Click button to add new link.
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_ql[0][links][2][uri]',
+    ]));
     // Fill the third link.
     $page->fillField('field_block_ql[0][links][2][uri]', 'https://quicklinks.test');
     $page->fillField('field_block_ql[0][links][2][title]', 'Third link');

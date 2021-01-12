@@ -13,37 +13,48 @@ trait ResourcesTestTrait {
   public function verifyResources() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+    $session = $this->getSession();
 
     // CRUD: CREATE.
     $this->drupalGet('block/add/utexas_resources');
     $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
     $fieldset[0]->click();
 
-    // Verify widget field schema.
+    // Open the media library.
+    $session->wait(3000);
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $session->wait(3000);
+    // Check for text.
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
+
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
+
+    // Insert the media item & verify the media library interface closes.
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     // Verify that multiple links can be added.
-    $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $link_wrapper = $assert->elementExists('css', '[data-drupal-selector="edit-field-block-resources-0-resource-items-items-0-details-item-links"]');
+    $link_wrapper->pressButton('Add link');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][uri]',
+    ]));
 
     // Verify that multiple resource collections can be added.
     $page->pressButton('Add another collection');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Resource collection 2'));
+
+    // Expand all Resource collection fieldsets.
     $page->pressButton('Show row weights');
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
-
     // Create test node.
     $basic_page_id = $this->createBasicPage();
 
@@ -75,18 +86,20 @@ trait ResourcesTestTrait {
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Resource Container Headline');
     // User-supplied weighting of resource items is respected.
-    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[1]/div/h3', 'Resource 2 Headline');
-    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div[2]/div[2]/h3', 'Resource 1 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div/div[1]/div/h3', 'Resource 2 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div/div[2]/div[2]/h3', 'Resource 1 Headline');
     $assert->pageTextContains('Resource Internal Link');
     $assert->linkByHrefExists('https://resource.test');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--lock');
-    // Verify responsive image is present within the link.
+    // Verify responsive and expect image is present.
     $assert->elementExists('css', 'picture source');
     $expected_path = 'utexas_image_style_400w_250h/public/image-test';
-    $assert->elementAttributeContains('css', 'picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.utexas-resource .image-wrapper picture img', 'src', $expected_path);
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.utexas-resource .image-wrapper a picture source');
     // Verify stacked display adding class to markup.
     $this->drupalGet('admin/structure/block/manage/resourcestest');
     $this->submitForm([
@@ -115,7 +128,10 @@ trait ResourcesTestTrait {
     }
 
     $page->pressButton('Add link');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'field_block_resources[0][resource_items][items][0][details][item][links][2][uri]',
+    ]));
 
     // Populate the third link.
     $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][2][uri]', 'https://thirdlink.test');
@@ -150,14 +166,13 @@ trait ResourcesTestTrait {
     $page->findLink('Resources Test')->click();
     // Add a third item.
     $page->pressButton('Add another collection');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Resource collection 3'));
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
     // Clear out the data for item 2; add item 3.
-    $this->createScreenshot('before.png');
     $page->fillField('field_block_resources[0][resource_items][items][1][details][item][headline]', '');
     $page->fillField('field_block_resources[0][resource_items][items][1][details][item][links][0][uri]', '');
     $page->fillField('field_block_resources[0][resource_items][items][2][details][item][headline]', 'Resource 3 Headline');

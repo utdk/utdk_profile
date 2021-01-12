@@ -9,8 +9,8 @@
     <ini name="error_reporting" value="32767"/>
     <!-- Do not limit the amount of memory tests take to run. -->
     <ini name="memory_limit" value="-1"/>
-    <env name="MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://localhost:9515"]' />
-    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless"]}}, "http://localhost:9515"]' />
+    <env name="MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless",  "--disable-dev-shm-usage", "--no-sandbox"]}}, "http://localhost:9515"]' />
+    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--disable-dev-shm-usage", "--no-sandbox"]}}, "http://localhost:9515"]' />
     <env name="MINK_DRIVER_CLASS" value="Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver" />
   </php>
   <testsuites>
@@ -42,8 +42,6 @@
       <directory>/var/www/utdk_scaffold/web/core/modules</directory>
       <directory>/var/www/utdk_scaffold/web/modules</directory>
       <directory>/var/www/utdk_scaffold/web/sites</directory>
-      <!-- Exclude all test modules, tests etc -->
-      <exclude-pattern>*/tests/*</exclude-pattern>
      </whitelist>
   </filter>
 </phpunit>

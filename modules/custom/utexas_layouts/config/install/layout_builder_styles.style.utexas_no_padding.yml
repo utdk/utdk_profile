@@ -5,4 +5,5 @@ id: utexas_no_padding
 label: 'No padding between columns'
 classes: utexas-layout-no-padding
 type: section
+weight: 0
 block_restrictions: {  }

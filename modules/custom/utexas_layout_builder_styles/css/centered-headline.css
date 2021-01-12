@@ -1,4 +1,4 @@
-.utexas-centered-headline .ut-headline {
+.utexas-centered-headline > .ut-headline {
   margin: 0 15px 10px 15px;
   color: #2d2a28;
   font-style: italic;
@@ -10,7 +10,7 @@
 }
 
 @media screen and (min-width: 900px) {
-  .utexas-centered-headline .utexas-quick-links .ut-headline {
+  .utexas-centered-headline .utexas-quick-links > .ut-headline {
     margin: 0 15px 10px 15px;
   }
 }

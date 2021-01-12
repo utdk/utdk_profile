@@ -8,13 +8,6 @@
 use Drupal\Core\Database\Database;
 
 /**
- * Implements hook_install().
- */
-function utexas_layouts_install() {
-  drupal_set_installed_schema_version('utexas_layouts', '8100');
-}
-
-/**
  * Remove 'Full width of page' style (#1227).
  */
 function utexas_layouts_update_8101() {

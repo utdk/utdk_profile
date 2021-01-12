@@ -14,7 +14,7 @@ use Drupal\Tests\utexas\Traits\UserTestTrait;
  *
  * @group utexas
  */
-class SectionBackgroundAccentTest extends WebDriverTestBase {
+class BackgroundAccentTest extends WebDriverTestBase {
   use EntityTestTrait;
   use InstallTestTrait;
   use TestFileCreationTrait;
@@ -59,13 +59,6 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
     $this->testImage = $this->createTestMediaImage();
 
     $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
 
     $this->backgroundImage();
     $this->backgroundColors();
@@ -75,11 +68,18 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
    * Test background color configuration.
    */
   public function backgroundImage() {
+    $node = Node::create([
+      'type'        => 'utexas_flex_page',
+      'title'       => 'Test Flex Page',
+    ]);
+    $node->save();
+    $this->drupalGet('/node/' . $node->id());
+    $this->clickLink('Layout');
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     // Access the section configuration toolbar.
     $this->clickLink('Configure Section 1');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $checkbox_selector = '.layout-builder-configure-section details';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[1]->click();
@@ -90,19 +90,18 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
     $settings = $page->findAll('css', $settings_selectors);
     $settings[0]->click();
     $page->pressButton('Add media');
-    $assert->assertWaitOnAjaxRequest();
-    $assert->pageTextContains('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     // Save the section configuration.
     $this->submitForm([], 'Update');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     // A "background-accent" class is added to the section.
     $assert->elementExists('css', '.layout-builder__layout.background-accent');
     $actual_background_image = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("background-image")');
@@ -111,35 +110,44 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
     // There is no blur effect initially.
     $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
     $this->assertSame('none', $actual_filter);
+    $page->pressButton('Save layout');
 
     // Add a blur effect.
+    $this->clickLink('Layout');
     // Access the section configuration toolbar.
     $this->clickLink('Configure Section 1');
-    $assert->assertWaitOnAjaxRequest();
-    $checkbox_selector = '.layout-builder-configure-section details';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
+    $this->assertNotEmpty($assert->waitForText('Section width'));
     $assert->pageTextContains('Background image');
-    $settings_selectors = '.layout-builder-configure-section details';
-    $settings = $page->findAll('css', $settings_selectors);
     $settings[0]->click();
-    $edit = ['layout_settings[background-accent-wrapper][blur]' => "1"];
-    $this->submitForm($edit, 'Update');
-    $assert->assertWaitOnAjaxRequest();
+    $this->getSession()->getPage()->checkField("layout_settings[background-accent-wrapper][blur]");
+    $page->pressButton('Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+
+    $this->clickLink('Add block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
+    $this->clickLink('Header Menu');
+    $this->assertNotEmpty($assert->waitForText('Configure block'));
+    $page->pressButton('Add block');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout__region--main h2.ut-headline'));
     $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
     // Blur is present.
     $this->assertSame('blur(5px)', $actual_filter);
+
     // Cleanup.
-    $this->clickLink('Remove Section 1');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Remove');
-    $assert->assertWaitOnAjaxRequest();
+    $node->delete();
   }
 
   /**
    * Test background color configuration.
    */
   public function backgroundColors() {
+    $node = Node::create([
+      'type'        => 'utexas_flex_page',
+      'title'       => 'Test Flex Page',
+    ]);
+    $node->save();
+    $this->drupalGet('/node/' . $node->id());
+    $this->clickLink('Layout');
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     // The available hex colors & their corresponding rgb values.
@@ -166,10 +174,8 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
       '56544e' => 'rgb(86, 84, 78)',
     ];
 
-    $this->clickLink('Add section');
-    $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('One column');
-    $assert->assertWaitOnAjaxRequest();
+    $this->clickLink('Configure Section 1');
+    $this->assertNotEmpty($assert->waitForText('Section width'));
 
     $checkbox_selector = '.layout-builder-configure-section details';
     $checkboxes = $page->findAll('css', $checkbox_selector);
@@ -180,60 +186,58 @@ class SectionBackgroundAccentTest extends WebDriverTestBase {
       $assert->elementExists('css', 'input[value="' . $hex . '"]');
     }
 
-    $edit = ['layout_settings[background-color-wrapper][background-color]' => "none"];
-    $this->submitForm($edit, 'Add section');
-    $assert->assertWaitOnAjaxRequest();
-    // A "background" class is added to the section. The correct color is found.
+    $this->getSession()->getPage()->selectFieldOption("layout_settings[background-color-wrapper][background-color]", "none");
+    $page->pressButton('Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $this->clickLink('Add block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
+    $this->clickLink('Header Menu');
+    $this->assertNotEmpty($assert->waitForText('Configure block'));
+    $page->pressButton('Add block');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout__region--main h2.ut-headline'));
+    $page->pressButton('Save layout');
+    // When "none" is selected, no CSS is added.
     $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
     $actual_background = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout").css("background-color")');
-    $this->assertSame("rgba(0, 0, 0, 0)", $actual_background);
+    $this->assertSame(NULL, $actual_background);
 
+    $this->clickLink('Layout');
+    $this->clickLink('Configure Section 1');
+    $this->assertNotEmpty($assert->waitForText('Section width'));
+    $checkbox_selector = '.layout-builder-configure-section details';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[1]->click();
+    $this->assertNotEmpty($assert->waitForText('Bluebonnet'));
     // Verify rendering of only one color.
     $this->verifyBgColor('56544e', $color_palette['56544e'], $assert, $page);
 
-    // White background is added automatically when a menu block is placed.
-    $this->clickLink('Add block');
-    $assert->assertWaitOnAjaxRequest();
-    $this->clickLink('Header Menu');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Add block');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Save layout');
-    $assert->assertWaitOnAjaxRequest();
+    // White background is added to menu block automatically.
     $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent nav").css("background-color")');
     $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
 
     // White background is added automatically when a generic block is placed.
-    $this->clickLink('Layout');
-    $assert->assertWaitOnAjaxRequest();
     $this->clickLink('Add block');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
     $this->clickLink('Recent content');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Configure block'));
     $page->pressButton('Add block');
-    $assert->assertWaitOnAjaxRequest();
-    $page->pressButton('Save layout');
-    $assert->assertWaitOnAjaxRequest();
-    $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent div.block").css("background-color")');
-    $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.background-accent div.block-views-blockcontent-recent-block-1'));
+    $basic_block_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent div.block-views-blockcontent-recent-block-1").css("background-color")');
+    $this->assertSame("rgb(255, 255, 255)", $basic_block_background_color);
+
+    // Cleanup.
+    $node->delete();
   }
 
   /**
    * Helper function for iterating over color tests.
    */
   private function verifyBgColor($input_hex, $expected_rgb, $assert, $page) {
-    $this->clickLink('Configure Section 1');
-    $assert->assertWaitOnAjaxRequest();
-
-    $checkbox_selector = '.layout-builder-configure-section details';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
-
-    $edit = ['layout_settings[background-color-wrapper][background-color]' => $input_hex];
-    $this->submitForm($edit, 'Update');
-    $assert->assertWaitOnAjaxRequest();
+    $this->getSession()->getPage()->selectFieldOption("layout_settings[background-color-wrapper][background-color]", $input_hex);
+    $page->pressButton('Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     // A "background" class is added to the section. The correct color is found.
-    $assert->elementExists('css', '.layout-builder__layout.utexas-bg-' . $input_hex);
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout-builder__layout.utexas-bg-' . $input_hex));
     $actual_background = $this->getSession()->evaluateScript('jQuery(".background-accent.utexas-bg-' . $input_hex . '").css("background-color")');
     $this->assertSame($expected_rgb, $actual_background);
   }

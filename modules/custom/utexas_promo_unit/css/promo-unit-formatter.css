@@ -1,26 +1,9 @@
-.utexas-promo-unit-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: start;
-  margin-left: -1%;
-}
-.utexas-promo-unit-container > * {
-  margin: 0 0 1% 1%;
-}
-/* Additional specificty is needed to target .ut-headline--underline . */
-.utexas-promo-unit-container .ut-headline--underline {
-  margin: 0 0 1% 1%;
-  width: 100%;
-}
-
 .utexas-promo-unit {
   align-content: flex-start;
   background-color: #f9fafb;
   border: 1px solid #f2f1ed;
   display: flex;
-  flex: 1 1 0;
   flex-wrap: wrap;
-  min-width: calc(275px + (2 * 0.75rem));
   padding: 0.75rem;
 }
 
@@ -68,38 +51,27 @@
 /* ****************************** */
 
 /* Items Per Row Styles */
-.utexas-onecol .utexas-promo-unit {
-  flex: 1 0 100%;
-}
-.utexas-twocol .utexas-promo-unit {
-  flex: 1 0 49%;
-}
-.utexas-threecol .utexas-promo-unit {
-  flex: 1 0 32%;
-}
-.utexas-fourcol .utexas-promo-unit {
-  flex: 1 0 24%;
-}
-/* ****************************** */
+.utexas-promo-unit-items {
+  --ipr-grid-gap: 1vw;
+  --ipr-grid-min-min-size: 275px;
+  --ipr-grid-min-max-size: 300px;
 
-/* Items Per Row -- Placeholder Items Workaround */
-.utexas-promo-unit[aria-hidden="true"] {
-  background: none;
-  border-color: transparent;
-  border-top: none;
-  border-bottom: none;
-  height: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  display: grid;
+  grid-gap: var(--ipr-grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
 }
-/* If there are only 1 or 2 items, do not display placeholders. */
-.utexas-promo-unit:nth-of-type(2)[aria-hidden="true"],
-.utexas-promo-unit:nth-of-type(2)[aria-hidden="true"] ~ .utexas-promo-unit,
-.utexas-promo-unit:nth-of-type(3)[aria-hidden="true"],
-.utexas-promo-unit:nth-of-type(3)[aria-hidden="true"] ~ .utexas-promo-unit {
-  display: none;
+
+.utexas-onecol .utexas-promo-unit-items {
+  --ipr-grid-min-max-size: 100%;
+}
+.utexas-twocol .utexas-promo-unit-items {
+  --ipr-grid-min-max-size: calc(50% - var(--ipr-grid-gap));
+}
+.utexas-threecol .utexas-promo-unit-items {
+  --ipr-grid-min-max-size: calc(33.333% - (2 * var(--ipr-grid-gap)));
+}
+.utexas-fourcol .utexas-promo-unit-items {
+  --ipr-grid-min-max-size: calc(25% - (3 * var(--ipr-grid-gap)));
 }
 /* ****************************** */
 

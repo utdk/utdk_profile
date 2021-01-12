@@ -20,30 +20,26 @@
 {% if headline %}
   <h3 class="ut-headline--underline">{{ headline }}</h3>
 {% endif %}
-{% for item in promo_unit_items %}
-  <div class="utexas-promo-unit">
-    {% if item.image %}
-      <div class="image-wrapper {{ image_display }}">
-        {{ item.image }}
+  <div class="utexas-promo-unit-items">
+  {% for item in promo_unit_items %}
+    <div class="utexas-promo-unit">
+      {% if item.image %}
+        <div class="image-wrapper {{ image_display }}">
+          {{ item.image }}
+        </div>
+      {% endif %}
+      <div class="data-wrapper">
+        {% if item.headline %}
+          <h3 class="ut-headline">{{ item.headline }}</h3>
+        {% endif %}
+        {% if item.copy %}
+          {{ item.copy }}
+        {% endif %}
+        {% if item.link %}
+          {{ item.link }}
+        {% endif %}
       </div>
-    {% endif %}
-    <div class="data-wrapper">
-      {% if item.headline %}
-        <h3 class="ut-headline">{{ item.headline }}</h3>
-      {% endif %}
-      {% if item.copy %}
-        {{ item.copy }}
-      {% endif %}
-      {% if item.link %}
-        {{ item.link }}
-      {% endif %}
     </div>
+  {% endfor %}
   </div>
-{% endfor %}
-{# These elements are placeholder "columns" for when css flexbox wrap has caused
- the items in promo_unit_items to wrap to additional row(s).
- #}
-{% for item in promo_unit_items %}
-  <div class="utexas-promo-unit" aria-hidden="true"></div>
-{% endfor %}
 </div>

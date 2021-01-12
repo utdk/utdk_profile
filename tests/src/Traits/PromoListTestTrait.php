@@ -11,9 +11,6 @@ trait PromoListTestTrait {
    * Verify Promo List widget schema & output.
    */
   public function verifyPromoList() {
-    // Enlarge the viewport so that all Promo Lists are clickable.
-    $this->getSession()->resizeWindow(1200, 3000);
-
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->drupalGet('block/add/utexas_promo_list');
@@ -22,24 +19,27 @@ trait PromoListTestTrait {
       $fieldset->click();
     }
 
-    // Verify widget field schema.
+    // Open the media library.
     $page->pressButton('Add media');
-    $assert->waitForText('Add or select media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
+
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
+
+    // Insert the media item & verify the media library interface closes.
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     // Verify the custom "Add Promo List item" button works.
     $page->pressButton('Add Promo List item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Promo List item 2'));
 
     // Multiple Promo List collections can be added.
     $page->pressButton('Add another item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '[data-drupal-selector="edit-field-block-pl-1-promo-list-items-items"]'));
 
     // Multiple list items can be added.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
@@ -97,10 +97,13 @@ trait PromoListTestTrait {
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--lock');
 
-    // Verify responsive image is present within the link.
-    $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a picture source');
+    // Verify responsive image is present.
+    $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) picture source');
+    // Verify image is not a link after a11y changes.
+    $assert->elementNotExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a picture source');
+    // Verify expected image.
     $expected_path = 'utexas_image_style_64w_64h/public/image-test.png';
-    $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) a[href^="https://promolist.test"] picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) picture img', 'src', $expected_path);
 
     // Set display to "Responsive".
     $this->drupalGet('admin/structure/block/manage/promolisttest');
@@ -144,7 +147,7 @@ trait PromoListTestTrait {
     $page->findLink('Promo List Test')->click();
     // Add a third item.
     $page->pressButton('Add Promo List item');
-    $assert->assertWaitOnAjaxRequest();
+    $this->assertNotEmpty($assert->waitForText('Promo List item 3'));
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
     foreach ($fieldsets as $fieldset) {
@@ -179,7 +182,6 @@ trait PromoListTestTrait {
     $entities = $storage_handler->loadMultiple([$basic_page_id]);
     $storage_handler->delete($entities);
     // Reset to the standard window width.
-    $this->getSession()->resizeWindow(900, 2000);
   }
 
 }

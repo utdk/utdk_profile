@@ -34,7 +34,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       '#description' => '',
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
-      '#default_value' => isset($item->media) ? $item->media : NULL,
+      '#default_value' => !empty($item->media) ? $item->media : NULL,
     ];
     $element['headline'] = [
       '#title' => 'Headline',

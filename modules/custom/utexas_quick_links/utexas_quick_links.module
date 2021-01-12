@@ -18,7 +18,6 @@ function utexas_quick_links_theme($existing, $type, $theme, $path) {
         'headline' => NULL,
         'copy' => NULL,
         'links' => [],
-        'columns' => NULL,
       ],
       'template' => 'utexas-quick-links',
     ],

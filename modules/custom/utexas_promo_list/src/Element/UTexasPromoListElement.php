@@ -41,7 +41,7 @@ class UTexasPromoListElement extends FormElement {
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
-      '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : NULL,
+      '#default_value' => !empty($element['#default_value']['image']) ? $element['#default_value']['image'] : NULL,
       '#description' => t('Image will be scaled and cropped to a 1:1 ratio. Ideally, upload an image of 170x170 pixels to maintain resolution & avoid cropping.'),
       '#upload_location' => 'public://promo_list_items/',
     ];

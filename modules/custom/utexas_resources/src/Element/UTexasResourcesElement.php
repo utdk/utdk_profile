@@ -43,7 +43,7 @@ class UTexasResourcesElement extends FormElement {
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
-      '#default_value' => isset($element['#default_value']['image']) ? $element['#default_value']['image'] : NULL,
+      '#default_value' => !empty($element['#default_value']['image']) ? $element['#default_value']['image'] : NULL,
       '#description' => t('Image will be automatically cropped to 400 x 250. Upload an image with an aspect ratio equal to 400 x 250 to avoid cropping.'),
     ];
     $agnostic_parents = self::makeParentsAgnostic($element['#parents']);

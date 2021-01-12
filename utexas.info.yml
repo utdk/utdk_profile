@@ -3,7 +3,7 @@ type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
 core: 8.x
 core_version_requirement: ^8 || ^9
-version: '3.0.0-beta.8.1'
+version: '3.0.0-beta.9'
 distribution:
   name: UTexas
 dependencies:
@@ -30,35 +30,36 @@ dependencies:
   - drupal:views
 install:
   # Core
-  - automated_cron
-  - dblog
-  - dynamic_page_cache
-  - inline_form_errors
-  - page_cache
+  - drupal:automated_cron
+  - drupal:dblog
+  - drupal:dynamic_page_cache
+  - drupal:inline_form_errors
+  - drupal:page_cache
   # Contrib
-  - adminimal_admin_toolbar
-  - admin_toolbar_links_access_filter
-  - breadcrumbs_visibility
-  - ckeditorheight
-  - features
-  - feed_block
-  - google_tag
-  - google_cse
-  - iframe_title_filter
-  - layout_builder_modal
-  - layout_builder_restrictions
-  - layout_builder_styles
-  - media_library_theme_reset
-  - metatag
-  - metatag_twitter_cards
-  - menu_block
-  - pathauto
-  - page_title_visibility
-  - pathologic
-  - redirect
-  - responsive_tables_filter
-  - svg_upload_sanitizer
-  - twitter_profile_widget
+  - drupal:addtoany
+  - drupal:adminimal_admin_toolbar
+  - drupal:admin_toolbar_links_access_filter
+  - drupal:breadcrumbs_visibility
+  - drupal:ckeditorheight
+  - drupal:features
+  - drupal:feed_block
+  - drupal:google_tag
+  - drupal:google_cse
+  - drupal:iframe_title_filter
+  - drupal:layout_builder_modal
+  - drupal:layout_builder_restrictions
+  - drupal:layout_builder_styles
+  - drupal:media_library_theme_reset
+  - drupal:metatag
+  - drupal:metatag_twitter_cards
+  - drupal:menu_block
+  - drupal:pathauto
+  - drupal:page_title_visibility
+  - drupal:pathologic
+  - drupal:redirect
+  - drupal:responsive_tables_filter
+  - drupal:svg_upload_sanitizer
+  - drupal:twitter_profile_widget
   # Custom
   - utexas_beacon
   - utexas_block_required_links

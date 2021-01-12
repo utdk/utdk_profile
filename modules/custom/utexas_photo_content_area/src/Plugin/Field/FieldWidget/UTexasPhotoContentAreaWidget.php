@@ -33,7 +33,7 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
       '#description' => $this->t('Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 1800x2400 pixels to maintain resolution & avoid cropping.'),
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
-      '#default_value' => isset($items[$delta]->image) ? $items[$delta]->image : NULL,
+      '#default_value' => !empty($items[$delta]->image) ? $items[$delta]->image : NULL,
     ];
     $element['photo_credit'] = [
       '#title' => 'Photo Credit',
@@ -65,7 +65,7 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
     $link_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
     // We have to ensure that there is at least one link field.
-    $links = unserialize($items[$delta]->links);
+    $links = (array) unserialize($items[$delta]->links);
     if ($link_count === NULL) {
       if (empty($links)) {
         $link_count = 1;
