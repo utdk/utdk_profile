@@ -43,6 +43,10 @@ class StyleUpdateHelper {
             $config = $component->get('configuration');
             $uuid = str_replace('block_content:', '', $config['id']);
             $entity = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+            if (!$entity) {
+              // The referenced block has been deleted from the system. Skip.
+              continue;
+            }
             if ($entity->bundle() !== $block_type) {
               continue;
             }
@@ -107,6 +111,10 @@ class StyleUpdateHelper {
             // Check reusable blocks for block type matches.
             $uuid = str_replace('block_content:', '', $config['id']);
             $entity = \Drupal::service('entity.repository')->loadEntityByUuid('block_content', $uuid);
+            if (!$entity) {
+              // The referenced block has been deleted from the system. Skip.
+              continue;
+            }
             if ($entity->bundle() !== $block_type) {
               continue;
             }
