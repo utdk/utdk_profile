@@ -60,6 +60,7 @@ install:
   - drupal:responsive_tables_filter
   - drupal:svg_upload_sanitizer
   - drupal:twitter_profile_widget
+  - drupal:xmlsitemap
   # Custom
   - utexas_beacon
   - utexas_block_required_links
