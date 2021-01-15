@@ -124,8 +124,7 @@ function utexas_update_8102() {
 /**
  * Disable Big Pipe on sites installed prior to 3.0.0-beta.6.
  */
-function utexas_update_8103()
-{
+function utexas_update_8103() {
   if (\Drupal::moduleHandler()->moduleExists('big_pipe') === TRUE) {
     \Drupal::service('module_installer')->uninstall(['big_pipe']);
   }
@@ -189,19 +188,25 @@ function utexas_update_8108() {
 function utexas_update_8109() {
   // Set existing sites XMLSitemap configuration to the default state.
   $config_names = [
-    'xmlsitemap.settings',
     'xmlsitemap.settings.node.utexas_flex_page',
     'xmlsitemap.settings.node.page',
     'xmlsitemap.settings.node.article',
   ];
   foreach ($config_names as $config_name) {
-    $config = \Drupal::configFactory()->getEditable($config_name);
-    $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
-    if (!empty($config_path)) {
-      $data = Yaml::parse(file_get_contents($config_path));
-      if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+    if (empty(\Drupal::config($config_name)->getOriginal('status'))) {
+      $config = \Drupal::configFactory()->getEditable($config_name);
+      $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+      if (!empty($config_path)) {
+        $data = Yaml::parse(file_get_contents($config_path));
+        if (is_array($data)) {
+          $config->setData($data)->save(TRUE);
+        }
       }
+    }
+    else {
+      $message = dt('XML Sitemap configuration object "@ct" found. No action taken.', ['@ct' => $config_name]);
+      \Drupal::messenger()->addMessage($message);
+      \Drupal::logger('utexas')->notice($message);
     }
   }
 }
