@@ -193,7 +193,7 @@ function utexas_update_8109() {
     'xmlsitemap.settings.node.article',
   ];
   foreach ($config_names as $config_name) {
-    if (empty(\Drupal::config($config_name)->getOriginal('status'))) {
+    if (\Drupal::config($config_name)->get('status') === NULL) {
       $config = \Drupal::configFactory()->getEditable($config_name);
       $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
       if (!empty($config_path)) {
