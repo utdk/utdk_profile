@@ -8,6 +8,12 @@
   background-color: #d6d2c4;
   color: #000;
 }
+.utexas-featured-highlight .content-wrapper .ut-headline,
+.utexas-featured-highlight .content-wrapper .ut-headline a {
+  color: #000;
+  padding-top: 0;
+  font-size: 2rem;
+}
 .utexas-featured-highlight .content-wrapper a {
   color: #000;
 }
@@ -19,13 +25,8 @@
   background-color: #005f86;
   color: #fff;
 }
-.utexas-featured-highlight .content-wrapper .ut-headline,
-.utexas-featured-highlight .content-wrapper .ut-headline a {
-  color: #000;
-  padding-top: 0;
-  font-size: 2rem;
-}
-.utexas-featured-highlight.medium .content-wrapper a {
+.utexas-featured-highlight.medium .content-wrapper a,
+.utexas-featured-highlight.medium .content-wrapper .ut-headline {
   color: #ffffff;
 }
 /* Charcoal (Dark) */
@@ -33,7 +34,8 @@
   background-color: #333f48;
   color: #fff;
 }
-.utexas-featured-highlight.dark .content-wrapper a {
+.utexas-featured-highlight.dark .content-wrapper a,
+.utexas-featured-highlight.dark .content-wrapper .ut-headline {
   color: #ffffff;
 }
 /* Defaults/mobile first */
