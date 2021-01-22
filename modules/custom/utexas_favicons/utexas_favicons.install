@@ -4,10 +4,3 @@
  * @file
  * Contains install and update functions for the UTexas Favicons module.
  */
-
-/**
- * Implements hook_install().
- */
-function utexas_favicons_install() {
-  drupal_set_installed_schema_version('utexas_favicons', '8100');
-}

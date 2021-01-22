@@ -5,9 +5,3 @@
  * Contains install and update functions for the UTexas Media Types module.
  */
 
-/**
- * Implements hook_install().
- */
-function utexas_media_types_install() {
-  drupal_set_installed_schema_version('utexas_media_types', '8100');
-}
