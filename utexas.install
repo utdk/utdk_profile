@@ -210,3 +210,12 @@ function utexas_update_8109() {
     }
   }
 }
+
+/**
+ * Uninstall editor_advanced_link contrib module from existing sites #1085.
+ */
+function utexas_update_8110() {
+  if (\Drupal::moduleHandler()->moduleExists('editor_advanced_link') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['editor_advanced_link']);
+  }
+}
