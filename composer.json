@@ -41,6 +41,7 @@
     "drupal/pathologic": "1.0-alpha2",
     "drupal/redirect": "1.6.0",
     "drupal/responsive_tables_filter": "1.6.0",
+    "drupal/role_delegation": "1.1.0",
     "drupal/schema_metatag": "2.1.0",
     "drupal/svg_upload_sanitizer": "1.1.0",
     "drupal/twitter_profile_widget": "3.0.1",

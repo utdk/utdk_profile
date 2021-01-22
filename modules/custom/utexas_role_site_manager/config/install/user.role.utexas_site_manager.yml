@@ -46,6 +46,7 @@ permissions:
   - 'administer users'
   - 'administer utexas announcement color schemes'
   - 'administer utexas announcement icons'
+  - 'assign all roles'
   - 'bypass node access'
   - 'cancel account'
   - 'change own username'
