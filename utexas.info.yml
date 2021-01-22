@@ -58,6 +58,7 @@ install:
   - drupal:pathologic
   - drupal:redirect
   - drupal:responsive_tables_filter
+  - drupal:role_delegation
   - drupal:svg_upload_sanitizer
   - drupal:twitter_profile_widget
   - drupal:xmlsitemap
