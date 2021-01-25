@@ -6,13 +6,6 @@
  */
 
 /**
- * Implements hook_install().
- */
-function utexas_form_elements_install() {
-  drupal_set_installed_schema_version('utexas_form_elements', '8101');
-}
-
-/**
  * Enable Media Library Form Element.
  */
 function utexas_form_elements_update_8101() {
