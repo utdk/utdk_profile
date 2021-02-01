@@ -10,6 +10,7 @@ use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Form\InstallationComplete;
+use Drupal\utexas\Permissions;
 
 /**
  * Implements hook_install_tasks().
@@ -104,6 +105,11 @@ function utexas_install_post_installation_modules(&$install_state) {
   ];
   // Install modules.
   \Drupal::service('module_installer')->install($modules);
+
+  // Add standard permissions to "utexas_site_manager" & "utexas_content_editor"
+  // if those roles exist.
+  Permissions::assignPermissions('editor', 'utexas_content_editor');
+  Permissions::assignPermissions('manager', 'utexas_site_manager');
 }
 
 /**
