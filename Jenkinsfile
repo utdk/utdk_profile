@@ -22,8 +22,8 @@ pipeline {
                                     /etc/init.d/mysql restart
                                 '''
                             }
-                            docker.image('circleci/php:7.2-apache-node-browsers').withRun('') { wc ->
-                                docker.image('circleci/php:7.2-apache-node-browsers').inside("--link ${dbc.id}:utdk_db -u root") {
+                            docker.image('circleci/php:7.3-apache-node-browsers').withRun('') { wc ->
+                                docker.image('circleci/php:7.3-apache-node-browsers').inside("--link ${dbc.id}:utdk_db -u root") {
                                     /*
                                      * Set-up web container and run tests.
                                      * Apt-get update first.
@@ -95,6 +95,7 @@ pipeline {
                                                     ## Prepare for testing...
                                                     mkdir -p $BROWSERTEST_OUTPUT_DIRECTORY
                                                     chown -R www-data:www-data /var/www/utdk_scaffold
+                                                    cp /var/www/utdk_scaffold/.docksal/drupal/patched/menu_block_test.info.yml /var/www/utdk_scaffold/web/modules/contrib/menu_block/tests/modules/menu_block_test/menu_block_test.info.yml
                                                     chmod -R 774 /var/www/utdk_scaffold
                                                     mkdir -p /tmp/test-results
 
