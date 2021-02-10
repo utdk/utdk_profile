@@ -6,7 +6,7 @@
     "Drupal",
     "UTexas"
   ],
-  "license": "MIT",
+  "license": ["GPL-2.0-or-later"],
   "authors": [
     {
       "name": "UT Austin ITS Campus Solutions – Web Content Management Solutions Team",
