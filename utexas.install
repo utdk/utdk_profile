@@ -220,3 +220,16 @@ function utexas_update_8110() {
     \Drupal::service('module_installer')->uninstall(['editor_advanced_link']);
   }
 }
+
+/**
+ * Set page caching to 15 minutes #1464.
+ */
+function utexas_update_8111() {
+  // Set base value for max-age in Cache-Control header for reverse proxies.
+  $config = \Drupal::service('config.factory')->getEditable('system.performance');
+  // Only update max-age if is set to no caching.
+  if ($config->get('cache.page.max_age') === 0) {
+    $config->set('cache.page.max_age', 900);
+  }
+  $config->save();
+}
