@@ -1,6 +1,6 @@
-#layout-builder-modal .utexas-link-form-element input,
-.utexas-link-form-element input {
-  width: 90%;
+.utexas-link-form-element input[type="text"],
+#layout-builder-modal .utexas-link-form-element input[type="text"] {
+  max-width: 90%;
 }
 .utexas-link-form-element {
   padding: 0 10px;

@@ -19,7 +19,7 @@ trait PromoUnitTestTrait {
     // Verify the custom "Add Promo Unit item" button works.
     $page->pressButton('Add Promo Unit item');
     $this->assertNotEmpty($assert->waitForText('Promo Unit item 2'));
-    $page->pressButton('Show row weights');
+    $this->clickLink('Show row weights');
 
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-unit details');
     foreach ($fieldsets as $fieldset) {
@@ -153,7 +153,7 @@ trait PromoUnitTestTrait {
     $checkbox_selector = '.views-field-operations li.edit';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
-    $page->pressButton('Hide row weights');
+    $this->clickLink('Hide row weights');
 
     // CRUD: UPDATE.
     $this->drupalGet('admin/structure/block/block-content');

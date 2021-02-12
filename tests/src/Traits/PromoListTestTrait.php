@@ -46,7 +46,7 @@ trait PromoListTestTrait {
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
-    $page->pressButton('Show row weights');
+    $this->clickLink('Show row weights');
     $basic_page_id = $this->createBasicPage();
 
     $page->fillField('edit-info-0-value', 'Promo List Test');
@@ -140,7 +140,7 @@ trait PromoListTestTrait {
     $checkbox_selector = '.views-field-operations li.edit';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
-    $page->pressButton('Hide row weights');
+    $this->clickLink('Hide row weights');
 
     // CRUD: UPDATE.
     $this->drupalGet('admin/structure/block/block-content');

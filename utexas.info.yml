@@ -37,7 +37,6 @@ install:
   - drupal:page_cache
   # Contrib
   - drupal:addtoany
-  - drupal:adminimal_admin_toolbar
   - drupal:admin_toolbar_links_access_filter
   - drupal:breadcrumbs_visibility
   - drupal:ckeditorheight
@@ -85,5 +84,5 @@ install:
   - utexas_text_format_flex_html
 themes:
   - bartik
-  - adminimal_theme
+  - claro
   - forty_acres

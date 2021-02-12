@@ -38,7 +38,7 @@ function utexas_install() {
   // Set the admin and default theme.
   \Drupal::configFactory()
     ->getEditable('system.theme')
-    ->set('admin', 'adminimal_theme')
+    ->set('admin', 'claro')
     ->set('default', 'forty_acres')
     ->save(TRUE);
   \Drupal::configFactory()
@@ -222,9 +222,35 @@ function utexas_update_8110() {
 }
 
 /**
- * Set page caching to 15 minutes #1464.
+ * Install Claro theme and set it as admin theme.
  */
 function utexas_update_8111() {
+  \Drupal::service('theme_installer')->install(['claro']);
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('admin', 'claro')
+    ->save(TRUE);
+}
+
+/**
+ * Uninstall adminal_theme, seven, bartik, and adminimal_admin_toolbar: #1457.
+ */
+function utexas_update_8112() {
+  if (\Drupal::moduleHandler()->moduleExists('adminimal_admin_toolbar')) {
+    \Drupal::service('module_installer')->uninstall(['adminimal_admin_toolbar']);
+  }
+  if (\Drupal::service('theme_handler')->themeExists('adminimal_theme')) {
+    \Drupal::service('theme_installer')->uninstall(['adminimal_theme']);
+  }
+  if (\Drupal::service('theme_handler')->themeExists('seven')) {
+    \Drupal::service('theme_installer')->uninstall(['seven']);
+  }
+}
+
+/**
+ * Set page caching to 15 minutes #1464.
+ */
+function utexas_update_8113() {
   // Set base value for max-age in Cache-Control header for reverse proxies.
   $config = \Drupal::service('config.factory')->getEditable('system.performance');
   // Only update max-age if is set to no caching.
