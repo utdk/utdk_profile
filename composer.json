@@ -14,6 +14,7 @@
     }
   ],
   "require": {
+    "cweagans/composer-patches": "~1.0",
     "drupal/addtoany": "1.14.0",
     "drupal/admin_toolbar": "2.4.0",
     "drupal/adminimal_admin_toolbar": "1.11.0",
@@ -53,6 +54,11 @@
     "drupal/drupal": "*"
   },
   "extra": {
+    "patches": {
+      "drupal/core": {
+        "Fix issue with CKEditor image align center": "https://www.drupal.org/files/issues/2020-06-01/3102249-21.patch"
+      }
+    },
     "drupal-scaffold": {
       "file-mapping": {
         "[web-root]/sites/default/settings.php": {
