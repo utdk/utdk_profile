@@ -141,6 +141,10 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
 function utexas_page_attachments(array &$attachments) {
   // Add details fieldset optimizations to all pages.
   $attachments['#attached']['library'][] = 'utexas/details-fieldset';
+  // Fix problematic CKEditor save behavior described in
+  // https://www.drupal.org/project/drupal/issues/3095304#comment-13983933 .
+  // Once this is resolved in Drupal, this library should be removed.
+  $attachments['#attached']['library'][] = 'utexas/ckeditor-save-fix';
 }
 
 /**
