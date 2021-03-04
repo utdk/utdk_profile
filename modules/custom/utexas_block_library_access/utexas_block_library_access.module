@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * UTexas block library access module.
+ */
+
+use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function utexas_block_library_access_block_content_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  $access_control_handler = Drupal::service('utexas_block_library_access.access_control_handler');
+  return $access_control_handler->checkBlockContentAccess($operation);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function utexas_block_library_access_block_content_type_access(EntityInterface $entity, $operation, AccountInterface $account) {
+  $access_control_handler = Drupal::service('utexas_block_library_access.access_control_handler');
+  return $access_control_handler->checkBlockContentTypeAccess($operation);
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function utexas_block_library_access_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // If the form is not the exposed filter we're looking for, bail.
+  if ($form["#id"] != 'views-exposed-form-block-content-page-1') {
+    return;
+  }
+
+  // Ensure that the exposed filter (block type) acts upon the current route
+  // that the filter is appearing on, rather than the "path" of the view
+  // config entity.
+  $route_match = \Drupal::routeMatch();
+  $url_string = URL::fromRouteMatch($route_match)->toString();
+  $form['#action'] = $url_string;
+}

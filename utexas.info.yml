@@ -63,6 +63,7 @@ install:
   - drupal:xmlsitemap
   # Custom
   - utexas_beacon
+  - utexas_block_library_access
   - utexas_block_required_links
   - utexas_block_social_links
   - utexas_call_to_action

@@ -1,0 +1,8 @@
+services:
+  utexas_block_library_access.route_subscriber:
+    class: Drupal\utexas_block_library_access\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }
+  utexas_block_library_access.access_control_handler:
+    class: Drupal\utexas_block_library_access\AccessControlHandler
+    arguments: ['@current_user']
