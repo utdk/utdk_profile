@@ -84,7 +84,6 @@ function utexas_role_site_manager_update_8101() {
   ]);
 }
 
-
 /**
  * Add the permission to administer AddToAny.
  */
@@ -93,6 +92,28 @@ function utexas_role_site_manager_update_8102() {
   // Only perform the following if the role still exists in the system.
   if ($role = Role::load($rid)) {
     $role->grantPermission('administer addtoany');
+    $role->save();
+  }
+}
+
+/**
+ * Enable the role delegation module.
+ */
+function utexas_role_site_manager_update_8103() {
+  $module = 'role_delegation';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Add the role delegation permission to assign all roles.
+ */
+function utexas_role_site_manager_update_8104() {
+  $rid = 'utexas_site_manager';
+  // Only perform the following if the role still exists in the system.
+  if ($role = Role::load($rid)) {
+    $role->grantPermission('assign all roles');
     $role->save();
   }
 }

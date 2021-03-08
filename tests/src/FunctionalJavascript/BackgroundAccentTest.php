@@ -106,7 +106,7 @@ class BackgroundAccentTest extends WebDriverTestBase {
     $assert->elementExists('css', '.layout-builder__layout.background-accent');
     $actual_background_image = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("background-image")');
     // The background image style matches the uploaded image.
-    $this->assertContains("utexas_image_style_1600w_500h/public/image-test.png", $actual_background_image);
+    $this->assertStringContainsString("utexas_image_style_1600w_500h/public/image-test.png", $actual_background_image);
     // There is no blur effect initially.
     $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
     $this->assertSame('none', $actual_filter);

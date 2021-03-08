@@ -1,0 +1,9 @@
+utexas_block_library_access.entity.block_content.collection:
+  path: '/admin/content/block-content'
+  defaults:
+    _controller: '\Drupal\utexas_block_library_access\Controller\BlockContentViewController::buildView'
+    _title: 'Blocks'
+    _entity_list: 'block_content'
+    operation: view
+  requirements:
+    _custom_access: 'utexas_block_library_access.access_control_handler::checkBlockContentAccess'

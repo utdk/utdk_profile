@@ -1,0 +1,9 @@
+name: 'UTexas Block Library access'
+type: module
+description: 'A simple module to provide a single permission for accessing the block library & creating content blocks'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: 'UTexas'
+dependencies:
+  - drupal:block
+  - drupal:block_content

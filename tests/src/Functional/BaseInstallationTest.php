@@ -198,7 +198,7 @@ class BaseInstallationTest extends BrowserTestBase {
 
     // Test Content Editor Role permissions.
     $this->initializeContentEditor();
-    // @todo: investigate why this addRole apparently needs to happen here,
+    // @todo investigate why this addRole apparently needs to happen here,
     // in addition to the one defined in initializeContentEditor @jmf3658.
     $this->testUser->addRole('utexas_content_editor');
     $this->testUser->save();
@@ -217,8 +217,14 @@ class BaseInstallationTest extends BrowserTestBase {
     // Make sure a Content Editor doesn't have access to Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
     $this->assertSession()->statusCodeEquals(403);
-    // Make sure a Content Editor has access to Block UI.
+    // Make sure a Content Editor doesn't have access to Block UI.
     $this->drupalGet('admin/structure/block');
+    $this->assertSession()->statusCodeEquals(403);
+    // Make sure a Content Editor has access to Block Content tab.
+    $this->drupalGet('/admin/content/block-content');
+    $this->assertSession()->statusCodeEquals(200);
+    // Make sure a Content Editor has access to create Block Content.
+    $this->drupalGet('/block/add');
     $this->assertSession()->statusCodeEquals(200);
 
     // Test Site Manager Role permissions.
@@ -228,6 +234,9 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(403);
     // Make sure a Site Manager has access to Block UI.
     $this->drupalGet('admin/structure/block');
+    $this->assertSession()->statusCodeEquals(200);
+    // Make sure a Site Manager has access to Block Content tab.
+    $this->drupalGet('/admin/content/block-content');
     $this->assertSession()->statusCodeEquals(200);
     // Make sure a Site Manager doesn't have access to the permissions page.
     $this->drupalGet('admin/people/permissions');

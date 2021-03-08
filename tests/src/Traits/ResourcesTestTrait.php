@@ -50,7 +50,7 @@ trait ResourcesTestTrait {
     $this->assertNotEmpty($assert->waitForText('Resource collection 2'));
 
     // Expand all Resource collection fieldsets.
-    $page->pressButton('Show row weights');
+    $this->clickLink('Show row weights');
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
@@ -197,7 +197,7 @@ trait ResourcesTestTrait {
     $checkbox_selector = '.views-field-operations li.edit';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     $checkboxes[0]->click();
-    $page->pressButton('Hide row weights');
+    $this->clickLink('Hide row weights');
 
     // Remove the block from the system.
     $this->drupalGet('admin/structure/block/block-content');

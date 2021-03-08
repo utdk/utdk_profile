@@ -7,6 +7,9 @@
 
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
+
+use Drupal\utexas\Permissions;
+
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -38,7 +41,7 @@ function utexas_install() {
   // Set the admin and default theme.
   \Drupal::configFactory()
     ->getEditable('system.theme')
-    ->set('admin', 'adminimal_theme')
+    ->set('admin', 'claro')
     ->set('default', 'forty_acres')
     ->save(TRUE);
   \Drupal::configFactory()
@@ -124,8 +127,7 @@ function utexas_update_8102() {
 /**
  * Disable Big Pipe on sites installed prior to 3.0.0-beta.6.
  */
-function utexas_update_8103()
-{
+function utexas_update_8103() {
   if (\Drupal::moduleHandler()->moduleExists('big_pipe') === TRUE) {
     \Drupal::service('module_installer')->uninstall(['big_pipe']);
   }
@@ -170,5 +172,152 @@ function utexas_update_8107() {
     if (is_array($data)) {
       $config->setData($data)->save(TRUE);
     }
+  }
+}
+
+/**
+ * Enable XMLSitemap on existing sites.
+ */
+function utexas_update_8108() {
+  $module = 'xmlsitemap';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Configure XMLSitemap settings.
+ */
+function utexas_update_8109() {
+  // Set existing sites XMLSitemap configuration to the default state.
+  $config_names = [
+    'xmlsitemap.settings.node.utexas_flex_page',
+    'xmlsitemap.settings.node.page',
+    'xmlsitemap.settings.node.article',
+  ];
+  foreach ($config_names as $config_name) {
+    if (\Drupal::config($config_name)->get('status') === NULL) {
+      $config = \Drupal::configFactory()->getEditable($config_name);
+      $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+      if (!empty($config_path)) {
+        $data = Yaml::parse(file_get_contents($config_path));
+        if (is_array($data)) {
+          $config->setData($data)->save(TRUE);
+        }
+      }
+    }
+    else {
+      $message = dt('XML Sitemap configuration object "@ct" found. No action taken.', ['@ct' => $config_name]);
+      \Drupal::messenger()->addMessage($message);
+      \Drupal::logger('utexas')->notice($message);
+    }
+  }
+}
+
+/**
+ * Uninstall editor_advanced_link contrib module from existing sites #1085.
+ */
+function utexas_update_8110() {
+  if (\Drupal::moduleHandler()->moduleExists('editor_advanced_link') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['editor_advanced_link']);
+  }
+}
+
+/**
+ * Install Claro theme and set it as admin theme.
+ */
+function utexas_update_8111() {
+  \Drupal::service('theme_installer')->install(['claro']);
+  \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('admin', 'claro')
+    ->save(TRUE);
+}
+
+/**
+ * Uninstall adminal_theme, seven, bartik, and adminimal_admin_toolbar: #1457.
+ */
+function utexas_update_8112() {
+  if (\Drupal::moduleHandler()->moduleExists('adminimal_admin_toolbar')) {
+    \Drupal::service('module_installer')->uninstall(['adminimal_admin_toolbar']);
+  }
+  if (\Drupal::service('theme_handler')->themeExists('adminimal_theme')) {
+    \Drupal::service('theme_installer')->uninstall(['adminimal_theme']);
+  }
+  if (\Drupal::service('theme_handler')->themeExists('seven')) {
+    \Drupal::service('theme_installer')->uninstall(['seven']);
+  }
+}
+
+/**
+ * Set page caching to 15 minutes #1464.
+ */
+function utexas_update_8113() {
+  // Set base value for max-age in Cache-Control header for reverse proxies.
+  $config = \Drupal::service('config.factory')->getEditable('system.performance');
+  // Only update max-age if is set to no caching.
+  if ($config->get('cache.page.max_age') === 0) {
+    $config->set('cache.page.max_age', 900);
+  }
+  $config->save();
+}
+
+/**
+ * Issue #1026: Restrict Content Editor access to the global Block Layout UI.
+ *
+ * Install module.
+ */
+function utexas_update_8114() {
+  // Get static services.
+  $messenger = Drupal::messenger();
+  $module_handler = Drupal::moduleHandler();
+  /** @var Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
+  $module_installer = Drupal::service('module_installer');
+
+  // Install utexas_block_library_access module.
+  $module_machine_name = 'utexas_block_library_access';
+  if (!$module_handler->moduleExists($module_machine_name)) {
+    $module_installer->install([$module_machine_name]);
+    $module_readable_name = $module_handler->getName($module_machine_name);
+    $messenger->addMessage(t('%module_name has been installed.', ['%module_name' => $module_readable_name]));
+  }
+}
+
+/**
+ * Issue #1026: Restrict Content Editor access to the global Block Layout UI.
+ *
+ * Manipulate roles.
+ */
+function utexas_update_8115() {
+  // Get static services.
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  /** @var Drupal\user\PermissionHandler $permission_handler */
+  $permission_handler = Drupal::service('user.permissions');
+
+  $target_role = 'utexas_content_editor';
+  /** @var Drupal\user\Entity\Role $role */
+  $role = $entity_type_manager->getStorage('user_role')->load($target_role);
+
+  // If target role does not exist, bail.
+  if (is_null($role)) {
+    return;
+  }
+
+  // Add new permission to target role.
+  $available_permissions = $permission_handler->getPermissions();
+  $new_permission = 'create and edit reusable blocks';
+  if (in_array($new_permission, array_keys($available_permissions))) {
+    $role->grantPermission($new_permission);
+    $role->save();
+    $messenger->addMessage(t('The %permission permission has been granted to the %role role.', ['%role' => $role->label(), '%permission' => $new_permission]));
+  }
+
+  // Remove old permission from target role.
+  $old_permission = 'administer blocks';
+  if ($role->hasPermission($old_permission)) {
+    $role->revokePermission($old_permission);
+    $role->save();
+    $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', ['%role' => $role->label(), '%permission' => $old_permission]));
   }
 }

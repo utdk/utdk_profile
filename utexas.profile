@@ -10,6 +10,7 @@ use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Form\InstallationComplete;
+use Drupal\utexas\Permissions;
 
 /**
  * Implements hook_install_tasks().
@@ -91,6 +92,11 @@ function utexas_install_cleanup(&$install_state) {
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')
     ->save(TRUE);
+
+  // Set base value for max-age in Cache-Control header for reverse proxies.
+  $config = \Drupal::service('config.factory')->getEditable('system.performance');
+  $config->set('cache.page.max_age', 900);
+  $config->save();
 }
 
 /**
@@ -104,6 +110,11 @@ function utexas_install_post_installation_modules(&$install_state) {
   ];
   // Install modules.
   \Drupal::service('module_installer')->install($modules);
+
+  // Add standard permissions to "utexas_site_manager" & "utexas_content_editor"
+  // if those roles exist.
+  Permissions::assignPermissions('editor', 'utexas_content_editor');
+  Permissions::assignPermissions('manager', 'utexas_site_manager');
 }
 
 /**
@@ -130,6 +141,10 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
 function utexas_page_attachments(array &$attachments) {
   // Add details fieldset optimizations to all pages.
   $attachments['#attached']['library'][] = 'utexas/details-fieldset';
+  // Fix problematic CKEditor save behavior described in
+  // https://www.drupal.org/project/drupal/issues/3095304#comment-13983933 .
+  // Once this is resolved in Drupal, this library should be removed.
+  $attachments['#attached']['library'][] = 'utexas/ckeditor-save-fix';
 }
 
 /**

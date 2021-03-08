@@ -1,0 +1,6 @@
+utexas_block_library_access.block_content_add_action:
+  route_name: block_content.add_page
+  title: 'Add custom block'
+  appears_on:
+    - utexas_block_library_access.entity.block_content.collection
+  class: \Drupal\utexas_block_library_access\Plugin\Menu\LocalAction\UtexasBlockContentAddLocalAction

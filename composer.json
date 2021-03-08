@@ -6,7 +6,7 @@
     "Drupal",
     "UTexas"
   ],
-  "license": "MIT",
+  "license": ["GPL-2.0-or-later"],
   "authors": [
     {
       "name": "UT Austin ITS Campus Solutions – Web Content Management Solutions Team",
@@ -14,16 +14,17 @@
     }
   ],
   "require": {
+    "cweagans/composer-patches": "~1.0",
     "drupal/addtoany": "1.14.0",
     "drupal/admin_toolbar": "2.4.0",
     "drupal/adminimal_admin_toolbar": "1.11.0",
     "drupal/adminimal_theme": "1.6.0",
-    "drupal/breadcrumbs_visibility": "1.1.0",
+    "drupal/breadcrumbs_visibility": "1.2.0",
     "drupal/ckeditorheight": "1.8.0",
-    "drupal/core-recommended": "8.9.12",
+    "drupal/core-recommended": "9.1.5",
     "drupal/date_ap_style": "1.0.0",
     "drupal/editor_advanced_link": "1.8.0",
-    "drupal/features": "3.11.0",
+    "drupal/features": "3.12.0",
     "drupal/feed_block": "1.1.0",
     "drupal/google_cse": "3.2.0",
     "drupal/google_tag": "1.4.0",
@@ -40,17 +41,26 @@
     "drupal/pathauto": "1.8.0",
     "drupal/pathologic": "1.0-alpha2",
     "drupal/redirect": "1.6.0",
-    "drupal/responsive_tables_filter": "1.6.0",
+    "drupal/responsive_tables_filter": "1.7.0",
+    "drupal/role_delegation": "1.1.0",
     "drupal/schema_metatag": "2.1.0",
     "drupal/svg_upload_sanitizer": "1.1.0",
-    "drupal/twitter_profile_widget": "3.0.0",
-    "utexas/forty_acres": "3.0.0-beta.10",
+    "drupal/twitter_profile_widget": "3.0.1",
+    "drupal/xmlsitemap": "1.0.0",
+    "utexas/forty_acres": "3.0.0-beta.11",
     "utexas/utexas_qualtrics_filter": "1.0.0-beta.2"
   },
   "conflict": {
     "drupal/drupal": "*"
   },
   "extra": {
+    "patches": {
+      "drupal/core": {
+        "Fix issue with CKEditor image align center": "https://www.drupal.org/files/issues/2020-06-01/3102249-21.patch"},
+      "drupal/linkit": {
+        "LinkIt-style autocomplete affects multiple adjacent link fields": "web/profiles/contrib/utexas/assets/patches/1106-linkit-multiple-autocomplete.patch"
+      }
+    },
     "drupal-scaffold": {
       "file-mapping": {
         "[web-root]/sites/default/settings.php": {

@@ -8,10 +8,8 @@
   background-color: #d6d2c4;
   color: #000;
 }
-/* Bluebonnet (Medium) */
-.utexas-featured-highlight.medium {
-  background-color: #005f86;
-  color: #ffffff;
+.utexas-featured-highlight .content-wrapper a {
+  color: #000;
 }
 .utexas-featured-highlight .content-wrapper .ut-headline,
 .utexas-featured-highlight .content-wrapper .ut-headline a {
@@ -19,20 +17,27 @@
   padding-top: 0;
   font-size: 2rem;
 }
-.utexas-featured-highlight.medium .content-wrapper .ut-headline a,
+.utexas-featured-highlight .content-wrapper a.ut-btn {
+  color: #fff;
+}
+/* Bluebonnet (Medium) */
+.utexas-featured-highlight.medium {
+  background-color: #005f86;
+  color: #fff;
+}
+.utexas-featured-highlight.medium .content-wrapper a,
 .utexas-featured-highlight.medium .content-wrapper .ut-headline {
-  color: #ffffff;
+  color: #fff;
 }
 /* Charcoal (Dark) */
 .utexas-featured-highlight.dark {
   background-color: #333f48;
-  color: #ffffff;
+  color: #fff;
 }
-.utexas-featured-highlight.dark .content-wrapper .ut-headline a,
+.utexas-featured-highlight.dark .content-wrapper a,
 .utexas-featured-highlight.dark .content-wrapper .ut-headline {
-  color: #ffffff;
+  color: #fff;
 }
-
 /* Defaults/mobile first */
 /* Featured Highlight layout styles. */
 /* Image Wrapper. */

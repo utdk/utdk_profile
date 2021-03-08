@@ -6,13 +6,6 @@
  */
 
 /**
- * Implements hook_install().
- */
-function utexas_content_type_flex_page_install() {
-  drupal_set_installed_schema_version('utexas_content_type_flex_page', '8101');
-}
-
-/**
  * Update configuration related to Layout Builder sections.
  */
 function utexas_content_type_flex_page_update_8101() {
