@@ -56,7 +56,9 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Fix issue with CKEditor image align center": "https://www.drupal.org/files/issues/2020-06-01/3102249-21.patch"},
+        "Fix issue with CKEditor image align center": "https://www.drupal.org/files/issues/2020-06-01/3102249-21.patch",
+        "Fix minimum MariaDb version for Pantheon": "web/profiles/contrib/utexas/assets/patches/issue-2--mariadb-version.patch"
+      },
       "drupal/linkit": {
         "LinkIt-style autocomplete affects multiple adjacent link fields": "web/profiles/contrib/utexas/assets/patches/1106-linkit-multiple-autocomplete.patch"
       }
