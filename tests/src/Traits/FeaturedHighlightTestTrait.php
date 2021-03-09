@@ -13,10 +13,22 @@ trait FeaturedHighlightTestTrait {
   public function verifyFeaturedHighlight() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->drupalGet('block/add/utexas_featured_highlight');
+    $session = $this->getSession();
 
-    // Verify widget field schema.
+    // Create a Flex Page.
+    $flex_page = $this->createFlexPage();
+
+    // CRUD: CREATE.
+    $block_type = 'Featured Highlight';
+    $block_name = $block_type . 'Test';
+    $this->drupalGet('admin/content/block-content');
+    $this->clickLink('Add custom block');
+    $this->clickLink($block_type);
+
+    // Open the media library.
+    $session->wait(3000);
     $page->pressButton('Add media');
+    $session->wait(3000);
     $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
@@ -27,7 +39,7 @@ trait FeaturedHighlightTestTrait {
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
 
     $this->submitForm([
-      'info[0][value]' => 'Featured Highlight Test',
+      'info[0][value]' => $block_name,
       'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
       'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
       'field_block_featured_highlight[0][cta_wrapper][link][uri]' => 'https://featuredhighlight.test',
@@ -36,15 +48,22 @@ trait FeaturedHighlightTestTrait {
       'field_block_featured_highlight[0][cta_wrapper][link][options][attributes][class]' => 'ut-cta-link--external',
       'field_block_featured_highlight[0][date]' => '01-17-2019',
     ], 'Save');
-    $assert->pageTextContains('Featured Highlight Featured Highlight Test has been created.');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been created.');
 
-    // Place Block in "Content" region on all pages.
-    $this->submitForm([
-      'region' => 'content',
-    ], 'Save block');
-    $assert->pageTextContains('The block configuration has been saved.');
+    // Place the block on the Flex page.
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickLink('Add block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
+    $this->clickLink($block_name);
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
+    $page->pressButton('Add block');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
 
-    $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight Headline');
     $assert->pageTextContains('Featured Highlight Copy');
@@ -64,33 +83,43 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.ut-btn.ut-cta-link--external', 'tabindex', '-1');
 
     // Set display to "Bluebonnet (Medium)".
-    $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_featured_highlight_2',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
+
     // Verify page output.
     $assert->elementExists('css', 'div.utexas-featured-highlight.medium');
 
     // Set display to "Charcoal (Dark)".
-    $this->drupalGet('admin/structure/block/manage/featuredhighlighttest');
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_featured_highlight_3',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
     // Verify page output.
     $assert->elementExists('css', 'div.utexas-featured-highlight.dark');
 
-    // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/featuredhighlighttest/delete');
-    $this->submitForm([], 'Remove');
-
     // Test rendering of YouTube video.
-    $this->drupalGet('block/add/utexas_featured_highlight');
-
-    // Verify widget field schema.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $page->pressButton('media-0-media-library-remove-button-field_block_featured_highlight-0');
+    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
     $page->pressButton('Add media');
     $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $this->clickLink("Video (External)");
@@ -103,31 +132,28 @@ trait FeaturedHighlightTestTrait {
     $checkboxes[0]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    $this->submitForm([], 'Save');
 
-    $this->submitForm([
-      'info[0][value]' => 'Featured Highlight Video Test',
-      'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
-      'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
-      'field_block_featured_highlight[0][cta_wrapper][link][uri]' => 'https://featuredhighlight.test',
-      'field_block_featured_highlight[0][cta_wrapper][link][title]' => 'Featured Highlight Link',
-      'field_block_featured_highlight[0][date]' => '01-17-2019',
-    ], 'Save');
-    $assert->pageTextContains('Featured Highlight Featured Highlight Video Test has been created.');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been updated.');
 
-    // Place Block in "Content" region on all pages.
-    $this->submitForm([
-      'region' => 'content',
-    ], 'Save block');
-    $assert->pageTextContains('The block configuration has been saved.');
-
-    $this->drupalGet('<front>');
+    $this->drupalGet('node/' . $flex_page);
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
 
-    // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/featuredhighlightvideotest/delete');
-    $this->submitForm([], 'Remove');
+    // CRUD: DELETE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains($block_name);
+
+    // TEST CLEANUP //
+    // Remove test page.
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$flex_page]);
+    $storage_handler->delete($entities);
   }
 
 }

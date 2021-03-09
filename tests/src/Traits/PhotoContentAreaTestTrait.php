@@ -13,12 +13,22 @@ trait PhotoContentAreaTestTrait {
   public function verifyPhotoContentArea() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
+    $session = $this->getSession();
+
+    // Create a Flex Page.
+    $flex_page = $this->createFlexPage();
 
     // CRUD: CREATE.
-    $this->drupalGet('block/add/utexas_photo_content_area');
+    $block_type = 'Photo Content Area';
+    $block_name = $block_type . 'Test';
+    $this->drupalGet('admin/content/block-content');
+    $this->clickLink('Add custom block');
+    $this->clickLink($block_type);
 
-    // Verify widget field schema.
+    // Open the media library.
+    $session->wait(3000);
     $page->pressButton('Add media');
+    $session->wait(3000);
     $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
     // Select the first media item (should be "Image 1").
@@ -41,7 +51,7 @@ trait PhotoContentAreaTestTrait {
     ]));
 
     $this->submitForm([
-      'info[0][value]' => 'Photo Content Area Test',
+      'info[0][value]' => $block_name,
       'field_block_pca[0][photo_credit]' => 'Photo Content Area Photo Credit',
       'field_block_pca[0][headline]' => 'Photo Content Area Headline',
       'field_block_pca[0][copy][value]' => 'Photo Content Area Copy',
@@ -54,16 +64,22 @@ trait PhotoContentAreaTestTrait {
       'field_block_pca[0][links][2][uri]' => 'https://third.test',
       'field_block_pca[0][links][2][title]' => 'Photo Content Area Third Link',
     ], 'Save');
-    $assert->pageTextContains('Photo Content Area Photo Content Area Test has been created.');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been created.');
 
-    // Place Block in "Content" region on all pages.
-    $this->submitForm([
-      'region' => 'content',
-    ], 'Save block');
-    $assert->pageTextContains('The block configuration has been saved.');
+    // Place the block on the Flex page.
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickLink('Add block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
+    $this->clickLink($block_name);
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
+    $page->pressButton('Add block');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
 
-    // CRUD: READ.
-    $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'div.caption span', 'Photo Content Area Photo Credit');
     $assert->elementTextContains('css', '.ut-photo-content-area h2.ut-headline', 'Photo Content Area Headline');
@@ -77,39 +93,52 @@ trait PhotoContentAreaTestTrait {
     // Verify responsive image is present.
     $expected_path = 'utexas_image_style_450w_600h/public/image-test';
     $assert->elementAttributeContains('css', '.photo-wrapper picture img', 'src', $expected_path);
+
+    // CRUD: UPDATE.
     // Verify stacked display formatter adding class to markup.
-    $this->drupalGet('admin/structure/block/manage/photocontentareatest');
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_photo_content_area_2',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display div.ut-photo-content-area');
 
-    // CRUD: UPDATE.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Photo Content Area Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     // Remove data for the second link
     // (#1121: Verify links can be removed without loss of data.)
     $page->fillField('field_block_pca[0][links][1][uri]', '');
     $page->fillField('field_block_pca[0][links][1][title]', '');
     $page->pressButton('edit-submit');
 
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Photo Content Area Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     $assert->fieldValueEquals('field_block_pca[0][links][1][title]', 'Photo Content Area Third Link');
     $assert->fieldValueEquals('field_block_pca[0][links][1][uri]', 'https://third.test');
     // Verify data for removed link is not present.
     $assert->pageTextNotContains('https://second.test');
 
     // CRUD: DELETE.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Photo Content Area Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     $page->clickLink('Delete');
     $page->pressButton('Delete');
     $this->drupalGet('admin/structure/block/block-content');
-    $assert->pageTextNotContains('Photo Content Area Test');
+    $assert->pageTextNotContains($block_name);
+
+    // TEST CLEANUP //
+    // Remove test page.
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple([$flex_page]);
+    $storage_handler->delete($entities);
   }
 
 }

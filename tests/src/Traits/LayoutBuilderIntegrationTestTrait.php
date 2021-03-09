@@ -18,7 +18,7 @@ trait LayoutBuilderIntegrationTestTrait {
     $edit = [
       'title[0][value]' => 'Layout Builder Test',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
     $node = $this->drupalGetNodeByTitle('Layout Builder Test');
     $this->drupalGet('node/' . $node->id() . '/layout');
     $this->clickLink('Add block');

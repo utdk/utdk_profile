@@ -58,7 +58,7 @@ class LayoutsTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->utexasSharedSetup();
     parent::setUp();
     $this->initializeContentEditor();

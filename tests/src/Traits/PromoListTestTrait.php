@@ -13,17 +13,28 @@ trait PromoListTestTrait {
   public function verifyPromoList() {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $this->drupalGet('block/add/utexas_promo_list');
+    $session = $this->getSession();
+
+    // Create a Flex Page.
+    $flex_page = $this->createFlexPage();
+
+    // CRUD: CREATE.
+    $block_type = 'Promo List';
+    $block_name = $block_type . 'Test';
+    $this->drupalGet('admin/content/block-content');
+    $this->clickLink('Add custom block');
+    $this->clickLink($block_type);
+
+    // Open the media library.
+    $session->wait(3000);
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
-
-    // Open the media library.
     $page->pressButton('Add media');
+    $session->wait(3000);
     $this->assertNotEmpty($assert->waitForText('Add or select media'));
     $assert->pageTextContains('Image 1');
-
     // Select the first media item (should be "Image 1").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
@@ -47,9 +58,8 @@ trait PromoListTestTrait {
       $fieldset->click();
     }
     $this->clickLink('Show row weights');
-    $basic_page_id = $this->createBasicPage();
 
-    $page->fillField('edit-info-0-value', 'Promo List Test');
+    $page->fillField('edit-info-0-value', $block_name);
     $page->fillField('field_block_pl[0][headline]', 'Promo List 1 Headline');
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
     $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 2');
@@ -66,31 +76,36 @@ trait PromoListTestTrait {
     $page->fillField('field_block_pl[1][headline]', 'Promo List 2 Headline');
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][headline]', 'List 2 item 1');
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 2 item 1');
-    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][uri]', '/node/' . $basic_page_id);
+    $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][uri]', '/node/' . $flex_page);
     $page->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--lock');
     $page->pressButton('edit-submit');
-    $assert->pageTextContains('Promo List Promo List Test has been created.');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been created.');
 
-    // Place Block in "Content" region on all pages.
-    $this->submitForm([
-      'region' => 'content',
-      'settings[view_mode]' => 'default',
-    ], 'Save block');
-    $assert->pageTextContains('The block configuration has been saved.');
-
-    $this->drupalGet('<front>');
+    // Place the block on the Flex page.
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickLink('Add block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
+    $this->clickLink($block_name);
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
+    $page->pressButton('Add block');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
 
     // Promo List items 1 & 2 have been reordered.
-    $assert->elementTextContains('css', '#block-promolisttest div.promo-list:nth-child(1) h3.ut-headline', 'List 1 item 2');
-    $assert->elementTextContains('css', '#block-promolisttest div.promo-list:nth-child(2) h3.ut-headline', 'List 1 item 1');
+    $assert->elementTextContains('css', '.block-block-content div.promo-list:nth-child(1) h3.ut-headline', 'List 1 item 2');
+    $assert->elementTextContains('css', '.block-block-content div.promo-list:nth-child(2) h3.ut-headline', 'List 1 item 1');
 
     // Other input is present.
-    $assert->elementTextContains('css', '#block-promolisttest div div:nth-child(1) h3.ut-headline--underline', 'Promo List 1 Headline');
-    $assert->elementTextContains('css', '#block-promolisttest div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
+    $assert->elementTextContains('css', '.block-block-content div div:nth-child(1) h3.ut-headline--underline', 'Promo List 1 Headline');
+    $assert->elementTextContains('css', '.block-block-content div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
     $assert->linkByHrefExists('https://promolist.test');
-    $assert->linkByHrefExists('test-basic-page');
+    $assert->linkByHrefExists('test-flex-page');
 
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
@@ -105,46 +120,56 @@ trait PromoListTestTrait {
     $expected_path = 'utexas_image_style_64w_64h/public/image-test.png';
     $assert->elementAttributeContains('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) picture img', 'src', $expected_path);
 
+    // CRUD: UPDATE.
     // Set display to "Responsive".
-    $this->drupalGet('admin/structure/block/manage/promolisttest');
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_promo_list_2',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
     // Verify page output.
     $assert->elementExists('css', 'div.ut-promo-list-wrapper.two-column-responsive');
 
     // Set display to "Two Columns".
-    $this->drupalGet('admin/structure/block/manage/promolisttest');
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_promo_list_3',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
     // Verify page output.
     $assert->elementExists('css', 'div.ut-promo-list-wrapper.two-side-by-side');
 
     // Set display to "Stacked".
-    $this->drupalGet('admin/structure/block/manage/promolisttest');
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_promo_list_4',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display > div.utexas-promo-list-container > div.ut-promo-list-wrapper');
 
-    // Reset block weighting system.
-    $this->drupalGet('/admin/structure/block/block-content');
-    $checkbox_selector = '.views-field-operations li.edit';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[0]->click();
-    $this->clickLink('Hide row weights');
-
     // CRUD: UPDATE.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Promo List Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $this->clickLink('Hide row weights');
     // Add a third item.
     $page->pressButton('Add Promo List item');
     $this->assertNotEmpty($assert->waitForText('Promo List item 3'));
@@ -163,8 +188,9 @@ trait PromoListTestTrait {
     $page->uncheckField('field_block_pl[0][promo_list_items][items][1][details][item][link][options][attributes][target][_blank]');
     $page->fillField('field_block_pl[0][promo_list_items][items][2][details][item][headline]', 'Promo List 3 Headline');
     $page->pressButton('edit-submit');
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Promo List Test')->click();
+
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
@@ -174,14 +200,19 @@ trait PromoListTestTrait {
     // Verify data for removed item is not present.
     $assert->pageTextNotContains('Promo List 1 Headline');
 
-    // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/manage/promolisttest/delete');
-    $this->submitForm([], 'Remove');
+    // CRUD: DELETE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains($block_name);
+
+    // TEST CLEANUP //
     // Remove test page.
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
-    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $entities = $storage_handler->loadMultiple([$flex_page]);
     $storage_handler->delete($entities);
-    // Reset to the standard window width.
   }
 
 }

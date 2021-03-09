@@ -102,7 +102,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'instagram',
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => 'https://instagram.com/our-site',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Verify the block has been created.
     $block = $this->drupalGetBlockByInfo('Social Links Test');
@@ -117,7 +117,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][2][social_account_name]' => 'facebook',
       'field_utexas_sl_social_links[0][social_account_links][2][social_account_url]' => 'https://facebook.com/our-site',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Return to the block interface.
     $this->drupalGet("/block/" . $block->id());
@@ -125,7 +125,7 @@ class SocialLinksTest extends BrowserTestBase {
     $edit = [
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => '',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Return to the block interface.
     $this->drupalGet("/block/" . $block->id());
@@ -139,7 +139,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_name]' => 'facebook',
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => 'blah',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
     $this->assertRaw('1 error has been found');
 
     // Add a custom Social Network with 1st test SVG.
@@ -149,7 +149,7 @@ class SocialLinksTest extends BrowserTestBase {
       'id' => 'test',
       'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/check.svg'),
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Edit the default social links block and add test network and headline.
     $sitewide_social_block_id = $this->drupalGetBlockByInfo('Sitewide Social Media Links')->id();
@@ -159,7 +159,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'test',
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => "https://testsocial.com",
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // CRUD: READ.
     // Go to homepage and confirm test network is rendering with test svg path.
@@ -177,7 +177,7 @@ class SocialLinksTest extends BrowserTestBase {
     $edit = [
       'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/location.svg'),
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Go to homepage & confirm test network is rendering with test 2 svg path.
     $this->drupalGet("<front>");

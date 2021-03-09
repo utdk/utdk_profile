@@ -18,15 +18,15 @@ trait FlexPageRevisionsTestTrait {
       'title[0][value]' => 'Revision Test',
       'edit-revision-log-0-value' => 'First revision',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
     $node = $this->drupalGetNodeByTitle('Revision Test');
     $this->drupalGet('node/' . $node->id() . '/edit');
     // 2. Edit the node to create a new revision.
-    $this->drupalPostForm(NULL, [
+    $this->submitForm([
       'title[0][value]' => 'Revision Test rev2',
       'edit-revision-log-0-value' => 'Second revision',
     ],
-      'edit-submit');
+      'Save');
     $node = $this->drupalGetNodeByTitle('Revision Test rev2');
     $this->drupalGet('node/' . $node->id() . '/revisions/' . $node->getRevisionId() . '/view');
     $this->assertSession()->statusCodeEquals(200);
