@@ -7,6 +7,3 @@ details-fieldset:
   css:
     theme:
       css/details-fieldset.css: {}
-ckeditor-save-fix:
-  js:
-    js/ckeditorSaveChanges-drupal-3095304.js: {}
