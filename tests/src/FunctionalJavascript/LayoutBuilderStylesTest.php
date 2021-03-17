@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\node\Entity\Node;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
@@ -73,19 +72,13 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
+    $flex_page_id = $this->createFlexPage();
 
-    // Set the configuration to allow multiple styles per block.
-    $this->drupalGet('admin/config/content/layout_builder_style/config');
-    $page->selectFieldOption('edit-multiselect-multiple', 'multiple');
-    $page->selectFieldOption('edit-form-type-multiple-select', 'multiple-select');
-    $page->pressButton('Save configuration');
+    // Test programmatically changing Layout Builder Style setting, since
+    // typical Site Managers will not have this permission.
+    \Drupal::service('config.factory')->getEditable('layout_builder_styles.settings')->set('form_type', 'multiple-select')->save();
 
-    $this->drupalGet('/node/' . $node->id());
+    $this->drupalGet('/node/' . $flex_page_id);
     $this->clickLink('Layout');
     $this->clickLink('Configure Section 1');
     $this->assertNotEmpty($assert->waitForText('Section width'));
@@ -105,7 +98,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
 
     // Border with background.
     $assert->elementNotExists('css', '.utexas-field-border.utexas-field-background');
-    $this->drupalGet('/node/' . $node->id());
+    $this->drupalGet('/node/' . $flex_page_id);
     $this->clickLink('Layout');
     $this->clickLink('Add block');
     $this->assertNotEmpty($assert->waitForText('Create custom block'));
@@ -120,7 +113,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
 
     // Border without background.
     $assert->elementNotExists('css', '.utexas-field-border.utexas-centered-headline');
-    $this->drupalGet('/node/' . $node->id());
+    $this->drupalGet('/node/' . $flex_page_id);
     $this->clickLink('Layout');
     $this->clickLink('Add block');
     $this->assertNotEmpty($assert->waitForText('Create custom block'));
@@ -134,7 +127,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
 
     // No padding between columns.
     $assert->elementNotExists('css', '.utexas-layout-no-padding');
-    $this->drupalGet('/node/' . $node->id());
+    $this->drupalGet('/node/' . $flex_page_id);
     $this->clickLink('Layout');
     $this->clickLink('Configure Section 1');
     $this->assertNotEmpty($assert->waitForText('Section width'));
