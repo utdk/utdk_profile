@@ -1,7 +1,7 @@
 {
   "name": "utexas/utdk_profile",
   "type": "drupal-profile",
-  "description": "UTDK Drupal 8.x installation profile",
+  "description": "Drupal 9 installation profile for the UT Drupal Kit",
   "keywords": ["Drupal", "UT Drupal Kit"],
   "license": ["GPL-2.0-or-later"],
   "authors": [
