@@ -1,7 +1,12 @@
 {
-  "name": "@utexas/utdk",
-  "description": "Drupal is an open source content management platform powering millions of websites and applications.",
+  "name": "@utexas/utdk_profile",
+  "description": "Drupal installation profile for the UT Drupal Kit",
   "license": "GPL-2.0-or-later",
+  "author": {
+    "name": "Web Content Management Solutions Team, Information Technology Services, The University of Texas at Austin",
+    "email": "drupal-kit-support@utlists.utexas.edu",
+    "url": "https://drupalkit.its.utexas.edu"
+  },
   "private": true,
   "scripts": {
     "build:js": "node ./scripts/js/babel-es6-build.js",

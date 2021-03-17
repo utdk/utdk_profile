@@ -2,15 +2,14 @@
   "name": "utexas/utdk_profile",
   "type": "drupal-profile",
   "description": "UTDK Drupal 8.x installation profile",
-  "keywords": [
-    "Drupal",
-    "UTexas"
-  ],
+  "keywords": ["Drupal", "UT Drupal Kit"],
   "license": ["GPL-2.0-or-later"],
   "authors": [
     {
-      "name": "UT Austin ITS Campus Solutions – Web Content Management Solutions Team",
-      "email": "drupal-kit-support@utlists.utexas.edu"
+      "name": "Web Content Management Solutions Team, Information Technology Services, The University of Texas at Austin",
+      "email": "drupal-kit-support@utlists.utexas.edu",
+      "homepage": "https://drupalkit.its.utexas.edu",
+      "role": "Developer"
     }
   ],
   "require": {
@@ -113,7 +112,6 @@
   "prefer-stable": true,
   "support": {
     "email": "drupal-kit-support@utlists.utexas.edu",
-    "issues": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues",
-    "source": "https://github.austin.utexas.edu/eis1-wcs/utdk_profile"
+    "docs": "https://drupalkit.its.utexas.edu/docs"
   }
 }
