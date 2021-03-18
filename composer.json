@@ -55,11 +55,11 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Fix issue with CKEditor image align center": "https://www.drupal.org/files/issues/2020-06-01/3102249-21.patch",
-        "Fix minimum MariaDb version for Pantheon": "web/profiles/contrib/utexas/assets/patches/issue-2--mariadb-version.patch"
+        "Fix issue with CKEditor image align center": "https://drupalkit.its.utexas.edu/patches/1480-ckeditor-align.patch",
+        "Fix minimum MariaDb version for Pantheon": "https://drupalkit.its.utexas.edu/patches/1494-mariadb-version.patch"
       },
       "drupal/linkit": {
-        "LinkIt-style autocomplete affects multiple adjacent link fields": "web/profiles/contrib/utexas/assets/patches/1106-linkit-multiple-autocomplete.patch"
+        "LinkIt-style autocomplete affects multiple adjacent link fields": "https://drupalkit.its.utexas.edu/patches/1106-linkit-multiple-autocomplete.patch"
       }
     },
     "drupal-scaffold": {
