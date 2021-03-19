@@ -9,7 +9,7 @@
  * Helper function for creating Resources.
  */
 function _utexas_devel_create_resources($media_id) {
-  $blockEntityManager = \Drupal::service('entity.manager')
+  $blockEntityManager = \Drupal::entityTypeManager()
     ->getStorage('block_content');
   $block = $blockEntityManager->create([
     'type' => 'utexas_resources',

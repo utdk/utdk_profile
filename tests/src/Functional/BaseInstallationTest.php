@@ -48,6 +48,7 @@ class BaseInstallationTest extends BrowserTestBase {
    * components are subsequently enabled.
    */
   public function testBaseInstallation() {
+    $assert = $this->assertSession();
     $should_be_enabled = [
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
@@ -61,6 +62,7 @@ class BaseInstallationTest extends BrowserTestBase {
     }
     $should_not_be_enabled = [
       'utexas_role_site_manager',
+      'utexas_devel',
     ];
     foreach ($should_not_be_enabled as $module) {
       $module_enabled = \Drupal::moduleHandler()->moduleExists($module);
@@ -222,34 +224,87 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->assertTrue($formats[0] == 'flex_html', 'Flex HTML is at the top of the filter_formats list.');
     // Make sure a Content Editor doesn't have access to Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
-    $this->assertSession()->statusCodeEquals(403);
+    $assert->statusCodeEquals(403);
     // Make sure a Content Editor doesn't have access to Block UI.
     $this->drupalGet('admin/structure/block');
-    $this->assertSession()->statusCodeEquals(403);
+    $assert->statusCodeEquals(403);
     // Make sure a Content Editor has access to Block Content tab.
     $this->drupalGet('/admin/content/block-content');
-    $this->assertSession()->statusCodeEquals(200);
+    $assert->statusCodeEquals(200);
     // Make sure a Content Editor has access to create Block Content.
     $this->drupalGet('/block/add');
-    $this->assertSession()->statusCodeEquals(200);
+    $assert->statusCodeEquals(200);
 
     // Test Site Manager Role permissions.
     $this->initializeSiteManager();
     // Make sure a Site Manager doesn't have access to the Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
-    $this->assertSession()->statusCodeEquals(403);
+    $assert->statusCodeEquals(403);
     // Make sure a Site Manager doesn't have access to the Block UI.
     $this->drupalGet('admin/structure/block');
-    $this->assertSession()->statusCodeEquals(403);
+    $assert->statusCodeEquals(403);
     // Make sure a Site Manager has access to the Block Content tab.
     $this->drupalGet('/admin/content/block-content');
-    $this->assertSession()->statusCodeEquals(200);
+    $assert->statusCodeEquals(200);
     // Make sure a Site Manager doesn't have access to the permissions page.
     $this->drupalGet('admin/people/permissions');
-    $this->assertSession()->statusCodeEquals(403);
+    $assert->statusCodeEquals(403);
     // Site managers cannot access the Layout Builder Styles configuration page.
     $this->drupalGet('admin/config/content/layout_builder_style/config');
-    $this->assertSession()->statusCodeEquals(403);
+    $assert->statusCodeEquals(403);
+
+    // Verify demo content renders as expected.
+    \Drupal::service('module_installer')->install(['utexas_devel']);
+    $this->drupalGet('featured-highlight');
+    $featured_highlight_path = 'styles/utexas_image_style_500w_300h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper img', 'src', $featured_highlight_path);
+    $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight');
+    $assert->elementTextContains('css', '.utexas-featured-highlight p', 'Add descriptive text to provide a short summary of this featured content.');
+    $assert->elementTextContains('css', '.utexas-featured-highlight a.ut-btn', 'Visit UTexas');
+    $assert->pageTextContains('June 12, 2019');
+
+    $this->drupalGet('flex-content-area');
+    $flex_content_area_path = 'styles/utexas_image_style_340w_227h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.ut-flex-content-area .image-wrapper img', 'src', $flex_content_area_path);
+    $assert->elementTextContains('css', '.ut-flex-content-area h3.ut-headline a', 'Flex Content Area 1');
+    $assert->elementTextContains('css', '.ut-flex-content-area .ut-copy', 'The Flex Content Area has a number of display options.');
+    $assert->elementTextContains('css', '.ut-flex-content-area a.ut-btn', 'Visit UTexas');
+
+    $this->drupalGet('promo-list');
+    $promo_list_path = 'styles/utexas_image_style_64w_64h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.promo-list .image-wrapper img', 'src', $promo_list_path);
+    $assert->elementTextContains('css', '.utexas-promo-list-container h3.ut-headline--underline', 'Promo List Group 1');
+    $assert->elementTextContains('css', '.promo-list .content', 'Short descriptive text can be formatted.');
+
+    $this->drupalGet('promo-unit');
+    $promo_unit_path = 'styles/utexas_image_style_176w_112h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.utexas-promo-unit .image-wrapper img', 'src', $promo_unit_path);
+    $assert->elementTextContains('css', '.utexas-promo-unit-container h3.ut-headline--underline', 'Promo Unit Group 1');
+    $assert->elementTextContains('css', '.utexas-promo-unit .data-wrapper p', 'Short descriptive text can be formatted.');
+
+    $this->drupalGet('photo-content-area');
+    $photo_content_area_path = 'styles/utexas_image_style_450w_600h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.ut-photo-content-area .photo-wrapper img', 'src', $photo_content_area_path);
+    $assert->elementTextContains('css', '.ut-photo-content-area h2.ut-headline', 'Photo Content Area');
+    $assert->elementTextContains('css', '.ut-photo-content-area .ut-copy p', 'Photo content Areas include image, headline, credit, copy text, and links.');
+
+    $this->drupalGet('hero-default');
+    $hero_path = 'styles/utexas_image_style_720w_389h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.ut-hero img', 'src', $hero_path);
+    $assert->elementTextContains('css', '.hero--caption-credit-wrapper .credit', 'Copyright University of Texas at Austin');
+    $assert->elementTextContains('css', '.hero--caption-credit-wrapper .hero-caption', 'A short caption may be added, describing the hero');
+
+    $this->drupalGet('quick-links');
+    $assert->elementTextContains('css', '.utexas-quick-links h3.ut-headline', 'Quick Links');
+    $assert->elementTextContains('css', '.utexas-quick-links .ut-copy p', 'Quick links include a headline, copy text, and links.');
+    $assert->elementTextContains('css', '.utexas-quick-links .link-list a', 'Our commitment to diversity');
+
+    $this->drupalGet('resources');
+    $resource_image_path = 'styles/utexas_image_style_400w_250h/public/generated_sample/tower-lighting.gif';
+    $assert->elementAttributeContains('css', '.utexas-resource .image-wrapper img', 'src', $resource_image_path);
+    $assert->elementTextContains('css', '.ut-resources-wrapper h3.ut-headline--underline', 'Resource Group 1');
+    $assert->elementTextContains('css', '.utexas-resource-items .utexas-resource h3.ut-headline', 'Resource 1');
+
   }
 
   /**

@@ -9,7 +9,7 @@
  * Helper function for creating Photo Content Areas.
  */
 function _utexas_devel_create_photo_content_area($media_id) {
-  $blockEntityManager = \Drupal::service('entity.manager')
+  $blockEntityManager = \Drupal::entityTypeManager()
     ->getStorage('block_content');
   $block = $blockEntityManager->create([
     'type' => 'utexas_photo_content_area',

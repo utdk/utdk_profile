@@ -9,7 +9,7 @@
  * Helper function for creating Featured Highlights.
  */
 function _utexas_devel_create_featured_highlight($media_id) {
-  $blockEntityManager = \Drupal::service('entity.manager')
+  $blockEntityManager = \Drupal::entityTypeManager()
     ->getStorage('block_content');
   $block = $blockEntityManager->create([
     'type' => 'utexas_featured_highlight',

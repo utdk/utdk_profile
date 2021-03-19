@@ -9,7 +9,7 @@
  * Helper function for creating Hero styles.
  */
 function _utexas_devel_create_hero($media_id, $view_mode) {
-  $blockEntityManager = \Drupal::service('entity.manager')
+  $blockEntityManager = \Drupal::entityTypeManager()
     ->getStorage('block_content');
   $block = $blockEntityManager->create([
     'type' => 'utexas_hero',
