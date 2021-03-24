@@ -48,6 +48,3 @@ Fixes #
 0.
 0.
 
-## Potential Reviewers
-
-@eis1-wcs/drupal-utdk
