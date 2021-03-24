@@ -31,6 +31,8 @@ Fixes #
   - [ ] forty_acres: [`branch`]
   - [ ] utexas_migrate [`branch`]
   - [ ] other: [`update with the repo`: `branch`]
+- [ ] This will require a change to an existing migration task
+  - [ ] I have created an issue in `utexas_migrate` to document this.
 
 ## Reference: installing a site off this branch
 <!--- Include notes for both functional testing & code review -->
