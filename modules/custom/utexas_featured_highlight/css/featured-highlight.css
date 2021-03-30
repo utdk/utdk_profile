@@ -29,6 +29,9 @@
 .utexas-featured-highlight.medium .content-wrapper .ut-headline {
   color: #fff;
 }
+.utexas-featured-highlight.medium .ut-copy * {
+  color: #fff;
+}
 /* Charcoal (Dark) */
 .utexas-featured-highlight.dark {
   background-color: #333f48;
@@ -36,6 +39,9 @@
 }
 .utexas-featured-highlight.dark .content-wrapper a,
 .utexas-featured-highlight.dark .content-wrapper .ut-headline {
+  color: #fff;
+}
+.utexas-featured-highlight.dark .ut-copy * {
   color: #fff;
 }
 /* Defaults/mobile first */

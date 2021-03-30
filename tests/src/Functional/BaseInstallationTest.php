@@ -259,7 +259,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $featured_highlight_path = 'styles/utexas_image_style_500w_300h/public/generated_sample/tower-lighting.gif';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper img', 'src', $featured_highlight_path);
     $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight');
-    $assert->elementTextContains('css', '.utexas-featured-highlight p', 'Add descriptive text to provide a short summary of this featured content.');
+    $assert->elementTextContains('css', '.utexas-featured-highlight .ut-copy', 'Add descriptive text to provide a short summary of this featured content.');
     $assert->elementTextContains('css', '.utexas-featured-highlight a.ut-btn', 'Visit UTexas');
     $assert->pageTextContains('June 12, 2019');
 

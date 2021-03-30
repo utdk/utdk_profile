@@ -41,7 +41,7 @@ trait FeaturedHighlightTestTrait {
     $this->submitForm([
       'info[0][value]' => $block_name,
       'field_block_featured_highlight[0][headline]' => 'Featured Highlight Headline',
-      'field_block_featured_highlight[0][copy][value]' => 'Featured Highlight Copy',
+      'field_block_featured_highlight[0][copy][value]' => '<h3>Heading text</h3><p>Featured Highlight copy</p>',
       'field_block_featured_highlight[0][cta_wrapper][link][uri]' => 'https://featuredhighlight.test',
       'field_block_featured_highlight[0][cta_wrapper][link][title]' => 'Featured Highlight Link',
       'field_block_featured_highlight[0][cta_wrapper][link][options][attributes][target][_blank]' => ['_blank' => '_blank'],
@@ -98,6 +98,9 @@ trait FeaturedHighlightTestTrait {
 
     // Verify page output.
     $assert->elementExists('css', 'div.utexas-featured-highlight.medium');
+    // Verify headings in copy field are white.
+    $medium_copy_color = $this->getSession()->evaluateScript('jQuery(".utexas-featured-highlight.medium .ut-copy h3").css("color")');
+    $this->assertSame("rgb(255, 255, 255)", $medium_copy_color);
 
     // Set display to "Charcoal (Dark)".
     $this->drupalGet('node/' . $flex_page . '/layout');
@@ -114,6 +117,9 @@ trait FeaturedHighlightTestTrait {
     $assert->pageTextContains('The layout override has been saved.');
     // Verify page output.
     $assert->elementExists('css', 'div.utexas-featured-highlight.dark');
+    // Verify headings in copy field are white.
+    $dark_copy_color = $this->getSession()->evaluateScript('jQuery(".utexas-featured-highlight.dark .ut-copy h3").css("color")');
+    $this->assertSame("rgb(255, 255, 255)", $dark_copy_color);
 
     // Test rendering of YouTube video.
     $this->drupalGet('admin/content/block-content');
