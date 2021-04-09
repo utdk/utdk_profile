@@ -7,6 +7,7 @@ use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\FlexContentAreaTestTrait;
+use Drupal\Tests\utexas\Traits\FlexPageRevisionsTestTrait;
 use Drupal\Tests\utexas\Traits\FeaturedHighlightTestTrait;
 use Drupal\Tests\utexas\Traits\HeroTestTrait;
 use Drupal\Tests\utexas\Traits\ImageLinkTestTrait;
@@ -28,6 +29,7 @@ use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
 class WidgetsTest extends WebDriverTestBase {
   use EntityTestTrait;
   use FlexContentAreaTestTrait;
+  use FlexPageRevisionsTestTrait;
   use FeaturedHighlightTestTrait;
   use HeroTestTrait;
   use ImageFieldCreationTrait;
@@ -95,6 +97,7 @@ class WidgetsTest extends WebDriverTestBase {
   public function testCustomWidgets() {
     $this->getSession()->getPage();
     $this->getSession()->resizeWindow(1200, 5000);
+    $this->verifyRevisioning();
     $this->verifyResourceCollectionLinks();
     $this->verifyResources();
     $this->verifyPromoList();
