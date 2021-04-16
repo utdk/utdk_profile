@@ -7,3 +7,8 @@ details-fieldset:
   css:
     theme:
       css/details-fieldset.css: {}
+layout-builder:
+  js:
+    js/utexasLayoutBuilderCKEditor-3065095.js: {}
+  dependencies:
+    - core/jquery.ui.dialog
