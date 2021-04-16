@@ -16,8 +16,6 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/addtoany": "1.14.0",
     "drupal/admin_toolbar": "2.4.0",
-    "drupal/adminimal_admin_toolbar": "1.11.0",
-    "drupal/adminimal_theme": "1.6.0",
     "drupal/breadcrumbs_visibility": "1.2.0",
     "drupal/ckeditorheight": "1.8.0",
     "drupal/core-recommended": "9.1.5",
