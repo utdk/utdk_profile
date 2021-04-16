@@ -8,18 +8,20 @@ Drupal.Ajax.prototype.beforeSubmit = function (formValues, element, options) {
   if (typeof (CKEDITOR) !== 'undefined' && CKEDITOR.instances) {
     const instances = Object.values(CKEDITOR.instances);
     instances.forEach(editor => {
-      formValues.forEach(formField => {
-        // Get field name from the id in the editor so that it covers all
-        // fields using ckeditor.
-        let element = document.querySelector(`#${editor.name}`)
-        if (element) {
-          let fieldName = element.getAttribute('name');
-          if (formField.name === fieldName && editor.mode === 'source') {
-            formField.value = editor.getData();
+      if (typeof (formValues.forEach) !== 'undefined') {
+        formValues.forEach(formField => {
+          // Get field name from the id in the editor so that it covers all
+          // fields using ckeditor.
+          let element = document.querySelector(`#${editor.name}`)
+          if (element) {
+            let fieldName = element.getAttribute('name');
+            if (formField.name === fieldName && editor.mode === 'source') {
+              formField.value = editor.getData();
+            }
           }
-        }
-      });
+        });
+      }
     });
   }
-  origBeforeSubmit.call(formValues, element, options);
+  return origBeforeSubmit.apply(this, arguments);
 };
