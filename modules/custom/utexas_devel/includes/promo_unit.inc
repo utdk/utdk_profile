@@ -9,7 +9,7 @@
  * Helper function for creating Promo Units.
  */
 function _utexas_devel_create_promo_unit($media_id) {
-  $blockEntityManager = \Drupal::service('entity.manager')
+  $blockEntityManager = \Drupal::entityTypeManager()
     ->getStorage('block_content');
   $block = $blockEntityManager->create([
     'type' => 'utexas_promo_unit',

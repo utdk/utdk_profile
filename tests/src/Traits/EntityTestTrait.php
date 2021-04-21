@@ -127,6 +127,23 @@ trait EntityTestTrait {
   }
 
   /**
+   * Populates & saves a utexas_flex_page to the database.
+   *
+   * @return int
+   *   The new node's internal ID.
+   */
+  protected function createFlexPage() {
+    $this->drupalGet("/node/add/utexas_flex_page");
+    $edit = [
+      'title[0][value]' => 'Test Flex Page',
+    ];
+    // Create Flex Page node.
+    $this->submitForm($edit, 'Save');
+    $node = $this->drupalGetNodeByTitle('Test Flex Page');
+    return $node->id();
+  }
+
+  /**
    * Get a custom block from the database based on its title.
    *
    * @param string $info

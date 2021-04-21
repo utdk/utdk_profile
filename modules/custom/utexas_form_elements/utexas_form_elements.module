@@ -10,10 +10,6 @@
  */
 function utexas_form_elements_theme($existing, $type, $theme, $path) {
   $variables = [
-    'utexas_link_element' => [
-      'render element' => 'element',
-      'template' => 'utexas-link-element',
-    ],
     'utexas_link_options_element' => [
       'render element' => 'element',
       'template' => 'utexas-link-options-element',

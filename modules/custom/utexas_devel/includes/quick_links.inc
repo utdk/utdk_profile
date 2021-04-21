@@ -9,7 +9,7 @@
  * Helper function for creating Quick Links.
  */
 function _utexas_devel_create_quick_links() {
-  $blockEntityManager = \Drupal::service('entity.manager')
+  $blockEntityManager = \Drupal::entityTypeManager()
     ->getStorage('block_content');
   $block = $blockEntityManager->create([
     'type' => 'utexas_quick_links',

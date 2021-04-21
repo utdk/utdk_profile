@@ -31,13 +31,12 @@ Fixes #
   - [ ] forty_acres: [`branch`]
   - [ ] utexas_migrate [`branch`]
   - [ ] other: [`update with the repo`: `branch`]
+- [ ] This will require a change to an existing migration task
+  - [ ] I have created an issue in `utexas_migrate` to document this.
 
 ## Reference: installing a site off this branch
-<!--- Include notes for both functional testing & code review -->
-0. `git clone git@github.austin.utexas.edu:eis1-wcs/utdk_scaffold.git && cd utdk_scaffold`
-0. `composer require utexas/utdk_profile:dev-<BRANCH-NAME>`
-0. `composer run-script dev-scaffold`
-0. `fin init && fin init-site --wcs`
+<!--- Include installation snippet if multiple repos are involved -->
+0. Generate the installation snippet with the branch that corresponds to the PR at https://utdirect.utexas.edu/apps/wcs/wcms/utdk3/environment-generator.
 
 ## Reference: running tests locally
 0. `fin test web/profiles/contrib/utexas/tests/src/Functional`
@@ -48,6 +47,3 @@ Fixes #
 0.
 0.
 
-## Potential Reviewers
-
-@eis1-wcs/drupal-utdk

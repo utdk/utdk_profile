@@ -102,7 +102,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'instagram',
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => 'https://instagram.com/our-site',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Verify the block has been created.
     $block = $this->drupalGetBlockByInfo('Social Links Test');
@@ -117,7 +117,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][2][social_account_name]' => 'facebook',
       'field_utexas_sl_social_links[0][social_account_links][2][social_account_url]' => 'https://facebook.com/our-site',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Return to the block interface.
     $this->drupalGet("/block/" . $block->id());
@@ -125,7 +125,7 @@ class SocialLinksTest extends BrowserTestBase {
     $edit = [
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => '',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Return to the block interface.
     $this->drupalGet("/block/" . $block->id());
@@ -139,17 +139,18 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_name]' => 'facebook',
       'field_utexas_sl_social_links[0][social_account_links][1][social_account_url]' => 'blah',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
     $this->assertRaw('1 error has been found');
 
     // Add a custom Social Network with 1st test SVG.
     $this->drupalGet("/admin/structure/social-links/add");
+    $asset_path = drupal_get_path('profile', 'utexas') . '/tests/fixtures/';
     $edit = [
       'label' => 'test',
       'id' => 'test',
-      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/check.svg'),
+      'files[icon]' => $asset_path . 'check.svg',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Edit the default social links block and add test network and headline.
     $sitewide_social_block_id = $this->drupalGetBlockByInfo('Sitewide Social Media Links')->id();
@@ -159,7 +160,7 @@ class SocialLinksTest extends BrowserTestBase {
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'test',
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => "https://testsocial.com",
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // CRUD: READ.
     // Go to homepage and confirm test network is rendering with test svg path.
@@ -169,15 +170,15 @@ class SocialLinksTest extends BrowserTestBase {
     $this->assertRaw('<path d="M6.464 13.676c-.194.194-.513.194-.707 0l-4.96-4.955c-.194-.193-.194-.513 0-.707l1.405-1.407c.194-.195.512-.195.707 0l2.849 2.848c.194.193.513.193.707 0l6.629-6.626c.195-.194.514-.194.707 0l1.404 1.404c.193.194.193.513 0 .707l-8.741 8.736z"></path>');
 
     // Go back and change icon.
-    $svgFile2FileContents = file_get_contents(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/location.svg');
+    $svgFile2FileContents = file_get_contents($asset_path . 'location.svg');
     Markup::create($svgFile2FileContents);
 
     // Edit the existing custom Social Network test network.
     $this->drupalGet('/admin/structure/social-links/test/edit');
     $edit = [
-      'files[icon]' => \Drupal::service('file_system')->realpath(DRUPAL_ROOT . '/profiles/contrib/utexas/tests/fixtures/location.svg'),
+      'files[icon]' => $asset_path . 'location.svg',
     ];
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
 
     // Go to homepage & confirm test network is rendering with test 2 svg path.
     $this->drupalGet("<front>");

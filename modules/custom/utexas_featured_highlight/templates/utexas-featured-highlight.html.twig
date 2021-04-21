@@ -15,7 +15,7 @@
  */
 #}
 {{ attach_library('utexas_featured_highlight/utexas-featured-highlight') }}
-{% 
+{%
   set classes = [
     'utexas-featured-highlight',
     style|clean_class,
@@ -32,7 +32,11 @@
     {% if headline %}
       <h2 class="ut-headline">{{ headline }}</h2>
     {% endif %}
-    {{ copy }}
+  {% if copy %}
+    <div class="ut-copy">
+      {{ copy }}
+    </div>
+  {% endif %}
     {{ cta }}
   </div>
 </div>

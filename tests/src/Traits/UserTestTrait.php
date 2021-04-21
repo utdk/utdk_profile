@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\utexas\Traits;
 
+use Drupal\utexas\Permissions;
+
 /**
  * General-purpose methods for interacting with Drupal users.
  */
@@ -59,6 +61,11 @@ trait UserTestTrait {
    * Create a user with Site Manager specific role.
    */
   protected function initializeSiteManager() {
+    // The 'utexas_site_manager' role is not enabled by default on generic
+    // UTDK3 sites, so we enable it for testing purposes.
+    \Drupal::service('module_installer')->install(['utexas_role_site_manager']);
+    Permissions::assignPermissions('manager', 'utexas_site_manager');
+    Permissions::assignPermissions('editor', 'utexas_site_manager');
     $this->testUser = $this->drupalCreateUser();
     $testUser = user_load_by_name($this->testUser->getAccountName());
     $testUser->addRole('utexas_site_manager');

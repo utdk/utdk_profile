@@ -8,11 +8,24 @@ labels: 'release'
 ## Pre-release checks
 - [ ] Review the [issues resolved](https://github.austin.utexas.edu/eis1-wcs/utdk_profile/milestones) since the last release and ensure that all changes have accommodated configuration for new and existing sites
 - [ ] Review the documentation issues for any pending tasks that relate to the issues resolved; if any have not been completed, put this issue on hold & resolve those documentation tasks
+- [ ] Contributed module dependencies have been updated, if updates are available
+    - (script available at [utdk3_release_packaging](https://github.austin.utexas.edu/eis1-wcs/utdk3_release_packaging/blob/main/releases/utdk_contrib_updater.sh))
+- [ ] If a new release of Forty Acres will be made available this cycle, it is tagged & available on github.com
+- [ ] If a new release of UTexas Qualtrics Filter will be made available this cycle, it is tagged & available on github.com
+
+```
+git clone git@github.austin.utexas.edu:eis1-wcs/utevent.git
+cd utevent
+composer config repositories.drupal composer https://packages.drupal.org/8
+composer install
+composer outdated --direct
+```
 
 ## Release pull request tasks
-- [ ] Create release branch from develop, e.g. `release/3.0.0-beta.x`
+- [ ] Create release branch from develop, e.g. `release/3.0.0`
 - [ ] Bump version number in `utexas.info.yml`
-- [ ] Update `forty_acres` version in `composer.json` to point to the latest release and not `dev-develop`
+- [ ] If there is a new release for `forty_acres`, update the version requirement in `composer.json`
+- [ ] If there is a new release for `utexas_qualtrics_filter`, update the version requirement in `composer.json`
 - [ ] Open PR for release branch
 
 ## Release completion tasks

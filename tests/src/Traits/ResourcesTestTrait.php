@@ -15,8 +15,14 @@ trait ResourcesTestTrait {
     $page = $this->getSession()->getPage();
     $session = $this->getSession();
 
+    // Create a Flex Page.
+    $flex_page = $this->createFlexPage();
+
     // CRUD: CREATE.
-    $this->drupalGet('block/add/utexas_resources');
+    $this->drupalGet('admin/content/block-content');
+    $this->clickLink('Add custom block');
+    $this->clickLink('Resources');
+    $block_name = 'Resources Test';
     $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
     $fieldset[0]->click();
 
@@ -55,18 +61,16 @@ trait ResourcesTestTrait {
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
-    // Create test node.
-    $basic_page_id = $this->createBasicPage();
 
     $this->submitForm([
-      'info[0][value]' => 'Resources Test',
+      'info[0][value]' => $block_name,
       'field_block_resources[0][headline]' => 'Resource Container Headline',
       'field_block_resources[0][resource_items][items][0][details][item][headline]' => 'Resource 1 Headline',
       'field_block_resources[0][resource_items][items][0][details][item][links][0][uri]' => 'https://resource.test',
       'field_block_resources[0][resource_items][items][0][details][item][links][0][title]' => 'Resource External Link',
       'field_block_resources[0][resource_items][items][0][details][item][links][0][options][attributes][target][_blank]' => ['_blank' => '_blank'],
       'field_block_resources[0][resource_items][items][0][details][item][links][0][options][attributes][class]' => 'ut-cta-link--external',
-      'field_block_resources[0][resource_items][items][0][details][item][links][1][uri]' => '/node/' . $basic_page_id,
+      'field_block_resources[0][resource_items][items][0][details][item][links][1][uri]' => '/node/' . $flex_page,
       'field_block_resources[0][resource_items][items][0][details][item][links][1][title]' => 'Resource Internal Link',
       'field_block_resources[0][resource_items][items][0][details][item][links][1][options][attributes][class]' => 'ut-cta-link--lock',
       'field_block_resources[0][resource_items][items][1][details][item][headline]' => 'Resource 2 Headline',
@@ -75,19 +79,29 @@ trait ResourcesTestTrait {
     ], 'Save');
     $assert->pageTextContains('Resources Resources Test has been created.');
 
-    // Place Block in "Content" region on all pages.
-    $this->submitForm([
-      'region' => 'content',
-    ], 'Save block');
-    $assert->pageTextContains('The block configuration has been saved.');
+    // Place the block on the Flex page.
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    // Add a new resources block.
+    $this->clickLink('Add block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
+    $this->clickLink($block_name);
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
+    $page->pressButton('Add block');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
 
     // CRUD: READ.
-    $this->drupalGet('<front>');
     // Verify page output.
     $assert->elementTextContains('css', 'h3.ut-headline--underline', 'Resource Container Headline');
+
     // User-supplied weighting of resource items is respected.
-    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div/div[1]/div/h3', 'Resource 2 Headline');
-    $assert->elementTextContains('xpath', '//*[@id="block-resourcestest"]/div[2]/div/div/div[2]/div[2]/h3', 'Resource 1 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-main-page-content"]/article/div[2]/div/div/div/div/div/div/div[1]/div/h3', 'Resource 2 Headline');
+    $assert->elementTextContains('xpath', '//*[@id="block-main-page-content"]/article/div[2]/div/div/div/div/div/div/div[2]/div[2]/h3', 'Resource 1 Headline');
+
     $assert->pageTextContains('Resource Internal Link');
     $assert->linkByHrefExists('https://resource.test');
     // Verify links exist with options.
@@ -100,27 +114,34 @@ trait ResourcesTestTrait {
     $assert->elementAttributeContains('css', '.utexas-resource .image-wrapper picture img', 'src', $expected_path);
     // Verify image is not a link after a11y changes.
     $assert->elementNotExists('css', '.utexas-resource .image-wrapper a picture source');
-    // Verify stacked display adding class to markup.
-    $this->drupalGet('admin/structure/block/manage/resourcestest');
+
+    // Verify stacked display adds class to markup.
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
     $this->submitForm([
-      'region' => 'content',
       'settings[view_mode]' => 'utexas_resources_2',
-    ], 'Save block');
-    $this->drupalGet('<front>');
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display div.ut-resources-wrapper');
 
     // CRUD: UPDATE.
     // Edit block to add more links.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Resources Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     // Reorder instances.
     $this->submitForm([
       'field_block_resources[0][resource_items][items][0][weight]' => 1,
       'field_block_resources[0][resource_items][items][1][weight]' => 0,
     ], 'Save');
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Resources Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
@@ -143,12 +164,12 @@ trait ResourcesTestTrait {
     $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', '');
     $page->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][options][attributes][class]', '0');
 
-    // Save block data and assert links are reordered.
+    // Save block data.
     $page->pressButton('edit-submit');
 
     // View the block form.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Resources Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     $fieldset = $page->findAll('css', '#edit-field-block-resources-0-resource-items-items-0-details');
     $fieldset[0]->click();
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
@@ -162,8 +183,8 @@ trait ResourcesTestTrait {
     $assert->pageTextNotContains('Resources Internal Link');
 
     // Verify Resource collections can be removed.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Resources Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     // Add a third item.
     $page->pressButton('Add another collection');
     $this->assertNotEmpty($assert->waitForText('Resource collection 3'));
@@ -179,8 +200,8 @@ trait ResourcesTestTrait {
     $page->pressButton('edit-submit');
 
     // Go back to the edit form.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Resources Test')->click();
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     // Expand collapsed instances.
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
@@ -192,25 +213,19 @@ trait ResourcesTestTrait {
     $assert->pageTextNotContains('Resource 2 Headline');
 
     // CRUD: DELETE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
     // Reset block weighting system for subsequent tests.
-    $this->drupalGet('/admin/structure/block/block-content');
-    $checkbox_selector = '.views-field-operations li.edit';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[0]->click();
     $this->clickLink('Hide row weights');
-
-    // Remove the block from the system.
-    $this->drupalGet('admin/structure/block/block-content');
-    $page->findLink('Resources Test')->click();
     $page->clickLink('Delete');
     $page->pressButton('Delete');
     $this->drupalGet('admin/structure/block/block-content');
-    $assert->pageTextNotContains('Resources Test');
+    $assert->pageTextNotContains($block_name);
 
     // TEST CLEANUP //
     // Remove test node.
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
-    $entities = $storage_handler->loadMultiple([$basic_page_id]);
+    $entities = $storage_handler->loadMultiple([$flex_page]);
     $storage_handler->delete($entities);
   }
 
@@ -227,7 +242,7 @@ trait ResourcesTestTrait {
       'title[0][value]' => 'Resource Collection Links Test',
     ];
     // Create Flex Page node.
-    $this->drupalPostForm(NULL, $edit, 'edit-submit');
+    $this->submitForm($edit, 'Save');
     $node = $this->drupalGetNodeByTitle('Resource Collection Links Test');
     // Go to layout tab for node.
     $this->drupalGet('node/' . $node->id() . '/layout');
