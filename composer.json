@@ -68,9 +68,6 @@
     },
     "drupal-scaffold": {
       "file-mapping": {
-        "[web-root]/sites/default/settings.php": {
-          "path": "assets/settings.php"
-        },
         "[web-root]/android-chrome-192x192.png": {
           "path": "assets/android-chrome-192x192.png",
           "overwrite": false
