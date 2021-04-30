@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_help().
@@ -41,4 +42,16 @@ function utexas_media_types_theme() {
 function utexas_media_types_page_attachments(array &$attachments) {
   // Resolve issue in https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1395.
   $attachments['#attached']['library'][] = 'utexas_media_types/media-oembed';
+}
+
+function utexas_media_types_preprocess_media_oembed_iframe(array &$variables) {
+  /** @var \Drupal\media\OEmbed\Resource $resource */
+  $resource = $variables['resource'];
+  $media = $variables['media'];
+  $html_dom = Html::load($media);
+  $iframes = $html_dom->getElementsByTagName('iframe');
+  foreach ($iframes as $iframe) {
+    $iframe->setAttribute('title', $resource->getProvider()->getName() . ' content: ' . $resource->getTitle());
+  }
+  $variables['media'] = Html::serialize($html_dom);
 }

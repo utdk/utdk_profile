@@ -147,6 +147,11 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
 
+    // Confirm that the inner iframe has a title attribute.
+    // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
+    $inner_frame = 'frames[0].document.querySelector("iframe")';
+    $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
+
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();
