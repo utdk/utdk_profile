@@ -108,6 +108,7 @@ filters:
     weight: -44
     settings:
       tablesaw_type: stack
+      tablesaw_persist: true
   media_embed:
     id: media_embed
     provider: media
@@ -115,5 +116,5 @@ filters:
     weight: -40
     settings:
       default_view_mode: default
-      allowed_media_types: {  }
       allowed_view_modes: {  }
+      allowed_media_types: {  }
