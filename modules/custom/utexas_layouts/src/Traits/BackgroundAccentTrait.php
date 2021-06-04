@@ -52,7 +52,7 @@ trait BackgroundAccentTrait {
   public function submitBackgroundConfigurationForm(array &$form, FormStateInterface $form_state) {
     $wrapper = $form_state->getValue('background-accent-wrapper');
     if (!empty($wrapper['background-accent'])) {
-      $this->configuration['background-accent'] = $wrapper['background-accent']['media_library_selection'];
+      $this->configuration['background-accent'] = $wrapper['background-accent'];
     }
     else {
       // There is no image.
