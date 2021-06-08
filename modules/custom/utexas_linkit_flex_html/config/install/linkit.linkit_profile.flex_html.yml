@@ -28,3 +28,13 @@ matchers:
     id: front_page
     weight: 0
     settings: {  }
+  2a34b9b3-7239-4a8b-be42-f8893fc9ad50:
+    uuid: 2a34b9b3-7239-4a8b-be42-f8893fc9ad50
+    id: 'entity:media'
+    weight: 0
+    settings:
+      metadata: '[media:field_media_file:entity:size]'
+      bundles: {  }
+      group_by_bundle: false
+      substitution_type: media
+      limit: 100

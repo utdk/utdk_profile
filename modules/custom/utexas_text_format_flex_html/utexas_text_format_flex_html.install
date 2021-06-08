@@ -31,3 +31,12 @@ function utexas_text_format_flex_html_update_8103() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #982: Allow additional HTML attributes on <a> tag related to Document media type.
+ */
+function utexas_text_format_flex_html_update_8104() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

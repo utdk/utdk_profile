@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for the UTexas Media Types module.
+ */
+
+/**
+ * Issue #982: Add utexas_document media type.
+ */
+function utexas_media_types_update_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_media_types',
+  ], TRUE);
+}

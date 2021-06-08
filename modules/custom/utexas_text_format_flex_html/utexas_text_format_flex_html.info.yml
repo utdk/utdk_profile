@@ -1,18 +1,17 @@
 name: 'UTexas Text Format Flex HTML'
 type: module
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: '^8.9 || ^9'
 version: 8.x-1.0
 package: UTexas
 dependencies:
-  - ckeditor
-  - editor
-  - filter
-  - iframe_title_filter
-  - linkit
-  - media
-  - pathologic
-  - responsive_tables_filter
-  - utexas_linkit_flex_html
-  - utexas_qualtrics_filter
+  - 'drupal:ckeditor'
+  - 'drupal:editor'
+  - 'drupal:filter'
+  - 'drupal:media'
+  - 'iframe_title_filter:iframe_title_filter'
+  - 'linkit:linkit'
+  - 'pathologic:pathologic'
+  - 'responsive_tables_filter:responsive_tables_filter'
+  - 'utexas_linkit_flex_html:utexas_linkit_flex_html'
+  - 'utexas_qualtrics_filter:utexas_qualtrics_filter'
 core_incompatible: false
