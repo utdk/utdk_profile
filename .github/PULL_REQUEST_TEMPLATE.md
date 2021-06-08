@@ -8,8 +8,8 @@ Fixes #
 - [ ] I considered whether this change accommodates new and existing sites
 
 ## Callouts
-- [ ] This change requires a companion migration task: #
-- [ ] This change has a companion documentation task: #
+- [ ] This change requires a companion migration task:
+- [ ] This change has a companion documentation task:
 - [ ] Combo change (requires changes from another repo):
 
 ## Reference: running tests locally
