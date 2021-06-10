@@ -61,7 +61,8 @@
       "drupal/core": {
         "Fix issue with CKEditor image align center": "https://drupalkit.its.utexas.edu/patches/1480-ckeditor-align.patch",
         "Fix minimum MariaDb version for Pantheon": "https://drupalkit.its.utexas.edu/patches/1494-mariadb-version.patch",
-        "Impossible to update inline blocks after reverting to a previous revision": "https://drupalkit.its.utexas.edu/patches/1122-layout-builder-revert.patch"
+        "Impossible to update inline blocks after reverting to a previous revision": "https://drupalkit.its.utexas.edu/patches/1122-layout-builder-revert.patch",
+        "Improve performance of functional tests by caching Drupal installations": "https://www.drupal.org/files/issues/2021-02-16/2900208-33.patch"
       },
       "drupal/linkit": {
         "LinkIt-style autocomplete affects multiple adjacent link fields": "https://drupalkit.its.utexas.edu/patches/1106-linkit-multiple-autocomplete.patch"

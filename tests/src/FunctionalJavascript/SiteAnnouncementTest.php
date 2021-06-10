@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
@@ -44,13 +45,12 @@ class SiteAnnouncementTest extends WebDriverTestBase {
    * Privileged users can create, edit, & delete site announcements.
    */
   public function testIcons() {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
     $this->getSession()->resizeWindow(1200, 2000);
     $session = $this->getSession();
     $web_assert = $this->assertSession();
     $page = $session->getPage();
-
-    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    $file_system = \Drupal::service('file_system');
 
     $account = $this->drupalCreateUser([
       'administer site configuration',
@@ -177,6 +177,18 @@ class SiteAnnouncementTest extends WebDriverTestBase {
    * Test the announcement creation functionality.
    */
   public function testSiteAnnouncementCreation() {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+    // Create default announcement icons.
+    $filedir = 'public://announcement_icons/';
+    $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+    $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
+    $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
+    foreach ($default_icons as $key => $value) {
+      $uri = $value->uri;
+      $file = file_get_contents($uri);
+      $file_system->saveData($file, $filedir . $value->filename);
+    }
     $this->getSession()->resizeWindow(1200, 2000);
     $web_assert = $this->assertSession();
     // Create a test node.

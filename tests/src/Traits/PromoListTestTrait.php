@@ -57,6 +57,7 @@ trait PromoListTestTrait {
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
     }
+    $session->wait(3000);
     $this->clickLink('Show row weights');
 
     $page->fillField('edit-info-0-value', $block_name);
@@ -166,39 +167,10 @@ trait PromoListTestTrait {
     // Verify page output.
     $assert->elementExists('css', 'div.stacked-display > div.utexas-promo-list-container > div.ut-promo-list-wrapper');
 
-    // CRUD: UPDATE.
+    // Re-set row weight for subsequent tests.
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();
     $this->clickLink('Hide row weights');
-    // Add a third item.
-    $page->pressButton('Add Promo List item');
-    $this->assertNotEmpty($assert->waitForText('Promo List item 3'));
-    // Expand collapsed instances.
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
-    foreach ($fieldsets as $fieldset) {
-      $fieldset->click();
-    }
-
-    // Clear out the data for item 2; add item 3.
-    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', '');
-    $page->pressButton('image-0-media-library-remove-button-field_block_pl-0-promo_list_items-items-1-details-item');
-    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][copy][value]', '');
-    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][link][uri]', '');
-    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][link][options][attributes][class]', '0');
-    $page->uncheckField('field_block_pl[0][promo_list_items][items][1][details][item][link][options][attributes][target][_blank]');
-    $page->fillField('field_block_pl[0][promo_list_items][items][2][details][item][headline]', 'Promo List 3 Headline');
-    $page->pressButton('edit-submit');
-
-    $this->drupalGet('admin/content/block-content');
-    $page->findLink($block_name)->click();
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
-    foreach ($fieldsets as $fieldset) {
-      $fieldset->click();
-    }
-    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
-    $assert->fieldValueEquals('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'Promo List 3 Headline');
-    // Verify data for removed item is not present.
-    $assert->pageTextNotContains('Promo List 1 Headline');
 
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');
@@ -213,6 +185,72 @@ trait PromoListTestTrait {
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$flex_page]);
     $storage_handler->delete($entities);
+  }
+
+  /**
+   * Verify multiple Promo List items work as expected.
+   */
+  public function verifyPromoListMultiple() {
+    $assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
+
+    // CRUD: CREATE.
+    $block_type = 'Promo List';
+    $block_name = $block_type . 'Test';
+    $this->drupalGet('admin/content/block-content');
+    $this->clickLink('Add custom block');
+    $this->clickLink($block_type);
+
+    // Verify the custom "Add Promo List item" button works.
+    $page->pressButton('Add Promo List item');
+    $this->assertNotEmpty($assert->waitForText('Promo List item 2'));
+    $page->pressButton('Add Promo List item');
+    $this->assertNotEmpty($assert->waitForText('Promo List item 3'));
+
+    // Multiple list items can be added.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+
+    $page->fillField('edit-info-0-value', $block_name);
+    $page->fillField('field_block_pl[0][headline]', 'Promo List 1 Headline');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
+    $page->fillField('field_block_pl[0][promo_list_items][items][2][details][item][headline]', 'List 1 item 3');
+    $page->pressButton('edit-submit');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been created.');
+
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
+    $assert->fieldValueEquals('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 3');
+
+    // Clear out the data for item 2.
+    $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', '');
+    $page->pressButton('edit-submit');
+
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-promo-list details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    $assert->pageTextNotContains('List 1 item 3');
+
+    // CRUD: DELETE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains($block_name);
+
   }
 
 }

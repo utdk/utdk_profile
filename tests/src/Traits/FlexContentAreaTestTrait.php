@@ -8,7 +8,7 @@ namespace Drupal\Tests\utexas\Traits;
 trait FlexContentAreaTestTrait {
 
   /**
-   * Test schema.
+   * Comprehensively verify Flex Content Area behavior.
    */
   public function verifyFlexContentArea() {
     $assert = $this->assertSession();
@@ -148,58 +148,6 @@ trait FlexContentAreaTestTrait {
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .link-list');
     $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .image-wrapper');
 
-    // CRUD: UPDATE.
-    $this->drupalGet('admin/content/block-content');
-    $page->findLink($block_name)->click();
-    // Expand collapsed instances.
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
-    $fieldsets[0]->click();
-
-    // Remove data for the second link
-    // (#1121: Verify links can be removed without loss of data.)
-    $page->fillField('field_block_fca[0][flex_content_area][links][1][uri]', '');
-    $page->fillField('field_block_fca[0][flex_content_area][links][1][title]', '');
-    $page->pressButton('edit-submit');
-
-    // Return to the block.
-    $this->drupalGet('admin/content/block-content');
-    $page->findLink($block_name)->click();
-    // Expand collapsed instances.
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
-    $fieldsets[0]->click();
-    // Confirm second link has data from third link previously created.
-    $assert->fieldValueEquals('field_block_fca[0][flex_content_area][links][1][title]', 'Flex Content Area Third Link');
-    $assert->fieldValueEquals('field_block_fca[0][flex_content_area][links][1][uri]', 'https://third.test');
-    // Verify data for removed link is not present.
-    $assert->pageTextNotContains('https://second.test');
-    $page->pressButton('edit-submit');
-
-    // Verify Flex Content Area items can be removed.
-    $this->drupalGet('admin/content/block-content');
-    $page->findLink($block_name)->click();
-    // Expand collapsed instances.
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
-    $fieldsets[1]->click();
-    $fieldsets[2]->click();
-    // Clear out the data for item 2.
-    $page->fillField('field_block_fca[1][flex_content_area][headline]', '');
-    $page->fillField('field_block_fca[1][flex_content_area][copy][value]', '');
-    $page->fillField('field_block_fca[1][flex_content_area][links][0][uri]', '');
-    $page->fillField('field_block_fca[1][flex_content_area][links][0][title]', '');
-    $page->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][uri]', '');
-    $page->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][title]', '');
-    $page->pressButton('edit-submit');
-    $this->drupalGet('admin/content/block-content');
-    $page->findLink($block_name)->click();
-    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
-    foreach ($fieldsets as $fieldset) {
-      $fieldset->click();
-    }
-    // Verify data for item entered in slot 3 is deposited in the empty slot 2.
-    $assert->fieldValueEquals('field_block_fca[1][flex_content_area][headline]', 'Flex Content Area Headline 3');
-    // Verify data for removed item is not present.
-    $assert->pageTextNotContains('Flex Content Area Headline 2');
-
     // Test rendering of YouTube video.
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();
@@ -241,6 +189,76 @@ trait FlexContentAreaTestTrait {
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
     $entities = $storage_handler->loadMultiple([$flex_page]);
     $storage_handler->delete($entities);
+  }
+
+  /**
+   * Verify multiple FCAs work as designed.
+   */
+  public function verifyFlexContentAreaMultiple() {
+    $assert = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $session = $this->getSession();
+
+    // CRUD: CREATE.
+    $block_type = 'Flex Content Area';
+    $block_name = $block_type . 'Test';
+    $this->drupalGet('admin/content/block-content');
+    $this->clickLink('Add custom block');
+    $this->clickLink($block_type);
+    $page->pressButton('Add another item');
+    $session->wait(3000);
+    $page->pressButton('Add another item');
+    $session->wait(3000);
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+
+    $page->fillField('edit-info-0-value', $block_name);
+    $one = 'field_block_fca[0][flex_content_area]';
+    $two = 'field_block_fca[1][flex_content_area]';
+    $three = 'field_block_fca[2][flex_content_area]';
+    $page->fillField($one . '[headline]', 'Flex Content Area Headline 1');
+    // Leave the second FCA blank and put something in the third.
+    $page->fillField($three . '[headline]', 'Flex Content Area Headline 3');
+
+    $page->pressButton('edit-submit');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been created.');
+
+    // CRUD: UPDATE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    $assert->fieldValueEquals($two . '[headline]', 'Flex Content Area Headline 3');
+
+    // Verify Flex Content Area items can be removed.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    // Expand collapsed instances.
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    $fieldsets[1]->click();
+    // Clear out the data for item 2.
+    $page->fillField($two . '[headline]', '');
+    $page->pressButton('edit-submit');
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    foreach ($fieldsets as $fieldset) {
+      $fieldset->click();
+    }
+    // Verify data for removed item is not present.
+    $assert->pageTextNotContains('Flex Content Area Headline 3');
+
+    // CRUD: DELETE.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $page->clickLink('Delete');
+    $page->pressButton('Delete');
+    $this->drupalGet('admin/structure/block/block-content');
+    $assert->pageTextNotContains($block_name);
   }
 
 }

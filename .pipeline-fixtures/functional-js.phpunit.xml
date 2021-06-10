@@ -17,6 +17,7 @@
     <env name="MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless",  "--disable-dev-shm-usage", "--no-sandbox"]}}, "http://localhost:9515"]'/>
     <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--disable-dev-shm-usage", "--no-sandbox"]}}, "http://localhost:9515"]'/>
     <env name="MINK_DRIVER_CLASS" value="Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver"/>
+    <env name="BROWSERTEST_CACHE_DB" value="1"/>
   </php>
   <testsuites>
     <testsuite name="unit">

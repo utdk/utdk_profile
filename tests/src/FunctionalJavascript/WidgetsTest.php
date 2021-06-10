@@ -101,13 +101,16 @@ class WidgetsTest extends WebDriverTestBase {
     $this->verifyResourceCollectionLinks();
     $this->verifyResources();
     $this->verifyPromoList();
+    $this->verifyPromoListMultiple();
     $this->verifyPromoUnit();
+    $this->verifyPromoUnitMultiple();
     $this->verifyNoDuplicateMenuBlocks();
     $this->verifyImageLink();
     $this->verifyQuickLinks();
     $this->verifyFeaturedHighlight();
     $this->verifyHero();
     $this->verifyFlexContentArea();
+    $this->verifyFlexContentAreaMultiple();
     $this->verifyPhotoContentArea();
   }
 
