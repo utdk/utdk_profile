@@ -40,3 +40,12 @@ function utexas_text_format_flex_html_update_8104() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #1225: Enable url_embed plugin.
+ */
+function utexas_text_format_flex_html_update_8105() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

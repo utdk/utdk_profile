@@ -61,6 +61,7 @@ install:
   - drupal:seckit
   - drupal:svg_upload_sanitizer
   - drupal:twitter_profile_widget
+  - drupal:url_embed
   - drupal:xmlsitemap
   # Custom
   - utexas_beacon

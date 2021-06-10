@@ -331,3 +331,13 @@ function utexas_update_8116() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Enable URL embed on existing sites.
+ */
+function utexas_update_8117() {
+  $module = 'url_embed';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

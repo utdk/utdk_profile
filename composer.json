@@ -49,6 +49,7 @@
     "drupal/schema_metatag": "2.1.0",
     "drupal/svg_upload_sanitizer": "1.1.0",
     "drupal/twitter_profile_widget": "3.0.1",
+    "drupal/url_embed": "1.0-beta1",
     "drupal/xmlsitemap": "1.0.0",
     "utexas/forty_acres": "3.0.0",
     "utexas/utexas_qualtrics_filter": "3.0.0"
@@ -66,6 +67,9 @@
       },
       "drupal/linkit": {
         "LinkIt-style autocomplete affects multiple adjacent link fields": "https://drupalkit.its.utexas.edu/patches/1106-linkit-multiple-autocomplete.patch"
+      },
+      "drupal/url_embed": {
+        "Add option to make embeds responsive": "https://drupalkit.its.utexas.edu/patches/1225-url-embed-responsive.patch"
       }
     },
     "drupal-scaffold": {
