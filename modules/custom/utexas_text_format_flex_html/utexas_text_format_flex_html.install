@@ -49,3 +49,13 @@ function utexas_text_format_flex_html_update_8105() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+
+/**
+ * Issue #1625: Select between predefined image sizes when embedding media library images in WYSIWYGs.
+ */
+function utexas_text_format_flex_html_update_8106() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

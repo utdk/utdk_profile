@@ -13,3 +13,12 @@ function utexas_media_types_update_8101() {
     'utexas_media_types',
   ], TRUE);
 }
+
+/**
+ * Issue #1625: Select between predefined image sizes when embedding media library images in WYSIWYGs.
+ */
+function utexas_media_types_update_8102() {
+  \Drupal::service('features.manager')->import([
+    'utexas_media_types',
+  ], TRUE);
+}
