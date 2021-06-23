@@ -22,8 +22,8 @@ pipeline {
                                     /etc/init.d/mysql restart
                                 '''
                             }
-                            docker.image('circleci/php:7.3-apache-node-browsers').withRun('') { wc ->
-                                docker.image('circleci/php:7.3-apache-node-browsers').inside("--link ${dbc.id}:utdk_db -u root") {
+                            docker.image('circleci/php:7.4-apache-node-browsers').withRun('') { wc ->
+                                docker.image('circleci/php:7.4-apache-node-browsers').inside("--link ${dbc.id}:utdk_db -u root") {
                                     /*
                                      * Set-up web container and run tests.
                                      * Apt-get update first.

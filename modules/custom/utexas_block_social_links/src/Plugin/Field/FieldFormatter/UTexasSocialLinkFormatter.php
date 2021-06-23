@@ -56,6 +56,7 @@ class UTexasSocialLinkFormatter extends FormatterBase {
       }
 
       // Add class to the item.attributes object.
+      $elements['#items'][$delta] = new \stdClass();
       $elements['#items'][$delta]->_attributes['class'][] = 'block__ut-social-links--item';
 
       if ($item->headline) {
