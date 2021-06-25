@@ -341,3 +341,13 @@ function utexas_update_8117() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Add Flex list on existing sites.
+ */
+function utexas_update_8118() {
+  $module = 'utexas_flex_list';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

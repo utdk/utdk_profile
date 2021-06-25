@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Main module file for 'Flex List' block type.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_flex_list_theme($existing, $type, $theme, $path) {
+  $variables = [
+    'utexas_flex_list' => [
+      'variables' => [
+        'header' => NULL,
+        'heading_level' => NULL,
+        'id' => NULL,
+        'content' => NULL,
+      ],
+      'template' => 'utexas-flex-list',
+    ],
+  ];
+  return $variables;
+}
+
+/**
+ * Modify variables available to the UTexas Flex List template.
+ *
+ * Default template: utexas-flex-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - heading_level: h3, h4, h5.
+ *   - header: The Headline.
+ *   - content: The content field.
+ *   - id: an HTML ID that differentiates this tab group.
+ */
+function template_preprocess_utexas_flex_list(&$variables) {
+  // The following demonstrates overriding the heading level.
+  // $variables['heading_level'] = 'h1';
+}
