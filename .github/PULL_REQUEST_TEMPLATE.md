@@ -1,5 +1,5 @@
 ## Purpose
-Fixes #
+Resolves #
 
 ## Vouches
 - [ ] I reviewed the original issue title & description and updated it, if necessary, to reflect the final state of these changes
