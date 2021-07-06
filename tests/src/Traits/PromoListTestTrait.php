@@ -58,7 +58,7 @@ trait PromoListTestTrait {
       $fieldset->click();
     }
     $session->wait(3000);
-    $this->clickLink('Show row weights');
+    $page->pressButton('Show row weights');
 
     $page->fillField('edit-info-0-value', $block_name);
     $page->fillField('field_block_pl[0][headline]', 'Promo List 1 Headline');
@@ -170,7 +170,7 @@ trait PromoListTestTrait {
     // Re-set row weight for subsequent tests.
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();
-    $this->clickLink('Hide row weights');
+    $page->pressButton('Hide row weights');
 
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');

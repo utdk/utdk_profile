@@ -28,7 +28,7 @@ trait PromoUnitTestTrait {
     // Verify the custom "Add Promo Unit item" button works.
     $page->pressButton('Add Promo Unit item');
     $this->assertNotEmpty($assert->waitForText('Promo Unit item 2'));
-    $this->clickLink('Show row weights');
+    $page->pressButton('Show row weights');
 
     // Expand the fieldsets.
     $session->wait(3000);
@@ -190,7 +190,7 @@ trait PromoUnitTestTrait {
     // Re-set row weight for subsequent tests.
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();
-    $this->clickLink('Hide row weights');
+    $page->pressButton('Hide row weights');
 
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');

@@ -56,7 +56,7 @@ trait ResourcesTestTrait {
     $this->assertNotEmpty($assert->waitForText('Resource collection 2'));
 
     // Expand all Resource collection fieldsets.
-    $this->clickLink('Show row weights');
+    $page->pressButton('Show row weights');
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-resources details');
     foreach ($fieldsets as $fieldset) {
       $fieldset->click();
@@ -216,7 +216,7 @@ trait ResourcesTestTrait {
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();
     // Reset block weighting system for subsequent tests.
-    $this->clickLink('Hide row weights');
+    $page->pressButton('Hide row weights');
     $page->clickLink('Delete');
     $page->pressButton('Delete');
     $this->drupalGet('admin/structure/block/block-content');
