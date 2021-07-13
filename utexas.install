@@ -321,3 +321,33 @@ function utexas_update_8115() {
     $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', ['%role' => $role->label(), '%permission' => $old_permission]));
   }
 }
+
+/**
+ * Enable Security Kit on existing sites.
+ */
+function utexas_update_8116() {
+  $module = 'seckit';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Enable URL embed on existing sites.
+ */
+function utexas_update_8117() {
+  $module = 'url_embed';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Add Flex list on existing sites.
+ */
+function utexas_update_8118() {
+  $module = 'utexas_flex_list';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

@@ -1,6 +1,10 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - core.entity_view_mode.media.utexas_large
+    - core.entity_view_mode.media.utexas_medium
+    - core.entity_view_mode.media.utexas_thumbnail
   module:
     - editor
     - iframe_title_filter
@@ -8,6 +12,7 @@ dependencies:
     - media
     - pathologic
     - responsive_tables_filter
+    - url_embed
     - utexas_qualtrics_filter
 name: 'Flex HTML'
 format: flex_html
@@ -19,7 +24,7 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<a href hreflang class id role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-toggle data-slide media rel target> <abbr title class id role> <address class id role> <article class id role> <aside class id role> <audio class id role autoplay buffered controls loop muted preload src volume> <blockquote class id role> <br class id role> <button type class id role aria-label aria-expanded aria-controls aria-haspopup data-toggle data-target data-dismiss data-placement data-container> <caption class id role> <cite title class id role> <code class id role> <col class id role> <colgroup class id role> <del class id role> <details class id role> <dl class id role> <dt class id role> <dd class id role> <div role class id aria-label aria-labelledby aria-hidden data-ride data-dismiss data-toggle data-parent data-spy data-offset data-target tabindex> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <em class id role> <figure class id role> <figcaption class id role> <footer class id role> <header class id role> <hr class id role> <h1 class id role> <h2 class id role> <h3 class id role> <h4 class id role> <h5 class id role> <h6 class id role> <img alt height width align class id role src data-entity-type data-entity-uuid data-align data-caption title> <i class id role> <li role class id aria-controls aria-current data-slide-to data-target> <mark class id role> <nav class id role aria-label> <ol class id role aria-labelledby start type> <p class id role> <pre class id role> <rowspan class id role> <section class id role> <small class id role> <span class id role aria-hidden> <source src type> <strike class id role> <strong class id role> <sub class id role> <summary class id role> <sup class id role> <table class id role title> <tbody class id role> <td class id role colspan headers title> <tfoot class id role> <th colspan headers scope class id role> <thead class id role> <time class id role> <tr class id role> <track src sclang label default> <u class id role> <ul class id role background bgcolor aria-labelledby> <video width height controls autoplay buffered loop muted playsinline poster preload src>'
+      allowed_html: '<a href hreflang class id role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target> <abbr title class id role> <address class id role> <article class id role> <aside class id role> <audio class id role autoplay buffered controls loop muted preload src volume> <blockquote class id role> <br class id role> <button type class id role aria-label aria-expanded aria-controls aria-haspopup data-toggle data-target data-dismiss data-placement data-container title> <caption class id role> <cite title class id role> <code class id role> <col class id role> <colgroup class id role> <del class id role> <details class id role> <dl class id role> <dt class id role> <dd class id role> <div role class id aria-label aria-labelledby aria-hidden data-ride data-dismiss data-toggle data-parent data-spy data-offset data-target tabindex> <drupal-url data-*> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <em class id role> <figure class id role> <figcaption class id role> <footer class id role> <header class id role> <hr class id role> <h1 class id role> <h2 class id role> <h3 class id role> <h4 class id role> <h5 class id role> <h6 class id role> <img alt height width align class id role src data-entity-type data-entity-uuid data-align data-caption title> <i class id role> <li role class id aria-controls aria-current data-slide-to data-target> <mark class id role> <nav class id role aria-label> <ol class id role aria-labelledby start type> <p class id role> <pre class id role> <rowspan class id role> <section class id role> <small class id role> <span class id role aria-hidden> <source src type> <strike class id role> <strong class id role> <sub class id role> <summary class id role> <sup class id role> <table class id role title> <tbody class id role> <td class id role colspan headers title> <tfoot class id role> <th colspan headers scope class id role> <thead class id role> <time class id role> <tr class id role> <track src sclang label default> <u class id role> <ul class id role background bgcolor aria-labelledby> <video width height controls autoplay buffered loop muted playsinline poster preload src>'
       filter_html_help: false
       filter_html_nofollow: false
   filter_align:
@@ -51,7 +56,7 @@ filters:
     id: filter_autop
     provider: filter
     status: false
-    weight: -37
+    weight: -36
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
@@ -63,13 +68,13 @@ filters:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -38
+    weight: -37
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -36
+    weight: -35
     settings: {  }
   filter_qualtrics:
     id: filter_qualtrics
@@ -89,7 +94,7 @@ filters:
     id: filter_iframe_title
     provider: iframe_title_filter
     status: true
-    weight: -39
+    weight: -38
     settings: {  }
   filter_pathologic:
     id: filter_pathologic
@@ -108,7 +113,7 @@ filters:
     weight: -44
     settings:
       tablesaw_type: stack
-      tablesaw_persist: true
+      tablesaw_persist: '1'
   media_embed:
     id: media_embed
     provider: media
@@ -116,5 +121,23 @@ filters:
     weight: -40
     settings:
       default_view_mode: default
-      allowed_view_modes: {  }
       allowed_media_types: {  }
+      allowed_view_modes:
+        default: default
+        utexas_large: utexas_large
+        utexas_medium: utexas_medium
+        utexas_thumbnail: utexas_thumbnail
+  url_embed:
+    id: url_embed
+    provider: url_embed
+    status: true
+    weight: -39
+    settings:
+      enable_responsive: '1'
+  url_embed_convert_links:
+    id: url_embed_convert_links
+    provider: url_embed
+    status: false
+    weight: -34
+    settings:
+      url_prefix: ''

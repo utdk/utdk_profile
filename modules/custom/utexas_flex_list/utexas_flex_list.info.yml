@@ -1,0 +1,11 @@
+name: 'Flex List'
+description: 'Provides a multipurpose block type that allows content editors to create a list of items with consistently formatted headings for each item.'
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+dependencies:
+  - block_content
+  - field
+  - text
+package: UTexas
+core_incompatible: false

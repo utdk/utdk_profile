@@ -3,7 +3,7 @@ type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
 core: 8.x
 core_version_requirement: ^8 || ^9
-version: '3.0.0'
+version: '3.1.0'
 distribution:
   name: UTexas
 dependencies:
@@ -58,8 +58,10 @@ install:
   - drupal:redirect
   - drupal:responsive_tables_filter
   - drupal:role_delegation
+  - drupal:seckit
   - drupal:svg_upload_sanitizer
   - drupal:twitter_profile_widget
+  - drupal:url_embed
   - drupal:xmlsitemap
   # Custom
   - utexas_beacon
@@ -71,6 +73,7 @@ install:
   - utexas_favicons
   - utexas_featured_highlight
   - utexas_flex_content_area
+  - utexas_flex_list
   - utexas_hero
   - utexas_image_link
   - utexas_layouts

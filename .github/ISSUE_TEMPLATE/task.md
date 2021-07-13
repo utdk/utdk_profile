@@ -5,15 +5,7 @@ labels: 'task'
 
 ---
 
-**Describe the task**
-<!-- A clear and concise description of what needs to happen.-->
+### Short description
+<!-- Limit to 1-2 sentences -->
 
-
-
-**Additional context**
-<!-- Add any other context or screenshots about the feature request here.-->
-
-
-
-**Other repositories involved**
-<!-- List any other repositories that are connected to this issue.-->
+### Additional explanation

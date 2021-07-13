@@ -8,6 +8,7 @@ use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\FlexContentAreaTestTrait;
 use Drupal\Tests\utexas\Traits\FlexPageRevisionsTestTrait;
+use Drupal\Tests\utexas\Traits\FlexListTestTrait;
 use Drupal\Tests\utexas\Traits\FeaturedHighlightTestTrait;
 use Drupal\Tests\utexas\Traits\HeroTestTrait;
 use Drupal\Tests\utexas\Traits\ImageLinkTestTrait;
@@ -30,6 +31,7 @@ class WidgetsTest extends WebDriverTestBase {
   use EntityTestTrait;
   use FlexContentAreaTestTrait;
   use FlexPageRevisionsTestTrait;
+  use FlexListTestTrait;
   use FeaturedHighlightTestTrait;
   use HeroTestTrait;
   use ImageFieldCreationTrait;
@@ -97,17 +99,21 @@ class WidgetsTest extends WebDriverTestBase {
   public function testCustomWidgets() {
     $this->getSession()->getPage();
     $this->getSession()->resizeWindow(1200, 5000);
+    $this->verifyFlexList();
     $this->verifyRevisioning();
     $this->verifyResourceCollectionLinks();
     $this->verifyResources();
     $this->verifyPromoList();
+    $this->verifyPromoListMultiple();
     $this->verifyPromoUnit();
+    $this->verifyPromoUnitMultiple();
     $this->verifyNoDuplicateMenuBlocks();
     $this->verifyImageLink();
     $this->verifyQuickLinks();
     $this->verifyFeaturedHighlight();
     $this->verifyHero();
     $this->verifyFlexContentArea();
+    $this->verifyFlexContentAreaMultiple();
     $this->verifyPhotoContentArea();
   }
 

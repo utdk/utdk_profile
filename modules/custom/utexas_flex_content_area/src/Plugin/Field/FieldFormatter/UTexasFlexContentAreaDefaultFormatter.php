@@ -139,7 +139,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = [];
+    $elements = [
+      '#items' => [],
+    ];
     $responsive_image_style_name = 'utexas_responsive_image_fca';
     // Collect cache tags to be added for each item in the field.
     $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style_name);
@@ -208,6 +210,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       ];
 
       // Add class to the item.attributes object.
+      $elements['#items'][$delta] = new \stdClass();
       $elements['#items'][$delta]->_attributes['class'][] = 'ut-flex-content-area';
     }
     $elements['#attributes']['class'][] = 'ut-flex-content-area-wrapper';

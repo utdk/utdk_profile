@@ -5,32 +5,13 @@ labels: 'bug'
 
 ---
 
-**Describe the bug**
-<!-- A clear and concise description of what the bug is.-->
+### Short description
+<!-- Limit to 1-2 sentence summary -->
 
+### Additional information & expected behavior
 
-
-**To Reproduce**
-<!--Steps to reproduce the behavior:-->
-<!--1. Go to '...'-->
-<!--2. Click on '....'-->
-<!--3. Scroll down to '....'-->
-<!--4. See error-->
-
-**Expected behavior**
-<!--  A clear and concise description of what you expected to happen.-->
-
-
-
-**Other repositories involved**
-<!--  List any other repositories that are connected to this issue.-->
-
-
-
-**Screenshots**
-<!--  If applicable, add screenshots to help explain your problem.-->
-
-
-
-**Additional context**
-<!--  Add any other context about the problem here.-->
+### Steps to reproduce
+1.
+1.
+1.
+1.

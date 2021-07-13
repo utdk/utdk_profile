@@ -150,7 +150,7 @@ trait FeaturedHighlightTestTrait {
     // Confirm that the inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
-    $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
+    $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
 
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');

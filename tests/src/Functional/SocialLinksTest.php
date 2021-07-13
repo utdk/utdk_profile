@@ -2,13 +2,14 @@
 
 namespace Drupal\Tests\utexas\Functional;
 
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\image\Kernel\ImageFieldCreationTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Core\Render\Markup;
 
 /**
  * Verifies Social Links field schema & validation.
@@ -59,6 +60,18 @@ class SocialLinksTest extends BrowserTestBase {
    * Test schema.
    */
   public function testSocialLinks() {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    $file_system = \Drupal::service('file_system');
+    $filedir = 'public://social_icons/';
+    $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
+    $dir = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
+    $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
+    foreach ($default_icons as $key => $value) {
+      $uri = $value->uri;
+      $file = file_get_contents($uri);
+      $file_system->saveData($file, $filedir . $value->filename);
+    }
+
     $assert = $this->assertSession();
     // 1. Verify a user has access to the block type.
     $this->assertAllowed("/block/add/social_links");

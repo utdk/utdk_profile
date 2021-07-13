@@ -39,6 +39,7 @@ settings:
           name: Media
           items:
             - DrupalMediaLibrary
+            - url
             - Blockquote
             - Table
         -
