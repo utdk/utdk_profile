@@ -31,10 +31,12 @@ dependencies:
 install:
   # Core
   - drupal:automated_cron
+  - drupal:content_moderation
   - drupal:dblog
   - drupal:dynamic_page_cache
   - drupal:inline_form_errors
   - drupal:page_cache
+  - drupal:workflows
   # Contrib
   - drupal:addtoany
   - drupal:admin_toolbar_links_access_filter

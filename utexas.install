@@ -351,3 +351,14 @@ function utexas_update_8118() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Add core modules Workflows and Content Moderation on existing sites. (fixes #931)
+ */
+function utexas_update_8119() {
+  $modules = [
+    'content_moderation',
+    'workflows',
+  ];
+  \Drupal::service('module_installer')->install($modules);
+}

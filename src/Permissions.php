@@ -91,6 +91,7 @@ class Permissions {
     'use text format restricted_html',
     'view all media revisions',
     'view all revisions',
+    'view any unpublished content',
     'view article revisions',
     'view own unpublished content',
     'view own unpublished media',
