@@ -1,0 +1,4 @@
+services:
+  utexas_media_types.transliterate_name:
+    class: Drupal\utexas_media_types\TransliterateName
+    arguments: ['@transliteration']

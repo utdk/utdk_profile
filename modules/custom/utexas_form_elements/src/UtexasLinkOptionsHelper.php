@@ -114,7 +114,7 @@ class UtexasLinkOptionsHelper {
     }
 
     // Get the link url.
-    $link_url = Url::fromUri($item['link']['uri']);
+    $link_url = Url::fromUri(rawurldecode($item['link']['uri']));
 
     // Override the link title text if need be.
     if ($link_title_override) {
@@ -128,7 +128,7 @@ class UtexasLinkOptionsHelper {
     if (empty($link_title)) {
       $url = Url::fromUri($item['link']['uri']);
       $url->setAbsolute();
-      $link_title = $url->toString();
+      $link_title = rawurldecode($url->toString());
     }
 
     // Note that $link_options['attributes']['class'] may only hold one value

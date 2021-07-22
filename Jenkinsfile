@@ -102,6 +102,7 @@ pipeline {
                                                 ## Run tests...
                                                 su -s /bin/bash -c 'BROWSERTEST_CACHE_DB=1 /var/www/utdk_scaffold/vendor/bin/phpunit -c $WORKSPACE/.pipeline-fixtures/functional-js.phpunit.xml --stop-on-failure --testsuite=functional-javascript --verbose --debug --group=utexas' www-data
                                                 su -s /bin/bash -c 'BROWSERTEST_CACHE_DB=1 /var/www/utdk_scaffold/vendor/bin/phpunit -c /var/www/utdk_scaffold/web/core/phpunit.xml.dist --stop-on-failure --testsuite=functional --verbose --debug --group=utexas' www-data
+                                                su -s /bin/bash -c 'BROWSERTEST_CACHE_DB=1 /var/www/utdk_scaffold/vendor/bin/phpunit -c /var/www/utdk_scaffold/web/core/phpunit.xml.dist --stop-on-failure --testsuite=unit --verbose --debug --group=utexas' www-data
 
                                                 ### Debug steps ###
                                                 ### Uncomment lines 97 - 112 to help ensure environment and site are working as expected.

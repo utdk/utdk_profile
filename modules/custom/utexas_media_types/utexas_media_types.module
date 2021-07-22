@@ -7,6 +7,7 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\file\FileInterface;
 
 /**
  * Implements hook_help().
@@ -54,4 +55,21 @@ function utexas_media_types_preprocess_media_oembed_iframe(array &$variables) {
     $iframe->setAttribute('title', $resource->getProvider()->getName() . ' content: ' . $resource->getTitle());
   }
   $variables['media'] = Html::serialize($html_dom);
+}
+
+/**
+ * Implements hook_file_validate().
+ */
+function utexas_media_types_file_validate(FileInterface $file) {
+  $basename = \Drupal::service('file_system')->basename($file->destination);
+  $basename = utexas_media_types_transliteration($basename);
+  $dirname = \Drupal::service('file_system')->dirname($file->destination);
+  $file->destination = \Drupal::service('file_system')->createFilename($basename, $dirname);
+}
+
+/**
+ * Implements callback for hook_file_validate().
+ */
+function utexas_media_types_transliteration($filename) {
+  return \Drupal::service('utexas_media_types.transliterate_name')->transliterateFilename($filename);
 }
