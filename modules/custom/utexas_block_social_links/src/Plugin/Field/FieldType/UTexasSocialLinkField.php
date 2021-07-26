@@ -32,6 +32,9 @@ class UTexasSocialLinkField extends FieldItemBase {
     $properties['headline'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Headline'))
       ->setSetting('case_sensitive', TRUE);
+    $properties['icon_size'] = DataDefinition::create('string')
+      ->setLabel(new TranslatableMarkup('Icon Size'))
+      ->setSetting('case_sensitive', TRUE);
     $properties['social_account_links'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Social Links Data'))
       ->setSetting('case_sensitive', TRUE)
@@ -46,6 +49,11 @@ class UTexasSocialLinkField extends FieldItemBase {
     $schema = [
       'columns' => [
         'headline' => [
+          'type' => 'varchar_ascii',
+          'length' => 255,
+          'binary' => TRUE,
+        ],
+        'icon_size' => [
           'type' => 'varchar_ascii',
           'length' => 255,
           'binary' => TRUE,
@@ -67,6 +75,7 @@ class UTexasSocialLinkField extends FieldItemBase {
     $random = new Random();
     $options = UTexasSocialLinkOptions::getOptionsArray();
     $values['headline'] = $random->word(3);
+    $values['icon_size'] = 'medium';
     $values['social_account_links'] = serialize([
       [
         'social_account_name' => array_rand($options),

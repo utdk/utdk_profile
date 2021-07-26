@@ -9,3 +9,6 @@ form svg {
 .field--type-utexas-social-link-field .form-item input[value="Add social link item"] {
   margin-top: 1em;
 }
+.field--type-utexas-social-link-field .form-item.form-type--radio {
+  display: block;
+}

@@ -25,13 +25,33 @@ class UTexasSocialLinkWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return [
+      'headline' => '',
+      'icon_size' => 'ut-social-links--medium',
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
     $element['headline'] = [
       '#type' => 'textfield',
       '#title' => 'Headline',
       '#description' => $this->t('Provide an optional headline to appear above the icons.'),
-      '#default_value' => $items[$delta]->headline ?? '',
+      '#default_value' => $this->getSetting('headline'),
+    ];
+    $element['icon_size'] = [
+      '#type' => 'radios',
+      '#title' => 'Icon size',
+      '#options' => [
+        'ut-social-links--small' => $this->t('Small (22px)'),
+        'ut-social-links--medium' => $this->t('Medium (40px)'),
+        'ut-social-links--large' => $this->t('Large (80px)'),
+      ],
+      '#default_value' => $this->getSetting('icon_size'),
     ];
 
     // Gather the number of links in the form already.

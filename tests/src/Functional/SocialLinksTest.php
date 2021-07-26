@@ -46,7 +46,7 @@ class SocialLinksTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->utexasSharedSetup();
     parent::setUp();
     $this->drupalLogin($this->drupalCreateUser([
@@ -66,7 +66,7 @@ class SocialLinksTest extends BrowserTestBase {
     $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
     $dir = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
     $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
-    foreach ($default_icons as $key => $value) {
+    foreach (array_values($default_icons) as $value) {
       $uri = $value->uri;
       $file = file_get_contents($uri);
       $file_system->saveData($file, $filedir . $value->filename);
@@ -79,6 +79,9 @@ class SocialLinksTest extends BrowserTestBase {
     $fields = [
       'edit-info-0-value',
       'edit-field-utexas-sl-social-links-0-headline',
+      'edit-field-utexas-sl-social-links-0-icon-size-ut-social-links-small',
+      'edit-field-utexas-sl-social-links-0-icon-size-ut-social-links-medium',
+      'edit-field-utexas-sl-social-links-0-icon-size-ut-social-links-large',
       'edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-name',
       'edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-url',
     ];
@@ -94,7 +97,6 @@ class SocialLinksTest extends BrowserTestBase {
     $available_icons = [
       'facebook',
       'flickr',
-      'googleplus',
       'instagram',
       'linkedin',
       'pinterest',
@@ -170,6 +172,7 @@ class SocialLinksTest extends BrowserTestBase {
     $this->drupalGet("/block/" . $sitewide_social_block_id);
     $edit = [
       'field_utexas_sl_social_links[0][headline]' => 'Headline Test',
+      'field_utexas_sl_social_links[0][icon_size]' => 'ut-social-links--large',
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_name]' => 'test',
       'field_utexas_sl_social_links[0][social_account_links][0][social_account_url]' => "https://testsocial.com",
     ];
@@ -180,6 +183,8 @@ class SocialLinksTest extends BrowserTestBase {
     $this->drupalGet("<front>");
     $this->assertRaw("https://testsocial.com");
     $this->assertRaw("Headline Test");
+    // User-selected icon size is reflected in markup.
+    $assert->elementExists('css', '.block__ut-social-links--items.ut-social-links--large');
     $this->assertRaw('<path d="M6.464 13.676c-.194.194-.513.194-.707 0l-4.96-4.955c-.194-.193-.194-.513 0-.707l1.405-1.407c.194-.195.512-.195.707 0l2.849 2.848c.194.193.513.193.707 0l6.629-6.626c.195-.194.514-.194.707 0l1.404 1.404c.193.194.193.513 0 .707l-8.741 8.736z"></path>');
 
     // Go back and change icon.
