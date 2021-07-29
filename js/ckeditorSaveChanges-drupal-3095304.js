@@ -5,6 +5,9 @@
  */
 var origBeforeSubmit = Drupal.Ajax.prototype.beforeSubmit;
 Drupal.Ajax.prototype.beforeSubmit = function (formValues, element, options) {
+  if (options.extraData !== 'undefined' && (options.extraData._triggering_element_name !== 'op' || options.extraData._triggering_element_value === 'Insert selected')) {
+    return;
+  }
   if (typeof (CKEDITOR) !== 'undefined' && CKEDITOR.instances) {
     const instances = Object.values(CKEDITOR.instances);
     instances.forEach(editor => {
