@@ -31,6 +31,7 @@ class Permissions {
     'cancel account',
     'delete any media',
     'manage utexas site announcement',
+    'use text format full_html',
   ];
 
   /**
