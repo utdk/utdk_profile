@@ -33,7 +33,8 @@
   width: 100%;
 }
 
-.ut-promo-list-wrapper .promo-list .ut-copy p:last-child {
+.ut-promo-list-wrapper .promo-list .ut-copy > :last-child,
+.ut-promo-list-wrapper .promo-list .ut-copy > :last-child :last-child {
   margin-bottom: 0;
 }
 
