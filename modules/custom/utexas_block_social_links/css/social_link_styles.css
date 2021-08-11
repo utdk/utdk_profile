@@ -21,6 +21,12 @@
   gap: 10px;
   grid-template-columns: repeat(12, 1fr); /* Default display -- fill container */
 }
+ /* Style icons in header. */
+header .block__ut-social-links--items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 5px;
+}
 
 /* Limited to social link blocks placed using Layout Builder (.layout_region) */
 /* Items Per Row Styles */
