@@ -7,10 +7,8 @@
 
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
-
-use Drupal\utexas\Permissions;
-
 use Symfony\Component\Yaml\Yaml;
+use Drupal\block\Entity\Block;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -361,4 +359,34 @@ function utexas_update_8119() {
     'workflows',
   ];
   \Drupal::service('module_installer')->install($modules);
+}
+
+/**
+ * Enable Updated on existing sites.
+ */
+function utexas_update_8120() {
+  $module = 'updated';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Relocate instance of Updated block on main content region.
+ */
+function utexas_update_8121() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('updated')) {
+    return;
+  }
+  $weight = 0;
+  if ($block = Block::load('lastupdateddateblock')) {
+    // Place this block directly above main page content.
+    if ($page_title = Block::load('main_page_content')) {
+      $weight = $page_title->getWeight();
+      $weight = $weight - 1;
+    }
+    $block->setWeight($weight);
+    $block->save();
+  }
 }
