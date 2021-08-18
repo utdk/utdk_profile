@@ -18,6 +18,7 @@ class Permissions {
     'access site reports',
     'access user profiles',
     'administer addtoany',
+    'administer blocks',
     'administer meta tags',
     'administer node last updated date',
     'administer redirects',
