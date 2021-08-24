@@ -241,9 +241,9 @@ class BaseInstallationTest extends BrowserTestBase {
     // Make sure a Site Manager doesn't have access to the Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
     $assert->statusCodeEquals(403);
-    // Make sure a Site Manager doesn't have access to the Block UI.
+    // Make sure a Site Manager has access to the Block UI.
     $this->drupalGet('admin/structure/block');
-    $assert->statusCodeEquals(403);
+    $assert->statusCodeEquals(200);
     // Make sure a Site Manager has access to the Block Content tab.
     $this->drupalGet('/admin/content/block-content');
     $assert->statusCodeEquals(200);
