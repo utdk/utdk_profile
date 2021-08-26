@@ -123,7 +123,7 @@ pipeline {
                                             sh '''
                                                 if [ -d $BROWSERTEST_OUTPUT_DIRECTORY ]; then
                                                     cp -R $BROWSERTEST_OUTPUT_DIRECTORY $WORKSPACE/browser_output
-                                                    chown -R 995:1001 $WORKSPACE/browser_output
+                                                    chown -R 777776:777777 $WORKSPACE/browser_output
                                                 fi
                                                 exit 1
                                             '''
