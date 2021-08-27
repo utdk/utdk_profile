@@ -8,6 +8,7 @@
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Permissions;
@@ -139,6 +140,7 @@ function utexas_page_attachments(array &$attachments) {
   // Add details fieldset optimizations to all pages.
   $attachments['#attached']['library'][] = 'utexas/details-fieldset';
   $attachments['#attached']['library'][] = 'utexas/layout-builder';
+  $attachments['#attached']['library'][] = 'utexas/menus';
 }
 
 /**
@@ -312,4 +314,22 @@ function utexas_preprocess_form_element(&$variables) {
   }
   // Known fields that are not compatible with the `description_display`
   // setting: date, link, item, Media Library, textarea with text format.
+}
+
+/**
+ * Implements hook_link_alter().
+ */
+function utexas_link_alter(&$variables) {
+  // Add a targetable class to menu links not visible to anonymous users.
+  // This is modeled on conversation at https://www.drupal.org/project/drupal/issues/2665320.
+  // Url::access() checks isRouted(), so we do not need to check ourselves.
+  if (!($variables['url']->access(User::getAnonymousUser()))) {
+    if (isset($variables['options']['attributes']['class']) && !is_array($variables['options']['attributes']['class'])) {
+      // Avoid casting to a class as a string, such as in https://git.drupalcode.org/project/redirect/-/blob/8.x-1.x/redirect.module#L375.
+      $variables['options']['attributes']['class'] = explode(',', $variables['options']['attributes']['class']);
+    }
+    // Add the a.access-protected class for CSS styling.
+    $variables['options']['attributes']['class'][] = 'access-protected';
+    $variables['options']['attributes']['title'] = 'This link is not visible to non-authenticated users.';
+  }
 }

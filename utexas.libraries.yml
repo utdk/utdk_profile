@@ -12,3 +12,7 @@ layout-builder:
     js/utexasLayoutBuilderCKEditor-3065095.js: {}
   dependencies:
     - core/jquery.ui.dialog
+menus:
+  css:
+    theme:
+      css/menus.css: {}

@@ -1,0 +1,9 @@
+/*
+.main-menu__list-item targets Forty Acres
+.menu--main .menu-item a.access-protected targets generic Classy-classes
+*/
+.main-menu__list-item a.access-protected,
+.menu--main .menu-item a.access-protected {
+  background-color: #fff4f4!important;
+  border: 1px dashed #dddddd!important;
+}
