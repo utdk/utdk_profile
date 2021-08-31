@@ -51,6 +51,7 @@ class UtexasLinkOptionsHelper {
       '0' => $this->t('No icon'),
       'ut-cta-link--lock' => $this->t('Authentication required icon <span class="ut-cta-link--lock"></span>'),
       'ut-cta-link--external' => $this->t('External link icon <span class="ut-cta-link--external"></span>'),
+      'ut-cta-link--angle-right' => $this->t('Right-facing caret <span class="ut-cta-link--angle-right"></span>'),
     ];
     $element['options']['attributes']['class'] = [
       '#type' => 'radios',
