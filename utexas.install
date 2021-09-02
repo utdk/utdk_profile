@@ -411,3 +411,13 @@ function utexas_update_8122() {
     }
   }
 }
+
+/**
+ * Enable Pantheon Advanced Page Cache on existing sites (#1571).
+ */
+function utexas_update_8123() {
+  $module = 'pantheon_advanced_page_cache';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

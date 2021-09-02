@@ -54,6 +54,7 @@ install:
   - drupal:metatag
   - drupal:metatag_twitter_cards
   - drupal:menu_block
+  - drupal:pantheon_advanced_page_cache
   - drupal:pathauto
   - drupal:page_title_visibility
   - drupal:pathologic
