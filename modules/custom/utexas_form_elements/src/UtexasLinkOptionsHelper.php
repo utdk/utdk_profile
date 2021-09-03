@@ -37,6 +37,7 @@ class UtexasLinkOptionsHelper {
     $element['options']['attributes']['target'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Link Behavior'),
+      '#description' => $this->t('Recommendation: append an external link icon, below, when using this setting. See <a href="https://www.w3.org/TR/WCAG-TECHS/G201.html">WCAG G201</a>.'),
       '#options' => $target_options,
       '#attributes' => [
         'class' => [
