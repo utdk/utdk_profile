@@ -421,3 +421,13 @@ function utexas_update_8123() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Enable metatag_verification on existing sites.
+ */
+function utexas_update_8124() {
+  $module = 'metatag_verification';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

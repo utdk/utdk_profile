@@ -53,6 +53,7 @@ install:
   - drupal:media_library_theme_reset
   - drupal:metatag
   - drupal:metatag_twitter_cards
+  - drupal:metatag_verification
   - drupal:menu_block
   - drupal:pantheon_advanced_page_cache
   - drupal:pathauto
