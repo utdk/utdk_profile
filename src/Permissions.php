@@ -33,6 +33,7 @@ class Permissions {
     'cancel account',
     'delete any media',
     'manage utexas site announcement',
+    'update any media',
     'use text format full_html',
   ];
 
@@ -88,6 +89,7 @@ class Permissions {
     'revert article revisions',
     'revert page revisions',
     'revert utexas_flex_page revisions',
+    'update any media',
     'update media',
     'use advanced search',
     'use text format basic_html',
