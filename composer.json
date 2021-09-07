@@ -53,7 +53,7 @@
     "drupal/updated": "1.0.0-alpha1",
     "drupal/url_embed": "1.0-beta1",
     "drupal/xmlsitemap": "1.0.0",
-    "utexas/forty_acres": "3.1.0",
+    "utexas/forty_acres": "3.2.0",
     "utexas/utexas_qualtrics_filter": "3.0.0"
   },
   "conflict": {
