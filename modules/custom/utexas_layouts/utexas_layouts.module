@@ -56,7 +56,7 @@ function utexas_layouts_plugin_filter_block_alter(array &$definitions, array $ex
  */
 function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state) {
   if (isset($form['settings']['label_display'])) {
-    // Uncheck the 'display title' checkbox by default.
+    // Uncheck the 'Display title' checkbox by default (on *new* blocks only).
     $form['settings']['label_display']['#default_value'] = FALSE;
   }
 }
