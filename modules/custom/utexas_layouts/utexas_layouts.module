@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * @file
  * Preprocess settings for available layout configuration.
@@ -44,5 +46,17 @@ function utexas_layouts_plugin_filter_block_alter(array &$definitions, array $ex
         }
       }
     }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for layout_builder_add_block.
+ *
+ * @todo Keep an eye on https://www.drupal.org/project/drupal/issues/3074435
+ */
+function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInterface $form_state) {
+  if (isset($form['settings']['label_display'])) {
+    // Uncheck the 'Display title' checkbox by default (on *new* blocks only).
+    $form['settings']['label_display']['#default_value'] = FALSE;
   }
 }
