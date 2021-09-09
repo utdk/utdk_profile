@@ -107,7 +107,7 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_with_background"]');
     $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_with_background", TRUE);
     $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout--utexas-onecol h2.ut-headline'));
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.block-views-blockcontent-recent-block-1'));
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-field-background');
 
