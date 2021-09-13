@@ -65,7 +65,7 @@ trait PromoListTestTrait {
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
     $page->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 2');
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 1 item 1');
-    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][uri]', 'https://promolist.test');
+    $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][uri]', '/sites/default/files/file%20with%20spaces.pdf');
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
     $page->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--external');
 
@@ -105,7 +105,8 @@ trait PromoListTestTrait {
     $assert->elementTextContains('css', '.block-block-content div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
-    $assert->linkByHrefExists('https://promolist.test');
+    // Verify that double-encoding does not occur.
+    $assert->linkByHrefExists('/sites/default/files/file%20with%20spaces.pdf');
     $assert->linkByHrefExists('test-flex-page');
 
     // Verify links exist with options.

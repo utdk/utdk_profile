@@ -67,3 +67,12 @@ function utexas_text_format_flex_html_update_8107() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #1067: Advanced table properties in CKEditor (fixes #1067).
+ */
+function utexas_text_format_flex_html_update_8108() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

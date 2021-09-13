@@ -98,7 +98,7 @@ class UtexasLinkOptionsElement extends FormElement {
       $uri = UtexasLinkOptionsElementHelper::uriFromUserInput($uri);
       $uri_scheme = parse_url($uri, PHP_URL_SCHEME);
     }
-    $uri_as_url = !empty($uri) ? Url::fromUri($uri)->toString() : '';
+    $uri_as_url = !empty($uri) ? Url::fromUri(rawurldecode($uri))->toString() : '';
     /* End borrowed section. */
 
     // @todo '<front>' is valid input for BC reasons, may be removed by

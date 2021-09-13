@@ -18,7 +18,9 @@ class Permissions {
     'access site reports',
     'access user profiles',
     'administer addtoany',
+    'administer blocks',
     'administer meta tags',
+    'administer node last updated date',
     'administer redirects',
     'administer site configuration',
     'administer social links data config',
@@ -31,6 +33,8 @@ class Permissions {
     'cancel account',
     'delete any media',
     'manage utexas site announcement',
+    'update any media',
+    'use text format full_html',
   ];
 
   /**
@@ -49,6 +53,7 @@ class Permissions {
     'access toolbar',
     'administer breadcrumbs visibility config',
     'administer menu',
+    'administer node last updated date',
     'administer nodes',
     'administer page display visibility config',
     'configure any layout',
@@ -84,6 +89,7 @@ class Permissions {
     'revert article revisions',
     'revert page revisions',
     'revert utexas_flex_page revisions',
+    'update any media',
     'update media',
     'use advanced search',
     'use text format basic_html',
@@ -91,6 +97,7 @@ class Permissions {
     'use text format restricted_html',
     'view all media revisions',
     'view all revisions',
+    'view any unpublished content',
     'view article revisions',
     'view own unpublished content',
     'view own unpublished media',

@@ -16,10 +16,12 @@ settings:
           items:
             - Bold
             - Italic
+            - Underline
             - Strike
+            - HorizontalRule
+            - SpecialChar
             - Superscript
             - Subscript
-            - '-'
             - RemoveFormat
         -
           name: Linking
@@ -31,30 +33,52 @@ settings:
           items:
             - BulletedList
             - NumberedList
+            - Outdent
+            - Indent
         -
           name: Media
           items:
+            - DrupalMediaLibrary
+            - url
             - Blockquote
-            - DrupalImage
             - Table
-            - HorizontalRule
         -
           name: 'Block Formatting'
           items:
             - Format
+            - JustifyLeft
+            - JustifyCenter
+            - JustifyRight
+            - JustifyBlock
         -
           name: Tools
           items:
-            - ShowBlocks
             - Source
+            - qualtricsbutton
+        -
+          name: Editing
+          items:
+            - Undo
+            - Redo
+            - Cut
+            - Copy
+            - Paste
+            - PasteText
+            - PasteFromWord
+            - Maximize
   plugins:
     stylescombo:
       styles: ''
+    drupallink:
+      linkit_enabled: true
+      linkit_profile: flex_html
+    language:
+      language_list: un
 image_upload:
   status: true
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: 0
-    height: 0
+    width: null
+    height: null

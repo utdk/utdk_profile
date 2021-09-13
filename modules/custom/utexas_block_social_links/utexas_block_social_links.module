@@ -45,6 +45,7 @@ function utexas_block_social_links_utexas_demo_content() {
     'type' => 'social_links',
     'langcode' => 'en',
     'field_utexas_sl_social_links' => [
+      'icon_size' => 'ut-social-links--small',
       'social_account_links' => serialize([
         [
           'social_account_name' => 'facebook',
@@ -65,10 +66,6 @@ function utexas_block_social_links_utexas_demo_content() {
         [
           'social_account_name' => 'youtube',
           'social_account_url' => 'http://www.youtube.com/utaustintexas',
-        ],
-        [
-          'social_account_name' => 'googleplus',
-          'social_account_url' => 'https://plus.google.com/+UTAustin',
         ],
         [
           'social_account_name' => 'flickr',

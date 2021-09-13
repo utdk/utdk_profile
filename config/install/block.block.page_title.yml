@@ -6,7 +6,7 @@ dependencies:
 id: page_title
 theme: forty_acres
 region: content
-weight: -2
+weight: -9
 provider: null
 plugin: page_title_block
 settings:

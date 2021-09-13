@@ -8,7 +8,7 @@ dependencies:
 id: main_page_content
 theme: forty_acres
 region: content
-weight: 0
+weight: -7
 provider: null
 plugin: system_main_block
 settings:

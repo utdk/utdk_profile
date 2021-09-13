@@ -2,7 +2,6 @@
 
 namespace Drupal\utexas_block_social_links\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Url;
@@ -28,8 +27,6 @@ class UTexasSocialLinkFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
-    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    $file_system = \Drupal::service('file_system');
     $icons = UTexasSocialLinkOptions::getIcons();
     foreach ($items as $delta => $item) {
       if ($item->social_account_links) {
@@ -64,6 +61,11 @@ class UTexasSocialLinkFormatter extends FormatterBase {
           '#markup' => $item->headline,
         ];
       }
+      // Default to small for backwards compatibility.
+      $icon_size = $item->icon_size ?? 'ut-social-links--small';
+      $elements[$delta]['icon_size'] = [
+        '#markup' => $icon_size,
+      ];
     }
     return $elements;
   }

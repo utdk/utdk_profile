@@ -1,7 +1,16 @@
-.block__ut-social-links--items svg {
+.block__ut-social-links--items.ut-social-links--small svg {
+  width: 22px;
+  height: auto;
+}
+.block__ut-social-links--items.ut-social-links--medium svg {
   width: 40px;
   height: auto;
 }
+.block__ut-social-links--items.ut-social-links--large svg {
+  width: 80px;
+  height: auto;
+}
+
 .block__ut-social-links .ut-headline {
   font-size: 1.125rem;
   margin-bottom: 8.5px;
@@ -12,13 +21,37 @@
   gap: 10px;
   grid-template-columns: repeat(12, 1fr); /* Default display -- fill container */
 }
+ /* Style icons in header. */
+header .block__ut-social-links--items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 5px;
+}
 
 /* Limited to social link blocks placed using Layout Builder (.layout_region) */
 /* Items Per Row Styles */
-.layout__region .block__ut-social-links--items {
+.layout__region .block__ut-social-links--items.ut-social-links--small {
+  --ipr-grid-gap: max(10px, 1vw);
+  --ipr-grid-min-min-size: 22px;
+  --ipr-grid-min-max-size: 22px;
+
+  display: grid;
+  grid-gap: var(--ipr-grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
+}
+.layout__region .block__ut-social-links--items.ut-social-links--medium {
   --ipr-grid-gap: max(10px, 1vw);
   --ipr-grid-min-min-size: 40px;
   --ipr-grid-min-max-size: 40px;
+
+  display: grid;
+  grid-gap: var(--ipr-grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
+}
+.layout__region .block__ut-social-links--items.ut-social-links--large {
+  --ipr-grid-gap: max(10px, 1vw);
+  --ipr-grid-min-min-size: 80px;
+  --ipr-grid-min-max-size: 80px;
 
   display: grid;
   grid-gap: var(--ipr-grid-gap);

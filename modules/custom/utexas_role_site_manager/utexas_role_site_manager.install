@@ -117,3 +117,27 @@ function utexas_role_site_manager_update_8104() {
     $role->save();
   }
 }
+
+/**
+ * Add permission to use full_html text format.
+ */
+function utexas_role_site_manager_update_8105() {
+  $rid = 'utexas_site_manager';
+  // Only perform the following if the role still exists in the system.
+  if ($role = Role::load($rid)) {
+    $role->grantPermission('use text format full_html');
+    $role->save();
+  }
+}
+
+/**
+ * Add permission to administer updated module in nodes.
+ */
+function utexas_role_site_manager_update_8106() {
+  $rid = 'utexas_site_manager';
+  // Only perform the following if the role still exists in the system.
+  if ($role = Role::load($rid)) {
+    $role->grantPermission('administer node last updated date');
+    $role->save();
+  }
+}

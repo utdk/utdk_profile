@@ -102,6 +102,7 @@ pipeline {
                                                 ## Run tests...
                                                 su -s /bin/bash -c 'BROWSERTEST_CACHE_DB=1 /var/www/utdk_scaffold/vendor/bin/phpunit -c $WORKSPACE/.pipeline-fixtures/functional-js.phpunit.xml --stop-on-failure --testsuite=functional-javascript --verbose --debug --group=utexas' www-data
                                                 su -s /bin/bash -c 'BROWSERTEST_CACHE_DB=1 /var/www/utdk_scaffold/vendor/bin/phpunit -c /var/www/utdk_scaffold/web/core/phpunit.xml.dist --stop-on-failure --testsuite=functional --verbose --debug --group=utexas' www-data
+                                                su -s /bin/bash -c 'BROWSERTEST_CACHE_DB=1 /var/www/utdk_scaffold/vendor/bin/phpunit -c /var/www/utdk_scaffold/web/core/phpunit.xml.dist --stop-on-failure --testsuite=unit --verbose --debug --group=utexas' www-data
 
                                                 ### Debug steps ###
                                                 ### Uncomment lines 97 - 112 to help ensure environment and site are working as expected.
@@ -122,7 +123,7 @@ pipeline {
                                             sh '''
                                                 if [ -d $BROWSERTEST_OUTPUT_DIRECTORY ]; then
                                                     cp -R $BROWSERTEST_OUTPUT_DIRECTORY $WORKSPACE/browser_output
-                                                    chown -R 995:1001 $WORKSPACE/browser_output
+                                                    chown -R 777776:777777 $WORKSPACE/browser_output
                                                 fi
                                                 exit 1
                                             '''

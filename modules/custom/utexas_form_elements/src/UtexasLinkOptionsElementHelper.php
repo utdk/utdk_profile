@@ -4,11 +4,12 @@ namespace Drupal\utexas_form_elements;
 
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Url;
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * Provides helper to operate on URIs.
  *
- * Methods are borrowed verbatim (as of 4/12/20) from future Linkit widget
+ * Methods are borrowed verbatim (as of 9/2/21) from future Linkit widget
  * patch in the Linkit module.
  * (https://www.drupal.org/project/linkit/issues/2712951)
  *
@@ -30,11 +31,23 @@ class UtexasLinkOptionsElementHelper {
   public static function getEntityFromUri($uri) {
     // Stripe out potential query and fragment from the uri.
     $uri = strtok(strtok($uri, "?"), "#");
-    list($entity_type, $entity_id) = explode('/', substr($uri, 7), 2);
-    $entity_manager = \Drupal::entityTypeManager();
-    if ($entity_manager->getDefinition($entity_type, FALSE)) {
-      if ($entity = $entity_manager->getStorage($entity_type)->load($entity_id)) {
-        return \Drupal::service('entity.repository')->getTranslationFromContext($entity);
+    // Remove the schema, if any. Otherwise, remove the forwarding "/".
+    if (strpos($uri, 'entity:') !== FALSE) {
+      list(, $uri) = explode(':', $uri);
+    }
+    else {
+      $uri = trim($uri, '/');
+    }
+
+    if ($uri) {
+      $parts = explode('/', $uri, 2);
+      if (count($parts) == 2 && ($entity_type = $parts[0]) && ($entity_id = $parts[1])) {
+        $entity_manager = \Drupal::entityTypeManager();
+        if ($entity_manager->getDefinition($entity_type, FALSE)) {
+          if ($entity = $entity_manager->getStorage($entity_type)->load($entity_id)) {
+            return \Drupal::service('entity.repository')->getTranslationFromContext($entity);
+          }
+        }
       }
     }
 
@@ -79,15 +92,16 @@ class UtexasLinkOptionsElementHelper {
 
     // Make sure the URI starts with a slash, otherwise the Url's factory
     // methods will throw exceptions.
+    $starts_with_hash = strpos($input, '#') === 0;
     $starts_with_a_slash = strpos($input, '/') === 0;
     $is_front = substr($input, 0, 7) === '<front>';
-    if (!$scheme && !$is_front && !$starts_with_a_slash) {
+    $is_nolink = substr($input, 0, 14) === 'route:<nolink>';
+    if (!$scheme && !$is_front && !$is_nolink && !$starts_with_a_slash && !$starts_with_hash) {
       $input = "/$input";
     }
-
+    // - '<front>' -> '/'
+    // - '<front>#foo' -> '/#foo'
     if ($is_front) {
-      // - '<front>' -> '/'
-      // - '<front>#foo' -> '/#foo'
       $input = '/' . substr($input, strlen('<front>'));
     }
 
@@ -107,7 +121,7 @@ class UtexasLinkOptionsElementHelper {
     if (!empty($public_files_dir) && strpos($input, "/$public_files_dir") === 0) {
       return "base:$input";
     }
-    elseif (count($protocol_matches) > 1 && in_array($protocol_matches[1], UrlHelper::getAllowedProtocols())) {
+    elseif ((count($protocol_matches) > 1 && in_array($protocol_matches[1], UrlHelper::getAllowedProtocols())) || $is_nolink) {
       return $input;
     }
     else {
@@ -128,7 +142,7 @@ class UtexasLinkOptionsElementHelper {
     $scheme = parse_url($input, PHP_URL_SCHEME);
 
     // Check if it's an entity URI (e.g. entity:node/1).
-    if ($scheme === 'entity' && ($entity = static::getEntityFromUri($input))) {
+    if (($scheme === 'entity' || !$scheme) && ($entity = static::getEntityFromUri($input))) {
       return $entity;
     }
 
@@ -147,6 +161,9 @@ class UtexasLinkOptionsElementHelper {
         $entity = \Drupal::entityTypeManager()
           ->getStorage($possibly_an_entity_type)
           ->load($params[$possibly_an_entity_type]);
+        if (!($entity instanceof EntityInterface)) {
+          return NULL;
+        }
         return \Drupal::service('entity.repository')
           ->getTranslationFromContext($entity);
       }
@@ -168,19 +185,20 @@ class UtexasLinkOptionsElementHelper {
    *   The internal path if any matched. The input string otherwise.
    */
   public static function getPathByAlias($input) {
-    $prefixes = \Drupal::config('language.negotiation')->get('url.prefixes');
+    $config = \Drupal::config('language.negotiation');
     /** @var \Drupal\path_alias\AliasManagerInterface $path_alias_manager */
     $path_alias_manager = \Drupal::service('path_alias.manager');
     /** @var \Drupal\Core\Language\LanguageManagerInterface $language_manager */
     $language_manager = \Drupal::service('language_manager');
 
     foreach ($language_manager->getLanguages() as $language) {
-      $prefix = $prefixes[$language->getId()];
-      // Strip the language prefix.
-      $initial_path = parse_url($input, PHP_URL_PATH);
-      $path_without_prefix = preg_replace("/^\/$prefix\//", '/', $initial_path);
-      $path_resolved = $path_alias_manager->getPathByAlias($path_without_prefix, $language->getId());
-      if ($path_resolved !== $path_without_prefix) {
+      $input_path = parse_url($input, PHP_URL_PATH);
+      if ($prefix = $config->get('url.prefixes.' . $language->getId())) {
+        // Strip the language prefix.
+        $input_path = preg_replace("/^\/$prefix\//", '/', $input_path);
+      }
+      $path_resolved = $path_alias_manager->getPathByAlias($input_path, $language->getId());
+      if ($path_resolved !== $input_path) {
         return $path_resolved . static::getQueryAndFragment($input);
       }
     }

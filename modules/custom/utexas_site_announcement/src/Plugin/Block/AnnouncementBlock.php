@@ -230,6 +230,9 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     #$unique_id .announcement-body {
       color: $text_color_hex;
     }
+    #$unique_id .announcement-body a {
+      color: $text_color_hex;
+    }
     #$unique_id .announcement-title {
       color: $text_color_hex;
     }

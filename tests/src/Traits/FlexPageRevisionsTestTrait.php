@@ -26,11 +26,11 @@ trait FlexPageRevisionsTestTrait {
     $assert->waitForText('Create custom block');
     $this->clickLink('Create custom block');
     $assert->waitForText('Add a new Inline Block');
-    $this->clickLink('Basic block');
+    $this->clickLink('Featured Highlight');
     // Verify that the add block has been opened in the modal.
     $assert->waitForText('Block description');
-    // Fill block title.
     $page->fillField('settings[label]', 'Revision 1');
+    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Revision 1');
     $page->pressButton('Add block');
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
@@ -38,9 +38,9 @@ trait FlexPageRevisionsTestTrait {
 
     // Make a revision to the inline block.
     $this->drupalGet('node/' . $flex_page . '/layout');
-    $this->clickContextualLink('.block-inline-blockbasic', 'Configure');
+    $this->clickContextualLink('.block-inline-blockutexas-featured-highlight', 'Configure');
     $assert->waitForText('Block description');
-    $page->fillField('settings[label]', 'Revision 2');
+    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Revision 2');
     $page->pressButton('Update');
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
@@ -52,17 +52,16 @@ trait FlexPageRevisionsTestTrait {
     $revisions[0]->click();
     $page->pressButton('Revert');
 
-    // Observe that the page has the "Revision 1" again
-    // (this is correct behavior, it means the revert worked)
+    // The page has "Revision 1" again (the revert worked).
     $this->drupalGet('node/' . $flex_page);
     $assert->pageTextContains('Revision 1');
 
     // Make a revision to the inline block.
     // Edit block, and change title to anything
     $this->drupalGet('node/' . $flex_page . '/layout');
-    $this->clickContextualLink('.block-inline-blockbasic', 'Configure');
+    $this->clickContextualLink('.block-inline-blockutexas-featured-highlight', 'Configure');
     $assert->waitForText('Block description');
-    $page->fillField('settings[label]', 'Revision 3');
+    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Revision 3');
     $page->pressButton('Update');
     // Without patch from #1122, saving the block will yield a validation error.
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));

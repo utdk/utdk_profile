@@ -7,10 +7,8 @@
 
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
-
-use Drupal\utexas\Permissions;
-
 use Symfony\Component\Yaml\Yaml;
+use Drupal\block\Entity\Block;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -347,6 +345,88 @@ function utexas_update_8117() {
  */
 function utexas_update_8118() {
   $module = 'utexas_flex_list';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Add core modules Workflows and Content Moderation on existing sites. (fixes #931)
+ */
+function utexas_update_8119() {
+  $modules = [
+    'content_moderation',
+    'workflows',
+  ];
+  \Drupal::service('module_installer')->install($modules);
+}
+
+/**
+ * Enable Updated on existing sites.
+ */
+function utexas_update_8120() {
+  $module = 'updated';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Relocate instance of Updated block on main content region.
+ */
+function utexas_update_8121() {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('updated')) {
+    return;
+  }
+  $weight = 0;
+  if ($block = Block::load('lastupdateddateblock')) {
+    // Place this block directly above main page content.
+    if ($page_title = Block::load('main_page_content')) {
+      $weight = $page_title->getWeight();
+      $weight = $weight - 1;
+    }
+    $block->setWeight($weight);
+    $block->save();
+  }
+}
+
+/**
+ * Add filters & capabilities in Flex HTML to Full HTML
+ */
+function utexas_update_8122() {
+  // Set existing sites' AddToAny configuration to the default state.
+  $config_names = [
+    'filter.format.full_html',
+    'editor.editor.full_html',
+  ];
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' .  $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+      }
+    }
+  }
+}
+
+/**
+ * Enable Pantheon Advanced Page Cache on existing sites (#1571).
+ */
+function utexas_update_8123() {
+  $module = 'pantheon_advanced_page_cache';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Enable metatag_verification on existing sites.
+ */
+function utexas_update_8124() {
+  $module = 'metatag_verification';
   if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
     \Drupal::service('module_installer')->install([$module]);
   }

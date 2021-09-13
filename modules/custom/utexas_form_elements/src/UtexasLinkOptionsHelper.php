@@ -37,6 +37,7 @@ class UtexasLinkOptionsHelper {
     $element['options']['attributes']['target'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Link Behavior'),
+      '#description' => $this->t('Recommendation: append an external link icon, below, when using this setting. See <a href="https://www.w3.org/TR/WCAG-TECHS/G201.html">WCAG G201</a>.'),
       '#options' => $target_options,
       '#attributes' => [
         'class' => [
@@ -51,6 +52,7 @@ class UtexasLinkOptionsHelper {
       '0' => $this->t('No icon'),
       'ut-cta-link--lock' => $this->t('Authentication required icon <span class="ut-cta-link--lock"></span>'),
       'ut-cta-link--external' => $this->t('External link icon <span class="ut-cta-link--external"></span>'),
+      'ut-cta-link--angle-right' => $this->t('Right-facing caret <span class="ut-cta-link--angle-right"></span>'),
     ];
     $element['options']['attributes']['class'] = [
       '#type' => 'radios',
@@ -99,7 +101,7 @@ class UtexasLinkOptionsHelper {
    *
    * @param array $item
    *   The field item link array.
-   * @param array $link_type_class
+   * @param array $link_add_classes
    *   Classes to add to the link (e.g. 'ut-btn', 'ut-link--darker').
    * @param string $link_title_override
    *   Override the link title using a value not in the $item object.
@@ -107,40 +109,44 @@ class UtexasLinkOptionsHelper {
    * @return object
    *   The prepared link object.
    */
-  public static function buildLink(array $item, array $link_type_class, string $link_title_override = NULL) {
+  public static function buildLink(array $item, array $link_add_classes = [], string $link_title_override = NULL) {
     // If no uri, return null.
     if (empty($item['link']['uri'])) {
       return NULL;
     }
 
-    // Get the link url.
-    $link_url = Url::fromUri($item['link']['uri']);
+    // @todo fix up data at the source (UtexasLinkOptionsElement).
+    // Clean up some less than ideal data.
+    if (isset($item['link']['options']['attributes']['class']) && $item['link']['options']['attributes']['class'] === "0") {
+      unset($item['link']['options']['attributes']['class']);
+    }
+    if (isset($item['link']['options']['attributes']['target']['_blank']) && $item['link']['options']['attributes']['target']['_blank'] === 0) {
+      unset($item['link']['options']['attributes']['target']);
+    }
+    // The class is being passed in as a string. It should be an array.
+    if (isset($item['link']['options']['attributes']['class'])) {
+      $class_array = (array) $item['link']['options']['attributes']['class'];
+      $item['link']['options']['attributes']['class'] = $class_array;
+    }
+
+    $item_link_option_classes = $item['link']['options']['attributes']['class'] ?? [];
+    $item['link']['options']['attributes']['class'] = array_merge($item_link_option_classes, $link_add_classes);
+
+    // Get link title.
+    $item_link_title = $item['link']['title'] ?? "";
 
     // Override the link title text if need be.
-    if ($link_title_override) {
-      $link_title = $link_title_override;
-    }
-    elseif (isset($item['link']['title'])) {
-      $link_title = $item['link']['title'];
-    }
-
-    // Ensure that links without title text print the URL.
-    if (empty($link_title)) {
-      $url = Url::fromUri($item['link']['uri']);
-      $url->setAbsolute();
-      $link_title = $url->toString();
+    $link_title = $link_title_override ?? $item_link_title;
+    // Ensure that links without title text print the URL as title text.
+    if ($link_title == "") {
+      // Create a dummy URL object because we want to set it to absolute in
+      // order to retrieve a "pretty" string representation.
+      $temp_url = Url::fromUri(rawurldecode($item['link']['uri']));
+      $temp_url->setAbsolute();
+      $link_title = rawurldecode($temp_url->toString());
     }
 
-    // Note that $link_options['attributes']['class'] may only hold one value
-    // (string) when we start here. It is converted to an array if needed.
-    $link_options = $item['link']['options'] ?? [];
-    $link_options_classes = (array) ($link_options['attributes']['class'] ?? []);
-
-    $merged_link_options_classes = array_merge($link_options_classes, $link_type_class);
-    $link_options['attributes']['class'] = $merged_link_options_classes;
-
-    // Set link options and create link.
-    $link_url->setOptions($link_options);
+    $link_url = Url::fromUri(rawurldecode($item['link']['uri']), $item['link']['options']);
     $link = Link::fromTextAndUrl($link_title, $link_url);
 
     return $link;

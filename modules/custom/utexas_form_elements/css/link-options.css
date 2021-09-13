@@ -12,6 +12,13 @@
   vertical-align: middle;
 }
 
+/* This SVG was derived from (and is identical to) "angle-right: in ut-icons.svg in forty_acres */
+.ut-cta-link--angle-right::after {
+  padding-left: 0.3125rem;
+  content: url("data:image/svg+xml;charset=UTF-8, <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"rgb(191, 87, 0)\" viewBox=\"0 0 9 28\" aria-labelledby=\"angle-right-icon-title-id\"><title id=\"angle-right-icon-title-id\">Icon depicting a right-facing arrow</title><path d=\"M9.297 15c0 0.125-0.063 0.266-0.156 0.359l-7.281 7.281c-0.094 0.094-0.234 0.156-0.359 0.156s-0.266-0.063-0.359-0.156l-0.781-0.781c-0.094-0.094-0.156-0.219-0.156-0.359 0-0.125 0.063-0.266 0.156-0.359l6.141-6.141-6.141-6.141c-0.094-0.094-0.156-0.234-0.156-0.359s0.063-0.266 0.156-0.359l0.781-0.781c0.094-0.094 0.234-0.156 0.359-0.156s0.266 0.063 0.359 0.156l7.281 7.281c0.094 0.094 0.156 0.234 0.156 0.359z\"></path></svg>");
+  vertical-align: middle;
+}
+
 .utexas-link-options-attributes-target,
 .utexas-link-options-attributes-class {
   flex: 100%;
