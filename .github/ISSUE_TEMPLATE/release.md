@@ -10,6 +10,7 @@ labels: 'release'
 - [ ] Review the documentation issues for any pending tasks that relate to the issues resolved; if any have not been completed, put this issue on hold & resolve those documentation tasks
 - [ ] Contributed module dependencies have been updated, if updates are available
     - (script available at [utdk3_release_packaging](https://github.austin.utexas.edu/eis1-wcs/utdk3_release_packaging/blob/main/releases/utdk_contrib_updater.sh))
+- [ ] Review Pantheon's [drupal-project repo](https://github.com/pantheon-systems/drupal-project/pulls?q=is%3Apr+is%3Aclosed) for updates that should be ported to utdk-project
 - [ ] If a new release of Forty Acres will be made available this cycle, it is tagged & available on github.com
 - [ ] If a new release of UTexas Qualtrics Filter will be made available this cycle, it is tagged & available on github.com
 
