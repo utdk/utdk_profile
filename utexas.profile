@@ -301,6 +301,7 @@ function utexas_preprocess_form_element(&$variables) {
     'link',
     'managed_file',
     'number',
+    'password',
     'radio',
     'select',
     'textarea',
