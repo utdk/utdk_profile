@@ -32,7 +32,10 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $field_name = $this->fieldDefinition->getName();
     $element['flex_content_area'] = [
       '#type' => 'details',
-      '#title' => $this->t('Flex Content Area %number', ['%number' => $delta + 1]),
+      '#title' => $this->t('Flex Content Area %number %headline', [
+        '%number' => $delta + 1,
+        '%headline' => isset($item->headline) ? ' (' . $item->headline . ')' : NULL,
+      ]),
     ];
     $element['flex_content_area']['image'] = [
       '#type' => 'media_library',
