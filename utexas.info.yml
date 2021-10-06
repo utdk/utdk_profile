@@ -42,6 +42,7 @@ install:
   - drupal:admin_toolbar_links_access_filter
   - drupal:breadcrumbs_visibility
   - drupal:ckeditorheight
+  - drupal:diff
   - drupal:features
   - drupal:feed_block
   - drupal:google_tag
