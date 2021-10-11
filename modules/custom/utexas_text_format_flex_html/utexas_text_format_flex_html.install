@@ -5,6 +5,8 @@
  * Contains install and update functions for UTexas Text Format Flex Html.
  */
 
+use Drupal\filter\Entity\FilterFormat;
+
 /**
  * Issue #777: Move URL filter after Qualtrics Filter.
  */
@@ -75,4 +77,20 @@ function utexas_text_format_flex_html_update_8108() {
   \Drupal::service('features.manager')->import([
     'utexas_text_format_flex_html',
   ], TRUE);
+}
+
+/**
+ * Remove filter_html_image_secure from Full and Basic text formats (#1597).
+ */
+function utexas_text_format_flex_html_update_8109() {
+  $text_formats = [
+    'flex_html',
+  ];
+  foreach ($text_formats as $text_format) {
+    $flex_html = FilterFormat::load($text_format);
+    if ($flex_html->filters('filter_html_image_secure') !== NULL) {
+      $flex_html->removeFilter('filter_html_image_secure');
+      $flex_html->save();
+    }
+  }
 }
