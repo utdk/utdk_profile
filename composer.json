@@ -102,6 +102,14 @@
           "path": "assets/favicon.ico",
           "overwrite": false
         },
+        "[web-root]/favicon-32x32.png": {
+          "path": "assets/favicon-32x32.png",
+          "overwrite": false
+        },
+        "[web-root]/favicon-48x48.png": {
+          "path": "assets/favicon-48x48.png",
+          "overwrite": false
+        },
         "[web-root]/mstile-150x150.png": {
           "path": "assets/mstile-150x150.png",
           "overwrite": false
