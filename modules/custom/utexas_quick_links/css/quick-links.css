@@ -32,5 +32,4 @@
   box-sizing: border-box;
   min-width: var(--ipr-grid-min-min-size);
   padding-right: 1rem;
-  padding-bottom: 1.875rem;
 }
