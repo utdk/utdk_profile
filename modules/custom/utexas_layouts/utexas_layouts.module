@@ -1,11 +1,12 @@
 <?php
 
-use Drupal\Core\Form\FormStateInterface;
-
 /**
  * @file
  * Preprocess settings for available layout configuration.
  */
+
+use Drupal\Core\Block\BlockPluginInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_preprocess_layout().
@@ -59,4 +60,18 @@ function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInt
     // Uncheck the 'Display title' checkbox by default (on *new* blocks only).
     $form['settings']['label_display']['#default_value'] = FALSE;
   }
+}
+
+/**
+ * Implements hook_block_view_alter().
+ *
+ * See See Drupal\utexas_layouts\EventSubscriber\BlockComponentRenderArray for
+ * accompanying event subscriber to provide this value for blocks rendered using
+ * layout builder.
+ */
+function utexas_layouts_block_view_alter(array &$build, BlockPluginInterface $block) {
+  /** @var Drupal\block\BlockInterface $block_config_entity */
+  $block_config_entity = $build['#block'];
+  // Add a key/value for the region where the block is being rendered.
+  $build['#utexas_layouts_region'] = $block_config_entity->getRegion();
 }
