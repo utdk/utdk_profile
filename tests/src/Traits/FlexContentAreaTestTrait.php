@@ -176,6 +176,15 @@ trait FlexContentAreaTestTrait {
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'height', "100%");
 
+    // The outer iframe has a title attribute.
+    // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1763.
+    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'title', "YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)");
+
+    // The inner iframe has a title attribute.
+    // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
+    $inner_frame = 'frames[0].document.querySelector("iframe")';
+    $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
+
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');
     $page->findLink($block_name)->click();

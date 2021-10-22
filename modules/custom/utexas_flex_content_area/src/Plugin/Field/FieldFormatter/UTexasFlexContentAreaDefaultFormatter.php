@@ -16,8 +16,11 @@ use Drupal\media\MediaInterface;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utexas_media_types\IframeTitleHelper;
+
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_flex_content_area' formatter.
@@ -273,6 +276,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         'allowtransparency' => TRUE,
         'width' => "100%",
         'height' => "100%",
+        'title' => IframeTitleHelper::getTitle($resource),
       ],
       '#width' => $max_width,
       '#height' => $max_height,
