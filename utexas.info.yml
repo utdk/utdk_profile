@@ -3,7 +3,7 @@ type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
 core: 8.x
 core_version_requirement: ^8 || ^9
-version: '3.2.0'
+version: '3.3.0'
 distribution:
   name: UTexas
 dependencies:
@@ -42,6 +42,7 @@ install:
   - drupal:admin_toolbar_links_access_filter
   - drupal:breadcrumbs_visibility
   - drupal:ckeditorheight
+  - drupal:diff
   - drupal:features
   - drupal:feed_block
   - drupal:google_tag

@@ -146,8 +146,11 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
+    // The outer iframe has a title attribute.
+    // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1763.
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'title', "YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)");
 
-    // Confirm that the inner iframe has a title attribute.
+    // The inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
     $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));

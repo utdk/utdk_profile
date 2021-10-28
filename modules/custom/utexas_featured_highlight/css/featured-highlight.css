@@ -6,7 +6,7 @@
   background-color: #d6d2c4;
   color: #000;
 }
-.utexas-featured-highlight .content-wrapper a {
+.utexas-featured-highlight .ut-copy * {
   color: #000;
 }
 .utexas-featured-highlight .content-wrapper .ut-headline,
@@ -131,7 +131,11 @@
   flex-direction: column;
   display: flex;
   justify-content: space-between;
-  padding: 2rem 2rem 2rem 0;
+  padding: 2rem;
+}
+.layout--utexas-onecol.container-fluid .layout__region .utexas-featured-highlight-inner-wrapper {
+  padding-left: .9375rem;
+  padding-right: .9375rem;
 }
 
 /* 2 column 50/50 layout */

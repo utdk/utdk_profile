@@ -20,7 +20,9 @@ use Drupal\media\MediaInterface;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
+
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utexas_media_types\IframeTitleHelper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -292,6 +294,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         'allowtransparency' => TRUE,
         'width' => "100%",
         'height' => "100%",
+        'title' => IframeTitleHelper::getTitle($resource),
       ],
       '#height' => $max_height + 5,
     ];

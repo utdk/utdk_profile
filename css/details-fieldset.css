@@ -1,6 +1,0 @@
-/** This fixes the 'invisible' caret on <summary> tags in Firefox **/
-@-moz-document url-prefix() {
-  summary {
-    display: inline-block;
-  }
-}

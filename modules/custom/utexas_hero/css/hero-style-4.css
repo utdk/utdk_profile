@@ -33,6 +33,9 @@
     justify-content: space-between;
     padding: 1.5rem 1.25rem;
   }
+  .ut-hero.hero--blue-bar .text-box {
+    margin-right: 1rem;
+  }
 }
 .ut-hero.hero--blue-bar .hero-headline {
   color: #fff;
@@ -45,6 +48,7 @@
 .ut-hero.hero--blue-bar .hero-cta {
   display: block;
   margin: 1rem 0;
+  white-space: nowrap;
 }
 
 @media screen and (min-width: 900px) {

@@ -58,10 +58,10 @@ header .block__ut-social-links--items {
   grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
 }
 
-.utexas-onecol .block__ut-social-links--items,
-.utexas-twocol .block__ut-social-links--items,
-.utexas-threecol .block__ut-social-links--items,
-.utexas-fourcol .block__ut-social-links--items {
+.layout__region .utexas-onecol .block__ut-social-links--items,
+.layout__region .utexas-twocol .block__ut-social-links--items,
+.layout__region .utexas-threecol .block__ut-social-links--items,
+.layout__region .utexas-fourcol .block__ut-social-links--items {
   /* Maximum total width of all grid gaps (gutters) possible at --ipr-grid-num-columns. */
   --ipr-grid-gap-total: calc((var(--ipr-grid-num-columns) - 1) * var(--ipr-grid-gap));
   /* Total width of the container minus the width of maximum total possible grid gaps. */
@@ -71,16 +71,16 @@ header .block__ut-social-links--items {
   --ipr-grid-min-max-size: calc(var(--ipr-grid-available-space) / var(--ipr-grid-num-columns) - 1px);
 }
 
-.utexas-onecol .block__ut-social-links--items {
+.layout__region .utexas-onecol .block__ut-social-links--items {
   --ipr-grid-num-columns: 1;
 }
-.utexas-twocol .block__ut-social-links--items {
+.layout__region .utexas-twocol .block__ut-social-links--items {
   --ipr-grid-num-columns: 2;
 }
-.utexas-threecol .block__ut-social-links--items {
+.layout__region .utexas-threecol .block__ut-social-links--items {
   --ipr-grid-num-columns: 3;
 }
-.utexas-fourcol .block__ut-social-links--items {
+.layout__region .utexas-fourcol .block__ut-social-links--items {
   --ipr-grid-num-columns: 4;
 }
 .layout__region .block__ut-social-links--item {

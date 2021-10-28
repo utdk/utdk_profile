@@ -31,12 +31,18 @@
   max-width: 73.75em;
   margin: auto;
 }
+.ut-hero.hero--photo-gradient .hero-cta {
+  white-space: nowrap;
+}
 
 @media screen and (min-width: 900px) {
   .ut-hero.hero--photo-gradient .hero-callout {
     align-items: center;
     display: flex;
     justify-content: space-between;
+  }
+  .ut-hero.hero--photo-gradient .hero-headline {
+    margin-right: 2rem;
   }
 }
 .ut-hero.hero--photo-gradient .hero-headline {

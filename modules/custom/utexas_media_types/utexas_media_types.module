@@ -9,6 +9,8 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\file\FileInterface;
 
+use Drupal\utexas_media_types\IframeTitleHelper;
+
 /**
  * Implements hook_help().
  */
@@ -41,10 +43,14 @@ function utexas_media_types_theme() {
  * Implements hook_page_attachments().
  */
 function utexas_media_types_page_attachments(array &$attachments) {
-  // Resolve issue in https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1395.
+  // Resolve issue in
+  // https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1395.
   $attachments['#attached']['library'][] = 'utexas_media_types/media-oembed';
 }
 
+/**
+ * Implements template_preprocess_media_oembed_iframe().
+ */
 function utexas_media_types_preprocess_media_oembed_iframe(array &$variables) {
   /** @var \Drupal\media\OEmbed\Resource $resource */
   $resource = $variables['resource'];
@@ -52,7 +58,7 @@ function utexas_media_types_preprocess_media_oembed_iframe(array &$variables) {
   $html_dom = Html::load($media);
   $iframes = $html_dom->getElementsByTagName('iframe');
   foreach ($iframes as $iframe) {
-    $iframe->setAttribute('title', $resource->getProvider()->getName() . ' content: ' . $resource->getTitle());
+    $iframe->setAttribute('title', IframeTitleHelper::getTitle($resource));
   }
   $variables['media'] = Html::serialize($html_dom);
 }
