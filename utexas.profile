@@ -176,7 +176,7 @@ function _utexas_install_footer_content() {
   for ($i = 1; $i < 6; $i++) {
     $link = MenuLinkContent::create([
       'title'      => 'Footer Link ' . $i,
-      'link'       => ['uri' => 'internal:/'],
+      'link'       => ['uri' => 'route:<nolink>'],
       'menu_name'  => 'footer',
       'weight'     => $i,
     ]);
@@ -247,7 +247,7 @@ function _utexas_install_header_content() {
   for ($i = 1; $i < 4; $i++) {
     $link = MenuLinkContent::create([
       'title'      => 'Header Link ' . $i,
-      'link'       => ['uri' => 'internal:/'],
+      'link'       => ['uri' => 'route:<nolink>'],
       'menu_name'  => 'header',
       'weight'     => $i,
     ]);
@@ -256,12 +256,12 @@ function _utexas_install_header_content() {
 
   // Populate main menu links.
   $menu_link_titles = [
-    'Undergraduate Program' => 'internal:/##',
-    'Graduate Program' => 'internal:/',
-    'Course Directory' => 'internal:/',
-    'News' => 'internal:/',
-    'Events' => 'internal:/',
-    'About' => 'internal:/',
+    'Undergraduate Program' => 'route:<nolink>##',
+    'Graduate Program' => 'route:<nolink>',
+    'Course Directory' => 'route:<nolink>',
+    'News' => 'route:<nolink>',
+    'Events' => 'route:<nolink>',
+    'About' => 'route:<nolink>',
   ];
   $i = 0;
   foreach ($menu_link_titles as $menu_link_title => $uri) {
@@ -278,7 +278,7 @@ function _utexas_install_header_content() {
       $mid = $active_link->getPluginId();
       $link = MenuLinkContent::create([
         'title'      => 'Lorem Ipsum',
-        'link'       => ['uri' => 'internal:/'],
+        'link'       => ['uri' => 'route:<nolink>'],
         'menu_name'  => 'main',
         'weight'     => 2,
         'parent'     => $mid,
@@ -321,7 +321,8 @@ function utexas_preprocess_form_element(&$variables) {
  */
 function utexas_link_alter(&$variables) {
   // Add a targetable class to menu links not visible to anonymous users.
-  // This is modeled on conversation at https://www.drupal.org/project/drupal/issues/2665320.
+  // This is modeled on conversation at
+  // https://www.drupal.org/project/drupal/issues/2665320.
   // Url::access() checks isRouted(), so we do not need to check ourselves.
   if (!($variables['url']->access(User::getAnonymousUser()))) {
     if (isset($variables['options']['attributes']['class']) && !is_array($variables['options']['attributes']['class'])) {
