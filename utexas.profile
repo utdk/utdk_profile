@@ -334,3 +334,16 @@ function utexas_link_alter(&$variables) {
     $variables['options']['attributes']['title'] = 'This link is not visible to non-authenticated users.';
   }
 }
+
+/**
+ * Implements hook_clone_ignore_entity_types_alter().
+ */
+function utexas_entity_clone_ignore_entity_types($entity_types) {
+  $ignore_entity_types = [];
+  foreach ($entity_types as $key => $value) {
+    if (!in_array($key, ['node', 'taxonomy_term'])) {
+      $ignore_entity_types[] = $key;
+    }
+  }
+  return $ignore_entity_types;
+}

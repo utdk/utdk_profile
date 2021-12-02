@@ -27,6 +27,7 @@
     "drupal/date_ap_style": "1.3.0",
     "drupal/diff": "1.0.0",
     "drupal/editor_advanced_link": "2.0.0",
+    "drupal/entity_clone": "1.0-beta6",
     "drupal/features": "3.12.0",
     "drupal/feed_block": "1.1.0",
     "drupal/google_cse": "3.4.0",
@@ -68,6 +69,9 @@
         "Impossible to update inline blocks after reverting to a previous revision": "https://drupalkit.its.utexas.edu/patches/1122-layout-builder-revert.patch",
         "Improve performance of functional tests by caching Drupal installations": "https://www.drupal.org/files/issues/2021-02-16/2900208-33.patch",
         "Media Library: Default value for data-align attribute should not be center": "https://drupalkit.its.utexas.edu/patches/1559-media-library-video-width.patch"
+      },
+      "drupal/entity_clone": {
+        "Add a way to exclude certain entity types from cloning": "https://drupalkit.its.utexas.edu/patches/1709-entity-clone-hook.patch"
       },
       "drupal/linkit": {
         "LinkIt-style autocomplete affects multiple adjacent link fields": "https://drupalkit.its.utexas.edu/patches/1106-linkit-multiple-autocomplete.patch",
