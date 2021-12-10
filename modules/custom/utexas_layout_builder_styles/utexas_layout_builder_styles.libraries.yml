@@ -9,3 +9,8 @@ readable:
   css:
     theme:
       css/readable.css: {}
+block-margins:
+  version: 1.0
+  css:
+    theme:
+      css/block-margins.css: {}

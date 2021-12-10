@@ -140,3 +140,22 @@ function utexas_layout_builder_styles_update_8108() {
 function utexas_layout_builder_styles_update_8109() {
   StyleUpdateHelper::addStyleToBlock('utexas_resources', 'utexas_onecol');
 }
+
+/**
+ * Add block margin styles (#846).
+ */
+function utexas_layout_builder_styles_update_8110() {
+  $styles = [
+    'layout_builder_styles.style.utexas_block_bottom_margin_increase',
+    'layout_builder_styles.style.utexas_block_bottom_margin_remove',
+    'layout_builder_styles.style.utexas_block_top_margin_increase',
+    'layout_builder_styles.style.utexas_block_top_margin_remove',
+  ];
+  $config_factory = \Drupal::configFactory();
+  foreach ($styles as $style) {
+    $config = $config_factory->getEditable($style);
+    if ($config->isNew()) {
+      StyleUpdateHelper::saveNewConfigurationFromYml($config, $style);
+    }
+  }
+}

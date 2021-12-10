@@ -13,4 +13,6 @@ function utexas_layout_builder_styles_preprocess_page(&$variables) {
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/border-styles';
   // Add styles to constrain content to readable width for all content blocks.
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/readable';
+  // Add styles to remove/increase top/bottom block margins
+  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/block-margins';
 }
