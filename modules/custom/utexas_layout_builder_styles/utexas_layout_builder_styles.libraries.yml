@@ -14,3 +14,8 @@ block-margins:
   css:
     theme:
       css/block-margins.css: {}
+image-border:
+  version: 1.0
+  css:
+    theme:
+      css/image-border.css: {}

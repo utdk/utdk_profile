@@ -159,3 +159,19 @@ function utexas_layout_builder_styles_update_8110() {
     }
   }
 }
+
+/**
+ * #1780 - Add style option for border around images in components.
+ */
+function utexas_layout_builder_styles_update_8111() {
+  $styles = [
+    'layout_builder_styles.style.utexas_image_border'
+  ];
+  $config_factory = \Drupal::configFactory();
+  foreach ($styles as $style) {
+    $config = $config_factory->getEditable($style);
+    if ($config->isNew()) {
+      StyleUpdateHelper::saveNewConfigurationFromYml($config, $style);
+    }
+  }
+}

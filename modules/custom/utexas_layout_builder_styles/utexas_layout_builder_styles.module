@@ -15,4 +15,6 @@ function utexas_layout_builder_styles_preprocess_page(&$variables) {
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/readable';
   // Add styles to remove/increase top/bottom block margins
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/block-margins';
+  // Add styling for border around images.
+  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/image-border';
 }
