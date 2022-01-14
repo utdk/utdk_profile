@@ -86,6 +86,8 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     // The one-column layout defaults to "readable" width.
     $assert->elementExists('css', '.layout-builder__layout.container.readable');
     $assert->elementNotExists('css', '.layout-builder__layout.container-fluid');
+    // The page title gets set to "readable" width, too.
+    $assert->elementExists('css', '.block-page-title-block.utexas-readable');
 
     // Set the section to "Full width of page".
     $assert->elementExists('css', 'select[name="layout_settings[section_width]"] option[value="container-fluid"]');
@@ -95,6 +97,9 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     // A "container-fluid" class is added to the section.
     $assert->elementNotExists('css', '.layout-builder__layout.container.readable');
     $assert->elementExists('css', '.layout-builder__layout.container-fluid');
+    $page->pressButton('Save layout');
+    // The page title does not get set to "readable" width.
+    $assert->elementNotExists('css', '.block-page-title-block.utexas-readable');
 
     // Border with background.
     $assert->elementNotExists('css', '.utexas-field-border.utexas-field-background');
