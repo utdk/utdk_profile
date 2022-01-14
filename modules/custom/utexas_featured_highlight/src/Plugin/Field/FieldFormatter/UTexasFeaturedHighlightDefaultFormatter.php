@@ -336,6 +336,17 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
           'tags' => $this->generateImageCacheTags($responsive_image_style_name),
         ],
       ];
+      if ($media_attributes[0]['width'] < 500) {
+        $media_render_array = [
+          '#theme' => 'image_style',
+          '#uri' => $image->uri,
+          '#item_attributes' => [],
+          '#style_name' => 'utexas_image_style_500w',
+          '#cache' => [
+            'tags' => $this->generateImageCacheTags('utexas_image_style_500w'),
+          ],
+        ];
+      }
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
       $this->renderer->addCacheableDependency($media_render_array, $file);
