@@ -140,6 +140,9 @@ function utexas_page_attachments(array &$attachments) {
   // Add details fieldset optimizations to all pages.
   $attachments['#attached']['library'][] = 'utexas/layout-builder';
   $attachments['#attached']['library'][] = 'utexas/menus';
+  if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
+    $attachments['#attached']['library'][] = 'utexas/auto-anchors';
+  }
 }
 
 /**

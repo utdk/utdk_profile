@@ -67,6 +67,8 @@ trait QuickLinksTestTrait {
     // Verify Quick Links link, delta 1, is present, is an internal link, and
     // has appropriate options.
     $this->assertRaw('<a href="/test-flex-page" class="ut-cta-link--lock ut-link">Quick Links Link Number 2!</a>');
+    // An automatic anchor (ID) has been added to the headline.
+    $assert->elementExists('css', '#quick-links-headline');
 
     // CRUD: UPDATE.
     $this->drupalGet('admin/content/block-content');
