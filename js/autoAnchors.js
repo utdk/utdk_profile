@@ -8,9 +8,9 @@
    */
   Drupal.behaviors.utexasAutoAnchors = {
     attach: function (context, settings) {
-
     let selector = '';
-    let anchor_elements = ['h2', 'h3', 'h4', 'h5', 'h6'];
+    // Summary is included to facilitate linkable accordions.
+    let anchor_elements = ['h2', 'h3', 'h4', 'h5', 'h6', 'summary'];
     for (var j = 0; j < anchor_elements.length; j++) {
       selector += 'body ' + anchor_elements[j] + ', ';
     }
