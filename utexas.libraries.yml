@@ -1,3 +1,7 @@
+auto-anchors:
+  version: 1.x
+  js:
+    js/autoAnchors.js: {}
 utexas-install:
   version: VERSION
   css:

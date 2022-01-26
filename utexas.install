@@ -441,3 +441,26 @@ function utexas_update_8125() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Enable entity_clone on existing sites (#1709).
+ */
+function utexas_update_8126() {
+  $module = 'entity_clone';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+    $config_names = [
+      'entity_clone.settings',
+    ];
+    foreach ($config_names as $config_name) {
+      $config = \Drupal::configFactory()->getEditable($config_name);
+      $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+      if (!empty($config_path)) {
+        $data = Yaml::parse(file_get_contents($config_path));
+        if (is_array($data)) {
+          $config->setData($data)->save(TRUE);
+        }
+      }
+    }
+  }
+}

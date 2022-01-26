@@ -14,7 +14,6 @@ trait FlexListTestTrait {
 
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
-    $session = $this->getSession();
 
     // Create a Flex Page.
     $flex_page = $this->createFlexPage();
@@ -55,8 +54,41 @@ trait FlexListTestTrait {
 
     // Verify page output.
     $assert->linkByHrefExists('https://drupalkit.its.utexas.edu');
-    $assert->elementExists('css', '.utexas-flex-list--item h5#location');
-    $assert->elementExists('css', '.utexas-flex-list--item h5#website');
+    $assert->elementExists('css', '.utexas-flex-list.formatter-default h5#location');
+    $assert->elementExists('css', '.utexas-flex-list.formatter-default h5#website');
+
+    // Set display to "Accordions".
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
+    $this->submitForm([
+      'settings[view_mode]' => 'utexas_flex_list__accordion',
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
+
+    // Verify page output.
+    $assert->elementExists('css', '.utexas-flex-list.formatter-accordion details summary');
+
+    // Set display to "Horizontal Tabs".
+    $this->drupalGet('node/' . $flex_page . '/layout');
+    $this->clickContextualLink('.block-block-content' . $this->drupalGetBlockByInfo($block_name)->uuid(), 'Configure');
+    $this->assertNotEmpty($assert->waitForElementVisible('named', [
+      'id_or_name',
+      'layout-builder-modal',
+    ]));
+    $this->submitForm([
+      'settings[view_mode]' => 'utexas_flex_list__horizontal_tabs',
+    ], 'Update');
+    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->pressButton('Save layout');
+    $assert->pageTextContains('The layout override has been saved.');
+    // Verify page output.
+    $assert->elementExists('css', '.utexas-flex-list.formatter-htabs ul.nav-tabs li.nav-item.active');
 
     // CRUD: DELETE.
     $this->drupalGet('admin/content/block-content');

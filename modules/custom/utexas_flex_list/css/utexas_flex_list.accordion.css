@@ -1,0 +1,22 @@
+.formatter-accordion.utexas-flex-list details {
+  color: #000;
+  background: #FFFFFF;
+  border: 1px solid rgba(214,210,196,.25);
+}
+.formatter-accordion.utexas-flex-list details summary:hover,
+.formatter-accordion.utexas-flex-list details[open] summary {
+  border: 1px solid #9d4700;
+  background: #9d4700;
+  text-decoration: none;
+  color: #ffffff;
+}
+.formatter-accordion.utexas-flex-list summary {
+  background: rgba(214,210,196,.25);
+  color: #9d4700;
+  font-weight: 600;
+  list-style: revert;
+}
+.formatter-accordion.utexas-flex-list details[open] {
+  padding: 0 1rem 0.5rem 1rem;
+  border: 1px solid #9d4700;
+}

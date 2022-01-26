@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Install and update functions for the UTexas Flex List.
+ */
+
+/**
+ * Add accordion option (#997) and horizontal tab option (#1626).
+ */
+function utexas_flex_list_update_8101() {
+  \Drupal::service('features.manager')->import([
+    'utexas_flex_list',
+  ], TRUE);
+}
