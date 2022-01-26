@@ -78,10 +78,8 @@ trait TaxonomyDescriptionTrait {
       $prepared_description[] = $this->t('<strong>No terms currently exist.</strong>');
     }
     $term_text = $this->t('manage taxonomy terms');
-    if ($this->currentUser->hasPermission('administer taxonomy')) {
-      $url = Url::fromRoute('entity.taxonomy_vocabulary.collection', []);
-      $term_text = Link::fromTextAndUrl($term_text, $url)->toString();
-    }
+    $url = Url::fromRoute('entity.taxonomy_vocabulary.collection', []);
+    $term_text = Link::fromTextAndUrl($term_text, $url)->toString();
     $prepared_description[] = $this->t('Users with the appropriate permissions can @manage.', ['@manage' => $term_text]);
     $element['#description'] = implode(' ', $prepared_description);
     return $element;
