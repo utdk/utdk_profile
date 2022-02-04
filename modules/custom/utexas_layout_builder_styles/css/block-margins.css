@@ -14,3 +14,17 @@
 .utexas-block-bottom-margin-increase {
   margin-bottom: 5rem !important;
 }
+
+/* Layout Builder UI only */
+/* Ensure "Configure" block pencil icon is visible */
+.utexas-block-top-margin-remove .contextual button.trigger {
+  margin-top: 2.5rem;
+}
+/* Ensure "Configure section" link is visible */
+.layout-builder__region .layout-builder-block.utexas-block-top-margin-remove {
+  margin-top: 0 !important;
+}
+/* This second declaration exempts subsequent blocks */
+.layout-builder__region .layout-builder-block.utexas-block-top-margin-remove ~ div.utexas-block-top-margin-remove {
+  margin-top: -2.5rem !important;
+}
