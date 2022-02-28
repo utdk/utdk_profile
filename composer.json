@@ -78,6 +78,9 @@
         "LinkIt-style autocomplete affects multiple adjacent link fields": "https://drupalkit.its.utexas.edu/patches/1106-linkit-multiple-autocomplete.patch",
         "Form button obscured if Layout Builder is being used": "https://drupalkit.its.utexas.edu/patches/1723-linkit-relative-modal.patch"
       },
+      "drupal/media_library_form_element": {
+        "Media referenced via the Media Library Form Element, when deleted, cause an AJAX error that prevents editing": "https://drupalkit.its.utexas.edu/patches/1842-media-library-form-element-null.patch"
+      },
       "drupal/url_embed": {
         "Add option to make embeds responsive": "https://drupalkit.its.utexas.edu/patches/1225-url-embed-responsive.patch"
       }
