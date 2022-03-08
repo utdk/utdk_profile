@@ -49,6 +49,18 @@ function utexas_install_tasks() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function utexas_theme($existing, $type, $theme, $path) {
+  // Register templates defined in /templates.
+  return [
+    'block__addtoany' => [
+      'base hook' => 'block',
+    ],
+  ];
+}
+
+/**
  * Batch installation of demo content.
  *
  * This installs specific demo content, then invokes any implementations of
