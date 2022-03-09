@@ -12,6 +12,7 @@ class DocumentationLinks {
   public static $docLinks = [
     'basic' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#rich-text-areas-including-images',
     'feed_block' => 'https://www.drupal.org/project/feed_block',
+    'utevent_event_listing' => 'https://drupalkit.its.utexas.edu/docs/content/events.html#event-listing-blocks',
     'utexas_featured_highlight' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#featured-highlight',
     'utexas_flex_content_area' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#flex-content-area',
     'utexas_flex_list' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#flex-list',
@@ -22,6 +23,8 @@ class DocumentationLinks {
     'utexas_promo_unit' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#promo-units',
     'utexas_quick_links' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#quick-links',
     'utexas_resources' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#resources',
+    'utnews_article_listing' => 'https://drupalkit.its.utexas.edu/docs/content/news.html#news-listings',
+    'utprof_profile_listing' => 'https://drupalkit.its.utexas.edu/docs/content/profile.html#profile-listings',
     'social_links' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#social-links',
     'twitter_widget' => 'https://drupalkit.its.utexas.edu/docs/external_content/index.html#twitter-content',
   ];
