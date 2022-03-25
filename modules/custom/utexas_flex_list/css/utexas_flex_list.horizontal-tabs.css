@@ -1,0 +1,83 @@
+.formatter-horizontal-tabs.utexas-flex-list .nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-link:hover,
+.formatter-horizontal-tabs.utexas-flex-list .nav-link:focus {
+  text-decoration: none;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-link.disabled {
+  cursor: default;
+  pointer-events: none;
+  color: #6c757d;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .nav-link {
+  margin-bottom: -1px;
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .nav-link:hover,
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .nav-link:focus {
+  border-color: #e9ecef #e9ecef #dee2e6;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .nav-link.disabled {
+  color: #6c757d;
+  border-color: transparent;
+  background-color: transparent;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .nav-link.active,
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .nav-item.show .nav-link {
+  color: #495057;
+  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: #fff;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-tabs .dropdown-menu {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-pills .nav-link {
+  border-radius: 0.25rem;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-pills .nav-link.active,
+.formatter-horizontal-tabs.utexas-flex-list .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #007bff;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-fill > .nav-link,
+.formatter-horizontal-tabs.utexas-flex-list .nav-fill .nav-item {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: center;
+}
+.formatter-horizontal-tabs.utexas-flex-list .nav-justified > .nav-link,
+.formatter-horizontal-tabs.utexas-flex-list .nav-justified .nav-item {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+.formatter-horizontal-tabs.utexas-flex-list .tab-content > .tab-pane {
+  display: none;
+  margin-top: 0.75rem;
+}
+.formatter-horizontal-tabs.utexas-flex-list .tab-content > .active {
+  display: block;
+}

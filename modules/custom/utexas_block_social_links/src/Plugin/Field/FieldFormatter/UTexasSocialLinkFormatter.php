@@ -28,6 +28,9 @@ class UTexasSocialLinkFormatter extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $icons = UTexasSocialLinkOptions::getIcons();
+    // Default to small for backwards compatibility.
+    $icon_size = $items[0]->icon_size ?? 'ut-social-links--small';
+    $elements['#icon_size'] = $icon_size;
     foreach ($items as $delta => $item) {
       if ($item->social_account_links) {
         $social_account_links = unserialize($item->social_account_links);
@@ -61,8 +64,6 @@ class UTexasSocialLinkFormatter extends FormatterBase {
           '#markup' => $item->headline,
         ];
       }
-      // Default to small for backwards compatibility.
-      $icon_size = $item->icon_size ?? 'ut-social-links--small';
       $elements[$delta]['icon_size'] = [
         '#markup' => $icon_size,
       ];

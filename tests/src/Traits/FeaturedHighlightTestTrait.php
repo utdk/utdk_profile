@@ -25,18 +25,22 @@ trait FeaturedHighlightTestTrait {
     $this->clickLink('Add custom block');
     $this->clickLink($block_type);
 
+    // Add a 'large image (1000x1000) to the media library.
+    $this->createTestMediaImage('1000x1000.png');
+
     // Open the media library.
     $session->wait(3000);
     $page->pressButton('Add media');
     $session->wait(3000);
     $this->assertNotEmpty($assert->waitForText('Add or select media'));
-    $assert->pageTextContains('Image 1');
-    // Select the first media item (should be "Image 1").
+    $assert->pageTextContains('1000x1000.png');
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[0]->click();
+    // Select the second media item (should be "1000x1000.png").
+    $checkboxes[1]->click();
     $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    $page->pressButton('Save');
 
     $this->submitForm([
       'info[0][value]' => $block_name,
@@ -74,7 +78,7 @@ trait FeaturedHighlightTestTrait {
     // Verify image is not a link after a11y changes.
     $assert->elementNotExists('css', '.utexas-featured-highlight .image-wrapper a picture source');
     // Verify expected image.
-    $expected_path = 'utexas_image_style_500w_300h/public/image-test';
+    $expected_path = 'utexas_image_style_500w/public/1000x1000';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper picture img', 'src', $expected_path);
     // // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
@@ -120,6 +124,26 @@ trait FeaturedHighlightTestTrait {
     // Verify headings in copy field are white.
     $dark_copy_color = $this->getSession()->evaluateScript('jQuery(".utexas-featured-highlight.dark .ut-copy h3").css("color")');
     $this->assertSame("rgb(255, 255, 255)", $dark_copy_color);
+
+    // Images smaller than 500px aren't rendered via responsive picture src.
+    $this->drupalGet('admin/content/block-content');
+    $page->findLink($block_name)->click();
+    $page->pressButton('media-0-media-library-remove-button-field_block_featured_highlight-0');
+    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $page->pressButton('Add media');
+    $session->wait(3000);
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    // Select the first media item.
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    $this->submitForm([], 'Save');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been updated.');
+    $this->drupalGet('node/' . $flex_page);
+    $expected_path = 'utexas_image_style_500w/public/image-test';
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper img', 'src', $expected_path);
 
     // Test rendering of YouTube video.
     $this->drupalGet('admin/content/block-content');

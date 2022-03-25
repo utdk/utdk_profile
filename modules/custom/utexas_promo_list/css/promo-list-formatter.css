@@ -45,6 +45,7 @@
 
 .ut-promo-list-wrapper .promo-list .content {
   margin-top: 0;
+  flex: 1 1 0;
 }
 
 .ut-promo-list-field-wrapper .ut-promo-list-side-by-side-wrapper {

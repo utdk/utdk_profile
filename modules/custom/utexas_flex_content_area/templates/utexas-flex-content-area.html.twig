@@ -22,7 +22,9 @@
   </div>
 {% endif %}
 <div class="content-wrapper">
-  <h3 class="ut-headline">{{ headline }}</h3>
+  {% if headline %}
+    <h3 class="ut-headline">{{ headline }}</h3>
+  {% endif %}
   {% if copy %}
     <div class="ut-copy">
         {{ copy }}

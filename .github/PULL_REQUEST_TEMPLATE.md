@@ -1,23 +1,18 @@
 ## Purpose
 Resolves #
 
-## Vouches
+## Acceptance criteria
+
+## Pull request creator checklist
+In order to be reviewed, all items must be checked by the pull request creator.
 - [ ] I reviewed the original issue title & description and updated it, if necessary, to reflect the final state of these changes
 - [ ] I checked the changed files for syntax compliance & [naming conventions](https://github.austin.utexas.edu/eis1-wcs/d8-standards/blob/master/Naming_Conventions.md) adherence
 - [ ] I evaluated whether new tests should be written for this change
-- [ ] I considered whether documentation or a decision record needs to be added
+- [ ] I considered whether documentation or a decision record needs to be added (if documentation is needed, add the `documentation` label to the issue)
 - [ ] I considered whether this change accommodates new and existing sites
 
 ## Callouts
-- [ ] This change requires a companion migration task:
-- [ ] This change has a companion documentation task:
 - [ ] Combo change (requires changes from another repo):
 
-## Reference: running tests locally
-1. `fin test web/profiles/contrib/utexas/tests/src/Functional`
-1. `fin test-js web/profiles/contrib/utexas/tests/src/FunctionalJavascript`
-
-## Setup
+## Reference: local setup
 1. Use https://utdirect.utexas.edu/apps/wcs/wcms/utdk3/environment-generator to generate the command related to this branch.
-
-## Acceptance criteria

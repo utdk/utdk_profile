@@ -9,6 +9,7 @@ use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\block\Entity\Block;
+use Drupal\utexas\InstallationHelper;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -57,6 +58,13 @@ function utexas_install() {
     ->getEditable('system.site')
     ->set('default_langcode', 'en')
     ->save(TRUE);
+
+  // Set Media Library pager to 'full' instead of 'mini (#985).
+  \Drupal::configFactory()
+    ->getEditable('views.view.media_library')
+    ->set('display.default.display_options.pager.type', 'full')
+    ->save(TRUE);
+
   // Add permissions to anonymous role.
   $anon_perms = [
     'access content',
@@ -86,6 +94,8 @@ function utexas_install() {
     ->getEditable('metatag.metatag_defaults.global')
     ->set('tags', $tags)
     ->save(TRUE);
+  // Add generic Social Sharing block.
+  InstallationHelper::addSocialSharing();
 }
 
 /**
@@ -308,7 +318,10 @@ function utexas_update_8115() {
   if (in_array($new_permission, array_keys($available_permissions))) {
     $role->grantPermission($new_permission);
     $role->save();
-    $messenger->addMessage(t('The %permission permission has been granted to the %role role.', ['%role' => $role->label(), '%permission' => $new_permission]));
+    $messenger->addMessage(t('The %permission permission has been granted to the %role role.', [
+      '%role' => $role->label(),
+      '%permission' => $new_permission,
+    ]));
   }
 
   // Remove old permission from target role.
@@ -316,7 +329,10 @@ function utexas_update_8115() {
   if ($role->hasPermission($old_permission)) {
     $role->revokePermission($old_permission);
     $role->save();
-    $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', ['%role' => $role->label(), '%permission' => $old_permission]));
+    $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', [
+      '%role' => $role->label(),
+      '%permission' => $old_permission,
+    ]));
   }
 }
 
@@ -351,7 +367,7 @@ function utexas_update_8118() {
 }
 
 /**
- * Add core modules Workflows and Content Moderation on existing sites. (fixes #931)
+ * Add core modules Workflows and Content Moderation on existing sites (#931).
  */
 function utexas_update_8119() {
   $modules = [
@@ -392,7 +408,7 @@ function utexas_update_8121() {
 }
 
 /**
- * Add filters & capabilities in Flex HTML to Full HTML
+ * Add filters & capabilities in Flex HTML to Full HTML.
  */
 function utexas_update_8122() {
   // Set existing sites' AddToAny configuration to the default state.
@@ -402,7 +418,7 @@ function utexas_update_8122() {
   ];
   foreach ($config_names as $config_name) {
     $config = \Drupal::configFactory()->getEditable($config_name);
-    $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' .  $config_name . '.yml';
+    $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
@@ -440,4 +456,44 @@ function utexas_update_8125() {
   if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
     \Drupal::service('module_installer')->install([$module]);
   }
+}
+
+/**
+ * Enable entity_clone on existing sites (#1709).
+ */
+function utexas_update_8126() {
+  $module = 'entity_clone';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+    $config_names = [
+      'entity_clone.settings',
+    ];
+    foreach ($config_names as $config_name) {
+      $config = \Drupal::configFactory()->getEditable($config_name);
+      $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+      if (!empty($config_path)) {
+        $data = Yaml::parse(file_get_contents($config_path));
+        if (is_array($data)) {
+          $config->setData($data)->save(TRUE);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Provide generic Social Sharing block (#1785).
+ */
+function utexas_update_8127() {
+  InstallationHelper::addSocialSharing();
+}
+
+/**
+ * Set Media Library pager to 'full' (#985).
+ */
+function utexas_update_8128() {
+  \Drupal::configFactory()
+    ->getEditable('views.view.media_library')
+    ->set('display.default.display_options.pager.type', 'full')
+    ->save(TRUE);
 }

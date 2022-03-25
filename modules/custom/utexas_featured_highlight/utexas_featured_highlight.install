@@ -40,3 +40,12 @@ function utexas_featured_highlight_update_8102() {
     $schema->addField($table_name, 'field_block_featured_highlight_link_options', $link_options);
   }
 }
+
+/**
+ * Featured Highlight image styles change scale and crop to just scale width (#1792).
+ */
+function utexas_featured_highlight_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_featured_highlight',
+  ], TRUE);
+}

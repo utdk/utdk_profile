@@ -16,6 +16,7 @@ content:
     weight: 0
     region: content
     label: hidden
-    settings: {  }
+    settings:
+      heading_level: h5
     third_party_settings: {  }
 hidden: {  }
