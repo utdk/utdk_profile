@@ -9,6 +9,9 @@ class MediaEntityImageHelper {
 
   /**
    * Get the allowed media type bundles.
+   *
+   * @return array
+   *   An array of media types.
    */
   public static function getAllowedBundles() {
 
@@ -25,14 +28,20 @@ class MediaEntityImageHelper {
       }
     }
 
-    return !empty($allowed_bundles) ? $allowed_bundles : 0;
+    return $allowed_bundles;
 
   }
 
   /**
    * Get the media attributes.
+   *
+   * @param \Drupal\Core\Entity\EntityBase $media
+   *   A media object. (No idea what object this is! Is this correct?)
+   *
+   * @return array
+   *   An array of media data.
    */
-  public static function getMediaAttributes(object $media) {
+  public static function getMediaAttributes(\Drupal\Core\Entity\EntityBase $media) {
 
     $media_bundle = \Drupal::entityTypeManager()->getStorage('media_type')->load($media->bundle());
     $source_field = $media_bundle->getSource()->getSourceFieldDefinition($media_bundle)->getName();
