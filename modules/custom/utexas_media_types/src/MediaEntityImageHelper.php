@@ -32,9 +32,9 @@ class MediaEntityImageHelper {
   /**
    * Get the media attributes.
    */
-  public static function getMediaAttributes($media) {
+  public static function getMediaAttributes(object $media) {
 
-    $media_bundle = $this->entityTypeManager->getStorage('media_type')->load($media->bundle());
+    $media_bundle = \Drupal::entityTypeManager()->getStorage('media_type')->load($media->bundle());
     $source_field = $media_bundle->getSource()->getSourceFieldDefinition($media_bundle)->getName();
 
     return $source_field;
