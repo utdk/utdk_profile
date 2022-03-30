@@ -3,7 +3,7 @@
 namespace Drupal\utexas_media_types;
 
 /**
- * Helper class to give components mulitple image type options.
+ * Helper class to give components multiple media type options.
  */
 class MediaEntityImageHelper {
 
@@ -33,20 +33,20 @@ class MediaEntityImageHelper {
   }
 
   /**
-   * Get the media attributes.
+   * Get the media file values.
    *
-   * @param \Drupal\Core\Entity\EntityBase $media
-   *   A media object. (No idea what object this is! Is this correct?)
+   * @param Object $media
+   *   A media object.
    *
    * @return array
    *   An array of media data.
    */
-  public static function getMediaAttributes(\Drupal\Core\Entity\EntityBase $media) {
+  public static function getFileFieldValue(Object $media) {
 
     $media_bundle = \Drupal::entityTypeManager()->getStorage('media_type')->load($media->bundle());
     $source_field = $media_bundle->getSource()->getSourceFieldDefinition($media_bundle)->getName();
 
-    return $source_field;
+    return $media->get($source_field)->getValue();
 
   }
 
