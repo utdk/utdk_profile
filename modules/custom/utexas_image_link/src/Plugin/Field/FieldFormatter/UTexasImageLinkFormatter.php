@@ -12,7 +12,7 @@ use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
-
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -147,7 +147,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
-      $media_attributes = $media->get('field_utexas_media_image')->getValue();
+      $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
       if (!empty($link_url)) {
         $link = Url::fromUri($link_url);
       }
@@ -170,6 +170,9 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
             'tags' => $cache_tags,
           ],
         ];
+      }
+      if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+        $image_render_array = [];
       }
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
