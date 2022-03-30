@@ -37,13 +37,13 @@ class MediaEntityImageHelper {
   /**
    * Get the media file values.
    *
-   * @param Object $media
+   * @param \Drupal\media\Entity\Media $media
    *   A media object.
    *
    * @return array
    *   An array of media data.
    */
-  public static function getFileFieldValue(Object $media) {
+  public static function getFileFieldValue(Media $media) {
 
     $media_bundle = \Drupal::entityTypeManager()->getStorage('media_type')->load($media->bundle());
     $source_field = $media_bundle->getSource()->getSourceFieldDefinition($media_bundle)->getName();
