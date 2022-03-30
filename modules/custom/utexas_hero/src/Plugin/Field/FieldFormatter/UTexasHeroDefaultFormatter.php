@@ -76,6 +76,11 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
             ];
           }
         }
+
+        if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+          $image_render_array = [];
+        }
+
       }
       $elements[] = [
         '#theme' => 'utexas_hero',
