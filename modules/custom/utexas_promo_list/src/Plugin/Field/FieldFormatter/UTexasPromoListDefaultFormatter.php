@@ -10,6 +10,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -145,7 +146,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
-      $media_attributes = $media->get('field_utexas_media_image')->getValue();
+      $media_attributes = MediaEntityImageHelper::getFileFieldValue($media); 
       $image_render_array = [];
       if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
         $image = new \stdClass();
@@ -164,6 +165,9 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
             'tags' => $cache_tags,
           ],
         ];
+      }
+      if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+        $image_render_array = [];
       }
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
