@@ -29,9 +29,12 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
     /** @var \Drupal\link\LinkItemInterface $item */
     $item = $items[$delta];
 
+    $allowed_bundles = MediaEntityImageHelper::getAllowedBundles();
+    array_push($allowed_bundles, 'utexas_video_external');
+
     $element['media'] = [
       '#type' => 'media_library',
-      '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
+      '#allowed_bundles' => $allowed_bundles,
       '#delta' => $delta,
       '#description' => t('The recommended minimum image width is 500px wide'),
       '#cardinality' => 1,

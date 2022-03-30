@@ -207,6 +207,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
         switch ($media->bundle()) {
+          case 'utexas_restricted_image':
           case 'utexas_image':
             $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name);
             break;
