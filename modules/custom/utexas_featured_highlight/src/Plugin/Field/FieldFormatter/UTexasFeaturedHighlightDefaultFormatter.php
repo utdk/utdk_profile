@@ -26,6 +26,8 @@ use Drupal\utexas_media_types\IframeTitleHelper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use Drupal\utexas_media_types\MediaEntityImageHelper;
+
 /**
  * Plugin implementation of the 'utexas_featured_highlight' formatter.
  *
@@ -318,7 +320,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
    */
   private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name) {
     $media_render_array = [];
-    $media_attributes = $media->get('field_utexas_media_image')->getValue();
+    $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
     if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
       $image = new \stdClass();
       $image->title = NULL;

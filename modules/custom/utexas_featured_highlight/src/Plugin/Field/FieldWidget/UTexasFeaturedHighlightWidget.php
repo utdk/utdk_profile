@@ -6,6 +6,8 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 
+use Drupal\utexas_media_types\MediaEntityImageHelper;
+
 /**
  * Plugin implementation of the 'utexas_featured_highlight' widget.
  *
@@ -29,7 +31,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
 
     $element['media'] = [
       '#type' => 'media_library',
-      '#allowed_bundles' => ['utexas_image', 'utexas_video_external'],
+      '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
       '#delta' => $delta,
       '#description' => t('The recommended minimum image width is 500px wide'),
       '#cardinality' => 1,
