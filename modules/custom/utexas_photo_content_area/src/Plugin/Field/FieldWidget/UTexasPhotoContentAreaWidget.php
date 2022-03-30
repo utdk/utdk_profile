@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_photo_content_area' widget.
@@ -28,7 +29,7 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     $field_name = $this->fieldDefinition->getName();
     $element['image'] = [
       '#type' => 'media_library',
-      '#allowed_bundles' => ['utexas_image'],
+      '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
       '#delta' => $delta,
       '#description' => $this->t('Image will be scaled and cropped to a 3:4 ratio. Ideally, upload an image of 1800x2400 pixels to maintain resolution & avoid cropping.'),
       '#cardinality' => 1,
