@@ -195,9 +195,6 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
         switch ($media->bundle()) {
           case 'utexas_restricted_image':
-            $media_render_array = [];
-            break;
-
           case 'utexas_image':
             $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name);
             break;
