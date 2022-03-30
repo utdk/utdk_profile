@@ -7,6 +7,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_flex_content_area' widget.
@@ -29,6 +30,9 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     /** @var \Drupal\link\LinkItemInterface $item */
     $item = $items[$delta];
 
+    $allowed_bundles = MediaEntityImageHelper::getAllowedBundles();
+    array_push($allowed_bundles, 'utexas_video_external');
+
     $field_name = $this->fieldDefinition->getName();
     $element['flex_content_area'] = [
       '#type' => 'details',
@@ -40,7 +44,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $element['flex_content_area']['image'] = [
       '#type' => 'media_library',
       '#description' => $this->t('If using an image, note that it will be scaled and cropped to 3:2 ratio. Ideally, upload an image of 1000x666 pixels to maintain resolution & avoid cropping.'),
-      '#allowed_bundles' => ['utexas_image', 'utexas_video_external'],
+      '#allowed_bundles' => $allowed_bundles,
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
