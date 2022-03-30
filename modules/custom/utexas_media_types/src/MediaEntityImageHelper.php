@@ -2,6 +2,8 @@
 
 namespace Drupal\utexas_media_types;
 
+use Drupal\media\Entity\Media;
+
 /**
  * Helper class to give components multiple media type options.
  */
@@ -48,6 +50,23 @@ class MediaEntityImageHelper {
 
     return $media->get($source_field)->getValue();
 
+  }
+
+  /**
+   * Check if the media is restricted.
+   *
+   * @param \Drupal\media\Entity\Media $media
+   *   A Drupal media object.
+   *
+   * @return bool
+   *   TRUE if the media item is restricted from the current user.
+   */
+  public static function mediaIsRestricted(Media $media) {
+    $moduleHandler = \Drupal::service('module_handler');
+    if ($moduleHandler->moduleExists('utexas_media_access_by_role')) {
+      return \Drupal::service('utexas_media_access_by_role.helper')->mediaIsRestricted($media);
+    }
+    return FALSE;
   }
 
 }
