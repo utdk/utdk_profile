@@ -354,6 +354,9 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       // This will clear our cache when this entity updates.
       $this->renderer->addCacheableDependency($media_render_array, $file);
     }
+    if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+      return [];
+    }
     return $media_render_array;
   }
 
