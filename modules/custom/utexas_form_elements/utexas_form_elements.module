@@ -5,6 +5,9 @@
  * Defines utexas_link_element field type.
  */
 
+use Drupal\utexas_form_elements\DocumentationLinks;
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -30,4 +33,53 @@ function utexas_form_elements_field_widget_info_alter(array &$definitions) {
   $definitions['entity_reference_autocomplete']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget';
   // Alter "Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteTagsWidget".
   $definitions['entity_reference_autocomplete_tags']['class'] = 'Drupal\utexas_form_elements\Plugin\Field\FieldWidget\EntityReferenceAutocompleteTagsWidget';
+}
+
+/**
+ * Implements hook_ckeditor_css_alter().
+ */
+function utexas_form_elements_ckeditor_css_alter(array &$css, $editor) {
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('utexas_form_elements')->getPath();
+  $css[] = $module_path . '/css/ckeditor.css';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function utexas_form_elements_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add documentation to block instances accessed via the Block UI.
+  foreach (DocumentationLinks::$docLinks as $block_type => $link) {
+    if ($form_id !== 'block_content_' . $block_type . '_form') {
+      continue;
+    }
+    $form['description'] = [
+      '#markup' => '<a target="_blank" href="' . $link . '">View documentation for this component<span class="ut-cta-link--external"></span></a>',
+      '#weight' => -999,
+    ];
+    $form['#attached']['library'][] = 'utexas_form_elements/link-options';
+  }
+}
+
+/**
+ * Implements hook_form_layout_builder_configure_block_alter().
+ */
+function utexas_form_elements_form_layout_builder_configure_block_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add documentation to block instances accessed via Layout Builder.
+  if (!isset($form['settings']['block_form'])) {
+    return;
+  }
+  $bundle = $form['settings']['block_form']['#block']->bundle();
+  foreach (DocumentationLinks::$docLinks as $block_type => $link) {
+    if ($bundle !== $block_type) {
+      continue;
+    }
+    $label = $form['settings']['admin_label']['#plain_text'];
+    unset($form['settings']['admin_label']['#plain_text']);
+    $form['settings']['admin_label']['#description'] = [
+      '#markup' => $label . ' (<a target="_blank" href="' . $link . '">View documentation for this component<span class="ut-cta-link--external"></span></a>)',
+      '#weight' => -999,
+    ];
+    $form['#attached']['library'][] = 'utexas_form_elements/link-options';
+  }
 }

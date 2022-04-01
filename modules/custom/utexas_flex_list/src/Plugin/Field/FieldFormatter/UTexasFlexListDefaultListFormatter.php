@@ -3,22 +3,20 @@
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\Html;
 
 /**
  * Plugin implementation of the 'utexas_flex_list' formatter.
  *
  * @FieldFormatter(
  *   id = "utexas_flex_list_default",
- *   label = @Translation("Flex list"),
+ *   label = @Translation("Title/body list"),
  *   field_types = {
  *     "utexas_flex_list"
  *   }
  * )
  */
-class UTexasFlexListDefaultFormatter extends FormatterBase {
+class UTexasFlexListDefaultListFormatter extends UTexasFlexListFormatterBase {
 
   /**
    * {@inheritdoc}
@@ -58,7 +56,7 @@ class UTexasFlexListDefaultFormatter extends FormatterBase {
     $summary = [];
     $settings = $this->getSettings();
     if (!empty($settings['heading_level'])) {
-      $summary[] = t('Heading level: @display', ['@display' => $settings['heading_level']]);
+      $summary[] = $this->t('Heading level: @display', ['@display' => $settings['heading_level']]);
     }
     return $summary;
   }
@@ -67,25 +65,14 @@ class UTexasFlexListDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $settings = $this->getSettings();
-    $element = [
-      '#attributes' => [
-        'class' => [
-          'utexas-flex-list',
-        ],
-      ],
-    ];
-    foreach ($items as $delta => $item) {
-      $element[$delta] = [
-        '#theme' => 'utexas_flex_list',
-        '#heading_level' => $settings['heading_level'],
-        '#header' => $item->header,
-        '#id' => Html::getUniqueId($item->header),
-        '#content' => check_markup($item->content_value, $item->content_format),
-      ];
-      $element['#attached']['library'][] = 'utexas_flex_list/base';
+    $elements = parent::viewElements($items, $langcode);
+    $elements['#attached']['library'][] = 'utexas_flex_list/default';
+    foreach ($elements as $delta => $element) {
+      if (is_numeric($delta)) {
+        $elements[$delta]['heading_level'] = ['#plain_text' => $this->getSetting('heading_level')];
+      }
     }
-    return $element;
+    return $elements;
   }
 
 }

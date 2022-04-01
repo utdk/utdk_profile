@@ -7,6 +7,7 @@
 
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_layouts\UtexasLayoutBuilderHelper;
 
 /**
  * Implements hook_preprocess_layout().
@@ -70,8 +71,30 @@ function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInt
  * layout builder.
  */
 function utexas_layouts_block_view_alter(array &$build, BlockPluginInterface $block) {
+  if (!isset($build['#block'])) {
+    // Some modules (e.g., Total Control) do not implement this hook correctly.
+    return;
+  }
   /** @var Drupal\block\BlockInterface $block_config_entity */
   $block_config_entity = $build['#block'];
   // Add a key/value for the region where the block is being rendered.
   $build['#utexas_layouts_region'] = $block_config_entity->getRegion();
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function utexas_layouts_preprocess_block(&$variables) {
+  if (!isset($variables['elements']['#utexas_layouts_region'])) {
+    // Some modules (e.g., Total Control) do not implement this hook correctly.
+    return;
+  }
+  $base_plugin_id = $variables['base_plugin_id'];
+  // Limit to page title blocks placed in the main 'content' region.
+  if ($variables['elements']['#utexas_layouts_region'] !== 'content' || $base_plugin_id !== 'page_title_block') {
+    return;
+  }
+  if (UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
+    $variables['attributes']['class'][] = 'utexas-readable';
+  }
 }

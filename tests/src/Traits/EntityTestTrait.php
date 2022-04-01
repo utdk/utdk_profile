@@ -2,10 +2,11 @@
 
 namespace Drupal\Tests\utexas\Traits;
 
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Language\Language;
 use Drupal\file\Entity\File;
 use Drupal\node\Entity\Node;
 use Drupal\media\Entity\Media;
-use Drupal\Core\Language\Language;
 
 /**
  * General-purpose methods for interacting with Drupal entities.
@@ -61,20 +62,41 @@ trait EntityTestTrait {
   /**
    * Creates a test image in Drupal and returns the media MID.
    *
+   * @param string $filename
+   *   An optional filename from a file located in tests/fixtures.
+   *
    * @return string
    *   The MID.
    */
-  protected function createTestMediaImage() {
-    $images = $this->getTestFiles('image');
-    // Create a File entity for the initial image. The zeroth element is a PNG.
-    $file = File::create([
-      'uri' => $images[0]->uri,
-      'uid' => 1,
-      'status' => FILE_STATUS_PERMANENT,
-    ]);
+  protected function createTestMediaImage($filename = FALSE) {
+    if ($filename) {
+      $file_system = \Drupal::service('file_system');
+      $name = $filename;
+      $path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/tests/fixtures/' . $filename;
+      $image = File::create();
+      $image->setFileUri($path);
+      $image->setOwnerId(\Drupal::currentUser()->id());
+      $image->setMimeType(\Drupal::service('file.mime_type.guesser')->guess($path));
+      $image->setFileName($file_system->basename($path));
+      $destination_dir = 'public://';
+      $file_system->prepareDirectory($destination_dir, FileSystemInterface::CREATE_DIRECTORY);
+      $destination = $destination_dir . '/' . basename($path);
+      $file = file_copy($image, $destination);
+    }
+    else {
+      $name = 'Image 1';
+      $images = $this->getTestFiles('image');
+      // Create a File entity for the initial image.
+      // The zeroth element is a PNG.
+      $file = File::create([
+        'uri' => $images[0]->uri,
+        'uid' => 1,
+        'status' => FILE_STATUS_PERMANENT,
+      ]);
+    }
     $file->save();
     $image_media = Media::create([
-      'name' => 'Image 1',
+      'name' => $name,
       'bundle' => 'utexas_image',
       'uid' => '1',
       'langcode' => Language::LANGCODE_NOT_SPECIFIED,

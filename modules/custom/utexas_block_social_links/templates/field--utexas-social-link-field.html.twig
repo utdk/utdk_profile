@@ -36,8 +36,13 @@
  * @see template_preprocess_field()
  */
 #}
-{% set wrapper_class = 'block__ut-social-links' %}
-<div{{ attributes.addClass(wrapper_class) }}>
+{%
+  set wrapper_classes = [
+    'block__ut-social-links',
+    icon_size|clean_class,
+  ]
+%}
+<div{{ attributes.addClass(wrapper_classes) }}>
   {% for item in items %}
     {% if item.content.headline %}
       <div class='ut-headline'>{{ item.content.headline }}</div>

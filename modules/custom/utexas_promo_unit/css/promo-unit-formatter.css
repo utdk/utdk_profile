@@ -42,7 +42,7 @@
 /* Data Wrapper (Section 2) Styles */
 .utexas-promo-unit .data-wrapper {
   flex: 1 1 0;
-  margin: 0 0 0 4%;
+  margin: 0 0 0 1.25rem;
   min-width: 175px;
 }
 .utexas-promo-unit .data-wrapper .ut-headline {

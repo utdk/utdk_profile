@@ -3,6 +3,7 @@
 namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\filter\Entity\FilterFormat;
+use Drupal\node\Entity\Node;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
@@ -77,6 +78,15 @@ class BaseInstallationTest extends BrowserTestBase {
     // $country = $this->config('system.date')->get('country.default');
     // $this->assertEquals($timezone, 'America/Chicago');
     // $this->assertEquals($country, 'US');
+    // Check for presence of Social Sharing block.
+    $node = Node::create([
+      'type'        => 'article',
+      'title'       => 'Test Article',
+    ]);
+    $node->save();
+    $this->drupalGet("/node/" . $node->id());
+    $assert->responseContains('Share this content');
+
     // Assert Flex HTML elements are default values.
     $ckeditor_actual = $this->config('editor.editor.flex_html')->get('settings.toolbar');
     $ckeditor_expected = [
@@ -257,7 +267,7 @@ class BaseInstallationTest extends BrowserTestBase {
     // Verify demo content renders as expected.
     \Drupal::service('module_installer')->install(['utexas_devel']);
     $this->drupalGet('featured-highlight');
-    $featured_highlight_path = 'styles/utexas_image_style_500w_300h/public/generated_sample/tower-lighting.gif';
+    $featured_highlight_path = 'styles/utexas_image_style_500w/public/generated_sample/tower-lighting.gif';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper img', 'src', $featured_highlight_path);
     $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight');
     $assert->elementTextContains('css', '.utexas-featured-highlight .ut-copy', 'Add descriptive text to provide a short summary of this featured content.');

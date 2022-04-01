@@ -22,6 +22,8 @@ use Drupal\utexas_media_types\IframeTitleHelper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use Drupal\utexas_media_types\MediaEntityImageHelper;
+
 /**
  * Plugin implementation of the 'utexas_flex_content_area' formatter.
  *
@@ -192,6 +194,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
         switch ($media->bundle()) {
+          case 'utexas_restricted_image':
           case 'utexas_image':
             $media_render_array = $this->generateImageRenderArray($media, $responsive_image_style_name);
             break;
@@ -301,7 +304,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
    */
   private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name) {
     $media_render_array = [];
-    $media_attributes = $media->get('field_utexas_media_image')->getValue();
+    $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
     if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
       $image = new \stdClass();
       $image->title = NULL;
@@ -324,6 +327,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
       $this->renderer->addCacheableDependency($media_render_array, $file);
+    }
+    if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+      return [];
     }
     return $media_render_array;
   }

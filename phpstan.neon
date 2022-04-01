@@ -1,8 +1,4 @@
 parameters:
-	# Ignore tests
-	excludes_analyse:
-		- *Test.php
-		- *TestBase.php
 	# PHPStan Level 1
 	level: 1
 includes:

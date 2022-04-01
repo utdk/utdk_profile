@@ -1,0 +1,5 @@
+.formatter-default.utexas-flex-list.field__items,
+.formatter-default.utexas-flex-list .field__items {
+  list-style: none;
+  padding-inline-start: 0;
+}

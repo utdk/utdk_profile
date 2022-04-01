@@ -1,0 +1,4 @@
+/* https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1769 */
+.align-right .media-library-item__edit {
+  position: absolute;
+}
