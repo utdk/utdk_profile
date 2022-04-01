@@ -6,6 +6,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero' formatter.
@@ -46,7 +47,7 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
       $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
       $image_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
-        $media_attributes = $media->get('field_utexas_media_image')->getValue();
+        $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
         if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $image = new \stdClass();
           $image->title = NULL;
@@ -75,6 +76,11 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
             ];
           }
         }
+
+        if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+          $image_render_array = [];
+        }
+
       }
       $elements[] = [
         '#theme' => 'utexas_hero',

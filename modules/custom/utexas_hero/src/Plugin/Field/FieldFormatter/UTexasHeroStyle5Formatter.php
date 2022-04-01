@@ -6,6 +6,7 @@ use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero_5' formatter.
@@ -47,7 +48,7 @@ class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
       $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
       $id = 'a' . substr(md5(uniqid(mt_rand(), TRUE)), 0, 5);
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
-        $media_attributes = $media->get('field_utexas_media_image')->getValue();
+        $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
         if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $uri = $file->getFileUri();
           // Check if image styles have been disabled (e.g., animated GIF)
@@ -76,6 +77,9 @@ class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
               background-image: url(" . $small_src . ");
             }
           }";
+          if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+            $css = "";
+          }
           $elements['#attached']['html_head'][] = [
             [
               '#tag' => 'style',

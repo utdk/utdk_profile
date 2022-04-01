@@ -5,6 +5,7 @@ namespace Drupal\utexas_image_link\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_image_link' widget.
@@ -29,7 +30,7 @@ class UTexasImageLinkWidget extends WidgetBase {
 
     $element['image'] = [
       '#type' => 'media_library',
-      '#allowed_bundles' => ['utexas_image'],
+      '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),

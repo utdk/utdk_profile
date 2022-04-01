@@ -5,6 +5,7 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero' widget.
@@ -29,7 +30,7 @@ class UTexasHeroWidget extends WidgetBase {
     $item = $items[$delta];
     $element['media'] = [
       '#type' => 'media_library',
-      '#allowed_bundles' => ['utexas_image'],
+      '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Image'),

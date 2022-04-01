@@ -4,6 +4,7 @@ namespace Drupal\utexas_promo_list\Element;
 
 use Drupal\Core\Render\Element\FormElement;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Defines an element for a single link + title field.
@@ -37,7 +38,7 @@ class UTexasPromoListElement extends FormElement {
     ];
     $element['image'] = [
       '#type' => 'media_library',
-      '#allowed_bundles' => ['utexas_image'],
+      '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
