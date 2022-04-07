@@ -69,4 +69,24 @@ class MediaEntityImageHelper {
     return FALSE;
   }
 
+  /**
+   * Check if the media exists.
+   *
+   * @param int $mid
+   *   A Drupal media MID.
+   *
+   * @return mixed
+   *   The MID, if the media still exists. NULL if it does not.
+   */
+  public static function checkMediaExists($mid) {
+    if (!$mid) {
+      return NULL;
+    }
+    $media = \Drupal::entityTypeManager()->getStorage('media')->load($mid);
+    if ($media instanceof MediaInterface) {
+      return $mid;
+    }
+    return NULL;
+  }
+
 }

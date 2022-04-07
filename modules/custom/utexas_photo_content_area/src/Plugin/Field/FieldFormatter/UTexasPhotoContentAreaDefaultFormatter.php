@@ -118,7 +118,7 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
       }
       $image_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
-        $media_attributes = MediaEntityImageHelper::getFileFieldValue($media); 
+        $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
         $image_render_array = [];
         if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $image = new \stdClass();
@@ -137,13 +137,15 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
             ],
           ];
         }
+
+        if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+          $image_render_array = [];
+        }
         // Add the file entity to the cache dependencies.
         // This will clear our cache when this entity updates.
         $this->renderer->addCacheableDependency($image_render_array, $file);
       }
-      if (MediaEntityImageHelper::mediaIsRestricted($media)) {
-        $image_render_array = [];
-      }
+
       $elements[] = [
         '#theme' => 'utexas_photo_content_area',
         '#image' => $image_render_array,

@@ -36,10 +36,10 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       '#type' => 'media_library',
       '#allowed_bundles' => $allowed_bundles,
       '#delta' => $delta,
-      '#description' => t('The recommended minimum image width is 500px wide'),
+      '#description' => $this->t('The recommended minimum image width is 500px wide'),
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
-      '#default_value' => !empty($item->media) ? $item->media : NULL,
+      '#default_value' => MediaEntityImageHelper::checkMediaExists($item->media),
     ];
     $element['headline'] = [
       '#title' => 'Headline',

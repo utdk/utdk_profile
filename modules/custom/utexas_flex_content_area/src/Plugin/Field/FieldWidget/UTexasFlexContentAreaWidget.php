@@ -48,7 +48,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
       '#delta' => $delta,
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
-      '#default_value' => !empty($item->image) ? $item->image : NULL,
+      '#default_value' => MediaEntityImageHelper::checkMediaExists($item->image),
     ];
     $element['flex_content_area']['headline'] = [
       '#title' => 'Headline',
