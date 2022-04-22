@@ -55,17 +55,20 @@ class MediaEntityImageHelper {
   /**
    * Check if the media is restricted.
    *
-   * @param \Drupal\media\MediaInterface $media
-   *   A Drupal media object.
+   * @param mixed $media
+   *   A Drupal media object, or 0.
    *
    * @return bool
    *   TRUE if the media item is restricted from the current user.
    */
-  public static function mediaIsRestricted(MediaInterface $media) {
-    $moduleHandler = \Drupal::service('module_handler');
-    if ($moduleHandler->moduleExists('utexas_media_access_by_role')) {
-      return \Drupal::service('utexas_media_access_by_role.helper')->mediaIsRestricted($media);
+  public static function mediaIsRestricted($media) {
+    if ($media instanceof MediaInterface) {
+      $moduleHandler = \Drupal::service('module_handler');
+      if ($moduleHandler->moduleExists('utexas_media_access_by_role')) {
+        return \Drupal::service('utexas_media_access_by_role.helper')->mediaIsRestricted($media);
+      }
     }
+
     return FALSE;
   }
 
