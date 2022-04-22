@@ -76,9 +76,9 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
             ];
           }
         }
-      }
-      if (MediaEntityImageHelper::mediaIsRestricted($media)) {
-        $image_render_array = [];
+        if (MediaEntityImageHelper::mediaIsRestricted($media)) {
+          $image_render_array = [];
+        }
       }
       $elements[] = [
         '#theme' => 'utexas_hero_4',
