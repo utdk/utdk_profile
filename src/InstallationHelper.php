@@ -41,7 +41,7 @@ class InstallationHelper {
     $block->enable();
     $block->setVisibilityConfig("entity_bundle:node", [
       'bundles' => [
-        'article' => 'article',
+        'page' => 'page',
       ],
       'negate' => FALSE,
       'context_mapping' => [

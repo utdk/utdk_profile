@@ -80,8 +80,8 @@ class BaseInstallationTest extends BrowserTestBase {
     // $this->assertEquals($country, 'US');
     // Check for presence of Social Sharing block.
     $node = Node::create([
-      'type'        => 'article',
-      'title'       => 'Test Article',
+      'type'        => 'page',
+      'title'       => 'Test Page',
     ]);
     $node->save();
     $this->drupalGet("/node/" . $node->id());
