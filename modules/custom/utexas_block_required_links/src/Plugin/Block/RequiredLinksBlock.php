@@ -20,11 +20,11 @@ class RequiredLinksBlock extends BlockBase {
    */
   public function build() {
     $required_links = [
-      'http://www.utexas.edu' => 'UT Austin Home',
-      'http://www.utexas.edu/emergency' => 'Emergency Information',
-      'http://www.utexas.edu/site-policies' => 'Site Policies',
-      'http://www.utexas.edu/web-accessibility-policy' => 'Web Accessibility Policy',
-      'http://www.utexas.edu/web-privacy-policy' => 'Web Privacy Policy',
+      'https://www.utexas.edu' => 'UT Austin Home',
+      'https://emergency.utexas.edu' => 'Emergency Information',
+      'https://www.utexas.edu/site-policies' => 'Site Policies',
+      'https://www.utexas.edu/web-accessibility-policy' => 'Web Accessibility Policy',
+      'https://www.utexas.edu/web-privacy-policy' => 'Web Privacy Policy',
       'https://get.adobe.com/reader/' => 'Adobe Reader',
     ];
     $output = '<ul class="ut-menu--list required-links__list">';
