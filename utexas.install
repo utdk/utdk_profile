@@ -497,3 +497,12 @@ function utexas_update_8128() {
     ->set('display.default.display_options.pager.type', 'full')
     ->save(TRUE);
 }
+
+/**
+ * Add Hero Carousel block type (#1798).
+ */
+function utexas_update_8129() {
+  if (\Drupal::moduleHandler()->moduleExists('utexas_hero_carousel') === FALSE) {
+    \Drupal::service('module_installer')->install(['utexas_hero_carousel']);
+  }
+}

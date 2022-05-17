@@ -17,6 +17,7 @@ class DocumentationLinks {
     'utexas_flex_content_area' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#flex-content-area',
     'utexas_flex_list' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#flex-list',
     'utexas_hero' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#hero',
+    'utexas_hero_carousel' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#hero-carousel',
     'utexas_image_link' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#image-link',
     'utexas_photo_content_area' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#photo-content-area',
     'utexas_promo_list' => 'https://drupalkit.its.utexas.edu/docs/content/custom_content_components.html#promo-lists',
