@@ -20,7 +20,7 @@ function utexas_block_social_links_install() {
   $social_networks_entity_manager = \Drupal::entityTypeManager()->getStorage('utexas_social_links_data');
   $filedir = 'public://social_icons/';
   $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
-  $dir = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
+  $dir = \Drupal::service('extension.list.module')->getPath('utexas_block_social_links') . '/icons/';
   $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
   foreach ($default_icons as $key => $value) {
     $uri = $value->uri;

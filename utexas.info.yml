@@ -91,6 +91,7 @@ install:
   - utexas_promo_list
   - utexas_promo_unit
   - utexas_quick_links
+  - utexas_readonly
   - utexas_resources
   - utexas_site_announcement
   - utexas_text_format_flex_html

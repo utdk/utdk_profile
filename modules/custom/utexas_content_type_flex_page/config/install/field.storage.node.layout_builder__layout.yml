@@ -10,7 +10,7 @@ entity_type: node
 type: layout_section
 settings: {  }
 module: layout_builder
-locked: true
+locked: false
 cardinality: 1
 translatable: true
 indexes: {  }

@@ -82,7 +82,7 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     $web_assert->pageTextContains('Add announcement icon');
     $page->findField('label')->setValue("Test Icon");
     $web_assert->waitForElementVisible('css', 'input[type="file"]');
-    $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
+    $dir = \Drupal::service('extension.list.module')->getPath('utexas_site_announcement') . '/assets/';
     $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
     $test_file_path = $default_icons['beacon']->uri;
     $page->attachFileToField('files[icon]', $test_file_path);
@@ -182,7 +182,7 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     // Create default announcement icons.
     $filedir = 'public://announcement_icons/';
     $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
-    $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
+    $dir = \Drupal::service('extension.list.module')->getPath('utexas_site_announcement') . '/assets/';
     $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
     foreach ($default_icons as $key => $value) {
       $uri = $value->uri;

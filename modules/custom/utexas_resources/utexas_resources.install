@@ -37,3 +37,12 @@ function utexas_resources_update_8101() {
   }
 
 }
+
+/**
+ * Set field storage configuration to 'locked' (#1548).
+ */
+function utexas_resources_update_8102() {
+  \Drupal::service('features.manager')->import([
+    'utexas_resources',
+  ], TRUE);
+}

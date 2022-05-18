@@ -174,7 +174,7 @@ function utexas_update_8107() {
   // Set existing sites' AddToAny configuration to the default state.
   $config_name = 'addtoany.settings';
   $config = \Drupal::configFactory()->getEditable($config_name);
-  $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+  $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
   if (!empty($config_path)) {
     $data = Yaml::parse(file_get_contents($config_path));
     if (is_array($data)) {
@@ -206,7 +206,7 @@ function utexas_update_8109() {
   foreach ($config_names as $config_name) {
     if (\Drupal::config($config_name)->get('status') === NULL) {
       $config = \Drupal::configFactory()->getEditable($config_name);
-      $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+      $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
       if (!empty($config_path)) {
         $data = Yaml::parse(file_get_contents($config_path));
         if (is_array($data)) {
@@ -418,7 +418,7 @@ function utexas_update_8122() {
   ];
   foreach ($config_names as $config_name) {
     $config = \Drupal::configFactory()->getEditable($config_name);
-    $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
@@ -470,7 +470,7 @@ function utexas_update_8126() {
     ];
     foreach ($config_names as $config_name) {
       $config = \Drupal::configFactory()->getEditable($config_name);
-      $config_path = drupal_get_path('profile', 'utexas') . '/config/install/' . $config_name . '.yml';
+      $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
       if (!empty($config_path)) {
         $data = Yaml::parse(file_get_contents($config_path));
         if (is_array($data)) {
@@ -504,5 +504,14 @@ function utexas_update_8128() {
 function utexas_update_8129() {
   if (\Drupal::moduleHandler()->moduleExists('utexas_hero_carousel') === FALSE) {
     \Drupal::service('module_installer')->install(['utexas_hero_carousel']);
+  }
+}
+  
+/**
+ * Enable 'UTexas Readonly' (#1548).
+ */
+function utexas_update_8130() {
+  if (\Drupal::moduleHandler()->moduleExists('utexas_readonly') === FALSE) {
+    \Drupal::service('module_installer')->install(['utexas_readonly']);
   }
 }

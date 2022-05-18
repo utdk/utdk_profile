@@ -64,7 +64,7 @@ class SocialLinksTest extends BrowserTestBase {
     $file_system = \Drupal::service('file_system');
     $filedir = 'public://social_icons/';
     $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
-    $dir = drupal_get_path('module', 'utexas_block_social_links') . '/icons/';
+    $dir = \Drupal::service('extension.list.module')->getPath('utexas_block_social_links') . '/icons/';
     $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
     foreach (array_values($default_icons) as $value) {
       $uri = $value->uri;
@@ -159,7 +159,7 @@ class SocialLinksTest extends BrowserTestBase {
 
     // Add a custom Social Network with 1st test SVG.
     $this->drupalGet("/admin/structure/social-links/add");
-    $asset_path = drupal_get_path('profile', 'utexas') . '/tests/fixtures/';
+    $asset_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/tests/fixtures/';
     $edit = [
       'label' => 'test',
       'id' => 'test',
