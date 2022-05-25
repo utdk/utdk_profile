@@ -112,11 +112,12 @@ trait HeroTestTrait {
       'id_or_name',
       'layout-builder-modal',
     ]));
-    $hero_style_1 = [
-      'edit-hero-style' => 'utexas_hero_1',
-      'edit-anchor-position' => 'center',
-    ];
-    $this->submitForm($hero_style_1, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_1"] + label > span'));
+    $input->click();
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="center"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
+
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
 
@@ -142,11 +143,12 @@ trait HeroTestTrait {
       'id_or_name',
       'layout-builder-modal',
     ]));
-    $hero_style_1_left = [
-      'edit-hero-style' => 'utexas_hero_1',
-      'edit-anchor-position' => 'left',
-    ];
-    $this->submitForm($hero_style_1_left, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_1"] + label > span'));
+    $input->click();
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="left"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
+
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
 
@@ -167,11 +169,11 @@ trait HeroTestTrait {
       'id_or_name',
       'layout-builder-modal',
     ]));
-    $hero_style_2 = [
-      'edit-hero-style' => 'utexas_hero_2',
-      'edit-anchor-position' => 'center',
-    ];
-    $this->submitForm($hero_style_2, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_2"] + label > span'));
+    $input->click();
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="center"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
 
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
@@ -191,11 +193,11 @@ trait HeroTestTrait {
       'layout-builder-modal',
     ]));
 
-    $hero_style_2_right = [
-      'edit-hero-style' => 'utexas_hero_2',
-      'edit-anchor-position' => 'right',
-    ];
-    $this->submitForm($hero_style_2_right, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_2"] + label > span'));
+    $input->click();
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="right"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
 
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
@@ -215,10 +217,11 @@ trait HeroTestTrait {
       'layout-builder-modal',
     ]));
 
-    $hero_style_3 = [
-      'edit-hero-style' => 'utexas_hero_3',
-    ];
-    $this->submitForm($hero_style_3, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_3"] + label > span'));
+    $input->click();
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="center"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
 
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
@@ -238,10 +241,9 @@ trait HeroTestTrait {
       'layout-builder-modal',
     ]));
 
-    $hero_style_4 = [
-      'edit-hero-style' => 'utexas_hero_4',
-    ];
-    $this->submitForm($hero_style_4, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_4"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
 
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');
@@ -260,10 +262,11 @@ trait HeroTestTrait {
       'layout-builder-modal',
     ]));
 
-    $hero_style_5 = [
-      'edit-hero-style' => 'utexas_hero_5',
-    ];
-    $this->submitForm($hero_style_5, 'Update');
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="utexas_hero_5"] + label > span'));
+    $input->click();
+    $this->assertNotEmpty($input = $page->find('css', 'input[value="center"] + label > span'));
+    $input->click();
+    $page->pressButton('Update');
 
     $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
     $page->pressButton('Save layout');

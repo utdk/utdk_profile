@@ -17,7 +17,7 @@ function utexas_devel_install() {
   $file_system = \Drupal::service('file_system');
   $filedir = 'public://utexas_devel/';
   $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
-  $path = drupal_get_path('module', 'utexas_devel') . '/assets/tower-lighting.gif';
+  $path = \Drupal::service('extension.list.module')->getPath('utexas_devel') . '/assets/tower-lighting.gif';
   $image = File::create();
   $image->setFileUri($path);
   $image->setOwnerId(\Drupal::currentUser()->id());

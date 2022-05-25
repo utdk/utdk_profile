@@ -42,7 +42,7 @@ function utexas_featured_highlight_update_8102() {
 }
 
 /**
- * Featured Highlight image styles change scale and crop to just scale width (#1792).
+ * Featured Highlight image styles change scale & crop to scale width (#1792).
  */
 function utexas_featured_highlight_update_8103() {
   \Drupal::service('features.manager')->import([

@@ -63,8 +63,8 @@ abstract class UTexasHeroFormatterBase extends FormatterBase implements Containe
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
-      $configuration,
       $plugin_id,
+      $plugin_definition,
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['label'],

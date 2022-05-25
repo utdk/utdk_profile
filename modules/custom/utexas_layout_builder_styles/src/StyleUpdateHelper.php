@@ -200,7 +200,7 @@ class StyleUpdateHelper {
    *   The config entity machine name.
    */
   public static function saveNewConfigurationFromYml(Config $config, $config_name) {
-    $config_path = drupal_get_path('module', 'utexas_layout_builder_styles') . '/config/install/' . $config_name . '.yml';
+    $config_path = \Drupal::service('extension.list.module')->getPath('utexas_layout_builder_styles') . '/config/install/' . $config_name . '.yml';
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       $config->setData($data)->save(TRUE);

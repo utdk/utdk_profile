@@ -19,7 +19,7 @@ function utexas_site_announcement_install() {
   $site_announcement_icon_entity_manager = \Drupal::entityTypeManager()->getStorage('utexas_announcement_icon');
   $filedir = 'public://announcement_icons/';
   $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
-  $dir = drupal_get_path('module', 'utexas_site_announcement') . '/assets/';
+  $dir = \Drupal::service('extension.list.module')->getPath('utexas_site_announcement') . '/assets/';
   $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
   foreach ($default_icons as $key => $value) {
     $uri = $value->uri;

@@ -56,23 +56,26 @@
       // style and anchor position.
       var style_and_anchor = getStyleAndAnchorValue(default_style);
 
-      // 2. Create custom select HTML elements if not already present.
-      createSelectors(form_mode_dom);
+      // 2. Hide the view mode selector.
+      $(form_mode_dom).hide();
 
-      // 3. Set values of custom select HTML elements.
-      // Update the value in the style custom select element.
-      $("select[name='hero_style']")
-      .val(default_style !== "default" ? style_and_anchor.style
-      : default_style);
-      // Update the value in the anchor custom select element.
-      if (default_style !== "default") {
-        $("select[name='anchor_position']").val(style_and_anchor.anchor);
-      }
+      // 3. Set values of custom radio HTML elements.
+      // Update the value in the style and anchor radio elements.
+      if( default_style !== "default") {
+        $("input[name='utexas_hero_style_selector'][value=\"" + style_and_anchor.style + "\"]").attr("checked","checked");
+        $("input[name='utexas_hero_anchor'][value=\"" + style_and_anchor.anchor + "\"]").attr("checked","checked");
+       } 
+       else {
+        $("input[name='utexas_hero_style_selector'][value='default']").attr("checked","checked");
+        $("input[name='utexas_hero_anchor'][value='center']").attr("checked","checked");
+       }
+
       // Convert default_style if "default" is set but we use a formatter form
       // mode.
       default_style = (form_mode === "formatter"
       && default_style === "default" ? "utexas_hero"
       : default_style);
+   
       // Update the values in the original hidden select element.
       original_select_element.val(default_style);
       // Toggle anchor select element if current hero don't use anchor.
@@ -82,101 +85,28 @@
       // the original select element in sync.
 
       // Watch the hero style custom select element.
-      $("select[name='hero_style']", context).change(function() {
-        var hero_style = "";
-        $("select[name='hero_style'] option:selected").each(function() {
-          // Get the hero style and convert to utexas_hero if form mode is set
-          // to formatter.
-          hero_style = (form_mode === "formatter"
-          && $("select[name='hero_style'] option:selected").val() === "default"
-          ? "utexas_hero"
-          : $("select[name='hero_style'] option:selected").val());
-        });
+      $("input[name='utexas_hero_style_selector']", context).change(function() {
+        
+        // Get the hero style and convert to utexas_hero if form mode is set
+        // to formatter.
+        var hero_style = (form_mode === "formatter"
+        && $("input[name=utexas_hero_style_selector]:checked").val() === "default"
+        ? "utexas_hero"
+        : $("input[name=utexas_hero_style_selector]:checked").val());
+      
         updateSelectors(original_select_element, "", hero_style);
       });
 
       // Watch the hero anchor custom select element.
-      $("select[name='anchor_position']", context).change(function() {
-        var anchor;
-        $("select[name='anchor_position'] option:selected").each(function() {
-          anchor = "_" + $("select[name='anchor_position'] option:selected")
-          .val();
-        });
+      $("input[name='utexas_hero_anchor']", context).change(function() {
+        
+        var anchor = "_" + $("input[name='utexas_hero_anchor']:checked")
+        .val();
+        
         updateSelectors(original_select_element, anchor, "");
       });
     }
   };
-
-
-
-  /**
-   * Create the custom select HTML elements and appends them to the form.
-   * @param {string} form_mode_dom The parent element where we create and set
-   *     the new selectors into.
-   */
-  function createSelectors(form_mode_dom) {
-    var hero_style_selector =
-      `<div class="js-form-item form-item js-form-type-select
-      form-item-hero-style js-form-item-hero-style">
-        <label for="edit-hero-style">Select Hero Style</label>
-        <select data-drupal-selector="edit-hero-style"
-        aria-describedby="edit-hero-style-description" id="edit-hero-style"
-        name="hero_style" class="form-select">
-          <option value="default">
-            Default: Large media with optional caption and credit line
-          </option>
-          <option value="utexas_hero_1">
-            Style 1: Bold heading &amp; subheading on burnt orange background
-          </option>
-          <option value="utexas_hero_2">
-            Style 2: Bold heading on dark background, anchored at base of media
-          </option>
-          <option value="utexas_hero_3">
-            Style 3: White bottom pane with heading, subheading and burnt orange
-            call to action
-          </option>
-          <option value="utexas_hero_4">
-            Style 4: Centered image with dark bottom pane containing heading,
-            subheading and call-to-action
-          </option>
-          <option value="utexas_hero_5">
-            Style 5: Medium image, floated right, with large heading,
-            subheading and burnt orange call-to-action
-          </option>
-        </select>
-      </div>`
-    ;
-    var anchor_position_selector =
-      `<div class="js-form-item form-item js-form-type-select
-      form-item-anchor-position js-form-item-anchor-position">
-        <label for="edit-anchor-position">Image anchor position</label>
-        <select data-drupal-selector="edit-anchor-position"
-        aria-describedby="edit-anchor-position-description"
-        id="edit-anchor-position" name="anchor_position" class="form-select">
-          <option value="center">Center</option>
-          <option value="left">Left</option>
-          <option value="right">Right</option>
-        </select>
-        <div id="edit-anchor-position-description" class="description">
-          Set what part of the image should be the focal anchor.
-        </div>
-      </div>`
-    ;
-    // We loop through each element within the parent DOM.
-    $(form_mode_dom).each(function() {
-      // Check if hero style default selector is present.
-      if ($(form_mode_dom)
-      .find("select option[value=utexas_hero_1_left]").length) {
-        // Validate custom selectors exist and create them if they don't.
-        if ($("#edit-hero-style").length === 0) {
-          $(form_mode_dom).after(anchor_position_selector)
-          .after(hero_style_selector);
-          // Hide the original selector after appending the custom ones.
-          $(form_mode_dom).hide();
-        }
-      }
-    });
-  }
 
   /**
    * Update the values and state of the select elements.
@@ -192,15 +122,15 @@
   function updateSelectors(original_select_element, anchor="", hero_style="") {
     // If no hero style passed as argument, get the current value.
     hero_style = ((hero_style === "")
-    ? $("select[name='hero_style'] option:selected").val()
+    ? $("input[name='utexas_hero_style_selector']:checked").val()
     : hero_style);
     // If no anchor passed as argument, get the current value
     anchor = ((anchor === "")
-    ? "_" + $( "select[name='anchor_position'] option:selected").val()
+    ? "_" + $("input[name='utexas_hero_anchor']:checked").val()
     : anchor);
     // Massage the custom anchor position value.
     toggleAnchorSelectElement(hero_style);
-    var disabled_anchor = ($("#edit-anchor-position").prop("disabled") ? true
+    var disabled_anchor = ($("input[name='utexas_hero_anchor']").prop("disabled") ? true
     : false);
     // Don't add suffix if anchor is center or anchor select is disabled.
     anchor = ((anchor === "_center" || disabled_anchor) ? ""
@@ -273,9 +203,9 @@
     // Disable anchor select element if using default or style 4.
     if (hero_style === "default" || hero_style === "utexas_hero"
     || hero_style === "utexas_hero_4") {
-      $("#edit-anchor-position").prop("disabled", true);
+      $("input[name='utexas_hero_anchor']").prop("disabled", true);
     } else {
-      $("#edit-anchor-position").removeAttr("disabled");
+      $("input[name='utexas_hero_anchor']").removeAttr("disabled");
     }
   }
 

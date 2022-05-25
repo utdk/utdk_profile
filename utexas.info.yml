@@ -3,7 +3,7 @@ type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
 core: 8.x
 core_version_requirement: ^8 || ^9
-version: '3.5.2'
+version: '3.6.0'
 distribution:
   name: UTexas
 dependencies:
@@ -82,6 +82,7 @@ install:
   - utexas_flex_content_area
   - utexas_flex_list
   - utexas_hero
+  - utexas_hero_carousel
   - utexas_image_link
   - utexas_layouts
   - utexas_layout_builder_styles
@@ -90,6 +91,7 @@ install:
   - utexas_promo_list
   - utexas_promo_unit
   - utexas_quick_links
+  - utexas_readonly
   - utexas_resources
   - utexas_site_announcement
   - utexas_text_format_flex_html
