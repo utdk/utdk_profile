@@ -5,8 +5,8 @@
   --icon-color-2: #000;
   --icon-color-3: #404040;
   --bottom-bar-background-color: #e5e5e5;
-  --dot-font-size-1: 12px;
-  --dot-font-size-2: 18px;
+  --dot-font-size-1: 19px;
+  --dot-font-size-2: 25px;
 }
 /* :focus outlines and background
 see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
@@ -133,10 +133,15 @@ see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
   height: calc(var(--button-font-size));
   z-index: 1;
 }
+.slick-dots li {
+  margin: 0 2px
+}
 .slick-dots li button {
   font-size: calc(var(--button-font-size) / 5);
   height: var(--dot-font-size-1);
   width: var(--dot-font-size-1);
+  /* border: solid 1px red; */
+  margin: 0;
 }
 .slick-dots li button .slick-dot-icon {
   color: var(--icon-color-1);
@@ -145,24 +150,10 @@ see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
   line-height: 1;
 }
 .slick-dots li button .slick-dot-icon:before {
-  font-size: unset;
-  left: -4px;
   line-height: unset;
-  top: -3px;
-}
-/* Contrasting background */
-.slick-dots li button .slick-dot-icon:after {
-  color: var(--icon-color-2);
-  position: absolute;
-  content: "•";
-  font-family: slick;
-  font-size: calc(var(--dot-font-size-1) + 4px);
-  line-height: 1;
-  left: -6px;
-  top: -5px;
-  text-align: center;
-  transition: all .05s linear;
-  z-index: -1;
+  border: solid 3px #000;
+  border-radius: 20px;
+  background-color:#fff;
 }
 /** Active state styles **/
 /* Icon */
@@ -175,15 +166,8 @@ see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
   font-size: var(--dot-font-size-2);
 }
 .slick-dots li.slick-active button .slick-dot-icon:before {
-  font-size: unset;
   margin-left: 0;
   margin-top: 0;
-}
-/* Contrasting background */
-.slick-dots li.slick-active button .slick-dot-icon:after {
-  font-size: calc(var(--dot-font-size-2) + 5.5px);
-  left: -6.75px;
-  top: -5.25px;
 }
 /** :focus styles **/
 /* Icon */
@@ -194,8 +178,6 @@ see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
 /* Icon */
 .slick-dots li button:hover .slick-dot-icon:before {
   color: var(--icon-color-2);
-}
-/* Contrasting background */
-.slick-dots li button:hover .slick-dot-icon:after {
-  color: var(--icon-color-1);
+  background-color:#000;
+  border:solid 2px #fff;
 }
