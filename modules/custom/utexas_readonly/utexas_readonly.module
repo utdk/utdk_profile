@@ -21,8 +21,9 @@ function utexas_readonly_form_alter(array &$form, FormStateInterface &$form_stat
     return;
   }
   $form_entity = $form_object->getEntity();
-  $parts = explode('.', $form_entity->id());
-  $base_entity = $parts[1] ?? $form_entity->id();
+  $form_id = $form_entity->id() ?? '';
+  $parts = explode('.', $form_id);
+  $base_entity = $parts[1] ?? $form_id;
   $restricted_entities = array_merge(ReadOnlyHelper::$restrictedBlockTypes, ReadOnlyHelper::$restrictedMediaTypes, ReadOnlyHelper::$restrictedNodeTypes, ReadOnlyHelper::$restrictedConfig, ReadOnlyHelper::$restrictedFields);
   if (!in_array($base_entity, $restricted_entities)) {
     return;
