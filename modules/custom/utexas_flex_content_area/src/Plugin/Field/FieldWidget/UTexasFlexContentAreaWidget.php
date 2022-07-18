@@ -38,7 +38,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
       '#type' => 'details',
       '#title' => $this->t('Flex Content Area %number %headline', [
         '%number' => $delta + 1,
-        '%headline' => isset($item->headline) ? ' (' . $item->headline . ')' : NULL,
+        '%headline' => isset($item->headline) ? ' (' . $item->headline . ')' : '',
       ]),
     ];
     $element['flex_content_area']['image'] = [
@@ -53,7 +53,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $element['flex_content_area']['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
-      '#default_value' => isset($item->headline) ? $item->headline : NULL,
+      '#default_value' => $item->headline ?? NULL,
       '#size' => '60',
       '#placeholder' => '',
       '#maxlength' => 255,
@@ -61,7 +61,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $element['flex_content_area']['copy'] = [
       '#title' => 'Copy',
       '#type' => 'text_format',
-      '#default_value' => isset($item->copy_value) ? $item->copy_value : NULL,
+      '#default_value' => $item->copy_value ?? NULL,
       '#format' => $item->copy_format ?? 'restricted_html',
     ];
     // Retrieve the form element that is using this widget.
@@ -121,9 +121,9 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $element['flex_content_area']['cta_wrapper']['link'] = [
       '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'uri' => isset($item->link_uri) ? $item->link_uri : NULL,
-        'title' => isset($item->link_text) ? $item->link_text : NULL,
-        'options' => isset($item->link_options) ? $item->link_options : [],
+        'uri' => $item->link_uri ?? NULL,
+        'title' => $item->link_text ?? NULL,
+        'options' => $item->link_options ?? [],
       ],
     ];
     return $element;
