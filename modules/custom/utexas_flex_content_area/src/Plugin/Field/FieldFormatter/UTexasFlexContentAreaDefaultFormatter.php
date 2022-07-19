@@ -163,15 +163,10 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
     foreach ($items as $delta => $item) {
       $media_ratio = "";
       // Format links.
-      $links = unserialize($item->links);
-      if (!empty($links)) {
-        foreach ($links as $key => $link) {
-          $link['link'] = $link;
-          $links[$key] = UtexasLinkOptionsHelper::buildLink($link, ['ut-link']);
-        }
-      }
-      else {
-        $links = [];
+      $links = unserialize($item->links ?? '') ?: [];
+      foreach ($links as $key => $link) {
+        $link['link'] = $link;
+        $links[$key] = UtexasLinkOptionsHelper::buildLink($link, ['ut-link']);
       }
       // Format CTA.
       $cta_item = $item->getValue();
