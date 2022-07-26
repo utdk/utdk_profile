@@ -56,7 +56,7 @@
     "drupal/updated": "1.0.0-alpha1",
     "drupal/url_embed": "1.0-beta1",
     "drupal/xmlsitemap": "1.2.0",
-    "utexas/forty_acres": "3.6.1",
+    "utexas/forty_acres": "3.7.0",
     "npm-asset/accessible360--accessible-slick": "v1.8.1",
     "oomphinc/composer-installers-extender": "2.0.1",
     "utexas/utexas_qualtrics_filter": "3.0.0"
@@ -141,13 +141,5 @@
   "support": {
     "email": "drupal-kit-support@utlists.utexas.edu",
     "docs": "https://drupalkit.its.utexas.edu/docs"
-  },
-  "config": {
-    "allow-plugins": {
-      "cweagans/composer-patches": true,
-      "drupal/core-composer-scaffold": true,
-      "composer/installers": true,
-      "oomphinc/composer-installers-extender": true
-    }
   }
 }
