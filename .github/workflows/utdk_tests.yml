@@ -1,0 +1,87 @@
+#on: [workflow_dispatch]
+on: pull_request
+
+jobs:
+  utdk3_testing_job:
+    runs-on: [ wcs-gh-t01 ]
+    name: Build and test an instance of UTDK 3
+    services:
+      utdk_mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: utdkftw
+          MYSQL_DATABASE: utdk
+        ports:
+           - 32574:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+      web:
+        image: php:7.4.27-apache
+        volumes:
+        - "${{ github.workspace }}:/var/www/html"
+        env:
+          SIMPLETEST_BASE_URL: http://web:8080
+          SIMPLETEST_DB: mysql://root:utdkftw@utdk_mysql/utdk
+          BROWSERTEST_OUTPUT_DIRECTORY: /var/www/html/utdk_scaffold/web/sites/simpletest/browser_output
+          SYMFONY_DEPRECATIONS_HELPER: disabled
+        ports:
+        - 8080:80
+
+      chrome:
+        image: drupalci/webdriver-chromedriver:production
+        ports:
+        - 4444:4444
+        - 9515:9515
+        
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+          
+      - name: Configure web host Docker container for UTDK 3
+        run: | 
+          # Ensure containers are ready...
+          sleep 2m
+
+          # Run first configuration script...
+          # Executed on container...
+          docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./web-setup1.sh'
+
+          # Install stuff for UTDK site with composer...
+          # Executed on host/Github Action Runner VM for ease of management of access to protected resources, file permissions, and performance...
+          php -d memory_limit=-1 /usr/local/bin/composer create-project utexas/utdk-project utdk_scaffold --stability=dev --remove-vcs --no-install
+          cd ${{ github.workspace }}/utdk_scaffold/upstream-configuration
+          php -d memory_limit=-1 /usr/local/bin/composer remove utexas/utdk_profile --no-update
+
+          cd ${{ github.workspace }}/utdk_scaffold
+          php -d memory_limit=-1 /usr/local/bin/composer config repositories.utdk_profile vcs git@github.austin.utexas.edu:eis1-wcs/utdk_profile.git
+          php -d memory_limit=-1 /usr/local/bin/composer config repositories.forty_acres vcs git@github.austin.utexas.edu:eis1-wcs/forty_acres.git
+          php -d memory_limit=-1 /usr/local/bin/composer config repositories.utexas_qualtrics_filter vcs git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git
+          php -d memory_limit=-1 /usr/local/bin/composer config repositories.utdk_localdev vcs git@github.austin.utexas.edu:eis1-wcs/utdk_localdev.git
+
+          php -d memory_limit=-1 /usr/local/bin/composer clear-cache
+          php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_profile:"dev-${{ github.head_ref }}"  --no-update
+
+          ## Requirements defined in utdk_localdev needed to run test suite, but not other setup steps of dev-scaffold script.
+          # We can safely ingore platform requirements on host since those only need to be satisified on Docker container
+          php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_localdev:dev-master --dev --ignore-platform-reqs
+
+          # Restart mysql container and make sure it's back up before coninuing...
+          # TODO: this shouldn't be necesary...
+          docker restart ${{ job.services.utdk_mysql.id }}
+          sleep 1m
+          
+          # Run second configuration script...
+          # Executed on container...
+          docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./web-setup2.sh'
+          
+      - name: Run tests
+        run: |
+          docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./run-tests.sh'
+          
+      - name: 'Upload Artifact'
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: browser_output
+          path: ${{ github.workspace }}/utdk_scaffold/web/sites/simpletest/browser_output
+          retention-days: 5

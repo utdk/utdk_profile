@@ -202,7 +202,7 @@ class UtexasLinkOptionsElement extends FormElement {
    * @see Drupal\link\Plugin\Field\FieldWidget\LinkWidget
    */
   public static function validateUriElement($element, FormStateInterface $form_state, $form) {
-    $uri = UtexasLinkOptionsElementHelper::uriFromUserInput($element['#value']);
+    $uri = UtexasLinkOptionsElementHelper::uriFromUserInput($element['#value']) ?? '';
     $form_state->setValueForElement($element, $uri);
 
     // If getUserEnteredStringAsUri() mapped the entered value to a 'internal:'
