@@ -4,6 +4,12 @@ apt-get update
 apt-get install -y libpng-dev
 apt-get install -y libnss3
 apt-get install -y zip
+#### Add php-zip to compress files for uploads to selenium container in tests.
+apt-get install -y \
+        libzip-dev \
+        zip
+docker-php-ext-install zip
+####
 apt-get install -y git
 apt-get install -y openssh-client
 docker-php-ext-install gd

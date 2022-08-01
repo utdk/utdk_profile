@@ -85,7 +85,8 @@ class SiteAnnouncementTest extends WebDriverTestBase {
     $dir = \Drupal::service('extension.list.module')->getPath('utexas_site_announcement') . '/assets/';
     $default_icons = $file_system->scanDirectory($dir, '/^.*\.(svg)$/i', ['key' => 'name'], 0);
     $test_file_path = $default_icons['beacon']->uri;
-    $page->attachFileToField('files[icon]', $test_file_path);
+    $remote_path = $session->getDriver()->uploadFileAndGetRemoteFilePath($file_system->realpath($test_file_path));
+    $page->attachFileToField('files[icon]', $remote_path);
     $page->pressButton('Save');
     $page->findField('id')->setValue("test_icon");
     $page->pressButton('Save');
