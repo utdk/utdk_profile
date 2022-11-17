@@ -2,9 +2,10 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_fourcol
-label: 'Limit to 4 items per row (if no limit is set, items will adjust to fit the available space)'
+label: 'Limit to 4 items per row'
 classes: utexas-fourcol
 type: component
+group: utexas_items_per_row
 weight: 103
 block_restrictions:
   - 'inline_block:social_links'

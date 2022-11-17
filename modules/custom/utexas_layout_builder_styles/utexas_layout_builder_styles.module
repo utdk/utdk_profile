@@ -5,6 +5,8 @@
  * Defines available Layout Builder Styles.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_preprocess_page().
  */
@@ -13,8 +15,23 @@ function utexas_layout_builder_styles_preprocess_page(&$variables) {
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/border-styles';
   // Add styles to constrain content to readable width for all content blocks.
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/readable';
-  // Add styles to remove/increase top/bottom block margins
+  // Add styles to remove/increase top/bottom block margins.
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/block-margins';
   // Add styling for border around images.
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/image-border';
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function utexas_layout_builder_styles_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form["#id"] !== 'layout-builder-update-block' && $form["#id"] !== 'layout-builder-add-block') {
+    return;
+  }
+
+  // Set empty option for utexas_items_per_row group (replacing '- None -').
+  if (isset($form['layout_builder_style_utexas_items_per_row']['#empty_option'])) {
+    $form['layout_builder_style_utexas_items_per_row']['#empty_option'] = t('No limit (items will adjust to fit the available space)');
+  }
+
 }

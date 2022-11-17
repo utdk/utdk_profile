@@ -2,9 +2,10 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_twocol
-label: 'Limit to 2 items per row (if no limit is set, items will adjust to fit the available space)'
+label: 'Limit to 2 items per row'
 classes: utexas-twocol
 type: component
+group: utexas_items_per_row
 weight: 101
 block_restrictions:
   - 'inline_block:social_links'

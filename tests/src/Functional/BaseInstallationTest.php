@@ -261,7 +261,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->drupalGet('admin/people/permissions');
     $assert->statusCodeEquals(403);
     // Site managers cannot access the Layout Builder Styles configuration page.
-    $this->drupalGet('admin/config/content/layout_builder_style/config');
+    $this->drupalGet('admin/config/content/layout_builder_style');
     $assert->statusCodeEquals(403);
 
     // Verify demo content renders as expected.

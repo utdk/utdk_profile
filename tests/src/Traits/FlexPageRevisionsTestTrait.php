@@ -11,9 +11,10 @@ trait FlexPageRevisionsTestTrait {
    * Test that revisioning works per Drupal convention.
    */
   public function verifyRevisioning() {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
     $session = $this->getSession();
+    $page = $session->getPage();
 
     // Generate a test node for testing that revisions can be accessed.
     // Create a Flex Page.
@@ -23,9 +24,9 @@ trait FlexPageRevisionsTestTrait {
     $this->drupalGet('node/' . $flex_page . '/layout');
     // Add a new resources block.
     $this->clickLink('Add block');
-    $assert->waitForText('Create custom block');
+    $this->assertNotEmpty($assert->waitForText('Create custom block'));
     $this->clickLink('Create custom block');
-    $assert->waitForText('Add a new Inline Block');
+    $this->assertNotEmpty($assert->waitForText('Add a new custom block'));
     $this->clickLink('Featured Highlight');
     // Verify that the add block has been opened in the modal.
     $assert->waitForText('Block description');
