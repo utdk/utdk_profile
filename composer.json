@@ -80,7 +80,8 @@
         "Form button obscured if Layout Builder is being used": "https://drupalkit.its.utexas.edu/patches/1723-linkit-relative-modal.patch"
       },
       "drupal/url_embed": {
-        "Add option to make embeds responsive": "https://drupalkit.its.utexas.edu/patches/1225-url-embed-responsive.patch"
+        "Add option to make embeds responsive": "https://drupalkit.its.utexas.edu/patches/1225-url-embed-responsive.patch",
+        "Videos do not show preview in CKEditor": "https://drupalkit.its.utexas.edu/patches/2008-preview-not-working.patch"
       }
     },
     "drupal-scaffold": {
