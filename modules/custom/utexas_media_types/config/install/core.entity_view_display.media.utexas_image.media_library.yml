@@ -37,6 +37,8 @@ content:
     settings:
       image_style: utexas_image_style_500w
       image_link: ''
+      image_loading:
+        attribute: lazy
     region: content
     third_party_settings: {  }
   uid:
