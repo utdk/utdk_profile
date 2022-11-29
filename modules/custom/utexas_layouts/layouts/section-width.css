@@ -2,3 +2,7 @@
   max-width: 830px;
   margin: auto;
 }
+
+.layout__region pre {
+  white-space: pre-wrap;
+}

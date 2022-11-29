@@ -200,11 +200,23 @@ class StyleUpdateHelper {
    *   The config entity machine name.
    */
   public static function saveNewConfigurationFromYml(Config $config, $config_name) {
+    if (!empty($data = self::getConfigurationDataFromYml($config_name))) {
+      $config->setData($data)->save(TRUE);
+    }
+  }
+
+  /**
+   * Populate data from a configuration yaml file.
+   *
+   * @param string $config_name
+   *   The config entity machine name.
+   */
+  public static function getConfigurationDataFromYml($config_name) {
     $config_path = \Drupal::service('extension.list.module')->getPath('utexas_layout_builder_styles') . '/config/install/' . $config_name . '.yml';
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
-      $config->setData($data)->save(TRUE);
     }
+    return $data ?? [];
   }
 
   /**

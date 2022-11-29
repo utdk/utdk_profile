@@ -115,12 +115,12 @@ filters:
     weight: -40
     settings:
       default_view_mode: default
-      allowed_media_types: {  }
       allowed_view_modes:
         default: default
         utexas_large: utexas_large
         utexas_medium: utexas_medium
         utexas_thumbnail: utexas_thumbnail
+      allowed_media_types: {  }
   url_embed:
     id: url_embed
     provider: url_embed

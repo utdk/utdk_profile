@@ -32,8 +32,8 @@ third_party_settings:
                 third_party_settings: {  }
               context_mapping:
                 entity: layout_builder.entity
-            additional: {  }
             weight: 5
+            additional: {  }
           1ee7d7d3-a422-4a72-9b9e-b22bae35bd11:
             uuid: 1ee7d7d3-a422-4a72-9b9e-b22bae35bd11
             region: content
@@ -50,8 +50,8 @@ third_party_settings:
                 third_party_settings: {  }
               context_mapping:
                 entity: layout_builder.entity
-            additional: {  }
             weight: 6
+            additional: {  }
           c509edc0-760e-476b-b066-7421ee5e767b:
             uuid: c509edc0-760e-476b-b066-7421ee5e767b
             region: content
@@ -70,8 +70,8 @@ third_party_settings:
                 third_party_settings: {  }
               context_mapping:
                 entity: layout_builder.entity
-            additional: {  }
             weight: 7
+            additional: {  }
           48836ba8-9e8f-4e7a-8fbc-59a61b673e44:
             uuid: 48836ba8-9e8f-4e7a-8fbc-59a61b673e44
             region: content
@@ -87,8 +87,8 @@ third_party_settings:
                 type: image
               context_mapping:
                 entity: layout_builder.entity
-            additional: {  }
             weight: 4
+            additional: {  }
         third_party_settings: {  }
 id: media.utexas_image.default
 targetEntityType: media
@@ -101,6 +101,8 @@ content:
     settings:
       image_style: ''
       image_link: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     type: image
     region: content

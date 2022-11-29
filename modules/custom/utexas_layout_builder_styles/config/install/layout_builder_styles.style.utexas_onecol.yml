@@ -2,9 +2,10 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_onecol
-label: 'Limit to 1 item per row (if no limit is set, items will adjust to fit the available space)'
+label: 'Limit to 1 item per row'
 classes: utexas-onecol
 type: component
+group: utexas_items_per_row
 weight: 100
 block_restrictions:
   - 'inline_block:social_links'

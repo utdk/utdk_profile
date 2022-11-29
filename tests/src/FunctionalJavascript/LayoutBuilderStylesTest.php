@@ -69,7 +69,9 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testStyles() {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
+    /** @var \Behat\Mink\Element\DocumentElement $page */
     $page = $this->getSession()->getPage();
     $this->getSession()->resizeWindow(900, 2000);
     $flex_page_id = $this->createFlexPage();
@@ -109,8 +111,8 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $this->assertNotEmpty($assert->waitForText('Create custom block'));
     $this->clickLink('Recent content');
     $this->assertNotEmpty($assert->waitForText('Configure block'));
-    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_with_background"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_with_background", TRUE);
+    // Select style checkbox (by clicking the label) in block configuration.
+    $assert->elementExists('css', 'input[name="layout_builder_style_utexas_borders[utexas_border_with_background]"] + label')->click();
     $page->pressButton('Add block');
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.block-views-blockcontent-recent-block-1'));
     // Border & background classes are added to the section.
@@ -124,8 +126,8 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $this->assertNotEmpty($assert->waitForText('Create custom block'));
     $this->clickLink('Recent content');
     $this->assertNotEmpty($assert->waitForText('Configure block'));
-    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_border_without_background"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_border_without_background", TRUE);
+    // Select style checkbox (by clicking the label) in block configuration.
+    $assert->elementExists('css', 'input[name="layout_builder_style_utexas_borders[utexas_border_without_background]"] + label')->click();
     $page->pressButton('Add block');
     // Border & background classes are added to the section.
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-field-border.utexas-centered-headline'));
@@ -137,10 +139,10 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
     $this->clickLink('Configure Section 1');
     $this->assertNotEmpty($assert->waitForText('Section width'));
     // Set the section to "No padding".
-    $assert->elementExists('css', 'select[name="layout_builder_style[]"] option[value="utexas_no_padding"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_builder_style[]", "utexas_no_padding", TRUE);
+    // Select style checkbox (by clicking the label) in section configuration.
+    $assert->elementExists('css', 'input[name="layout_builder_style_utexas_section_margins_padding[utexas_no_padding]"] + label')->click();
     $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $assert->statusMessageContainsAfterWait('You have unsaved changes');
     // A "utexas-layout-no-padding" class is added to the section.
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout-no-padding'));
   }

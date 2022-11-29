@@ -2,9 +2,10 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_threecol
-label: 'Limit to 3 items per row (if no limit is set, items will adjust to fit the available space)'
+label: 'Limit to 3 items per row'
 classes: utexas-threecol
 type: component
+group: utexas_items_per_row
 weight: 102
 block_restrictions:
   - 'inline_block:social_links'

@@ -6,17 +6,14 @@
  */
 
 use Drupal\utexas_layout_builder_styles\StyleUpdateHelper;
-use Drupal\Core\Config\Config;
+use Drupal\layout_builder_styles\Entity\LayoutBuilderStyleGroup;
 
 /**
  * Implements hook_install().
  */
 function utexas_layout_builder_styles_install() {
-  // Change Layout Builder Styles' default multiselect option to 'multiple'.
-  $config_factory = \Drupal::configFactory();
-  $config = $config_factory->getEditable('layout_builder_styles.settings');
-  $config->set('multiselect', 'multiple')->save();
-  $config->set('form_type', 'checkboxes')->save();
+  // Set label for default group.
+  StyleUpdateHelper::modifyConfigValue('layout_builder_styles.group.default', 'label', 'General Styles');
 }
 
 /**
@@ -161,11 +158,11 @@ function utexas_layout_builder_styles_update_8110() {
 }
 
 /**
- * #1780 - Add style option for border around images in components.
+ * Add style option for border around images in components (#1780).
  */
 function utexas_layout_builder_styles_update_8111() {
   $styles = [
-    'layout_builder_styles.style.utexas_image_border'
+    'layout_builder_styles.style.utexas_image_border',
   ];
   $config_factory = \Drupal::configFactory();
   foreach ($styles as $style) {
@@ -174,4 +171,114 @@ function utexas_layout_builder_styles_update_8111() {
       StyleUpdateHelper::saveNewConfigurationFromYml($config, $style);
     }
   }
+}
+
+/**
+ * Issue #1854: Implement use of new style grouping feature in Layout Builder...
+ */
+function utexas_layout_builder_styles_update_8112() {
+  $config_factory = \Drupal::configFactory();
+  // Add new LBS groups.
+  $groups = [
+    'layout_builder_styles.group.utexas_borders',
+    'layout_builder_styles.group.utexas_items_per_row',
+    'layout_builder_styles.group.utexas_block_margins_padding',
+    'layout_builder_styles.group.utexas_section_margins_padding',
+  ];
+  foreach ($groups as $group) {
+    $config = $config_factory->getEditable($group);
+    if ($config->isNew()) {
+      StyleUpdateHelper::saveNewConfigurationFromYml($config, $group);
+    }
+  }
+
+  // Assign group to styles.
+  $groups = [
+    'utexas_borders' => [
+      'layout_builder_styles.style.utexas_image_border',
+      'layout_builder_styles.style.utexas_border_with_background',
+      'layout_builder_styles.style.utexas_border_without_background',
+    ],
+    'utexas_block_margins_padding' => [
+      'layout_builder_styles.style.utexas_readable',
+      'layout_builder_styles.style.utexas_block_top_margin_remove',
+      'layout_builder_styles.style.utexas_block_bottom_margin_remove',
+      'layout_builder_styles.style.utexas_block_top_margin_increase',
+      'layout_builder_styles.style.utexas_block_bottom_margin_increase',
+    ],
+    'utexas_section_margins_padding' => [
+      'layout_builder_styles.style.utexas_no_padding',
+    ],
+    'utexas_items_per_row' => [
+      'layout_builder_styles.style.utexas_onecol',
+      'layout_builder_styles.style.utexas_twocol',
+      'layout_builder_styles.style.utexas_threecol',
+      'layout_builder_styles.style.utexas_fourcol',
+    ],
+  ];
+  foreach ($groups as $group => $styles) {
+    foreach ($styles as $style) {
+      $config_factory->getEditable($style)->set('group', $group)->save();
+    }
+  }
+
+  // Update labels key in current items_per_row styles.
+  foreach ($groups['utexas_items_per_row'] as $style) {
+    $new_data = StyleUpdateHelper::getConfigurationDataFromYml($style);
+    if (!empty($new_data)) {
+      $value = $new_data['label'];
+      StyleUpdateHelper::modifyConfigValue($style, 'label', $value);
+    }
+  }
+
+  // Create a default group in the manner that contrib module demonstrates and
+  // assign them where needed.
+  _utexas_layout_builder_styles_add_group();
+
+}
+
+/**
+ * Add "default" Layout Builder Style Group to pre-existing styles w/o a group.
+ *
+ * @see layout_builder_styles_post_update_add_group()
+ */
+function _utexas_layout_builder_styles_add_group() {
+  // Create a default group.
+  $group = LayoutBuilderStyleGroup::create([
+    'id' => 'default',
+    'label' => 'General Styles',
+    'weight' => 100,
+    'required' => FALSE,
+  ]);
+
+  // We can carry over some settings from our old config.
+  $legacy_config = \Drupal::configFactory()->getEditable('layout_builder_styles.settings');
+  if ($legacy_config) {
+    $group->set('multiselect', $legacy_config->get('multiselect') ?? 'single');
+    $group->set('form_type', $legacy_config->get('form_type') ?? 'checkboxes');
+  }
+  else {
+    // Unlikely scenario but covering bases if settings DNE.
+    $group->set('multiselect', 'single');
+    $group->set('form_type', 'checkboxes');
+  }
+  $group->save();
+
+  // Don't need old config anymore.
+  $legacy_config->delete();
+  \Drupal::logger('layout_builder_styles')->info('Legacy settings removed.');
+
+  // Set this new 'default' group to any existing styles, since all styles
+  // must have a group associated now.
+  $styles = \Drupal::entityTypeManager()
+    ->getStorage('layout_builder_style')
+    ->loadByProperties();
+  /** @var \Drupal\layout_builder_styles\Entity\LayoutBuilderStyle $style */
+  foreach ($styles as $style) {
+    if (empty($style->getGroup())) {
+      $style->set('group', $group->id());
+      $style->save();
+    }
+  }
+
 }
