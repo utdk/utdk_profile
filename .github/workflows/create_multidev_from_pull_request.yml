@@ -1,0 +1,62 @@
+name: Create a multidev when an pull request is opened.
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    # Don't run this on pull requests of master, develop, or release/*
+    branches:
+      - '!master'
+      - '!develop'
+      - '!release/**'
+      - '*'
+
+env:
+  BRANCH: ${{github.event.pull_request.head.ref}}
+  SITE: 'utdkpr'
+  REPO: 'utdk_profile'
+
+jobs:
+  multidevcreator:
+    runs-on: [ wcs-gh-p02-group ]
+    continue-on-error: true
+    steps:
+      - name: "Derive Pantheon multidev name"
+        id: set_multidev
+        run: |
+          BRANCH=${{github.event.pull_request.head.ref}}
+          # Pantheon multidevs are limited to 11 characters.
+          MULTIDEV=${BRANCH:0:11}
+          echo "::set-output name=MULTIDEV::"${MULTIDEV}""
+
+      - uses: actions/checkout@v3
+      - name: Do the Composer build and deploy
+        id: createmultidev
+        continue-on-error: true
+        run: |
+          cd .github/workflows/scripts/
+          # Give sync to github.com a chance to complete
+          sleep 120
+          # Build a site from utdk-project using develop hashes
+          bash create.sh
+          # Do a site-installation and enable all the things
+          bash install.sh
+
+      - name: Add success comment
+        id: itworked
+        if: always() && steps.createmultidev.outcome == 'success'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            A multidev for testing has been created at https://${{steps.set_multidev.outputs.MULTIDEV}}-utdkpr.pantheonsite.io .
+          reactions: hooray
+
+      - name: Add failure comment
+        id: itfailed
+        if: always() && steps.createmultidev.outcome == 'failure'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            Github Actions was unable to create a multidev for this pull request. Check the build at https://github.austin.utexas.edu/eis1-wcs/utdk_profile/actions/workflows/create_multidev_from_pull_request.yml
+          reactions: confused
