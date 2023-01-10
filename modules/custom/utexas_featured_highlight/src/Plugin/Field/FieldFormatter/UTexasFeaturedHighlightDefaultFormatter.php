@@ -214,18 +214,20 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
 
           case 'utexas_video_external':
             $media_render_array = $this->generateVideoRenderArray($media);
-            $css = "
-            #" . $id . ".utexas-featured-highlight .image-wrapper {
-              height: " . $media_render_array['#height'] . "px;
-              margin-bottom: 0rem;
-            }";
-            $elements['#attached']['html_head'][] = [
-              [
-                '#tag' => 'style',
-                '#value' => $css,
-              ],
-              'featured-highlight-' . $id,
-            ];
+            if (!empty($media_render_array)) {
+              $css = "
+              #" . $id . ".utexas-featured-highlight .image-wrapper {
+                height: " . $media_render_array['#height'] . "px;
+                margin-bottom: 0rem;
+              }";
+              $elements['#attached']['html_head'][] = [
+                [
+                  '#tag' => 'style',
+                  '#value' => $css,
+                ],
+                'featured-highlight-' . $id,
+              ];
+            }
             break;
         }
       }
@@ -272,7 +274,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $this->logger->error("Could not retrieve the remote URL (@url).", ['@url' => $value]);
     }
 
-    if (empty($value)) {
+    if (empty($value) || empty($resource)) {
       return $media_render_array;
     }
 
@@ -322,6 +324,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
   private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name) {
     $media_render_array = [];
     $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
+    /** @var Drupal\file\Entity\File $file */
     if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
       $image = new \stdClass();
       $image->title = NULL;
@@ -371,6 +374,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
    */
   private function generateImageCacheTags($responsive_image_style_name) {
     // Collect cache tags to be added for each item in the field.
+    /** @var Drupal\responsive_image\Entity\ResponsiveImageStyle $responsive_image_style */
     $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style_name);
     $image_styles_to_load = [];
     $cache_tags = [];
