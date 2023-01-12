@@ -2,7 +2,10 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
+use Drupal\node\Entity\Node;
+use Drupal\Tests\Traits\Core\CronRunTrait;
 use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
@@ -16,6 +19,7 @@ use Drupal\Tests\utexas\Traits\LayoutBuilderIntegrationTestTrait;
  * @group utexas
  */
 class EntityCloneTest extends WebDriverTestBase {
+  use CronRunTrait;
   use EntityTestTrait;
   use InstallTestTrait;
   use TestFileCreationTrait;
@@ -147,7 +151,7 @@ class EntityCloneTest extends WebDriverTestBase {
 
     $this->drupalGet('entity_clone/node/' . $original_id);
     $page->pressButton('Clone');
-    $assert->pageTextContains('Test Flex Page - Cloned');
+    $assert->pageTextContains('Test Flex Page');
     $assert->pageTextContains('Inline block first revision');
     $assert->pageTextContains('Reusable block original');
 
@@ -187,6 +191,18 @@ class EntityCloneTest extends WebDriverTestBase {
     $assert->pageTextContains('Reusable block revision');
     $this->drupalGet('node/' . $clone_id);
     $assert->pageTextContains('Reusable block revision');
+
+    // Delete the original node, run cron, then
+    // verify the cloned node content persists.
+    $node = Node::load($original_id);
+    $node->delete();
+    // It exists before cron run.
+    $this->drupalGet('node/' . $clone_id);
+    $assert->pageTextContains('Inline block revision to clone');
+    $this->cronRun();
+    // It exists after cron run.
+    $this->drupalGet('node/' . $clone_id);
+    $assert->pageTextContains('Inline block revision to clone');
   }
 
 }

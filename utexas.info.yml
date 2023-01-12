@@ -87,6 +87,7 @@ install:
   - utexas_layouts
   - utexas_layout_builder_styles
   - utexas_media_types
+  - utexas_missing_blocks
   - utexas_photo_content_area
   - utexas_promo_list
   - utexas_promo_unit

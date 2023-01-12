@@ -10,6 +10,7 @@ use Drupal\user\UserInterface;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\block\Entity\Block;
 use Drupal\utexas\InstallationHelper;
+use Drupal\utexas_missing_blocks\Defuser;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -506,12 +507,60 @@ function utexas_update_8129() {
     \Drupal::service('module_installer')->install(['utexas_hero_carousel']);
   }
 }
-  
+
 /**
  * Enable 'UTexas Readonly' (#1548).
  */
 function utexas_update_8130() {
   if (\Drupal::moduleHandler()->moduleExists('utexas_readonly') === FALSE) {
     \Drupal::service('module_installer')->install(['utexas_readonly']);
+  }
+}
+
+/**
+ * Add missing blocks report on existing sites (#2046).
+ */
+function utexas_update_8131() {
+  $module = 'utexas_missing_blocks';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Remediate inline blocks associated with cloned nodes (#2046).
+ */
+function utexas_update_8132() {
+  $data = Defuser::defuse();
+  $missing = [];
+  $remediated = [];
+  foreach ($data as $key => $values) {
+    if (isset($values['revisions_with_missing_blocks'])) {
+      $missing[] = $key;
+    }
+    else {
+      $remediated[] = $key;
+    }
+  }
+  \Drupal::state()->set('missing_inline_block_defusement_report', serialize($data));
+  \Drupal::logger('utexas')->notice('Entities remediated: ' . count($remediated));
+  \Drupal::logger('utexas')->notice('Node IDs (remediated): ' . implode(', ', $remediated));
+  \Drupal::logger('utexas')->notice('Entities with unrecoverable blocks: ' . count($missing));
+  \Drupal::logger('utexas')->notice('Node IDs (irremediable): ' . implode(', ', $missing));
+  \Drupal::logger('utexas')->notice('A full report has been written to the State API with key "missing_inline_block_defusement_report"');
+}
+
+/**
+ * Update entity_clone configuration (#2046).
+ */
+function utexas_update_8133() {
+  $config_name = 'entity_clone.settings';
+  $config = \Drupal::configFactory()->getEditable($config_name);
+  $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+  if (!empty($config_path)) {
+    $data = Yaml::parse(file_get_contents($config_path));
+    if (is_array($data)) {
+      $config->setData($data)->save(TRUE);
+    }
   }
 }

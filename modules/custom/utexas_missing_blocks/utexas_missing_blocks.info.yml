@@ -1,0 +1,5 @@
+name: 'UTexas Missing Blocks Report'
+type: module
+description: 'Get a report of missing inline blocks'
+core_version_requirement: ^8 || ^9 || ^10
+package: 'UTexas'
