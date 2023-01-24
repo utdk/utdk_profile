@@ -4,7 +4,7 @@ utexas.configuration:
     _form: '\Drupal\utexas\Form\BaseConfigurationForm'
     _title: 'Drupal Kit configuration'
   requirements:
-    _permission: 'administer drupalkit settings'
+    _permission: 'access content overview'
 utexas.permissions:
   path: '/admin/config/content/utexas/permissions'
   defaults:

@@ -149,6 +149,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
     ];
     $responsive_image_style_name = 'utexas_responsive_image_fca';
     // Collect cache tags to be added for each item in the field.
+    /** @var Drupal\responsive_image\Entity\ResponsiveImageStyle $responsive_image_style */
     $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style_name);
     $image_styles_to_load = [];
     $cache_tags = [];
@@ -163,7 +164,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
     foreach ($items as $delta => $item) {
       $media_ratio = "";
       // Format links.
-      $links = unserialize($item->links ?? '') ?: [];
+      $links = unserialize($item->links ?? '', ['allowed_classes' => FALSE]) ?: [];
       foreach ($links as $key => $link) {
         $link['link'] = $link;
         $links[$key] = UtexasLinkOptionsHelper::buildLink($link, ['ut-link']);
@@ -196,7 +197,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
 
           case 'utexas_video_external':
             $media_render_array = $this->generateVideoRenderArray($media);
-            $media_ratio = number_format($media_render_array['#height'] / $media_render_array['#width'], 2);
+            if (!empty($media_render_array)) {
+              $media_ratio = number_format($media_render_array['#height'] / $media_render_array['#width'], 2);
+            }
             break;
         }
       }
@@ -249,7 +252,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       $this->logger->error("Could not retrieve the remote URL (@url).", ['@url' => $value]);
     }
 
-    if (empty($value)) {
+    if (empty($value) || empty($resource)) {
       return $media_render_array;
     }
 
@@ -300,6 +303,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
   private function generateImageRenderArray(MediaInterface $media, $responsive_image_style_name) {
     $media_render_array = [];
     $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
+    /** @var Drupal\file\Entity\File $file */
     if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
       $image = new \stdClass();
       $image->title = NULL;
@@ -340,6 +344,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
    */
   private function generateImageCacheTags($responsive_image_style_name) {
     // Collect cache tags to be added for each item in the field.
+    /** @var Drupal\responsive_image\Entity\ResponsiveImageStyle $responsive_image_style */
     $responsive_image_style = $this->entityTypeManager->getStorage('responsive_image_style')->load($responsive_image_style_name);
     $image_styles_to_load = [];
     $cache_tags = [];

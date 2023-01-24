@@ -13,7 +13,7 @@
   background: rgba(214,210,196,.25);
   color: #9d4700;
   font-weight: 600;
-  list-style: revert;
+  list-style: revert-layer;
 }
 .formatter-accordion.utexas-flex-list details[open] {
   padding: 0 1rem 0.5rem 1rem;
