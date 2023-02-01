@@ -564,3 +564,13 @@ function utexas_update_8133() {
     }
   }
 }
+
+/**
+ * Enable CKEditor 5 on existing sites (#2086).
+ */
+function utexas_update_8134() {
+  $module = 'ckeditor5';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
