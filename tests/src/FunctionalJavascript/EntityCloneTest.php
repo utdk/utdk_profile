@@ -2,207 +2,143 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\node\Entity\Node;
 use Drupal\Tests\Traits\Core\CronRunTrait;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
-use Drupal\Tests\utexas\Traits\LayoutBuilderIntegrationTestTrait;
 
 /**
  * Demonstrate that various node types can be cloned.
  *
  * @group utexas
  */
-class EntityCloneTest extends WebDriverTestBase {
+class EntityCloneTest extends FunctionalJavascriptTestBase {
+
   use CronRunTrait;
-  use EntityTestTrait;
-  use InstallTestTrait;
-  use TestFileCreationTrait;
-  use UserTestTrait;
-  use LayoutBuilderIntegrationTestTrait;
-  use ContextualLinkClickTrait;
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-
-  /**
-   * Specify the theme to be used in testing.
-   *
-   * @var string
-   */
-  protected $defaultTheme = 'forty_acres';
-
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * An video Media ID to be used with file rendering.
-   *
-   * @var string
-   */
-  protected $testVideo;
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
-    $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeSiteManager();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestMediaImage();
-    $this->testVideo = $this->createTestMediaVideoExternal();
+    $this->drupalLogin($this->testSiteManagerUser);
   }
 
   /**
    * Clone a Flex Page.
    */
   public function testFlexPage() {
-    $this->getSession()->resizeWindow(1500, 4000);
-    /** @var Drupal\Tests\WebAssert $assert */
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
     $session = $this->getSession();
-    $page = $this->getSession()->getPage();
-    $original_id = $this->createFlexPage();
-    $clone_id = $original_id + 1;
+    /** @var \Behat\Mink\Element\DocumentElement $page */
+    $page = $session->getPage();
 
-    $block_type = 'Featured Highlight';
-    $block_name = 'Reusable block test';
-    $this->drupalGet('admin/content/block-content');
-    $this->clickLink('Add custom block');
-    $this->clickLink($block_type);
+    // Create flex page.
+    $flex_page_id_original = $this->createFlexPage();
 
-    // Open the media library.
-    $session->wait(3000);
-    $page->pressButton('Add media');
-    $session->wait(3000);
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
-    $assert->pageTextContains('Image 1');
-    // Select the first media item (should be "Image 1").
-    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[0]->click();
-    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    // Reusable Block info.
+    $block_type_reusable = 'Featured Highlight';
+    $block_name_reusable = 'Reusable block test';
+    $block_type_id_reusable = 'utexas_featured_highlight';
+    $block_plugin_id_reusable = str_replace('_', '-', $block_type_id_reusable);
+    $block_content_create_form_id_reusable = 'block-content-' . $block_plugin_id_reusable . '-form';
+    $block_content_edit_form_id_reusable = 'block-content-' . $block_plugin_id_reusable . '-edit-form';
 
-    $this->submitForm([
-      'info[0][value]' => $block_name,
-      'field_block_featured_highlight[0][headline]' => 'Reusable block original',
-    ], 'Save');
-    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been created.');
+    // Inline block info.
+    $block_type_inline = 'Featured Highlight';
+    $block_name_inline = 'Inline block test';
+    $block_plugin_id_inline = 'utexas-featured-highlight';
 
-    $this->drupalGet('node/' . $original_id . '/layout');
-    // Add a new inline block.
-    $this->clickLink('Add block');
-    $assert->waitForText('Create custom block');
-    $this->clickLink('Create custom block');
-    $assert->waitForText('Add a new Inline Block');
-    $this->clickLink('Featured Highlight');
-    // Verify that the add block has been opened in the modal.
-    $assert->waitForText('Block description');
-    $page->fillField('settings[label]', 'An inline block');
-    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Inline block original');
-    $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-    $assert->pageTextContains('The layout override has been saved.');
+    // CRUD: CREATE.
+    $this->drupalGet('block/add/' . $block_type_id_reusable);
+    $form = $this->waitForForm($block_content_create_form_id_reusable);
+    // Fill Block description field.
+    $form->fillField('info[0][value]', $block_name_reusable);
+    // Fill Featured Highlight fields.
+    $form->fillField('field_block_featured_highlight[0][headline]', 'Reusable block original');
+    // Save block.
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type_reusable . ' ' . $block_name_reusable . ' has been created.');
+    // Place the reusable block on the Flex page.
+    $this->drupalGetNodeLayoutTab($flex_page_id_original);
+    $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');
+    $this->placeExistingBlockOnFlexPage($form, $block_name_reusable);
+    $this->savePageLayout();
+    // Place an inline block on the Flex page.
+    $this->drupalGetNodeLayoutTab($flex_page_id_original);
+    $form_values = [
+      'settings[label]' => $block_name_inline,
+      'settings[block_form][field_block_featured_highlight][0][headline]' => 'Inline block original',
+    ];
+    $this->createInlineBlockOnFlexPage($block_type_inline, $form_values);
+    $this->savePageLayout();
 
-    // Add a reusable block.
-    $this->drupalGet('node/' . $original_id . '/layout');
-    $this->clickLink('Add block');
-    $assert->waitForText('Create custom block');
-    $this->clickLink('Reusable block test');
-    $assert->waitForText('Block description');
-    $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-    $assert->pageTextContains('The layout override has been saved.');
-    $assert->pageTextContains('Reusable block original');
+    // CRUD: UPDATE
+    // Make a revision to the ORIGINAL inline block.
+    $this->drupalGetNodeLayoutTab($flex_page_id_original);
+    $form_values = ['settings[block_form][field_block_featured_highlight][0][headline]' => 'Inline block first revision'];
+    $this->updateBlockOnFlexPage($block_name_inline, $form_values, $block_plugin_id_inline, 2);
+    $this->savePageLayout();
 
-    // Make a revision to the inline block.
-    $this->drupalGet('node/' . $original_id . '/layout');
-    $this->clickContextualLink('.block-inline-blockutexas-featured-highlight', 'Configure');
-    $assert->waitForText('Block description');
-    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Inline block first revision');
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-    $assert->pageTextContains('The layout override has been saved.');
-    $assert->pageTextContains('Inline block first revision');
-
-    $this->drupalGet('entity_clone/node/' . $original_id);
+    // CRUD: CREATE
+    // Clone the node.
+    $this->drupalGet('entity_clone/node/' . $flex_page_id_original);
     $page->pressButton('Clone');
-    $assert->pageTextContains('Test Flex Page');
-    $assert->pageTextContains('Inline block first revision');
-    $assert->pageTextContains('Reusable block original');
+    $flex_page_id_clone = $flex_page_id_original + 1;
 
-    $this->clickLink('Layout');
-    $this->clickContextualLink('.block-inline-blockutexas-featured-highlight', 'Configure');
-    $assert->waitForText('Block description');
-    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Inline block revision to clone');
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-    $assert->pageTextContains('Inline block revision to clone');
+    // CRUD: UPDATE
+    // Make a revision to the CLONE inline block.
+    $this->drupalGetNodeLayoutTab($flex_page_id_clone);
+    $form_values = ['settings[block_form][field_block_featured_highlight][0][headline]' => 'Inline block revision to clone'];
+    $this->updateBlockOnFlexPage($block_name_inline, $form_values, $block_plugin_id_inline, 2);
+    $this->savePageLayout();
 
-    $this->drupalGet('node/' . $original_id);
-    $assert->pageTextContains('Inline block first revision');
-    $this->clickLink('Layout');
-    $this->clickContextualLink('.block-inline-blockutexas-featured-highlight', 'Configure');
-    $assert->waitForText('Block description');
-    $page->fillField('settings[block_form][field_block_featured_highlight][0][headline]', 'Inline block revision to original');
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-    $assert->pageTextContains('Inline block revision to original');
+    // CRUD: UPDATE
+    // Make a revision to the ORIGINAL inline block.
+    $this->drupalGetNodeLayoutTab($flex_page_id_original);
+    $form_values = ['settings[block_form][field_block_featured_highlight][0][headline]' => 'Inline block revision to original'];
+    $this->updateBlockOnFlexPage($block_name_inline, $form_values, $block_plugin_id_inline, 2);
+    $this->savePageLayout();
 
-    $this->drupalGet('node/' . $clone_id);
-    $assert->pageTextContains('Inline block revision to clone');
+    // CRUD: READ
+    // Verify changes to ORIGINAL inline block do not effect CLONE inline block.
+    $this->drupalGet('node/' . $flex_page_id_clone);
+    $this->assertTrue($assert->waitForText('Inline block revision to clone'));
 
+    // CRUD: UPDATE
     // Update the reusable block.
-    $this->drupalGet('admin/structure/block/block-content');
-    $this->clickLink('Reusable block test');
-    $this->submitForm([
-      'info[0][value]' => $block_name,
-      'field_block_featured_highlight[0][headline]' => 'Reusable block revision',
-    ], 'Save');
-    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been updated.');
+    $this->drupalGet('admin/content/block-content');
+    $this->scrollLinkIntoViewAndClick($page, $block_name_reusable);
+    $form = $this->waitForForm($block_content_edit_form_id_reusable);
+    // Fill Featured Highlight fields.
+    $form->fillField('field_block_featured_highlight[0][headline]', 'Reusable block revision');
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type_reusable . ' ' . $block_name_reusable . ' has been updated.');
 
-    $this->drupalGet('node/' . $original_id);
-    $assert->pageTextContains('Reusable block revision');
-    $this->drupalGet('node/' . $clone_id);
-    $assert->pageTextContains('Reusable block revision');
+    // CRUD: READ
+    // Confirm that the CLONE and ORIGINAL node both display the same revision
+    // of the reusable block.
+    $this->drupalGet('node/' . $flex_page_id_original);
+    $this->assertTrue($assert->waitForText('Reusable block revision'));
+    $this->drupalGet('node/' . $flex_page_id_clone);
+    $this->assertTrue($assert->waitForText('Reusable block revision'));
 
-    // Delete the original node, run cron, then
-    // verify the cloned node content persists.
-    $node = Node::load($original_id);
-    $node->delete();
-    // It exists before cron run.
-    $this->drupalGet('node/' . $clone_id);
+    // CRUD: DELETE.
+    // Delete the original node.
+    $this->removeNodes([$flex_page_id_original]);
+
+    // CRUD: READ
+    // Inline block from clone source exists BEFORE cron run.
+    $this->drupalGet('node/' . $flex_page_id_clone);
     $assert->pageTextContains('Inline block revision to clone');
+
+    // CRUD: READ
+    // Inline block from clone source exists AFTER cron run.
     $this->cronRun();
-    // It exists after cron run.
-    $this->drupalGet('node/' . $clone_id);
+    $this->drupalGet('node/' . $flex_page_id_clone);
     $assert->pageTextContains('Inline block revision to clone');
+
+    // CRUD: DELETE.
+    $this->removeBlocks([$block_name_reusable]);
+    $this->removeNodes([$flex_page_id_clone]);
   }
 
 }

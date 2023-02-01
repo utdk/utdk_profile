@@ -1,3 +1,5 @@
+name: Run utdk_profile tests.
+
 #on: [workflow_dispatch]
 on: pull_request
 
@@ -32,13 +34,13 @@ jobs:
         ports:
         - 4444:4444
         - 9515:9515
-        
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-          
+
       - name: Configure web host Docker container for UTDK 3
-        run: | 
+        run: |
           # Ensure containers are ready...
           sleep 2m
 
@@ -57,6 +59,8 @@ jobs:
           php -d memory_limit=-1 /usr/local/bin/composer config repositories.forty_acres vcs git@github.austin.utexas.edu:eis1-wcs/forty_acres.git
           php -d memory_limit=-1 /usr/local/bin/composer config repositories.utexas_qualtrics_filter vcs git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git
           php -d memory_limit=-1 /usr/local/bin/composer config repositories.utdk_localdev vcs git@github.austin.utexas.edu:eis1-wcs/utdk_localdev.git
+          # This is in preparation for utdk_localdev, which requires this plugin.
+          php -d memory_limit=-1 /usr/local/bin/composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 
           php -d memory_limit=-1 /usr/local/bin/composer clear-cache
           php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_profile:"dev-${{ github.head_ref }}"  --no-update
@@ -69,15 +73,15 @@ jobs:
           # TODO: this shouldn't be necesary...
           docker restart ${{ job.services.utdk_mysql.id }}
           sleep 1m
-          
+
           # Run second configuration script...
           # Executed on container...
           docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./web-setup2.sh'
-          
+
       - name: Run tests
         run: |
           docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./run-tests.sh'
-          
+
       - name: 'Upload Artifact'
         if: failure()
         uses: actions/upload-artifact@v2

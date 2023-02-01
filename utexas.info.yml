@@ -18,6 +18,7 @@ dependencies:
   - drupal:datetime
   - drupal:editor
   - drupal:image
+  - drupal:field_ui
   - drupal:file
   - drupal:media_library
   - drupal:menu_link_content

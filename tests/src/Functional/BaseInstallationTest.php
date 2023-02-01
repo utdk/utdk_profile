@@ -4,10 +4,13 @@ namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\node\Entity\Node;
+
 use Drupal\Tests\BrowserTestBase;
+
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,6 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @group utexas
  */
 class BaseInstallationTest extends BrowserTestBase {
+
   use InstallTestTrait;
   use EntityTestTrait;
   use UserTestTrait;
@@ -216,20 +220,16 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->assertEquals($actual_metatag_defaults, $expected_metatag_defaults);
 
     // Test Content Editor Role permissions.
-    $this->initializeContentEditor();
-    // @todo investigate why this addRole apparently needs to happen here,
-    // in addition to the one defined in initializeContentEditor @jmf3658.
-    $this->testUser->addRole('utexas_content_editor');
-    $this->testUser->save();
-    $this->drupalLogin($this->testUser);
+    $testContentEditorUser = $this->initializeContentEditor();
+    $this->drupalLogin($testContentEditorUser);
     // Make sure that a Content Editor has default access to the
     // Flex HTML format.
     $flex_html = FilterFormat::load('flex_html');
-    $this->assertTrue($flex_html->access('use', $this->testUser), 'A Content Editor has default access to the Flex HTML format.');
+    $this->assertTrue($flex_html->access('use', $testContentEditorUser), 'A Content Editor has default access to the Flex HTML format.');
     // Make sure that a Content Editor doesn't have access to the
     // Full HTML format.
     $full_html = FilterFormat::load('full_html');
-    $this->assertFalse($full_html->access('use', $this->testUser), 'A Content Editor does not have access to the Full HTML format.');
+    $this->assertFalse($full_html->access('use', $testContentEditorUser), 'A Content Editor does not have access to the Full HTML format.');
     // Verify that 'Flex HTML' is at the top of the filter_formats list.
     $formats = array_keys(filter_formats());
     $this->assertTrue($formats[0] == 'flex_html', 'Flex HTML is at the top of the filter_formats list.');
@@ -247,7 +247,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $assert->statusCodeEquals(200);
 
     // Test Site Manager Role permissions.
-    $this->initializeSiteManager();
+    $this->drupalLogin($this->initializeSiteManager());
     // Make sure a Site Manager doesn't have access to the Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
     $assert->statusCodeEquals(403);
@@ -265,7 +265,9 @@ class BaseInstallationTest extends BrowserTestBase {
     $assert->statusCodeEquals(403);
 
     // Verify demo content renders as expected.
-    \Drupal::service('module_installer')->install(['utexas_devel']);
+    /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
+    $module_installer = $this->container->get('module_installer');
+    $module_installer->install(['utexas_devel']);
     $this->drupalGet('featured-highlight');
     $featured_highlight_path = 'styles/utexas_image_style_500w/public/generated_sample/tower-lighting.gif';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper img', 'src', $featured_highlight_path);

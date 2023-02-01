@@ -2,64 +2,25 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\node\Entity\Node;
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-
 /**
  * Verifies background colors/images can be added to sections.
  *
  * @group utexas
  */
-class BackgroundAccentTest extends WebDriverTestBase {
-  use EntityTestTrait;
-  use InstallTestTrait;
-  use TestFileCreationTrait;
-  use UserTestTrait;
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-
-  /**
-   * Specify the theme to be used in testing.
-   *
-   * @var string
-   */
-  protected $defaultTheme = 'forty_acres';
-
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
+class BackgroundAccentTest extends FunctionalJavascriptTestBase {
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
-    $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeContentEditor();
-    $this->drupalLogin($this->testUser);
+    $this->drupalLogin($this->testContentEditorUser);
   }
 
   /**
    * Initial action for all background tests.
    */
   public function testSectionBackgrounds() {
-    // Add an image to the Media Library.
-    $this->testImage = $this->createTestMediaImage();
-
-    $this->getSession()->resizeWindow(900, 2000);
-
     $this->backgroundImage();
     $this->backgroundColors();
   }
@@ -68,88 +29,70 @@ class BackgroundAccentTest extends WebDriverTestBase {
    * Test background color configuration.
    */
   public function backgroundImage() {
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    // Access the section configuration toolbar.
-    $this->clickLink('Configure Section 1');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $checkbox_selector = '.layout-builder-configure-section details';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
 
-    // Add a background image.
-    $assert->pageTextContains('Background image');
-    $settings_selectors = '.layout-builder-configure-section details';
-    $settings = $page->findAll('css', $settings_selectors);
-    $settings[0]->click();
-    $page->pressButton('Add media');
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
-    $assert->pageTextContains('Image 1');
-    // Select the first media item (should be "Image 1").
-    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[0]->click();
-    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    // CRUD: CREATE.
+    $flex_page_id = $this->createFlexPage();
 
-    // Save the section configuration.
-    $this->submitForm([], 'Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    // A "background-accent" class is added to the section.
-    $assert->elementExists('css', '.layout-builder__layout.background-accent');
-    $actual_background_image = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("background-image")');
+    // CRUD: CREATE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');
+    $this->placeExistingBlockOnFlexPage($form, 'Header Menu');
+    $this->savePageLayout();
+
+    // CRUD: READ
+    // Verify that background-accent class is not added by default.
+    $assert->elementNotExists('xpath', '//div[contains(@class, "background-accent")]');
+
+    // CRUD: UPDATE
+    // Add a background image to the section.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->clickDetailsBySummaryText('Background image');
+    $this->addMediaLibraryImage();
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
+
+    // CRUD: READ
+    // A "background-accent" class has been added to the section.
+    $assert->elementExists('css', '.layout.background-accent');
     // The background image style matches the uploaded image.
-    $this->assertStringContainsString("utexas_image_style_1600w_500h/public/image-test.png", $actual_background_image);
+    $assert->elementAttributeContains('xpath', '//div[contains(@class, "background-accent")]/div', 'style', 'utexas_image_style_1600w_500h/public/image-test.png');
     // There is no blur effect initially.
-    $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
-    $this->assertSame('none', $actual_filter);
-    $page->pressButton('Save layout');
+    $assert->elementAttributeNotContains('xpath', '//div[contains(@class, "background-accent")]/div', 'style', 'filter:blur(5px)');
+    // White background is added to menu block automatically.
+    $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent nav").css("background-color")');
+    $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
 
-    // Add a blur effect.
-    $this->clickLink('Layout');
-    // Access the section configuration toolbar.
-    $this->clickLink('Configure Section 1');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $assert->pageTextContains('Background image');
-    $settings[0]->click();
-    $this->getSession()->getPage()->checkField("layout_settings[background-accent-wrapper][blur]");
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    // CRUD: UPDATE
+    // Add a blur effect to background image.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->clickDetailsBySummaryText('Background image');
+    $form = $this->waitForForm('layout-builder-configure-section');
+    $this->clickInputByLabel($form, 'Apply blur to image?');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
 
-    $this->clickLink('Add block');
-    $this->assertNotEmpty($assert->waitForText('Create custom block'));
-    $this->clickLink('Header Menu');
-    $this->assertNotEmpty($assert->waitForText('Configure block'));
-    $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout__region--main h2.ut-headline'));
-    $actual_filter = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout.background-accent div").css("filter")');
+    // CRUD: READ
     // Blur is present.
-    $this->assertSame('blur(5px)', $actual_filter);
+    $assert->elementAttributeContains('xpath', '//div[contains(@class, "background-accent")]/div', 'style', 'filter:blur(5px)');
 
-    // Cleanup.
-    $node->delete();
+    // TEST CLEANUP //
+    // Remove test node.
+    $this->removeNodes([$flex_page_id]);
   }
 
   /**
    * Test background color configuration.
    */
   public function backgroundColors() {
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
+    /** @var \Behat\Mink\Element\DocumentElement $page */
     $page = $this->getSession()->getPage();
+
     // The available hex colors & their corresponding rgb values.
     $color_palette = [
       '074d6a' => 'rgb(7, 77, 106)',
@@ -174,70 +117,80 @@ class BackgroundAccentTest extends WebDriverTestBase {
       '56544e' => 'rgb(86, 84, 78)',
     ];
 
-    $this->clickLink('Configure Section 1');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
+    // CRUD: CREATE.
+    $flex_page_id = $this->createFlexPage();
 
-    $checkbox_selector = '.layout-builder-configure-section details';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
+    // CRUD: CREATE
+    // Expand background colors.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->clickDetailsBySummaryText('Background color');
 
+    // CRUD: READ
     // Verify all colors present.
     foreach (array_keys($color_palette) as $hex) {
-      $assert->elementExists('css', 'input[value="' . $hex . '"]');
+      $assert->elementExists('xpath', '//input[@name= "layout_settings[background-color-wrapper][background-color]"][@value="' . $hex . '"]');
     }
 
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[background-color-wrapper][background-color]", "none");
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $this->clickLink('Add block');
-    $this->assertNotEmpty($assert->waitForText('Create custom block'));
-    $this->clickLink('Header Menu');
-    $this->assertNotEmpty($assert->waitForText('Configure block'));
-    $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout__region--main h2.ut-headline'));
-    $page->pressButton('Save layout');
-    // When "none" is selected, no CSS is added.
-    $assert->elementNotExists('css', '.layout-builder__layout.utexas-bg-none');
-    $actual_background = $this->getSession()->evaluateScript('jQuery(".layout-builder__layout").css("background-color")');
-    $this->assertSame(NULL, $actual_background);
+    // CRUD: UPDATE
+    // Add the "Transparent" background color.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->clickDetailsBySummaryText('Background color');
+    $form = $this->waitForForm('layout-builder-configure-section');
+    $this->clickInputByLabel($form, 'Transparent');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
 
-    $this->clickLink('Layout');
-    $this->clickLink('Configure Section 1');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $checkbox_selector = '.layout-builder-configure-section details';
-    $checkboxes = $page->findAll('css', $checkbox_selector);
-    $checkboxes[1]->click();
-    $this->assertNotEmpty($assert->waitForText('Bluebonnet'));
-    // Verify rendering of only one color.
+    // CRUD: READ
+    // When "Transparent" is selected, no background color CSS class is added.
+    $assert->elementNotExists('xpath', '//div[contains(@class, "background-accent")][not(contains(@class, "utexas-bg-"))]');
+
+    // CRUD: UPDATE
+    // Add a "non-transparent" background color.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->clickDetailsBySummaryText('Background color');
+    $form = $this->waitForForm('layout-builder-configure-section');
+    $this->clickInputByLabel($form, 'Bluebonnet ');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
+
+    // CRUD: READ
+    // Verify correct CSS class is added.
+    $assert->elementExists('xpath', '//div[contains(@class, "background-accent")][contains(@class, "utexas-bg-074d6a")]');
+
+    // CRUD: READ
+    // Verify rendering of only one background color from the list.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->clickDetailsBySummaryText('Background color');
     $this->verifyBgColor('56544e', $color_palette['56544e'], $assert, $page);
 
-    // White background is added to menu block automatically.
-    $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent nav").css("background-color")');
-    $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
+    // CRUD: UPDATE
+    // Place Recent Content block on page.
+    $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');
+    $this->placeExistingBlockOnFlexPage($form, 'Recent content');
+    $this->savePageLayout();
 
+    // CRUD: READ
     // White background is added automatically when a generic block is placed.
-    $this->clickLink('Add block');
-    $this->assertNotEmpty($assert->waitForText('Create custom block'));
-    $this->clickLink('Recent content');
-    $this->assertNotEmpty($assert->waitForText('Configure block'));
-    $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.background-accent div.block-views-blockcontent-recent-block-1'));
     $basic_block_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent div.block-views-blockcontent-recent-block-1").css("background-color")');
     $this->assertSame("rgb(255, 255, 255)", $basic_block_background_color);
 
-    // Cleanup.
-    $node->delete();
+    // CRUD: DELETE.
+    $this->removeNodes([$flex_page_id]);
   }
 
   /**
    * Helper function for iterating over color tests.
    */
   private function verifyBgColor($input_hex, $expected_rgb, $assert, $page) {
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[background-color-wrapper][background-color]", $input_hex);
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $page->selectFieldOption("layout_settings[background-color-wrapper][background-color]", $input_hex);
+    $this->saveSectionConfiguration();
+    $this->assertTrue($assert->waitForText('You have unsaved changes'));
     // A "background" class is added to the section. The correct color is found.
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout-builder__layout.utexas-bg-' . $input_hex));
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout.utexas-bg-' . $input_hex));
     $actual_background = $this->getSession()->evaluateScript('jQuery(".background-accent.utexas-bg-' . $input_hex . '").css("background-color")');
     $this->assertSame($expected_rgb, $actual_background);
   }

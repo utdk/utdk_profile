@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\utexas\Functional;
 
-use Drupal\Tests\BrowserTestBase;
 use Drupal\utexas_readonly\ReadOnlyHelper;
 
 /**
@@ -10,21 +9,7 @@ use Drupal\utexas_readonly\ReadOnlyHelper;
  *
  * @group utexas
  */
-class ReadOnlyTest extends BrowserTestBase {
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-
-  /**
-   * Specify the theme to be used in testing.
-   *
-   * @var string
-   */
-  protected $defaultTheme = 'forty_acres';
+class ReadOnlyTest extends FunctionalTestBase {
 
   /**
    * Modules to enable.
@@ -38,20 +23,19 @@ class ReadOnlyTest extends BrowserTestBase {
   ];
 
   /**
-   * {@inheritdoc}
+   * Test Read Only functionality.
    */
-  protected function setUp(): void {
-    $this->strictConfigSchema = NULL;
-    parent::setUp();
-    $available_permissions = \Drupal::service('user.permissions')->getPermissions();
-    $admin_user = $this->drupalCreateUser(array_keys($available_permissions));
-    $this->drupalLogin($admin_user);
+  public function testReadOnly() {
+    $this->drupalLogin($this->initializeSuperAdminUser());
+
+    $this->verifyLockedFields();
+    $this->verifyReadOnlyPages();
   }
 
   /**
    * Test default configuration.
    */
-  public function testLockedFields() {
+  public function verifyLockedFields() {
     $locked_field_storage = [
       'block_content.field_utexas_sl_social_links',
       'block_content.field_utexas_call_to_action_link',
@@ -81,7 +65,11 @@ class ReadOnlyTest extends BrowserTestBase {
   /**
    * Test which pages admin users have access to.
    */
-  public function testReadOnlyPages() {
+  public function verifyReadOnlyPages() {
+    $assert = $this->assertSession();
+
+    $read_only_text = 'This component is read-only and should not be modified.';
+
     // Pages that an admin user *should* have access to.
     $twohundred = [
       '/admin/structure/types/manage/page/fields',
@@ -101,7 +89,8 @@ class ReadOnlyTest extends BrowserTestBase {
       '/admin/config/content/formats/manage/restricted_html',
     ];
     foreach ($twohundred as $path) {
-      $this->isAccessible($path);
+      $this->assertAllowed($path);
+      $assert->pageTextNotContains($read_only_text);
     }
     // Pages that should be forbidden (403).
     $fourohthree = [];
@@ -112,7 +101,8 @@ class ReadOnlyTest extends BrowserTestBase {
       $fourohthree[] = '/admin/structure/block/block-content/manage/' . $machine_name . '/fields/add-field';
     }
     foreach ($fourohthree as $path) {
-      $this->isNotAccessible($path);
+      $this->assertForbidden($path);
+      $this->assertSession()->pageTextContains($read_only_text);
     }
 
     $read_only_paths = [];
@@ -144,44 +134,9 @@ class ReadOnlyTest extends BrowserTestBase {
     }
     // Pages that should be read-only.
     foreach ($read_only_paths as $path) {
-      $this->isReadOnly($path);
+      $this->assertAllowed($path);
+      $assert->pageTextContains($read_only_text);
     }
-  }
-
-  /**
-   * Check that a given path can be accessed.
-   *
-   * @param string $path
-   *   A Drupal admin URL.
-   */
-  private function isAccessible($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextNotContains('This component is read-only and should not be modified.');
-  }
-
-  /**
-   * Check that a given path can be accessed.
-   *
-   * @param string $path
-   *   A Drupal admin URL.
-   */
-  private function isNotAccessible($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(403);
-    $this->assertSession()->pageTextContains('This component is read-only and should not be modified.');
-  }
-
-  /**
-   * Check that a given path can be accessed but is read-only.
-   *
-   * @param string $path
-   *   A Drupal admin URL.
-   */
-  private function isReadOnly($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('This component is read-only and should not be modified.');
   }
 
 }

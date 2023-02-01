@@ -104,7 +104,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
       $icons = UTexasAnnouncementIconOptions::getIcons();
       $id = $form['id']['#default_value'];
       $icon = $icons[$id];
-      if ($icon && $icon_contents = file_get_contents($icon)) {
+      if (file_exists($icon) && $icon_contents = file_get_contents($icon)) {
         $icon_markup = Markup::create($icon_contents);
         $form['active_icon'] = [
           '#type' => 'texfield',
