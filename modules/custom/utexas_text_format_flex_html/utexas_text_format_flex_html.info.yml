@@ -5,6 +5,7 @@ version: 8.x-1.0
 package: UTexas
 dependencies:
   - 'drupal:ckeditor'
+  - 'drupal:ckeditor5'
   - 'drupal:editor'
   - 'drupal:filter'
   - 'drupal:media'

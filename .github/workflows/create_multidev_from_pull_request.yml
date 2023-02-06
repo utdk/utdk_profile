@@ -3,13 +3,6 @@ name: Create a multidev when an pull request is opened.
 on:
   pull_request:
     types: [opened, reopened]
-    # Don't run this on pull requests of master, develop, or release/*
-    branches:
-      - '!master'
-      - '!develop'
-      - '!release/**'
-      - '*'
-
 env:
   BRANCH: ${{github.event.pull_request.head.ref}}
   SITE: 'utdkpr'

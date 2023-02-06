@@ -574,3 +574,25 @@ function utexas_update_8134() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ */
+function utexas_update_8135() {
+  $config_names = [
+    'filter.format.basic_html',
+    'editor.editor.basic_html',
+    'filter.format.full_html',
+    'editor.editor.full_html',
+  ];
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+      }
+    }
+  }
+}

@@ -8,17 +8,12 @@ dependencies:
   module:
     - editor
     - iframe_title_filter
-    - linkit
     - media
     - pathologic
     - responsive_tables_filter
-    - url_embed
-    - utexas_qualtrics_filter
 name: 'Full HTML'
 format: full_html
 weight: 0
-roles:
-  - administrator
 filters:
   filter_align:
     id: filter_align
@@ -57,26 +52,6 @@ filters:
     status: true
     weight: -37
     settings: {  }
-  filter_html_escape:
-    id: filter_html_escape
-    provider: filter
-    status: false
-    weight: -35
-    settings: {  }
-  filter_qualtrics:
-    id: filter_qualtrics
-    provider: utexas_qualtrics_filter
-    status: true
-    weight: -42
-    settings:
-      qualtrics_css: '1'
-  linkit:
-    id: linkit
-    provider: linkit
-    status: true
-    weight: -49
-    settings:
-      title: true
   filter_iframe_title:
     id: filter_iframe_title
     provider: iframe_title_filter
@@ -108,23 +83,18 @@ filters:
     weight: -40
     settings:
       default_view_mode: default
-      allowed_media_types: {  }
       allowed_view_modes:
         default: default
         utexas_large: utexas_large
         utexas_medium: utexas_medium
         utexas_thumbnail: utexas_thumbnail
-  url_embed:
-    id: url_embed
-    provider: url_embed
-    status: true
-    weight: -39
-    settings:
-      enable_responsive: '1'
-  url_embed_convert_links:
-    id: url_embed_convert_links
-    provider: url_embed
+      allowed_media_types: {  }
+  filter_html:
+    id: filter_html
+    provider: filter
     status: false
-    weight: -34
+    weight: -10
     settings:
-      url_prefix: ''
+      allowed_html: ''
+      filter_html_help: true
+      filter_html_nofollow: false
