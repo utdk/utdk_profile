@@ -127,6 +127,7 @@ class LayoutsTest extends FunctionalJavascriptTestBase {
     $this->openSectionConfiguration('Section 1');
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
+    $this->saveSectionConfiguration();
     $this->savePageLayout();
 
     $layout_css_suffix = 'threecol';

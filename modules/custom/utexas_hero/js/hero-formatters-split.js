@@ -64,7 +64,7 @@
       if( default_style !== "default") {
         $("input[name='utexas_hero_style_selector'][value=\"" + style_and_anchor.style + "\"]").attr("checked","checked");
         $("input[name='utexas_hero_anchor'][value=\"" + style_and_anchor.anchor + "\"]").attr("checked","checked");
-       } 
+       }
        else {
         $("input[name='utexas_hero_style_selector'][value='default']").attr("checked","checked");
         $("input[name='utexas_hero_anchor'][value='center']").attr("checked","checked");
@@ -75,7 +75,7 @@
       default_style = (form_mode === "formatter"
       && default_style === "default" ? "utexas_hero"
       : default_style);
-   
+
       // Update the values in the original hidden select element.
       original_select_element.val(default_style);
       // Toggle anchor select element if current hero don't use anchor.
@@ -86,23 +86,23 @@
 
       // Watch the hero style custom select element.
       $("input[name='utexas_hero_style_selector']", context).change(function() {
-        
+
         // Get the hero style and convert to utexas_hero if form mode is set
         // to formatter.
         var hero_style = (form_mode === "formatter"
         && $("input[name=utexas_hero_style_selector]:checked").val() === "default"
         ? "utexas_hero"
         : $("input[name=utexas_hero_style_selector]:checked").val());
-      
+
         updateSelectors(original_select_element, "", hero_style);
       });
 
       // Watch the hero anchor custom select element.
       $("input[name='utexas_hero_anchor']", context).change(function() {
-        
+
         var anchor = "_" + $("input[name='utexas_hero_anchor']:checked")
         .val();
-        
+
         updateSelectors(original_select_element, anchor, "");
       });
     }
@@ -148,21 +148,16 @@
   function getFormMode() {
     var form_mode = null;
     // Check if the layout sidebar has a formatter or view mode, if not, exit.
-    if ($("#drupal-off-canvas")
-    .has(".js-form-item-settings-formatter-type").length
-    || $("#layout-builder-modal")
-    .has(".js-form-item-settings-formatter-type").length) {
+    if ($("#drupal-off-canvas").has(".js-form-item-settings-formatter-type").length
+    || $(".layout-builder-configure-block").has(".js-form-item-settings-formatter-type").length) {
       form_mode = "formatter";
     }
-    else if ($("#drupal-off-canvas")
-    .has(".js-form-item-settings-view-mode").length
-    || $("#layout-builder-modal")
-    .has(".js-form-item-settings-view-mode").length) {
+    else if ($("#drupal-off-canvas").has(".js-form-item-settings-view-mode").length
+    || $(".layout-builder-configure-block").has(".js-form-item-settings-view-mode").length) {
       form_mode = "view_mode";
     }
     else if ($(".block-form").has(".js-form-item-settings-view-mode").length
-    || $("#layout-builder-modal")
-    .has(".js-form-item-settings-view-mode").length) {
+    || $(".layout-builder-configure-block").has(".js-form-item-settings-view-mode").length) {
       form_mode = "view_mode";
     }
     return form_mode;
