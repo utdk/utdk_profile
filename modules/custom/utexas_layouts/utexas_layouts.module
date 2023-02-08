@@ -98,3 +98,18 @@ function utexas_layouts_preprocess_block(&$variables) {
     $variables['attributes']['class'][] = 'utexas-readable';
   }
 }
+
+/**
+ * Implements hook_contextual_links_plugins_alter().
+ */
+function utexas_layouts_contextual_links_plugins_alter(array &$contextual_links) {
+  // Do not allow users to access the "Remove block" link present in any
+  // site-wide blocks that display on any page. Multiple users have
+  // inadvertently removed a site-wide block, under the impression that they
+  // would only be affecting a single page. See
+  // https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/2069
+  // The below will NOT remove the "Remove block" link from Layout
+  // Builder blocks, since that is supplied by the separate
+  // 'layout_builder_block_remove' item.
+  unset($contextual_links['block_remove']);
+}

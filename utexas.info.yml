@@ -51,10 +51,9 @@ install:
   - drupal:google_tag
   - drupal:google_cse
   - drupal:iframe_title_filter
-  - drupal:layout_builder_modal
+  - drupal:layout_builder_iframe_modal
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
-  - drupal:media_library_theme_reset
   - drupal:metatag
   - drupal:metatag_twitter_cards
   - drupal:metatag_verification

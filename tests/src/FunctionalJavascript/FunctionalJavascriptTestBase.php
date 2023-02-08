@@ -114,6 +114,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
 
     // 20 seconds.
     $this->setTimeout(20000);
+    $this->getSession()->resizeWindow(1200, 4000);
   }
 
   /**
@@ -135,10 +136,9 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $contextual_link_selector = $this->getBlockContextualLinkSelector($block_name, $inline_block_plugin_id, $inline_block_index);
     $this->clickContextualLink($contextual_link_selector, 'Configure');
 
+    $this->switchToLayoutBuilderIframe();
     $form_id = 'layout-builder-update-block';
     $form = $this->waitForForm($form_id);
-
-    $this->fixFortyAcresAdminStyles();
 
     // Find element within parent.
     $selector = '//input[@value="Update"]';
@@ -147,6 +147,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
 
     $this->scrollElementIntoView($input);
     $this->submitForm($form_values, 'Update', $form_id);
+    $this->switchFromLayoutBuilderIframe();
 
     // Wait for element to go away.
     $message = 'Element exists on the page. xpath: ' . $selector;
@@ -173,13 +174,13 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $dialog = $this->waitForUiDialogTitle('Add a new custom block');
     $this->scrollLinkIntoViewAndClick($dialog, $block_type_label);
 
+    $this->switchToLayoutBuilderIframe();
     // Wait for form.
     $form_id = 'layout-builder-add-block';
     $this->waitForForm($form_id);
 
-    $this->fixFortyAcresAdminStyles();
-
     $this->submitForm($form_values, 'Add block', $form_id);
+    $this->switchFromLayoutBuilderIframe();
   }
 
   /**
@@ -201,8 +202,10 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
 
     // Wait for block form and save it.
     $this->waitForUiDialogTitle('Configure block');
+    $this->switchToLayoutBuilderIframe();
     $form = $this->waitForForm('layout-builder-add-block');
     $this->clickInputByValue($form, 'Add block', TRUE);
+    $this->switchFromLayoutBuilderIframe();
   }
 
   /**
@@ -435,6 +438,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
 
     $this->scrollLinkIntoViewAndClick($page, 'Configure ' . $section_label);
     $this->waitForUiDialogTitle('Configure section');
+    $this->switchToLayoutBuilderIframe();
   }
 
   /**
@@ -499,6 +503,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
   protected function saveSectionConfiguration(): void {
     $form = $this->waitForForm('layout-builder-configure-section');
     $this->clickInputByValue($form, 'Update', TRUE);
+    $this->switchFromLayoutBuilderIframe();
   }
 
   /**
@@ -643,15 +648,14 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $dialog = $this->waitForUiDialogTitle('Choose a layout for this section');
 
     // Click section layout.
-    $selector = $this->scrollElementIntoViewAndClick($dialog, 'a/div', 'normalize-space(text())', $section_layout);
+    $this->scrollElementIntoViewAndClick($dialog, 'a/div', 'normalize-space(text())', $section_layout);
 
-    // Wait for element to go away.
-    $message = 'Element exists on the page. xpath: ' . $selector;
-    $assert->assertNoElementAfterWait('xpath', $selector, $this->getTimeout(), $message);
-
-    // Add new section.
+    $this->waitForUiDialogTitle('Configure section');
+    $this->switchToLayoutBuilderIframe();
     $form = $this->waitForForm('layout-builder-configure-section');
+    // Add new section.
     $this->clickInputByValue($form, 'Add section', TRUE);
+    $this->switchFromLayoutBuilderIframe();
   }
 
   /**
@@ -667,8 +671,10 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     // Click link to remove section.
     $this->scrollLinkIntoViewAndClick($page, 'Remove ' . $section_label);
 
+    $this->switchToLayoutBuilderIframe();
     $form = $this->waitForForm('layout-builder-remove-section');
     $this->clickInputByValue($form, 'Remove', TRUE);
+    $this->switchFromLayoutBuilderIframe();
   }
 
   /**
@@ -802,6 +808,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $element_parent = $element->getParent();
 
     $xpath = $element->getXpath();
+
     // Scroll to element.
     $script = "document.evaluate('" . $xpath . "', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.scrollIntoView();";
     $this->getSession()->executeScript($script);
@@ -846,18 +853,6 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
    */
   protected function setTimeout($timeout) {
     $this->timeout = $timeout;
-  }
-
-  /**
-   * Remove forty_acres admin styles.
-   *
-   * Forty Acres theme makes certain input elements inaccessabl when it hides
-   * them off-screen. This un-hides them.
-   */
-  protected function fixFortyAcresAdminStyles() {
-    $session = $this->getSession();
-    $session->executeScript('[].forEach.call(document.querySelectorAll(\'input[type="checkbox"]\'),function(el){el.style.left=0});');
-    $session->executeScript('[].forEach.call(document.querySelectorAll(\'input[type="radio"]\'),function(el){el.style.left=0});');
   }
 
   /**
@@ -940,6 +935,26 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     if ($force_visible) {
       $this->toggleContextualTriggerVisibility($selector);
     }
+  }
+
+  /**
+   * Switches to the layout builder iframe.
+   */
+  protected function switchToLayoutBuilderIframe(): void {
+    /** @var \Drupal\FunctionalJavascriptTests\JSWebAssertWebAssert $assert */
+    $assert = $this->assertSession();
+    $assert->waitForElementVisible('css', '#drupal-lbim-modal');
+    $this->getSession()->switchToIFrame('lbim-dialog-iframe');
+  }
+
+  /**
+   * Switches from the layout builder iframe.
+   */
+  protected function switchFromLayoutBuilderIframe(): void {
+    $this->getSession()->switchToIFrame();
+    /** @var \Drupal\FunctionalJavascriptTests\JSWebAssert $assert */
+    $assert = $this->assertSession();
+    $this->assertTrue($assert->waitForElementRemoved('css', '#drupal-lbim-modal'));
   }
 
 }

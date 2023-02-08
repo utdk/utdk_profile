@@ -218,10 +218,9 @@ trait HeroTestTrait {
     $contextual_link_selector = $this->getBlockContextualLinkSelector($block_name, $block_plugin_id);
     $this->clickContextualLink($contextual_link_selector, 'Configure');
 
+    $this->switchToLayoutBuilderIframe();
     $form_id = 'layout-builder-update-block';
     $form = $this->waitForForm($form_id);
-
-    $this->fixFortyAcresAdminStyles();
 
     foreach ($hero_updates as $update) {
       $selector = $assert->buildXPathQuery(
@@ -236,6 +235,7 @@ trait HeroTestTrait {
 
     // Submit form and save page.
     $this->clickInputByValue($form, 'Update');
+    $this->switchFromLayoutBuilderIframe();
     $this->savePageLayout();
   }
 
