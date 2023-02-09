@@ -25,27 +25,26 @@ function utexas_readonly_form_alter(array &$form, FormStateInterface &$form_stat
   $parts = explode('.', $form_id);
   $base_entity = $parts[1] ?? $form_id;
   $restricted_entities = array_merge(ReadOnlyHelper::$restrictedBlockTypes, ReadOnlyHelper::$restrictedMediaTypes, ReadOnlyHelper::$restrictedNodeTypes, ReadOnlyHelper::$restrictedConfig, ReadOnlyHelper::$restrictedFields);
-  if (!in_array($base_entity, $restricted_entities)) {
-    return;
-  }
-  ReadOnlyHelper::warn();
-  // Disable various form elements.
-  $form['#validate'][] = '_utexas_readonly_validate_failure';
-  if (isset($form['actions']['submit'])) {
-    $form['actions']['submit']['#disabled'] = TRUE;
-  }
-  if (isset($form['actions']['delete'])) {
-    unset($form['actions']['delete']);
-  }
-  foreach (ReadOnlyHelper::$disabledFields as $field) {
-    if (isset($form[$field])) {
-      $form[$field]['#disabled'] = TRUE;
+  if (in_array($base_entity, $restricted_entities, TRUE)) {
+    ReadOnlyHelper::warn();
+    // Disable various form elements.
+    $form['#validate'][] = '_utexas_readonly_validate_failure';
+    if (isset($form['actions']['submit'])) {
+      $form['actions']['submit']['#disabled'] = TRUE;
     }
-    if (isset($form['submission'][$field])) {
-      $form['submission'][$field]['#disabled'] = TRUE;
+    if (isset($form['actions']['delete'])) {
+      unset($form['actions']['delete']);
     }
-    if (isset($form['cardinality_container'][$field])) {
-      $form['cardinality_container'][$field]['#disabled'] = TRUE;
+    foreach (ReadOnlyHelper::$disabledFields as $field) {
+      if (isset($form[$field])) {
+        $form[$field]['#disabled'] = TRUE;
+      }
+      if (isset($form['submission'][$field])) {
+        $form['submission'][$field]['#disabled'] = TRUE;
+      }
+      if (isset($form['cardinality_container'][$field])) {
+        $form['cardinality_container'][$field]['#disabled'] = TRUE;
+      }
     }
   }
 }
