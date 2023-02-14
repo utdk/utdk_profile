@@ -1,8 +1,7 @@
 name: 'UTexas Role Content Editor'
 type: module
 description: 'Defines a role and permissions for Content Editor'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - 'drupal:user'

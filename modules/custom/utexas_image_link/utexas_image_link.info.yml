@@ -1,8 +1,7 @@
 name: 'UTexas Image Link'
 type: module
 description: 'A custom field that allows for a linked image.'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - block_content

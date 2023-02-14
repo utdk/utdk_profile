@@ -1,6 +1,6 @@
 name: 'UTexas Text Format Flex HTML'
 type: module
-core_version_requirement: '^8.9 || ^9'
+core_version_requirement: ^8.9 || ^9 || ^10
 version: 8.x-1.0
 package: UTexas
 dependencies:

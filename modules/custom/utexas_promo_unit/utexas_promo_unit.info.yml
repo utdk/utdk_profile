@@ -1,8 +1,7 @@
 name: 'UTexas Promo Unit'
 type: module
 description: 'A compound field with image, headline, copy text, & link.'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - block_content

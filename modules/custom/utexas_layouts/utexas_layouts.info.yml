@@ -1,8 +1,7 @@
 name: 'UTexas Layouts'
 type: module
 description: 'Layouts designed to work with the UT Drupal Kit'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - layout_builder_styles
   - layout_discovery
