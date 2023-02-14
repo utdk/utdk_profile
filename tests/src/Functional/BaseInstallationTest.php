@@ -58,7 +58,6 @@ class BaseInstallationTest extends BrowserTestBase {
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
       'utexas_role_content_editor',
-      'field_ui',
       'block',
     ];
     foreach ($should_be_enabled as $module) {
@@ -235,7 +234,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->assertTrue($formats[0] == 'flex_html', 'Flex HTML is at the top of the filter_formats list.');
     // Make sure a Content Editor doesn't have access to Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
-    $assert->statusCodeEquals(403);
+    $assert->statusCodeEquals(404);
     // Make sure a Content Editor doesn't have access to Block UI.
     $this->drupalGet('admin/structure/block');
     $assert->statusCodeEquals(403);
@@ -250,7 +249,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->drupalLogin($this->initializeSiteManager());
     // Make sure a Site Manager doesn't have access to the Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');
-    $assert->statusCodeEquals(403);
+    $assert->statusCodeEquals(404);
     // Make sure a Site Manager has access to the Block UI.
     $this->drupalGet('admin/structure/block');
     $assert->statusCodeEquals(200);
