@@ -56,7 +56,7 @@ $COMPOSER_CMD require utexas/forty_acres "dev-develop as $FORTYACRES" --no-updat
 $COMPOSER_CMD require utexas/utevent "dev-develop as $UTEVENT" --no-update
 $COMPOSER_CMD require utexas/utnews "dev-develop as $UTNEWS" --no-update
 $COMPOSER_CMD require utexas/utprof "dev-develop as $UTPROF" --no-update
-$COMPOSER_CMD require utexas/pantheon_saml_integration:dev-develop --no-update
+$COMPOSER_CMD require utexas/pantheon_saml_integration:3.x-dev --no-update
 $COMPOSER_CMD require utexas/utdk_saas:dev-develop --no-update
 
 $COMPOSER_CMD install --ignore-platform-reqs

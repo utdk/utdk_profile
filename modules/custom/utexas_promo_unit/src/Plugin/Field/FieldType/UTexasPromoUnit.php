@@ -89,6 +89,8 @@ class UTexasPromoUnit extends FieldItemBase {
         // Ignore failed move.
       }
       if ($path = $random->image($file_system->realpath($destination), $min_resolution, $max_resolution)) {
+        /** @var \Drupal\file\FileRepositoryInterface $file_repository */
+        $file_repository = \Drupal::service('file.repository');
         $image = File::create();
         $image->setFileUri($path);
         $image->setOwnerId(\Drupal::currentUser()->id());
@@ -97,7 +99,7 @@ class UTexasPromoUnit extends FieldItemBase {
         $destination_dir = 'public://generated_sample';
         $file_system->prepareDirectory($destination_dir, FileSystemInterface::CREATE_DIRECTORY);
         $destination = $destination_dir . '/' . basename($path);
-        $file = file_move($image, $destination);
+        $file = $file_repository->move($image, $destination);
         $image_media = Media::create([
           'name' => 'Image 1',
           'bundle' => 'utexas_image',

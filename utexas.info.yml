@@ -1,8 +1,7 @@
 name: UTexas
 type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 version: '3.10.0'
 distribution:
   name: UTexas
@@ -18,7 +17,6 @@ dependencies:
   - drupal:datetime
   - drupal:editor
   - drupal:image
-  - drupal:field_ui
   - drupal:file
   - drupal:media_library
   - drupal:menu_link_content

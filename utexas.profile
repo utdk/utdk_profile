@@ -75,13 +75,16 @@ function utexas_install_demo_content(&$install_state) {
     _utexas_install_footer_content();
     // Function call to create header demo content.
     _utexas_install_header_content();
-    $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
-    $operations = [];
-    // Each of the modules with 'utexas_demo_content' implementations
-    // will be  added as a batch job.
-    foreach ($implementations as $module) {
-      $operations[] = [$module . '_utexas_demo_content', []];
-    }
+
+    // Each of the 'utexas_demo_content' implementations will be added as a
+    // batch job.
+    \Drupal::moduleHandler()->invokeAllWith(
+      'utexas_demo_content',
+      function (callable $hook, string $module) use (&$operations) {
+        $operations[] = [$module . '_utexas_demo_content', []];
+      }
+    );
+
     $batch = [
       'title' => t('Generating demo content...'),
       'operations' => $operations,
@@ -349,4 +352,3 @@ function utexas_link_alter(&$variables) {
     $variables['options']['attributes']['title'] = 'This link is not visible to non-authenticated users.';
   }
 }
-

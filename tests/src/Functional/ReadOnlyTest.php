@@ -20,6 +20,7 @@ class ReadOnlyTest extends FunctionalTestBase {
    */
   protected static $modules = [
     'views_ui',
+    'field_ui',
   ];
 
   /**

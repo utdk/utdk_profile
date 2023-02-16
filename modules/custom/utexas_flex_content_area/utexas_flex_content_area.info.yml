@@ -1,8 +1,7 @@
 name: 'UTexas Flex Content Area'
 type: module
 description: 'Defines schema & configuration for Flex Content Area widget.'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - block_content

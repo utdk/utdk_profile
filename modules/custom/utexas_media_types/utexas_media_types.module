@@ -61,3 +61,18 @@ function utexas_media_types_preprocess_media_oembed_iframe(array &$variables) {
   }
   $variables['media'] = Html::serialize($html_dom);
 }
+
+/**
+ * Implements hook_form_alter().
+ */
+function utexas_media_types_form_alter(&$form, $form_state, $form_id) {
+  // Add a suggestion to document upload forms to use a file-sharing service.
+  $forms_to_admonish = [
+    'media_utexas_document_add_form',
+    'views_form_media_library_widget_utexas_document',
+    'views_form_media_library_widget_table_utexas_document',
+  ];
+  if (in_array($form_id, $forms_to_admonish)) {
+    \Drupal::messenger()->addWarning(t('For non-image documents such as PDFs, MS Office documents, or high-resolution images intended for download, consider using a third-party file sharing service instead of uploading to the Media Library. See <a href="@url">this KB article</a> for additional information.', ['@url' => 'https://ut.service-now.com/sp?id=kb_article&number=KB0019227']));
+  }
+}

@@ -5,6 +5,8 @@
  * Hooks and documentation related to the UTexas profile.
  */
 
+use Drupal\block_content\Entity\BlockContent;
+
 /**
  * @addtogroup hooks
  * @{
