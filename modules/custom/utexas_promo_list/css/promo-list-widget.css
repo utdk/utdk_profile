@@ -7,9 +7,6 @@
   float: left;
   max-width: 90%;
 }
-.field--type-utexas-promo-list table td details summary {
-  padding: 0.5rem 0.5rem 0.5rem 1rem;
-}
 #layout-builder-modal .field--type-utexas-promo-list table td details {
   float: left;
   margin-left: 1rem;
