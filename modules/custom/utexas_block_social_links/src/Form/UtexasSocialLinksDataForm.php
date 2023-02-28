@@ -92,7 +92,6 @@ class UtexasSocialLinksDataForm extends EntityForm {
       '#type' => 'file',
       '#title' => $this->t('SVG Icon'),
       '#description' => $this->t('Upload an SVG Icon to set as the default icon for this social account. This upload will replace the active SVG icon if one is already set below.'),
-      '#maxlength' => 40,
       '#upload_validators' => [
         'file_validate_extensions' => ['svg'],
         'file_validate_size' => [25600000],
