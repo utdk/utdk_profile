@@ -608,3 +608,13 @@ function utexas_update_8136() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Enable stable9 on existing sites (#2133).
+ */
+function utexas_update_8137() {
+  $theme = 'stable9';
+  if (\Drupal::service('theme_handler')->themeExists($theme) === FALSE) {
+    \Drupal::service('theme_installer')->install([$theme]);
+  }
+}
