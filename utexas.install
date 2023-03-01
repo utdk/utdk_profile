@@ -630,3 +630,13 @@ function utexas_update_8137() {
     }
   }
 }
+
+/**
+ * Enable stable9 on existing sites (#2133).
+ */
+function utexas_update_8138() {
+  $theme = 'stable9';
+  if (\Drupal::service('theme_handler')->themeExists($theme) === FALSE) {
+    \Drupal::service('theme_installer')->install([$theme]);
+  }
+}

@@ -73,6 +73,6 @@ function utexas_media_types_form_alter(&$form, $form_state, $form_id) {
     'views_form_media_library_widget_table_utexas_document',
   ];
   if (in_array($form_id, $forms_to_admonish)) {
-    \Drupal::messenger()->addWarning(t('For non-image documents such as PDFs, MS Office documents, or high-resolution images intended for download, consider using a third-party file sharing service instead of uploading to the Media Library. See <a href="@url">this KB article</a> for additional information.', ['@url' => 'https://ut.service-now.com/sp?id=kb_article&number=KB0019227']));
+    \Drupal::messenger()->addWarning(t('For non-image documents such as PDFs, MS Office documents, or high-resolution images intended for download, consider using a third-party file sharing service instead of uploading to the Media Library. See <a href="@url" target="_blank">this KB article<span class="ut-cta-link--external"></span></a> for additional information.', ['@url' => 'https://ut.service-now.com/sp?id=kb_article&number=KB0019227']));
   }
 }
