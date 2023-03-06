@@ -618,3 +618,18 @@ function utexas_update_8137() {
     \Drupal::service('theme_installer')->install([$theme]);
   }
 }
+
+/**
+ * Uninstall stable and bartik on existing sites (#2135).
+ */
+function utexas_update_8138() {
+  $themes_to_uninstall = [
+    'bartik',
+    'stable',
+  ];
+  foreach ($themes_to_uninstall as $theme) {
+    if (\Drupal::service('theme_handler')->themeExists($theme)) {
+      \Drupal::service('theme_installer')->uninstall([$theme]);
+    }
+  }
+}

@@ -96,6 +96,5 @@ install:
   - utexas_site_announcement
   - utexas_text_format_flex_html
 themes:
-  - bartik
   - claro
   - forty_acres
