@@ -60,7 +60,7 @@
     "utexas/forty_acres": "3.10.0",
     "npm-asset/accessible360--accessible-slick": "1.0.1",
     "oomphinc/composer-installers-extender": "2.0.1",
-    "utexas/utexas_qualtrics_filter": "3.0.0"
+    "utexas/utexas_qualtrics_filter": "3.1.0"
   },
   "conflict": {
     "drupal/drupal": "*"

@@ -26,9 +26,10 @@ settings:
       - outdent
       - indent
       - '|'
+      - insertTable
       - drupalMedia
       - blockQuote
-      - insertTable
+      - qualtrics
       - '|'
       - heading
       - '|'
