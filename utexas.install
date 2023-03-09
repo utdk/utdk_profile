@@ -644,7 +644,7 @@ function utexas_update_8138() {
 /**
  * Uninstall stable and bartik on existing sites (#2135).
  */
-function utexas_update_8138() {
+function utexas_update_8139() {
   $themes_to_uninstall = [
     'bartik',
     'stable',
