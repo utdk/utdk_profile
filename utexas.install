@@ -610,9 +610,34 @@ function utexas_update_8136() {
 }
 
 /**
- * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ * Enable stable9 on existing sites (#2133).
  */
 function utexas_update_8137() {
+  $theme = 'stable9';
+  if (\Drupal::service('theme_handler')->themeExists($theme) === FALSE) {
+    \Drupal::service('theme_installer')->install([$theme]);
+  }
+}
+
+/**
+ * Uninstall stable and bartik on existing sites (#2135).
+ */
+function utexas_update_8138() {
+  $themes_to_uninstall = [
+    'bartik',
+    'stable',
+  ];
+  foreach ($themes_to_uninstall as $theme) {
+    if (\Drupal::service('theme_handler')->themeExists($theme)) {
+      \Drupal::service('theme_installer')->uninstall([$theme]);
+    }
+  }
+}
+
+/**
+ * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ */
+function utexas_update_8139() {
   $config_names = [
     'filter.format.basic_html',
     'editor.editor.basic_html',
@@ -632,26 +657,21 @@ function utexas_update_8137() {
 }
 
 /**
- * Enable stable9 on existing sites (#2133).
+ * Uninstall ckeditor4height on existing sites (#2137).
  */
-function utexas_update_8138() {
-  $theme = 'stable9';
-  if (\Drupal::service('theme_handler')->themeExists($theme) === FALSE) {
-    \Drupal::service('theme_installer')->install([$theme]);
+function utexas_update_8140() {
+  $module = 'ckeditorheight';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
   }
 }
 
 /**
- * Uninstall stable and bartik on existing sites (#2135).
+ * Uninstall CKEditor4 on existing sites (#2107).
  */
-function utexas_update_8139() {
-  $themes_to_uninstall = [
-    'bartik',
-    'stable',
-  ];
-  foreach ($themes_to_uninstall as $theme) {
-    if (\Drupal::service('theme_handler')->themeExists($theme)) {
-      \Drupal::service('theme_installer')->uninstall([$theme]);
-    }
+function utexas_update_8141() {
+  $module = 'ckeditor';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
   }
 }
