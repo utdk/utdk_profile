@@ -25,7 +25,7 @@ class FlexHTMLTest extends FunctionalJavascriptTestBase {
    * Test any FlexHTML settings sequentially, using the same installation.
    */
   public function testFlexHtml() {
-    //$this->verifyQualtricsFilterOutput();
+    $this->verifyQualtricsFilterOutput();
   }
 
 }
