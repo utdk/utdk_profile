@@ -1,0 +1,30 @@
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|clean_class,
+    'utexas-instagram-feed',
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  <div class="utexas-instagram-feed__header container">
+    <div class="row">
+      <div class="col">
+        {{ title_prefix }}
+        {% if label %}
+          <h2{{ title_attributes }}>{{ label }}</h2>
+        {% endif %}
+        {{ title_suffix }}
+      </div>
+      <div class="col">
+        <div class="utexas-instagram-feed__controls" id="controls">
+          <span class="utexas-instagram-feed__controls-prev prev" aria-label="previous post" tabindex="0" role="button"></span>
+          <span class="utexas-instagram-feed__controls-next next js-enabled" aria-label="next post" tabindex="0" role="button"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="utexas-instagram-feed__content container">
+    {{ instagram_posts }}
+  </div>
+</div>

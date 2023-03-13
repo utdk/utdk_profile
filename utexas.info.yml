@@ -95,6 +95,8 @@ install:
   - utexas_resources
   - utexas_site_announcement
   - utexas_text_format_flex_html
+  - utexas_instagram_api
+  - utexas_instagram
 themes:
   - claro
   - forty_acres

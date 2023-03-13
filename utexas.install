@@ -633,3 +633,19 @@ function utexas_update_8138() {
     }
   }
 }
+
+/**
+ * Enable utexas_instagram and utexas_instagram_api on existing sites (#2114).
+ */
+function utexas_update_8139() {
+  drupal_flush_all_caches();
+  $modules = [
+    'utexas_instagram_api',
+    'utexas_instagram',
+  ];
+  foreach ($modules as $module) {
+    if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+      \Drupal::service('module_installer')->install([$module]);
+    }
+  }
+}
