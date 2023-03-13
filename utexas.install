@@ -635,9 +635,26 @@ function utexas_update_8138() {
 }
 
 /**
- * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ * Enable utexas_instagram and utexas_instagram_api on existing sites (#2114).
  */
 function utexas_update_8139() {
+  drupal_flush_all_caches();
+  $modules = [
+    'utexas_instagram_api',
+    'utexas_instagram',
+  ];
+  foreach ($modules as $module) {
+    if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+      \Drupal::service('module_installer')->install([$module]);
+    }
+  }
+}
+
+
+/**
+ * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ */
+function utexas_update_8140() {
   $config_names = [
     'filter.format.basic_html',
     'editor.editor.basic_html',
@@ -659,7 +676,7 @@ function utexas_update_8139() {
 /**
  * Uninstall ckeditor4height on existing sites (#2137).
  */
-function utexas_update_8140() {
+function utexas_update_8141() {
   $module = 'ckeditorheight';
   if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
     \Drupal::service('module_installer')->uninstall([$module]);
@@ -669,7 +686,7 @@ function utexas_update_8140() {
 /**
  * Uninstall CKEditor4 on existing sites (#2107).
  */
-function utexas_update_8141() {
+function utexas_update_8142() {
   $module = 'ckeditor';
   if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
     \Drupal::service('module_installer')->uninstall([$module]);

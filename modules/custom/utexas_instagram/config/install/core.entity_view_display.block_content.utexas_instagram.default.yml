@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.utexas_instagram
+    - field.field.block_content.utexas_instagram.field_utexas_instagram_acct
+id: block_content.utexas_instagram.default
+targetEntityType: block_content
+bundle: utexas_instagram
+mode: default
+content:
+  field_utexas_instagram_acct:
+    type: entity_reference_label
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true

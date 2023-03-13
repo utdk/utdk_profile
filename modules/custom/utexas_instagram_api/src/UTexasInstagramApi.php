@@ -1,0 +1,364 @@
+<?php
+
+namespace Drupal\utexas_instagram_api;
+
+use Drupal\Core\Url;
+use GuzzleHttp\RequestOptions;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+
+/**
+ * Main Instagram API request class.
+ */
+class UTexasInstagramApi implements UTexasInstagramApiInterface {
+
+  /**
+   * An http response code.
+   *
+   * @var array
+   */
+  protected $response;
+
+  /**
+   * The configuration.
+   *
+   * @var array
+   *
+   * Consists of:
+   * 'access_token' (the site's current access token)
+   * 'client_secret' (Found on
+   * https://developers.facebook.com/apps/<app id>/instagram/basic-display/).
+   */
+  protected $config;
+
+  /**
+   * The utexas_ig_auth object.
+   *
+   * @var object
+   */
+  protected $configFactory;
+
+  /**
+   * The Drupal-specific configuration ID.
+   *
+   * @var string
+   */
+  protected $config_id;
+
+  /**
+   * The META client id.
+   *
+   * @var string
+   */
+  protected $client_id;
+
+  /**
+   * The META client secret.
+   *
+   * @var string
+   */
+  protected $client_secret;
+
+  /**
+   * An optional override of the redirect, typically for debugging purposes.
+   *
+   * @var string
+   */
+  protected $redirect_uri_override;
+
+  /**
+   * State service object.
+   *
+   * @var object
+   */
+  protected $state;
+
+  /**
+   * The utexas_ig_auth access token.
+   *
+   * @var string
+   */
+  protected $token;
+
+  /**
+   * The utexas_ig_auth token expiration date.
+   *
+   * @var string
+   */
+  protected $expiration;
+
+  /**
+   * Base url of the website.
+   *
+   * @var string
+   */
+  protected $base_url;
+
+  /**
+   * The utexas_ig_auth redirect URI.
+   *
+   * @var string
+   */
+  protected $redirect_uri;
+
+  /**
+   * Constructs the request object.
+   */
+  public function __construct($config_id) {
+
+    $this->configFactory = \Drupal::service('utexas_instagram_api.ig_auth_service');
+    $this->config = $this->configFactory->get('utexas_instagram_api.ig_auth.' . $config_id);
+    $this->config_id = $this->config->get('id');
+    $this->client_id = $this->config->get('client_id');
+    $this->client_secret = $this->config->get('client_secret');
+    $this->redirect_uri_override = $this->config->get('redirect_uri_override');
+
+    $this->state = \Drupal::service('utexas_instagram_api.ig_state_service');
+    $this->token = $this->state->get(self::STATE_API_PREFIX . $config_id . '.token');
+    $this->expiration = $this->state->get(self::STATE_API_PREFIX . $config_id . '.token_expiration');
+
+    $this->base_url = \Drupal::request()->getHost();
+    $this->redirect_uri = $this->redirect_uri_override ?? URL::fromRoute('entity.utexas_ig_auth.collection', [], [
+      'absolute' => TRUE,
+    ]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConfigId() {
+    return $this->config_id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getToken() {
+    return $this->state->get(self::STATE_API_PREFIX . $this->config_id . '.token');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setToken($token) {
+    $this->state->set(self::STATE_API_PREFIX . $this->config_id . '.token', $token);
+    $this->token = $token;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTokenExpiration() {
+    return $this->state->get(self::STATE_API_PREFIX . $this->config_id . '.token_expiration');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTokenExpiration($expiration) {
+    $this->state->set(self::STATE_API_PREFIX . $this->config_id . '.token_expiration', $expiration);
+    $this->expiration = $expiration;
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getShortToken() {
+    $this->getOauthAccessToken();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOauthAuthorizationCode() {
+    $endpoint = "oauth/authorize?";
+    $params = [
+      'client_id' => $this->client_id,
+      'scope' => 'user_profile,user_media',
+      'redirect_uri' => $this->redirect_uri,
+      'response_type' => 'code',
+      'state' => $this->config_id,
+    ];
+    if (isset($this->client_id)) {
+      $url = self::INSTAGRAM_API_URI . $endpoint . http_build_query($params, '', '&');
+      $response = new TrustedRedirectResponse($url);
+      $request = \Drupal::request();
+      $response->prepare($request);
+      // Make sure to trigger kernel events.
+      \Drupal::service('kernel')->terminate($request, $response);
+      $response->send();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getOauthAccessToken() {
+    $endpoint = "oauth/access_token";
+    $params = [
+      'client_id' => $this->client_id,
+      'client_secret' => $this->client_secret,
+      'grant_type' => 'authorization_code',
+      'redirect_uri' => $this->redirect_uri,
+      'code' => $this->token,
+    ];
+    $response = $this->request(self::INSTAGRAM_API_URI . $endpoint, $params, 'POST');
+    if (isset($response->access_token)) {
+      $this->setToken($response->access_token);
+      // Set token expiration to now.
+      $this->setTokenExpiration(time());
+      // Immediately retrieve a long-lived graph API token.
+      if ($this->getGraphAccessToken()) {
+        return TRUE;
+      }
+      return FALSE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getGraphAccessToken() {
+    $endpoint = "access_token";
+    $params = [
+      'grant_type' => 'ig_exchange_token',
+      'client_secret' => $this->client_secret,
+      'access_token' => $this->token,
+    ];
+
+    $response = $this->request(self::INSTAGRAM_DATA_URI . $endpoint, $params, 'GET');
+
+    if (isset($response->access_token)) {
+      $this->setToken($response->access_token);
+      $this->setTokenExpiration(time() + $response->expires_in);
+      \Drupal::logger('utexas_instagram_api')->notice('Short-lived Instagram token exchanged for long-lived token');
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function refreshGraphAccessToken() {
+    $endpoint = "refresh_access_token";
+    $params = [
+      'grant_type' => 'ig_refresh_token',
+      'access_token' => $this->token,
+    ];
+
+    $response = $this->request(self::INSTAGRAM_DATA_URI . $endpoint, $params, 'GET');
+
+    if (isset($response->access_token)) {
+      $this->setToken($response->access_token);
+      $this->setTokenExpiration(time() + $response->expires_in);
+      \Drupal::logger('utexas_instagram_api')->notice('Long-lived Instagram token exchanged for new long-lived token.');
+      return TRUE;
+    }
+    return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getMedia() {
+    $endpoint = "me/media";
+    $params = [
+      'access_token' => $this->token,
+      'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username',
+      'limit' => '9',
+    ];
+    return $this->request(self::INSTAGRAM_DATA_URI . $endpoint, $params, 'GET');
+  }
+
+  /**
+   * Performs a request.
+   *
+   * @param string $url
+   *   The base URL endpoint.
+   * @param array $params
+   *   API parameters to be passed to the endpoint.
+   * @param string $method
+   *   The HTTP request method.
+   *
+   * @throws \exception
+   */
+  protected function request($url, array $params = [], $method = 'GET') {
+    $data = '';
+    if (count($params) > 0) {
+      if ($method == 'GET') {
+        $url .= '?' . http_build_query($params, '', '&');
+      }
+      else {
+        $data = http_build_query($params, '', '&');
+      }
+    }
+
+    $headers = [];
+
+    $headers['Authorization'] = 'Oauth';
+    $headers['Content-type'] = 'application/x-www-form-urlencoded';
+
+    /** @var \GuzzleHttp\Psr7\Response $response */
+    $response = $this->doRequest($url, $headers, $method, $data);
+    $status_code = $response->getStatusCode();
+
+    if ($status_code == '200') {
+      return $this->parseResponse($response->getBody());
+    }
+    else {
+      if (!empty($response->getBody())) {
+        $data = $this->parseResponse($response->getBody());
+        if ($status_code != '200') {
+          $error = $response->getReasonPhrase();
+        }
+        elseif ($meta = $data->getMetadata()) {
+          $error = new \exception($meta->error_type . ': ' . $meta->error_message, $meta->code);
+        }
+      }
+      \Drupal::logger('utexas_instagram_api')->error($error);
+    }
+  }
+
+  /**
+   * Actually performs a request.
+   *
+   * This method can be easily overriden through inheritance.
+   *
+   * @param string $url
+   *   The url of the endpoint.
+   * @param array $headers
+   *   Array of headers.
+   * @param string $method
+   *   The HTTP method to use (normally POST or GET).
+   * @param string $data
+   *   An string of parameters.
+   *
+   * @return obj
+   *   stdClass response object.
+   */
+  protected function doRequest($url, array $headers, $method, $data = NULL) {
+    $options = [
+      'headers' => $headers,
+      'body' => $data,
+      RequestOptions::HTTP_ERRORS => FALSE,
+    ];
+    $client = \Drupal::httpClient();
+    $response = $client->request($method, $url, $options);
+
+    return $response;
+  }
+
+  /**
+   * Parses the response.
+   */
+  protected function parseResponse($response) {
+    // http://drupal.org/node/985544 - json_decode large integer issue.
+    $length = strlen(PHP_INT_MAX);
+    $response = preg_replace('/"(id|in_reply_to_status_id)":(\d{' . $length . ',})/', '"\1":"\2"', $response);
+    return json_decode($response);
+  }
+
+}
