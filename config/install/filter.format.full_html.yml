@@ -34,14 +34,14 @@ filters:
     id: filter_url
     provider: filter
     status: true
-    weight: -43
+    weight: -38
     settings:
       filter_url_length: 72
   filter_autop:
     id: filter_autop
     provider: filter
     status: false
-    weight: -40
+    weight: -43
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
@@ -53,19 +53,19 @@ filters:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -41
+    weight: -36
     settings: {  }
   filter_iframe_title:
     id: filter_iframe_title
     provider: iframe_title_filter
     status: true
-    weight: -42
+    weight: -44
     settings: {  }
   filter_pathologic:
     id: filter_pathologic
     provider: pathologic
     status: true
-    weight: -46
+    weight: -37
     settings:
       settings_source: global
       local_settings:
@@ -83,7 +83,7 @@ filters:
     id: media_embed
     provider: media
     status: true
-    weight: -45
+    weight: -46
     settings:
       default_view_mode: default
       allowed_view_modes:
@@ -96,7 +96,7 @@ filters:
     id: filter_html
     provider: filter
     status: false
-    weight: -39
+    weight: -42
     settings:
       allowed_html: ''
       filter_html_help: true
@@ -104,22 +104,22 @@ filters:
   linkit:
     id: linkit
     provider: linkit
-    status: false
-    weight: -37
+    status: true
+    weight: -40
     settings:
       title: true
   url_embed:
     id: url_embed
     provider: url_embed
-    status: false
-    weight: -36
+    status: true
+    weight: -39
     settings:
       enable_responsive: '0'
   filter_qualtrics:
     id: filter_qualtrics
     provider: utexas_qualtrics_filter
     status: true
-    weight: -44
+    weight: -45
     settings:
       qualtrics_css: '0'
   filter_html_image_secure:
@@ -132,7 +132,7 @@ filters:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -38
+    weight: -41
     settings: {  }
   url_embed_convert_links:
     id: url_embed_convert_links

@@ -3,6 +3,11 @@ status: true
 dependencies:
   module:
     - editor
+    - linkit
+    - pathologic
+    - responsive_tables_filter
+    - url_embed
+    - utexas_qualtrics_filter
 name: 'Basic HTML'
 format: basic_html
 weight: 0
@@ -13,7 +18,7 @@ filters:
     status: true
     weight: -10
     settings:
-      allowed_html: '<br> <p> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <cite> <dl> <dt> <dd> <span> <a hreflang href> <blockquote cite> <ul type> <ol type start> <strong> <em> <code> <li> <img src alt height width data-entity-uuid data-entity-type data-caption data-align>'
+      allowed_html: '<br> <p> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <cite> <dl> <dt> <dd> <span> <a hreflang href data-entity-type data-entity-uuid data-entity-substitution> <blockquote cite> <ul type> <ol type start> <strong> <em> <li> <img src alt height width data-entity-uuid data-entity-type data-caption data-align>'
       filter_html_help: false
       filter_html_nofollow: false
   filter_align:
@@ -34,3 +39,42 @@ filters:
     status: true
     weight: 11
     settings: {  }
+  linkit:
+    id: linkit
+    provider: linkit
+    status: true
+    weight: 0
+    settings:
+      title: true
+  filter_responsive_tables_filter:
+    id: filter_responsive_tables_filter
+    provider: responsive_tables_filter
+    status: true
+    weight: 0
+    settings:
+      tablesaw_type: stack
+      tablesaw_persist: '1'
+  url_embed:
+    id: url_embed
+    provider: url_embed
+    status: false
+    weight: 0
+    settings:
+      enable_responsive: '0'
+  filter_qualtrics:
+    id: filter_qualtrics
+    provider: utexas_qualtrics_filter
+    status: false
+    weight: 0
+    settings:
+      qualtrics_css: '0'
+  filter_pathologic:
+    id: filter_pathologic
+    provider: pathologic
+    status: true
+    weight: 50
+    settings:
+      settings_source: global
+      local_settings:
+        protocol_style: full
+        local_paths: ''

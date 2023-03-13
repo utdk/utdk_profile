@@ -124,6 +124,9 @@ settings:
         - justify
     media_media:
       allow_view_mode_override: true
+    linkit_extension:
+      linkit_enabled: true
+      linkit_profile: flex_html
 image_upload:
   status: true
   scheme: public
