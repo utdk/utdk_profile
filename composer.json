@@ -70,7 +70,8 @@
       "drupal/core": {
         "Fix issue with CKEditor image align center": "https://drupalkit.its.utexas.edu/patches/1480-ckeditor-align-9.5.x.patch",
         "Improve performance of functional tests by caching Drupal installations": "https://www.drupal.org/files/issues/2021-02-16/2900208-33.patch",
-        "Media Library: Default value for data-align attribute should not be center": "https://drupalkit.its.utexas.edu/patches/1559-media-library-video-width-9.5.x.patch"
+        "Media Library: Default value for data-align attribute should not be center": "https://drupalkit.its.utexas.edu/patches/1559-media-library-video-width-9.5.x.patch",
+        "Respect row height configuration in CKEditor 5 + Drupal 9.5.x": "https://drupalkit.its.utexas.edu/patches/2145-ckeditor-rows.patch"
       },
       "drupal/entity_clone": {
         "Add a way to exclude certain entity types from cloning": "https://drupalkit.its.utexas.edu/patches/1709b-entity-clone-updated.patch",
