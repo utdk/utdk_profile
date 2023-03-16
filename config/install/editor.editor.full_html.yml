@@ -28,6 +28,7 @@ settings:
       - '|'
       - insertTable
       - drupalMedia
+      - urlembed
       - blockQuote
       - qualtrics
       - '|'
