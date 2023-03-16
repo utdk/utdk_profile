@@ -115,7 +115,7 @@ class BaseInstallationTest extends BrowserTestBase {
           'urlembed',
           'qualtrics',
           'blockQuote',
-          '|',
+          '-',
           'heading',
           '|',
           'specialCharacters',

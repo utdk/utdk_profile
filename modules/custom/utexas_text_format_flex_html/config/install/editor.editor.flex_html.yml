@@ -31,7 +31,7 @@ settings:
       - urlembed
       - qualtrics
       - blockQuote
-      - '|'
+      - '-'
       - heading
       - '|'
       - specialCharacters
