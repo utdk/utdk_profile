@@ -649,3 +649,46 @@ function utexas_update_8139() {
     }
   }
 }
+
+
+/**
+ * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ */
+function utexas_update_8140() {
+  $config_names = [
+    'filter.format.basic_html',
+    'editor.editor.basic_html',
+    'filter.format.full_html',
+    'editor.editor.full_html',
+  ];
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+      }
+    }
+  }
+}
+
+/**
+ * Uninstall ckeditor4height on existing sites (#2137).
+ */
+function utexas_update_8141() {
+  $module = 'ckeditorheight';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
+  }
+}
+
+/**
+ * Uninstall CKEditor4 on existing sites (#2107).
+ */
+function utexas_update_8142() {
+  $module = 'ckeditor';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
+  }
+}

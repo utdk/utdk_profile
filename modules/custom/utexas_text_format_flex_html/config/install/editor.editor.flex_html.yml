@@ -4,70 +4,128 @@ dependencies:
   config:
     - filter.format.flex_html
   module:
-    - ckeditor
+    - ckeditor5
 format: flex_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Underline
-            - Strike
-            - HorizontalRule
-            - SpecialChar
-            - Superscript
-            - Subscript
-            - RemoveFormat
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-            - Outdent
-            - Indent
-        -
-          name: Media
-          items:
-            - DrupalMediaLibrary
-            - url
-            - Blockquote
-            - Table
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-            - JustifyLeft
-            - JustifyCenter
-            - JustifyRight
-            - JustifyBlock
-        -
-          name: Tools
-          items:
-            - Source
-            - qualtricsbutton
-        -
-          name: Editing
-          items:
-            - Undo
-            - Redo
-            - Cut
-            - Copy
-            - Paste
-            - PasteText
-            - PasteFromWord
-            - Maximize
+    items:
+      - bold
+      - italic
+      - strikethrough
+      - horizontalLine
+      - removeFormat
+      - undo
+      - redo
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - outdent
+      - indent
+      - alignment
+      - '|'
+      - insertTable
+      - drupalMedia
+      - urlembed
+      - qualtrics
+      - blockQuote
+      - '-'
+      - heading
+      - '|'
+      - specialCharacters
+      - subscript
+      - superscript
+      - underline
+      - sourceEditing
   plugins:
-    drupallink:
+    ckeditor5_heading:
+      enabled_headings:
+        - heading1
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<a hreflang id role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target href>'
+        - '<abbr title id role class>'
+        - '<address id role class>'
+        - '<article id role class>'
+        - '<aside id role class>'
+        - '<audio id role autoplay buffered controls loop muted preload src volume class>'
+        - '<blockquote id role class>'
+        - '<br id role class>'
+        - '<button type id role aria-label aria-expanded aria-controls aria-haspopup data-toggle data-target data-dismiss data-placement data-container title class>'
+        - '<caption id role class>'
+        - '<cite title id role class>'
+        - '<code id role class>'
+        - '<col id role class>'
+        - '<colgroup id role class>'
+        - '<del id role class>'
+        - '<details id role class>'
+        - '<dl id role class>'
+        - '<dt id role class>'
+        - '<dd id role class>'
+        - '<div role id aria-label aria-labelledby aria-hidden data-ride data-dismiss data-toggle data-parent data-spy data-offset data-target tabindex class>'
+        - '<drupal-media title data-entity-type data-entity-uuid alt data-view-mode data-caption data-align>'
+        - '<drupal-url data-*>'
+        - '<em id role>'
+        - '<figure id role class>'
+        - '<figcaption id role class>'
+        - '<footer id role class>'
+        - '<header id role class>'
+        - '<img alt height width align id role src data-entity-type data-entity-uuid data-align data-caption title class>'
+        - '<h1 id role class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h2 id role class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h3 id role class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h4 id role class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h5 id role class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<h6 id role class="text-align-left text-align-center text-align-right text-align-justify">'
+        - '<hr id role>'
+        - '<i id role class>'
+        - '<li role id aria-controls aria-current data-slide-to data-target>'
+        - '<mark id role class>'
+        - '<nav id role aria-label class>'
+        - '<ol id role aria-labelledby type start>'
+        - '<p id role class>'
+        - '<pre id role class>'
+        - '<rowspan id role class>'
+        - '<section id role class>'
+        - '<small id role class>'
+        - '<span id role aria-hidden class>'
+        - '<source src type>'
+        - '<strike id role class>'
+        - '<strong id role class>'
+        - '<sub id role>'
+        - '<sup id role>'
+        - '<summary id role class>'
+        - '<time id role class>'
+        - '<table border class id role title>'
+        - '<tbody id role class>'
+        - '<td id role headers title rowspan colspan class>'
+        - '<tfoot id role>'
+        - '<th headers scope id role rowspan colspan class>'
+        - '<thead id role>'
+        - '<tr id role class>'
+        - '<track src sclang label default>'
+        - '<u id role>'
+        - '<ul id role background bgcolor aria-labelledby>'
+        - '<video width height controls autoplay buffered loop muted playsinline poster preload src>'
+    ckeditor5_list:
+      reversed: false
+      startIndex: true
+    ckeditor5_alignment:
+      enabled_alignments:
+        - left
+        - center
+        - right
+        - justify
+    media_media:
+      allow_view_mode_override: true
+    linkit_extension:
       linkit_enabled: true
       linkit_profile: flex_html
 image_upload:

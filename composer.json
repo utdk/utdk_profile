@@ -38,7 +38,7 @@
     "drupal/layout_builder_iframe_modal": "1.3.0",
     "drupal/layout_builder_restrictions": "2.17.0",
     "drupal/layout_builder_styles": "2.0",
-    "drupal/linkit": "6.0.0-beta3",
+    "drupal/linkit": "6.0.0-beta4",
     "drupal/media_library_form_element": "2.0.6",
     "drupal/media_library_theme_reset": "1.5.0",
     "drupal/menu_block": "1.10.0",
@@ -55,12 +55,12 @@
     "drupal/svg_upload_sanitizer": "1.3.0",
     "drupal/twitter_profile_widget": "3.1.1",
     "drupal/updated": "1.1.0",
-    "drupal/url_embed": "1.0-beta1",
+    "drupal/url_embed": "2.0.0-alpha1",
     "drupal/xmlsitemap": "1.4.0",
     "utexas/forty_acres": "3.10.0",
     "npm-asset/accessible360--accessible-slick": "1.0.1",
     "oomphinc/composer-installers-extender": "2.0.1",
-    "utexas/utexas_qualtrics_filter": "3.0.0"
+    "utexas/utexas_qualtrics_filter": "3.1.0"
   },
   "conflict": {
     "drupal/drupal": "*"
@@ -70,7 +70,8 @@
       "drupal/core": {
         "Fix issue with CKEditor image align center": "https://drupalkit.its.utexas.edu/patches/1480-ckeditor-align-9.5.x.patch",
         "Improve performance of functional tests by caching Drupal installations": "https://www.drupal.org/files/issues/2021-02-16/2900208-33.patch",
-        "Media Library: Default value for data-align attribute should not be center": "https://drupalkit.its.utexas.edu/patches/1559-media-library-video-width-9.5.x.patch"
+        "Media Library: Default value for data-align attribute should not be center": "https://drupalkit.its.utexas.edu/patches/1559-media-library-video-width-9.5.x.patch",
+        "Respect row height configuration in CKEditor 5 + Drupal 9.5.x": "https://drupalkit.its.utexas.edu/patches/2145-ckeditor-rows.patch"
       },
       "drupal/entity_clone": {
         "Add a way to exclude certain entity types from cloning": "https://drupalkit.its.utexas.edu/patches/1709b-entity-clone-updated.patch",
@@ -81,8 +82,8 @@
         "Form button obscured if Layout Builder is being used": "https://drupalkit.its.utexas.edu/patches/1723-linkit-relative-modal.patch"
       },
       "drupal/url_embed": {
-        "Add option to make embeds responsive": "https://drupalkit.its.utexas.edu/patches/1225-url-embed-responsive.patch",
-        "Videos do not show preview in CKEditor": "https://drupalkit.its.utexas.edu/patches/2008-preview-not-working.patch"
+        "CKEditor 5 Support": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed.patch",
+        "CKEditor 5 Support: Responsive embeds": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed-responsive.patch"
       }
     },
     "drupal-scaffold": {

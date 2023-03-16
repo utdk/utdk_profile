@@ -24,51 +24,51 @@ filters:
     status: true
     weight: -50
     settings:
-      allowed_html: '<a href hreflang class id role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target> <abbr title class id role> <address class id role> <article class id role> <aside class id role> <audio class id role autoplay buffered controls loop muted preload src volume> <blockquote class id role> <br class id role> <button type class id role aria-label aria-expanded aria-controls aria-haspopup data-toggle data-target data-dismiss data-placement data-container title> <caption class id role> <cite title class id role> <code class id role> <col class id role> <colgroup class id role> <del class id role> <details class id role> <dl class id role> <dt class id role> <dd class id role> <div role class id aria-label aria-labelledby aria-hidden data-ride data-dismiss data-toggle data-parent data-spy data-offset data-target tabindex> <drupal-url data-*> <drupal-media data-entity-type data-entity-uuid data-view-mode data-align data-caption alt title> <em class id role> <figure class id role> <figcaption class id role> <footer class id role> <header class id role> <hr class id role> <h1 class id role> <h2 class id role> <h3 class id role> <h4 class id role> <h5 class id role> <h6 class id role> <img alt height width align class id role src data-entity-type data-entity-uuid data-align data-caption title> <i class id role> <li role class id aria-controls aria-current data-slide-to data-target> <mark class id role> <nav class id role aria-label> <ol class id role aria-labelledby start type> <p class id role> <pre class id role> <rowspan class id role> <section class id role> <small class id role> <span class id role aria-hidden> <source src type> <strike class id role> <strong class id role> <sub class id role> <summary class id role> <sup class id role> <table border class id role title> <tbody class id role> <td class id role colspan rowspan headers title> <tfoot class id role> <th colspan rowspan headers scope class id role> <thead class id role> <time class id role> <tr class id role> <track src sclang label default> <u class id role> <ul class id role background bgcolor aria-labelledby> <video width height controls autoplay buffered loop muted playsinline poster preload src>'
+      allowed_html: '<br id role class> <p id role class> <h1 id role class="text-align-left text-align-center text-align-right text-align-justify"> <h2 id role class="text-align-left text-align-center text-align-right text-align-justify"> <h3 id role class="text-align-left text-align-center text-align-right text-align-justify"> <h4 id role class="text-align-left text-align-center text-align-right text-align-justify"> <h5 id role class="text-align-left text-align-center text-align-right text-align-justify"> <h6 id role class="text-align-left text-align-center text-align-right text-align-justify"> <a hreflang id role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target href> <abbr title id role class> <address id role class> <article id role class> <aside id role class> <audio id role autoplay buffered controls loop muted preload src volume class> <blockquote id role class> <button type id role aria-label aria-expanded aria-controls aria-haspopup data-toggle data-target data-dismiss data-placement data-container title class> <caption id role class> <cite title id role class> <code id role class> <col id role class> <colgroup id role class> <del id role class> <details id role class> <dl id role class> <dt id role class> <dd id role class> <div role id aria-label aria-labelledby aria-hidden data-ride data-dismiss data-toggle data-parent data-spy data-offset data-target tabindex class> <drupal-media title data-entity-type data-entity-uuid alt data-view-mode data-caption data-align> <drupal-url data-*> <em id role> <figure id role class> <figcaption id role class> <footer id role class> <header id role class> <img alt height width align id role src data-entity-type data-entity-uuid data-align data-caption title class> <hr id role> <i id role class> <li role id aria-controls aria-current data-slide-to data-target> <mark id role class> <nav id role aria-label class> <ol id role aria-labelledby type start> <pre id role class> <rowspan id role class> <section id role class> <small id role class> <span id role aria-hidden class> <source src type> <strike id role class> <strong id role class> <sub id role> <sup id role> <summary id role class> <time id role class> <table border class id role title> <tbody id role class> <td id role headers title rowspan colspan class> <tfoot id role> <th headers scope id role rowspan colspan class> <thead id role> <tr id role class> <track src sclang label default> <u id role> <ul id role background bgcolor aria-labelledby> <video width height controls autoplay buffered loop muted playsinline poster preload src> <s>'
       filter_html_help: false
       filter_html_nofollow: false
   filter_align:
     id: filter_align
     provider: filter
     status: true
-    weight: -48
+    weight: -49
     settings: {  }
   filter_caption:
     id: filter_caption
     provider: filter
     status: true
-    weight: -47
+    weight: -48
     settings: {  }
   filter_url:
     id: filter_url
     provider: filter
     status: true
-    weight: -41
+    weight: -39
     settings:
       filter_url_length: 72
   filter_autop:
     id: filter_autop
     provider: filter
     status: false
-    weight: -36
+    weight: -37
     settings: {  }
   editor_file_reference:
     id: editor_file_reference
     provider: editor
     status: true
-    weight: -45
+    weight: -47
     settings: {  }
   filter_htmlcorrector:
     id: filter_htmlcorrector
     provider: filter
     status: true
-    weight: -37
+    weight: -38
     settings: {  }
   filter_html_escape:
     id: filter_html_escape
     provider: filter
     status: false
-    weight: -35
+    weight: -36
     settings: {  }
   filter_qualtrics:
     id: filter_qualtrics
@@ -81,20 +81,20 @@ filters:
     id: linkit
     provider: linkit
     status: true
-    weight: -49
+    weight: -45
     settings:
       title: true
   filter_iframe_title:
     id: filter_iframe_title
     provider: iframe_title_filter
     status: true
-    weight: -38
+    weight: -41
     settings: {  }
   filter_pathologic:
     id: filter_pathologic
     provider: pathologic
     status: true
-    weight: -43
+    weight: -40
     settings:
       settings_source: global
       local_settings:
@@ -104,7 +104,7 @@ filters:
     id: filter_responsive_tables_filter
     provider: responsive_tables_filter
     status: true
-    weight: -44
+    weight: -46
     settings:
       tablesaw_type: stack
       tablesaw_persist: '1'
@@ -112,7 +112,7 @@ filters:
     id: media_embed
     provider: media
     status: true
-    weight: -40
+    weight: -44
     settings:
       default_view_mode: default
       allowed_view_modes:
@@ -125,13 +125,19 @@ filters:
     id: url_embed
     provider: url_embed
     status: true
-    weight: -39
+    weight: -43
     settings:
       enable_responsive: '1'
   url_embed_convert_links:
     id: url_embed_convert_links
     provider: url_embed
     status: false
-    weight: -34
+    weight: -35
     settings:
       url_prefix: ''
+  filter_html_image_secure:
+    id: filter_html_image_secure
+    provider: filter
+    status: false
+    weight: -34
+    settings: {  }
