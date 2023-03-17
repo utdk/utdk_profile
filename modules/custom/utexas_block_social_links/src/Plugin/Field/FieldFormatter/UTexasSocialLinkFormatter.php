@@ -33,7 +33,10 @@ class UTexasSocialLinkFormatter extends FormatterBase {
     $elements['#icon_size'] = $icon_size;
     foreach ($items as $delta => $item) {
       if ($item->social_account_links) {
-        $social_account_links = unserialize($item->social_account_links);
+        $stored_links = $item->social_account_links ?? '';
+        // Bypass requirement to specify allowed classes since they are unknown.
+        // @codingStandardsIgnoreLine
+        $social_account_links = (array) unserialize($stored_links, ['allowed_classes' => TRUE]);
         foreach ($social_account_links as $key => $val) {
           if (!file_exists($icons[$val['social_account_name']])) {
             continue;
