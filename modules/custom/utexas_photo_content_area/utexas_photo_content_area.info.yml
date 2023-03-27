@@ -1,8 +1,7 @@
 name: 'UTexas Photo Content Area'
 type: module
 description: 'A field with photo, credit, headline, copy, and links.'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - block_content

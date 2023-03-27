@@ -3,6 +3,7 @@
 namespace Drupal\Tests\utexas\Traits;
 
 use Drupal\utexas\Permissions;
+use Drupal\user\Entity\Role;
 
 /**
  * General-purpose methods for interacting with Drupal users.
@@ -25,52 +26,60 @@ trait UserTestTrait {
   }
 
   /**
-   * Asserts that the current user can access a Drupal route.
+   * Asserts that a haystack contains a set of needles.
    *
-   * @param string $path
-   *   The route path to visit.
+   * @param mixed[] $needles
+   *   The needles expected to be in the haystack.
+   * @param mixed[] $haystack
+   *   The haystack.
    */
-  protected function assertAllowed($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(200);
-  }
-
-  /**
-   * Asserts that the current user cannot access a Drupal route.
-   *
-   * @param string $path
-   *   The route path to visit.
-   */
-  protected function assertForbidden($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(403);
+  protected function assertContainsAll(array $needles, array $haystack) {
+    /** @var \Drupal\Tests\BrowserTestBase $this */
+    $diff = array_diff($needles, $haystack);
+    $this->assertEmpty($diff);
   }
 
   /**
    * Create a user with Content Editor specific role.
+   *
+   * @param array $additional_permissions
+   *   Array of additional permissions that are needed. (Optional)
+   *
+   * @return \Drupal\user\Entity\User|false
+   *   The user.
    */
-  protected function initializeContentEditor() {
-    $this->testUser = $this->drupalCreateUser();
-    $testUser = user_load_by_name($this->testUser->getAccountName());
+  protected function initializeContentEditor(array $additional_permissions = []) {
+    /** @var \Drupal\Tests\BrowserTestBase $this */
+    $testUser = $this->drupalCreateUser($additional_permissions);
     $testUser->addRole('utexas_content_editor');
     $testUser->save();
-    $this->drupalLogin($this->testUser);
+    return $testUser;
   }
 
   /**
    * Create a user with Site Manager specific role.
+   *
+   * @param array $additional_permissions
+   *   Array of additional permissions that are needed. (Optional)
+   *
+   * @return \Drupal\user\Entity\User|false
+   *   The user.
    */
-  protected function initializeSiteManager() {
+  protected function initializeSiteManager(array $additional_permissions = []) {
+    /** @var \Drupal\Tests\BrowserTestBase $this */
     // The 'utexas_site_manager' role is not enabled by default on generic
     // UTDK3 sites, so we enable it for testing purposes.
-    \Drupal::service('module_installer')->install(['utexas_role_site_manager']);
+    /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
+    $module_installer = \Drupal::service('module_installer');
+    $module_installer->install(['utexas_role_site_manager']);
     Permissions::assignPermissions('manager', 'utexas_site_manager');
     Permissions::assignPermissions('editor', 'utexas_site_manager');
-    $this->testUser = $this->drupalCreateUser();
-    $testUser = user_load_by_name($this->testUser->getAccountName());
+
+    // /** @var \Drupal\user\UserInterface $testUser */
+    $testUser = $this->drupalCreateUser($additional_permissions);
     $testUser->addRole('utexas_site_manager');
     $testUser->save();
-    $this->drupalLogin($this->testUser);
+    return $testUser;
   }
 
   /**
@@ -79,10 +88,11 @@ trait UserTestTrait {
    * @param array $extra_permissions
    *   Optionally provide extra permissions for the user.
    *
-   * @return \Drupal\user\Entity\User
-   *   The user object for usage in the test.
+   * @return \Drupal\user\Entity\User|false
+   *   The user.
    */
   protected function initializeAdminUser(array $extra_permissions = []) {
+    /** @var \Drupal\Tests\BrowserTestBase $this */
     $standard_permissions = [
       'administer site configuration',
       'use text format restricted_html',
@@ -92,6 +102,21 @@ trait UserTestTrait {
       $standard_permissions = array_merge($standard_permissions, $extra_permissions);
     }
     $user = $this->drupalCreateUser($standard_permissions);
+    return $user;
+  }
+
+  /**
+   * Create a super admin user with all permissions.
+   *
+   * @return \Drupal\user\Entity\User|false
+   *   The user.
+   */
+  protected function initializeSuperAdminUser() {
+    /** @var \Drupal\user\PermissionHandler $user_permissions */
+    $user_permissions = $this->container->get('user.permissions');
+    $available_permissions = $user_permissions->getPermissions();
+    $user = $this->drupalCreateUser(array_keys($available_permissions));
+
     return $user;
   }
 

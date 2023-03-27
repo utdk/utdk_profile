@@ -75,13 +75,16 @@ function utexas_install_demo_content(&$install_state) {
     _utexas_install_footer_content();
     // Function call to create header demo content.
     _utexas_install_header_content();
-    $implementations = \Drupal::moduleHandler()->getImplementations('utexas_demo_content');
-    $operations = [];
-    // Each of the modules with 'utexas_demo_content' implementations
-    // will be  added as a batch job.
-    foreach ($implementations as $module) {
-      $operations[] = [$module . '_utexas_demo_content', []];
-    }
+
+    // Each of the 'utexas_demo_content' implementations will be added as a
+    // batch job.
+    \Drupal::moduleHandler()->invokeAllWith(
+      'utexas_demo_content',
+      function (callable $hook, string $module) use (&$operations) {
+        $operations[] = [$module . '_utexas_demo_content', []];
+      }
+    );
+
     $batch = [
       'title' => t('Generating demo content...'),
       'operations' => $operations,
@@ -150,37 +153,10 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
  */
 function utexas_page_attachments(array &$attachments) {
   // Add details fieldset optimizations to all pages.
-  $attachments['#attached']['library'][] = 'utexas/layout-builder';
   $attachments['#attached']['library'][] = 'utexas/menus';
   if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
     $attachments['#attached']['library'][] = 'utexas/auto-anchors';
   }
-}
-
-/**
- * Implements hook_library_info_alter().
- *
- * Fixes problematic CKEditor save behavior described in
- * https://www.drupal.org/project/drupal/issues/3095304#comment-13983933 .
- * Once this is resolved in Drupal, this hook should be removed.
- * We are using a hook here because "libraries-extend:" is only available in the
- * theme.info.yml file.
- */
-function utexas_library_info_alter(&$libraries, $extension) {
-  // If it's not the target library, bail.
-  if ($extension != 'core' || !isset($libraries['ckeditor'])) {
-    return;
-  }
-  // Get site path of this profile.
-  /** @var Drupal\Core\Extension\ExtensionList $extension_list_service */
-  $extension_list_service = \Drupal::service('extension.list.profile');
-  $profile_path = $extension_list_service->getPath('utexas');
-  // Create path to add-on .js file.
-  $new_js = '/' . $profile_path . '/js/ckeditorSaveChanges-drupal-3095304.js';
-  // Add new_js file to existing array of js files in the library. Preventing
-  // aggregation here is probably not necessary, but since the .js file in the
-  // target libarary uses "preprocess = false", we do the same.
-  $libraries['ckeditor']['js'][$new_js] = ['preprocess' => FALSE];
 }
 
 /**
@@ -349,4 +325,3 @@ function utexas_link_alter(&$variables) {
     $variables['options']['attributes']['title'] = 'This link is not visible to non-authenticated users.';
   }
 }
-

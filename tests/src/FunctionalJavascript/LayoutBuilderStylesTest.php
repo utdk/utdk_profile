@@ -2,67 +2,19 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-
 /**
  * Verifies default Layout Builder Styles are present & add expected classes.
  *
  * @group utexas
  */
-class LayoutBuilderStylesTest extends WebDriverTestBase {
-  use EntityTestTrait;
-  use InstallTestTrait;
-  use TestFileCreationTrait;
-  use UserTestTrait;
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-
-  /**
-   * Specify the theme to be used in testing.
-   *
-   * @var string
-   */
-  protected $defaultTheme = 'forty_acres';
-
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * An video Media ID to be used with file rendering.
-   *
-   * @var string
-   */
-  protected $testVideo;
+class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
-    $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeSiteManager();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestMediaImage();
-    $this->testVideo = $this->createTestMediaVideoExternal();
+    $this->drupalLogin($this->testSiteManagerUser);
   }
 
   /**
@@ -71,80 +23,96 @@ class LayoutBuilderStylesTest extends WebDriverTestBase {
   public function testStyles() {
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    /** @var \Behat\Mink\Element\DocumentElement $page */
-    $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
+
+    // CRUD: CREATE.
+    // Create flex page.
     $flex_page_id = $this->createFlexPage();
 
-    // Test programmatically changing Layout Builder Style setting, since
-    // typical Site Managers will not have this permission.
-    \Drupal::service('config.factory')->getEditable('layout_builder_styles.settings')->set('form_type', 'multiple-select')->save();
+    // Block info.
+    $block_type = 'Featured Highlight';
+    $block_type_id = 'utexas_featured_highlight';
+    $block_name = 'Layout Builder Styles test';
+    $block_plugin_id = str_replace('_', '-', $block_type_id);
+    $block_content_create_form_id = 'block-content-' . $block_plugin_id . '-form';
 
-    $this->drupalGet('/node/' . $flex_page_id);
-    $this->clickLink('Layout');
-    $this->clickLink('Configure Section 1');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    // A "container" class is added to the section by default.
+    // CRUD: CREATE.
+    $this->drupalGet('block/add/' . $block_type_id);
+    $form = $this->waitForForm($block_content_create_form_id);
+    // Fill Block description field.
+    $form->fillField('info[0][value]', $block_name);
+    // Save block.
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    // Place the block on the Flex page.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');
+    $this->placeExistingBlockOnFlexPage($form, $block_name);
+    $this->savePageLayout();
+
+    // CRUD: READ
     // The one-column layout defaults to "readable" width.
-    $assert->elementExists('css', '.layout-builder__layout.container.readable');
-    $assert->elementNotExists('css', '.layout-builder__layout.container-fluid');
+    $assert->elementExists('css', '.layout--utexas-onecol.readable');
+    $assert->elementNotExists('css', '.layout--utexas-onecol.container-fluid');
     // The page title gets set to "readable" width, too.
     $assert->elementExists('css', '.block-page-title-block.utexas-readable');
 
+    // CRUD: UPDATE
     // Set the section to "Full width of page".
-    $assert->elementExists('css', 'select[name="layout_settings[section_width]"] option[value="container-fluid"]');
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[section_width]", "container-fluid", TRUE);
-    $page->pressButton('Update');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->selectFieldOptionByOptionText('Full width of page');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
+
+    // CRUD: READ
     // A "container-fluid" class is added to the section.
-    $assert->elementNotExists('css', '.layout-builder__layout.container.readable');
-    $assert->elementExists('css', '.layout-builder__layout.container-fluid');
-    $page->pressButton('Save layout');
+    $assert->elementNotExists('css', '.layout.container.readable');
+    $assert->elementExists('css', '.layout.container-fluid');
     // The page title does not get set to "readable" width.
     $assert->elementNotExists('css', '.block-page-title-block.utexas-readable');
-
-    // Border with background.
+    // Verify "Border with background" class is not present.
     $assert->elementNotExists('css', '.utexas-field-border.utexas-field-background');
-    $this->drupalGet('/node/' . $flex_page_id);
-    $this->clickLink('Layout');
-    $this->clickLink('Add block');
-    $this->assertNotEmpty($assert->waitForText('Create custom block'));
-    $this->clickLink('Recent content');
-    $this->assertNotEmpty($assert->waitForText('Configure block'));
-    // Select style checkbox (by clicking the label) in block configuration.
-    $assert->elementExists('css', 'input[name="layout_builder_style_utexas_borders[utexas_border_with_background]"] + label')->click();
-    $page->pressButton('Add block');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.block-views-blockcontent-recent-block-1'));
+    // Verify "Border without background" class is not present.
+    $assert->elementNotExists('css', '.utexas-field-border.utexas-centered-headline');
+
+    // CRUD: UPDATE
+    // Add "Border with background" layout builder style to block.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $form_values = ['layout_builder_style_utexas_borders[utexas_border_with_background]' => ['utexas_border_with_background']];
+    $this->updateBlockOnFlexPage($block_name, $form_values);
+    $this->savePageLayout();
+
+    // CRUD: READ
     // Border & background classes are added to the section.
     $assert->elementExists('css', '.utexas-field-border.utexas-field-background');
 
-    // Border without background.
-    $assert->elementNotExists('css', '.utexas-field-border.utexas-centered-headline');
-    $this->drupalGet('/node/' . $flex_page_id);
-    $this->clickLink('Layout');
-    $this->clickLink('Add block');
-    $this->assertNotEmpty($assert->waitForText('Create custom block'));
-    $this->clickLink('Recent content');
-    $this->assertNotEmpty($assert->waitForText('Configure block'));
-    // Select style checkbox (by clicking the label) in block configuration.
-    $assert->elementExists('css', 'input[name="layout_builder_style_utexas_borders[utexas_border_without_background]"] + label')->click();
-    $page->pressButton('Add block');
-    // Border & background classes are added to the section.
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-field-border.utexas-centered-headline'));
+    // CRUD: UPDATE
+    // Add "Border without background" layout builder style to block.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $form_values = ['layout_builder_style_utexas_borders[utexas_border_without_background]' => ['utexas_border_without_background']];
+    $this->updateBlockOnFlexPage($block_name, $form_values);
+    $this->savePageLayout();
 
-    // No padding between columns.
-    $assert->elementNotExists('css', '.utexas-layout-no-padding');
-    $this->drupalGet('/node/' . $flex_page_id);
-    $this->clickLink('Layout');
-    $this->clickLink('Configure Section 1');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    // Set the section to "No padding".
-    // Select style checkbox (by clicking the label) in section configuration.
-    $assert->elementExists('css', 'input[name="layout_builder_style_utexas_section_margins_padding[utexas_no_padding]"] + label')->click();
-    $page->pressButton('Update');
-    $assert->statusMessageContainsAfterWait('You have unsaved changes');
+    // CRUD: READ
+    // Border without background classes are added to the section.
+    $assert->elementExists('css', '.utexas-field-border.utexas-centered-headline');
+
+    // CRUD: UPDATE
+    // Select "No padding" for section.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $form = $this->waitForForm('layout-builder-configure-section');
+    $this->clickInputByLabel($form, 'No padding between columns');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
+
+    // CRUD: READ
     // A "utexas-layout-no-padding" class is added to the section.
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout-no-padding'));
+    $assert->elementExists('xpath', '//div[contains(@class, "layout")][contains(@class, "utexas-layout-no-padding")]');
+
+    // CRUD: DELETE.
+    $this->removeBlocks([$block_name]);
+    $this->removeNodes([$flex_page_id]);
   }
 
 }

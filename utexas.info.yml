@@ -1,9 +1,8 @@
 name: UTexas
 type: profile
 description: This is the UT Drupal Kit for Drupal 8. It is provided by ITS WCS.
-core: 8.x
-core_version_requirement: ^8 || ^9
-version: '3.10.0'
+core_version_requirement: ^8 || ^9 || ^10
+version: '3.10.1'
 distribution:
   name: UTexas
 dependencies:
@@ -11,7 +10,7 @@ dependencies:
   - drupal:block
   - drupal:breakpoint
   - drupal:block_content
-  - drupal:ckeditor
+  - drupal:ckeditor5
   - drupal:config
   - drupal:contextual
   - drupal:datetime
@@ -41,7 +40,6 @@ install:
   - drupal:addtoany
   - drupal:admin_toolbar_links_access_filter
   - drupal:breadcrumbs_visibility
-  - drupal:ckeditorheight
   - drupal:diff
   - drupal:entity_clone
   - drupal:features
@@ -49,10 +47,9 @@ install:
   - drupal:google_tag
   - drupal:google_cse
   - drupal:iframe_title_filter
-  - drupal:layout_builder_modal
+  - drupal:layout_builder_iframe_modal
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
-  - drupal:media_library_theme_reset
   - drupal:metatag
   - drupal:metatag_twitter_cards
   - drupal:metatag_verification
@@ -96,7 +93,8 @@ install:
   - utexas_resources
   - utexas_site_announcement
   - utexas_text_format_flex_html
+  - utexas_instagram_api
+  - utexas_instagram
 themes:
-  - bartik
   - claro
   - forty_acres

@@ -27,7 +27,7 @@ class UTexasAnnouncementIconListBuilder extends ConfigEntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     $file = $entity->get('icon');
     $icon_markup = "Missing Image";
-    if ($icon = file_get_contents($file)) {
+    if (file_exists($file) && $icon = file_get_contents($file)) {
       $icon_markup = Markup::create($icon);
     }
     $row['label'] = $entity->label();

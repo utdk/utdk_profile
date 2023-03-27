@@ -1,8 +1,7 @@
 name: 'UTexas Content Type Flex Page'
 description: 'Flex Page Content Type feature.'
 type: module
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - 'drupal:field'

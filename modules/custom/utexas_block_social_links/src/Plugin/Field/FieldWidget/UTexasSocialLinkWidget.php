@@ -45,7 +45,10 @@ class UTexasSocialLinkWidget extends WidgetBase {
     ];
 
     // Gather the number of links in the form already.
-    $items = (array) unserialize($items[$delta]->social_account_links);
+    $stored_links = $items[$delta]->social_account_links ?? '';
+    // Bypass requirement to specify allowed classes since they are unknown.
+    // @codingStandardsIgnoreLine
+    $items = (array) unserialize($stored_links, ['allowed_classes' => TRUE]);
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);

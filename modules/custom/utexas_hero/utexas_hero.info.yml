@@ -1,8 +1,7 @@
 name: 'UTexas Hero'
 type: module
 description: 'Defines a compound field with media, heading, subheading, link, caption and credit.'
-core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
 dependencies:
   - block_content

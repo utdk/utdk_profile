@@ -16,6 +16,7 @@ class Permissions {
    */
   public static $manager = [
     'access site reports',
+    'access toolbar',
     'access user profiles',
     'administer addtoany',
     'administer blocks',

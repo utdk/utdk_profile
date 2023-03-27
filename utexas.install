@@ -564,3 +564,131 @@ function utexas_update_8133() {
     }
   }
 }
+
+/**
+ * Enable CKEditor 5 on existing sites (#2086).
+ */
+function utexas_update_8134() {
+  $module = 'ckeditor5';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Uninstall layout_builder_modal and media_library_theme_reset.
+ */
+function utexas_update_8135() {
+  // We directly modify the database because the modules are no
+  // longer in the codebase.
+  $modules = [
+    'layout_builder_modal',
+    'media_library_theme_reset',
+  ];
+  \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', $modules, 'IN')
+    ->execute();
+  foreach ($modules as $module) {
+    $module_data = \Drupal::config('core.extension')->get('module');
+    unset($module_data[$module]);
+    \Drupal::configFactory()->getEditable('core.extension')->set('module', $module_data)->save();
+  }
+  $config = \Drupal::configFactory()->getEditable('layout_builder_modal.settings');
+  $config->delete();
+}
+
+/**
+ * Enable layout_builder_iframe_modal on existing sites (#1988).
+ */
+function utexas_update_8136() {
+  drupal_flush_all_caches();
+  $module = 'layout_builder_iframe_modal';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Enable stable9 on existing sites (#2133).
+ */
+function utexas_update_8137() {
+  $theme = 'stable9';
+  if (\Drupal::service('theme_handler')->themeExists($theme) === FALSE) {
+    \Drupal::service('theme_installer')->install([$theme]);
+  }
+}
+
+/**
+ * Uninstall stable and bartik on existing sites (#2135).
+ */
+function utexas_update_8138() {
+  $themes_to_uninstall = [
+    'bartik',
+    'stable',
+  ];
+  foreach ($themes_to_uninstall as $theme) {
+    if (\Drupal::service('theme_handler')->themeExists($theme)) {
+      \Drupal::service('theme_installer')->uninstall([$theme]);
+    }
+  }
+}
+
+/**
+ * Enable utexas_instagram and utexas_instagram_api on existing sites (#2114).
+ */
+function utexas_update_8139() {
+  drupal_flush_all_caches();
+  $modules = [
+    'utexas_instagram_api',
+    'utexas_instagram',
+  ];
+  foreach ($modules as $module) {
+    if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+      \Drupal::service('module_installer')->install([$module]);
+    }
+  }
+}
+
+
+/**
+ * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
+ */
+function utexas_update_8140() {
+  $config_names = [
+    'filter.format.basic_html',
+    'editor.editor.basic_html',
+    'filter.format.full_html',
+    'editor.editor.full_html',
+  ];
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+      }
+    }
+  }
+}
+
+/**
+ * Uninstall ckeditor4height on existing sites (#2137).
+ */
+function utexas_update_8141() {
+  $module = 'ckeditorheight';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
+  }
+}
+
+/**
+ * Uninstall CKEditor4 on existing sites (#2107).
+ */
+function utexas_update_8142() {
+  $module = 'ckeditor';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
+  }
+}

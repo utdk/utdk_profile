@@ -2,306 +2,210 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\node\Entity\Node;
-use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\Tests\TestFileCreationTrait;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
-
 /**
  * Verify functionality of 1, 2, 3, and 4 column layouts.
  *
  * @group utexas
  */
-class LayoutsTest extends WebDriverTestBase {
-  use EntityTestTrait;
-  use InstallTestTrait;
-  use TestFileCreationTrait;
-  use UserTestTrait;
-
-  /**
-   * Use the 'utexas' installation profile.
-   *
-   * @var string
-   */
-  protected $profile = 'utexas';
-
-  /**
-   * Specify the theme to be used in testing.
-   *
-   * @var string
-   */
-  protected $defaultTheme = 'forty_acres';
-
-  /**
-   * An user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testUser;
-
-  /**
-   * An image uri to be used with file uploads.
-   *
-   * @var string
-   */
-  protected $testImage;
-
-  /**
-   * An video Media ID to be used with file rendering.
-   *
-   * @var string
-   */
-  protected $testVideo;
+class LayoutsTest extends FunctionalJavascriptTestBase {
 
   /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
-    $this->utexasSharedSetup();
     parent::setUp();
-    $this->initializeContentEditor();
-    $this->drupalLogin($this->testUser);
-    $this->testImage = $this->createTestMediaImage();
-    $this->testVideo = $this->createTestMediaVideoExternal();
+    $this->drupalLogin($this->testSiteManagerUser);
   }
 
   /**
    * Initial action for all layout tests.
    */
   public function testLayouts() {
-    // Create a node & remove default section.
-    $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $this->getSession()->resizeWindow(900, 2000);
-    $node = Node::create([
-      'type'        => 'utexas_flex_page',
-      'title'       => 'Test Flex Page',
-    ]);
-    $node->save();
-    $this->drupalGet('/node/' . $node->id());
-    $this->clickLink('Layout');
-    // Remove existing one column layout.
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    // CRUD: CREATE
+    // Create flex page.
+    $flex_page_id = $this->createFlexPage();
 
-    $this->oneColumnLayout();
-    $this->twoColumnLayout();
-    $this->threeColumnLayout();
-    $this->fourColumnLayout();
+    // Test each layout.
+    $this->verifyOneColumnLayout($flex_page_id);
+    $this->verifyTwoColumnLayout($flex_page_id);
+    $this->verifyThreeColumnLayout($flex_page_id);
+    $this->verifyFourColumnLayout($flex_page_id);
+
+    // CRUD: DELETE.
+    $this->removeNodes([$flex_page_id]);
   }
 
   /**
    * One column functionality.
+   *
+   * @param string $flex_page_id
+   *   The node ID of the Layout Builder enabled page in question.
    */
-  public function oneColumnLayout() {
-    $this->clickLink('Layout');
+  public function verifyOneColumnLayout($flex_page_id) {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('One column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
+
+    // CRUD: CREATE
+    // Remove default layout section.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->removeSectionFromLayoutBuilder('Section 1');
+    $this->savePageLayout();
+
+    // CRUD: CREATE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->addSectionToLayoutBuilder('One column');
+
+    // CRUD: READ
+    // Verify that correct class is added.
+    $assert->elementExists('css', '.layout--utexas-onecol');
     // Verify Background accent & color options available.
+    $this->openSectionConfiguration('Section 1');
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForText('Configure Section 1'));
-    $assert->elementExists('css', '.layout--utexas-onecol');
-    // Cleanup.
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
+
+    // CRUD: DELETE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->removeSectionFromLayoutBuilder('Section 1');
+    $this->savePageLayout();
   }
 
   /**
    * Two column functionality.
+   *
+   * @param string $flex_page_id
+   *   The node ID of the Layout Builder enabled page in question.
    */
-  public function twoColumnLayout() {
-    $this->clickLink('Layout');
+  public function verifyTwoColumnLayout($flex_page_id) {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Two column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
+
+    // CRUD: CREATE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->addSectionToLayoutBuilder('Two column');
+
+    // CRUD: READ
+    // Verify Background accent & color options available.
+    $this->openSectionConfiguration('Section 1');
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="50-50"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="33-67"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="67-33"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="25-75"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="75-25"]');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
 
-    // 50-50 ratio generates expected CSS.
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "50%/50%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--50-50'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    $layout_css_suffix = 'twocol';
 
-    // 33-67 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Two column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "33%/67%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--33-67'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    // CRUD: READ.
+    $this->verifyRatio($flex_page_id, '50%/50%', '50-50', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '33%/67%', '33-67', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '67%/33%', '67-33', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '25%/75%', '25-75', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '75%/25%', '75-25', $layout_css_suffix);
 
-    // 67-33 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Two column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "67%/33%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--67-33'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-
-    // 25-75 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Two column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "25%/75%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--25-75'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-
-    // 75-25 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Two column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "75%/25%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--twocol.utexas-layout--twocol--75-25'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    // CRUD: DELETE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->removeSectionFromLayoutBuilder('Section 1');
+    $this->savePageLayout();
   }
 
   /**
    * Three column functionality.
+   *
+   * @param string $flex_page_id
+   *   The node ID of the Layout Builder enabled page in question.
    */
-  public function threeColumnLayout() {
-    $this->clickLink('Layout');
+  public function verifyThreeColumnLayout($flex_page_id) {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Three column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
+
+    // CRUD: CREATE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->addSectionToLayoutBuilder('Three column');
+
+    // CRUD: READ
+    // Verify Background accent & color options available.
+    $this->openSectionConfiguration('Section 1');
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="25-50-25"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="33-34-33"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="50-25-25"]');
-    $assert->elementExists('css', 'select[name="layout_settings[column_widths]"] option[value="25-25-50"]');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
 
-    // 25-50-25 ratio generates expected CSS.
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "25%/50%/25%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--25-50-25'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    $layout_css_suffix = 'threecol';
 
-    // 33-34-33 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Three column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "33%/34%/33%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--33-34-33'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    // CRUD: READ.
+    $this->verifyRatio($flex_page_id, '25%/50%/25%', '25-50-25', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '33%/34%/33%', '33-34-33', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '50%/25%/25%', '50-25-25', $layout_css_suffix);
+    $this->verifyRatio($flex_page_id, '25%/25%/50%', '25-25-50', $layout_css_suffix);
 
-    // 50-25-25 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Three column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "50%/25%/25%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--50-25-25'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
-
-    // 25-25-50 ratio generates expected CSS.
-    $this->clickLink('Layout');
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Three column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    $this->getSession()->getPage()->selectFieldOption("layout_settings[column_widths]", "25%/25%/50%");
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--threecol.utexas-layout--threecol--25-25-50'));
-    $this->clickLink('Remove Section 1');
-    $this->assertNotEmpty($assert->waitForText('Are you sure you want to remove'));
-    $page->pressButton('Remove');
-    $this->assertNotEmpty($assert->waitForText('You have unsaved changes'));
-    $page->pressButton('Save layout');
+    // CRUD: DELETE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->removeSectionFromLayoutBuilder('Section 1');
+    $this->savePageLayout();
   }
 
   /**
    * Four column functionality.
+   *
+   * @param string $flex_page_id
+   *   The node ID of the Layout Builder enabled page in question.
    */
-  public function fourColumnLayout() {
-    $this->clickLink('Layout');
+  public function verifyFourColumnLayout($flex_page_id) {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
-    $page = $this->getSession()->getPage();
-    $this->clickLink('Add section');
-    $this->assertNotEmpty($assert->waitForText('Choose a layout for this section'));
-    $this->clickLink('Four column');
-    $this->assertNotEmpty($assert->waitForText('Section width'));
-    // Background color & accent are present.
+
+    // CRUD: CREATE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->addSectionToLayoutBuilder('Four column');
+
+    // CRUD: READ
+    // Verify that correct class is added.
+    $assert->elementExists('css', '.utexas-layout--fourcol');
+    // Verify Background accent & color options available.
+    $this->openSectionConfiguration('Section 1');
     $assert->elementExists('css', 'input[name="layout_settings[background-color-wrapper][background-color]"]');
     $assert->elementExists('css', 'input[name="background-accent-media-library-open-button-layout_settings-background-accent-wrapper"]');
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
 
-    // Fourcol class present.
-    $page->pressButton('Add section');
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-layout--fourcol'));
+    // CRUD: DELETE.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->removeSectionFromLayoutBuilder('Section 1');
+    $this->savePageLayout();
+  }
+
+  /**
+   * Verify ratio functionality.
+   *
+   * @param string $flex_page_id
+   *   The node ID of the Layout Builder enabled page in question.
+   * @param string $ratio_text
+   *   The text of the ratio option element.
+   * @param string $ratio_css
+   *   The CSS suffix for the ratio.
+   * @param string $layout_css
+   *   The CSS suffix for the layout.
+   */
+  private function verifyRatio($flex_page_id, $ratio_text, $ratio_css, $layout_css) {
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
+    $assert = $this->assertSession();
+
+    // CRUD: CREATE
+    // Open layout builder section and verify desired column ratio.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->openSectionConfiguration('Section 1');
+    $this->selectFieldOptionByOptionText($ratio_text);
+    $this->saveSectionConfiguration();
+    $this->savePageLayout();
+
+    // CRUD: READ
+    // Generates expected CSS.
+    $this->assertNotEmpty(
+      $assert->waitForElementVisible(
+        'css',
+        '.utexas-layout--' . $layout_css . '.utexas-layout--' . $layout_css . '--' . $ratio_css
+      )
+    );
   }
 
 }

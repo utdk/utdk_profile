@@ -112,9 +112,9 @@ class UtexasLinkOptionsElementHelper {
 
     // It's a relative link. If it's a file, store it as `base:`. Otherwise it's
     // most likely internal.
-    $public_files_dir = \Drupal::service('stream_wrapper_manager')
-      ->getViaScheme('public')
-      ->getDirectoryPath();
+    /** @var \Drupal\Core\StreamWrapper\StreamWrapperManagerInterface $stream_wrapper_manager */
+    $stream_wrapper_manager = \Drupal::service('stream_wrapper_manager');
+    $public_files_dir = $stream_wrapper_manager->getViaScheme('public')->getDirectoryPath();
 
     $protocol_matches = [];
     preg_match('/^([a-z]*?):/', $input, $protocol_matches);

@@ -94,3 +94,12 @@ function utexas_text_format_flex_html_update_8109() {
     }
   }
 }
+
+/**
+ * Convert flex_html text format to CKEditor 5.
+ */
+function utexas_text_format_flex_html_update_8110() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

@@ -38,6 +38,7 @@ class ReadOnlyHelper {
     'field_utexas_call_to_action_link',
     'field_utexas_flex_list_items',
     'field_utexas_media_image',
+    'field_utexas_instagram_acct',
     'layout_builder__layout',
   ];
 
@@ -73,6 +74,7 @@ class ReadOnlyHelper {
     'utexas_flex_list',
     'utexas_hero',
     'utexas_image_link',
+    'utexas_instagram',
     'utexas_photo_content_area',
     'utexas_promo_list',
     'utexas_promo_unit',

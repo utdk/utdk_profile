@@ -7,11 +7,6 @@ utexas-install:
   css:
     theme:
       css/utexas.css: {}
-layout-builder:
-  js:
-    js/utexasLayoutBuilderCKEditor-3065095.js: {}
-  dependencies:
-    - core/jquery.ui.dialog
 menus:
   css:
     theme:

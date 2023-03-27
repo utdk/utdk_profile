@@ -1,7 +1,7 @@
 name: 'UTexas Linkit Flex HTML'
 description: 'Linkit Flex HTML profile'
 type: module
-core_version_requirement: '^8.9 || ^9'
+core_version_requirement: ^8.9 || ^9 || ^10
 dependencies:
   - 'drupal:node'
   - 'linkit:linkit'

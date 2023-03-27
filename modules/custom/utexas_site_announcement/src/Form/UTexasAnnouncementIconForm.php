@@ -92,7 +92,6 @@ class UTexasAnnouncementIconForm extends EntityForm {
       '#type' => 'file',
       '#title' => $this->t('SVG Icon'),
       '#description' => $this->t('Upload an SVG Icon to set as the default icon for this label. This upload will replace the active SVG icon if one is already set below.'),
-      '#maxlength' => 40,
       '#upload_validators' => [
         'file_validate_extensions' => ['svg'],
         'file_validate_size' => [25600000],
@@ -104,7 +103,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
       $icons = UTexasAnnouncementIconOptions::getIcons();
       $id = $form['id']['#default_value'];
       $icon = $icons[$id];
-      if ($icon && $icon_contents = file_get_contents($icon)) {
+      if (file_exists($icon) && $icon_contents = file_get_contents($icon)) {
         $icon_markup = Markup::create($icon_contents);
         $form['active_icon'] = [
           '#type' => 'texfield',

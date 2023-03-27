@@ -14,6 +14,8 @@ use Drupal\media\Entity\Media;
  * Implements hook_install().
  */
 function utexas_devel_install() {
+  /** @var \Drupal\file\FileRepositoryInterface $file_repository */
+  $file_repository = \Drupal::service('file.repository');
   $file_system = \Drupal::service('file_system');
   $filedir = 'public://utexas_devel/';
   $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
@@ -26,7 +28,7 @@ function utexas_devel_install() {
   $destination_dir = 'public://generated_sample';
   $file_system->prepareDirectory($destination_dir, FileSystemInterface::CREATE_DIRECTORY);
   $destination = $destination_dir . '/' . basename($path);
-  $file = file_copy($image, $destination);
+  $file = $file_repository->copy($image, $destination);
   $image_media = Media::create([
     'name' => 'Image 1',
     'bundle' => 'utexas_image',
