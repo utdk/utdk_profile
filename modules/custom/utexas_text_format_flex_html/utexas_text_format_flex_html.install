@@ -103,3 +103,12 @@ function utexas_text_format_flex_html_update_8110() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Make Flex HTML match CKEditor 4 legacy (#2168).
+ */
+function utexas_text_format_flex_html_update_8111() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}
