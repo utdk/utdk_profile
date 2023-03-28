@@ -34,20 +34,27 @@ settings:
         - heading6
     ckeditor5_sourceEditing:
       allowed_tags:
+        - '<a href hreflang>'
+        - '<em>'
+        - '<strong>'
         - '<cite>'
+        - '<blockquote cite>'
+        - '<code>'
+        - '<ul type>'
+        - '<ol start type>'
+        - '<li>'
         - '<dl>'
         - '<dt>'
         - '<dd>'
-        - '<span>'
-        - '<a hreflang>'
-        - '<blockquote cite>'
-        - '<ul type>'
-        - '<ol type>'
         - '<h2 id>'
         - '<h3 id>'
         - '<h4 id>'
         - '<h5 id>'
         - '<h6 id>'
+        - '<p>'
+        - '<br>'
+        - '<span>'
+        - '<img src alt height width data-entity-type data-entity-uuid data-align data-caption>'
     ckeditor5_list:
       reversed: false
       startIndex: true

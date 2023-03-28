@@ -114,14 +114,14 @@ filters:
     status: true
     weight: -39
     settings:
-      enable_responsive: '0'
+      enable_responsive: '1'
   filter_qualtrics:
     id: filter_qualtrics
     provider: utexas_qualtrics_filter
     status: true
     weight: -45
     settings:
-      qualtrics_css: '0'
+      qualtrics_css: '1'
   filter_html_image_secure:
     id: filter_html_image_secure
     provider: filter
