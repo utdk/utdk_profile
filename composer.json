@@ -22,13 +22,14 @@
     "drupal/addtoany": "2.0.1",
     "drupal/admin_toolbar": "3.3.0",
     "drupal/breadcrumbs_visibility": "1.3.0",
-    "drupal/core-composer-scaffold": "9.5.7",
-    "drupal/core-recommended": "9.5.7",
+    "drupal/config_update": "2.0.0-alpha2",
+    "drupal/core-composer-scaffold": "10.0.7",
+    "drupal/core-recommended": "10.0.7",
     "drupal/date_ap_style": "1.5.0",
     "drupal/diff": "1.1.0",
     "drupal/editor_advanced_link": "2.1.1",
     "drupal/entity_clone": "2.0.0-beta2",
-    "drupal/features": "3.12.0",
+    "drupal/features": "dev-5.0.x#c320e65876e8c2a5cedd26e2e2ffecc21b40213e",
     "drupal/feed_block": "2.0.0",
     "drupal/google_cse": "3.8.0",
     "drupal/google_tag": "1.6.0",
@@ -43,7 +44,7 @@
     "drupal/page_title_visibility": "1.5.0",
     "drupal/pantheon_advanced_page_cache": "2.1.1",
     "drupal/pathauto": "1.11.0",
-    "drupal/pathologic": "1.0.0-alpha3",
+    "drupal/pathologic": "dev-2.0.x#faea7cafe927a7504f7f919a67772172c4200c20",
     "drupal/redirect": "1.8.0",
     "drupal/responsive_tables_filter": "1.17.0",
     "drupal/role_delegation": "1.2.0",
@@ -65,10 +66,8 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Fix issue with CKEditor image align center": "https://drupalkit.its.utexas.edu/patches/1480-ckeditor-align-9.5.x.patch",
         "Improve performance of functional tests by caching Drupal installations": "https://www.drupal.org/files/issues/2021-02-16/2900208-33.patch",
-        "Media Library: Default value for data-align attribute should not be center": "https://drupalkit.its.utexas.edu/patches/1559-media-library-video-width-9.5.x.patch",
-        "Respect row height configuration in CKEditor 5 + Drupal 9.5.x": "https://drupalkit.its.utexas.edu/patches/2145-ckeditor-rows.patch"
+        "Respect row height configuration in CKEditor 5 + Drupal 9.5.x": "https://drupalkit.its.utexas.edu/patches/2145-ckeditor-rows-d10.patch"
       },
       "drupal/entity_clone": {
         "Add a way to exclude certain entity types from cloning": "https://drupalkit.its.utexas.edu/patches/1709b-entity-clone-updated.patch",
