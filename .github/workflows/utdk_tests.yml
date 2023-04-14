@@ -62,6 +62,7 @@ jobs:
           php -d memory_limit=-1 /usr/local/bin/composer config repositories.utdk_localdev vcs git@github.austin.utexas.edu:eis1-wcs/utdk_localdev.git
           # This is in preparation for utdk_localdev, which requires this plugin.
           php -d memory_limit=-1 /usr/local/bin/composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          php -d memory_limit=-1 /usr/local/bin/composer config --no-plugins allow-plugins.phpstan/extension-installer true
 
           php -d memory_limit=-1 /usr/local/bin/composer clear-cache
           php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_profile:"dev-${{ github.head_ref }}"  --no-update
