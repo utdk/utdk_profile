@@ -43,13 +43,3 @@ jobs:
           body: |
             A multidev for testing has been created at https://${{steps.set_multidev.outputs.MULTIDEV}}-utdkpr.pantheonsite.io .
           reactions: hooray
-
-      - name: Add failure comment
-        id: itfailed
-        if: always() && steps.createmultidev.outcome == 'failure'
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            Github Actions was unable to create a multidev for this pull request. Check the build at https://github.austin.utexas.edu/eis1-wcs/utdk_profile/actions/workflows/create_multidev_from_pull_request.yml
-          reactions: confused
