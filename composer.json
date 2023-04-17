@@ -44,7 +44,7 @@
     "drupal/page_title_visibility": "1.5.0",
     "drupal/pantheon_advanced_page_cache": "2.1.1",
     "drupal/pathauto": "1.11.0",
-    "drupal/pathologic": "dev-2.0.x#faea7cafe927a7504f7f919a67772172c4200c20",
+    "drupal/pathologic": "2.0.0-alpha1",
     "drupal/redirect": "1.8.0",
     "drupal/responsive_tables_filter": "1.17.0",
     "drupal/role_delegation": "1.2.0",
