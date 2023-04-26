@@ -84,6 +84,9 @@
       "drupal/url_embed": {
         "CKEditor 5 Support": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed.patch",
         "CKEditor 5 Support: Responsive embeds": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed-responsive.patch"
+      },
+      "drupal/xmlsitemap": {
+        "Call to undefined method getImplementations": "https://drupalkit.its.utexas.edu/patches/2193-xmlsitemap-3323148.patch"
       }
     },
     "drupal-scaffold": {
