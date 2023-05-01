@@ -714,3 +714,10 @@ function utexas_update_8143() {
     }
   }
 }
+
+/**
+ * Convert incorrectly migrated metatags robots array to string.
+ */
+function utexas_update_8144() {
+  InstallationHelper::normalizeRobotsMetatags();
+}
