@@ -23,8 +23,8 @@
     "drupal/admin_toolbar": "3.3.0",
     "drupal/breadcrumbs_visibility": "1.3.0",
     "drupal/ckeditorheight": "1.8.0",
-    "drupal/core-composer-scaffold": "9.5.7",
-    "drupal/core-recommended": "9.5.7",
+    "drupal/core-composer-scaffold": "9.5.8",
+    "drupal/core-recommended": "9.5.8",
     "drupal/date_ap_style": "1.5.0",
     "drupal/diff": "1.1.0",
     "drupal/editor_advanced_link": "2.1.1",
@@ -84,6 +84,9 @@
       "drupal/url_embed": {
         "CKEditor 5 Support": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed.patch",
         "CKEditor 5 Support: Responsive embeds": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed-responsive.patch"
+      },
+      "drupal/xmlsitemap": {
+        "Call to undefined method getImplementations": "https://drupalkit.its.utexas.edu/patches/2193-xmlsitemap-3323148.patch"
       }
     },
     "drupal-scaffold": {
