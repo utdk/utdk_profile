@@ -93,7 +93,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
     $cache_tags = $this->generateCacheTags('utexas_responsive_image_pu_landscape');
     foreach ($items as $delta => $item) {
       $instances = [];
-      $promo_unit_items = unserialize($item->promo_unit_items);
+      $promo_unit_items = !empty($item->promo_unit_items) ? unserialize($item->promo_unit_items) : [];
       if (!empty($promo_unit_items)) {
         foreach ($promo_unit_items as $key => $instance) {
           $instance_item = $instance['item'];
