@@ -203,11 +203,13 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
             break;
         }
       }
+      $format = $item->copy_format ?? 'flex_html';
+      $copy = $item->copy_value ?? '';
       $elements[$delta] = [
         '#theme' => 'utexas_flex_content_area',
         '#media' => $media_render_array,
         '#headline' => $headline,
-        '#copy' => check_markup($item->copy_value, $item->copy_format),
+        '#copy' => check_markup($copy, $format),
         '#media_ratio' => $media_ratio,
         '#links' => $links,
         '#cta' => $cta ?? '',

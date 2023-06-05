@@ -35,3 +35,10 @@ iframe.media-oembed-content {
 .ck .drupal-media .media-oembed-content-wrapper {
   width: 50vw;
 }
+
+/* Put some space around streaming media in the rich text editor. */
+figure.drupal-media,
+figure.drupal-url {
+  padding: 1rem;
+  border: 2px dotted gray;
+}

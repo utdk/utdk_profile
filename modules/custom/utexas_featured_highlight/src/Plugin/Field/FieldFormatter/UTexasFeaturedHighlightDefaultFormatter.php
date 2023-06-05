@@ -231,12 +231,14 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
             break;
         }
       }
+      $format = $item->copy_format ?? 'flex_html';
+      $copy = $item->copy_value ?? '';
       $elements[] = [
         '#theme' => 'utexas_featured_highlight',
         '#headline' => $headline,
         '#media_identifier' => $id,
         '#media' => $media_render_array,
-        '#copy' => check_markup($item->copy_value, $item->copy_format),
+        '#copy' => check_markup($copy, $format),
         '#date' => $item->date,
         '#cta' => $cta ?? '',
         '#style' => '',

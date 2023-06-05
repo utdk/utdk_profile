@@ -40,10 +40,12 @@ class UTexasQuickLinksDefaultFormatter extends FormatterBase {
       else {
         $links = [];
       }
+      $format = $item->copy_format ?? 'flex_html';
+      $copy = $item->copy_value ?? '';
       $elements[] = [
         '#theme' => 'utexas_quick_links',
         '#headline' => $item->headline,
-        '#copy' => check_markup($item->copy_value, $item->copy_format),
+        '#copy' => check_markup($copy, $format),
         '#links' => $links,
       ];
       $elements['#attached']['library'][] = 'utexas_quick_links/quick-links';

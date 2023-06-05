@@ -93,7 +93,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
     $cache_tags = $this->generateCacheTags('utexas_responsive_image_pu_landscape');
     foreach ($items as $delta => $item) {
       $instances = [];
-      $promo_unit_items = unserialize($item->promo_unit_items);
+      $promo_unit_items = !empty($item->promo_unit_items) ? unserialize($item->promo_unit_items) : [];
       if (!empty($promo_unit_items)) {
         foreach ($promo_unit_items as $key => $instance) {
           $instance_item = $instance['item'];
@@ -104,12 +104,9 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
               $instances[$key]['headline'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker'], $instance_item['headline']);
             }
           }
-          if (!empty($instance_item['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
-          }
-          if (!empty($instance_item['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
-          }
+          $format = $instance_item['copy']['format'] ?? 'flex_html';
+          $copy = $instance_item['copy']['value'] ?? '';
+          $instances[$key]['copy'] = check_markup($copy, $format);
           if (!empty($instance_item['link']['uri'])) {
             $link_item = [
               'link' => $instance_item['link'],
@@ -122,7 +119,7 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link--darker']);
           }
           if (!empty($instance_item['image'])) {
-            $image = isset($instance_item['image']) ? $instance_item['image'] : FALSE;
+            $image = $instance_item['image'] ?? FALSE;
             $responsive_image_style_name = 'utexas_responsive_image_pu_landscape';
             $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $cache_tags);
           }

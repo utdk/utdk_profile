@@ -115,7 +115,6 @@ class BaseInstallationTest extends BrowserTestBase {
           'urlembed',
           'qualtrics',
           'blockQuote',
-          '-',
           'heading',
           '|',
           'specialCharacters',
@@ -123,6 +122,7 @@ class BaseInstallationTest extends BrowserTestBase {
           'superscript',
           'underline',
           'sourceEditing',
+          '-',
       ],
     ];
     $this->assertEquals($ckeditor_actual, $ckeditor_expected);

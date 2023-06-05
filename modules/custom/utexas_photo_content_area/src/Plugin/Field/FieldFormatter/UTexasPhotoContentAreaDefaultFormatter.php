@@ -146,12 +146,14 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
         $this->renderer->addCacheableDependency($image_render_array, $file);
       }
 
+      $format = $item->copy_format ?? 'flex_html';
+      $copy = $item->copy_value ?? '';
       $elements[] = [
         '#theme' => 'utexas_photo_content_area',
         '#image' => $image_render_array,
         '#photo_credit' => $item->photo_credit,
         '#headline' => $item->headline,
-        '#copy' => check_markup($item->copy_value, $item->copy_format),
+        '#copy' => check_markup($copy, $format),
         '#links' => $links,
       ];
     }

@@ -35,7 +35,7 @@ function utexas_beacon_mail($key, &$message, $email_params) {
  */
 function _utexas_beacon_prepare_data() {
 
-  // Site information.
+  // Build site information.
   $site_config = \Drupal::config('system.site');
   $site_data = [];
   $site_data['site_name'] = $site_config->get('name');
@@ -109,7 +109,10 @@ function utexas_beacon_cron() {
     try {
       // Use 'debug' => true for more info.
       $endpoint_uri = \Drupal::state()->get('utexas_beacon_endpoint_uri') ?? 'https://drupal-beacon.its.utexas.edu/beacon-end.php';
-      $client->post($endpoint_uri, ['headers' => $headers, 'body' => $encoded_data]);
+      $client->post($endpoint_uri, [
+        'headers' => $headers,
+        'body' => $encoded_data,
+      ]);
       \Drupal::logger('utexas_beacon')->notice('Beacon data logged to ITS Drupal Team.');
     }
     catch (RequestException $e) {
