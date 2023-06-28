@@ -69,7 +69,7 @@ jobs:
 
           ## Requirements defined in utdk_localdev needed to run test suite, but not other setup steps of dev-scaffold script.
           # We can safely ingore platform requirements on host since those only need to be satisified on Docker container
-          php -d memory_limit=-1 /usr/local/bin/composer require utexas/forty_acres:"dev-develop as 3.11.0" --no-update
+          php -d memory_limit=-1 /usr/local/bin/composer require utexas/forty_acres:"dev-develop as 3.12.0" --no-update
           php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_localdev:dev-master --dev --ignore-platform-reqs
 
           # Restart mysql container and make sure it's back up before coninuing...

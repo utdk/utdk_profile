@@ -79,6 +79,9 @@
       },
       "drupal/xmlsitemap": {
         "Call to undefined method getImplementations": "https://drupalkit.its.utexas.edu/patches/2193-xmlsitemap-3323148.patch"
+      },
+      "drupal/core": {
+        "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch"
       }
     },
     "drupal-scaffold": {
