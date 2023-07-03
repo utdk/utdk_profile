@@ -67,7 +67,8 @@
     "patches": {
       "drupal/core": {
         "Improve performance of functional tests by caching Drupal installations": "https://www.drupal.org/files/issues/2021-02-16/2900208-33.patch",
-        "Respect row height configuration in CKEditor 5 + Drupal 9.5.x": "https://drupalkit.its.utexas.edu/patches/2145-ckeditor-rows-d10.patch"
+        "Respect row height configuration in CKEditor 5 + Drupal 9.5.x": "https://drupalkit.its.utexas.edu/patches/2145-ckeditor-rows-d10.patch",
+        "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch"
       },
       "drupal/entity_clone": {
         "Add a way to exclude certain entity types from cloning": "https://drupalkit.its.utexas.edu/patches/1709b-entity-clone-updated.patch",
@@ -80,8 +81,8 @@
       "drupal/xmlsitemap": {
         "Call to undefined method getImplementations": "https://drupalkit.its.utexas.edu/patches/2193-xmlsitemap-3323148.patch"
       },
-      "drupal/core": {
-        "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch"
+      "drupal/layout_builder_iframe_modal": {
+         "Close the Drupal off canvas dialog at the same time the LBIM modal is closed": "https://drupalkit.its.utexas.edu/patches/3344334-settings-tray-close.patch"
       }
     },
     "drupal-scaffold": {
