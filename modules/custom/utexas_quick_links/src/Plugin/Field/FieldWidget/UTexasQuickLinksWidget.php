@@ -46,7 +46,12 @@ class UTexasQuickLinksWidget extends WidgetBase {
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
     $link_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
     // We have to ensure that there is at least one link field.
-    $links = unserialize($items[$delta]->links);
+    if (isset($items[$delta])) {
+      $links = isset($items[$delta]->links) ? unserialize($items[$delta]->links) : [];
+    }
+    else {
+      $links = [];
+    }
     if ($link_count === NULL) {
       if (empty($links)) {
         $link_count = 1;
