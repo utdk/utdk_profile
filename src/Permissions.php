@@ -45,6 +45,7 @@ class Permissions {
    */
   public static $editor = [
     'access administration pages',
+    'access block library',
     'access content overview',
     'access contextual links',
     'access files overview',
@@ -52,6 +53,7 @@ class Permissions {
     'access site in maintenance mode',
     'access taxonomy overview',
     'access toolbar',
+    'administer block content',
     'administer breadcrumbs visibility config',
     'administer menu',
     'administer node last updated date',
@@ -59,7 +61,6 @@ class Permissions {
     'administer page display visibility config',
     'configure any layout',
     'create and edit custom blocks',
-    'create and edit reusable blocks',
     'create article content',
     'create media',
     'create page content',

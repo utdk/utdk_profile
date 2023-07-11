@@ -104,7 +104,7 @@ trait FeaturedHighlightTestTrait {
 
     // CRUD: UPDATE
     // Images smaller than 500px aren't rendered via responsive picture src.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Featured Highlight fields.
@@ -124,7 +124,7 @@ trait FeaturedHighlightTestTrait {
 
     // CRUD: UPDATE
     // Test rendering of YouTube video.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Featured Highlight fields.

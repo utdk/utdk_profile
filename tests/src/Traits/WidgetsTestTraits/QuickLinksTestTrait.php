@@ -67,7 +67,7 @@ trait QuickLinksTestTrait {
     $assert->elementExists('css', '#quick-links-headline');
 
     // CRUD: UPDATE.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Add Quick Links Item 3 and fill fields.
@@ -84,7 +84,7 @@ trait QuickLinksTestTrait {
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
 
     // CRUD: READ.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $this->waitForForm($block_content_edit_form_id);
     // Confirm second link has data from third link previously created.

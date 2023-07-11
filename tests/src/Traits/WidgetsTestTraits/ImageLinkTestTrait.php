@@ -64,7 +64,7 @@ trait ImageLinkTestTrait {
 
     // CRUD: UPDATE
     // Test internal links.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Image Link fields.

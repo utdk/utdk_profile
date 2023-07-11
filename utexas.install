@@ -721,3 +721,36 @@ function utexas_update_8143() {
 function utexas_update_8144() {
   InstallationHelper::normalizeRobotsMetatags();
 }
+
+/**
+ * Discontinue utexas_block_library_access in favor of Drupal 10.1 permissions.
+ */
+function utexas_update_8145() {
+  $new_permissions = ['administer block content', 'access block library'];
+  $old_permission = 'create and edit reusable blocks';
+  // Get static services.
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  /** @var Drupal\user\Entity\Role $role */
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  foreach ($roles as $role) {
+    if ($role->hasPermission($old_permission)) {
+      $role->revokePermission($old_permission);
+      foreach ($new_permissions as $new_permission) {
+        $role->grantPermission($new_permission);
+      }
+      $role->save();
+      $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', [
+        '%role' => $role->label(),
+        '%permission' => $old_permission,
+      ]));
+      $messenger->addMessage(t('The %permission permissions have been granted to the %role role.', [
+        '%role' => $role->label(),
+        '%permission' => implode(", ", $new_permissions),
+      ]));
+    }
+  }
+  if (\Drupal::moduleHandler()->moduleExists('utexas_block_library_access') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['utexas_block_library_access']);
+  }
+}

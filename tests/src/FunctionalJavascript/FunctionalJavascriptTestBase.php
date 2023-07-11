@@ -169,9 +169,9 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $this->scrollLinkIntoViewAndClick($page, 'Add block');
 
     $dialog = $this->waitForUiDialogTitle('Choose a block');
-    $this->scrollLinkIntoViewAndClick($dialog, 'Create custom block');
+    $this->scrollLinkIntoViewAndClick($dialog, 'Create content block');
 
-    $dialog = $this->waitForUiDialogTitle('Add a new custom block');
+    $dialog = $this->waitForUiDialogTitle('Add a new content block');
     $this->scrollLinkIntoViewAndClick($dialog, $block_type_label);
 
     $this->switchToLayoutBuilderIframe();
@@ -319,6 +319,8 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
    *   (Optional) Provide if a button besides the first match is needed.
    */
   protected function addNonDraggableFormItem(NodeElement $form, $button_text, $button_index = 1) {
+    // Delay clicking to allow for JS actions to complete (e.g., Linkit).
+    sleep(1);
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
 
@@ -359,6 +361,8 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
    *   (Optional) Provide if a button besides the first match is needed.
    */
   protected function addDraggableFormItem(NodeElement $form, $button_text, $button_index = 1) {
+    // Delay clicking to allow for JS actions to complete (e.g., Linkit).
+    sleep(1);
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
 
@@ -553,6 +557,33 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $details_open_xpath_query = $details_xpath . '[@open]';
     $open_details = $assert->waitForElement('xpath', $details_open_xpath_query, $this->getTimeout());
     $this->assertNotEmptyXpath($open_details, $details_open_xpath_query);
+  }
+
+  /**
+   * Click an element identified by its name.
+   *
+   * @param \Behat\Mink\Element\TraversableElement $parent_element
+   *   The parent element to the input.
+   * @param string $name_text
+   *   The name of an element.
+   * @param bool|null $no_element_after_wait
+   *   Indicate whether the element is expected to be removed after clicking.
+   * @param int|null $input_index
+   *   Provide if an input element besides the first match is needed.
+   */
+  protected function clickElementByName(TraversableElement $parent_element, $name_text, $no_element_after_wait = FALSE, $input_index = 1): void {
+    // Delay clicking to allow for JS actions to complete (e.g., Linkit).
+    sleep(1);
+    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
+    $assert = $this->assertSession();
+    $xpath = '//*[@name=:value]';
+    $selector = $assert->buildXPathQuery(
+      $xpath,
+      [':value' => $name_text]
+    );
+    $input = $assert->waitForElement('xpath', $selector, $this->getTimeout());
+    $this->assertNotEmptyXpath($input, $selector);
+    $this->scrollInputIntoViewAndClick($parent_element, '@id', $input->getAttribute('id'), $no_element_after_wait, $input_index);
   }
 
   /**

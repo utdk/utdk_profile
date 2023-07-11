@@ -67,7 +67,7 @@ trait FlexContentAreaTestTrait {
 
     // CRUD: UPDATE
     // Add two more Flex Content Area instances.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Flex Content Area 2 fields.
@@ -84,7 +84,7 @@ trait FlexContentAreaTestTrait {
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
     // Re-open block.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Flex Content Area 3 fields.
@@ -180,7 +180,7 @@ trait FlexContentAreaTestTrait {
 
     // CRUD: READ
     // Verify Flex Content Area items can be removed.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     $assert->pageTextContains('Flex Content Area Headline 3');
@@ -195,7 +195,7 @@ trait FlexContentAreaTestTrait {
 
     // CRUD:READ.
     // Re-open block.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $this->waitForForm($block_content_edit_form_id);
     // Verify data for removed item is not present.
