@@ -134,7 +134,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $assert = $this->assertSession();
 
     $contextual_link_selector = $this->getBlockContextualLinkSelector($block_name, $inline_block_plugin_id, $inline_block_index);
-    $this->clickContextualLink($contextual_link_selector, 'Configure');
+    $this->clickContextualLink($contextual_link_selector, 'Edit');
 
     $this->switchToLayoutBuilderIframe();
     $form_id = 'layout-builder-update-block';
