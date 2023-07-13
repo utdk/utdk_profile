@@ -66,6 +66,7 @@ class UtexasLinkOptionsElement extends FormElement {
       '#title' => t('Link text'),
       '#default_value' => isset($element['#default_value']['title']) ? $element['#default_value']['title'] : '',
       '#access' => isset($element['#suppress_title_display']) ? FALSE : TRUE,
+      '#description' => $element['#title_description'] ?? '',
     ];
 
     // Add link options form element.

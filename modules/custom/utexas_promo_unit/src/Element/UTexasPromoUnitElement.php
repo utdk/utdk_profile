@@ -38,6 +38,7 @@ class UTexasPromoUnitElement extends FormElement {
       '#type' => 'textfield',
       '#title' => t('Item Headline'),
       '#default_value' => isset($element['#default_value']['headline']) ? $element['#default_value']['headline'] : '',
+      '#description' => t('To make this headline into a hyperlink, enter a URL in the field below.'),
     ];
     $element['image'] = [
       '#type' => 'media_library',
@@ -63,6 +64,7 @@ class UTexasPromoUnitElement extends FormElement {
         'title' => $element['#default_value']['link']['title'] ?? '',
         'options' => $element['#default_value']['link']['options'] ?? [],
       ],
+      '#title_description' => "Optional. Leave blank to link only the item headline. Add text to print a second link at the bottom of the item.",
     ];
     $element['#attached']['library'][] = 'utexas_promo_unit/promo-unit-widget';
     return $element;
