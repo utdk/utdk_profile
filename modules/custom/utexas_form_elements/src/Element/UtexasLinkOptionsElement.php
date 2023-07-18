@@ -53,6 +53,7 @@ class UtexasLinkOptionsElement extends FormElement {
       '#maxlength' => 2048,
       '#required' => $element['#required'],
       '#description' => $element['#description'] ?? $standard_description,
+      '#description_display' => 'before',
       '#autocomplete_route_name' => 'linkit.autocomplete',
       '#autocomplete_route_parameters' => [
         'linkit_profile_id' => $linkit_profile_id,
@@ -64,6 +65,7 @@ class UtexasLinkOptionsElement extends FormElement {
     $element['title'] = [
       '#type' => 'textfield',
       '#title' => t('Link text'),
+      '#description_display' => 'before',
       '#default_value' => isset($element['#default_value']['title']) ? $element['#default_value']['title'] : '',
       '#access' => isset($element['#suppress_title_display']) ? FALSE : TRUE,
       '#description' => $element['#title_description'] ?? '',
