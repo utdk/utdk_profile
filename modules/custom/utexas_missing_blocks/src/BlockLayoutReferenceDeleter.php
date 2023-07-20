@@ -20,7 +20,7 @@ class BlockLayoutReferenceDeleter {
    */
   public static function delete($bundle) {
     $data = [
-      'layouts' => [],
+      'layout' => [],
       'nodes' => [],
     ];
     // Get extant site data for nodes & blocks.
