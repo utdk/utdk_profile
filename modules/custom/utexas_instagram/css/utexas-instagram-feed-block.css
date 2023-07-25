@@ -5,17 +5,19 @@
   position: relative;
   text-align: left;
 }
+
 /* Remove padding supplied by .container class */
 .utexas-instagram-feed.container {
   padding-left: 0;
   padding-right: 0;
 }
+
 .utexas-instagram-feed__header {
-  text-align:left;
+  text-align: left;
   position: relative;
 }
 
-.utexas-instagram-feed__controls > :first-child {
+.utexas-instagram-feed__controls> :first-child {
   margin-right: 20px;
 }
 
@@ -29,13 +31,16 @@
   .utexas-instagram-feed__header .utexas-instagram-feed__logo p {
     float: none;
   }
+
   .utexas-instagram-feed__controls {
     display: none;
   }
+
   .utexas-instagram-feed__header .utexas-instagram-feed__logo p a:hover {
     content: "";
   }
 }
+
 .utexas-instagram-feed__header .utexas-instagram-feed__logo p a {
   display: inline-block;
 }
@@ -53,7 +58,7 @@
   clear: both;
 }
 
-.utexas-instagram-feed__content .utexas-instagram-feed__list  {
+.utexas-instagram-feed__content .utexas-instagram-feed__list {
   align-items: flex-start;
   display: flex;
   min-width: auto;
@@ -61,6 +66,7 @@
   overflow: hidden;
   margin-left: 10%;
 }
+
 .utexas-instagram-feed__content .utexas-instagram-feed__list .utexas-instagram-feed__list-item {
   position: relative;
   flex: 0 1 30%;
@@ -68,6 +74,7 @@
   min-width: 30%;
   z-index: 1;
 }
+
 .utexas-instagram-feed__content .utexas-instagram-feed__list .utexas-instagram-feed__list-item:first-of-type {
   margin-left: 0;
 }
@@ -80,6 +87,7 @@
     position: relative;
     flex: 0 0 100%;
     padding: 0 20px;
+    margin-bottom: 10px;
   }
 }
 
@@ -112,36 +120,91 @@
 @media screen and (min-width: 651px) {
   .block-bundle-utexas-instagram #controls {
     position: relative;
+    justify-content: flex-end;
+    display: flex;
     right: 40px;
-    display: block;
     min-width: 100%;
     height: 50px;
     text-align: right;
+    margin-bottom: 20px;
   }
 }
 
+/* Instagram prev control */
 .block-bundle-utexas-instagram #controls .utexas-instagram-feed__controls-prev {
-  position: absolute;
-  right: 30px;
+  position: relative;
   display: block;
-  width: 40px;
-  height: 40px;
-  background-image: url(../assets/nav-arrows.png);
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  background-size: 84px 40px;
+  width: 50px;
+  height: 46px;
+  right: 0px;
+  margin-right: 26px;
 }
 
-.block-bundle-utexas-instagram #controls .utexas-instagram-feed__controls-next {
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-prev svg {
+  height: 60px;
+  width: 53px;
   position: absolute;
-  right: 0;
+  top: -12px;
+  left: 0px;
+  overflow: visible;
+  transform: rotate(180deg);
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-prev svg .prev-2 {
+  fill: #bf5700;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12px;
+  width: 12px;
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-prev svg:hover .prev-1,
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-prev svg:focus .prev-1 {
+  fill: #bf5700;
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-prev svg:hover .prev-2,
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-prev svg:focus .prev-2 {
+  fill: #fff;
+}
+
+/* Instagram next controls */
+.block-bundle-utexas-instagram #controls .utexas-instagram-feed__controls-next {
+  position: relative;
   display: block;
-  width: 40px;
-  height: 40px;
-  background-image: url(../assets/nav-arrows.png);
-  background-repeat: no-repeat;
-  background-position: -45px 0;
-  background-size: 84px 40px;
+  width: 50px;
+  height: 46px;
+  right: 0px;
+  margin-right: 0;
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-next svg {
+  height: 60px;
+  width: 53px;
+  position: absolute;
+  top: 2px;
+  left: 0px;
+  overflow: visible;
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-next svg .next-2 {
+  fill: #bf5700;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 12px;
+  width: 12px;
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-next svg:hover .next-1,
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-next svg:focus .next-1 {
+  fill: #bf5700;
+}
+
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-next svg:hover .next-2,
+.utexas-instagram-feed__header #controls .utexas-instagram-feed__controls-next svg:focus .next-2 {
+  fill: #fff;
 }
 
 a.utexas-instagram-feed-post__link:hover+.utexas-instagram-feed-post__image-wrapper+.utexas-instagram-feed-post__other-data .name,

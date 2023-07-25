@@ -11,6 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 use Drupal\block\Entity\Block;
 use Drupal\utexas\InstallationHelper;
 use Drupal\utexas_missing_blocks\Defuser;
+use Drupal\utexas_missing_blocks\BlockLayoutReferenceDeleter;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -720,4 +721,98 @@ function utexas_update_8143() {
  */
 function utexas_update_8144() {
   InstallationHelper::normalizeRobotsMetatags();
+}
+
+/**
+ * Discontinue utexas_block_library_access in favor of Drupal 10.1 permissions.
+ */
+function utexas_update_8145() {
+  $new_permissions = ['administer block content', 'access block library'];
+  $old_permission = 'create and edit reusable blocks';
+  // Get static services.
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  /** @var Drupal\user\Entity\Role $role */
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  foreach ($roles as $role) {
+    if ($role->hasPermission($old_permission)) {
+      $role->revokePermission($old_permission);
+      foreach ($new_permissions as $new_permission) {
+        $role->grantPermission($new_permission);
+      }
+      $role->save();
+      $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', [
+        '%role' => $role->label(),
+        '%permission' => $old_permission,
+      ]));
+      $messenger->addMessage(t('The %permission permissions have been granted to the %role role.', [
+        '%role' => $role->label(),
+        '%permission' => implode(", ", $new_permissions),
+      ]));
+    }
+  }
+  if (\Drupal::moduleHandler()->moduleExists('utexas_block_library_access') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['utexas_block_library_access']);
+  }
+}
+
+/**
+ * Delete Twitter Profile Widget references in layouts.
+ */
+function utexas_update_8146() {
+  $data = BlockLayoutReferenceDeleter::delete('twitter_widget');
+  \Drupal::state()->set('twitter_widget_deletion_report', serialize($data));
+  \Drupal::logger('utexas')->notice('Twitter widget references deleted: ' . count($data['layout']));
+  \Drupal::logger('utexas')->notice('Nodes affected: ' . count(array_unique($data['nodes'])));
+}
+
+/**
+ * Delete Twitter Profile Widget blocks.
+ */
+function utexas_update_8147() {
+  $query = \Drupal::entityQuery('block_content')
+    ->condition('type', 'twitter_widget')
+    ->condition('reusable', '1')
+    ->accessCheck(FALSE);
+  $results = $query->execute();
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('block_content');
+  $entities = $storage_handler->loadMultiple($results);
+  $storage_handler->delete($entities);
+  \Drupal::logger('utexas')->notice('Reusable Twitter blocks deleted: ' . count($entities));
+  $query = \Drupal::entityQuery('block_content')
+    ->condition('type', 'twitter_widget')
+    ->condition('reusable', '0')
+    ->accessCheck(FALSE);
+  $results = $query->execute();
+  $storage_handler = \Drupal::entityTypeManager()->getStorage('block_content');
+  $entities = $storage_handler->loadMultiple($results);
+  $storage_handler->delete($entities);
+  \Drupal::logger('utexas')->notice('Inline Twitter blocks deleted: ' . count($entities));
+}
+
+/**
+ * Delete Twitter Profile Widget configuration.
+ */
+function utexas_update_8148() {
+  $configs = [
+    'block_content.type.twitter_widget',
+    'core.entity_form_display.block_content.twitter_widget.default',
+    'core.entity_view_display.block_content.twitter_widget.default',
+    'field.field.block_content.twitter_widget.field_twitter_profile_widget',
+    'field.storage.block_content.field_twitter_profile_widget',
+    'twitter_profile_widget.settings',
+  ];
+  foreach ($configs as $config) {
+    \Drupal::configFactory()->getEditable($config)->delete();
+  }
+}
+
+/**
+ * Uninstall twitter_profile_widget.
+ */
+function utexas_update_8149() {
+  $module = 'twitter_profile_widget';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
+  }
 }

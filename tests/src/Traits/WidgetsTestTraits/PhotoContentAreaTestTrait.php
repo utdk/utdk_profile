@@ -87,7 +87,7 @@ trait PhotoContentAreaTestTrait {
     $assert->elementExists('css', 'div.stacked-display div.ut-photo-content-area');
 
     // CRUD: UPDATE.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Remove data for the second link
@@ -99,7 +99,7 @@ trait PhotoContentAreaTestTrait {
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
 
     // CRUD: READ.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     $assert->fieldValueEquals('field_block_pca[0][links][1][title]', 'Photo Content Area Third Link');

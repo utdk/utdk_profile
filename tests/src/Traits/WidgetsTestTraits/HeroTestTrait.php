@@ -73,7 +73,7 @@ trait HeroTestTrait {
 
     // CRUD: UPDATE
     // Re-enable image styles.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Hero fields.
@@ -216,7 +216,7 @@ trait HeroTestTrait {
     $block_plugin_id = 'utexas-hero';
 
     $contextual_link_selector = $this->getBlockContextualLinkSelector($block_name, $block_plugin_id);
-    $this->clickContextualLink($contextual_link_selector, 'Configure');
+    $this->clickContextualLink($contextual_link_selector, 'Edit');
 
     $this->switchToLayoutBuilderIframe();
     $form_id = 'layout-builder-update-block';

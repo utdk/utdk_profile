@@ -3,6 +3,13 @@ name: Run utdk_profile tests.
 #on: [workflow_dispatch]
 on: pull_request
 
+env:
+  SITE: "utdk3-nightly-build"
+  HOST: "github.austin.utexas.edu"
+  OWNER: "eis1-wcs"
+  TOKEN: ${{ secrets.UTDK_STEWARDSHIP_AUTOMATION_GITHUB_AUSTIN_PAT }}
+  BRANCH: ${{ github.head_ref }}
+
 jobs:
   utdk3_testing_job:
     runs-on: [ wcs-gh-t01 ]
@@ -39,53 +46,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Configure web host Docker container for UTDK 3
+      - name: 'Configure web host Docker container (Part 1)'
         run: |
           # Ensure containers are ready...
           sleep 2m
-          php --version
-
           # Run first configuration script...
           # Executed on container...
           docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./web-setup1.sh'
 
-          # Install stuff for UTDK site with composer...
-          # Executed on host/Github Action Runner VM for ease of management of access to protected resources, file permissions, and performance...
-          php -d memory_limit=-1 /usr/local/bin/composer create-project utexas/utdk-project:dev-develop utdk_scaffold --stability=dev --remove-vcs --no-install
-          cd ${{ github.workspace }}/utdk_scaffold/upstream-configuration
-          php -d memory_limit=-1 /usr/local/bin/composer remove utexas/utdk_profile --no-update
+      - name: 'Configure codebase (Composer)'
+        run: |
+          bash .github/workflows/utdk-tests-compose.sh
 
-          cd ${{ github.workspace }}/utdk_scaffold
-          php -d memory_limit=-1 /usr/local/bin/composer config repositories.utdk_profile vcs git@github.austin.utexas.edu:eis1-wcs/utdk_profile.git
-          php -d memory_limit=-1 /usr/local/bin/composer config repositories.forty_acres vcs git@github.austin.utexas.edu:eis1-wcs/forty_acres.git
-          php -d memory_limit=-1 /usr/local/bin/composer config repositories.utexas_qualtrics_filter vcs git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git
-          php -d memory_limit=-1 /usr/local/bin/composer config repositories.utdk_localdev vcs git@github.austin.utexas.edu:eis1-wcs/utdk_localdev.git
-          # This is in preparation for utdk_localdev, which requires this plugin.
-          php -d memory_limit=-1 /usr/local/bin/composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-          php -d memory_limit=-1 /usr/local/bin/composer config --no-plugins allow-plugins.phpstan/extension-installer true
-
-          php -d memory_limit=-1 /usr/local/bin/composer clear-cache
-          php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_profile:"dev-${{ github.head_ref }}"  --no-update
-
-          ## Requirements defined in utdk_localdev needed to run test suite, but not other setup steps of dev-scaffold script.
-          # We can safely ingore platform requirements on host since those only need to be satisified on Docker container
-          php -d memory_limit=-1 /usr/local/bin/composer require utexas/forty_acres:"dev-develop as 3.11.0" --no-update
-          php -d memory_limit=-1 /usr/local/bin/composer require utexas/utdk_localdev:dev-master --dev --ignore-platform-reqs
-
-          # Restart mysql container and make sure it's back up before coninuing...
-          # TODO: this shouldn't be necesary...
+      - name: 'Configure web host Docker container (Part 2)'
+        run: |
+          # Restart mysql container and make sure it's back up before continuing...
+          # TODO: this shouldn't be necessary...
           docker restart ${{ job.services.utdk_mysql.id }}
           sleep 1m
-
           # Run second configuration script...
           # Executed on container...
           docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./web-setup2.sh'
 
-      - name: Run tests
+      - name: 'Run tests'
         run: |
           docker exec ${{ job.services.web.id }} sh -c 'cd /var/www/html/.github/workflows && ./run-tests.sh'
 
-      - name: 'Upload Artifact'
+      - name: 'Upload Artifacts'
         if: failure()
         uses: actions/upload-artifact@v2
         with:

@@ -105,7 +105,7 @@ class EntityCloneTest extends FunctionalJavascriptTestBase {
 
     // CRUD: UPDATE
     // Update the reusable block.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name_reusable);
     $form = $this->waitForForm($block_content_edit_form_id_reusable);
     // Fill Featured Highlight fields.

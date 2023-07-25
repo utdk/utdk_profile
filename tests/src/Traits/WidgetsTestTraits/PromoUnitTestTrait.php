@@ -62,7 +62,7 @@ trait PromoUnitTestTrait {
     $this->savePageLayout();
 
     // CRUD: UPDATE.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Use weighting fields to reverse the order of Promo Unit items 1 & 2.
@@ -163,7 +163,7 @@ trait PromoUnitTestTrait {
 
     // CRUD: UPDATE
     // Re-set row weight for subsequent tests.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     $form->pressButton('Hide row weights');
@@ -213,7 +213,7 @@ trait PromoUnitTestTrait {
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
 
     // CRUD: READ.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify data for item entered in slot 3 is deposited in the empty slot 2.
@@ -228,7 +228,7 @@ trait PromoUnitTestTrait {
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
 
     // CRUD: READ.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify that text has been removed.

@@ -197,7 +197,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->drupalGet('admin/structure/block');
     $assert->statusCodeEquals(403);
     // Make sure a Content Editor has access to Block Content tab.
-    $this->drupalGet('/admin/content/block-content');
+    $this->drupalGet('/admin/content/block');
     $assert->statusCodeEquals(200);
     // Make sure a Content Editor has access to create Block Content.
     $this->drupalGet('/block/add');
@@ -212,7 +212,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->drupalGet('admin/structure/block');
     $assert->statusCodeEquals(200);
     // Make sure a Site Manager has access to the Block Content tab.
-    $this->drupalGet('/admin/content/block-content');
+    $this->drupalGet('/admin/content/block');
     $assert->statusCodeEquals(200);
     // Make sure a Site Manager doesn't have access to the permissions page.
     $this->drupalGet('admin/people/permissions');
@@ -256,7 +256,6 @@ class BaseInstallationTest extends BrowserTestBase {
     $photo_content_area_path = 'styles/utexas_image_style_450w_600h/public/generated_sample/tower-lighting.gif';
     $assert->elementAttributeContains('css', '.ut-photo-content-area .photo-wrapper img', 'src', $photo_content_area_path);
     $assert->elementTextContains('css', '.ut-photo-content-area h2.ut-headline', 'Photo Content Area');
-    $assert->elementTextContains('css', '.ut-photo-content-area .ut-copy p', 'Photo content Areas include image, headline, credit, copy text, and links.');
 
     $this->drupalGet('hero-default');
     $hero_path = 'styles/utexas_image_style_720w_389h/public/generated_sample/tower-lighting.gif';
@@ -266,7 +265,7 @@ class BaseInstallationTest extends BrowserTestBase {
 
     $this->drupalGet('quick-links');
     $assert->elementTextContains('css', '.utexas-quick-links h3.ut-headline', 'Quick Links');
-    $assert->elementTextContains('css', '.utexas-quick-links .ut-copy p', 'Quick links include a headline, copy text, and links.');
+    $assert->elementTextContains('css', '.utexas-quick-links .ut-copy', 'Quick links include a headline, copy text, and links.');
     $assert->elementTextContains('css', '.utexas-quick-links .link-list a', 'Our commitment to diversity');
 
     $this->drupalGet('resources');

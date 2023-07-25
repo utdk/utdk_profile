@@ -187,7 +187,7 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
 
     // CRUD: UPDATE.
     // Remove "middle" link from list.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Social Link Item 2 fields.
@@ -197,7 +197,7 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
 
     // CRUD: READ.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify subsequent links persist after previous links are removed.
@@ -205,7 +205,7 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
     $assert->fieldValueEquals('field_utexas_sl_social_links[0][social_account_links][1][social_account_url]', 'https://facebook.com/our-site');
 
     // CRUD: UPDATE.
-    $this->drupalGet('admin/content/block-content');
+    $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, 'Sitewide Social Media Links');
     $form = $this->waitForForm($block_content_edit_form_id);
     // Edit the default social links block and add test network and headline.

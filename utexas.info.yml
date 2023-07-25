@@ -2,7 +2,7 @@ name: UTexas
 type: profile
 description: Installation profile for the UT Drupal Kit.
 core_version_requirement: ^9 || ^10
-version: '3.12.0'
+version: '3.13.0'
 distribution:
   name: UTexas
 dependencies:
@@ -63,13 +63,11 @@ install:
   - drupal:role_delegation
   - drupal:seckit
   - drupal:svg_upload_sanitizer
-  - drupal:twitter_profile_widget
   - drupal:updated
   - drupal:url_embed
   - drupal:xmlsitemap
   # Custom
   - utexas_beacon
-  - utexas_block_library_access
   - utexas_block_required_links
   - utexas_block_social_links
   - utexas_call_to_action

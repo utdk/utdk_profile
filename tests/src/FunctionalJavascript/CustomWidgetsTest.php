@@ -20,7 +20,7 @@ use Drupal\Tests\utexas\Traits\WidgetsTestTraits\ResourcesTestTrait;
  *
  * @group utexas
  */
-class WidgetsTest extends FunctionalJavascriptTestBase {
+class CustomWidgetsTest extends FunctionalJavascriptTestBase {
 
   use FeaturedHighlightTestTrait;
   use FlexContentAreaTestTrait;

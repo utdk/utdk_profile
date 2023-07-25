@@ -325,3 +325,19 @@ function utexas_link_alter(&$variables) {
     $variables['options']['attributes']['title'] = 'This link is not visible to non-authenticated users.';
   }
 }
+
+/**
+ * Implements hook_contextual_links_plugins_alter().
+ */
+function utexas_contextual_links_plugins_alter(array &$contextual_links) {
+  // Change Layout Builder "Configure" link to "Edit" (utdk_profile/2094).
+  if (isset($contextual_links['layout_builder_block_update'])) {
+    $contextual_links['layout_builder_block_update']['title'] = t('Edit');
+  }
+  // The three Layout Builder contextual links for blocks are
+  // Configure, Move, and Remove Block. To make them all consistent, we drop the
+  // 'Block' from the remove block item.
+  if (isset($contextual_links['layout_builder_block_remove'])) {
+    $contextual_links['layout_builder_block_remove']['title'] = t('Remove');
+  }
+}
