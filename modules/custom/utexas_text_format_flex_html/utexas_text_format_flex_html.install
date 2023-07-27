@@ -17,7 +17,8 @@ function utexas_text_format_flex_html_update_8101() {
 }
 
 /**
- * Issue #975: Add "start" and "type" to allowed <ol> attributes for creation of nested ordered lists with CKEditor.
+ * Issue #975: Add "start" and "type" to allowed <ol> attributes for creation of
+ * nested ordered lists with CKEditor.
  */
 function utexas_text_format_flex_html_update_8102() {
   \Drupal::service('features.manager')->import([
@@ -35,7 +36,8 @@ function utexas_text_format_flex_html_update_8103() {
 }
 
 /**
- * Issue #982: Allow additional HTML attributes on <a> tag related to Document media type.
+ * Issue #982: Allow additional HTML attributes on <a> tag related to Document
+ * media type.
  */
 function utexas_text_format_flex_html_update_8104() {
   \Drupal::service('features.manager')->import([
@@ -53,7 +55,8 @@ function utexas_text_format_flex_html_update_8105() {
 }
 
 /**
- * Issue #1625: Select between predefined image sizes when embedding media library images in WYSIWYGs.
+ * Issue #1625: Select between predefined image sizes when embedding media
+ * library images in WYSIWYGs.
  */
 function utexas_text_format_flex_html_update_8106() {
   \Drupal::service('features.manager')->import([
@@ -108,6 +111,15 @@ function utexas_text_format_flex_html_update_8110() {
  * Make Flex HTML match CKEditor 4 legacy (#2168).
  */
 function utexas_text_format_flex_html_update_8111() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}
+
+/**
+ * Manage table border through user interface in CKEditor5 (#2131).
+ */
+function utexas_text_format_flex_html_update_8112() {
   \Drupal::service('features.manager')->import([
     'utexas_text_format_flex_html',
   ], TRUE);
