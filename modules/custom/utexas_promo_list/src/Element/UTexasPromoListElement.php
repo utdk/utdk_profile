@@ -35,6 +35,7 @@ class UTexasPromoListElement extends FormElement {
       '#type' => 'textfield',
       '#title' => t('Item Headline'),
       '#default_value' => isset($element['#default_value']['headline']) ? $element['#default_value']['headline'] : '',
+      '#description' => t('To make this headline into a hyperlink, enter a URL in the field below.'),
     ];
     $element['image'] = [
       '#type' => 'media_library',
