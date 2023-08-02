@@ -727,30 +727,60 @@ function utexas_update_8144() {
  * Discontinue utexas_block_library_access in favor of Drupal 10.1 permissions.
  */
 function utexas_update_8145() {
-  $new_permissions = ['administer block content', 'access block library'];
-  $old_permission = 'create and edit reusable blocks';
+  // We need to simultaneously change utexas_block_library_access and google_tag
+  // due to #2282.
+  $permissions_changes = [
+    'create and edit reusable blocks' => [
+      'administer block content',
+      'access block library',
+    ],
+    'administer google tag manager' => [
+      'administer google_tag_container',
+    ],
+  ];
+  $available_permissions = \Drupal::service('user.permissions')->getPermissions();
   // Get static services.
   $entity_type_manager = Drupal::entityTypeManager();
   $messenger = Drupal::messenger();
-  /** @var Drupal\user\Entity\Role $role */
   $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
   foreach ($roles as $role) {
-    if ($role->hasPermission($old_permission)) {
-      $role->revokePermission($old_permission);
-      foreach ($new_permissions as $new_permission) {
-        $role->grantPermission($new_permission);
+    $needs_change = FALSE;
+    foreach ($permissions_changes as $old => $new) {
+      if ($role->hasPermission($old)) {
+        $role->revokePermission($old);
+        $messenger->addMessage(t('The outdated %permission permission has been removed from the %role role.', [
+          '%role' => $role->label(),
+          '%permission' => $old,
+        ]));
+        foreach ($new as $item) {
+          $role->grantPermission($item);
+          $messenger->addMessage(t('The new %permission permission has been granted to the %role role.', [
+            '%role' => $role->label(),
+            '%permission' => $item,
+          ]));
+        }
+        $needs_change = TRUE;
       }
+    }
+    if ($needs_change) {
+      // Remove any other outdated permissions, as their presence will cause
+      // the update to fail.
+      $role_permissions = $role->getPermissions();
+      foreach ($role_permissions as $permission) {
+        if (!in_array($permission, array_keys($available_permissions))) {
+          $role->revokePermission($permission);
+          $messenger->addMessage(t('The outdated %permission permission has been removed from the %role role.', [
+            '%role' => $role->label(),
+            '%permission' => $permission,
+          ]));
+        }
+      }
+      // Finally, save the role.
       $role->save();
-      $messenger->addMessage(t('The %permission permission has been revoked from the %role role.', [
-        '%role' => $role->label(),
-        '%permission' => $old_permission,
-      ]));
-      $messenger->addMessage(t('The %permission permissions have been granted to the %role role.', [
-        '%role' => $role->label(),
-        '%permission' => implode(", ", $new_permissions),
-      ]));
     }
   }
+  // Now, safely uninstall the old module.
   if (\Drupal::moduleHandler()->moduleExists('utexas_block_library_access') === TRUE) {
     \Drupal::service('module_installer')->uninstall(['utexas_block_library_access']);
   }
