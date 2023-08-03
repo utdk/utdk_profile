@@ -30,12 +30,17 @@
     'utexas-flex-list',
     'formatter-' ~ formatter_name|clean_class,
     label_display == 'inline' ? 'clearfix',
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
   ]
 %}
 {% set items_classes = ['field__items'] %}
 {% set item_classes = ['field__item'] %}
 {%
   set title_classes = [
+    'field__label',
     label_display == 'visually_hidden' ? 'visually-hidden',
   ]
 %}
