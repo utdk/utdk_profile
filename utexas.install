@@ -5,13 +5,13 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
+use Drupal\block\Entity\Block;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
-use Symfony\Component\Yaml\Yaml;
-use Drupal\block\Entity\Block;
 use Drupal\utexas\InstallationHelper;
-use Drupal\utexas_missing_blocks\Defuser;
 use Drupal\utexas_missing_blocks\BlockLayoutReferenceDeleter;
+use Drupal\utexas_missing_blocks\Defuser;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -650,7 +650,6 @@ function utexas_update_8139() {
     }
   }
 }
-
 
 /**
  * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.

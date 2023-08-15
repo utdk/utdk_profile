@@ -28,7 +28,7 @@
     "drupal/date_ap_style": "1.5.0",
     "drupal/diff": "1.1.0",
     "drupal/editor_advanced_link": "2.2.4",
-    "drupal/entity_clone": "2.0.0-beta2",
+    "drupal/entity_clone": "2.0.0-beta4",
     "drupal/features": "3.13.0",
     "drupal/feed_block": "2.0.0",
     "drupal/google_cse": "3.8.0",
@@ -69,8 +69,7 @@
         "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch"
       },
       "drupal/entity_clone": {
-        "Add a way to exclude certain entity types from cloning": "https://drupalkit.its.utexas.edu/patches/1709b-entity-clone-updated.patch",
-        "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2046-entityclone-inline-block.patch"
+        "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.patch"
       },
       "drupal/url_embed": {
         "CKEditor 5 Support": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed.patch",
