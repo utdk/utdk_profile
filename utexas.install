@@ -845,3 +845,50 @@ function utexas_update_8149() {
     \Drupal::service('module_installer')->uninstall([$module]);
   }
 }
+
+/**
+ * Install the standard workflow.
+ */
+function utexas_update_8150() {
+  // If a workflow exists, bail.
+  $config_list = \Drupal::configFactory()->listAll($prefix = "workflows");
+  if (count($config_list) >= 1) {
+    \Drupal::logger('utexas')->notice('A workflow configuration was found. Exiting.');
+    return;
+  }
+  // Install standard workflow config.
+  $install_config = [
+    'workflows.workflow.standard_workflow',
+    'views.view.moderated_content',
+  ];
+  foreach ($install_config as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+        \Drupal::logger('utexas')->notice('Installing standard workflow.');
+      }
+    }
+  }
+  // Update permissions.
+  $workflow_perms = [
+    'use standard_workflow transition archive',
+    'use standard_workflow transition create_new_draft',
+    'use standard_workflow transition publish',
+    'view latest version',
+  ];
+  $entity_type_manager = Drupal::entityTypeManager();
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    if ($role->hasPermission('edit any page content') || $role->hasPermission('edit any utexas_flex_page content')) {
+      foreach ($workflow_perms as $perm) {
+        $role->grantPermission($perm);
+      }
+      $role->save();
+      \Drupal::logger('utexas')->notice('Updated permissions for role: ' . $role->label());
+    }
+  }
+}
