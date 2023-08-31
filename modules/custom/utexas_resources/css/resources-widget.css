@@ -6,6 +6,7 @@
   margin-left: 2rem;
   float: left;
   max-width: 90%;
+  width: fit-content;
 }
 #layout-builder-modal .field--type-utexas-resources table td details {
   float: left;

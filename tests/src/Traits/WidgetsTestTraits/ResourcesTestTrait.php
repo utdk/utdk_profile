@@ -36,25 +36,29 @@ trait ResourcesTestTrait {
     // Fill Resource Collection fields.
     $form->fillField('field_block_resources[0][headline]', 'Resource Container Headline');
     // Fill Resource Collection items[0] fields.
-    $this->clickDetailsBySummaryText('1');
+    $this->clickDetailsBySummaryText('New Resource item');
     $this->addMediaLibraryImage();
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][headline]', 'Resource 1 Headline');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][headline]', 'Resource 1 Headline');
     // Fill Resource Collection items[0] (Resource 1) links[0] fields.
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][0][uri]', 'https://resource.test');
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][0][title]', 'Resource External Link');
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][0][options][attributes][target][_blank]', ['_blank' => '_blank']);
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][0][options][attributes][class]', 'ut-cta-link--external');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][0][uri]', 'https://resource.test');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][0][title]', 'Resource External Link');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][0][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][0][options][attributes][class]', 'ut-cta-link--external');
     // Add Resource Collection items[0] (Resource 1) links[1] and fill fields.
+    // 'field_block_resources00' corresponds to the "Add link" button for the
+    // first resource item.
     $this->clickElementByName($form, 'field_block_resources00');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][0][details][item][links][1][uri]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][uri]', '/node/' . $flex_page_id);
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', 'Resource Internal Link');
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][options][attributes][class]', 'ut-cta-link--lock');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][0][details][item][item][links][1][uri]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][1][uri]', '/node/' . $flex_page_id);
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][1][title]', 'Resource Internal Link');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][1][options][attributes][class]', 'ut-cta-link--lock');
     // Add Resource Collection items[1] (Resource 2) and fill fields.
-    $this->addDraggableFormItem($form, 'Add another collection');
-    $this->clickDetailsBySummaryText('2');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][headline]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][headline]', 'Resource 2 Headline');
+    $form->pressButton('Add another Resource item');
+    $this->assertTrue($assert->waitForText('New Resource item'));
+    // Expand the *second* container (as indicated by index 2).
+    $this->clickDetailsBySummaryText('New Resource item', 2);
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][item][headline]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][headline]', 'Resource 2 Headline');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -119,13 +123,13 @@ trait ResourcesTestTrait {
     // Reverse the order of Resource Collection items[0] (Resource 2) & items[1]
     // (Resource 1).
     $this->addNonDraggableFormItem($form, 'Add link', 2);
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][links][1][uri]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][2][uri]', 'https://thirdlink.test');
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][2][title]', 'Third link');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][item][links][1][uri]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][2][uri]', 'https://thirdlink.test');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][2][title]', 'Third link');
     // Remove data for the items[1] (Resource 1) links[1] link.
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][1][uri]', '');
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][1][title]', '');
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][1][options][attributes][class]', '0');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][1][uri]', '');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][1][title]', '');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][1][options][attributes][class]', '0');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
@@ -138,8 +142,8 @@ trait ResourcesTestTrait {
     $this->clickDetailsBySummaryText('(Resource 1 Headline)');
     // Confirm second link has data from third link previously created.
     // **** @todo convert to xpath as above in line 73 *****.
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', 'Third link');
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][links][1][uri]', 'https://thirdlink.test');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][item][links][1][title]', 'Third link');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][item][links][1][uri]', 'https://thirdlink.test');
     // Verify data for removed link is not present.
     $this->clickDetailsBySummaryText('(Resource 2 Headline)');
     $assert->pageTextNotContains('Resource Internal Link');
@@ -149,15 +153,15 @@ trait ResourcesTestTrait {
     $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
-    // Clear out the data for items[1] (Resource 2).
-    $this->clickDetailsBySummaryText('(Resource 2 Headline)');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][headline]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][headline]', '');
-    // Add Resource Collection items[2] (Resource 3) and fill fields.
-    $form->pressButton('Add another collection');
-    $this->clickDetailsBySummaryText('3');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][2][details][item][headline]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][2][details][item][headline]', 'Resource 3 Headline');
+    // Clear out the data for (Resource 2).
+    $form->pressButton('Remove "Resource 2 Headline"');
+    $assert->assertNoElementAfterWait('css', '#edit-field-block-resources-0-resource-items-items-1-actions');
+    // Add Resource (3) and fill fields.
+    $form->pressButton('Add another Resource item');
+    $this->assertTrue($assert->waitForText('New Resource item'));
+    $this->clickDetailsBySummaryText('New Resource item');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][2][details][item][item][headline]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][2][details][item][item][headline]', 'Resource 3 Headline');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
@@ -169,7 +173,7 @@ trait ResourcesTestTrait {
     $form = $this->waitForForm($block_content_edit_form_id);
     $this->clickDetailsBySummaryText('(Resource 3 Headline)');
     // Verify data for item entered in slot 3 is deposited in the empty slot 2.
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][headline]', 'Resource 3 Headline');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][headline]', 'Resource 3 Headline');
     // Verify data for removed item is not present.
     $assert->pageTextNotContains('Resource 2 Headline');
 
@@ -208,41 +212,43 @@ trait ResourcesTestTrait {
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
     // Fill Resource Collection Item 1 Link 1 fields.
-    $this->clickDetailsBySummaryText('Resource collection 1');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][0][details][item][links][0][title]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][0][title]', 'Link 1');
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][0][uri]', 'https://resource.test');
+    $this->clickDetailsBySummaryText('New Resource item');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][0][details][item][item][links][0][title]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][0][title]', 'Link 1');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][0][uri]', 'https://resource.test');
     // Fill Resource Collection Item 1 fields.
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][headline]', 'Resource 1 Headline');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][headline]', 'Resource 1 Headline');
     // Add Resource Collection Item 1 Link 2 and fill fields.
     $this->addNonDraggableFormItem($form, 'Add link');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][0][details][item][links][1][uri]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', 'Link 2');
-    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][links][1][uri]', 'https://resource2.test');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][0][details][item][item][links][1][uri]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][1][title]', 'Link 2');
+    $form->fillField('field_block_resources[0][resource_items][items][0][details][item][item][links][1][uri]', 'https://resource2.test');
     // Add Resource Collection Item 2.
-    $this->addDraggableFormItem($form, 'Add another collection');
-    $this->clickDetailsBySummaryText('Resource collection 2');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][headline]"]'));
-    //return;
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][headline]', 'Resource 2 Headline');
+    $form->pressButton('Save');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+    $form->pressButton('Add another Resource item');
+    $this->assertTrue($assert->waitForText('New Resource item'));
+    $this->clickDetailsBySummaryText('New Resource item', 1);
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][item][headline]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][headline]', 'Resource 2 Headline');
     // Fill Resource Collection Item 2 Link 1 fields.
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][0][title]', 'Link 3');
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][0][uri]', 'https://resource.test');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][0][title]', 'Link 3');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][0][uri]', 'https://resource.test');
     // Add Resource Collection Item 2 Link 2 and fill fields.
     $this->addNonDraggableFormItem($form, 'Add link', 2);
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][links][1][uri]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][1][title]', 'Link 4');
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][1][uri]', 'https://resource2.test');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][item][links][1][uri]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][1][title]', 'Link 4');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][1][uri]', 'https://resource2.test');
     // Add Resource Collection Item 2 Link 3 and fill fields.
     $this->addNonDraggableFormItem($form, 'Add link', 2);
-    //return;
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][links][2][uri]"]'));
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][2][title]', 'Link 5');
-    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][links][2][uri]', '/');
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_resources[0][resource_items][items][1][details][item][item][links][2][uri]"]'));
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][2][title]', 'Link 5');
+    $form->fillField('field_block_resources[0][resource_items][items][1][details][item][item][links][2][uri]', '/');
     // Save block.
     $form->pressButton('Save');
-    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
-
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
     // CRUD: READ.
     $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
@@ -250,11 +256,11 @@ trait ResourcesTestTrait {
     $this->clickDetailsBySummaryText('(Resource 1 Headline)');
     $this->clickDetailsBySummaryText('(Resource 2 Headline)');
     // Verify there are 5 links between both collections, no missing links.
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][links][0][title]', 'Link 1');
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][links][1][title]', 'Link 2');
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][links][0][title]', 'Link 3');
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][links][1][title]', 'Link 4');
-    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][links][2][title]', 'Link 5');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][item][links][0][title]', 'Link 1');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][0][details][item][item][links][1][title]', 'Link 2');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][links][0][title]', 'Link 3');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][links][1][title]', 'Link 4');
+    $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][links][2][title]', 'Link 5');
 
     $this->removeBlocks([$block_name]);
   }

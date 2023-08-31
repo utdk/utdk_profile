@@ -2,10 +2,10 @@
 
 namespace Drupal\utexas_resources\Element;
 
-use Drupal\Core\Render\Element\FormElement;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element\FormElement;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
@@ -36,15 +36,19 @@ class UTexasResourcesElement extends FormElement {
     $element['headline'] = [
       '#type' => 'textfield',
       '#title' => t('Headline'),
-      '#default_value' => isset($element['#default_value']['headline']) ? $element['#default_value']['headline'] : '',
+      '#default_value' => $element['#default_value']['headline'] ?? '',
     ];
+    $image_default = $element['#default_value']['image'] ?? 0;
+    if (is_array($image_default)) {
+      $image_default = reset($image_default);
+    }
     $element['image'] = [
       '#type' => 'media_library',
       '#allowed_bundles' => MediaEntityImageHelper::getAllowedBundles(),
       '#cardinality' => 1,
       '#name' => 'image',
       '#title' => t('Image'),
-      '#default_value' => MediaEntityImageHelper::checkMediaExists($element['#default_value']['image']),
+      '#default_value' => MediaEntityImageHelper::checkMediaExists($image_default),
       '#description' => t('Image will be automatically cropped to 400 x 250. Upload an image with an aspect ratio equal to 400 x 250 to avoid cropping.'),
     ];
     $agnostic_parents = self::makeParentsAgnostic($element['#parents']);
@@ -198,7 +202,7 @@ class UTexasResourcesElement extends FormElement {
     if ($reversed_parents[0] === 'links') {
       array_shift($reversed_parents);
     }
-    $sliced_parents = array_slice($reversed_parents, 0, 7);
+    $sliced_parents = array_slice($reversed_parents, 0, 8);
     $reversed_parents = array_reverse($sliced_parents);
     // Retrieve the form element that is using this widget.
     // The structure of $element['#parents'] will be similar to:
