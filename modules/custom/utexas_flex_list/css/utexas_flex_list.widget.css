@@ -1,0 +1,7 @@
+.field--type-utexas-flex-list table td details {
+  margin-right: 2rem;
+  float: left;
+  max-width: 90%;
+  min-width: fit-content;
+  width: fit-content;
+}

@@ -13,3 +13,12 @@ function utexas_flex_list_update_8101() {
     'utexas_flex_list',
   ], TRUE);
 }
+
+/**
+ * Add DRAC functionality (#2299).
+ */
+function utexas_flex_list_update_8102() {
+  \Drupal::service('features.manager')->import([
+    'utexas_flex_list',
+  ], TRUE);
+}
