@@ -178,23 +178,7 @@ class UtexasWidgetBase extends WidgetBase implements WidgetInterface, ContainerF
           '#default_value' => $items[$delta]->_weight ?: $delta,
           '#weight' => 100,
         ];
-        $headline = !empty($items[$delta]->headline) ? '"' . $items[$delta]->headline . '"' : 'item';
-        if ($type === 'utexas_flex_list') {
-          $headline = !empty($items[$delta]->header) ? '"' . $items[$delta]->header . '"' : 'item';
-        }
-        if ($type === 'utexas_hero') {
-          // Get media entity name.
-          if ($items[$delta]->media) {
-            /** @var \Drupal\media\MediaStorage $media_storage */
-            $media_storage = $this->entityTypeManager->getStorage('media');
-            /** @var \Drupal\media\MediaInterface $media_entity */
-            $media_entity = $media_storage->load($items[$delta]->media);
-            if ($media_entity && $media_entity->hasField('name')) {
-              $media_name = $media_entity->get('name')->getString();
-            }
-          }
-          $headline = $media_name ?? NULL;
-        }
+        $headline = 'item ' . $delta + 1;
         $element['remove'] = [
           '#type' => 'submit',
           '#value' => $this->t('Remove %headline', [

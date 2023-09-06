@@ -124,7 +124,7 @@ trait UtexasFieldTrait {
         '#delta' => ceil(count($items) / 2),
         '#attributes' => ['class' => [$group_class]],
       ];
-      $headline = !empty($item['item']['#default_value']['headline']) ? '"' . $item['item']['#default_value']['headline'] . '"' : 'item';
+      $headline = 'item ' . $inc + 1;
       $form_items[$inc]['actions'] = [
         '#type' => 'submit',
         '#value' => $this->t('Remove %headline', [
