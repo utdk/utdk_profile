@@ -7,10 +7,9 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\utexas_hero\Plugin\Field\FieldWidget\UTexasHeroWidget;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Drupal\utexas_hero\Plugin\Field\FieldWidget\UTexasHeroWidget;
 
 /**
  * Plugin implementation of the 'utexas_hero' widget.
@@ -103,6 +102,7 @@ class HeroCarouselWidget extends UTexasHeroWidget {
       '%headline' => $media_name ? '(' . $media_name . ')' : '',
     ]);
 
+    $element['#attached']['library'][] = 'utexas_hero_carousel/widget';
     return $element;
   }
 

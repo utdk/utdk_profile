@@ -3,8 +3,8 @@
 namespace Drupal\utexas_hero\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
@@ -18,7 +18,7 @@ use Drupal\utexas_media_types\MediaEntityImageHelper;
  *   }
  * )
  */
-class UTexasHeroWidget extends WidgetBase {
+class UTexasHeroWidget extends UtexasWidgetBase {
 
   /**
    * {@inheritdoc}
@@ -51,7 +51,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['heading'] = [
       '#title' => $this->t('Heading'),
       '#type' => 'textfield',
-      '#default_value' => isset($item->heading) ? $item->heading : NULL,
+      '#default_value' => $item->heading ?? NULL,
       '#size' => '60',
       '#description' => $this->t('Optional, but recommended to provide alternative textual explanation of the media.'),
       '#maxlength' => 255,
@@ -59,7 +59,7 @@ class UTexasHeroWidget extends WidgetBase {
     $element['subheading'] = [
       '#title' => $this->t('Subheading'),
       '#type' => 'textfield',
-      '#default_value' => isset($item->subheading) ? $item->subheading : NULL,
+      '#default_value' => $item->subheading ?? NULL,
       '#size' => '60',
       '#description' => $this->t('Optional. Displays directly beneath the heading. For best appearance, use no more than 140 characters. Note: this field is not visible in the default display or in hero style 2.'),
       '#maxlength' => 255,
@@ -89,7 +89,7 @@ class UTexasHeroWidget extends WidgetBase {
       '#default_value' => [
         'uri' => $item->link_uri ?? '',
         'title' => $item->link_title ?? '',
-        'options' => isset($item->link_options) ? $item->link_options : [],
+        'options' => $item->link_options ?? [],
       ],
     ];
 
