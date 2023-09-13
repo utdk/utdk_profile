@@ -161,7 +161,6 @@ class UtexasWidgetBase extends WidgetBase implements WidgetInterface, ContainerF
    * {@inheritdoc}
    */
   public function populateItem($items, $delta, $element, $form, $form_state, $is_multiple, $max, $field_name, $wrapper_id) {
-    $type = $this->fieldDefinition->getType();
     $element = $this->formSingleElement($items, $delta, $element, $form, $form_state);
 
     if ($element) {
