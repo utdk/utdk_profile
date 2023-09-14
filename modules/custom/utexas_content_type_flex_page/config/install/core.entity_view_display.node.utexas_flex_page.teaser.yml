@@ -13,11 +13,17 @@ targetEntityType: node
 bundle: utexas_flex_page
 mode: teaser
 content:
+  content_moderation_control:
+    weight: -20
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   links:
     weight: 100
     region: content
 hidden:
   display_breadcrumbs: true
   display_page_title: true
+  display_updated: true
   field_flex_page_metatags: true
   layout_builder__layout: true
