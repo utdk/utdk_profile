@@ -2,11 +2,11 @@
 
 namespace Drupal\utexas_quick_links\Plugin\Field\FieldWidget;
 
-use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\NestedArray;
+use Drupal\utexas_form_elements\Traits\UtexasFieldTrait;
 
 /**
  * Plugin implementation of the 'utexas_quick_links' widget.
@@ -21,15 +21,18 @@ use Drupal\Component\Utility\NestedArray;
  */
 class UTexasQuickLinksWidget extends WidgetBase {
 
+  use UtexasFieldTrait;
+
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
+
     $element['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->headline) ? $items[$delta]->headline : NULL,
+      '#default_value' => $items[$delta]->headline ?? '',
       '#size' => '60',
       '#placeholder' => '',
       '#maxlength' => 255,
@@ -37,64 +40,55 @@ class UTexasQuickLinksWidget extends WidgetBase {
     $element['copy'] = [
       '#title' => 'Copy',
       '#type' => 'text_format',
-      '#default_value' => isset($items[$delta]->copy_value) ? $items[$delta]->copy_value : NULL,
+      '#default_value' => $items[$delta]->copy_value ?? '',
       '#format' => $items[$delta]->copy_format ?? 'restricted_html',
     ];
-    // Retrieve the form element that is using this widget.
-    $parents = [$field_name, 'widget'];
-    $widget_state = static::getWidgetState($parents, $field_name, $form_state);
-    // This value is defined/leveraged by ::utexasAddMoreSubmit().
-    $link_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
+
+    // This serialized data is trusted from the component,
+    // so we do not restrict object types in unserialize().
+    // @codingStandardsIgnoreLine
+
     // We have to ensure that there is at least one link field.
     if (isset($items[$delta])) {
-      $links = isset($items[$delta]->links) ? unserialize($items[$delta]->links) : [];
+      $quick_links_items = isset($items[$delta]->links) ? unserialize($items[$delta]->links, ['allowed_classes' => FALSE]) : [];
     }
     else {
-      $links = [];
+      $quick_links_items = [];
     }
-    if ($link_count === NULL) {
-      if (empty($links)) {
-        $link_count = 1;
-      }
-      else {
-        $link_count = count($links);
-      }
-      $widget_state[$field_name][$delta]["counter"] = $link_count;
-      static::setWidgetState($parents, $field_name, $form_state, $widget_state);
-    }
-    $wrapper_id = Html::getUniqueId('ajax-wrapper');
-    $element['links'] = [
+
+    // Ensure item keys are consecutive.
+    $quick_links_items = array_values($quick_links_items);
+    $wrapper_id = $field_name . $delta . 'wrapper';
+
+    $element['#tree'] = TRUE;
+    $element['quick_links_items'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('List of links'),
+      '#prefix' => '<div id="' . $wrapper_id . '">',
+      '#suffix' => '</div>',
     ];
-    $element['links']['#prefix'] = '<div id="' . $wrapper_id . '">';
-    $element['links']['#suffix'] = '</div>';
-    // Ensure array keys are consecutive.
-    $links = array_values($links);
-    for ($i = 0; $i < $link_count; $i++) {
-      $element['links'][$i] = [
-        '#type' => 'utexas_link_options_element',
-        '#default_value' => [
-          'uri' => $links[$i]['uri'] ?? '',
-          'title' => $links[$i]['title'] ?? '',
-          'options' => $links[$i]['options'] ?? [],
-        ],
-      ];
-    }
-    // We limit form validation so that other elements are not validated
-    // during this submit button's refresh action. See
-    // See https://www.drupal.org/project/drupal/issues/2476569
-    $element['links']['actions']['add_link'] = [
+    $prepared_items = $this->buildItems($quick_links_items, $form_state, $field_name, $delta);
+    $prepared_items = $this->makeDraggable($prepared_items, $wrapper_id, 'quick_links_items');
+    $element['quick_links_items'] += $prepared_items;
+
+    $element['link_actions']['actions']['add'] = [
+      '#type' => 'actions',
+    ];
+    $element['link_actions']['actions']['add'] = [
       '#type' => 'submit',
-      '#name' => $field_name . $delta,
-      '#value' => $this->t('Add link'),
-      '#submit' => [[get_class($this), 'utexasAddMoreSubmit']],
+      '#value' => $this->t('Add item'),
+      '#name' => $field_name . $delta . 'add',
+      '#container' => 'quick_links_items',
+      '#action_container' => 'link_actions',
+      '#field_name' => $field_name,
+      '#delta' => $delta,
+      '#submit' => [[get_class($this), 'subFieldAddAction']],
       '#limit_validation_errors' => [],
       '#ajax' => [
-        'callback' => [get_class($this), 'utexasAddMoreAjax'],
+        'callback' => [get_class($this), 'subFieldAddTarget'],
         'wrapper' => $wrapper_id,
       ],
     ];
+
     return $element;
   }
 
@@ -142,11 +136,12 @@ class UTexasQuickLinksWidget extends WidgetBase {
     // This loop is through field instances (not link instances).
     foreach ($values as &$value) {
       // Links are stored as a serialized array.
-      if (!empty($value['links'])) {
+      if (!empty($value['quick_links_items'])) {
         $links_to_store = [];
-        foreach ($value['links'] as $key => $link) {
-          if (!empty($link['uri'])) {
-            $links_to_store[] = $link;
+        foreach ($value['quick_links_items']['items'] as $link) {
+          $link_data = $link['details']['item']['item'];
+          if (!empty($link_data['uri'])) {
+            $links_to_store[] = $link_data;
           }
         }
         // Don't serialize an empty array.
@@ -162,6 +157,40 @@ class UTexasQuickLinksWidget extends WidgetBase {
       $value['copy_format'] = $value['copy']['format'];
     }
     return $values;
+  }
+
+  /**
+   * Defines the basic form structure for a single item.
+   *
+   * @param array $item
+   *   Single item for this component.
+   * @param int $i
+   *   The delta for this single item.
+   *
+   * @return array
+   *   The form API structure for this item.
+   */
+  public function formItemStructure($item, $i) {
+    $headline = 'New link item';
+    if (isset($item['title'])) {
+      $headline = 'Item ' . ($i + 1) . ' (' . $item['title'] . ')';
+    }
+    $form = [
+      '#type' => 'details',
+      '#title' => $this->t('%headline', [
+        '%headline' => $headline,
+      ]),
+
+    ];
+    $form['item'] = [
+      '#type' => 'utexas_link_options_element',
+      '#default_value' => [
+        'uri' => $item['uri'] ?? '',
+        'title' => $item['title'] ?? '',
+        'options' => $item['options'] ?? [],
+      ],
+    ];
+    return $form;
   }
 
 }

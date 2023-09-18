@@ -3,3 +3,7 @@ quick-links:
   css:
     theme:
       css/quick-links.css: {}
+widget:
+  css:
+    theme:
+      css/utexas_quick_links.widget.css: {}
