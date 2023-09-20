@@ -5,4 +5,12 @@
   margin-left: 2rem;
   float: left;
   width: fit-content;
+  min-width: 79%;
+  max-width: 95%;
+}
+.field--type-utexas-promo-unit table td {
+  vertical-align: top;
+}
+.field--type-utexas-promo-unit table td input[value^="Remove"] {
+  margin-top: 8px;
 }
