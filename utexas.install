@@ -6,6 +6,7 @@
  */
 
 use Drupal\block\Entity\Block;
+use Drupal\Core\Config\StorageInterface;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\utexas\InstallationHelper;
@@ -915,8 +916,19 @@ function utexas_update_8151() {
   // Update the container config and save it.
   foreach ($gtm_containers as $gtm_container) {
     if (is_array($gtm_defaults)) {
+      /** @var \Drupal\google_tag\Entity\TagContainer $gtm_container */
       $gtm_container->set('conditions', $gtm_defaults['conditions']);
       $gtm_container->save();
     }
+  }
+}
+
+/**
+ * Enable Metatag Open Graph on existing sites.
+ */
+function utexas_update_8152() {
+  $module = 'metatag_open_graph';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
   }
 }

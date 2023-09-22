@@ -51,6 +51,7 @@ install:
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
   - drupal:metatag
+  - drupal:metatag_open_graph
   - drupal:metatag_twitter_cards
   - drupal:metatag_verification
   - drupal:menu_block
