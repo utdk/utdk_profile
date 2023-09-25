@@ -879,6 +879,7 @@ function utexas_update_8150() {
     'use standard_workflow transition create_new_draft',
     'use standard_workflow transition publish',
     'view latest version',
+    'view any unpublished content',
   ];
   $entity_type_manager = Drupal::entityTypeManager();
   $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
