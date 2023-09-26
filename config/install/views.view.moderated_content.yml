@@ -10,8 +10,6 @@ dependencies:
   enforced:
     module:
       - content_moderation
-_core:
-  default_config_hash: 7olvKOaJNf15B-Bj4eD1wJyaz4BR7CNA9cEjWBssa2Y
 id: moderated_content
 label: 'Moderated content'
 module: views
@@ -576,8 +574,7 @@ display:
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
-              utexas_content_editor: '0'
-              author: '0'
+              administrator: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -591,11 +588,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state_1:
-          id: moderation_state_1
-          table: node_field_data
+        moderation_state:
+          id: moderation_state
+          table: node_field_revision
           field: moderation_state
-          relationship: nid
+          relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
@@ -608,14 +605,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: moderation_state_1_op
+            operator_id: moderation_state_op
             label: 'Moderation state'
             description: ''
             use_operator: false
-            operator: moderation_state_1_op
+            operator: moderation_state_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: moderation_state_1
+            identifier: moderation_state
             required: false
             remember: false
             multiple: false
@@ -623,7 +620,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               utexas_content_editor: '0'
-              author: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -680,11 +676,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-        moderation_state:
-          id: moderation_state
-          table: node_field_data
+        moderation_state_1:
+          id: moderation_state_1
+          table: node_field_revision
           field: moderation_state
-          relationship: nid
+          relationship: none
           group_type: group
           admin_label: ''
           entity_type: node
