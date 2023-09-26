@@ -36,22 +36,24 @@ trait PromoUnitTestTrait {
     // Fill Promo Unit fields.
     $form->fillField('field_block_pu[0][headline]', 'Promo Unit Container Headline');
     // Fill Promo Unit Item 1 fields.
-    $this->clickDetailsBySummaryText('1');
+    $this->clickDetailsBySummaryText('New Promo Unit item');
     $this->addMediaLibraryImage();
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][headline]', 'Promo Unit 1 Headline');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][copy][value]', 'Promo Unit 1 Copy');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][link][uri]', 'https://promounit.test');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][link][title]', 'Promo Unit External Link');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--external');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][headline]', 'Promo Unit 1 Headline');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][copy][value]', 'Promo Unit 1 Copy');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][link][uri]', 'https://promounit.test');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][link][title]', 'Promo Unit External Link');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][link][options][attributes][class]', 'ut-cta-link--external');
     // Add Promo Unit Item 2 and fill fields.
-    $form->pressButton('Add Promo Unit item');
-    $this->clickDetailsBySummaryText('2');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][headline]', 'Promo Unit 2 Headline');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][copy][value]', 'Promo Unit 2 Copy');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][link][uri]', '/node/' . $flex_page_id);
-    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][link][title]', 'Promo Unit Internal Link');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][link][options][attributes][class]', 'ut-cta-link--lock');
+    $form->pressButton('Add another Promo Unit item');
+    $this->assertNotEmpty($assert->waitForElement('css', '[data-drupal-selector="edit-field-block-pu-0-promo-unit-items-items-1-details-item"]'));
+    // Expand the *second* container (as indicated by index 2).
+    $this->clickDetailsBySummaryText('New Promo Unit item', 2);
+    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][item][headline]', 'Promo Unit 2 Headline');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][item][copy][value]', 'Promo Unit 2 Copy');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][item][link][uri]', '/node/' . $flex_page_id);
+    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][item][link][title]', 'Promo Unit Internal Link');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][item][link][options][attributes][class]', 'ut-cta-link--lock');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -199,15 +201,15 @@ trait PromoUnitTestTrait {
     // Fill Promo Unit fields.
     $form->fillField('field_block_pu[0][headline]', 'Promo Unit Container Headline');
     // Fill Promo Unit Item 1 fields.
-    $this->clickDetailsBySummaryText('1');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][headline]', 'Promo Unit 1 Headline');
-    // Add Promo Unit Item 2.
-    $this->addDraggableFormItem($form, 'Add Promo Unit item');
-    $this->clickDetailsBySummaryText('2');
+    $this->clickDetailsBySummaryText('New Promo Unit item');
+    $form->fillField('field_block_pu[0][promo_unit_items][items][0][details][item][item][headline]', 'Promo Unit 1 Headline');
+    // Add Promo Unit Item 2 but leave blank.
+    $form->pressButton('Add another Promo Unit item');
+    $this->clickDetailsBySummaryText('New Promo Unit item', 2);
     // Add Promo Unit Item 3 and fill fields.
-    $this->addDraggableFormItem($form, 'Add Promo Unit item');
-    $this->clickDetailsBySummaryText('3');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][2][details][item][headline]', 'Promo Unit 3 Headline');
+    $form->pressButton('Add another Promo Unit item');
+    $this->clickDetailsBySummaryText('New Promo Unit item', 3);
+    $form->fillField('field_block_pu[0][promo_unit_items][items][2][details][item][item][headline]', 'Promo Unit 3 Headline');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -217,12 +219,12 @@ trait PromoUnitTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify data for item entered in slot 3 is deposited in the empty slot 2.
-    $assert->fieldValueEquals('field_block_pu[0][promo_unit_items][items][1][details][item][headline]', 'Promo Unit 3 Headline');
+    $assert->fieldValueEquals('field_block_pu[0][promo_unit_items][items][1][details][item][item][headline]', 'Promo Unit 3 Headline');
 
     // CRUD: UPDATE
     // Clear out the data for item 2.
-    $this->clickDetailsBySummaryText('2');
-    $form->fillField('field_block_pu[0][promo_unit_items][items][1][details][item][headline]', '');
+    $form->pressButton('Remove item 2');
+    $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-pu-0-promo-unit-items-items-1-actions'));
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');

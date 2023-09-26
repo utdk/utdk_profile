@@ -5,13 +5,14 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
+use Drupal\block\Entity\Block;
+use Drupal\Core\Config\StorageInterface;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
-use Symfony\Component\Yaml\Yaml;
-use Drupal\block\Entity\Block;
 use Drupal\utexas\InstallationHelper;
-use Drupal\utexas_missing_blocks\Defuser;
 use Drupal\utexas_missing_blocks\BlockLayoutReferenceDeleter;
+use Drupal\utexas_missing_blocks\Defuser;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -651,7 +652,6 @@ function utexas_update_8139() {
   }
 }
 
-
 /**
  * Convert 'Basic HTML' and 'Full HTML' to CKEditor 5.
  */
@@ -844,5 +844,92 @@ function utexas_update_8149() {
   $module = 'twitter_profile_widget';
   if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
     \Drupal::service('module_installer')->uninstall([$module]);
+  }
+}
+
+/**
+ * Install the standard workflow.
+ */
+function utexas_update_8150() {
+  // If a workflow exists, bail.
+  $config_list = \Drupal::configFactory()->listAll($prefix = "workflows");
+  if (count($config_list) >= 1) {
+    \Drupal::logger('utexas')->notice('A workflow configuration was found. Exiting.');
+    return;
+  }
+  // Install standard workflow config.
+  $install_config = [
+    'workflows.workflow.standard_workflow',
+    'views.view.moderated_content',
+  ];
+  foreach ($install_config as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+        \Drupal::logger('utexas')->notice('Installing standard workflow.');
+      }
+    }
+  }
+  // Update permissions.
+  $workflow_perms = [
+    'use standard_workflow transition archive',
+    'use standard_workflow transition create_new_draft',
+    'use standard_workflow transition publish',
+    'view latest version',
+    'view any unpublished content',
+  ];
+  $entity_type_manager = Drupal::entityTypeManager();
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    if ($role->hasPermission('edit any page content') || $role->hasPermission('edit any utexas_flex_page content')) {
+      foreach ($workflow_perms as $perm) {
+        $role->grantPermission($perm);
+      }
+      $role->save();
+      \Drupal::logger('utexas')->notice('Updated permissions for role: ' . $role->label());
+    }
+  }
+}
+
+/**
+ * Set the default path exclusions for Google Tag Manager.
+ */
+function utexas_update_8151() {
+  $gtm_containers = \Drupal::entityTypeManager()
+    ->getStorage('google_tag_container')
+    ->loadMultiple();
+
+  // Set the default config.
+  $gtm_defaults = [
+    'conditions' => [
+      'request_path' => [
+        'id' => 'request_path',
+        'negate' => TRUE,
+        'pages' => "/admin\r\n/admin/*\r\n/batch\r\n/batch/*\r\n/node/add*\r\n/node/*/edit\r\n/node/*/delete\r\n/node/*/layout\r\n/taxonomy/term/*/edit\r\n/taxonomy/term/*/layout\r\n/user/*/edit*\r\n/user/*/cancel*\r\n/user/*/layout",
+      ],
+    ],
+  ];
+
+  // Update the container config and save it.
+  foreach ($gtm_containers as $gtm_container) {
+    if (is_array($gtm_defaults)) {
+      /** @var \Drupal\google_tag\Entity\TagContainer $gtm_container */
+      $gtm_container->set('conditions', $gtm_defaults['conditions']);
+      $gtm_container->save();
+    }
+  }
+}
+
+/**
+ * Enable Metatag Open Graph on existing sites.
+ */
+function utexas_update_8152() {
+  $module = 'metatag_open_graph';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
   }
 }

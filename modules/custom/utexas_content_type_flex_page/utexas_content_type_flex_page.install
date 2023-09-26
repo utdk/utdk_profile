@@ -13,3 +13,12 @@ function utexas_content_type_flex_page_update_8101() {
     'utexas_content_type_flex_page',
   ], TRUE);
 }
+
+/**
+ * Remove content moderation field from default display.
+ */
+function utexas_content_type_flex_page_update_8102() {
+  \Drupal::service('features.manager')->import([
+    'utexas_content_type_flex_page',
+  ], TRUE);
+}

@@ -35,18 +35,24 @@ trait QuickLinksTestTrait {
     $form->fillField('info[0][value]', $block_name);
     // Fill Quick Links fields.
     $form->fillField('field_block_ql[0][headline]', 'Quick Links Headline');
+
     // Fill Quick Links Item 1 fields.
-    $form->fillField('field_block_ql[0][links][0][title]', 'Quick Links Link!');
-    $form->fillField('field_block_ql[0][links][0][uri]', 'https://tylerfahey.com');
-    $form->fillField('field_block_ql[0][links][0][options][attributes][target][_blank]', ['_blank' => '_blank']);
-    $form->fillField('field_block_ql[0][links][0][options][attributes][class]', 'ut-cta-link--external');
+    $this->clickDetailsBySummaryText('New link item');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][title]', 'Quick Links Link!');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][uri]', 'https://tylerfahey.com');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][options][attributes][class]', 'ut-cta-link--external');
+
     // Add Quick Links Item 2 and fill fields.
-    $this->addNonDraggableFormItem($form, 'Add link');
-    $form->fillField('field_block_ql[0][links][1][title]', 'Quick Links Link Number 2!');
-    $form->fillField('field_block_ql[0][links][1][uri]', '/node/' . $flex_page_id);
-    $form->fillField('field_block_ql[0][links][1][options][attributes][class]', 'ut-cta-link--lock');
+    $form->pressButton('Add item');
+    $this->clickDetailsBySummaryText('New link item', 2);
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Quick Links Link Number 2!');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '/node/' . $flex_page_id);
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][class]', 'ut-cta-link--lock');
+
     // Save block.
     $form->pressButton('Save');
+
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
@@ -59,7 +65,7 @@ trait QuickLinksTestTrait {
     $assert->responseContains('Quick Links Headline');
     // Verify Quick Links link, delta 0, is present, is an external link, and
     // has appropriate options.
-    $assert->responseContains('<a href="https://tylerfahey.com" rel="noopener noreferrer" class="ut-cta-link--external ut-link" target="_blank">Quick Links Link!</a>');
+    $assert->responseContains('<a href="https://tylerfahey.com" target="_blank" class="ut-cta-link--external ut-link" rel="noopener noreferrer">Quick Links Link!</a>');
     // Verify Quick Links link, delta 1, is present, is an internal link, and
     // has appropriate options.
     $assert->responseContains('<a href="/test-flex-page" class="ut-cta-link--lock ut-link">Quick Links Link Number 2!</a>');
@@ -70,15 +76,19 @@ trait QuickLinksTestTrait {
     $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
+
     // Add Quick Links Item 3 and fill fields.
-    $this->addNonDraggableFormItem($form, 'Add link');
-    $form->fillField('field_block_ql[0][links][2][uri]', 'https://quicklinks.test');
-    $form->fillField('field_block_ql[0][links][2][title]', 'Third link');
+    $form->pressButton('Add item');
+    $this->clickDetailsBySummaryText('New link item');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][uri]', 'https://quicklinks.test');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][title]', 'Third link');
+
     // Empty Quick Links Item 2.
-    $form->fillField('field_block_ql[0][links][1][uri]', '');
-    $form->fillField('field_block_ql[0][links][1][title]', '');
-    $form->fillField('field_block_ql[0][links][1][options][attributes][class]', '0');
-    $form->uncheckField('field_block_ql[0][links][1][options][attributes][target][_blank]');
+    $this->clickDetailsBySummaryText('Item 2 (Quick Links Link Number 2!)');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', '');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][class]', '0');
+    $form->uncheckField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][target][_blank]');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
@@ -88,10 +98,20 @@ trait QuickLinksTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $this->waitForForm($block_content_edit_form_id);
     // Confirm second link has data from third link previously created.
-    $assert->fieldValueEquals('field_block_ql[0][links][1][title]', 'Third link');
-    $assert->fieldValueEquals('field_block_ql[0][links][1][uri]', 'https://quicklinks.test');
+    $assert->fieldValueEquals('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Third link');
+    $assert->fieldValueEquals('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', 'https://quicklinks.test');
     // Assert former second link is now gone.
     $assert->pageTextNotContains('Quick Links Link Number 2!');
+
+    // Remove link.
+    $form->pressButton('Remove item 1');
+    $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-ql-0-quick-links-items-items-0-details-item'));
+    $form->pressButton('Save');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $this->waitForForm($block_content_edit_form_id);
+    // Assert former first link is now gone.
+    $assert->pageTextNotContains('Quick Links Link!');
 
     // CRUD: DELETE.
     $this->removeBlocks([$block_name]);

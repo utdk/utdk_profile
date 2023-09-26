@@ -1,10 +1,10 @@
 promo-unit-formatter:
-  version: 1.x
+  version: 1.0.1
   css:
     theme:
       css/promo-unit-formatter.css: {}
 promo-unit-widget:
-  version: 1.x
+  version: 1.0.1
   css:
     theme:
       css/promo-unit-widget.css: {}

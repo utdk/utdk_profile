@@ -1,27 +1,34 @@
 name: 'UTexas Content Type Flex Page'
 description: 'Flex Page Content Type feature.'
 type: module
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: '^9.4 || ^10'
 package: UTexas
 dependencies:
+  - 'breadcrumbs_visibility:breadcrumbs_visibility'
+  - 'drupal:block_content'
+  - 'drupal:content_moderation'
+  - 'drupal:contextual'
   - 'drupal:field'
+  - 'drupal:file'
+  - 'drupal:filter'
   - 'drupal:layout_builder'
   - 'drupal:layout_discovery'
+  - 'drupal:media'
   - 'drupal:menu_ui'
   - 'drupal:node'
   - 'drupal:path'
+  - 'drupal:search'
+  - 'drupal:system'
+  - 'drupal:taxonomy'
   - 'drupal:text'
+  - 'drupal:toolbar'
   - 'drupal:user'
-  - field
-  - layout_builder
+  - 'drupal:workflows'
   - 'layout_builder_restrictions:layout_builder_restrictions'
-  - layout_discovery
-  - menu_ui
-  - metatag
   - 'metatag:metatag'
-  - node
-  - path
-  - user
-  - utexas_layouts
+  - 'page_title_visibility:page_title_visibility'
+  - 'updated:updated'
+  - 'utexas_layouts:utexas_layouts'
+  - 'utexas_text_format_flex_html:utexas_text_format_flex_html'
 version: 8.x-1.0
 core_incompatible: false

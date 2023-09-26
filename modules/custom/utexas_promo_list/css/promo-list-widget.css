@@ -2,11 +2,6 @@
 #layout-builder-modal .field--type-utexas-promo-list table td a.tabledrag-handle {
   margin-top: 1.5rem;
 }
-.field--type-utexas-promo-list table td details {
-  margin-left: 2rem;
-  float: left;
-  max-width: 90%;
-}
 #layout-builder-modal .field--type-utexas-promo-list table td details {
   float: left;
   margin-left: 1rem;
@@ -14,4 +9,17 @@
 }
 #layout-builder-modal .field--type-utexas-promo-list table td details summary {
   padding: 0.5rem 0.5rem 0 0.5rem;
+}
+.field--type-utexas-promo-list table td details {
+  margin-left: 2rem;
+  float: left;
+  max-width: 94%;
+  width: fit-content;
+  min-width: 79%;
+}
+.field--type-utexas-promo-list table td {
+  vertical-align: top;
+}
+.field--type-utexas-promo-list table td input[value^="Remove"] {
+  margin-top: 8px;
 }

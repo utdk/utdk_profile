@@ -10,7 +10,7 @@ id: block_content.utexas_flex_list.field_utexas_flex_list_items
 field_name: field_utexas_flex_list_items
 entity_type: block_content
 bundle: utexas_flex_list
-label: 'List items'
+label: 'Flex list'
 description: ''
 required: false
 translatable: false

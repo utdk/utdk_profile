@@ -12,5 +12,9 @@ horizontal-tabs:
       css/utexas_flex_list.horizontal-tabs.css: {}
   js:
     js/tab.js: {}
+widget:
+  css:
+    theme:
+      css/utexas_flex_list.widget.css: {}
   dependencies:
     - core/jquery

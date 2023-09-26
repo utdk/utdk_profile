@@ -3,8 +3,8 @@
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
@@ -18,27 +18,33 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
  *   }
  * )
  */
-class UTexasFlexList extends WidgetBase {
+class UTexasFlexList extends UtexasWidgetBase {
 
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element['header'] = [
+    $item = $items[$delta];
+    $headline = $item->header ? 'Flex List item ' . ($delta + 1) . ' (' . $item->header . ')' : 'New item';
+    $element['utexas_flex_list'] = [
+      '#type' => 'details',
+      '#title' => $this->t('@headline', ['@headline' => $headline]),
+    ];
+    $element['utexas_flex_list']['header'] = [
       '#title' => 'Item header',
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->header) ? $items[$delta]->header : NULL,
+      '#default_value' => $items[$delta]->header ?? NULL,
       '#size' => '60',
       '#placeholder' => '',
       '#maxlength' => 255,
     ];
-    $element['content'] = [
+    $element['utexas_flex_list']['content'] = [
       '#title' => 'Item content',
       '#type' => 'text_format',
-      '#default_value' => isset($items[$delta]->content_value) ? $items[$delta]->content_value : NULL,
+      '#default_value' => $items[$delta]->content_value ?? NULL,
       '#format' => $items[$delta]->content_format,
     ];
-
+    $element['#attached']['library'][] = 'utexas_flex_list/widget';
     return $element;
   }
 
@@ -48,8 +54,9 @@ class UTexasFlexList extends WidgetBase {
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     foreach ($values as &$value) {
       // Split the "text_format" form element data into our field's schema.
-      $value['content_value'] = $value['content']['value'];
-      $value['content_format'] = $value['content']['format'];
+      $value['header'] = $value['utexas_flex_list']['header'];
+      $value['content_value'] = $value['utexas_flex_list']['content']['value'];
+      $value['content_format'] = $value['utexas_flex_list']['content']['format'];
     }
     return $values;
   }

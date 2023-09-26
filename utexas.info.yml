@@ -2,7 +2,7 @@ name: UTexas
 type: profile
 description: Installation profile for the UT Drupal Kit.
 core_version_requirement: ^9 || ^10
-version: '3.13.1'
+version: '3.14.0'
 distribution:
   name: UTexas
 dependencies:
@@ -51,6 +51,7 @@ install:
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
   - drupal:metatag
+  - drupal:metatag_open_graph
   - drupal:metatag_twitter_cards
   - drupal:metatag_verification
   - drupal:menu_block

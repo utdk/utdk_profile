@@ -115,6 +115,7 @@ filters:
     weight: -39
     settings:
       enable_responsive: '1'
+      default_ratio: ''
   filter_qualtrics:
     id: filter_qualtrics
     provider: utexas_qualtrics_filter

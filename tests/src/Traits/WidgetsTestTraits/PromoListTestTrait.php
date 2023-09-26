@@ -34,28 +34,28 @@ trait PromoListTestTrait {
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
     // Fill Promo List 1 fields.
-    $this->clickDetailsBySummaryText('1');
+    $this->clickDetailsBySummaryText('New Promo List item');
     $this->addMediaLibraryImage();
     $form->fillField('field_block_pl[0][headline]', 'Promo List 1 Headline');
     // Fill Promo List 1 Item 1 fields.
-    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
-    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 1 item 1');
-    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][uri]', '/sites/default/files/file%20with%20spaces.pdf');
-    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
-    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--external');
+    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][item][headline]', 'List 1 item 1');
+    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][item][copy][value]', 'Copy text for list 1 item 1');
+    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][item][link][uri]', '/sites/default/files/file%20with%20spaces.pdf');
+    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][item][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
+    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][item][link][options][attributes][class]', 'ut-cta-link--external');
     // Add Promo List 1 Item 2 and fill fields.
-    $this->addDraggableFormItem($form, 'Add Promo List item');
-    $this->clickDetailsBySummaryText('2');
-    $form->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 2');
+    $form->pressButton('Add Promo List item');
+    $this->clickDetailsBySummaryText('New Promo List item', 2);
+    $form->fillField('field_block_pl[0][promo_list_items][items][1][details][item][item][headline]', 'List 1 item 2');
     // Add Promo List 2 and fill fields.
     $this->addDraggableFormItem($form, 'Add another item');
-    $this->clickDetailsBySummaryText('1', 2);
+    $this->clickDetailsBySummaryText('New Promo List item', 3);
     $form->fillField('field_block_pl[1][headline]', 'Promo List 2 Headline');
     // Fill Promo List 2 Item 1 fields.
-    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][headline]', 'List 2 item 1');
-    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][copy][value]', 'Copy text for list 2 item 1');
-    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][uri]', '/node/' . $flex_page_id);
-    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][link][options][attributes][class]', 'ut-cta-link--lock');
+    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][item][headline]', 'List 2 item 1');
+    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][item][copy][value]', 'Copy text for list 2 item 1');
+    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][item][link][uri]', '/node/' . $flex_page_id);
+    $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][item][link][options][attributes][class]', 'ut-cta-link--lock');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -171,18 +171,18 @@ trait PromoListTestTrait {
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
     // Fill Promo List 1 fields.
-    $this->clickDetailsBySummaryText('1');
+    $this->clickDetailsBySummaryText('New Promo List item');
     $this->addMediaLibraryImage();
     $form->fillField('field_block_pl[0][headline]', 'Promo List 1 Headline');
     // Fill Promo List 1 Item 1 fields.
-    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][headline]', 'List 1 item 1');
-    // Add Promo List 1 Item 2.
-    $this->addDraggableFormItem($form, 'Add Promo List item');
-    $this->clickDetailsBySummaryText('2');
+    $form->fillField('field_block_pl[0][promo_list_items][items][0][details][item][item][headline]', 'List 1 item 1');
+    // Add Promo List 1 Item 2 but leave blank.
+    $form->pressButton('Add Promo List item');
+    $this->clickDetailsBySummaryText('New Promo List item', 2);
     // Add Promo List 1 Item 3 and fill fields.
-    $this->addDraggableFormItem($form, 'Add Promo List item');
-    $this->clickDetailsBySummaryText('3');
-    $form->fillField('field_block_pl[0][promo_list_items][items][2][details][item][headline]', 'List 1 item 3');
+    $form->pressButton('Add Promo List item');
+    $this->clickDetailsBySummaryText('New Promo List item', 3);
+    $form->fillField('field_block_pl[0][promo_list_items][items][2][details][item][item][headline]', 'List 1 item 3');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -192,12 +192,16 @@ trait PromoListTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify data for item entered in slot 3 is deposited in the empty slot 2.
-    $assert->fieldValueEquals('field_block_pl[0][promo_list_items][items][1][details][item][headline]', 'List 1 item 3');
+    $assert->fieldValueEquals('field_block_pl[0][promo_list_items][items][1][details][item][item][headline]', 'List 1 item 3');
+    $form->pressButton('Save');
 
     // CRUD: UPDATE
     // Clear out the data for item 2.
-    $this->clickDetailsBySummaryText('2');
-    $form->fillField('field_block_pl[0][promo_list_items][items][1][details][item][headline]', '');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+    $form->pressButton('Remove item 2');
+    $this->assertEmpty($assert->assertNoElementAfterWait('css', '[data-drupal-selector="edit-field-block-pl-0-promo-list-items-items-1-actions"]'));
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');

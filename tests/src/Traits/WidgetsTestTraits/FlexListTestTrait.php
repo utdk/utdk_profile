@@ -30,15 +30,23 @@ trait FlexListTestTrait {
     $form = $this->waitForForm($block_content_create_form_id);
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
+
+    $this->clickDetailsBySummaryText('New item');
+
     // Fill Flex List Item 1 fields.
-    $form->fillField('field_utexas_flex_list_items[0][header]', 'Location');
-    $form->fillField('field_utexas_flex_list_items[0][content][format]', 'restricted_html');
-    $form->fillField('field_utexas_flex_list_items[0][content][value]', 'FAC 326');
+    $form->fillField('field_utexas_flex_list_items[0][utexas_flex_list][header]', 'Location');
+    $form->fillField('field_utexas_flex_list_items[0][utexas_flex_list][content][format]', 'restricted_html');
+    $form->fillField('field_utexas_flex_list_items[0][utexas_flex_list][content][value]', 'FAC 326');
+
+    $form->pressButton('Add another Flex list item');
+    // $this->assertTrue($assert->waitForId('New item'));
+    $this->clickDetailsBySummaryText('New item', 2);
+
     // Add Flex List Item 2 and fill fields.
-    $this->addDraggableFormItem($form, 'Add another item');
-    $form->fillField('field_utexas_flex_list_items[1][content][format]', 'restricted_html');
-    $form->fillField('field_utexas_flex_list_items[1][header]', 'Website');
-    $form->fillField('field_utexas_flex_list_items[1][content][value]', 'https://drupalkit.its.utexas.edu');
+    $form->fillField('field_utexas_flex_list_items[1][utexas_flex_list][content][format]', 'restricted_html');
+    $form->fillField('field_utexas_flex_list_items[1][utexas_flex_list][header]', 'Website');
+    $form->fillField('field_utexas_flex_list_items[1][utexas_flex_list][content][value]', 'https://drupalkit.its.utexas.edu');
+
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -75,6 +83,14 @@ trait FlexListTestTrait {
     // CRUD: READ
     // Verify page output.
     $assert->elementExists('css', '.utexas-flex-list.formatter-htabs ul.nav-tabs li.nav-item.active');
+
+    // REMOVE.
+    $this->drupalGet('/admin/content/block/');
+    $this->getSession()->getPage()->findLink('Flex List Test')->click();
+    $form = $this->waitForForm('block-content-utexas-flex-list-edit-form');
+    $this->getSession()->getPage()->find('css', '#edit-field-utexas-flex-list-items-0-remove')->click();
+    $assert->assertNoElementAfterWait('css', '#edit-field-utexas-flex-list-items-0-utexas-flex-list');
+    $form->pressButton('Save');
 
     // CRUD: DELETE.
     $this->removeBlocks([$block_name]);

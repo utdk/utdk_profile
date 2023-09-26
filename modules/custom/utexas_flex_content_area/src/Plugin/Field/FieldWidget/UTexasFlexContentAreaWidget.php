@@ -3,10 +3,10 @@
 namespace Drupal\utexas_flex_content_area\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\WidgetBase;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
@@ -20,7 +20,7 @@ use Drupal\utexas_media_types\MediaEntityImageHelper;
  *   }
  * )
  */
-class UTexasFlexContentAreaWidget extends WidgetBase {
+class UTexasFlexContentAreaWidget extends UtexasWidgetBase {
 
   /**
    * {@inheritdoc}
@@ -34,12 +34,10 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     array_push($allowed_bundles, 'utexas_video_external');
 
     $field_name = $this->fieldDefinition->getName();
+    $headline = $item->headline ? 'Flex Content Area ' . ($delta + 1) . ' (' . $item->headline . ')' : 'New item';
     $element['flex_content_area'] = [
       '#type' => 'details',
-      '#title' => $this->t('Flex Content Area %number %headline', [
-        '%number' => $delta + 1,
-        '%headline' => isset($item->headline) ? ' (' . $item->headline . ')' : '',
-      ]),
+      '#title' => $this->t('%headline', ['%headline' => $headline]),
     ];
     $element['flex_content_area']['image'] = [
       '#type' => 'media_library',
@@ -68,9 +66,10 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
-    $link_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
+    $link_count = $widget_state[$field_name][$delta]["counter"] ?? NULL;
     // We have to ensure that there is at least one link field.
-    $links = (array) unserialize($item->links ?? '');
+    // @codingStandardsIgnoreLine
+    $links = !empty($item->links) ? unserialize($item->links) : [];
     if ($link_count === NULL) {
       if (empty($links)) {
         $link_count = 1;
@@ -126,6 +125,7 @@ class UTexasFlexContentAreaWidget extends WidgetBase {
         'options' => $item->link_options ?? [],
       ],
     ];
+    $element['#attached']['library'][] = 'utexas_flex_content_area/widget';
     return $element;
   }
 

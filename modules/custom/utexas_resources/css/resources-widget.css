@@ -5,7 +5,16 @@
 .field--type-utexas-resources table td details {
   margin-left: 2rem;
   float: left;
-  max-width: 90%;
+  width: fit-content;
+  min-width: 79%;
+  max-width: 95%;
+}
+.field--type-utexas-resources table td {
+  vertical-align: top;
+  /* width: 83%; */
+}
+.field--type-utexas-resources table td input[value^="Remove"] {
+  margin-top: 8px;
 }
 #layout-builder-modal .field--type-utexas-resources table td details {
   float: left;

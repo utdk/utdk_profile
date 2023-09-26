@@ -5,8 +5,8 @@
  * Contains utexas_hero.module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\block\BlockForm;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -129,14 +129,14 @@ function _utexas_hero_simplify_layout_form(&$form) {
     }
   }
   if ($is_hero) {
-    $form['settings']['view_mode']['#options'] = _update_hero_view_mode_labels($form['settings']['view_mode']['#options']);
+    $form['settings']['view_mode']['#options'] = _utexas_hero_update_hero_view_mode_labels($form['settings']['view_mode']['#options']);
   }
 }
 
 /**
  * Helper function for updating view mode labels.
  */
-function _update_hero_view_mode_labels($options) {
+function _utexas_hero_update_hero_view_mode_labels($options) {
   $formatterManager = \Drupal::service('plugin.manager.field.formatter');
   $definitions = $formatterManager->getDefinitions();
   $map = _utexas_hero_mapping_formatter_labels($definitions, 'utexas_hero');
@@ -170,7 +170,7 @@ function _utexas_hero_formatter_split_entity_type_validation(&$form) {
   if (isset($form['settings']['block_form'])) {
     $bundle = $form['settings']['block_form']['#block']->bundle();
     if ($bundle === 'utexas_hero') {
-      $form = _add_new_hero_image_form_elements($form, 'block');
+      $form = _utexas_hero_add_new_hero_image_form_elements($form, 'block');
     }
   }
   // Checking if form contains a reusable hero block.
@@ -179,7 +179,7 @@ function _utexas_hero_formatter_split_entity_type_validation(&$form) {
     $option_keys = array_keys($selector);
     foreach ($option_keys as $option) {
       if (strpos($option, 'utexas_hero') !== FALSE) {
-        $form = _add_new_hero_image_form_elements($form, 'block');
+        $form = _utexas_hero_add_new_hero_image_form_elements($form, 'block');
         break;
       }
     }
@@ -188,7 +188,7 @@ function _utexas_hero_formatter_split_entity_type_validation(&$form) {
   if (isset($form['settings']['formatter'])) {
     $formatter = $form['settings']['formatter']['type']['#default_value'];
     if (strpos($formatter, 'utexas_hero') !== FALSE) {
-      $form = _add_new_hero_image_form_elements($form, 'node');
+      $form = _utexas_hero_add_new_hero_image_form_elements($form, 'node');
     }
   }
 }
@@ -196,7 +196,7 @@ function _utexas_hero_formatter_split_entity_type_validation(&$form) {
 /**
  * Helper function that creates the necessary form elements to pick a style.
  */
-function _add_new_hero_image_form_elements($form, $entity_type) {
+function _utexas_hero_add_new_hero_image_form_elements($form, $entity_type) {
   $form['#attached']['library'][] = 'utexas_hero/hero_formatters_split';
   $options = $form['settings']['view_mode']['#options'];
   $suppress = [
@@ -243,6 +243,7 @@ function _add_new_hero_image_form_elements($form, $entity_type) {
     '#default_value' => "center",
     '#title' => t('Image anchor position'),
     '#description' => t('Set what part of the image should be the focal anchor. This is only applicable to Styles 1, 2, 3, and 5.'),
+    '#description_display' => 'before',
     '#options' => $hero_positions,
   ];
   return $form;
@@ -266,7 +267,7 @@ function utexas_hero_form_block_form_alter(&$form, &$form_state, $form_id) {
       if (method_exists($block_content, 'bundle')) {
         $bundle = $block_content->bundle();
         if ($bundle == 'utexas_hero') {
-          $form['settings']['view_mode']['#options'] = _update_hero_view_mode_labels($form['settings']['view_mode']['#options']);
+          $form['settings']['view_mode']['#options'] = _utexas_hero_update_hero_view_mode_labels($form['settings']['view_mode']['#options']);
           _utexas_hero_formatter_split_entity_type_validation($form);
         }
       }

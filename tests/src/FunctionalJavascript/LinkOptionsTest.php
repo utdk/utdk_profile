@@ -41,18 +41,22 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
     // Fill Link 1 fields.
-    $form->fillField('field_block_ql[0][links][0][title]', 'Internal link with anchor');
-    $form->fillField('field_block_ql[0][links][0][uri]', '/node/' . $flex_page_id . '#anchor');
+    $this->clickDetailsBySummaryText('New link item');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][title]', 'Internal link with anchor');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][uri]', '/node/' . $flex_page_id . '#anchor');
+
     // Add Link 2 and fill fields.
-    $this->clickElementByName($form, 'field_block_ql0');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][links][1][title]"]'));
-    $form->fillField('field_block_ql[0][links][1][title]', 'Internal link with query');
-    $form->fillField('field_block_ql[0][links][1][uri]', '/node/' . $flex_page_id . '?query=1&search=test');
+    $form->pressButton('Add item');
+    $this->clickDetailsBySummaryText('New link item', 2);
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][1][details][item][item][title]"]'));
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Internal link with query');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '/node/' . $flex_page_id . '?query=1&search=test');
     // Add Link 3 and fill fields.
-    $this->clickElementByName($form, 'field_block_ql0');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][links][2][title]"]'));
-    $form->fillField('field_block_ql[0][links][2][title]', 'Link to front with query and anchor');
-    $form->fillField('field_block_ql[0][links][2][uri]', '/#anchor?query=1&search=test');
+    $form->pressButton('Add item');
+    $this->clickDetailsBySummaryText('New link item', 3);
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][2][details][item][item][title]"]'));
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][title]', 'Link to front with query and anchor');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][uri]', '/#anchor?query=1&search=test');
 
     // Save block.
     $form->pressButton('Save');
@@ -77,7 +81,6 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     // CRUD: DELETE.
     $this->removeNodes([$flex_page_id]);
   }
-
 
   /**
    * Test link icons provided by the UTexasLinkOptions widget.
@@ -108,22 +111,26 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     // Fill Quick Links fields.
     $form->fillField('field_block_ql[0][headline]', 'Quick Links Headline');
     // Fill Quick Links links[0] fields.
-    $form->fillField('field_block_ql[0][links][0][title]', 'Link Number 1');
-    $form->fillField('field_block_ql[0][links][0][uri]', 'https://www.utexas.edu');
-    $form->checkField('field_block_ql[0][links][0][options][attributes][target][_blank]');
-    $form->fillField('field_block_ql[0][links][0][options][attributes][class]', 'ut-cta-link--external');
+    $this->clickDetailsBySummaryText('New link item');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][title]', 'Link Number 1');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][uri]', 'https://www.utexas.edu');
+    $form->checkField('field_block_ql[0][quick_links_items][items][0][details][item][item][options][attributes][target][_blank]');
+    $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][options][attributes][class]', 'ut-cta-link--external');
+
     // Add Quick Links links[1] and fill fields.
-    $this->clickElementByName($form, 'field_block_ql0');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][links][1][title]"]'));
-    $form->fillField('field_block_ql[0][links][1][title]', 'Link Number 2');
-    $form->fillField('field_block_ql[0][links][1][uri]', '/node/' . $flex_page_id);
-    $form->fillField('field_block_ql[0][links][1][options][attributes][class]', 'ut-cta-link--lock');
+    $form->pressButton('Add item');
+    $this->clickDetailsBySummaryText('New link item', 2);
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][1][details][item][item][title]"]'));
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Link Number 2');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '/node/' . $flex_page_id);
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][class]', 'ut-cta-link--lock');
     // Add Quick Links links[2] and fill fields.
-    $this->clickElementByName($form, 'field_block_ql0');
-    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][links][2][title]"]'));
-    $form->fillField('field_block_ql[0][links][2][title]', 'Link Number 3');
-    $form->fillField('field_block_ql[0][links][2][uri]', '<front>');
-    $form->fillField('field_block_ql[0][links][2][options][attributes][class]', 'ut-cta-link--angle-right');
+    $form->pressButton('Add item');
+    $this->clickDetailsBySummaryText('New link item', 3);
+    $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][2][details][item][item][title]"]'));
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][title]', 'Link Number 3');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][uri]', '<front>');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][options][attributes][class]', 'ut-cta-link--angle-right');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -136,7 +143,7 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     // CRUD: READ
     // Delta 0 is present, links to an external site, shows an external icon,
     // and opens in a new tab.
-    $assert->responseContains('<a href="https://www.utexas.edu" rel="noopener noreferrer" class="ut-cta-link--external ut-link" target="_blank">Link Number 1</a>');
+    $assert->responseContains('<a href="https://www.utexas.edu" target="_blank" class="ut-cta-link--external ut-link" rel="noopener noreferrer">Link Number 1</a>');
     // Delta 1 is present, links to an internal page, and has a lock.
     $assert->responseContains('<a href="/test-flex-page" class="ut-cta-link--lock ut-link">Link Number 2</a>');
     // Delta 2 is present, links to the front page, and has a caret.
@@ -147,14 +154,16 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Quick Links links[2] fields.
-    $form->fillField('field_block_ql[0][links][2][uri]', 'https://quicklinks.test');
-    $form->fillField('field_block_ql[0][links][2][title]', 'Updated third link');
-    $form->fillField('field_block_ql[0][links][2][options][attributes][class]', '0');
+    $this->clickDetailsBySummaryText('Item 3 (Link Number 3)');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][uri]', 'https://quicklinks.test');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][title]', 'Updated third link');
+    $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][options][attributes][class]', '0');
     // Empty Quick Links links[1] fields.
-    $form->fillField('field_block_ql[0][links][1][uri]', '');
-    $form->fillField('field_block_ql[0][links][1][title]', '');
-    $form->fillField('field_block_ql[0][links][1][options][attributes][class]', '0');
-    $form->uncheckField('field_block_ql[0][links][1][options][attributes][target][_blank]');
+    $this->clickDetailsBySummaryText('Item 2 (Link Number 2)');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', '');
+    $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][class]', '0');
+    $form->uncheckField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][target][_blank]');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
@@ -164,9 +173,10 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $this->waitForForm($block_content_edit_form_id);
     // Confirm second link has data from third link previously created.
-    $assert->fieldValueEquals('field_block_ql[0][links][1][title]', 'Updated third link');
-    $assert->fieldValueEquals('field_block_ql[0][links][1][uri]', 'https://quicklinks.test');
-    $assert->fieldValueEquals('field_block_ql[0][links][1][options][attributes][class]', '0');
+    $this->clickDetailsBySummaryText('Item 2 (Updated third link)');
+    $assert->fieldValueEquals('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Updated third link');
+    $assert->fieldValueEquals('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', 'https://quicklinks.test');
+    $assert->fieldValueEquals('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][class]', '0');
     // Assert former second link is now gone.
     $assert->pageTextNotContains('Link Number 2');
 

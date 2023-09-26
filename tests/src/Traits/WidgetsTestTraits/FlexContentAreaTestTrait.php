@@ -35,7 +35,7 @@ trait FlexContentAreaTestTrait {
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
     // Fill Flex Content Area 1 fields.
-    $this->clickDetailsBySummaryText('1');
+    $this->clickDetailsBySummaryText('New item');
     $this->addMediaLibraryImage();
     $form->fillField('field_block_fca[0][flex_content_area][headline]', 'Flex Content Area Headline 1');
     $form->fillField('field_block_fca[0][flex_content_area][copy][value]', 'Flex Content Area Copy');
@@ -71,7 +71,7 @@ trait FlexContentAreaTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Flex Content Area 2 fields.
-    $this->clickDetailsBySummaryText('2');
+    $this->clickDetailsBySummaryText('New item');
     $this->addMediaLibraryExternalVideo('Video 1', 2);
     $form->fillField('field_block_fca[1][flex_content_area][headline]', 'Flex Content Area Headline 2');
     $form->fillField('field_block_fca[1][flex_content_area][copy][value]', 'Flex Content Area Copy 2');
@@ -88,7 +88,7 @@ trait FlexContentAreaTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Flex Content Area 3 fields.
-    $this->clickDetailsBySummaryText('3');
+    $this->clickDetailsBySummaryText('New item');
     $form->fillField('field_block_fca[2][flex_content_area][headline]', 'Flex Content Area Headline 3');
     // Save block.
     $form->pressButton('Save');
@@ -163,17 +163,16 @@ trait FlexContentAreaTestTrait {
     $this->drupalGet('block/add/' . $block_type_id);
     $form = $this->waitForForm($block_content_create_form_id);
     // Fill Flex Content Area 1 fields.
-    $this->clickDetailsBySummaryText('1');
+    $this->clickDetailsBySummaryText('New item');
     $form->fillField('info[0][value]', $block_name);
     $form->fillField(('field_block_fca[0][flex_content_area][headline]'), 'Flex Content Area Headline 1');
     // Add Flex Content Area 2.
     // Note that because of alpha-order by Headline, this will become the LAST
     // Flex Content Area in the list after the block is saved.
-    $this->addDraggableFormItem($form, 'Add another item');
     // Add Flex Content Area 3 and fill fields.
-    $this->addDraggableFormItem($form, 'Add another item');
-    $this->clickDetailsBySummaryText('3');
-    $form->fillField(('field_block_fca[2][flex_content_area][headline]'), 'Flex Content Area Headline 3');
+    $form->pressButton('Add another Flex Content Area item');
+    $this->clickDetailsBySummaryText('New item', 2);
+    $form->fillField(('field_block_fca[1][flex_content_area][headline]'), 'Flex Content Area Headline 2');
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
@@ -183,11 +182,11 @@ trait FlexContentAreaTestTrait {
     $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
-    $assert->pageTextContains('Flex Content Area Headline 3');
+    $assert->pageTextContains('Flex Content Area Headline 2');
 
     // CRUD: UPDATE
     // Clear out the data for item 3.
-    $this->clickDetailsBySummaryText('(Flex Content Area Headline 3)');
+    $this->clickDetailsBySummaryText('Flex Content Area 2 (Flex Content Area Headline 2)');
     $form->fillField(('field_block_fca[1][flex_content_area][headline]'), '');
     // Save block.
     $form->pressButton('Save');
@@ -199,7 +198,21 @@ trait FlexContentAreaTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $this->waitForForm($block_content_edit_form_id);
     // Verify data for removed item is not present.
-    $assert->pageTextNotContains('Flex Content Area Headline 3');
+    $assert->pageTextNotContains('Flex Content Area Headline 2');
+
+    // Test remove button.
+    $form->pressButton('Remove item 1');
+    $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-fca-0-remove'));
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
+
+    // CRUD:READ.
+    // Re-open block.
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $this->waitForForm($block_content_edit_form_id);
+    // Verify data for removed item is not present.
+    $assert->pageTextNotContains('Flex Content Area Headline 1');
 
     // CRUD: DELETE.
     $this->removeBlocks([$block_name]);

@@ -3,12 +3,12 @@
 namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\filter\Entity\FilterFormat;
+
 use Drupal\node\Entity\Node;
 
 use Drupal\Tests\BrowserTestBase;
-
-use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
+use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -94,35 +94,36 @@ class BaseInstallationTest extends BrowserTestBase {
     $ckeditor_actual = $this->config('editor.editor.flex_html')->get('settings.toolbar');
     $ckeditor_expected = [
       'items' => [
-          'bold',
-          'italic',
-          'strikethrough',
-          'horizontalLine',
-          'removeFormat',
-          'undo',
-          'redo',
-          '|',
-          'link',
-          '|',
-          'bulletedList',
-          'numberedList',
-          'outdent',
-          'indent',
-          'alignment',
-          '|',
-          'insertTable',
-          'drupalMedia',
-          'urlembed',
-          'qualtrics',
-          'blockQuote',
-          'heading',
-          '|',
-          'specialCharacters',
-          'subscript',
-          'superscript',
-          'underline',
-          'sourceEditing',
-          '-',
+        'bold',
+        'italic',
+        'strikethrough',
+        'horizontalLine',
+        'removeFormat',
+        'undo',
+        'redo',
+        '|',
+        'link',
+        '|',
+        'bulletedList',
+        'numberedList',
+        'outdent',
+        'indent',
+        'alignment',
+        '|',
+        'insertTable',
+        'drupalMedia',
+        'urlembed',
+        'qualtrics',
+        'blockQuote',
+        'heading',
+        'style',
+        '|',
+        'specialCharacters',
+        'subscript',
+        'superscript',
+        'underline',
+        'sourceEditing',
+        '-',
       ],
     ];
     $this->assertEquals($ckeditor_actual, $ckeditor_expected);

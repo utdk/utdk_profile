@@ -1,0 +1,14 @@
+.field--type-utexas-quick-links table td details {
+  float: left;
+  width: fit-content;
+  min-width: 93%; */
+  max-width: 90%;
+}
+.field--widget-utexas-quick-links table td {
+  vertical-align: top;
+}
+.field--widget-utexas-quick-links table td input[value^="Remove"]  {
+  margin-left: 16px;
+  margin-top: 8px;
+}
+
