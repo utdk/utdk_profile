@@ -66,7 +66,8 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch"
+        "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch",
+        "PHP warning: gd-png: libpng warning: iCCP: known incorrect sRGB profile": "https://drupalkit.its.utexas.edu/patches/14-imagecreatefrompng-3261924-34.patch"
       },
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.patch"
