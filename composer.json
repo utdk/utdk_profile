@@ -70,7 +70,8 @@
         "PHP warning: gd-png: libpng warning: iCCP: known incorrect sRGB profile": "https://drupalkit.its.utexas.edu/patches/14-imagecreatefrompng-3261924-34.patch"
       },
       "drupal/entity_clone": {
-        "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.patch"
+        "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.patch",
+        "Warning: Undefined array key status in Drupal/entity_clone/Form/EntityCloneForm->submitForm()": "https://drupalkit.its.utexas.edu/patches/16-entityclone-arraykey-3384354.patch"
       },
       "drupal/url_embed": {
         "CKEditor 5 Support": "https://drupalkit.its.utexas.edu/patches/2093-ckeditor5-support-url-embed.patch",
