@@ -214,7 +214,7 @@ function _utexas_hero_add_new_hero_image_form_elements($form, $entity_type) {
   }
   $form['#attached']['library'][] = 'core/drupal.dialog.ajax';
   $displayed_styles = [
-    'default' => '<span>Default style:</span> <a href="https://demo.drupalkit.its.utexas.edu/hero-styles" target="_blank">Default: Large media with optional caption and credit<span class="ut-cta-link--external"></span></a>',
+    'default' => '<span>Default style:</span> <a href="https://demo.drupalkit.its.utexas.edu/hero-styles/default" target="_blank">Default: Large media with optional caption and credit<span class="ut-cta-link--external"></span></a>',
     'utexas_hero_1' => '<span>Style 1:</span> <a href="https://demo.drupalkit.its.utexas.edu/hero-styles/1" target="_blank">Bold heading & subheading on burnt orange background<span class="ut-cta-link--external"></span></a>',
     'utexas_hero_2' => '<span>Style 2:</span> <a href="https://demo.drupalkit.its.utexas.edu/hero-styles/2" target="_blank">Bold heading on dark background, anchored at base of media<span class="ut-cta-link--external"></span></a>',
     'utexas_hero_3' => '<span>Style 3:</span> <a href="https://demo.drupalkit.its.utexas.edu/hero-styles/3" target="_blank">White bottom pane with heading, subheading and burnt orange call to action<span class="ut-cta-link--external"></span></a>',
