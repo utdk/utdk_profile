@@ -133,6 +133,9 @@ settings:
         -
           label: 'Table border 2px'
           element: '<table class="border-2">'
+        -
+          label: 'Table padding'
+          element: '<table class="tablesaw">'
     linkit_extension:
       linkit_enabled: true
       linkit_profile: flex_html
