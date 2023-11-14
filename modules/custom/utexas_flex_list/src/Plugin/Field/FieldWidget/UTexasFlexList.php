@@ -52,11 +52,15 @@ class UTexasFlexList extends UtexasWidgetBase {
    * {@inheritdoc}
    */
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
-    foreach ($values as &$value) {
+    foreach ($values as $delta => &$value) {
       // Split the "text_format" form element data into our field's schema.
       $value['header'] = $value['utexas_flex_list']['header'];
       $value['content_value'] = $value['utexas_flex_list']['content']['value'];
       $value['content_format'] = $value['utexas_flex_list']['content']['format'];
+      if (empty($value['header']) && !empty($value['content_value'])) {
+        $field_name = $this->fieldDefinition->getName();
+        $form_state->setError($form[$field_name]['widget'][$delta]['utexas_flex_list']['header'], t('A header must accompany body text.'));
+      }
     }
     return $values;
   }
