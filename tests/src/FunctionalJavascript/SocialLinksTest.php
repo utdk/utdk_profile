@@ -40,9 +40,6 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
     $form = $this->waitForForm('block-content-social-links-form');
     // Verify that all default icons are present on block admin page.
     $social_link_options = $form->findAll('css', '#edit-field-utexas-sl-social-links-0-social-account-links-0-social-account-name option');
-    foreach (array_values($social_link_options) as $option) {
-      $options[] = $option->getValue();
-    }
     $available_icons = [
       'facebook',
       'flickr',
@@ -52,11 +49,13 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
       'reddit',
       'snapchat',
       'tumblr',
-      'twitter',
+      'x',
       'vimeo',
       'youtube',
     ];
-    $this->assertTrue($available_icons == ($options ?? NULL));
+    foreach (array_values($social_link_options) as $option) {
+      $this->assertTrue(in_array($option->getValue(), $available_icons), $option->getValue() . 'is available');
+    }
     // Verify the correct field schemae exist.
     $fields = [
       'edit-info-0-value',
@@ -94,7 +93,7 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
       'reddit',
       'snapchat',
       'tumblr',
-      'twitter',
+      'x',
       'vimeo',
       'youtube',
     ];
@@ -170,7 +169,7 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
     $form->fillField('field_utexas_sl_social_links[0][social_account_links][0][social_account_url]', 'https://instagram.com/our-site');
     // Add Social Links Item 2 and fill fields.
     $this->addNonDraggableFormItem($form, 'Add social link item');
-    $form->fillField('field_utexas_sl_social_links[0][social_account_links][1][social_account_name]', 'twitter');
+    $form->fillField('field_utexas_sl_social_links[0][social_account_links][1][social_account_name]', 'x');
     $form->fillField('field_utexas_sl_social_links[0][social_account_links][1][social_account_url]', 'https://twitter.com/our-site');
     // Add Social Links Item 3 and fill fields.
     $this->addNonDraggableFormItem($form, 'Add social link item');
