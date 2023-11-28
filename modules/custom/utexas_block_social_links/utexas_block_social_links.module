@@ -52,7 +52,7 @@ function utexas_block_social_links_utexas_demo_content() {
           'social_account_url' => 'https://www.facebook.com/UTAustinTX',
         ],
         [
-          'social_account_name' => 'twitter',
+          'social_account_name' => 'x',
           'social_account_url' => 'https://twitter.com/utaustin',
         ],
         [

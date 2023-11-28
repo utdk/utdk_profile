@@ -28,7 +28,7 @@ class UTexasPromoUnitPortraitFormatter extends UTexasPromoUnitDefaultFormatter {
       $promo_unit_items = unserialize($items[$delta]->promo_unit_items);
       if (!empty($item['#promo_unit_items'])) {
         foreach ($item['#promo_unit_items'] as $key => &$instance) {
-          $image = $promo_unit_items[$key]['item']['image'];
+          $image = $promo_unit_items[$key]['item']['image'] ?? FALSE;
           if (!empty($image)) {
             $responsive_image_style_name = 'utexas_responsive_image_pu_portrait';
             $item['#promo_unit_items'][$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $cache_tags);

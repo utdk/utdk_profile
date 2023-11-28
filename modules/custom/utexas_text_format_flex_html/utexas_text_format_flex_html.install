@@ -124,3 +124,13 @@ function utexas_text_format_flex_html_update_8112() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Make table cells in tables without <thead> behave like ones that do have
+ * <thead> (in CKEditor5) (#2373).
+ */
+function utexas_text_format_flex_html_update_8113() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

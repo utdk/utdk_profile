@@ -52,11 +52,11 @@ git remote add pantheon $GIT_URL
 $COMPOSER_CMD require utexas/utdk_profile "dev-$BRANCH as $UTDKPROFILE" --no-update
 
 ## Use inline aliases to reduce the likelihood of dependency conflicts.
-$COMPOSER_CMD require utexas/forty_acres "dev-develop as $FORTYACRES" --no-update
-$COMPOSER_CMD require utexas/utevent "dev-develop as $UTEVENT" --no-update
-$COMPOSER_CMD require utexas/utnews "dev-develop as $UTNEWS" --no-update
-$COMPOSER_CMD require utexas/utprof "dev-develop as $UTPROF" --no-update
-$COMPOSER_CMD require utexas/pantheon_saml_integration:dev-develop --no-update
+$COMPOSER_CMD require utexas/forty_acres:"dev-develop as $FORTYACRES" --no-update
+$COMPOSER_CMD require utexas/utevent:"dev-develop as $UTEVENT" --no-update
+$COMPOSER_CMD require utexas/utnews:"dev-develop as $UTNEWS" --no-update
+$COMPOSER_CMD require utexas/utprof:"dev-develop as $UTPROF" --no-update
+$COMPOSER_CMD require utexas/pantheon_saml_integration:"dev-develop as 4.0.0-alpha4" --no-update
 $COMPOSER_CMD require utexas/utdk_saas:dev-develop --no-update
 
 $COMPOSER_CMD install --ignore-platform-reqs

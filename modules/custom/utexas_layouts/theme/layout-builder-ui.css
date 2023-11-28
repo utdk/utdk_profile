@@ -13,6 +13,23 @@
   cursor: grabbing;
 }
 
+/* Style node status form on layouts page */
+#edit-moderation-state-wrapper {
+  margin-bottom: 30px;
+}
+#edit-moderation-state-wrapper .js-form-type-select,
+#edit-moderation-state-wrapper .js-form-type-item label {
+  font-weight: bold;
+  margin-top: 25px;
+}
+#edit-moderation-state-wrapper .js-form-type-select label {
+  margin-top: 0;
+}
+#edit-moderation-state-wrapper select.form-select {
+  display: inline-block;
+  max-width: fit-content;
+}
+
 #drupal-off-canvas .form-item-layout-settings-background-color-wrapper-background-color input[value="074d6a"] + label::after {
   background-color: #074d6a;
 }

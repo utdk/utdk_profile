@@ -24,6 +24,7 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     // CRUD: CREATE
     // Create flex page.
     $flex_page_id = $this->createFlexPage();
+    $page = $this->getSession()->getPage();
 
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
@@ -34,6 +35,7 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     $block_plugin_id = str_replace('_', '-', $block_type_id);
     $block_name = 'Link URLs Test';
     $block_content_create_form_id = 'block-content-' . $block_plugin_id . '-form';
+    $block_content_edit_form_id = 'block-content-' . $block_plugin_id . '-edit-form';
 
     // CRUD: CREATE.
     $this->drupalGet('block/add/' . $block_type_id);
@@ -45,22 +47,37 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][title]', 'Internal link with anchor');
     $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][uri]', '/node/' . $flex_page_id . '#anchor');
 
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+
     // Add Link 2 and fill fields.
     $form->pressButton('Add item');
-    $this->clickDetailsBySummaryText('New link item', 2);
+    $this->assertTrue($assert->waitForText('New link item'));
+    $this->clickDetailsBySummaryText('New link item');
     $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][1][details][item][item][title]"]'));
     $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Internal link with query');
     $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '/node/' . $flex_page_id . '?query=1&search=test');
+
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+
     // Add Link 3 and fill fields.
     $form->pressButton('Add item');
-    $this->clickDetailsBySummaryText('New link item', 3);
+    $this->assertTrue($assert->waitForText('New link item'));
+    $this->clickDetailsBySummaryText('New link item');
     $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][2][details][item][item][title]"]'));
     $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][title]', 'Link to front with query and anchor');
     $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][uri]', '/#anchor?query=1&search=test');
 
     // Save block.
     $form->pressButton('Save');
-    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');
@@ -117,23 +134,38 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     $form->checkField('field_block_ql[0][quick_links_items][items][0][details][item][item][options][attributes][target][_blank]');
     $form->fillField('field_block_ql[0][quick_links_items][items][0][details][item][item][options][attributes][class]', 'ut-cta-link--external');
 
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+
     // Add Quick Links links[1] and fill fields.
     $form->pressButton('Add item');
-    $this->clickDetailsBySummaryText('New link item', 2);
+    $this->assertTrue($assert->waitForText('New link item'));
+    $this->clickDetailsBySummaryText('New link item');
     $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][1][details][item][item][title]"]'));
     $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][title]', 'Link Number 2');
     $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][uri]', '/node/' . $flex_page_id);
     $form->fillField('field_block_ql[0][quick_links_items][items][1][details][item][item][options][attributes][class]', 'ut-cta-link--lock');
+
+    $form->pressButton('Save');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+
     // Add Quick Links links[2] and fill fields.
     $form->pressButton('Add item');
-    $this->clickDetailsBySummaryText('New link item', 3);
+    $this->assertTrue($assert->waitForText('New link item'));
+    $this->clickDetailsBySummaryText('New link item');
     $this->assertNotEmpty($assert->waitForElement('css', 'input[name="field_block_ql[0][quick_links_items][items][2][details][item][item][title]"]'));
     $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][title]', 'Link Number 3');
     $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][uri]', '<front>');
     $form->fillField('field_block_ql[0][quick_links_items][items][2][details][item][item][options][attributes][class]', 'ut-cta-link--angle-right');
     // Save block.
     $form->pressButton('Save');
-    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');

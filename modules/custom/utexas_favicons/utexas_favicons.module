@@ -27,38 +27,38 @@ function utexas_favicons_preprocess_html(&$variables) {
   $icons = [
     [
       'rel' => 'apple-touch-icon',
-      'size' => '180x180',
+      'sizes' => '180x180',
       'filename' => 'apple-touch-icon.png',
     ],
     [
-      'size' => '16x16',
+      'sizes' => '16x16',
       'filename' => 'favicon.ico',
       'rel' => 'icon',
     ],
     [
-      'size' => '32x32',
+      'sizes' => '32x32',
       'filename' => 'favicon-32x32.png',
     ],
     [
-      'size' => '48x48',
+      'sizes' => '48x48',
       'filename' => 'favicon-48x48.png',
     ],
     [
-      'size' => '150x150',
+      'sizes' => '150x150',
       'filename' => 'mstile-150x150.png',
     ],
     [
-      'size' => '192x192',
+      'sizes' => '192x192',
       'filename' => 'android-chrome-192x192.png',
       'rel' => 'icon',
     ],
     [
-      'size' => '512x512',
+      'sizes' => '512x512',
       'filename' => 'android-chrome-512x512.png',
       'rel' => 'icon',
     ],
     [
-      'size' => '400x400',
+      'sizes' => '400x400',
       'filename' => 'safari-pinned-tab.svg',
       'color' => '#bf5700',
       'rel' => 'mask-icon',
@@ -70,14 +70,14 @@ function utexas_favicons_preprocess_html(&$variables) {
       '#tag' => 'link',
       '#attributes' => [
         'rel' => isset($value['rel']) ? $value['rel'] : 'icon',
-        'size' => $value['size'],
+        'sizes' => $value['sizes'],
         'href' => '/' . $value['filename'],
       ],
     ];
     if (isset($value['color'])) {
       $sized_icons['#attributes']['color'] = $value['color'];
     }
-    $variables['page']['#attached']['html_head'][] = [$sized_icons, $value['size']];
+    $variables['page']['#attached']['html_head'][] = [$sized_icons, $value['sizes']];
   }
   $favicon = [
     '#tag' => 'link',
