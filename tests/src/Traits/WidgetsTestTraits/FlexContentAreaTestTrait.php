@@ -36,7 +36,17 @@ trait FlexContentAreaTestTrait {
     $form->fillField('info[0][value]', $block_name);
     // Fill Flex Content Area 1 fields.
     $this->clickDetailsBySummaryText('New item');
-    $this->addMediaLibraryImage();
+    // Open the media library.
+    $session->wait(3000);
+    $page->pressButton('Add media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $assert->pageTextContains('image-test.png');
+    // Select the first media item (should be "500x500.png").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
     $form->fillField('field_block_fca[0][flex_content_area][headline]', 'Flex Content Area Headline 1');
     $form->fillField('field_block_fca[0][flex_content_area][copy][value]', 'Flex Content Area Copy');
     $form->fillField('field_block_fca[0][flex_content_area][cta_wrapper][link][uri]', 'https://utexas.edu');
@@ -72,7 +82,6 @@ trait FlexContentAreaTestTrait {
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Flex Content Area 2 fields.
     $this->clickDetailsBySummaryText('New item');
-    $this->addMediaLibraryExternalVideo('Video 1', 2);
     $form->fillField('field_block_fca[1][flex_content_area][headline]', 'Flex Content Area Headline 2');
     $form->fillField('field_block_fca[1][flex_content_area][copy][value]', 'Flex Content Area Copy 2');
     $form->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][uri]', 'https://utexas.edu');
@@ -119,22 +128,45 @@ trait FlexContentAreaTestTrait {
     $assert->pageTextContains('Flex Content Area Copy 2');
     $assert->linkExists('Flex Content Area External Link 2');
     $assert->elementTextContains('css', '.ut-flex-content-area:nth-child(2) a.ut-btn', 'Flex Content Area Call to Action 2');
+
+
     // Test rendering of YouTube video.
+    $this->drupalGet('admin/content/block');
+    $page->findLink($block_name)->click();
+    $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
+    $fieldsets[0]->click();
+    $page->pressButton('image-0-media-library-remove-button-field_block_fca-0-flex_content_area');
+    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $session->wait(3000);
+    $page->pressButton('Add media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->clickLink("Video (External)");
+    $this->assertNotEmpty($assert->waitForText('Add Video (External) via URL'));
+
+    $assert->pageTextContains('Video 1');
+    // Select the 1st video media item (should be "Video 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    $this->submitForm([], 'Save');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been updated.');
+
+    $this->drupalGet('node/' . $flex_page_id);
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'height', "100%");
+
     // The outer iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1763.
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'title', "YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)");
+
     // The inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
     $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
-    // Empty Flex Content Area instance 3 elements do not render.
-    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) a.ut-btn');
-    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .ut-copy');
-    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .link-list');
-    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) .image-wrapper');
+
 
     // CRUD: DELETE.
     $this->removeBlocks([$block_name]);

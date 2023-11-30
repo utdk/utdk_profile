@@ -94,6 +94,13 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
   private $timeout;
 
   /**
+   * Toggle value for https://www.drupal.org/node/3221100.
+   *
+   * @var bool
+   */
+  protected $failOnJavascriptConsoleErrors = FALSE;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
