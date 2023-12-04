@@ -60,7 +60,7 @@ settings:
       startIndex: true
     ckeditor5_sourceEditing:
       allowed_tags:
-        - '<a href hreflang class id role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target>'
+        - '<a href hreflang class id name role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target>'
         - '<abbr title class id role>'
         - '<address class id role>'
         - '<article class id role>'

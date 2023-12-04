@@ -134,3 +134,12 @@ function utexas_text_format_flex_html_update_8113() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Allow name attribute on a tags in Flex HTML text format (#1873)
+ */
+function utexas_text_format_flex_html_update_8114() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}
