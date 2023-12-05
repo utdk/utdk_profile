@@ -6,10 +6,16 @@ labels: 'enhancement'
 ---
 
 ## User story
-<!-- As a _____, I want to _____, so that ______. -->
+<!-- As a <content editor>, I want to _____, so that ______. -->
 
-## Proposed implementation
+## Acceptance criteria
+<!-- Example: - [ ] The <field> contains a placeholder with text: "Where are you going?" -->
+<!-- Example: - [ ] The placeholder disappears once the user starts typing" -->
+- [ ]
+- [ ]
 
-## Alternatives considered
+## Possible resolutions
+<!-- Non-technical descriptions of possible ways fulfill the goal. -->
 
-## Technical plan
+## Technical implementation notes
+<!-- Broadly describe the technical implementation, calling out specific details that may benefit from reviewer feedback. -->
