@@ -5,8 +5,9 @@
  * Defines utexas_link_element field type.
  */
 
-use Drupal\utexas_form_elements\DocumentationLinks;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\utexas_form_elements\DocumentationLinks;
+use Drupal\utexas_form_elements\RenderElementHelper;
 
 /**
  * Implements hook_theme().
@@ -19,6 +20,13 @@ function utexas_form_elements_theme($existing, $type, $theme, $path) {
     ],
   ];
   return $variables;
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function utexas_form_elements_element_info_alter(array &$info) {
+  \Drupal::classResolver(RenderElementHelper::class)->alterElementInfo($info);
 }
 
 /**

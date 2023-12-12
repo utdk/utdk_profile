@@ -13,7 +13,6 @@ use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Permissions;
-use Drupal\utexas\RenderElementHelper;
 
 /**
  * Implements hook_install_tasks().
@@ -292,13 +291,6 @@ function _utexas_install_header_content() {
     }
     $i++;
   }
-}
-
-/**
- * Implements hook_element_info_alter().
- */
-function utexas_element_info_alter(array &$info) {
-  \Drupal::classResolver(RenderElementHelper::class)->alterElementInfo($info);
 }
 
 /**
