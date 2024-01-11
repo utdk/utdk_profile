@@ -128,7 +128,8 @@ trait FlexContentAreaTestTrait {
     $assert->pageTextContains('Flex Content Area Copy 2');
     $assert->linkExists('Flex Content Area External Link 2');
     $assert->elementTextContains('css', '.ut-flex-content-area:nth-child(2) a.ut-btn', 'Flex Content Area Call to Action 2');
-
+    // Verify that a FCA item with no CTA does not, in fact, render a CTA.
+    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(3) a.ut-btn');
 
     // Test rendering of YouTube video.
     $this->drupalGet('admin/content/block');
@@ -167,6 +168,22 @@ trait FlexContentAreaTestTrait {
     $inner_frame = 'frames[0].document.querySelector("iframe")';
     $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
 
+    // CRUD: UPDATE
+    // Remove CTA title from Item 2, but leave CTA URL.
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+    $this->clickDetailsBySummaryText('Flex Content Area 2 (Flex Content Area Headline 2)');
+    $form->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][title]', '');
+    // Save block.
+    $form->pressButton('Save');
+
+    // CRUD: READ.
+    $this->drupalGet('node/' . $flex_page_id);
+    // Flex Content Area instance 2 now does NOT render a CTA,
+    // but the headline is still a link.
+    $assert->elementNotExists('css', '.ut-flex-content-area:nth-child(2) a.ut-btn');
+    $assert->linkExists('Flex Content Area Headline 2');
 
     // CRUD: DELETE.
     $this->removeBlocks([$block_name]);
