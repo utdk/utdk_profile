@@ -23,8 +23,8 @@
     "drupal/admin_toolbar": "3.4.2",
     "drupal/breadcrumbs_visibility": "1.3.0",
     "drupal/config_update": "2.0.0-alpha3",
-    "drupal/core-composer-scaffold": "10.1.6",
-    "drupal/core-recommended": "10.1.6",
+    "drupal/core-composer-scaffold": "10.2.0",
+    "drupal/core-recommended": "10.2.0",
     "drupal/date_ap_style": "1.9.0",
     "drupal/diff": "1.1.0",
     "drupal/editor_advanced_link": "2.2.4",
@@ -68,7 +68,7 @@
     "patches": {
       "drupal/core": {
         "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch",
-        "PHP warning: gd-png: libpng warning: iCCP: known incorrect sRGB profile": "https://drupalkit.its.utexas.edu/patches/14-imagecreatefrompng-3261924-34.patch",
+        "PHP warning: gd-png: libpng warning: iCCP: known incorrect sRGB profile (Drupal 10.2.0)": "https://drupalkit.its.utexas.edu/patches/20-imagecreatefrompng-3261924-52.patch",
         "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch"
       },
       "drupal/entity_clone": {

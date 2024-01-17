@@ -933,3 +933,22 @@ function utexas_update_8152() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Update sanitize filenames settings on existing sites.
+ */
+function utexas_update_8153() {
+  $config_names = [
+    'file.settings',
+  ];
+  foreach ($config_names as $config_name) {
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+      }
+    }
+  }
+}

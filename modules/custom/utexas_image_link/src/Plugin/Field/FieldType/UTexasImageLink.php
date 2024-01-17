@@ -22,7 +22,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_image_link",
  *   label = @Translation("Image Link"),
  *   description = @Translation("Linked image"),
- *   category = @Translation("UTexas"),
  *   default_widget = "utexas_image_link",
  *   default_formatter = "utexas_image_link"
  * )

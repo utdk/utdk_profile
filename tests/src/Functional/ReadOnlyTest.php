@@ -81,7 +81,6 @@ class ReadOnlyTest extends FunctionalTestBase {
       '/admin/structure/block/block-content/manage/basic/fields/add-field',
       '/admin/structure/block/block-content/manage/basic/form-display',
       '/admin/structure/block/block-content/manage/basic/display',
-      '/admin/structure/block/block-content/manage/basic/fields/block_content.basic.body/storage',
       '/admin/structure/views/view/content',
       '/admin/structure/views/view/content/delete',
       '/admin/config/content/formats',
@@ -107,18 +106,6 @@ class ReadOnlyTest extends FunctionalTestBase {
     }
 
     $read_only_paths = [];
-    // Check restricted field storage.
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/call_to_action/fields/block_content.call_to_action.field_utexas_call_to_action_link/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_featured_highlight/fields/block_content.utexas_featured_highlight.field_block_featured_highlight/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_flex_list/fields/block_content.utexas_flex_list.field_utexas_flex_list_items/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_hero/fields/block_content.utexas_hero.field_block_hero/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_image_link/fields/block_content.utexas_image_link.field_block_il/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_photo_content_area/fields/block_content.utexas_photo_content_area.field_block_pca/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_promo_list/fields/block_content.utexas_promo_list.field_block_pl/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_promo_unit/fields/block_content.utexas_promo_unit.field_block_pu/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_quick_links/fields/block_content.utexas_quick_links.field_block_ql/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/utexas_resources/fields/block_content.utexas_resources.field_block_resources/storage';
-    $read_only_paths[] = '/admin/structure/block/block-content/manage/social_links/fields/block_content.social_links.field_utexas_sl_social_links/storage';
 
     foreach (ReadOnlyHelper::$restrictedNodeTypes as $machine_name) {
       $read_only_paths[] = '/admin/structure/types/manage/' . $machine_name . '/fields';

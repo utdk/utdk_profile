@@ -21,7 +21,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_resources",
  *   label = @Translation("Resources"),
  *   description = @Translation("Headline, image, unlimited links"),
- *   category = @Translation("UTexas"),
  *   default_widget = "utexas_resources",
  *   default_formatter = "utexas_resources"
  * )

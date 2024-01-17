@@ -16,7 +16,6 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "utexas_quick_links",
  *   label = @Translation("Quick Links"),
  *   description = @Translation("Unlimited links, with optional copy text"),
- *   category = @Translation("UTexas"),
  *   default_widget = "utexas_quick_links",
  *   default_formatter = "utexas_quick_links"
  * )
