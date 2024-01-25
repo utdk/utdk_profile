@@ -952,3 +952,24 @@ function utexas_update_8153() {
     }
   }
 }
+
+/**
+ * Set the default path exclusions for Google Tag Manager.
+ */
+function utexas_update_8154() {
+  $gtm_containers = \Drupal::entityTypeManager()
+    ->getStorage('google_tag_container')
+    ->loadMultiple();
+
+  // Update the container config and save it.
+  foreach ($gtm_containers as $gtm_container) {
+    /** @var \Drupal\google_tag\Entity\TagContainer $gtm_container */
+    $gtm_defaults = $gtm_container->get('conditions');
+    $pages = $gtm_defaults["request_path"]["pages"];
+    if (!strstr($pages, '/layout_builder/*')) {
+      $gtm_defaults["request_path"]["pages"] = $pages . "\r\n/layout_builder/*";
+      $gtm_container->set('conditions', $gtm_defaults);
+      $gtm_container->save();
+    }
+  }
+}
