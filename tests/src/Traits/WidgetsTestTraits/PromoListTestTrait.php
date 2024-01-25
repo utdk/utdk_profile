@@ -87,6 +87,8 @@ trait PromoListTestTrait {
     $assert->elementTextContains('css', '.block-block-content div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
+    // Verify that double-encoding does not occur.
+    $assert->linkByHrefExists('/sites/default/files/file%20with%20spaces.pdf');
     $assert->linkByHrefExists('test-flex-page');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');

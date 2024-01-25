@@ -1,0 +1,9 @@
+services:
+  utexas_media_types.transliterate_name:
+    class: Drupal\utexas_media_types\TransliterateName
+    arguments: ['@transliteration']
+  utexas_media_types.file_upload_subscriber:
+    class: Drupal\utexas_media_types\EventSubscriber\FileUploadSubscriber
+    arguments: ['@utexas_media_types.transliterate_name']
+    tags:
+      - { name: event_subscriber }
