@@ -31,11 +31,13 @@ class EntityReferenceAutocompleteTagsWidget extends BaseAutocompleteWidget {
     $element = parent::formElement($items, $delta, $element, $form, $form_state);
     $type = $items->getFieldDefinition()->getType();
     $settings = $items->getFieldDefinition()->getSettings();
+    $cardinality = $this->fieldDefinition->getFieldStorageDefinition()->getCardinality();
     if ($type == 'entity_reference' && $settings['target_type'] == 'taxonomy_term') {
       $element['target_id'] = $this->addDynamicTaxonomyDescription($element['target_id'], $items);
-      $element['target_id']['#description'] .= ' Separate multiple tags by comma.';
+      if ($cardinality != 1) {
+        $element['target_id']['#description'] .= ' Separate multiple tags by comma.';
+      }
     }
     return $element;
   }
-
 }
