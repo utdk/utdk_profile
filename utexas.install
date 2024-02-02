@@ -954,3 +954,22 @@ function utexas_update_8153() {
     }
   }
 }
+
+/**
+ * Add article to standard workflow.
+ */
+function utexas_update_8154() {
+
+  $node_types = \Drupal::entityTypeManager()->getStorage('node_type')->loadMultiple();
+  if (!array_key_exists('article', $node_types)) {
+    return;
+  }
+
+  $config = \Drupal::configFactory()->getEditable('workflows.workflow.standard_workflow');
+  $nodes = $config->get('type_settings.entity_types.node');
+  if (is_array($nodes) && !in_array('article', $nodes)) {
+    array_push($nodes, 'article');
+    $config->set('type_settings.entity_types.node', $nodes)->save();
+  }
+
+}
