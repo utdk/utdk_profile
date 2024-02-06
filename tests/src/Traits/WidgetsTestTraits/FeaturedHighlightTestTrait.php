@@ -38,7 +38,18 @@ trait FeaturedHighlightTestTrait {
     // Fill Block description field.
     $form->fillField('info[0][value]', $block_name);
     // Fill Featured Highlight fields.
-    $this->addMediaLibraryImage('image-1000x1000.png');
+    // Open the media library.
+    $session->wait(3000);
+    $page->pressButton('Add media');
+    $session->wait(3000);
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $assert->pageTextContains('1000x1000.png');
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    // Select the second media item (should be "1000x1000.png").
+    $checkboxes[1]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
     $form->fillField('field_block_featured_highlight[0][headline]', 'Featured Highlight Headline');
     $form->fillField('field_block_featured_highlight[0][copy][value]', '<h3>Heading text</h3><p>Featured Highlight copy</p>');
     $form->fillField('field_block_featured_highlight[0][cta_wrapper][link][uri]', 'https://featuredhighlight.test');
@@ -107,11 +118,18 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
-    // Fill Featured Highlight fields.
-    $this->removeMediaLibraryItem($form);
-    $this->addMediaLibraryImage();
-    // Save block.
-    $form->pressButton('Save');
+    $page->pressButton('media-0-media-library-remove-button-field_block_featured_highlight-0');
+    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $page->pressButton('Add media');
+    $session->wait(3000);
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    // Select the first media item.
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    $this->submitForm([], 'Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
 
     // CRUD: READ
@@ -125,14 +143,23 @@ trait FeaturedHighlightTestTrait {
     // CRUD: UPDATE
     // Test rendering of YouTube video.
     $this->drupalGet('admin/content/block');
-    $this->scrollLinkIntoViewAndClick($page, $block_name);
-    $form = $this->waitForForm($block_content_edit_form_id);
-    // Fill Featured Highlight fields.
-    $this->removeMediaLibraryItem($form);
-    $this->addMediaLibraryExternalVideo();
-    // Save updates.
-    $form->pressButton('Save');
-    $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
+    $page->findLink($block_name)->click();
+    $page->pressButton('media-0-media-library-remove-button-field_block_featured_highlight-0');
+    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $page->pressButton('Add media');
+    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->clickLink("Video (External)");
+    $this->assertNotEmpty($assert->waitForText('Add Video (External) via URL'));
+
+    $assert->pageTextContains('Video 1');
+    // Select the 1st video media item (should be "Video 1").
+    $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
+    $checkboxes = $page->findAll('css', $checkbox_selector);
+    $checkboxes[0]->click();
+    $assert->elementExists('css', '.ui-dialog-buttonset')->pressButton('Insert selected');
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
+    $this->submitForm([], 'Save');
+    $assert->pageTextContains($block_type . ' ' . $block_name . ' has been updated.');
 
     // CRUD: READ
     // Verify video iframe details.

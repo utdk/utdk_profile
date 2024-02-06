@@ -22,3 +22,12 @@ function utexas_image_styles_update_8102() {
     'utexas_image_styles',
   ], TRUE);
 }
+
+/**
+ * Issue #1593: Add aspect ratio information to Image Style display names.
+ */
+function utexas_image_styles_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_image_styles',
+  ], TRUE);
+}

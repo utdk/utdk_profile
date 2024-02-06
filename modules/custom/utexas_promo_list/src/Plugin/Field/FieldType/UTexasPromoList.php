@@ -21,7 +21,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_promo_list",
  *   label = @Translation("Promo List"),
  *   description = @Translation("A field with headline, image, copy, & link."),
- *   category = @Translation("UTexas"),
  *   default_widget = "utexas_promo_list",
  *   default_formatter = "utexas_promo_list"
  * )

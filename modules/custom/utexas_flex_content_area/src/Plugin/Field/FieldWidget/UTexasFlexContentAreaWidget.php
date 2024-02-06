@@ -51,6 +51,7 @@ class UTexasFlexContentAreaWidget extends UtexasWidgetBase {
     $element['flex_content_area']['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
+      '#description' => $this->t('To make this headline into a hyperlink, enter a URL in the Call to Action URL field below.'),
       '#default_value' => $item->headline ?? NULL,
       '#size' => '60',
       '#placeholder' => '',
@@ -124,6 +125,7 @@ class UTexasFlexContentAreaWidget extends UtexasWidgetBase {
         'title' => $item->link_text ?? NULL,
         'options' => $item->link_options ?? [],
       ],
+      '#title_description' => $this->t('Optional. Leave blank to link only the item headline. Add text to print a second link at the bottom of the item.'),
     ];
     $element['#attached']['library'][] = 'utexas_flex_content_area/widget';
     return $element;

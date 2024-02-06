@@ -2,27 +2,24 @@
 
 namespace Drupal\utexas_flex_content_area\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Url;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Url;
 use Drupal\media\IFrameUrlHelper;
 use Drupal\media\MediaInterface;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
-
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\IframeTitleHelper;
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Drupal\utexas_media_types\MediaEntityImageHelper;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_flex_content_area' formatter.
@@ -162,6 +159,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
     foreach ($items as $delta => $item) {
+      $cta = "";
       $media_ratio = "";
       // Format links.
       $links = unserialize($item->links ?? '', ['allowed_classes' => FALSE]) ?: [];
@@ -171,7 +169,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       }
       // Format CTA.
       $cta_item = $item->getValue();
-      $cta_item['link']['title'] = $cta_item['link_text'] ?? NULL;
+      $cta_item['link']['title'] = $cta_item['link_text'] ?? '';
       $cta_item['link']['uri'] = $cta_item['link_uri'];
       $cta_item['link']['options'] = $cta_item['link_options'];
       // Format headline.
@@ -185,8 +183,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         $cta_item['link']['options']['attributes']['tabindex'] = '-1';
         $cta_item['link']['options']['attributes']['aria-hidden'] = 'true';
       }
-      $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
-
+      if (!empty($cta_item['link']['title'])) {
+        $cta = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-btn']);
+      }
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->image)) {
         switch ($media->bundle()) {
@@ -212,7 +211,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         '#copy' => check_markup($copy, $format),
         '#media_ratio' => $media_ratio,
         '#links' => $links,
-        '#cta' => $cta ?? '',
+        '#cta' => $cta,
       ];
 
       // Add class to the item.attributes object.

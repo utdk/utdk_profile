@@ -22,7 +22,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_hero",
  *   label = @Translation("Hero"),
  *   description = @Translation("Large-display media field, with heading/subheading/link"),
- *   category = "UTexas",
  *   default_widget = "utexas_hero",
  *   default_formatter = "utexas_hero"
  * )

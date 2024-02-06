@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: utexas_image_style_280w_280h
-label: '280w x 280h'
+label: '280w x 280h (1:1)'
 effects:
   0255779a-b2d6-407b-ad07-0262080a8131:
     uuid: 0255779a-b2d6-407b-ad07-0262080a8131

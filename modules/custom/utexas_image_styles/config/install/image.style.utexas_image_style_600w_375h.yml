@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: utexas_image_style_600w_375h
-label: '600w x 375h'
+label: '600w x 375h (1.6:1)'
 effects:
   0255779a-b2d6-407b-ad07-0262080a8131:
     uuid: 0255779a-b2d6-407b-ad07-0262080a8131

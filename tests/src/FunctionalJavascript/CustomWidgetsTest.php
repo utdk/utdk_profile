@@ -49,9 +49,9 @@ class CustomWidgetsTest extends FunctionalJavascriptTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
-    // $this->verifyFeaturedHighlight();
-    // $this->verifyFlexContentArea();
-    // $this->verifyFlexContentAreaMultiple();
+    $this->verifyFeaturedHighlight();
+    $this->verifyFlexContentArea();
+    $this->verifyFlexContentAreaMultiple();
     $this->verifyFlexList();
     $this->verifyFlexPageRevisions();
     $this->verifyHero();

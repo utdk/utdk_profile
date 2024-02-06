@@ -22,7 +22,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_featured_highlight",
  *   label = @Translation("Featured Highlight"),
  *   description = @Translation("A field with headline, media, date, copy, & link."),
- *   category = "UTexas",
  *   default_widget = "utexas_featured_highlight",
  *   default_formatter = "utexas_featured_highlight"
  * )

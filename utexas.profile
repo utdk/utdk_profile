@@ -154,7 +154,7 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
  */
 function utexas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_id === 'google_tag_container_form' && $form_state->getFormObject()->getEntity()->isNew()) {
-    $form['conditions']['request_path']['pages']['#default_value'] = "/admin*\n/batch*\n/node/add*\n/node/*/edit\n/node/*/delete\n/node/*/layout\n/taxonomy/term/*/edit\n/taxonomy/term/*/layout\n/user/*/edit*\n/user/*/cancel*\n/user/*/layout";
+    $form['conditions']['request_path']['pages']['#default_value'] = "/admin*\n/batch*\n/node/add*\n/node/*/edit\n/node/*/delete\n/node/*/layout\n/taxonomy/term/*/edit\n/taxonomy/term/*/layout\n/user/*/edit*\n/user/*/cancel*\n/user/*/layout\n/layout_builder/*";
     $form['conditions']['request_path']['negate']['#default_value'] = TRUE;
     $form['conditions']['response_code']['response_codes']['#default_value'] = "403\n404";
     $form['conditions']['response_code']['negate']['#default_value'] = TRUE;

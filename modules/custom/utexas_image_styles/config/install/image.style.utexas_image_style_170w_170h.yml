@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 name: utexas_image_style_170w_170h
-label: '170w x 170h'
+label: '170w x 170h (1:1)'
 effects:
   33df4464-dffe-4034-90cc-473fd11c1256:
     uuid: 33dz4464-dxxe-4034-90cc-473fd11c1256

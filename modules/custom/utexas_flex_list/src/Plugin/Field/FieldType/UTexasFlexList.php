@@ -15,7 +15,6 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "utexas_flex_list",
  *   label = @Translation("Flex list"),
  *   description = @Translation("Heading + content fields, displayable in a variety of formats"),
- *   category = @Translation("Text"),
  *   default_widget = "utexas_flex_list",
  *   default_formatter = "utexas_flex_list_default"
  * )

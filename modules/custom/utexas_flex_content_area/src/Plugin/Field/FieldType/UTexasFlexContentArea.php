@@ -22,7 +22,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_flex_content_area",
  *   label = @Translation("Flex Content Area"),
  *   description = @Translation("A field with image, headline, copy and link or CTA."),
- *   category = @Translation("UTexas"),
  *   default_widget = "utexas_flex_content_area",
  *   default_formatter = "utexas_flex_content_area"
  * )

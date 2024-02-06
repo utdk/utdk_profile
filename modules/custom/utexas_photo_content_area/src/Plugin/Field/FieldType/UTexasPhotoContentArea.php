@@ -21,7 +21,6 @@ use Drupal\media\Entity\Media;
  *   id = "utexas_photo_content_area",
  *   label = @Translation("Photo Content Area"),
  *   description = @Translation("A field with headline, media, date, copy, & link."),
- *   category = "UTexas",
  *   default_widget = "utexas_photo_content_area",
  *   default_formatter = "utexas_photo_content_area"
  * )
