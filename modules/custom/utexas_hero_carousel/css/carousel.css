@@ -80,6 +80,15 @@ see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
   margin-left: 0;
 }
 /** :hover styles **/
+button.slick-prev:hover,
+button.slick-next:hover,
+button.slick-autoplay-toggle-button:hover,
+button.slick-prev:focus,
+button.slick-next:focus,
+button.slick-autoplay-toggle-button:focus {
+  background-color: inherit;
+  border: 0;
+}
 /* Icon */
 .slick-prev:hover .slick-prev-icon,
 .slick-next:hover .slick-next-icon {
