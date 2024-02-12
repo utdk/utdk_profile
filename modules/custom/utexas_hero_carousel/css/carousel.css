@@ -26,6 +26,7 @@ see https://www.w3.org/WAI/WCAG21/Techniques/css/C40 */
   height:var(--button-font-size);
   width: var(--button-font-size);
   z-index:1;
+  font-weight: unset;
 }
 .slick-prev {
   left: var(--button-offset);
@@ -109,6 +110,10 @@ button.slick-autoplay-toggle-button:focus {
   color: var(--icon-color-1);
   height: calc(var(--button-font-size));
   opacity: 1;
+  margin: 0;
+  padding-block: 1px;
+  padding-inline: 6px;
+  font-weight: unset;
 }
 .slick-pause-icon,
 .slick-play-icon {
@@ -151,6 +156,8 @@ button.slick-autoplay-toggle-button:focus {
   width: var(--dot-font-size-1);
   /* border: solid 1px red; */
   margin: 0;
+  padding: 0;
+  transition: none;
 }
 .slick-dots li button .slick-dot-icon {
   color: var(--icon-color-1);
