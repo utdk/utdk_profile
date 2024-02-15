@@ -62,3 +62,7 @@ Disallow: /index.php/user/login/
 Disallow: /index.php/user/logout/
 Disallow: /index.php/media/oembed
 Disallow: /index.php/*/media/oembed
+
+# Tell robots not to crawl query parameters on /news
+Allow: /news/$
+Disallow: /news?
