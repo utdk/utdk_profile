@@ -1,5 +1,4 @@
 photo-content-area:
-  version: 1.x
   css:
     theme:
       css/photo-content-area.css: {}

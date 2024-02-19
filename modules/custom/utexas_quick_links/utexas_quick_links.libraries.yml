@@ -1,5 +1,4 @@
 quick-links:
-  version: 1.x
   css:
     theme:
       css/quick-links.css: {}

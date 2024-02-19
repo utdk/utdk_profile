@@ -1,5 +1,4 @@
 utexas-featured-highlight:
-  version: 1.x
   css:
     theme:
       css/featured-highlight.css: {}

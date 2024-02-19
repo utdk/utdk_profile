@@ -1,40 +1,33 @@
 hero-default:
-  version: 1.x
   css:
     theme:
       css/hero-style-base.css: {}
       css/hero-default.css: {}
 hero-style-1:
-  version: 1.x
   css:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-1.css: {}
 hero-style-2:
-  version: 1.x
   css:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-2.css: {}
 hero-style-3:
-  version: 1.x
   css:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-3.css: {}
 hero-style-4:
-  version: 1.x
   css:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-4.css: {}
 hero-style-5:
-  version: 1.x
   css:
     theme:
       css/hero-style-base.css: {}
       css/hero-style-5.css: {}
 hero_formatters_split:
-  version: 1.x
   js:
     js/hero-formatters-split.js: {}

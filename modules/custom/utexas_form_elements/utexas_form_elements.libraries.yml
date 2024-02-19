@@ -1,11 +1,9 @@
 link-element:
-  version: 1.x
   css:
     theme:
       css/link-element.css: {}
 
 link-options:
-  version: 1.x
   css:
     theme:
       css/link-options.css: {}
