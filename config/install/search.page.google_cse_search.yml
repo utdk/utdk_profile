@@ -38,3 +38,7 @@ configuration:
   custom_css: ''
   custom_results_display: results-only
   use_adv: 0
+  data_attributes:
+    -
+      key: data-safeSearch
+      value: 'off'
