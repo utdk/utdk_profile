@@ -17,6 +17,6 @@ content:
     region: content
     label: hidden
     settings:
-      heading_level: h5
+      heading_level: dl
     third_party_settings: {  }
 hidden: {  }

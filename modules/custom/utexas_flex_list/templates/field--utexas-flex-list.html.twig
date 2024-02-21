@@ -54,12 +54,23 @@
     {% endif %}
     {% block field_items_block %}
       {% for item in items %}
+        {% if item.content.heading_level["#plain_text"] == "dl" %}
+          <dl {{ item.attributes.addClass(item_classes) }}>
+            <dt class="ut-headline">
+              {{ item.content.header }}
+            </dt>
+            <dd>
+              {{ item.content.body }}
+            </dd>
+          </dl>
+        {% else %}
           <{{ item.content.heading_level }}{{ item.attributes.addClass(item_classes) }}>
             {{ item.content.header }}
           </{{ item.content.heading_level }}>
           <div>
             {{ item.content.body }}
           </div>
+        {% endif %}
       {% endfor %}
     {% endblock field_items_block %}
   {% endblock field_display %}
