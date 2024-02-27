@@ -42,3 +42,4 @@ configuration:
     -
       key: data-safeSearch
       value: 'off'
+  watermark: 0

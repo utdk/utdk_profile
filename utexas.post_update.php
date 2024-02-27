@@ -21,3 +21,14 @@ function utexas_post_update_8150() {
     }
   }
 }
+
+/**
+ * Update watermark configuration for Google custom search page.
+ */
+function utexas_post_update_8151() {
+  // Suppress Google watermark on existing sites.
+  $config = \Drupal::service('config.factory')->getEditable('search.page.google_cse_search');
+  $config->set('configuration.watermark', 0);
+  $config->save();
+
+}
