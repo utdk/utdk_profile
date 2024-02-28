@@ -13,11 +13,14 @@ use Drupal\utexas_readonly\ReadOnlyHelper;
 /**
  * Implements hook_form_alter().
  */
-function utexas_readonly_form_alter(array &$form, FormStateInterface &$form_state) {
+function utexas_readonly_form_alter(array &$form, FormStateInterface &$form_state, $form_id) {
   if (!$form_object = $form_state->getFormObject()) {
     return;
   }
   if (!$form_object instanceof EntityFormInterface) {
+    return;
+  }
+  if ($form_id == 'image_style_flush_form') {
     return;
   }
   $form_entity = $form_object->getEntity();
@@ -25,7 +28,14 @@ function utexas_readonly_form_alter(array &$form, FormStateInterface &$form_stat
   $parts = explode('.', $form_id);
   $base_entity = $parts[1] ?? $form_id;
   $restricted_entities = array_merge(ReadOnlyHelper::$restrictedBlockTypes, ReadOnlyHelper::$restrictedMediaTypes, ReadOnlyHelper::$restrictedNodeTypes, ReadOnlyHelper::$restrictedConfig, ReadOnlyHelper::$restrictedFields);
-  if (in_array($base_entity, $restricted_entities, TRUE)) {
+  $starts_with_restricted_pattern = FALSE;
+  foreach (ReadOnlyHelper::$restrictedPatterns as $pattern) {
+    // 'Starts with..."
+    if (strpos($base_entity, $pattern) === 0) {
+      $starts_with_restricted_pattern = TRUE;
+    }
+  }
+  if ($starts_with_restricted_pattern || in_array($base_entity, $restricted_entities, TRUE)) {
     ReadOnlyHelper::warn();
     // Disable various form elements.
     $form['#validate'][] = '_utexas_readonly_validate_failure';
