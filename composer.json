@@ -78,7 +78,8 @@
         "Make url_embed patch for responsive embeds, applicable for 2.0.0-alpha2": "https://drupalkit.its.utexas.edu/patches/22-urlembed-responsive.patch"
       },
       "drupal/layout_builder_iframe_modal": {
-        "Close the Drupal off canvas dialog at the same time the LBIM modal is closed": "https://drupalkit.its.utexas.edu/patches/3344334-settings-tray-close.patch"
+        "Close the Drupal off canvas dialog at the same time the LBIM modal is closed": "https://drupalkit.its.utexas.edu/patches/3344334-settings-tray-close.patch",
+        "Hide rebuild layout link": "https://drupalkit.its.utexas.edu/patches/31-hide-rebuild-layout-link.patch"
       }
     },
     "drupal-scaffold": {
