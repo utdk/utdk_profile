@@ -22,3 +22,12 @@ function utexas_content_type_flex_page_update_8102() {
     'utexas_content_type_flex_page',
   ], TRUE);
 }
+
+/**
+ * Add "Page Summary" field to Flex Page content type. (#2006)
+ */
+function utexas_content_type_flex_page_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_content_type_flex_page',
+  ], TRUE);
+}

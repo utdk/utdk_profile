@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.utexas_flex_page.field_flex_page_metatags
+    - field.field.node.utexas_flex_page.field_flex_page_summary
     - field.field.node.utexas_flex_page.layout_builder__layout
     - node.type.utexas_flex_page
   module:
@@ -50,9 +51,9 @@ bundle: utexas_flex_page
 mode: default
 content:
   content_moderation_control:
-    weight: -20
     settings: {  }
     third_party_settings: {  }
+    weight: -20
     region: main
   field_flex_page_metatags:
     type: metatag_empty_formatter
@@ -60,6 +61,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 116
+    region: main
+  field_flex_page_summary:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 117
     region: main
   links:
     settings: {  }

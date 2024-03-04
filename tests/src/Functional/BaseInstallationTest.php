@@ -90,6 +90,17 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->drupalGet("/node/" . $node->id());
     $assert->responseContains('Share this content');
 
+    $node = Node::create([
+      'type'        => 'utexas_flex_page',
+      'title'       => 'Test Page',
+      'field_flex_page_summary' => 'Test summary text.',
+    ]);
+    $node->save();
+    $this->drupalGet("/node/" . $node->id());
+    $assert->responseContains('<meta name="description" content="Test summary text." />');
+    $assert->responseContains('<meta name="twitter:description" content="Test summary text." />');
+    $assert->responseContains('<meta property="og:description" content="Test summary text." />');
+
     // Assert Flex HTML elements are default values.
     $ckeditor_actual = $this->config('editor.editor.flex_html')->get('settings.toolbar');
     $ckeditor_expected = [
