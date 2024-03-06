@@ -8,8 +8,13 @@ COMPOSER_CMD="php -d memory_limit=-1 /usr/local/bin/composer"
 # git clone https://github.com/utdk/$REPO.git
 # cd $REPO
 
+git checkout -f
 git fetch && git checkout develop
 git fetch && git checkout $BRANCH
+
+$COMPOSER_CMD validate --no-check-all
+# If there are composer validation issues, this will send an exit code of 1.
+
 cp .github/workflows/.fixtures/syntax_checker.json composer.json
 $COMPOSER_CMD install --ignore-platform-reqs
 PHP_EXTENSIONS="php,inc,module,install,profile,yml"
