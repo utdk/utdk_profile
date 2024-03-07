@@ -19,7 +19,7 @@ cp .github/workflows/.fixtures/syntax_checker.json composer.json
 $COMPOSER_CMD install --ignore-platform-reqs
 PHP_EXTENSIONS="php,inc,module,install,profile,yml"
 
-PHP_LIST=$( git diff --name-only develop..$BRANCH -- "*.php" "*.inc" "*.yml" "*.module" "*.install" "*.profile")
+PHP_LIST=$( git diff --name-only develop..$BRANCH  --diff-filter=ACMRX -- "*.php" "*.inc" "*.yml" "*.module" "*.install" "*.profile")
 if [ -z "$PHP_LIST" ]; then
   # No matching files in this pull request. Move on.
   exit 0
