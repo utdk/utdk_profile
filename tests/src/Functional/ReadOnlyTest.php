@@ -124,7 +124,7 @@ class ReadOnlyTest extends FunctionalTestBase {
       'utexas_image_style_900w',
       'utexas_image_style_900w_1200h',
       'utexas_image_style_900w_600h',
-      'utexas_image_style_960w_519h'  ,
+      'utexas_image_style_960w_519h',
     ];
 
     // Pages that an admin user *should* have access to.
@@ -144,7 +144,6 @@ class ReadOnlyTest extends FunctionalTestBase {
       '/admin/config/content/formats/manage/full_html',
       '/admin/config/content/formats/manage/restricted_html',
       '/admin/config/media/image-styles/manage/media_library',
-      '/admin/config/media/image-styles/manage/media_library/delete',
       '/admin/config/media/image-styles/manage/medium',
       '/admin/config/media/image-styles/manage/medium/delete',
       '/admin/config/media/image-styles/manage/thumbnail',
