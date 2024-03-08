@@ -20,21 +20,48 @@ class LinkOptions extends CKEditor5PluginDefault {
    * See https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
    */
   public function getDynamicPluginConfig(array $static_plugin_config, EditorInterface $editor): array {
+
+    $theme = \Drupal::configFactory()->getEditable('system.theme')->get('default');
+    $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
+    $basetheme = $themeinfo['base theme'] ?? '';
     $config = [];
+
+    if ($theme == 'forty_acres' || $basetheme == 'forty_acres') {
+      $config['link']['decorators'][] = [
+        'mode' => 'manual',
+        'label' => 'Primary button',
+        'classes' => ['ut-btn'],
+      ];
+      $config['link']['decorators'][] = [
+        'mode' => 'manual',
+        'label' => 'Secondary button',
+        'classes' => ['ut-btn--secondary'],
+      ];
+      $config['link']['decorators'][] = [
+        'mode' => 'manual',
+        'label' => 'Authentication required icon',
+        'classes' => ['ut-cta-link--lock'],
+      ];
+      $config['link']['decorators'][] = [
+        'mode' => 'manual',
+        'label' => 'External link icon',
+        'classes' => 'ut-cta-link--external',
+      ];
+      $config['link']['decorators'][] = [
+        'mode' => 'manual',
+        'label' => 'Right-facing caret',
+        'classes' => ['ut-cta-link--angle-right'],
+      ];
+    }
     $config['link']['decorators'][] = [
       'mode' => 'manual',
-      'label' => 'Primary button',
+      'label' => 'Open in new tab',
       'attributes' => [
-        'class' => 'ut-btn',
-      ],
-    ];
-    $config['link']['decorators'][] = [
-      'mode' => 'manual',
-      'label' => 'Secondary button',
-      'attributes' => [
-        'class' => 'ut-btn--secondary',
+        'target' => '_blank',
+        'rel' => 'noopener noreferrer',
       ],
     ];
     return $config;
   }
+
 }

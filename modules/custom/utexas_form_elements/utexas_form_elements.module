@@ -101,6 +101,7 @@ function utexas_form_elements_form_node_form_alter(&$form, FormStateInterface $f
   // and the current user has the workflow transition permission.
   /** @var \Drupal\content_moderation\ModerationInformationInterface $moderation_info */
   $moderation_info = Drupal::service('content_moderation.moderation_information');
+  /** @var \Drupal\node\Entity\Node $node */
   $node = $form_state->getFormObject()->getEntity();
   $op = $form_state->getFormObject()->getOperation();
   if ($op !== 'edit') {
@@ -148,4 +149,32 @@ function utexas_form_elements_local_tasks_alter(&$local_tasks) {
   // Do not display the 'Delete' tab on node forms (nodes can still be deleted)
   // from within the 'Edit' interface.
   unset($local_tasks['entity.node.delete_form']);
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function utexas_form_elements_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'ckeditor5') {
+    $theme = \Drupal::configFactory()->getEditable('system.theme')->get('default');
+    $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
+    $basetheme = $themeinfo['base theme'] ?? '';
+    // Add paths to stylesheets specified by a modules's ckeditor5-stylesheets
+    // config property.
+    $module = 'utexas_form_elements';
+    $module_path = \Drupal::service('extension.list.module')->getPath($module);
+    $info = \Drupal::service('extension.list.module')->getExtensionInfo($module);
+    if (isset($info['ckeditor5-stylesheets']) && $info['ckeditor5-stylesheets'] !== FALSE) {
+      $css = $info['ckeditor5-stylesheets'];
+      foreach (array_values($css) as $url) {
+        $path = '/' . $module_path . '/' . $url;
+        // Only load utexas_form_elements ckeditor5-stylesheets if the active
+        // theme or base theme is forty_acres.
+        if ($theme != 'forty_acres' && $basetheme != 'forty_acres') {
+          continue;
+        }
+        $libraries['internal.drupal.ckeditor5.stylesheets']['css']['theme'][$path] = [];
+      }
+    }
+  }
 }

@@ -34,7 +34,7 @@ settings:
         - heading6
     ckeditor5_sourceEditing:
       allowed_tags:
-        - '<a href hreflang>'
+        - '<a class target rel href hreflang>'
         - '<em>'
         - '<strong>'
         - '<cite>'

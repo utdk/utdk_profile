@@ -8,7 +8,7 @@ utexas_form_elements_linkStyles:
     library: false
     admin_library: false
     elements:
-      - <a _target rel>
+      - <a class _target rel>
     conditions:
       plugins:
         - ckeditor5_link

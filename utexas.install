@@ -974,9 +974,31 @@ function utexas_update_8154() {
 }
 
 /**
- * Update sanitize filenames settings on existing sites.
+ * Allow Basic HTML to display link classes and targets.
  */
 function utexas_update_8155() {
+  $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/filter.format.basic_html.yml';
+  $data = Yaml::parse(file_get_contents($config_path));
+  if (isset($data['filters']['filter_html']['settings']['allowed_html'])) {
+    \Drupal::logger('utexas')->notice('Updating Basic HTML allowed HTML...');
+    $filter = \Drupal::configFactory()->getEditable('filter.format.basic_html');
+    $filter->set('filters.filter_html.settings.allowed_html', $data['filters']['filter_html']['settings']['allowed_html']);
+    $filter->save(TRUE);
+  }
+  $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/editor.editor.basic_html.yml';
+  $data = Yaml::parse(file_get_contents($config_path));
+  if (isset($data['settings']['plugins']['ckeditor5_sourceEditing']['allowed_tags'])) {
+    \Drupal::logger('utexas')->notice('Updating Basic HTML allowed tags...');
+    $filter = \Drupal::configFactory()->getEditable('editor.editor.basic_html');
+    $filter->set('settings.plugins.ckeditor5_sourceEditing.allowed_tags', $data['settings']['plugins']['ckeditor5_sourceEditing']['allowed_tags']);
+    $filter->save(TRUE);
+  }
+}
+
+/**
+ * Update sanitize filenames settings on existing sites.
+ */
+function utexas_update_8156() {
   $config_names = [
     'file.settings',
   ];
