@@ -1029,3 +1029,13 @@ function utexas_update_8156() {
     }
   }
 }
+
+/**
+ * Active menu trails for items not included in a menu. (#1663)
+ */
+function utexas_update_8157() {
+  $module = 'menu_trail_by_path';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
