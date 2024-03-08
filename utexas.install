@@ -98,6 +98,19 @@ function utexas_install() {
     ->save(TRUE);
   // Add generic Social Sharing block.
   InstallationHelper::addSocialSharing();
+
+  // Set frontpage to use custom UTexas Frontpage view (#2328).
+  \Drupal::configFactory()
+    ->getEditable('system.site')
+    ->set('page.front', '/utexas-frontpage')
+    ->save(TRUE);
+
+  // Disable page and feed display on default frontpage (#2328).
+  \Drupal::configFactory()
+    ->getEditable('views.view.frontpage')
+    ->set('display.feed_1.display_options.enabled', 0)
+    ->set('display.page_1.display_options.enabled', 0)
+    ->save(TRUE);
 }
 
 /**
