@@ -6,7 +6,6 @@
  */
 
 use Drupal\block\Entity\Block;
-use Drupal\Core\Config\StorageInterface;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\utexas\InstallationHelper;
