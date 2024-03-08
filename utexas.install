@@ -945,6 +945,9 @@ function utexas_update_8153() {
   foreach ($gtm_containers as $gtm_container) {
     /** @var \Drupal\google_tag\Entity\TagContainer $gtm_container */
     $gtm_defaults = $gtm_container->get('conditions');
+    if (empty($gtm_defaults)) {
+      continue;
+    }
     $pages = $gtm_defaults["request_path"]["pages"];
     if (!strstr($pages, '/layout_builder/*')) {
       $gtm_defaults["request_path"]["pages"] = $pages . "\r\n/layout_builder/*";
