@@ -7,6 +7,11 @@
   padding: 0.75rem;
 }
 
+/* Headline-specific styling, overriding default ut-headline basis. */
+.utexas-promo-unit-container .ut-headline.ut-headline--underline {
+  padding-top: 0;
+}
+
 /* Image Wrapper (Section 1) Styles */
 .utexas-promo-unit .image-wrapper {
   flex-shrink: 1;

@@ -22,11 +22,11 @@
 %}
 <div class="utexas-promo-list-container">
   {% if wrapper != 'two-side-by-side' and headline %}
-    <h3 class="ut-headline--underline">{{ headline }}</h3>
+    <h3 class="ut-headline ut-headline--underline">{{ headline }}</h3>
   {% endif %}
   <div{{ attributes.addClass(classes) }}>
     {% if wrapper == 'two-side-by-side' and headline %}
-      <h3 class="ut-headline--underline">{{ headline }}</h3>
+      <h3 class="ut-headline ut-headline--underline">{{ headline }}</h3>
     {% endif %}
     {% for item in promo_list_items %}
       <div class="promo-list">
