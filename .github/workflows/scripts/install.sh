@@ -6,7 +6,7 @@ ACCOUNT_NAME="pr-tester"
 ACCOUNT_MAIL="wcs-drupal-site-admins@utlists.utexas.edu"
 SITE_EMAIL="wcs-drupal-site-admins@utlists.utexas.edu"
 SITE_NAME="Pull Request Tester"
-USERS="jdt947 jmf3658 rh34438 pfg jacard mmarler"
+USERS="jdt947 jmf3658 rh34438 pfg dra68 bjc2265 mmarler"
 
 # Enforce 11-charater limit on multidev names
 MULTIDEV="${BRANCH:0:11}"

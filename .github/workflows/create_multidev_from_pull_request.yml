@@ -42,4 +42,3 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
             A multidev for testing has been created at https://${{steps.set_multidev.outputs.MULTIDEV}}-utdkpr.pantheonsite.io .
-          reactions: hooray
