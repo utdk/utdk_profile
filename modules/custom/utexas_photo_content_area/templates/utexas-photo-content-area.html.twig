@@ -32,16 +32,22 @@
   {% endif %}
   <div class="content-wrapper">
     {{ date }}
-    <h2 class="ut-headline">{{ headline }}</h2>
-    <div class="ut-copy">
-      {{ copy }}
-    </div>
-    <ul class="link-list">
-      {% for link in links %}
-      <li>
-        {{ link }}
-      </li>
-      {% endfor %}
-  </ul>
+    {% if headline %}
+      <h2 class="ut-headline">{{ headline }}</h2>
+    {% endif %}
+    {% if copy %}
+      <div class="ut-copy">
+        {{ copy }}
+      </div>
+    {% endif %}
+    {% if links %}
+      <ul class="link-list">
+        {% for link in links %}
+        <li>
+          {{ link }}
+        </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 </div>
