@@ -73,7 +73,7 @@
       },
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.patch",
-        "Warning: Undefined array key status in Drupal/entity_clone/Form/EntityCloneForm->submitForm()": "https://drupalkit.its.utexas.edu/patches/16-entityclone-arraykey-3384354.patch"
+        "Ability to set moderation state during cloning": "https://drupalkit.its.utexas.edu/patches/35-unpublish-cloned-page.patch"
       },
       "drupal/url_embed": {
         "Make url_embed patch for responsive embeds, applicable for 2.0.0-alpha2": "https://drupalkit.its.utexas.edu/patches/22-urlembed-responsive.patch"
