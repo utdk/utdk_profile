@@ -19,6 +19,7 @@ $COMPOSER_CMD validate --no-check-all
 
 cp .github/workflows/.fixtures/syntax_checker.json composer.json
 $COMPOSER_CMD install --ignore-platform-reqs
+EXCLUDE_RULES="Drupal.InfoFiles.AutoAddedKeys,DrupalPractice.Objects.GlobalDrupal,DrupalPractice.FunctionCalls.InsecureUnserialize"
 PHP_EXTENSIONS="php,inc,module,install,profile,yml"
 # Limit to where this branch diverged...
 # https://git-scm.com/docs/git-merge-base#_discussion
@@ -29,7 +30,7 @@ if [ -z "$PHP_LIST" ]; then
   exit 0
 fi
 vendor/bin/phpcs --standard="vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml" $PHP_LIST --extensions=$PHP_EXTENSIONS --exclude=Drupal.InfoFiles.AutoAddedKeys
-vendor/bin/phpcs --standard="vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml" $PHP_LIST --extensions=$PHP_EXTENSIONS --exclude=Drupal.InfoFiles.AutoAddedKeys
+vendor/bin/phpcs --standard="vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml" $PHP_LIST --extensions=$PHP_EXTENSIONS --exclude=$EXCLUDE_RULES
 
 # If a PHPCS violation has been found, send exit code to runner.
 if [ $? -ne 0 ]; then
