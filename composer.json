@@ -80,7 +80,8 @@
       },
       "drupal/layout_builder_iframe_modal": {
         "Close the Drupal off canvas dialog at the same time the LBIM modal is closed": "https://drupalkit.its.utexas.edu/patches/3344334-settings-tray-close.patch",
-        "Hide rebuild layout link": "https://drupalkit.its.utexas.edu/patches/31-hide-rebuild-layout-link.patch"
+        "Hide rebuild layout link": "https://drupalkit.its.utexas.edu/patches/31-hide-rebuild-layout-link.patch",
+        "Fix PHP TypeError": "https://drupalkit.its.utexas.edu/patches/33-layout_builder_iframe_modal-php-error.patch"
       }
     },
     "drupal-scaffold": {
