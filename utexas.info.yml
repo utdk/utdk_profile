@@ -34,7 +34,6 @@ install:
   - drupal:dblog
   - drupal:dynamic_page_cache
   - drupal:inline_form_errors
-  - drupal:menu_trail_by_path
   - drupal:page_cache
   - drupal:workflows
   # Contrib
@@ -51,6 +50,7 @@ install:
   - drupal:layout_builder_iframe_modal
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
+  - drupal:menu_trail_by_path
   - drupal:metatag
   - drupal:metatag_open_graph
   - drupal:metatag_twitter_cards
