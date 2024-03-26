@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.utexas_flex_page.field_flex_page_metatags
+    - field.field.node.utexas_flex_page.field_flex_page_summary
     - field.field.node.utexas_flex_page.layout_builder__layout
     - node.type.utexas_flex_page
   module:
@@ -14,9 +15,9 @@ bundle: utexas_flex_page
 mode: teaser
 content:
   content_moderation_control:
-    weight: -20
     settings: {  }
     third_party_settings: {  }
+    weight: -20
     region: content
   links:
     weight: 100
@@ -26,4 +27,5 @@ hidden:
   display_page_title: true
   display_updated: true
   field_flex_page_metatags: true
+  field_flex_page_summary: true
   layout_builder__layout: true

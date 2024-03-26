@@ -30,6 +30,7 @@
   margin: auto;
   max-width: 73.75em;
   padding: 1rem 1.25rem;
+  overflow: auto;
 }
 .ut-hero.hero--photo-white-notch .hero-cta {
   white-space: nowrap;

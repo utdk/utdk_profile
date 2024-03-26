@@ -1,42 +1,35 @@
 onecol:
-  version: 1.0
   css:
     theme:
       layouts/onecol/layout.css: {}
       layouts/background-accent.css: {}
 twocol:
-  version: 1.0
   css:
     theme:
       layouts/twocol/twocol.css: {}
       layouts/background-accent.css: {}
 threecol:
-  version: 1.0
   css:
     theme:
       layouts/threecol/threecol.css: {}
       layouts/background-accent.css: {}
 fourcol:
-  version: 1.0
   css:
     theme:
       layouts/fourcol/fourcol.css: {}
       layouts/background-accent.css: {}
 layout_builder_ui:
-  version: 1.0
   css:
     theme:
       theme/layout-builder-ui.css: {}
   js:
     js/layout-builder-form-error.js: {}
 background-colors:
-  version: 1.0
   css:
     theme:
       layouts/background-accent.css: {}
       theme/background-colors.css: {}
 section-width:
-  version: 1.0
   css:
     theme:
       layouts/section-width.css: {}

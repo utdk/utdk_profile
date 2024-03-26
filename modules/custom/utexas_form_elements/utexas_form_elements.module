@@ -91,3 +91,90 @@ function utexas_form_elements_form_layout_builder_configure_block_alter(&$form, 
     $form['#attached']['library'][] = 'utexas_form_elements/link-options';
   }
 }
+
+/**
+ * Implements hook_form_node_form_alter().
+ */
+function utexas_form_elements_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['actions']['delete']['#title'] = t('Delete permanently');
+  // Add an "Archive" submit handler if the node uses the "Standard Workflow"
+  // and the current user has the workflow transition permission.
+  /** @var \Drupal\content_moderation\ModerationInformationInterface $moderation_info */
+  $moderation_info = Drupal::service('content_moderation.moderation_information');
+  /** @var \Drupal\node\Entity\Node $node */
+  $node = $form_state->getFormObject()->getEntity();
+  $op = $form_state->getFormObject()->getOperation();
+  if ($op !== 'edit') {
+    return;
+  }
+  if (!$moderation_info->isModeratedEntity($node)) {
+    return;
+  }
+  if (!$moderation_info->getWorkflowForEntity($node)->id() === 'standard_workflow') {
+    return;
+  }
+  if (!\Drupal::currentUser()->hasPermission('use standard_workflow transition archive')) {
+    return;
+  }
+  $delete_weight = $form['actions']['delete']['#weight'];
+  $submit_actions = $form['actions']['submit']['#submit'];
+  $archive_submit = ['_utexas_form_elements_archive_submit'];
+  foreach (array_values($submit_actions) as $action) {
+    $archive_submit[] = $action;
+  }
+  $form['actions']['archive'] = [
+    '#type' => 'submit',
+    '#value' => t('Archive'),
+    '#submit' => $archive_submit,
+    '#weight' => $delete_weight - 1,
+    '#attributes' => [
+      'class' => ['button', 'button--danger'],
+    ],
+  ];
+}
+
+/**
+ * Submit callback to set a node using "Standard workflow" to "archived".
+ */
+function _utexas_form_elements_archive_submit(&$form, FormStateInterface $form_state) {
+  $form_state->setValue(['moderation_state', '0', 'value'], 'archived');
+  $messenger = \Drupal::service("messenger");
+  $messenger->addMessage(t('This page has been archived. It will not be visible to anonymous visitors. It can be made visible again by setting its state to "Published".'));
+}
+
+/**
+ * Implements hook_contextual_links_alter().
+ */
+function utexas_form_elements_local_tasks_alter(&$local_tasks) {
+  // Do not display the 'Delete' tab on node forms (nodes can still be deleted)
+  // from within the 'Edit' interface.
+  unset($local_tasks['entity.node.delete_form']);
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function utexas_form_elements_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'ckeditor5') {
+    $theme = \Drupal::configFactory()->getEditable('system.theme')->get('default');
+    $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
+    $basetheme = $themeinfo['base theme'] ?? '';
+    // Add paths to stylesheets specified by a modules's ckeditor5-stylesheets
+    // config property.
+    $module = 'utexas_form_elements';
+    $module_path = \Drupal::service('extension.list.module')->getPath($module);
+    $info = \Drupal::service('extension.list.module')->getExtensionInfo($module);
+    if (isset($info['ckeditor5-stylesheets']) && $info['ckeditor5-stylesheets'] !== FALSE) {
+      $css = $info['ckeditor5-stylesheets'];
+      foreach (array_values($css) as $url) {
+        $path = '/' . $module_path . '/' . $url;
+        // Only load utexas_form_elements ckeditor5-stylesheets if the active
+        // theme or base theme is forty_acres.
+        if ($theme != 'forty_acres' && $basetheme != 'forty_acres') {
+          continue;
+        }
+        $libraries['internal.drupal.ckeditor5.stylesheets']['css']['theme'][$path] = [];
+      }
+    }
+  }
+}

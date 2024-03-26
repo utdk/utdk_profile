@@ -327,3 +327,19 @@ function utexas_contextual_links_plugins_alter(array &$contextual_links) {
     $contextual_links['layout_builder_block_remove']['title'] = t('Remove');
   }
 }
+
+/**
+ * Implements hook_preprocess_html() for html templates.
+ */
+function utexas_preprocess_html(&$variables) {
+  $variables['page']['#attached']['html_head'][] = [
+    [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'application-name',
+        'content' => 'UT Drupal Kit version 3',
+      ],
+    ],
+    'application-name',
+  ];
+}

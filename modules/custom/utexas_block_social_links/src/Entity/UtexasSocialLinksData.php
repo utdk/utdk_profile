@@ -17,6 +17,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "form" = {
  *       "add" = "Drupal\utexas_block_social_links\Form\UtexasSocialLinksDataForm",
  *       "edit" = "Drupal\utexas_block_social_links\Form\UtexasSocialLinksDataForm",
+ *       "delete" = "Drupal\utexas_block_social_links\Form\UtexasSocialLinksDataDeleteForm",
  *     },
  *     "route_provider" = {
  *       "html" = "Drupal\utexas_block_social_links\UtexasSocialLinksDataHtmlRouteProvider",

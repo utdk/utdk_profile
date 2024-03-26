@@ -22,3 +22,12 @@ function utexas_flex_list_update_8102() {
     'utexas_flex_list',
   ], TRUE);
 }
+
+/**
+ * Set definition list as default flex list mark up.
+ */
+function utexas_flex_list_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_flex_list',
+  ], TRUE);
+}

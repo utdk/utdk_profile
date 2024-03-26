@@ -2,10 +2,10 @@
 
 namespace Drupal\utexas_readonly\Access;
 
-use Drupal\Core\Routing\Access\AccessInterface;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Routing\Access\AccessInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\node\NodeTypeInterface;
 use Drupal\utexas_readonly\ReadOnlyHelper;
 
@@ -61,11 +61,24 @@ class UtexasReadOnlyAccess implements AccessInterface {
     $id = FALSE;
     $readonly = FALSE;
     $parameters = $this->routeMatch->getParameters();
-    if (!$entity_type = $parameters->get('entity_type_id')) {
-      return FALSE;
+    $type = $parameters->get('entity_type_id');
+    if (empty($type)) {
+      $type = $parameters->get('image_effect');
+      if (!empty($type)) {
+        $type = 'image_effect';
+      }
     }
-    switch ($entity_type) {
-      case 'node';
+
+    switch ($type) {
+      case 'image_effect':
+        $id = $parameters->get('image_style')->id();
+        // 'Starts with...'.
+        if (strpos($id, 'utexas_image_style') === 0) {
+          $readonly = TRUE;
+        }
+        break;
+
+      case 'node':
         $node_type = $parameters->get('node_type');
         if (is_string($node_type)) {
           $id = $node_type;

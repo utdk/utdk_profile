@@ -1,5 +1,4 @@
 slick-carousel:
-  version: 1.x
   css:
     theme:
       /libraries/accessible360--accessible-slick/slick/slick.min.css: {}

@@ -1,5 +1,4 @@
 image-link-default:
-  version: 1.x
   css:
     theme:
       css/image-link.css: {}

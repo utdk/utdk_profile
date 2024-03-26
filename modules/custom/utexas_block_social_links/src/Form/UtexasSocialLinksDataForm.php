@@ -7,13 +7,13 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
-use Drupal\Core\Render\Markup;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class UtexasSocialLinksDataForm.
+ * Registers a form for uploading linked social media icons.
  */
 class UtexasSocialLinksDataForm extends EntityForm {
 
@@ -132,6 +132,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    /** @var Drupal\utexas_block_social_links\Entity\UtexasSocialLinksData $utexas_block_social_links */
     $utexas_block_social_links = $this->entity;
     if ($temp_image_file = $form_state->getValue('icon')) {
       // The user is uploading a new SVG.
@@ -200,13 +201,18 @@ class UtexasSocialLinksDataForm extends EntityForm {
    *   forms.
    */
   private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileSystemInterface::EXISTS_RENAME) {
+    /** @var \Drupal\Core\File\FileSystemInterface $file_system */
+    // @codingStandardsIgnoreLine
+    $file_system = \Drupal::service('file_system');
+    $filedir = 'public://social_icons/';
+    $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
     // Get all errors set before calling this method. This will also clear them
     // from $_SESSION.
     $errors_before = $this->messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
 
-    $upload_location = isset($element['#upload_location']) ? $element['#upload_location'] : FALSE;
+    $upload_location = array_key_exists('#upload_location', $element) ? $element['#upload_location'] : $filedir;
     $upload_name = implode('_', $element['#parents']);
-    $upload_validators = isset($element['#upload_validators']) ? $element['#upload_validators'] : [];
+    $upload_validators = is_array($element['#upload_validators']) ? $element['#upload_validators'] : [];
 
     $result = file_save_upload($upload_name, $upload_validators, $upload_location, $delta, $replace);
 

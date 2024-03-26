@@ -59,8 +59,7 @@ trait FlexListTestTrait {
     // CRUD: READ
     // Verify page output.
     $assert->linkByHrefExists('https://drupalkit.its.utexas.edu');
-    $assert->elementExists('css', '.utexas-flex-list.formatter-default h5#location');
-    $assert->elementExists('css', '.utexas-flex-list.formatter-default h5#website');
+    $assert->elementExists('css', '.utexas-flex-list.formatter-default dl dt.ut-headline');
 
     // CRUD: UPDATE
     // Set display to "Accordions".

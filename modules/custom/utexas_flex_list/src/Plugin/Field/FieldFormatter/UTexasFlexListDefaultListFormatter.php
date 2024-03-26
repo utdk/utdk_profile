@@ -23,7 +23,7 @@ class UTexasFlexListDefaultListFormatter extends UTexasFlexListFormatterBase {
    */
   public static function defaultSettings() {
     return [
-      'heading_level' => 'h5',
+      'heading_level' => 'dl',
     ] + parent::defaultSettings();
   }
 
@@ -42,6 +42,7 @@ class UTexasFlexListDefaultListFormatter extends UTexasFlexListFormatterBase {
         'h4' => $this->t('h4'),
         'h5' => $this->t('h5'),
         'h6' => $this->t('h6'),
+        'dl' => $this->t('Description List'),
       ],
       '#default_value' => $this->getSetting('heading_level'),
     ];

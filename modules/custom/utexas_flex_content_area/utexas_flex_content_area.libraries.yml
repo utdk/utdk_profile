@@ -1,5 +1,4 @@
 flex-content-area:
-  version: 1.x
   css:
     theme:
       css/flex-content-area.css: {}

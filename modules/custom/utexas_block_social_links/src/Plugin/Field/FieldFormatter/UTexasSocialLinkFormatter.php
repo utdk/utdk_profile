@@ -4,9 +4,9 @@ namespace Drupal\utexas_block_social_links\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Url;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
 
 /**
@@ -39,6 +39,10 @@ class UTexasSocialLinkFormatter extends FormatterBase {
         $social_account_links = (array) unserialize($stored_links, ['allowed_classes' => TRUE]);
         foreach ($social_account_links as $key => $val) {
           if (!file_exists($icons[$val['social_account_name']])) {
+            // @codingStandardsIgnoreLine
+            \Drupal::logger('utexas_block_social_links')->warning('The icon for %social is missing. Update it on the <a href="/admin/structure/social-links">social links configuration page</a>.', [
+              '%social' => $val['social_account_name'],
+            ]);
             continue;
           }
           if (!empty($icons[$val['social_account_name']]) && $icon = file_get_contents($icons[$val['social_account_name']])) {

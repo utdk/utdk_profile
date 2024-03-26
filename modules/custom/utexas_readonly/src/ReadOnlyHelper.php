@@ -17,6 +17,16 @@ class ReadOnlyHelper {
   ];
 
   /**
+   * Restricted patterns.
+   *
+   * @var array
+   */
+  public static $restrictedPatterns = [
+    'utexas_image_style',
+    'utexas_responsive',
+  ];
+
+  /**
    * Restricted fields.
    *
    * @var array
@@ -167,6 +177,10 @@ class ReadOnlyHelper {
     'field_ui.field_group_add_block_content.form_display',
     'field_ui.field_group_add_block_content.display',
     'entity.scheduled_update_type.add_form.field.block_content',
+    // Image styles.
+    'image.effect_add_form',
+    'image.effect_delete',
+    'image.effect_edit_form',
     // Media entities.
     'field_ui.field_storage_config_add_media',
     // Views.

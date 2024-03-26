@@ -3,3 +3,6 @@ type: module
 description: General-use form elements not provided by Core
 core_version_requirement: ^8 || ^9 || ^10
 package: UTexas
+
+ckeditor5-stylesheets:
+  - css/link-options.css
