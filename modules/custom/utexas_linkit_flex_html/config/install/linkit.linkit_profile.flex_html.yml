@@ -12,8 +12,8 @@ matchers:
     id: 'entity:node'
     weight: 0
     settings:
-      include_unpublished: false
-      metadata: ''
+      include_unpublished: true
+      metadata: '[node:published_status]'
       bundles: {  }
       group_by_bundle: true
       substitution_type: canonical
