@@ -1039,3 +1039,40 @@ function utexas_update_8157() {
     \Drupal::service('module_installer')->install([$module]);
   }
 }
+
+/**
+ * Uninstall block_content.field_twitter_profile_widget field. (#2275)
+ */
+function utexas_update_8158() {
+  // Rebuild entity field definitions.
+  // See https://www.drupal.org/project/drupal/issues/3129179.
+  $entity_bundle_info = \Drupal::service('entity_type.bundle.info');
+  $entity_type_manager = \Drupal::service('entity_type.manager');
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $map = [];
+  foreach ($entity_type_manager->getDefinitions() as $entity_type_id => $entity_type) {
+    if (!$entity_type->entityClassImplements(FieldableEntityInterface::class)) {
+      continue;
+    }
+    foreach ($entity_bundle_info->getBundleInfo($entity_type_id) as $bundle => $bundle_info) {
+      foreach ($entity_field_manager->getFieldDefinitions($entity_type_id, $bundle) as $field_name => $field_definition) {
+        $map[$entity_type_id][$field_name]['type'] = $field_definition->getType();
+        $map[$entity_type_id][$field_name]['bundles'][] = $bundle;
+      }
+    }
+  }
+  $persistent_map = \Drupal::keyValue('entity.definitions.bundle_field_map');
+  $persistent_map->setMultiple($map);
+  if (\Drupal::moduleHandler()->moduleExists('twitter_profile_widget') === FALSE) {
+    // Remove Twitter from installed field definitions.
+    $installed = \Drupal::keyValue('entity.definitions.installed');
+    $all = $installed->getAll();
+    $field_storage = $all['block_content.field_storage_definitions'];
+    if (array_key_exists('field_twitter_profile_widget', $field_storage)) {
+      unset($field_storage['field_twitter_profile_widget']);
+      $all['block_content.field_storage_definitions'] = $field_storage;
+      $installed->setMultiple($all);
+    }
+    drupal_flush_all_caches();
+  }
+}
