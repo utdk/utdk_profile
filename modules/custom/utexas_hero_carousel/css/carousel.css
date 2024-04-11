@@ -197,3 +197,13 @@ button.slick-autoplay-toggle-button:focus {
   background-color:#000;
   border:solid 2px #fff;
 }
+
+.utexas-hero-carousel {
+  container: carousel-container / inline-size;
+}
+
+@container carousel-container (max-width: 499px) {
+  .slick-prev.slick-arrow, .slick-next.slick-arrow {
+    top: 20%;
+  }
+}
