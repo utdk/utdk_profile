@@ -169,6 +169,17 @@ function utexas_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'utexas/menus';
   if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
     $attachments['#attached']['library'][] = 'utexas/auto-anchors';
+    // The utexas-provided "Bootstrap" library includes functionality for
+    // Bootstrap alert, collapse, tooltips, modals, navs, and tabs.
+    // By default, these libraries will be loaded on all non-administrative
+    // pages regardless of the active theme. Sites that need to disable these
+    // libraries due to conflicts/incompatibility can do so by setting
+    // the `utexas_bootstrap_disable` state to `TRUE` (e.g.,
+    // `drush state:set utexas_bootstrap_disable TRUE`).
+    // See https://www.drupal.org/docs/develop/drupal-apis/state-api/state-api-overview
+    if (\Drupal::state()->get('utexas_bootstrap_disable') !== TRUE) {
+      $attachments['#attached']['library'][] = 'utexas/bootstrap';
+    }
   }
 }
 

@@ -1076,3 +1076,14 @@ function utexas_update_8158() {
     drupal_flush_all_caches();
   }
 }
+
+/**
+ * Remove legacy forty_acres Bootstrap theme settings, if present (#456).
+ */
+function utexas_update_8159() {
+  $forty_acres_bootstrap = \Drupal::configFactory()
+    ->getEditable('forty_acres.settings');
+  if (isset($forty_acres_bootstrap)) {
+    $forty_acres_bootstrap->clear('bootstrap_components')->save();
+  }
+}

@@ -9,3 +9,23 @@ menus:
   css:
     theme:
       css/menus.css: {}
+bootstrap:
+  css:
+    base:
+      css/alert.css: {}
+      css/collapse.css: {}
+      css/modal.css: {}
+      css/tab.css: {}
+      css/tooltip.css: {}
+  js:
+    js/util.js: {}
+    js/tooltip-initialize.js: {}
+    # Note: util.js and tooltip-initialize.js must precede the other libraries.
+    js/alert.js: {}
+    js/collapse.js: {}
+    js/modal.js: {}
+    js/popper.js: {}
+    js/tab.js: {}
+    js/tooltip.js: {}
+  dependencies:
+    - core/jquery
