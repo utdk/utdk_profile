@@ -86,6 +86,22 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.ut-btn.ut-cta-link--external', 'tabindex', '-1');
 
     // CRUD: UPDATE
+    // Remove CTA title but leave CTA URL.
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+    $form->fillField('field_block_featured_highlight[0][cta_wrapper][link][title]', '');
+    // Save block.
+    $form->pressButton('Save');
+
+    // CRUD: READ.
+    $this->drupalGet('node/' . $flex_page_id);
+    // Featured Highlight now does NOT render a CTA,
+    // but the headline is still a link.
+    $assert->elementNotExists('css', '.utexas-featured-highlight:nth-child(1) a.ut-btn');
+    $assert->linkExists('Featured Highlight Headline');
+
+    // CRUD: UPDATE
     // Set display to "Bluebonnet (Medium)".
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $form_values = ['settings[view_mode]' => 'utexas_featured_highlight_2'];
