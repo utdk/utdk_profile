@@ -38,7 +38,7 @@ class UTexasResourcesWidget extends WidgetBase {
 
     // This serialized data is trusted from the component,
     // so we do not restrict object types in unserialize().
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
     $resource_items = !empty($items[$delta]->resource_items) ? unserialize($items[$delta]->resource_items) : [];
     // Ensure item keys are consecutive.
     $resource_items = array_values($resource_items);

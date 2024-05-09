@@ -5,7 +5,7 @@ namespace Drupal\utexas_instagram_api\Services;
 use Drupal\Core\Config\ConfigFactory;
 
 /**
- * Class InstagramAuthService.
+ * Provide an Instagram Auth Service.
  *
  * @package Drupal\utexas_instagram_api\Services
  */
@@ -28,7 +28,8 @@ class InstagramAuthService {
   /**
    * Getter.
    */
-  public function get($name){
+  public function get($name) {
     return $this->configFactory->get($name);
   }
+
 }

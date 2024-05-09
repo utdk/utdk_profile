@@ -45,7 +45,6 @@ class UTexasImageLink extends FieldItemBase {
     $properties['link_options'] = MapDataDefinition::create()
       ->setLabel(t('Link Options'));
 
-
     return $properties;
   }
 

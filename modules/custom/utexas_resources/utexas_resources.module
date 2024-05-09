@@ -5,8 +5,8 @@
  * Resources custom compound field dot module file.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\block\BlockForm;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -60,14 +60,14 @@ function _utexas_resources_simplify_layout_form(&$form) {
     }
   }
   if ($is_resource) {
-    $form['settings']['view_mode']['#options'] = _update_resource_view_mode_labels($form['settings']['view_mode']['#options']);
+    $form['settings']['view_mode']['#options'] = _utexas_resources_update_view_mode_labels($form['settings']['view_mode']['#options']);
   }
 }
 
 /**
  * Helper function for updating view mode labels.
  */
-function _update_resource_view_mode_labels($options) {
+function _utexas_resources_update_view_mode_labels($options) {
   $formatterManager = \Drupal::service('plugin.manager.field.formatter');
   $definitions = $formatterManager->getDefinitions();
   $map = _utexas_resources_mapping_formatter_labels($definitions, 'utexas_resources');

@@ -43,7 +43,7 @@ class Defuser {
       $do_save = FALSE;
       // This serialized data is trusted from Layout Builder,
       // so we do not restrict object types in unserialize().
-      // @codingStandardsIgnoreLine
+      // phpcs:ignore
       $section = unserialize($current_node->layout_builder__layout_section);
       $components = $section->getComponents();
       $section_array = $section->toArray();

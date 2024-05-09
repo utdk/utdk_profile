@@ -3,12 +3,12 @@
 namespace Drupal\utexas_site_announcement\Form;
 
 use Drupal\block\Entity\Block;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\Entity\EntityTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Configure settings for the site announcement.
@@ -63,6 +63,10 @@ class AnnouncementConfigurationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    // Dependency injection is more complicated code than static calls
+    // and therefore has a negative Developer Experience (DX) for our team.
+    // We mark these PHPCS standards as ignored.
+    // phpcs:ignore
     if ($block = Block::load('siteannouncement')) {
       // Initially populate block settings as previously defined by this form.
       $settings = $block->get('settings');
@@ -189,6 +193,10 @@ class AnnouncementConfigurationForm extends ConfigFormBase {
     }
     // Turn off the block label display.
     $config['label_display'] = "0";
+    // Dependency injection is more complicated code than static calls
+    // and therefore has a negative Developer Experience (DX) for our team.
+    // We mark these PHPCS standards as ignored.
+    // phpcs:ignore
     if ($block = Block::load('siteannouncement')) {
       $block->set('settings', $config);
     }
@@ -201,7 +209,7 @@ class AnnouncementConfigurationForm extends ConfigFormBase {
         'plugin' => 'utexas_announcement',
         'theme' => $this->config('system.theme')->get('default'),
       ]);
-      // @todo: how to make this developer-configurable?
+      // @todo how to make this developer-configurable?
       $block->setRegion('site_announcement');
     }
     // Set the block enabled/disabled status per form selection.

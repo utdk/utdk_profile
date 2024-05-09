@@ -5,8 +5,8 @@
  * Contains install and update functions for UTexas Role Site Manager.
  */
 
-use Drupal\user\Entity\User;
 use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
 
 /**
  * Reassign site manager role with new machine name.

@@ -5,8 +5,8 @@
  * Contains utexas_featured_highlight.module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\block\BlockForm;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -65,14 +65,14 @@ function _utexas_featured_highlight_simplify_layout_form(&$form) {
     }
   }
   if ($is_featured_highlight) {
-    $form['settings']['view_mode']['#options'] = _update_featured_highlight_view_mode_labels($form['settings']['view_mode']['#options']);
+    $form['settings']['view_mode']['#options'] = _utexas_featured_highlight_update_view_mode_labels($form['settings']['view_mode']['#options']);
   }
 }
 
 /**
  * Helper function for updating view mode labels.
  */
-function _update_featured_highlight_view_mode_labels($options) {
+function _utexas_featured_highlight_update_view_mode_labels($options) {
   $formatterManager = \Drupal::service('plugin.manager.field.formatter');
   $definitions = $formatterManager->getDefinitions();
   $map = _utexas_featured_highlight_mapping_formatter_labels($definitions, 'utexas_featured_highlight');
@@ -98,7 +98,7 @@ function utexas_featured_highlight_form_block_form_alter(&$form, &$form_state, $
       if (method_exists($block_content, 'bundle')) {
         $bundle = $block_content->bundle();
         if ($bundle == 'utexas_featured_highlight') {
-          $form['settings']['view_mode']['#options'] = _update_featured_highlight_view_mode_labels($form['settings']['view_mode']['#options']);
+          $form['settings']['view_mode']['#options'] = _utexas_featured_highlight_update_view_mode_labels($form['settings']['view_mode']['#options']);
         }
       }
     }

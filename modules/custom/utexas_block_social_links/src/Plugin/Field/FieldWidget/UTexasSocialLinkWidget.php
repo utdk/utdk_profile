@@ -2,12 +2,12 @@
 
 namespace Drupal\utexas_block_social_links\Plugin\Field\FieldWidget;
 
+use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
-use Drupal\Component\Utility\Html;
-use Drupal\Component\Utility\NestedArray;
 
 /**
  * Plugin implementation of the 'utexas_social_link_widget' widget.
@@ -47,13 +47,13 @@ class UTexasSocialLinkWidget extends WidgetBase {
     // Gather the number of links in the form already.
     $stored_links = $items[$delta]->social_account_links ?? '';
     // Bypass requirement to specify allowed classes since they are unknown.
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
     $items = (array) unserialize($stored_links, ['allowed_classes' => TRUE]);
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
-    $item_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
+    $item_count = $widget_state[$field_name][$delta]["counter"] ?? NULL;
     // We have to ensure that there is at least one link field.
     if ($item_count === NULL) {
       if (empty($items)) {
@@ -82,12 +82,12 @@ class UTexasSocialLinkWidget extends WidgetBase {
         '#type' => 'select',
         '#title' => 'Website',
         '#options' => UTexasSocialLinkOptions::getOptionsArray(),
-        '#default_value' => isset($items[$i]['social_account_name']) ? $items[$i]['social_account_name'] : NULL,
+        '#default_value' => $items[$i]['social_account_name'] ?? NULL,
       ];
       $element['social_account_links'][$i]['social_account_url'] = [
         '#type' => 'url',
         '#title' => 'URL',
-        '#default_value' => isset($items[$i]['social_account_url']) ? $items[$i]['social_account_url'] : NULL,
+        '#default_value' => $items[$i]['social_account_url'] ?? NULL,
         '#placeholder' => 'https://media-site-name.com/our-handle',
       ];
     }

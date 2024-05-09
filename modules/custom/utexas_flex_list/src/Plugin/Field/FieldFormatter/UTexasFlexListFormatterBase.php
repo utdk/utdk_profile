@@ -2,9 +2,9 @@
 
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Component\Utility\Html;
 
 /**
  * Base class for 'UTexas Flex List Field formatter' plugin implementations.

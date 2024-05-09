@@ -2,10 +2,10 @@
 
 namespace Drupal\utexas_form_elements\Element;
 
-use Drupal\Core\Url;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElement;
-use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Url;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
@@ -66,7 +66,7 @@ class UtexasLinkOptionsElement extends FormElement {
       '#type' => 'textfield',
       '#title' => t('Link text'),
       '#description_display' => 'before',
-      '#default_value' => isset($element['#default_value']['title']) ? $element['#default_value']['title'] : '',
+      '#default_value' => $element['#default_value']['title'] ?? $element['#default_value']['title'],
       '#access' => isset($element['#suppress_title_display']) ? FALSE : TRUE,
       '#description' => $element['#title_description'] ?? '',
     ];

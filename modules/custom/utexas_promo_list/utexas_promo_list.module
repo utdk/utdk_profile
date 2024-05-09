@@ -5,8 +5,8 @@
  * Contains utexas_promo_list.module.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\block\BlockForm;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().

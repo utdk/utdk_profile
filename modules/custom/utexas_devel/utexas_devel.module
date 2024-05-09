@@ -5,8 +5,8 @@
  * Module for UTDK development.
  */
 
-use Drupal\node\Entity\Node;
 use Drupal\layout_builder\Section;
+use Drupal\node\Entity\Node;
 
 require_once 'includes/featured_highlight.inc';
 require_once 'includes/flex_content_area.inc';

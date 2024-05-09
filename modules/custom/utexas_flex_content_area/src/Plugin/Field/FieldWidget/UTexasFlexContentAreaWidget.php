@@ -69,7 +69,7 @@ class UTexasFlexContentAreaWidget extends UtexasWidgetBase {
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
     $link_count = $widget_state[$field_name][$delta]["counter"] ?? NULL;
     // We have to ensure that there is at least one link field.
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
     $links = !empty($item->links) ? unserialize($item->links) : [];
     if ($link_count === NULL) {
       if (empty($links)) {

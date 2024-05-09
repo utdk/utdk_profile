@@ -202,7 +202,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
    */
   private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileSystemInterface::EXISTS_RENAME) {
     /** @var \Drupal\Core\File\FileSystemInterface $file_system */
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
     $file_system = \Drupal::service('file_system');
     $filedir = 'public://social_icons/';
     $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);

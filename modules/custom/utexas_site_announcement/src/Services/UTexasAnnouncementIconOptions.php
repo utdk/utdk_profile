@@ -3,9 +3,9 @@
 namespace Drupal\utexas_site_announcement\Services;
 
 /**
- * Class UTexasAnnouncementIconOptions.
+ * Provide announcement icon options.
  *
- * @package Drupal\utexas_site_announcement
+ * @package UTexasAnnouncementIconOptions
  */
 class UTexasAnnouncementIconOptions {
 

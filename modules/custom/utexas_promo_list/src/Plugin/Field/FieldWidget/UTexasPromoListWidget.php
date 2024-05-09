@@ -38,7 +38,7 @@ class UTexasPromoListWidget extends WidgetBase {
     // Gather the number of items in the Promo List.
     // This serialized data is trusted from the component,
     // so we do not restrict object types in unserialize().
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
     $items = !empty($items[$delta]->promo_list_items) ? unserialize($items[$delta]->promo_list_items) : [];
     // Ensure item keys are consecutive.
     $items = array_values($items);

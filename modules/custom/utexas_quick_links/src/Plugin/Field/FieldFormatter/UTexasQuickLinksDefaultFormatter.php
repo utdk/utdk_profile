@@ -2,8 +2,8 @@
 
 namespace Drupal\utexas_quick_links\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 

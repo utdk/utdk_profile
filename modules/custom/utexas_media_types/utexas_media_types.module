@@ -5,8 +5,8 @@
  * Contains utexas_media_types.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Routing\RouteMatchInterface;
 
 use Drupal\utexas_media_types\IframeTitleHelper;
 

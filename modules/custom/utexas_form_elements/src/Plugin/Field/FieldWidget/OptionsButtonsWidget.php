@@ -3,8 +3,8 @@
 namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsButtonsWidget as BaseOptionsButtonsWidget;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_form_elements\Traits\TaxonomyDescriptionTrait;
 
 /**

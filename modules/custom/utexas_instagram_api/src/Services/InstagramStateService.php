@@ -5,7 +5,7 @@ namespace Drupal\utexas_instagram_api\Services;
 use Drupal\Core\State\State;
 
 /**
- * Class InstagramStateService.
+ * Provides an Instagram State Service.
  *
  * @package Drupal\utexas_instagram_api\Services
  */
@@ -38,4 +38,5 @@ class InstagramStateService {
   public function set($key, $value) {
     $this->state->set($key, $value);
   }
+
 }

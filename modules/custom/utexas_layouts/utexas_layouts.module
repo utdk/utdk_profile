@@ -64,9 +64,9 @@ function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInt
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  */
-function utexas_layouts_form_node_layout_builder_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function utexas_layouts_form_node_layout_builder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#attributes']['class'][] = 'container';
 }
 

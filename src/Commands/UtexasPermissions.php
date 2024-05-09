@@ -2,8 +2,8 @@
 
 namespace Drupal\utexas\Commands;
 
-use Drush\Commands\DrushCommands;
 use Drupal\utexas\Permissions;
+use Drush\Commands\DrushCommands;
 
 /**
  * Add predefined permissions to an indicated role.
@@ -65,9 +65,7 @@ class UtexasPermissions extends DrushCommands {
    *   The option value, defaulting to NULL.
    */
   protected function getOption(array $options, $name, $default = NULL) {
-    return isset($options[$name])
-      ? $options[$name]
-      : $default;
+    return $options[$name] ?? $default;
   }
 
 }

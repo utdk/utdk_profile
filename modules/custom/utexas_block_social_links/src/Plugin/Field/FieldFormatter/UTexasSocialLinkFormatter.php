@@ -35,11 +35,11 @@ class UTexasSocialLinkFormatter extends FormatterBase {
       if ($item->social_account_links) {
         $stored_links = $item->social_account_links ?? '';
         // Bypass requirement to specify allowed classes since they are unknown.
-        // @codingStandardsIgnoreLine
+        // phpcs:ignore
         $social_account_links = (array) unserialize($stored_links, ['allowed_classes' => TRUE]);
         foreach ($social_account_links as $key => $val) {
           if (!file_exists($icons[$val['social_account_name']])) {
-            // @codingStandardsIgnoreLine
+            // phpcs:ignore
             \Drupal::logger('utexas_block_social_links')->warning('The icon for %social is missing. Update it on the <a href="/admin/structure/social-links">social links configuration page</a>.', [
               '%social' => $val['social_account_name'],
             ]);

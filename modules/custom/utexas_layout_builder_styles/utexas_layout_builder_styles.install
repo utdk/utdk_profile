@@ -5,8 +5,8 @@
  * Contains install and update functions for UTexas Layout Builder Styles.
  */
 
-use Drupal\utexas_layout_builder_styles\StyleUpdateHelper;
 use Drupal\layout_builder_styles\Entity\LayoutBuilderStyleGroup;
+use Drupal\utexas_layout_builder_styles\StyleUpdateHelper;
 
 /**
  * Implements hook_install().

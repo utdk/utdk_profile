@@ -62,14 +62,14 @@ function _utexas_photo_content_area_simplify_layout_form(&$form) {
     }
   }
   if ($is_photo_content_area) {
-    $form['settings']['view_mode']['#options'] = _update_photo_content_area_view_mode_labels($form['settings']['view_mode']['#options']);
+    $form['settings']['view_mode']['#options'] = _utexas_photo_content_area_update_view_mode_labels($form['settings']['view_mode']['#options']);
   }
 }
 
 /**
  * Helper function for updating view mode labels.
  */
-function _update_photo_content_area_view_mode_labels($options) {
+function _utexas_photo_content_area_update_view_mode_labels($options) {
   $formatterManager = \Drupal::service('plugin.manager.field.formatter');
   $definitions = $formatterManager->getDefinitions();
   $map = _utexas_photo_content_area_mapping_formatter_labels($definitions, 'utexas_photo_content_area');

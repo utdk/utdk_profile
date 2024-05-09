@@ -3,9 +3,9 @@
 namespace Drupal\utexas_readonly\Routing;
 
 use Drupal\Core\Routing\RouteSubscriberBase;
-use Symfony\Component\Routing\RouteCollection;
 use Drupal\Core\Routing\RoutingEvents;
 use Drupal\utexas_readonly\ReadOnlyHelper;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * Provide a list of routes that should be checked (see UtexasReadOnlyAccess).

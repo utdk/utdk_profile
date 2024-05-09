@@ -4,6 +4,7 @@ namespace Drupal\utexas_flex_list\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
@@ -19,6 +20,7 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
  * )
  */
 class UTexasFlexList extends UtexasWidgetBase {
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -59,7 +61,7 @@ class UTexasFlexList extends UtexasWidgetBase {
       $value['content_format'] = $value['utexas_flex_list']['content']['format'];
       if (empty($value['header']) && !empty($value['content_value'])) {
         $field_name = $this->fieldDefinition->getName();
-        $form_state->setError($form[$field_name]['widget'][$delta]['utexas_flex_list']['header'], t('A header must accompany body text.'));
+        $form_state->setError($form[$field_name]['widget'][$delta]['utexas_flex_list']['header'], $this->t('A header must accompany body text.'));
       }
     }
     return $values;
