@@ -51,17 +51,87 @@
 .utexas-featured-highlight.dark .ut-copy .ut-btn--secondary {
   color: #bf5700;
 }
-/* Defaults/mobile first */
-/* Featured Highlight layout styles. */
-/* Image Wrapper. */
-.utexas-featured-highlight .image-wrapper {
-  min-width: auto;
-  margin-bottom: 1rem;
-  padding: 2rem 2rem 0 2rem;
+
+/* Featured Highlight layout styles. Defaults/mobile first */
+/* Featured highlight wrapper */
+.container.utexas-featured-highlight-inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
 }
+
+/* One-column styles */
+.layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .content-wrapper {
+  padding-left: 0;
+}
+@media all and (max-width: 599px) {
+  .layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper {
+    padding: 2rem;
+    flex-direction: column;
+  }
+}
+@media all and (min-width: 600px) {
+  .layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper {
+    flex-direction: row;
+    padding: 4rem 3rem;
+  }
+  .layout--utexas-onecol.container-fluid .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper {
+    padding: 4rem .925rem;
+  }
+}
+@media all and (min-width: 600px) and (max-width: 899px) {
+  .layout--utexas-onecol.container-fluid .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper {
+    padding: 3rem .925rem;
+  }
+  .layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper {
+    padding: 3rem;
+  }
+}
+
+/* Image wrapper. */
+.layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .image-wrapper,
+.utexas-layout--twocol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .image-wrapper,
+.utexas-layout--threecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .image-wrapper,
+.utexas-layout--fourcol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .image-wrapper {
+  padding: 0;
+  max-width: none;
+  flex: 1;
+  margin-bottom: 2rem;
+}
+@media all and (min-width: 600px) {
+  .layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .image-wrapper {
+    margin-bottom: 0;
+    max-width: 330px;
+  }
+}
+@media screen and (min-width: 600px) and (max-width: 899px) {
+  .layout--utexas-onecol.container-fluid .layout__region .utexas-featured-highlight .image-wrapper,
+  .utexas-layout--twocol .layout__region .utexas-featured-highlight .image-wrapper {
+    padding: 0;
+  }
+}
+
 /* Content wrapper */
-.utexas-featured-highlight .content-wrapper {
-  padding: 1rem 2rem 2rem 2rem;
+.layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .content-wrapper,
+.utexas-layout--twocol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .content-wrapper,
+.utexas-layout--threecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .content-wrapper,
+.utexas-layout--fourcol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper .content-wrapper {
+  padding: 0;
+  flex: 1;
+}
+@media all and (min-width: 600px) {
+  .layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper > div:nth-child(2) {
+    padding-left: 2.5rem;
+  }
+}
+@media all and (min-width: 600px) {
+  .layout--utexas-onecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper > div:nth-child(2) {
+    padding-left: 2rem;
+  }
+}
+/* Style padding for content-wrapper if image exists in Featured Highlight */
+.utexas-featured-highlight .utexas-featured-highlight-inner-wrapper > div:nth-child(2) {
+  padding: 2rem;
 }
 .utexas-featured-highlight .content-wrapper .ut-date {
   font-style: italic;
@@ -71,55 +141,25 @@
   margin-bottom: 0;
 }
 
-/* Tablet and Desktop styles */
-/* Container query to control layout based on container width. */
-.utexas-featured-highlight {
-  container-type: inline-size;
-}
-.utexas-featured-highlight-inner-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-@container (min-width: 550px) {
-  .utexas-featured-highlight-inner-wrapper {
-    display: flex;
-    flex-direction: row;
-  }
-  .utexas-featured-highlight-inner-wrapper .image-wrapper {
-    flex: 1;
-    padding: 2rem 0 2rem 2rem;
-  }
-  .utexas-featured-highlight-inner-wrapper .content-wrapper {
-    flex: 1;
-  }
-}
-/* Image wrapper */
-@media all and (min-width: 550px) {
-  .utexas-featured-highlight .image-wrapper {
-    margin-bottom: 0;
-  }
-}
-
-/* Content wrapper */
-@media all and (min-width: 600px) and (max-width: 899px) {
+/* Content wrapper responsive */
+@media all (max-width: 899px) {
   .utexas-featured-highlight .content-wrapper {
     font-size: .8rem;
   }
 }
-
 @media all and (min-width: 900px) {
   .utexas-featured-highlight .content-wrapper {
     font-size: 1rem;
   }
 }
-
 @media all and (min-width: 1200px) {
   .utexas-featured-highlight .content-wrapper {
     min-width: auto;
     padding: 2rem;
   }
 }
-/* Headline styles */
+
+/* Headline styles responsive */
 @media all and (min-width: 600px) {
   .utexas-featured-highlight .content-wrapper .ut-headline a,
   .utexas-featured-highlight .content-wrapper .ut-headline {
@@ -127,7 +167,6 @@
     line-height: 1.5rem;
   }
 }
-
 @media all and (min-width: 900px) {
   .utexas-featured-highlight .content-wrapper .ut-headline a,
   .utexas-featured-highlight .content-wrapper .ut-headline {
@@ -136,25 +175,56 @@
   }
 }
 
-.layout--utexas-onecol.container-fluid .layout__region .utexas-featured-highlight-inner-wrapper {
-  padding-left: .9375rem;
-  padding-right: .9375rem;
+/* Tablet and Desktop styles */
+/* Container query to control layout based on container width. */
+.utexas-featured-highlight {
+  container-type: inline-size;
 }
 
-@media screen and (min-width: 600px) {
-  .layout--utexas-onecol .layout__region .utexas-featured-highlight .image-wrapper {
-    max-width: 330px;
+@container (min-width: 570px) {
+  .layout__region .utexas-featured-highlight-inner-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+  .layout__region .utexas-featured-highlight-inner-wrapper .content-wrapper {
+    flex: 1;
+  }
+  .utexas-layout--twocol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper > div:nth-child(2) {
+    padding-left: 2rem;
+  }
+  .utexas-layout--threecol .layout__region .utexas-featured-highlight .utexas-featured-highlight-inner-wrapper > div:nth-child(2) {
+    padding-left: 2rem;
   }
 }
 
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  .layout--utexas-onecol.container-fluid .layout__region .utexas-featured-highlight .image-wrapper {
-    padding: 2rem 0;
+/* If the container is less than 600px */
+@container (max-width: 599px) {
+  .utexas-layout--twocol .layout__region .utexas-featured-highlight-inner-wrapper,
+  .utexas-layout--threecol .layout__region .utexas-featured-highlight-inner-wrapper,
+  .utexas-layout--fourcol .layout__region .utexas-featured-highlight-inner-wrapper {
+    padding: 2rem;
+  }
+  .utexas-layout--twocol .layout__region .utexas-featured-highlight .image-wrapper,
+  .utexas-layout--threecol .layout__region .utexas-featured-highlight .image-wrapper,
+  .utexas-layout--fourcol .layout__region .utexas-featured-highlight .image-wrapper {
+    max-width: unset;
+    padding: 0 0 1rem 0;
+  }
+  .utexas-layout--twocol .layout__region .utexas-featured-highlight-inner-wrapper>div:nth-child(2),
+  .utexas-layout--threecol .layout__region .utexas-featured-highlight-inner-wrapper>div:nth-child(2),
+  .utexas-layout--fourcol .layout__region .utexas-featured-highlight-inner-wrapper>div:nth-child(2) {
+    padding: 0 0 0 2.5rem;
   }
 }
 
-@media screen and (min-width: 900px) {
-  .layout--utexas-onecol .layout__region .utexas-featured-highlight .image-wrapper {
-    padding: 2rem 0;
+/* If the container is less than 186px */
+@container (max-width: 249px) {
+  .utexas-layout--twocol .layout__region .utexas-featured-highlight-inner-wrapper,
+  .utexas-layout--threecol .layout__region .utexas-featured-highlight-inner-wrapper,
+  .utexas-layout--fourcol .layout__region .utexas-featured-highlight-inner-wrapper {
+    padding: 1rem;
+  }
+  .utexas-featured-highlight .content-wrapper a.ut-btn {
+    color: #fff;
   }
 }

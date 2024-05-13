@@ -238,7 +238,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $module_installer = $this->container->get('module_installer');
     $module_installer->install(['utexas_devel']);
     $this->drupalGet('featured-highlight');
-    $featured_highlight_path = 'styles/utexas_image_style_500w/public/generated_sample/tower-lighting.gif';
+    $featured_highlight_path = 'styles/utexas_image_style_600w/public/generated_sample/tower-lighting.gif';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper img', 'src', $featured_highlight_path);
     $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight');
     $assert->elementTextContains('css', '.utexas-featured-highlight .ut-copy', 'Add descriptive text to provide a short summary of this featured content.');

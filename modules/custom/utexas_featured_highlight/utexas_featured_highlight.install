@@ -34,6 +34,9 @@ function utexas_featured_highlight_update_8102() {
     ]
   );
   $result = $query->fetchAssoc();
+  // This serialized data is trusted from the component,
+  // so we do not restrict object types in unserialize().
+  // @codingStandardsIgnoreLine
   $fh_tables = array_keys(unserialize($result['value']));
   $schema = $database->schema();
   foreach ($fh_tables as $table_name) {
@@ -45,6 +48,15 @@ function utexas_featured_highlight_update_8102() {
  * Featured Highlight image styles change scale & crop to scale width (#1792).
  */
 function utexas_featured_highlight_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_featured_highlight',
+  ], TRUE);
+}
+
+/**
+ * Padding is inconsistent in one-column and multi-column layouts (#2507).
+ */
+function utexas_featured_highlight_update_8104() {
   \Drupal::service('features.manager')->import([
     'utexas_featured_highlight',
   ], TRUE);

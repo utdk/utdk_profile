@@ -77,7 +77,7 @@ trait FeaturedHighlightTestTrait {
     // Verify image is not a link after a11y changes.
     $assert->elementNotExists('css', '.utexas-featured-highlight .image-wrapper a picture source');
     // Verify expected image.
-    $expected_path = 'utexas_image_style_500w/public/test_files/image-1000x1000';
+    $expected_path = 'utexas_image_style_600w/public/test_files/image-1000x1000';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper picture img', 'src', $expected_path);
     // // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
