@@ -110,7 +110,7 @@ function utexas_form_elements_form_node_form_alter(&$form, FormStateInterface $f
   if (!$moderation_info->isModeratedEntity($node)) {
     return;
   }
-  if (!$moderation_info->getWorkflowForEntity($node)->id() === 'standard_workflow') {
+  if ($moderation_info->getWorkflowForEntity($node)->id() !== 'standard_workflow') {
     return;
   }
   if (!\Drupal::currentUser()->hasPermission('use standard_workflow transition archive')) {
