@@ -259,7 +259,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $assert->elementTextContains('css', '.promo-list .content', 'Short descriptive text can be formatted.');
 
     $this->drupalGet('promo-unit');
-    $promo_unit_path = 'styles/utexas_image_style_176w_112h/public/generated_sample/tower-lighting.gif';
+    $promo_unit_path = 'styles/utexas_image_style_800w_500h/public/generated_sample/tower-lighting.gif';
     $assert->elementAttributeContains('css', '.utexas-promo-unit .image-wrapper img', 'src', $promo_unit_path);
     $assert->elementTextContains('css', '.utexas-promo-unit-container h3.ut-headline--underline', 'Promo Unit Group 1');
     $assert->elementTextContains('css', '.utexas-promo-unit .data-wrapper p', 'Short descriptive text can be formatted.');
