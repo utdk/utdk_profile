@@ -3,9 +3,9 @@
 namespace Drupal\utexas_block_social_links\Services;
 
 /**
- * Class UTexasSocialLinkOptions.
+ * Class Provide a block of social links.
  *
- * @package Drupal\utexas_block_social_links
+ * @package UTexasSocialLinkOptions
  */
 class UTexasSocialLinkOptions {
 

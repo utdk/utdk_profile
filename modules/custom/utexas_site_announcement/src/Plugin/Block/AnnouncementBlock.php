@@ -2,14 +2,12 @@
 
 namespace Drupal\utexas_site_announcement\Plugin\Block;
 
-use Drupal\Core\Access\AccessResult;
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\Session\AccountInterface;
-use Drupal\Component\Utility\Html;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
@@ -179,7 +177,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
       $cta = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-btn']);
     }
 
-    // @todo: sanitize svg?
+    // @todo Fix problem sanitize svg here.
     $icon = $this->entityTypeManager->getStorage('utexas_announcement_icon')->load($config['icon']);
     if ($icon !== NULL) {
       $icon_content = file_get_contents($icon->get('icon'));

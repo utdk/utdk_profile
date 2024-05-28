@@ -28,9 +28,10 @@
             slidesToScroll: parseInt(carouselOptions['slidesToScroll']),
             slidesToShow: parseInt(carouselOptions['slidesToShow']),
           });
+          var layoutBuilderContainer = $(this).parents(".layout-builder__layout");
           // If the carousel does not have autoplay enabled, pause the carousel
           // and set the button display to "Play".
-          if (carouselOptions['autoplay'] == 0) {
+          if (carouselOptions['autoplay'] == 0 || layoutBuilderContainer.length > 0) {
             $(this).slick('slickSetOption', 'autoplay', true).slick('slickPause');
             $(this).find('.slick-pause-icon').attr('style', 'display: none');
             $(this).find('.slick-play-icon').removeAttr('style');

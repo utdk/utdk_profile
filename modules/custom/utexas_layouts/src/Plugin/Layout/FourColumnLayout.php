@@ -65,6 +65,7 @@ class FourColumnLayout extends DefaultConfigLayout {
    */
   public function build(array $regions) {
     $build = parent::build($regions);
+    $build['#attributes']['class'][] = 'layout';
     $build['#attributes']['class'][] = $this->getPluginDefinition()->getTemplate();
     $this->buildBackground($build);
     $this->buildBackgroundColor($build);

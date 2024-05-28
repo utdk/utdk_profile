@@ -69,7 +69,7 @@ function utexas_favicons_preprocess_html(&$variables) {
     $sized_icons = [
       '#tag' => 'link',
       '#attributes' => [
-        'rel' => isset($value['rel']) ? $value['rel'] : 'icon',
+        'rel' => $value['rel'] ?? 'icon',
         'sizes' => $value['sizes'],
         'href' => '/' . $value['filename'],
       ],

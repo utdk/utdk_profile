@@ -46,7 +46,7 @@ class UTexasQuickLinksWidget extends WidgetBase {
 
     // This serialized data is trusted from the component,
     // so we do not restrict object types in unserialize().
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
 
     // We have to ensure that there is at least one link field.
     if (isset($items[$delta])) {

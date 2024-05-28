@@ -5,5 +5,6 @@ dependencies:
     - block_content
 id: block_content.utexas_promo_unit_5
 label: 'Promo Unit Portrait Stacked'
+description: ''
 targetEntityType: block_content
 cache: true

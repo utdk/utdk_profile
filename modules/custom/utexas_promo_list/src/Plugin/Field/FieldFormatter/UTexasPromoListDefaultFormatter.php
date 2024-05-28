@@ -3,10 +3,10 @@
 namespace Drupal\utexas_promo_list\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
@@ -123,7 +123,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
             $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker']);
           }
           if (!empty($instance_item['image'])) {
-            $image = isset($instance_item['image']) ? $instance_item['image'] : FALSE;
+            $image = $instance_item['image'] ?? FALSE;
             $instances[$key]['image'] = $this->generateImageRenderArray($image, $responsive_image_style_name, $cache_tags);
           }
         }
@@ -146,7 +146,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
     // Initialize image render array as false in case that images are not found.
     $image_render_array = FALSE;
     if (!empty($image) && $media = $this->entityTypeManager->getStorage('media')->load($image)) {
-      $media_attributes = MediaEntityImageHelper::getFileFieldValue($media); 
+      $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
       $image_render_array = [];
       if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
         $image = new \stdClass();

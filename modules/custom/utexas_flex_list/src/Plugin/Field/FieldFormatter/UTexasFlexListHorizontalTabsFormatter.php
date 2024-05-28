@@ -2,8 +2,8 @@
 
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\FieldItemListInterface;
 
 /**
  * Plugin implementation of the 'bootstrap_horizontal_tabs' formatter.

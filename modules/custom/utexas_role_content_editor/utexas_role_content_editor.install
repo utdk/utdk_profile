@@ -5,8 +5,8 @@
  * Contains install and update functions for UTexas Role Content Editor.
  */
 
-use Drupal\user\Entity\User;
 use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
 
 /**
  * Reassign content editor role with new machine name.

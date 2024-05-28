@@ -2,9 +2,9 @@
 
 namespace Drupal\utexas_instagram_api;
 
+use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
 use GuzzleHttp\RequestOptions;
-use Drupal\Core\Routing\TrustedRedirectResponse;
 
 /**
  * Main Instagram API request class.
@@ -42,28 +42,28 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    *
    * @var string
    */
-  protected $config_id;
+  protected $configId;
 
   /**
    * The META client id.
    *
    * @var string
    */
-  protected $client_id;
+  protected $clientId;
 
   /**
    * The META client secret.
    *
    * @var string
    */
-  protected $client_secret;
+  protected $clientSecret;
 
   /**
    * An optional override of the redirect, typically for debugging purposes.
    *
    * @var string
    */
-  protected $redirect_uri_override;
+  protected $redirectUriOverride;
 
   /**
    * State service object.
@@ -91,14 +91,14 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    *
    * @var string
    */
-  protected $base_url;
+  protected $baseUrl;
 
   /**
    * The utexas_ig_auth redirect URI.
    *
    * @var string
    */
-  protected $redirect_uri;
+  protected $redirectUri;
 
   /**
    * Constructs the request object.
@@ -107,17 +107,17 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
 
     $this->configFactory = \Drupal::service('utexas_instagram_api.ig_auth_service');
     $this->config = $this->configFactory->get('utexas_instagram_api.ig_auth.' . $config_id);
-    $this->config_id = $this->config->get('id');
-    $this->client_id = $this->config->get('client_id');
-    $this->client_secret = $this->config->get('client_secret');
-    $this->redirect_uri_override = $this->config->get('redirect_uri_override');
+    $this->configId = $this->config->get('id');
+    $this->clientId = $this->config->get('client_id');
+    $this->clientSecret = $this->config->get('client_secret');
+    $this->redirectUriOverride = $this->config->get('redirect_uri_override');
 
     $this->state = \Drupal::service('utexas_instagram_api.ig_state_service');
     $this->token = $this->state->get(self::STATE_API_PREFIX . $config_id . '.token');
     $this->expiration = $this->state->get(self::STATE_API_PREFIX . $config_id . '.token_expiration');
 
-    $this->base_url = \Drupal::request()->getHost();
-    $this->redirect_uri = $this->redirect_uri_override ?? URL::fromRoute('entity.utexas_ig_auth.collection', [], [
+    $this->baseUrl = \Drupal::request()->getHost();
+    $this->redirectUri = $this->redirectUriOverride ?? URL::fromRoute('entity.utexas_ig_auth.collection', [], [
       'absolute' => TRUE,
     ]);
   }
@@ -126,7 +126,7 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getConfigId() {
-    return $this->config_id;
+    return $this->configId;
   }
 
   /**

@@ -3,8 +3,8 @@
 namespace Drupal\utexas_form_elements;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Link;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\link\LinkItemInterface;
 
@@ -160,7 +160,14 @@ class UtexasLinkOptionsHelper {
    */
   public static function validateLinkOptionsTarget(&$element, FormStateInterface $form_state, $form) {
     if ($element['uri']['#value'] === '' && $element['options']['attributes']['target']['#value'] !== []) {
-      $form_state->setError($element['options']['attributes']['target'], t('The @uri field is required when the @target field is specified.', ['@target' => $element['options']['attributes']['target']['#title'], '@uri' => $element['uri']['#title']]));
+      $form_state->setError($element['options']['attributes']['target'],
+      t('The @uri field is required when the @target field is specified.',
+        [
+          '@target' => $element['options']['attributes']['target']['#title'],
+          '@uri' => $element['uri']['#title'],
+        ]
+        )
+      );
     }
   }
 
@@ -171,7 +178,9 @@ class UtexasLinkOptionsHelper {
    */
   public static function validateLinkOptionsClass(&$element, FormStateInterface $form_state, $form) {
     if ($element['uri']['#value'] === '' && $element['options']['attributes']['class']['#value'] !== '0') {
-      $form_state->setError($element['options']['attributes']['class'], t('The @uri field is required when the @class field is specified.', ['@class' => $element['options']['attributes']['class']['#title'], '@uri' => $element['uri']['#title']]));
+      $form_state->setError($element['options']['attributes']['class'],
+        t('The @uri field is required when the @class field is specified.',
+        ['@class' => $element['options']['attributes']['class']['#title'], '@uri' => $element['uri']['#title']]));
     }
   }
 

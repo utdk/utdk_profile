@@ -5,8 +5,8 @@
  * Quick Links custom compound field dot module file.
  */
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\block\BlockForm;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_theme().
@@ -61,14 +61,14 @@ function _utexas_quick_links_simplify_layout_form(&$form) {
     }
   }
   if ($is_quick_links) {
-    $form['settings']['view_mode']['#options'] = _update_quick_links_view_mode_labels($form['settings']['view_mode']['#options']);
+    $form['settings']['view_mode']['#options'] = _utexas_quick_links_update_view_mode_labels($form['settings']['view_mode']['#options']);
   }
 }
 
 /**
  * Helper function for updating view mode labels.
  */
-function _update_quick_links_view_mode_labels($options) {
+function _utexas_quick_links_update_view_mode_labels($options) {
   $formatterManager = \Drupal::service('plugin.manager.field.formatter');
   $definitions = $formatterManager->getDefinitions();
   $map = _utexas_quick_links_mapping_formatter_labels($definitions, 'utexas_quick_links');
@@ -112,7 +112,7 @@ function utexas_quick_links_form_block_form_alter(&$form, &$form_state, $form_id
       if (method_exists($block_content, 'bundle')) {
         $bundle = $block_content->bundle();
         if ($bundle == 'utexas_quick_links') {
-          $form['settings']['view_mode']['#options'] = _update_quick_links_view_mode_labels($form['settings']['view_mode']['#options']);
+          $form['settings']['view_mode']['#options'] = _utexas_quick_links_update_view_mode_labels($form['settings']['view_mode']['#options']);
         }
       }
     }

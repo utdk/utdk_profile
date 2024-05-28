@@ -2,9 +2,9 @@
 
 namespace Drupal\utexas_missing_blocks\Commands;
 
-use Drush\Commands\DrushCommands;
 use Drupal\utexas_missing_blocks\Controller\MissingBlockReport;
 use Drupal\utexas_missing_blocks\Defuser;
+use Drush\Commands\DrushCommands;
 
 /**
  * Find missing inline blocks.

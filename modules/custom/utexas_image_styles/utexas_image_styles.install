@@ -6,7 +6,7 @@
  */
 
 /**
- * Issue #986: Add new image style for consistent square aspect ratio - width and height both 500px.
+ * Issue #986: Add new image style for consistent 500px square aspect ratio.
  */
 function utexas_image_styles_update_8101() {
   \Drupal::service('features.manager')->import([

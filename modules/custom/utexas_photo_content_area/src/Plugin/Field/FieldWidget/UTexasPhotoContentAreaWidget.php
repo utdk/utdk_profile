@@ -3,10 +3,10 @@
 namespace Drupal\utexas_photo_content_area\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
@@ -57,14 +57,14 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     $element['copy'] = [
       '#title' => 'Copy',
       '#type' => 'text_format',
-      '#default_value' => isset($items[$delta]->copy_value) ? $items[$delta]->copy_value : NULL,
+      '#default_value' => $items[$delta]->copy_value ?? NULL,
       '#format' => $items[$delta]->copy_format ?? 'restricted_html',
     ];
     // Retrieve the form element that is using this widget.
     $parents = [$field_name, 'widget'];
     $widget_state = static::getWidgetState($parents, $field_name, $form_state);
     // This value is defined/leveraged by ::utexasAddMoreSubmit().
-    $link_count = isset($widget_state[$field_name][$delta]["counter"]) ? $widget_state[$field_name][$delta]["counter"] : NULL;
+    $link_count = $widget_state[$field_name][$delta]["counter"] ?? NULL;
     // We have to ensure that there is at least one link field.
     $links = (array) unserialize($items[$delta]->links ?? '');
     if ($link_count === NULL) {

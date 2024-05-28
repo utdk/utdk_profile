@@ -36,4 +36,3 @@ function utexas_image_link_update_8101() {
     $schema->addField($table_name, 'field_block_il_link_options', $link_options);
   }
 }
-

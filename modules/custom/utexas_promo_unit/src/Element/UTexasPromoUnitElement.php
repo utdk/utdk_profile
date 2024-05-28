@@ -51,7 +51,7 @@ class UTexasPromoUnitElement extends FormElement {
       '#name' => 'image',
       '#title' => t('Image'),
       '#default_value' => MediaEntityImageHelper::checkMediaExists($image_default),
-      '#description' => t('Upload an image with aspect ratio appropriate to the view mode you select (see below). To accommodate high resolution screens, images should have dimensions of at least 440 pixels.'),
+      '#description' => t('Upload an image with aspect ratio appropriate to the view mode you select (see below). To accommodate high resolution screens, the image widths should be at least 1600 pixels.'),
       '#upload_validators' => $validators,
       '#upload_location' => 'public://promo_unit_items/',
     ];

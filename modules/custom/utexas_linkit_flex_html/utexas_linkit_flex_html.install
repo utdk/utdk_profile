@@ -22,3 +22,12 @@ function utexas_linkit_flex_html_update_8102() {
     'utexas_linkit_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #2085: Enable 'include unpublished nodes' setting.
+ */
+function utexas_linkit_flex_html_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_linkit_flex_html',
+  ], TRUE);
+}

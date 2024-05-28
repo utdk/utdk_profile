@@ -5,8 +5,6 @@
  * Contains utexas_flex_content_area.module.
  */
 
-use Drupal\block\BlockForm;
-
 /**
  * Implements hook_theme().
  */

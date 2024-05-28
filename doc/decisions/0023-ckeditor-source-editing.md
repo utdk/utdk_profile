@@ -1,4 +1,4 @@
-# 22. Source editing in CKEditor
+# 23. Source editing in CKEditor
 
 Date: 2024-03-05
 

@@ -2,18 +2,18 @@
 
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Language\Language;
-use Drupal\Core\Url;
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Url;
 use Drupal\date_ap_style\ApStyleDateFormatter;
 use Drupal\media\IFrameUrlHelper;
 use Drupal\media\MediaInterface;
@@ -23,10 +23,9 @@ use Drupal\media\OEmbed\UrlResolverInterface;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\IframeTitleHelper;
+use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_featured_highlight' formatter.
@@ -174,6 +173,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_fh';
     foreach ($items as $item) {
+      $cta = "";
       $id = Html::getUniqueId('featured-highlight');
       if (isset($item->date)) {
         $options = [
@@ -193,7 +193,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $headline = $item->headline ?? '';
       if (!empty($item->link_uri)) {
         $link_item['link']['uri'] = $item->link_uri;
-        $link_item['link']['title'] = $item->link_text ?? NULL;
+        $link_item['link']['title'] = $item->link_text ?? '';
         $link_item['link']['options'] = $item->link_options ?? [];
         if (isset($item->headline)) {
           $headline = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link'], $item->headline);
@@ -202,7 +202,9 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
           $link_item['link']['options']['attributes']['aria-hidden'] = 'true';
           $link_item['link']['options']['attributes']['tabindex'] = '-1';
         }
-        $cta = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-btn']);
+        if (!empty($link_item['link']['title'])) {
+          $cta = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-btn']);
+        }
       }
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
@@ -240,7 +242,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         '#media' => $media_render_array,
         '#copy' => check_markup($copy, $format),
         '#date' => $item->date,
-        '#cta' => $cta ?? '',
+        '#cta' => $cta,
         '#style' => '',
       ];
     }

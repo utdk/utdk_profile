@@ -2,11 +2,11 @@
 
 namespace Drupal\utexas\Form;
 
+use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\State\State;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Config\ConfigFactory;
 
 /**
  * Defines a form for selecting which UTexas extensions to install.

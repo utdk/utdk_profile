@@ -77,13 +77,29 @@ trait FeaturedHighlightTestTrait {
     // Verify image is not a link after a11y changes.
     $assert->elementNotExists('css', '.utexas-featured-highlight .image-wrapper a picture source');
     // Verify expected image.
-    $expected_path = 'utexas_image_style_500w/public/test_files/image-1000x1000';
+    $expected_path = 'utexas_image_style_600w/public/test_files/image-1000x1000';
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper picture img', 'src', $expected_path);
     // // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
     $assert->elementAttributeContains('css', '.ut-btn.ut-cta-link--external', 'tabindex', '-1');
+
+    // CRUD: UPDATE
+    // Remove CTA title but leave CTA URL.
+    $this->drupalGet('admin/content/block');
+    $this->scrollLinkIntoViewAndClick($page, $block_name);
+    $form = $this->waitForForm($block_content_edit_form_id);
+    $form->fillField('field_block_featured_highlight[0][cta_wrapper][link][title]', '');
+    // Save block.
+    $form->pressButton('Save');
+
+    // CRUD: READ.
+    $this->drupalGet('node/' . $flex_page_id);
+    // Featured Highlight now does NOT render a CTA,
+    // but the headline is still a link.
+    $assert->elementNotExists('css', '.utexas-featured-highlight:nth-child(1) a.ut-btn');
+    $assert->linkExists('Featured Highlight Headline');
 
     // CRUD: UPDATE
     // Set display to "Bluebonnet (Medium)".

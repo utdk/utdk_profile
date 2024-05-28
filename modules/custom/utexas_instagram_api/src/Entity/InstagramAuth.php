@@ -3,8 +3,8 @@
 namespace Drupal\utexas_instagram_api\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
-use Drupal\utexas_instagram_api\InstagramAuthInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\utexas_instagram_api\InstagramAuthInterface;
 use Drupal\utexas_instagram_api\UTexasInstagramApi;
 
 /**

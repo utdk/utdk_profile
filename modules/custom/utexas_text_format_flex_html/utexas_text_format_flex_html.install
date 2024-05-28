@@ -17,8 +17,7 @@ function utexas_text_format_flex_html_update_8101() {
 }
 
 /**
- * Issue #975: Add "start" and "type" to allowed <ol> attributes for creation of
- * nested ordered lists with CKEditor.
+ * Issue #975: Add "start" and "type" to allowed attributes for nested <ol>s.
  */
 function utexas_text_format_flex_html_update_8102() {
   \Drupal::service('features.manager')->import([
@@ -36,8 +35,7 @@ function utexas_text_format_flex_html_update_8103() {
 }
 
 /**
- * Issue #982: Allow additional HTML attributes on <a> tag related to Document
- * media type.
+ * Issue #982: Allow add'l attributes on <a> tag related to Document media type.
  */
 function utexas_text_format_flex_html_update_8104() {
   \Drupal::service('features.manager')->import([
@@ -55,8 +53,7 @@ function utexas_text_format_flex_html_update_8105() {
 }
 
 /**
- * Issue #1625: Select between predefined image sizes when embedding media
- * library images in WYSIWYGs.
+ * Issue #1625: Predefined image sizes embedded media library images.
  */
 function utexas_text_format_flex_html_update_8106() {
   \Drupal::service('features.manager')->import([
@@ -126,8 +123,7 @@ function utexas_text_format_flex_html_update_8112() {
 }
 
 /**
- * Make table cells in tables without <thead> behave like ones that do have
- * <thead> (in CKEditor5) (#2373).
+ * Make cells in tables w/o <thead> behave like ones that do in CKE5 (#2373).
  */
 function utexas_text_format_flex_html_update_8113() {
   \Drupal::service('features.manager')->import([

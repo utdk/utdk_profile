@@ -2,8 +2,8 @@
 
 namespace Drupal\Tests\utexas\Functional;
 
+use Drupal\Core\Database\Database;
 use Drupal\Tests\BrowserTestBase;
-
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
@@ -54,6 +54,33 @@ abstract class FunctionalTestBase extends BrowserTestBase {
 
     $this->testContentEditorUser = $this->initializeContentEditor();
     $this->testSiteManagerUser = $this->initializeSiteManager();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function cleanupEnvironment() {
+    // We override the cleanupEnvironment method from core's BrowserTestBase
+    // due to issues with Docker Desktop. See below.
+    // Remove all prefixed tables.
+    $original_connection_info = Database::getConnectionInfo('simpletest_original_default');
+    $original_prefix = $original_connection_info['default']['prefix'];
+    $test_connection_info = Database::getConnectionInfo('default');
+    $test_prefix = $test_connection_info['default']['prefix'];
+    if ($original_prefix != $test_prefix) {
+      $tables = Database::getConnection()->schema()->findTables('%');
+      foreach ($tables as $table) {
+        if (Database::getConnection()->schema()->dropTable($table)) {
+          unset($tables[$table]);
+        }
+      }
+    }
+
+    // We skip the following, which causes issues when used with
+    // Docker Desktop. Instead, the test execution command will perform the
+    // cleanup. See utdk_localdev#99.
+    // @codingStandardsIgnoreLine
+    // \Drupal::service('file_system')->deleteRecursive($this->siteDirectory, [$this, 'filePreDeleteCallback']);
   }
 
   /**

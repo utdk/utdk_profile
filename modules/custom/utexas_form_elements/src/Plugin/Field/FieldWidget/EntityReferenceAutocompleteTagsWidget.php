@@ -3,8 +3,8 @@
 namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteTagsWidget as BaseAutocompleteWidget;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\utexas_form_elements\Traits\TaxonomyDescriptionTrait;
 
 /**
@@ -40,4 +40,5 @@ class EntityReferenceAutocompleteTagsWidget extends BaseAutocompleteWidget {
     }
     return $element;
   }
+
 }

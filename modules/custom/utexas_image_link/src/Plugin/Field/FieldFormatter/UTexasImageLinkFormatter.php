@@ -4,13 +4,12 @@ namespace Drupal\utexas_image_link\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Url;
-
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -104,7 +103,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
 
       if (!empty($item->image)) {
         $alt_override = $item->link_text ?: '';
-        $image = isset($item->image) ? $item->image : FALSE;
+        $image = $item->image ?? FALSE;
         $image_render_array = $this->generateImageRenderArray($image, $responsive_image_style_name, NULL, $cache_tags, $alt_override);
       }
 

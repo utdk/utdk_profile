@@ -38,7 +38,7 @@ class UTexasPromoUnitWidget extends WidgetBase {
 
     // This serialized data is trusted from the component,
     // so we do not restrict object types in unserialize().
-    // @codingStandardsIgnoreLine
+    // phpcs:ignore
     $promo_unit_items = !empty($items[$delta]->promo_unit_items) ? unserialize($items[$delta]->promo_unit_items) : [];
     // Ensure item keys are consecutive.
     $promo_unit_items = array_values($promo_unit_items);

@@ -36,7 +36,7 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
       '#type' => 'media_library',
       '#allowed_bundles' => $allowed_bundles,
       '#delta' => $delta,
-      '#description' => $this->t('The recommended minimum image width is 500px wide'),
+      '#description' => $this->t('The recommended minimum image width is 600px wide'),
       '#cardinality' => 1,
       '#title' => $this->t('Media'),
       '#default_value' => MediaEntityImageHelper::checkMediaExists($item->media),
@@ -44,7 +44,8 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
     $element['headline'] = [
       '#title' => 'Headline',
       '#type' => 'textfield',
-      '#default_value' => isset($item->headline) ? $item->headline : NULL,
+      '#description' => $this->t('To make this headline into a hyperlink, enter a URL in the Call to Action URL field below.'),
+      '#default_value' => $item->headline ?? NULL,
       '#size' => '60',
       '#placeholder' => '',
       '#maxlength' => 255,
@@ -52,13 +53,13 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
     $element['copy'] = [
       '#title' => 'Copy',
       '#type' => 'text_format',
-      '#default_value' => isset($item->copy_value) ? $item->copy_value : NULL,
+      '#default_value' => $item->copy_value ?? NULL,
       '#format' => $item->copy_format ?? 'restricted_html',
     ];
     $element['date'] = [
       '#title' => 'Date',
       '#type' => 'date',
-      '#default_value' => isset($item->date) ? $item->date : NULL,
+      '#default_value' => $item->date ?? NULL,
     ];
     $element['cta_wrapper'] = [
       '#type' => 'fieldset',
@@ -67,10 +68,11 @@ class UTexasFeaturedHighlightWidget extends WidgetBase {
     $element['cta_wrapper']['link'] = [
       '#type' => 'utexas_link_options_element',
       '#default_value' => [
-        'uri' => isset($item->link_uri) ? $item->link_uri : NULL,
-        'title' => isset($item->link_text) ? $item->link_text : NULL,
-        'options' => isset($item->link_options) ? $item->link_options : [],
+        'uri' => $item->link_uri ?? NULL,
+        'title' => $item->link_text ?? NULL,
+        'options' => $item->link_options ?? [],
       ],
+      '#title_description' => $this->t('Optional. Leave blank to link only the item headline. Add text to print a second link at the bottom of the item.'),
     ];
 
     return $element;

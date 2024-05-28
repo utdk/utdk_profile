@@ -7,13 +7,13 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\utexas_site_announcement\Services\UTexasAnnouncementIconOptions;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class UTexasAnnouncementIconForm.
+ * Provides an announcement icon form.
  */
 class UTexasAnnouncementIconForm extends EntityForm {
 
@@ -204,9 +204,9 @@ class UTexasAnnouncementIconForm extends EntityForm {
     // from $_SESSION.
     $errors_before = $this->messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
 
-    $upload_location = isset($element['#upload_location']) ? $element['#upload_location'] : FALSE;
+    $upload_location = $element['#upload_location'] ?? FALSE;
     $upload_name = implode('_', $element['#parents']);
-    $upload_validators = isset($element['#upload_validators']) ? $element['#upload_validators'] : [];
+    $upload_validators = $element['#upload_validators'] ?? [];
 
     $result = file_save_upload($upload_name, $upload_validators, $upload_location, $delta, $replace);
 

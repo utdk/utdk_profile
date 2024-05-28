@@ -82,7 +82,7 @@ class MissingBlockReport extends ControllerBase {
       }
       // This serialized data is trusted from Layout Builder,
       // so we do not restrict object types in unserialize().
-      // @codingStandardsIgnoreLine
+      // phpcs:ignore
       $section = unserialize($layout->layout_builder__layout_section);
       $components = $section->getComponents();
       foreach ($components as $component) {

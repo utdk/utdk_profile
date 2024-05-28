@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *
  * @FieldFormatter(
  *   id = "utexas_promo_unit_6",
- *   label = @Translation("Stacked Square (140x140, 1:1 ratio)"),
+ *   label = @Translation("Stacked Square (1:1 ratio)"),
  *   field_types = {
  *     "utexas_promo_unit"
  *   },

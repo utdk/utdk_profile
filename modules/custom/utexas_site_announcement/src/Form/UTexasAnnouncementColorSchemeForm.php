@@ -2,13 +2,13 @@
 
 namespace Drupal\utexas_site_announcement\Form;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerTrait;
-use Drupal\Core\Cache\Cache;
 
 /**
- * Class UTexasAnnouncementColorSchemeForm.
+ * Provides an announcement color scheme form.
  */
 class UTexasAnnouncementColorSchemeForm extends EntityForm {
 

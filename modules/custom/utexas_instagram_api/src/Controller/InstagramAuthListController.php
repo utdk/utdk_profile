@@ -3,8 +3,8 @@
 namespace Drupal\utexas_instagram_api\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\Request;
 use Drupal\utexas_instagram_api\UTexasInstagramApi;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Defines a controller to list entity instances.

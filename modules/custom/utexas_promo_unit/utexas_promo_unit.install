@@ -45,3 +45,12 @@ function utexas_promo_unit_update_8102() {
       ->execute();
   }
 }
+
+/**
+ * Issue #2237: Promo unit "Stacked Landscape" results in low-resolution images.
+ */
+function utexas_promo_unit_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_promo_unit',
+  ], TRUE);
+}

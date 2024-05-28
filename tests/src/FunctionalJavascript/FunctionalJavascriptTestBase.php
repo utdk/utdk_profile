@@ -2,15 +2,13 @@
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\Core\StringTranslation\StringTranslationTrait;
-
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Element\TraversableElement;
-
+use Drupal\Core\Database\Database;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
-
+use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
@@ -122,6 +120,33 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     // 20 seconds.
     $this->setTimeout(20000);
     $this->getSession()->resizeWindow(1200, 4000);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function cleanupEnvironment() {
+    // We override the cleanupEnvironment method from core's BrowserTestBase
+    // due to issues with Docker Desktop. See below.
+    // Remove all prefixed tables.
+    $original_connection_info = Database::getConnectionInfo('simpletest_original_default');
+    $original_prefix = $original_connection_info['default']['prefix'];
+    $test_connection_info = Database::getConnectionInfo('default');
+    $test_prefix = $test_connection_info['default']['prefix'];
+    if ($original_prefix != $test_prefix) {
+      $tables = Database::getConnection()->schema()->findTables('%');
+      foreach ($tables as $table) {
+        if (Database::getConnection()->schema()->dropTable($table)) {
+          unset($tables[$table]);
+        }
+      }
+    }
+
+    // We skip the following, which causes issues when used with
+    // Docker Desktop. Instead, the test execution command will perform the
+    // cleanup. See utdk_localdev#99.
+    // @codingStandardsIgnoreLine
+    // \Drupal::service('file_system')->deleteRecursive($this->siteDirectory, [$this, 'filePreDeleteCallback']);
   }
 
   /**
@@ -678,6 +703,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
    */
   protected function addSectionToLayoutBuilder($section_layout) {
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
+    // @codingStandardsIgnoreLine
     $assert = $this->assertSession();
 
     $this->clickLink('Add section');

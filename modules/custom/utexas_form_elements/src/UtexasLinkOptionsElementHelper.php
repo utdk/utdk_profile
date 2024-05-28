@@ -3,8 +3,8 @@
 namespace Drupal\utexas_form_elements;
 
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Core\Url;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
 
 /**
  * Provides helper to operate on URIs.
@@ -33,7 +33,7 @@ class UtexasLinkOptionsElementHelper {
     $uri = strtok(strtok($uri, "?"), "#");
     // Remove the schema, if any. Otherwise, remove the forwarding "/".
     if (strpos($uri, 'entity:') !== FALSE) {
-      list(, $uri) = explode(':', $uri);
+      [, $uri] = explode(':', $uri);
     }
     else {
       $uri = trim($uri, '/');
