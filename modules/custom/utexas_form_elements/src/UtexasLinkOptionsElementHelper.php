@@ -73,7 +73,7 @@ class UtexasLinkOptionsElementHelper {
     $host = parse_url($input, PHP_URL_HOST);
     $scheme = parse_url($input, PHP_URL_SCHEME);
 
-    if ($scheme == 'mailto') {
+    if ($host == 'mailto') {
       return $input;
     }
 

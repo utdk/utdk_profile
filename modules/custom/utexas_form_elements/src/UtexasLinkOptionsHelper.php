@@ -116,6 +116,8 @@ class UtexasLinkOptionsHelper {
       return NULL;
     }
 
+    $item['link']['uri'] = self::handlePhoneNumbers($item['link']['uri']);
+
     // @todo fix up data at the source (UtexasLinkOptionsElement).
     // Clean up some less than ideal data.
     if (isset($item['link']['options']['attributes']['class']) && $item['link']['options']['attributes']['class'] === "0") {
@@ -182,6 +184,37 @@ class UtexasLinkOptionsHelper {
         t('The @uri field is required when the @class field is specified.',
         ['@class' => $element['options']['attributes']['class']['#title'], '@uri' => $element['uri']['#title']]));
     }
+  }
+
+  /**
+   * Handle edge cases with phone number formatting.
+   *
+   * @param string $uri
+   *   A string like "tel:123".
+   *
+   * @return string
+   *   The prepared string, such as "tel:+1-123".
+   */
+  public static function handlePhoneNumbers($uri) {
+    if (str_starts_with($uri, 'tel:')) {
+      // See https://www.drupal.org/project/drupal/issues/2484693.
+      // If the telephone number is 5 or less digits, parse_url() will think
+      // it's a port number rather than a phone number which causes the link
+      // formatter to throw an InvalidArgumentException. Avoid this by inserting
+      // a dash (-) after the first digit - RFC 3966 defines the dash as a
+      // visual separator character and so will be removed before the phone
+      // number is used. See https://bugs.php.net/bug.php?id=70588 for more.
+      // While the bug states this only applies to numbers <= 65535, a 5 digit
+      // number greater than 65535 will cause parse_url() to return FALSE so
+      // we need the work around on any 5 digit (or less) number.
+      // First we strip whitespace so we're counting actual digits.
+      $phone_number = preg_replace('/\s+/', '', $uri);
+      $phone_number = preg_replace('/tel:/', '', $phone_number);
+      if (strlen($phone_number) <= 5) {
+        $uri = 'tel:+1-' . $phone_number;
+      }
+    }
+    return $uri;
   }
 
 }
