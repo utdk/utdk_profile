@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\utexas\Traits;
 
-use Drupal\utexas\Permissions;
 use Drupal\user\Entity\Role;
+use Drupal\utexas\Permissions;
 
 /**
  * General-purpose methods for interacting with Drupal users.

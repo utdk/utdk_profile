@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\utexas\Traits;
 
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\Language;
-
-use Drupal\file\FileInterface;
 use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
 use Drupal\media\Entity\Media;
 use Drupal\node\Entity\Node;
 

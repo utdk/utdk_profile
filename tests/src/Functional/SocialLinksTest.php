@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\utexas\Functional;
 
 /**
@@ -38,7 +40,6 @@ class SocialLinksTest extends FunctionalTestBase {
     $this->assertForbidden('admin/structure/social-links/add');
     $this->assertForbidden('admin/structure/social-links/facebook/edit');
     // $this->assertForbidden('admin/structure/social-links/facebook/delete');
-
     // CRUD: READ.
     $added_permissions = ['administer social links data config'];
     $this->drupalLogin($this->initializeContentEditor($added_permissions));
