@@ -83,7 +83,7 @@ trait FlexListTestTrait {
 
     // CRUD: READ
     // Verify page output.
-    $assert->elementExists('css', '.utexas-flex-list.formatter-htabs ul.nav-tabs li.nav-item.active');
+    $assert->elementExists('css', '.utexas-flex-list.formatter-htabs ul.nav-tabs li.nav-item a.active');
 
     // REMOVE.
     $this->drupalGet('/admin/content/block/');
