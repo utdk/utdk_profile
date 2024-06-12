@@ -150,6 +150,30 @@ function utexas_form_install_configure_form_alter(&$form, $form_state, $form_id)
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function utexas_form_search_form_alter(&$form, $form_state, $form_id) {
+  // Put search tips into a collapsible fieldset (#1686).
+  if (!\Drupal::moduleHandler()->moduleExists('search')) {
+    return;
+  }
+  $search_page_repository = \Drupal::service('search.search_page_repository');
+  $default_search_page = $search_page_repository->getDefaultSearchPage();
+  if (!$default_search_page) {
+    return;
+  }
+  $search_entity = \Drupal::entityTypeManager()->getStorage('search_page')->load($default_search_page);
+  $markup = $search_entity->getPlugin()->getHelp();
+  // Put search tips into a collapsible fieldset (#1686).
+  $form['help_link'] = [
+    '#title' => 'About searching <em class="icon-angle-right">&nbsp;</em>',
+    '#type' => 'details',
+    '#collapsed' => TRUE,
+  ];
+  $form['help_link']['markup'] = $markup;
+}
+
+/**
  * Implements hook_form_alter().
  */
 function utexas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
