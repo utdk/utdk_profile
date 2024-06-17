@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Drupal\utexas_instagram\InstagramHelper;
 
 /**
@@ -19,6 +21,36 @@ function utexas_instagram_preprocess_block(&$variables) {
     }
     $config_id = $block->get('field_utexas_instagram_acct')->getString();
     $variables['instagram_posts'] = InstagramHelper::render($config_id);
+  }
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function utexas_instagram_preprocess_field(&$variables) {
+  if ($variables['element']['#field_name'] !== 'field_utexas_instagram_headline') {
+    return;
+  }
+  // If the Instagram instance has been set to link to the Instagram account,
+  // render the headline field as a link.
+  if ($block = $variables['element']['#object']) {
+    $link_handle = $block->get('field_utexas_instagram_handle')->getValue();
+    if ($link_handle && isset($link_handle[0]['value'])) {
+      if ($link_handle[0]['value'] !== "1") {
+        return;
+      }
+      $config_id = $block->get('field_utexas_instagram_acct')->getString();
+      $variables['username'] = InstagramHelper::getAccountLink($config_id);
+      if (!empty($variables['username'])) {
+        $url = Url::fromUri('https://www.instagram.com/' . $variables['username']);
+        foreach ($variables['items'] as &$item) {
+          $text = $item['content']['#context']['value'];
+          $linked_text = Link::fromTextAndUrl($text, $url)->toRenderable();
+          $linked_text['#attributes']['class'][] = 'ut-cta-link--external';
+          $item['content']['#context']['value'] = $linked_text;
+        }
+      }
+    }
   }
 }
 
@@ -55,6 +87,10 @@ function utexas_instagram_theme($existing, $type, $theme, $path) {
     'block__inline_block__utexas_instagram' => [
       'template' => 'block--inline-block--utexas-instagram',
       'base hook' => 'block',
+    ],
+    'field__field_utexas_instagram_headline' => [
+      'template' => 'field--field-utexas-instagram-headline',
+      'base hook' => 'field',
     ],
   ];
 }
