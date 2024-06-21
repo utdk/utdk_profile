@@ -29,7 +29,7 @@ class RequiredLinksBlock extends BlockBase {
     ];
     $output = '<ul class="ut-menu--list required-links__list">';
     foreach ($required_links as $url => $title) {
-      $output .= '<li class="required-links__list-item"><a href="' . $url . '" class="required-links__link">' . $title . '</a></li>';
+      $output .= '<li class="required-links__list-item"><a href="' . $url . '" class="required-links__link ut-cta-link--external">' . $title . '</a></li>';
     }
     $output .= '</ul>';
     $build = [];
