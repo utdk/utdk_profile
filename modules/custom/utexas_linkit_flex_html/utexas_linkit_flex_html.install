@@ -31,3 +31,12 @@ function utexas_linkit_flex_html_update_8103() {
     'utexas_linkit_flex_html',
   ], TRUE);
 }
+
+/**
+ * Issue #2499: Add "external link" matcher to Linkit Flex HTML profile.
+ */
+function utexas_linkit_flex_html_update_8104() {
+  \Drupal::service('features.manager')->import([
+    'utexas_linkit_flex_html',
+  ], TRUE);
+}
