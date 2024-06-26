@@ -5,6 +5,9 @@
  * Contains utexas_homepage_alert.module.
  */
 
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
 /**
  * Implements hook_theme().
  */
@@ -23,4 +26,30 @@ function utexas_site_announcement_theme() {
       'template' => 'utexas-site-announcement',
     ],
   ];
+}
+
+/**
+ * Prepares variables for emergency templates.
+ *
+ * Default template: emergency.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the emergency information and
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function utexas_site_announcement_preprocess_utexas_site_announcement(array &$variables): void {
+  $url = Url::fromRoute('utexas_announcement.configuration');
+  if (\Drupal::currentUser()->hasPermission('manage utexas site announcement')) {
+    $link = Link::fromTextAndUrl(t('Update this announcement'), $url);
+    $link = $link->toRenderable();
+    $link['#attributes'] = [
+      'class' => [
+        'ut-btn',
+        'ut-btn--secondary',
+      ],
+    ];
+    $variables['edit_link'] = $link;
+  }
 }
