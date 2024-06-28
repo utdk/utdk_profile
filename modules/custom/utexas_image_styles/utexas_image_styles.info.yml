@@ -1,7 +1,7 @@
 name: 'UTexas Image Styles'
 type: module
 description: 'Provides "shell" module for managing image styles via dependencies of this module.'
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: '^10 || ^11'
 package: UTexas
 dependencies:
   - image

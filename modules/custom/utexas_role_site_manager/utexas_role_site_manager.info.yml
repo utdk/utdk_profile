@@ -1,7 +1,7 @@
 name: 'UTexas Role Site Manager'
 type: module
 description: 'Defines a role and permissions for Site Manager'
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: '^10 || ^11'
 package: UTexas
 dependencies:
   - 'drupal:user'

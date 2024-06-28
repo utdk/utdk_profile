@@ -124,7 +124,8 @@ trait UtexasFieldTrait {
         '#delta' => ceil(count($items) / 2),
         '#attributes' => ['class' => [$group_class]],
       ];
-      $headline = 'item ' . $inc + 1;
+      $offset = $inc + 1;
+      $headline = 'item ' . $offset;
       $form_items[$inc]['actions'] = [
         '#type' => 'submit',
         '#value' => $this->t('Remove %headline', [
