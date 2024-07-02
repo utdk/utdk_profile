@@ -22,7 +22,6 @@ class UTexasFlexListAccordionFormatter extends UTexasFlexListFormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
-    $elements['#attached']['library'][] = 'utexas_flex_list/accordion';
     $elements['#theme_info'] = ['formatter_name' => 'accordion'];
     return $elements;
   }

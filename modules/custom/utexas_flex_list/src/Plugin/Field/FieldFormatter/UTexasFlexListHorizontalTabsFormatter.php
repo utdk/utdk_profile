@@ -23,7 +23,6 @@ class UTexasFlexListHorizontalTabsFormatter extends UTexasFlexListFormatterBase 
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
-    $elements['#attached']['library'][] = 'utexas_flex_list/horizontal-tabs';
     $elements['#theme_info'] = ['formatter_name' => 'htabs'];
     $elements['#instance_id'] = Html::getUniqueId('horizontal-tab');
     return $elements;

@@ -1,15 +1,3 @@
-default:
-  css:
-    theme:
-      css/utexas_flex_list.default.css: {}
-accordion:
-  css:
-    theme:
-      css/utexas_flex_list.accordion.css: {}
-horizontal-tabs:
-  css:
-    theme:
-      css/utexas_flex_list.horizontal-tabs.css: {}
 widget:
   css:
     theme:
