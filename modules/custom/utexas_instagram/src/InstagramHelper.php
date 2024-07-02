@@ -75,11 +75,6 @@ class InstagramHelper {
             'utexas-instagram-feed__list-item',
           ],
         ],
-        '#attached' => [
-          'library' => [
-            'utexas_instagram/utexas_instagram_feed_post',
-          ],
-        ],
       ];
     }
 

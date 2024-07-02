@@ -161,7 +161,6 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
         '#resource_items' => $instances,
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_resources/resources-formatter';
     return $elements;
 
   }

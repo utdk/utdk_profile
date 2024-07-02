@@ -90,7 +90,6 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
         '#cta' => $cta,
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_hero/hero-style-4';
     return $elements;
   }
 

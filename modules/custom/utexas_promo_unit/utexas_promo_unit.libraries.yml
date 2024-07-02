@@ -1,7 +1,3 @@
-promo-unit-formatter:
-  css:
-    theme:
-      css/promo-unit-formatter.css: {}
 promo-unit-widget:
   css:
     theme:

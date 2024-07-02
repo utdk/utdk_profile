@@ -1,7 +1,3 @@
-promo-list-formatter:
-  css:
-    theme:
-      css/promo-list-formatter.css: {}
 promo-list-widget:
   css:
     theme:
