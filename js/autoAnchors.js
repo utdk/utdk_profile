@@ -17,7 +17,7 @@
     selector = selector.replace(/,\s*$/, "");
     // Loop through all discovered headings and add a unique ID.
     $(selector).each(function () {
-      var anchor = generateAnchor(this);
+      generateAnchor(this);
     });
      // Ensure that *after* JS has added IDs, the page is located on the hash.
      let destination = $(window.location.hash).offset();
@@ -32,6 +32,9 @@
    * @param {object} el The active heading element.
    */
   function generateAnchor(el) {
+    // Add tabindex (#2542).
+    el.tabIndex = -1;
+    // Add id if none present.
     if (el.id) {
       return el.id;
     } else {
