@@ -166,7 +166,7 @@ function utexas_form_search_form_alter(&$form, $form_state, $form_id) {
   $markup = $search_entity->getPlugin()->getHelp();
   // Put search tips into a collapsible fieldset (#1686).
   $form['help_link'] = [
-    '#title' => 'About searching <em class="icon-angle-right">&nbsp;</em>',
+    '#title' => 'About searching',
     '#type' => 'details',
     '#collapsed' => TRUE,
   ];
