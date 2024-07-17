@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
 
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -193,7 +194,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     $unique_id = Html::getUniqueId("site-announcement");
     return [
       '#theme' => 'utexas_site_announcement',
-      '#title' => !empty($config['title']) ? Html::escape($config['title']) : '',
+      '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title']) : '',
       '#icon' => $config['icon'] === 'none' ? NULL : $config['icon'],
       '#message' => !empty($config['message']['value']) ? check_markup($config['message']['value'], $config['message']['format']) : '',
       '#unique_id' => $unique_id,

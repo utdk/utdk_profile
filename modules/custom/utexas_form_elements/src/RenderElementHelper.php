@@ -65,4 +65,19 @@ class RenderElementHelper {
     return $element;
   }
 
+  /**
+   * Allow a subset of markup in single-line text fields.
+   *
+   * @param string $value
+   *   The single-line text field value to process.
+   *
+   * @return array
+   *   The processed element.
+   */
+  public static function filterSingleLineText($value) {
+    return [
+      '#markup' => strip_tags($value, '<em><i><strong><b>'),
+    ];
+  }
+
 }
