@@ -1,15 +1,18 @@
+.tabledrag-cell-content__item {
+  width: 100%;
+}
 .field--type-utexas-promo-unit table td a.tabledrag-handle {
   margin-top: 1.5rem;
 }
 .field--type-utexas-promo-unit table td details {
-  margin-left: 2rem;
   float: left;
-  width: fit-content;
-  min-width: 79%;
-  max-width: 95%;
+  width: 99%;
 }
 .field--type-utexas-promo-unit table td {
   vertical-align: top;
+}
+.field--type-utexas-promo-unit table td:last-child {
+  width: 1%;
 }
 .field--type-utexas-promo-unit table td input[value^="Remove"] {
   margin-top: 8px;
