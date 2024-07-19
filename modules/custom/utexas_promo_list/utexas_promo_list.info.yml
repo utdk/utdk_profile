@@ -4,10 +4,10 @@ description: 'Provide a compound field with repeatable content, along with a blo
 core_version_requirement: '^10 || ^11'
 package: UTexas
 dependencies:
-  - block_content
-  - field
-  - layout_builder
-  - media_library_form_element
-  - responsive_image
-  - utexas_image_styles
-  - utexas_promo_list
+  - 'drupal:block_content'
+  - 'drupal:field'
+  - 'drupal:layout_builder'
+  - 'drupal:responsive_image'
+  - 'media_library_form_element:media_library_form_element'
+  - 'utexas_image_styles:utexas_image_styles'
+  - 'utexas_promo_list:utexas_promo_list'
