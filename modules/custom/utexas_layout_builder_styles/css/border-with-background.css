@@ -4,12 +4,12 @@
   padding: 20px 20px 0;
   border: 1px solid #f0ede6;
 }
-.utexas-field-border > .ut-headline {
+.utexas-field-border > .ut-headline,
+.utexas-field-border > h2:first-child {
   margin: 0 0 20px;
   padding: 0 0 15px;
   line-height: 1.625rem;
   color: #2d2a28;
-  font-weight: 600;
   border-bottom: 1px solid #f0ede6;
 }
 .utexas-field-border .ut-copy p {
@@ -24,11 +24,12 @@
 .utexas-field-background {
   background-color: #fffdfa;
 }
-.utexas-field-background > .ut-headline {
+
+.utexas-field-border > .ut-headline,
+.utexas-field-background > h2:first-child {
   margin: -20px -20px 20px;
   color: #373737;
   background-color: #fef7ed;
-  font-weight: 500;
   padding: 15px;
 }
 .utexas-field-background .ut-copy p {
