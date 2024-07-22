@@ -193,6 +193,43 @@ class BaseInstallationTest extends BrowserTestBase {
     // Test Content Editor Role permissions.
     $testContentEditorUser = $this->initializeContentEditor();
     $this->drupalLogin($testContentEditorUser);
+
+    // Verify main menu link does not have an icon or new window target.
+    $this->drupalGet('<front>');
+    $assert->elementAttributeNotExists('css', '.main-menu__link', 'target');
+    // Set the menu item to a link and set link options.
+    $this->drupalGet('/admin/structure/menu/item/9/edit');
+    $this->assertSession()
+      ->fieldExists('target[_blank]')
+      ->check();
+    $page = $this->getSession()->getPage();
+    $page->fillField('link[0][uri]', 'https://utexas.edu');
+    $this->getSession()->getPage()->selectFieldOption('class', 'ut-cta-link--lock');
+    $this->submitForm([], 'Save');
+    // Verify main menu item is set to open in a new window and has lock icon.
+    $this->drupalGet('<front>');
+    $assert->elementAttributeContains('css', '.main-menu__link', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.main-menu__link', 'class', 'ut-cta-link--lock');
+    // Set the menu item to a non-link and change the link options.
+    $this->drupalGet('/admin/structure/menu/item/9/edit');
+    $this->assertSession()
+      ->fieldExists('target[_blank]')
+      ->uncheck();
+    $page = $this->getSession()->getPage();
+    $page->fillField('link[0][uri]', '<nolink>');
+    $this->getSession()->getPage()->selectFieldOption('class', 'ut-cta-link--external');
+    $this->submitForm([], 'Save');
+    $this->drupalGet('<front>');
+    $assert->elementAttributeNotExists('css', '.main-menu__link', 'target');
+    $assert->elementAttributeContains('css', '.main-menu__link', 'class', 'ut-cta-link--external');
+    // Confirm link options can be completely unset.
+    $this->drupalGet('/admin/structure/menu/item/9/edit');
+    $page = $this->getSession()->getPage();
+    $this->getSession()->getPage()->selectFieldOption('class', '0');
+    $this->submitForm([], 'Save');
+    $this->drupalGet('<front>');
+    $assert->elementAttributeNotContains('css', '.main-menu__link', 'class', 'ut-cta-link--external');
+
     // Make sure that a Content Editor has default access to the
     // Flex HTML format.
     $flex_html = FilterFormat::load('flex_html');
@@ -287,7 +324,6 @@ class BaseInstallationTest extends BrowserTestBase {
     $assert->elementAttributeContains('css', '.utexas-resource .image-wrapper img', 'src', $resource_image_path);
     $assert->elementTextContains('css', '.ut-resources-wrapper h3.ut-headline--underline', 'Resource Group 1');
     $assert->elementTextContains('css', '.utexas-resource-items .utexas-resource h3.ut-headline', 'Resource 1');
-
   }
 
   /**
