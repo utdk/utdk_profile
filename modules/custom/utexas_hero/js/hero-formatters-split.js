@@ -59,7 +59,13 @@
       // 2. Hide the view mode selector.
       $(form_mode_dom).hide();
 
-      // 3. Set values of custom radio HTML elements.
+      // 3. Move the new selectors to be adjacent to dynamic fields.
+      var selector = document.getElementById('edit-utexas-hero-style-selector--wrapper');
+      var anchor = document.getElementById('edit-utexas-hero-anchor--wrapper');
+      document.getElementById('hero_selector_target').appendChild(selector);
+      document.getElementById('hero_selector_target').appendChild(anchor);
+
+      // 4. Set values of custom radio HTML elements.
       // Update the value in the style and anchor radio elements.
       if( default_style !== "default") {
         $("input[name='utexas_hero_style_selector'][value=\"" + style_and_anchor.style + "\"]").attr("checked","checked");
@@ -81,7 +87,7 @@
       // Toggle anchor select element if current hero don't use anchor.
       toggleAnchorSelectElement(default_style);
 
-      // 4. Watch for changes on the custom select elements, and keep
+      // 5. Watch for changes on the custom select elements, and keep
       // the original select element in sync.
 
       // Watch the hero style custom select element.
