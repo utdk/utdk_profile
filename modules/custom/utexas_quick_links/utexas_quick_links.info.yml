@@ -1,7 +1,7 @@
 name: 'UTexas Quick Links'
 type: module
 description: 'A custom field that allows for copy text & unlimited internal/external links. This includes a custom block type and view modes for custom inline blocks.'
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: '^10 || ^11'
 package: UTexas
 dependencies:
   - block_content

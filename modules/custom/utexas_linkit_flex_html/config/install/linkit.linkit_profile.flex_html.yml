@@ -38,3 +38,8 @@ matchers:
       group_by_bundle: false
       substitution_type: media
       limit: 100
+  7d2e50ca-6dd7-41c4-89af-09bf15f6021b:
+    id: external
+    uuid: 7d2e50ca-6dd7-41c4-89af-09bf15f6021b
+    settings: {  }
+    weight: 0

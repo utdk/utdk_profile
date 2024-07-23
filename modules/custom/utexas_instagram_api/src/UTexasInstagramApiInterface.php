@@ -137,4 +137,15 @@ interface UTexasInstagramApiInterface {
    */
   public function getMedia();
 
+  /**
+   * Get media.
+   *
+   * GET "https://graph.instagram.com/me
+   * ?access_token={$access_token}
+   * &fields=username.
+   *
+   * username - The Media owner's username.
+   */
+  public function getCurrentUserAccount();
+
 }

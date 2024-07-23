@@ -37,6 +37,9 @@
   flex: 0 0 100%;
   max-width: initial;
 }
+.stacked-display .utexas-promo-unit .data-wrapper {
+  margin-left: 0;
+}
 /* This width needed in case image derivative width is smaller in pixels than
   its container's width. */
 .utexas-promo-unit .image-wrapper img {

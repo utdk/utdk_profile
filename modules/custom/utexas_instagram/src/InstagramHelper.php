@@ -11,6 +11,24 @@ use Drupal\utexas_instagram_api\UTexasInstagramApi;
 class InstagramHelper {
 
   /**
+   * Retrieve the username associated with this integration.
+   */
+  public static function getAccountLink($config_id) {
+    $request = new UTexasInstagramApi($config_id);
+    if (empty($request->getConfigId())) {
+      return '';
+    }
+    $obj = $request->getCurrentUserAccount();
+    if (empty($obj)) {
+      return '';
+    }
+    if (isset($obj->username)) {
+      return $obj->username;
+    }
+    return '';
+  }
+
+  /**
    * {@inheritdoc}
    */
   public static function render($config_id) {

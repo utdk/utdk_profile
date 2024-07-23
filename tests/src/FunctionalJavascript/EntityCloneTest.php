@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 use Drupal\Tests\Traits\Core\CronRunTrait;

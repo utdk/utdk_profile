@@ -32,6 +32,7 @@ class Permissions {
     'assign all roles',
     'bypass node access',
     'cancel account',
+    'clone node entity',
     'delete any media',
     'manage utexas site announcement',
     'update any media',

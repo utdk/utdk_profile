@@ -177,7 +177,8 @@ class UtexasWidgetBase extends WidgetBase implements WidgetInterface, ContainerF
           '#default_value' => $items[$delta]->_weight ?: $delta,
           '#weight' => 100,
         ];
-        $headline = 'item ' . $delta + 1;
+        $offset = $delta + 1;
+        $headline = 'item ' . $offset;
         $element['remove'] = [
           '#type' => 'submit',
           '#value' => $this->t('Remove %headline', [

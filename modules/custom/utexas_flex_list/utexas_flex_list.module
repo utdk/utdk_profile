@@ -54,5 +54,6 @@ function utexas_flex_list_preprocess_field(&$variables) {
   if ($variables['field_type'] === 'utexas_flex_list') {
     $element = $variables['element'];
     $variables['formatter_name'] = $element['#theme_info']['formatter_name'];
+    $variables['instance_id'] = $element['#instance_id'] ?? '';
   }
 }

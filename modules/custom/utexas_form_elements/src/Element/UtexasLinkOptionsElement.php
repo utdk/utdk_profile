@@ -93,6 +93,7 @@ class UtexasLinkOptionsElement extends FormElement {
    * @see Drupal\linkit\Plugin\Field\FieldWidget\Linkitwidget\formElement()
    */
   protected static function getUriAsDisplayableString($uri) {
+    $uri = UtexasLinkOptionsHelper::handlePhoneNumbers($uri);
     /* Start borrowed section. */
     // Borrowed (as of 4/12/20) from future Linkit widget patch in the Linkit
     // module. (https://www.drupal.org/project/linkit/issues/2712951)

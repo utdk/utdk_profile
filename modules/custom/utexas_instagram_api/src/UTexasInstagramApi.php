@@ -274,6 +274,18 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getCurrentUserAccount() {
+    $endpoint = "me";
+    $params = [
+      'access_token' => $this->token,
+      'fields' => 'username',
+    ];
+    return $this->request(self::INSTAGRAM_DATA_URI . $endpoint, $params, 'GET');
+  }
+
+  /**
    * Performs a request.
    *
    * @param string $url

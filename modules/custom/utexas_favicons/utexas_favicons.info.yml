@@ -1,6 +1,6 @@
 name: 'UTexas Favicons'
 type: module
 description: 'Add favicon markup to page <head>'
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: '^10 || ^11'
 version: 1.0
 package: 'UTexas'

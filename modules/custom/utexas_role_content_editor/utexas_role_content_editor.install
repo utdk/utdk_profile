@@ -22,6 +22,7 @@ function utexas_role_content_editor_update_8101() {
   $uids = \Drupal::entityQuery('user')
     ->condition('status', 1)
     ->condition('roles', $old_rid)
+    ->accessCheck(FALSE)
     ->execute();
   $content_editors = User::loadMultiple($uids);
 

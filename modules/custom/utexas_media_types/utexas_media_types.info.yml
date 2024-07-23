@@ -1,7 +1,7 @@
 name: 'UTexas Media Types'
 type: module
 description: 'Provides Media Types for use in the UTDK distribution.'
-core_version_requirement: ^8.9 || ^9 || ^10
+core_version_requirement: '^10 || ^11'
 package: UTexas
 dependencies:
   - 'drupal:field'

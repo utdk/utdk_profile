@@ -163,6 +163,7 @@ class InstagramAuthForm extends EntityForm {
    */
   public function exist($id) {
     $entity = $this->entityTypeManager->getStorage('utexas_ig_auth')->getQuery()
+      ->accessCheck(FALSE)
       ->condition('id', $id)
       ->execute();
     return (bool) $entity;
