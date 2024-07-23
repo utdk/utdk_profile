@@ -201,12 +201,61 @@
    * @param {string} hero_style The current hero style.
    */
   function toggleAnchorSelectElement(hero_style) {
+    if (hero_style === "default" || hero_style === "utexas_hero") {
+      disableField('settings[block_form][field_block_hero][0][heading]');
+      disableField('settings[block_form][field_block_hero][0][subheading]');
+      enableField('settings[block_form][field_block_hero][0][caption]');
+      enableField('settings[block_form][field_block_hero][0][credit]');
+      disableField('settings[block_form][field_block_hero][0][cta][link][uri]');
+      disableField('settings[block_form][field_block_hero][0][cta][link][title]');
+    }
+    else if (hero_style === "utexas_hero_2") {
+      enableField('settings[block_form][field_block_hero][0][heading]');
+      disableField('settings[block_form][field_block_hero][0][subheading]');
+      disableField('settings[block_form][field_block_hero][0][caption]');
+      disableField('settings[block_form][field_block_hero][0][credit]');
+      enableField('settings[block_form][field_block_hero][0][cta][link][uri]');
+      enableField('settings[block_form][field_block_hero][0][cta][link][title]');
+    }
+    else {
+      // Hero Styles 1, 3, 4, and 5.
+      enableField('settings[block_form][field_block_hero][0][heading]');
+      enableField('settings[block_form][field_block_hero][0][subheading]');
+      disableField('settings[block_form][field_block_hero][0][caption]');
+      disableField('settings[block_form][field_block_hero][0][credit]');
+      enableField('settings[block_form][field_block_hero][0][cta][link][uri]');
+      enableField('settings[block_form][field_block_hero][0][cta][link][title]');
+    }
+
     // Disable anchor select element if using default or style 4.
-    if (hero_style === "default" || hero_style === "utexas_hero"
-    || hero_style === "utexas_hero_4") {
+    if (hero_style === "default" || hero_style === "utexas_hero" || hero_style === "utexas_hero_4") {
       $("input[name='utexas_hero_anchor']").prop("disabled", true);
-    } else {
+    }
+    else {
       $("input[name='utexas_hero_anchor']").removeAttr("disabled");
+    }
+  }
+
+  /**
+   * Disable a field based on the field name
+   * @param {string} name The field name as shown in the DOM.
+   */
+  function disableField(name) {
+    let targets = document.getElementsByName(name);
+    for (let i = 0; i < targets.length; i++) {
+      targets[i].disabled = true;
+      targets[i].title = 'This field does not display with the currently selected Hero style.';
+    }
+  }
+
+  /**
+   * Enable a field based on the field name
+   * @param {string} name The field name as shown in the DOM.
+   */
+  function enableField(name) {
+    let targets = document.getElementsByName(name);
+    for (let i = 0; i < targets.length; i++) {
+      targets[i].disabled = false;
     }
   }
 
