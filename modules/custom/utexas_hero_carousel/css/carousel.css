@@ -50,7 +50,8 @@
     top: 3px;
     left: 0;
   }
-  @-moz-document url-prefix() {
+  /* Target Firefox specifically to normalize browser-specific positioning */
+  @supports(-moz-appearance:none) {
     .slick-prev-icon:before,
     .slick-next-icon:before {
       top: 1.5px;
