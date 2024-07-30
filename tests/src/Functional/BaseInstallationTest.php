@@ -182,13 +182,20 @@ class BaseInstallationTest extends BrowserTestBase {
 
     // Verify default metatag configuration.
     $expected_metatag_defaults = [
-      'title' => '[current-page:title] | [site:name]',
       'canonical_url' => '[current-page:url]',
-      'twitter_cards_page_url' => '[current-page:url] ',
-      'twitter_cards_title' => '[current-page:title] | [site:name]',
+      'title' => '[current-page:title] | [site:name]',
+      'og_title' => '[current-page:title]',
+      'og_type' => 'website',
+      'og_updated_time' => '[node:changed:custom:c]',
+      'og_url' => '[current-page:url]',
+      'twitter_cards_title' => '[current-page:title]',
+      'twitter_cards_type' => 'summary',
     ];
     $actual_metatag_defaults = $this->config('metatag.metatag_defaults.global')->get('tags');
+    $og_image = $actual_metatag_defaults['og_image'];
+    unset($actual_metatag_defaults['og_image']);
     $this->assertEquals($actual_metatag_defaults, $expected_metatag_defaults);
+    $this->assertStringContainsString('ut_tower.jpg', $og_image);
 
     // Test Content Editor Role permissions.
     $testContentEditorUser = $this->initializeContentEditor();
