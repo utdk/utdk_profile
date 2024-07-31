@@ -95,6 +95,10 @@ class InstallationHelper {
     $metatags = \Drupal::configFactory()
       ->getEditable('metatag.metatag_defaults.global');
     $tags = $metatags->get('tags');
+    // Remove deprecated twitter_cards_page_url.
+    if (isset($tags['twitter_cards_page_url'])) {
+      unset($tags['twitter_cards_page_url']);
+    }
     foreach ($defaults as $key => $value) {
       $tags[$key] = $value;
       \Drupal::logger('utexas')->notice("Setting default metatag for $key..");
