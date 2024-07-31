@@ -8,6 +8,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
+use Drupal\utexas_form_elements\RenderElementHelper;
 
 /**
  * Plugin implementation of the 'utexas_social_link_formatter' formatter.
@@ -67,9 +68,7 @@ class UTexasSocialLinkFormatter extends FormatterBase {
       $elements['#items'][$delta]->_attributes['class'][] = 'block__ut-social-links--item';
 
       if ($item->headline) {
-        $elements[$delta]['headline'] = [
-          '#markup' => $item->headline,
-        ];
+        $elements[$delta]['headline'] = RenderElementHelper::filterSingleLineText($item->headline, TRUE);
       }
       $elements[$delta]['icon_size'] = [
         '#markup' => $icon_size,

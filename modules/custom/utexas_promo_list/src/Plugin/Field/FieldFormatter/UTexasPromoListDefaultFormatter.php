@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -115,6 +116,9 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
             if (!empty($instance_item['link']['uri'])) {
               $instances[$key]['headline'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker'], $instance_item['headline']);
             }
+            else {
+              $instances[$key]['headline'] = RenderElementHelper::filterSingleLineText($instance_item['headline'], TRUE);
+            }
           }
           if (!empty($instance_item['copy']['value'])) {
             $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
@@ -130,7 +134,7 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
       }
       $elements[] = [
         '#theme' => 'utexas_promo_list',
-        '#headline' => $item->headline,
+        '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
         '#promo_list_items' => $instances,
         '#wrapper' => '',
       ];

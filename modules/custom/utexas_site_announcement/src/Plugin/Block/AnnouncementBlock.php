@@ -8,15 +8,14 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
-
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * The path to the configurable page.
  */
+//phpcs:ignore
 const UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH = 'admin/config/site-announcement';
 /**
  * Provides a 'Site Announcement' block.
@@ -194,7 +193,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     $unique_id = Html::getUniqueId("site-announcement");
     return [
       '#theme' => 'utexas_site_announcement',
-      '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title']) : '',
+      '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title'], TRUE) : '',
       '#icon' => $config['icon'] === 'none' ? NULL : $config['icon'],
       '#message' => !empty($config['message']['value']) ? check_markup($config['message']['value'], $config['message']['format']) : '',
       '#unique_id' => $unique_id,

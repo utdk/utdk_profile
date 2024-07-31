@@ -3,7 +3,9 @@
 namespace Drupal\utexas_call_to_action\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\link\Plugin\Field\FieldFormatter\LinkFormatter;
+use Drupal\utexas_form_elements\RenderElementHelper;
 
 /**
  * Plugin implementation of the 'utexas_call_to_action_formatter' formatter.
@@ -34,11 +36,16 @@ class UTexasCallToActionFormatter extends LinkFormatter {
         $link_classes[] = $cta_values['options']['attributes']['class'];
       }
       $cta_values['options']['attributes']['class'] = $link_classes;
+      $cta_values['title'] = RenderElementHelper::filterSingleLineText($cta_values['title']);
       $items[$delta]->setValue($cta_values);
     }
     // Call Link viewElements method to convert CTA into link with our classes.
-    $element = parent::viewElements($items, $langcode);
-    return $element;
+    $elements = parent::viewElements($items, $langcode);
+    // Allow select markup to be rendered.
+    foreach ($elements as &$element) {
+      $element['#title'] = Markup::create($element['#title']);
+    }
+    return $elements;
   }
 
 }

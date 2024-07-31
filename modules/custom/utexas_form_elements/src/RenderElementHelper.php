@@ -70,14 +70,22 @@ class RenderElementHelper {
    *
    * @param string $value
    *   The single-line text field value to process.
+   * @param bool $renderable
+   *   Whether or not a render object should be returned.
    *
    * @return array
    *   The processed element.
    */
-  public static function filterSingleLineText($value) {
-    return [
-      '#markup' => strip_tags($value, '<em><i><strong><b>'),
-    ];
+  public static function filterSingleLineText($value, $renderable = FALSE) {
+    // Skip processing null/empty values.
+    if (!$value) {
+      return $value;
+    }
+    $prepared = strip_tags($value, '<em><i><strong><b>');
+    if ($renderable) {
+      $prepared = ['#markup' => $prepared];
+    }
+    return $prepared;
   }
 
 }

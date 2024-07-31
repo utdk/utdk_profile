@@ -4,7 +4,7 @@ namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Field\FieldItemListInterface;
-
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
@@ -93,8 +93,8 @@ class UTexasHeroStyle3Formatter extends UTexasHeroFormatterBase {
         '#theme' => 'utexas_hero_3',
         '#media_identifier' => $id,
         '#alt' => isset($media_attributes) ? $media_attributes[0]['alt'] : '',
-        '#heading' => $item->heading,
-        '#subheading' => $item->subheading,
+        '#heading' => RenderElementHelper::filterSingleLineText($item->heading, TRUE),
+        '#subheading' => RenderElementHelper::filterSingleLineText($item->subheading, TRUE),
         '#cta' => $cta,
         '#anchor_position' => 'center',
       ];
