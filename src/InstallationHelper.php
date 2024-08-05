@@ -5,6 +5,7 @@ namespace Drupal\utexas;
 use Drupal\block\Entity\Block;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Helper methods used during installations & updates.
@@ -183,6 +184,21 @@ class InstallationHelper {
           ->condition('revision_id', $metatags->revision_id, '=')
           ->condition('delta', $metatags->delta, '=')
           ->execute();
+      }
+    }
+  }
+
+  /**
+   * Set /admin/people configuration to UT Drupal Kit default.
+   */
+  public static function configurePeopleView() {
+    $config_name = 'views.view.user_admin_people';
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/default/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
       }
     }
   }

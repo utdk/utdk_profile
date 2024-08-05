@@ -7,6 +7,8 @@
 
 use Drupal\block\Entity\Block;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\utexas\InstallationHelper;
@@ -90,6 +92,8 @@ function utexas_install() {
   InstallationHelper::populateDefaultMetatags();
   // Add generic Social Sharing block.
   InstallationHelper::addSocialSharing();
+  // Set /admin/people configuration to UT Drupal Kit default.
+  InstallationHelper::configurePeopleView();
 
   // Set frontpage to use custom UTexas Frontpage view (#2328).
   \Drupal::configFactory()
@@ -1085,4 +1089,42 @@ function utexas_update_8159() {
  */
 function utexas_update_8160() {
   InstallationHelper::populateDefaultMetatags();
+}
+
+/**
+ * Add 'full name' field to user accounts (#848).
+ */
+function utexas_update_8161() {
+  FieldStorageConfig::create([
+    'field_name' => 'field_utexas_full_name',
+    'entity_type' => 'user',
+    'type' => 'string',
+    'cardinality' => 1,
+  ])->save();
+
+  FieldConfig::create([
+    'field_name' => 'field_utexas_full_name',
+    'entity_type' => 'user',
+    'bundle' => 'user',
+    'label' => 'Full name',
+    'description' => 'This name is displayed in the administrative interface, such as in the People listing, and to indicate authorship of content.',
+  ])->save();
+  // Manage form display.
+  $form_display = \Drupal::service('entity_display.repository')->getFormDisplay('user', 'user');
+  $form_display = $form_display->setComponent('field_utexas_full_name', [
+    'type' => 'string_textfield',
+    'weight' => -11,
+  ]);
+  $form_display->save();
+  // Manage view display.
+  $view_display = \Drupal::service('entity_display.repository')->getViewDisplay('user', 'user');
+  $view_display->setComponent('field_utexas_full_name', ['type' => 'string']);
+  $view_display->save();
+}
+
+/**
+ * Update People View (#848).
+ */
+function utexas_update_8162() {
+  InstallationHelper::configurePeopleView();
 }
