@@ -29,6 +29,6 @@ $COMPOSER require utexas/utdk_profile:"dev-$BRANCH"  --no-update
 
 ## Requirements defined in utdk_localdev needed to run test suite, but not other setup steps of dev-scaffold script.
 # We can safely ingore platform requirements on host since those only need to be satisified on Docker container
-$COMPOSER require utexas/forty_acres:"dev-develop as $FORTYACRES" --no-update
+$COMPOSER require utexas/forty_acres:"dev-2579-relocate-css-2 as $FORTYACRES" --no-update
 $COMPOSER require utexas/utdk_localdev:dev-master --dev --ignore-platform-reqs
 cat composer.json
