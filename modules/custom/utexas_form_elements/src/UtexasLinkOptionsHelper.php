@@ -150,7 +150,7 @@ class UtexasLinkOptionsHelper {
     }
 
     $link_url = Url::fromUri(rawurldecode($item['link']['uri']), $item['link']['options']);
-    $link = Link::fromTextAndUrl($link_title, $link_url);
+    $link = Link::fromTextAndUrl(RenderElementHelper::filterSingleLineText($link_title, TRUE), $link_url);
 
     return $link;
   }

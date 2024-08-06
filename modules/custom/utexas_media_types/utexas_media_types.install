@@ -22,3 +22,12 @@ function utexas_media_types_update_8102() {
     'utexas_media_types',
   ], TRUE);
 }
+
+/**
+ * Render default utexas_image view mode with sensible image style (#957).
+ */
+function utexas_media_types_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_media_types',
+  ], TRUE);
+}

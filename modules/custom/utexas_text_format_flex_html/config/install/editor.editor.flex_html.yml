@@ -56,8 +56,10 @@ settings:
         - heading5
         - heading6
     ckeditor5_list:
-      reversed: false
-      startIndex: true
+      properties:
+        reversed: false
+        startIndex: true
+      multiBlock: true
     ckeditor5_sourceEditing:
       allowed_tags:
         - '<a href hreflang class id name role title aria-controls aria-haspopup aria-label aria-expanded aria-selected data-entity-substitution data-entity-type data-entity-uuid data-toggle data-slide media rel target>'
@@ -99,7 +101,7 @@ settings:
         - '<li role class id aria-controls aria-current data-slide-to data-target>'
         - '<mark class id role>'
         - '<nav class id role aria-label>'
-        - '<ol class id role aria-labelledby start type>'
+        - '<ol class id role aria-labelledby type>'
         - '<p class id role>'
         - '<pre class id role>'
         - '<rowspan class id role>'

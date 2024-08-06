@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.media.utexas_image.field_utexas_media_image
+    - image.style.utexas_image_style_1600w
     - media.type.utexas_image
   module:
     - image
@@ -22,16 +23,16 @@ third_party_settings:
             configuration:
               id: 'field_block:media:utexas_image:bundle'
               label: 'Media type'
-              provider: layout_builder
               label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
               formatter:
-                label: hidden
                 type: entity_reference_label
+                label: hidden
                 settings:
                   link: false
                 third_party_settings: {  }
-              context_mapping:
-                entity: layout_builder.entity
             weight: 5
             additional: {  }
           1ee7d7d3-a422-4a72-9b9e-b22bae35bd11:
@@ -40,16 +41,16 @@ third_party_settings:
             configuration:
               id: 'field_block:media:utexas_image:uid'
               label: 'Authored by'
-              provider: layout_builder
               label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
               formatter:
-                label: inline
                 type: entity_reference_label
+                label: inline
                 settings:
                   link: false
                 third_party_settings: {  }
-              context_mapping:
-                entity: layout_builder.entity
             weight: 6
             additional: {  }
           c509edc0-760e-476b-b066-7421ee5e767b:
@@ -58,18 +59,18 @@ third_party_settings:
             configuration:
               id: 'field_block:media:utexas_image:created'
               label: 'Authored on'
-              provider: layout_builder
               label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
               formatter:
-                label: inline
                 type: timestamp
+                label: inline
                 settings:
                   date_format: medium
                   custom_date_format: ''
                   timezone: ''
                 third_party_settings: {  }
-              context_mapping:
-                entity: layout_builder.entity
             weight: 7
             additional: {  }
           48836ba8-9e8f-4e7a-8fbc-59a61b673e44:
@@ -78,15 +79,15 @@ third_party_settings:
             configuration:
               id: 'field_block:media:utexas_image:field_utexas_media_image'
               label_display: ''
-              formatter:
-                label: hidden
-                settings:
-                  image_style: ''
-                  image_link: ''
-                third_party_settings: {  }
-                type: image
               context_mapping:
                 entity: layout_builder.entity
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: ''
+                  image_style: ''
+                third_party_settings: {  }
             weight: 4
             additional: {  }
         third_party_settings: {  }
@@ -96,15 +97,15 @@ bundle: utexas_image
 mode: default
 content:
   field_utexas_media_image:
-    weight: 0
+    type: image
     label: hidden
     settings:
-      image_style: ''
       image_link: ''
+      image_style: utexas_image_style_1600w
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    type: image
+    weight: 0
     region: content
 hidden:
   created: true

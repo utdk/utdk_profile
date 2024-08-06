@@ -8,6 +8,7 @@
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
@@ -166,7 +167,7 @@ function utexas_form_search_form_alter(&$form, $form_state, $form_id) {
   $markup = $search_entity->getPlugin()->getHelp();
   // Put search tips into a collapsible fieldset (#1686).
   $form['help_link'] = [
-    '#title' => 'About searching <em class="icon-angle-right">&nbsp;</em>',
+    '#title' => 'About searching',
     '#type' => 'details',
     '#collapsed' => TRUE,
   ];
@@ -377,4 +378,25 @@ function utexas_preprocess_html(&$variables) {
     ],
     'application-name',
   ];
+}
+
+/**
+ * Implements hook_user_format_name_alter().
+ */
+function utexas_user_format_name_alter(&$name, AccountInterface $account) {
+  $uid = $account->id();
+  // Don't alter anonymous users or objects that do not have any user ID.
+  if (empty($uid)) {
+    return;
+  }
+  $user = User::load($uid);
+  if ($user->hasField('field_utexas_full_name')) {
+    if ($value = ($user->get('field_utexas_full_name')->getString())) {
+      // Only if the real name is a non-empty string is $name actually altered.
+      if (mb_strlen($value)) {
+        $name = $value;
+      }
+    }
+    return;
+  }
 }

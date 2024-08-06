@@ -4,10 +4,10 @@ description: 'Defines a compound field with media, heading, subheading, link, ca
 core_version_requirement: '^10 || ^11'
 package: UTexas
 dependencies:
-  - block_content
-  - field
-  - layout_builder
-  - media_library_form_element
-  - responsive_image
-  - utexas_hero
-  - utexas_image_styles
+  - 'drupal:block_content'
+  - 'drupal:field'
+  - 'drupal:layout_builder'
+  - 'drupal:responsive_image'
+  - 'media_library_form_element:media_library_form_element'
+  - 'utexas_hero:utexas_hero'
+  - 'utexas_image_styles:utexas_image_styles'

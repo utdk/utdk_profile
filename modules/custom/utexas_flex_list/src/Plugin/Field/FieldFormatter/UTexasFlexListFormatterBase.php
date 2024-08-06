@@ -5,6 +5,7 @@ namespace Drupal\utexas_flex_list\Plugin\Field\FieldFormatter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\utexas_form_elements\RenderElementHelper;
 
 /**
  * Base class for 'UTexas Flex List Field formatter' plugin implementations.
@@ -19,9 +20,7 @@ abstract class UTexasFlexListFormatterBase extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     foreach ($items as $delta => $item) {
       $elements[$delta] = [
-        'header' => [
-          '#plain_text' => $item->header,
-        ],
+        'header' => RenderElementHelper::filterSingleLineText($item->header, TRUE),
         'id' => [
           '#plain_text' => Html::getUniqueId($item->header),
         ],

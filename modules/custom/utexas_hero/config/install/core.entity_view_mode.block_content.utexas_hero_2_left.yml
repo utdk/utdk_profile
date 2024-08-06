@@ -5,5 +5,6 @@ dependencies:
     - block_content
 id: block_content.utexas_hero_2_left
 label: 'Hero Style 2 : Left'
+description: ''
 targetEntityType: block_content
 cache: true

@@ -9,7 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
-
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -111,7 +111,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
         foreach ($resource_items as $key => $instance) {
           $instance_item = $instance['item'];
           if (!empty($instance_item['headline'])) {
-            $instances[$key]['headline'] = $instance_item['headline'];
+            $instances[$key]['headline'] = RenderElementHelper::filterSingleLineText($instance_item['headline'], TRUE);
           }
           // Initialize image render array as false in case images aren't found.
           $image_render_array = FALSE;
@@ -157,7 +157,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
       }
       $elements[] = [
         '#theme' => 'utexas_resources',
-        '#headline' => $item->headline,
+        '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
         '#resource_items' => $instances,
       ];
     }

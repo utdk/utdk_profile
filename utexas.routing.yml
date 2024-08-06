@@ -4,7 +4,7 @@ utexas.configuration:
     _form: '\Drupal\utexas\Form\BaseConfigurationForm'
     _title: 'Drupal Kit configuration'
   requirements:
-    _permission: 'access content overview'
+    _permission: 'administer site configuration'
 utexas.permissions:
   path: '/admin/config/content/utexas/permissions'
   defaults:
