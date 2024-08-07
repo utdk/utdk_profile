@@ -67,9 +67,12 @@ follow another background-accent region. */
   padding-top: 1rem;
 }
 /* Do not offset margin-left on first region of any multicolumn layout. */
-.background-accent .container .layout__region.layout__region--first,
-.background-accent .readable .layout__region.layout__region--first {
+.background-accent .layout__region.layout__region--first {
   margin-left: 0;
+}
+/* Do offset margin-left for full-width. */
+.background-accent .container-fluid .layout__region.layout__region--first {
+  margin-left: 1rem;
 }
 
 .background-accent .utexas-layout--twocol > .layout__region--first {
@@ -96,6 +99,12 @@ follow another background-accent region. */
   .background-accent .layout__region.layout__region--fourth {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
+  }
+  .background-accent .container-fluid .layout__region.layout__region--first,
+  .background-accent .container-fluid .layout__region.layout__region--second,
+  .background-accent .container-fluid .layout__region.layout__region--third,
+  .background-accent .container-fluid .layout__region.layout__region--fourth {
+    margin-right: 0.25rem;
   }
   .background-accent .utexas-layout--twocol > .layout__region--first {
     padding-bottom: 0;
