@@ -19,14 +19,15 @@ function utexas_layouts_preprocess_layout(&$variables) {
   }
   // If a class of "container-fluid" has NOT been applied to this layout,
   // (i.e., via Layout Builder Styles) add "container".
-  $add_container = TRUE;
-  if (isset($variables['settings']['section_width']) && in_array($variables['settings']['section_width'], ['container-fluid'])) {
-    $add_container = FALSE;
-  }
-  if ($add_container) {
-    $variables['settings']['section_width'] = 'container';
-    if ($variables['settings']['section_width'] == 'readable') {
-      $variables['settings']['section_width'] = 'readable container';
+  if (isset($variables['settings']['section_width'])) {
+    switch ($variables['settings']['section_width']) {
+      case '':
+        $variables['settings']['section_width'] = 'container';
+        break;
+
+      case 'readable':
+        $variables['settings']['section_width'] = 'readable container';
+        break;
     }
   }
 }
