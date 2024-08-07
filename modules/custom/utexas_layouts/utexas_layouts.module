@@ -25,6 +25,9 @@ function utexas_layouts_preprocess_layout(&$variables) {
   }
   if ($add_container) {
     $variables['settings']['section_width'] = 'container';
+    if ($variables['settings']['section_width'] == 'readable') {
+      $variables['settings']['section_width'] = 'readable container';
+    }
   }
 }
 
