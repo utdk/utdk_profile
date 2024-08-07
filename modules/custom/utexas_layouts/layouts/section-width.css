@@ -6,3 +6,8 @@
 .layout__region pre {
   white-space: pre-wrap;
 }
+.layout__region.layout__region--second,
+.layout__region.layout__region--third,
+.layout__region.layout__region--fourth {
+  margin-left: 3%;
+}
