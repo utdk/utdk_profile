@@ -12,7 +12,7 @@
 #}
 {% if content %}
   <div{{attributes}}>
-    <div class="utexas-layout--twocol-wrapper">
+    <div class="utexas-layout--twocol-wrapper {{ settings.section_width }}">
       {% if background_image %}
         <div{{background_image}}></div>
       {% endif %}

@@ -17,6 +17,15 @@ function utexas_layouts_preprocess_layout(&$variables) {
     // Send background image to the template as a separate variable.
     $variables['background_image'] = $variables['content']['#background_image'];
   }
+  // If a class of "container-fluid" has NOT been applied to this layout,
+  // (i.e., via Layout Builder Styles) add "container".
+  $add_container = TRUE;
+  if (isset($variables['settings']['section_width']) && in_array($variables['settings']['section_width'], ['container-fluid', 'readable'])) {
+    $add_container = FALSE;
+  }
+  if ($add_container) {
+    $variables['settings']['section_width'] = 'container';
+  }
 }
 
 /**

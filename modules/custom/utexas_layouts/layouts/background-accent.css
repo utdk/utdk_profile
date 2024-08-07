@@ -14,6 +14,10 @@
 .background-accent .layout__region .block {
   margin-bottom: 1rem;
 }
+.layout--utexas-onecol.background-accent {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
 .layout--utexas-onecol.background-accent > div {
   padding-top: 1rem;
 }
@@ -25,16 +29,22 @@
 .background-accent .utexas-layout--twocol-wrapper,
 .background-accent .utexas-layout--threecol-wrapper,
 .background-accent .utexas-layout--fourcol-wrapper {
-  margin-left: -1rem;
+  margin: 0 auto;
+}
+
+.background-accent .utexas-layout--twocol-wrapper.container-fluid,
+.background-accent .utexas-layout--threecol-wrapper.container-fluid,
+.background-accent .utexas-layout--fourcol-wrapper.container-fluid {
+  margin: 0 -0.5rem;
 }
 
 /* Styling for no-padding layouts */
 .background-accent.utexas-layout-no-padding {
   padding-left: 0;
 }
-.background-accent.utexas-layout-no-padding.container-fluid .utexas-layout--twocol-wrapper,
-.background-accent.utexas-layout-no-padding.container-fluid .utexas-layout--threecol-wrapper,
-.background-accent.utexas-layout-no-padding.container-fluid .utexas-layout--fourcol-wrapper {
+.background-accent.utexas-layout-no-padding .utexas-layout--twocol-wrapper.container-fluid,
+.background-accent.utexas-layout-no-padding .utexas-layout--threecol-wrapper.container-fluid,
+.background-accent.utexas-layout-no-padding .utexas-layout--fourcol-wrapper.container-fluid {
   margin-left: -1rem;
 }
 
@@ -50,14 +60,19 @@ follow another background-accent region. */
 }
 
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
-.background-accent .layout__region--first,
-.background-accent .layout__region--second,
-.background-accent .layout__region--third,
-.background-accent .layout__region--fourth {
+.background-accent .layout__region.layout__region--first,
+.background-accent .layout__region.layout__region--second,
+.background-accent .layout__region.layout__region--third,
+.background-accent .layout__region.layout__region--fourth {
   padding-top: 1rem;
 }
+/* Do not offset margin-left on first region of any multicolumn layout. */
+.background-accent .container .layout__region.layout__region--first,
+.background-accent .readable .layout__region.layout__region--first {
+  margin-left: 0;
+}
+
 .background-accent .utexas-layout--twocol > .layout__region--first {
-  margin-left: 1rem;
   margin-right: 0;
 }
 .background-accent .utexas-layout--twocol > .layout__region--second {
@@ -69,17 +84,18 @@ follow another background-accent region. */
   margin-right: 0.75rem;
 }
 /* Reduce vertical padding on widgets on small screens */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 899px) {
   .background-accent .layout__region--first,
   .background-accent .layout__region--second {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
-  .background-accent .utexas-layout--twocol > .layout__region--first,
-  .background-accent .utexas-layout--twocol > .layout__region--second,
-  .background-accent .utexas-layout--onecol > .layout__region--main {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
+  .background-accent .layout__region.layout__region--first,
+  .background-accent .layout__region.layout__region--second,
+  .background-accent .layout__region.layout__region--third,
+  .background-accent .layout__region.layout__region--fourth {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
   .background-accent .utexas-layout--twocol > .layout__region--first {
     padding-bottom: 0;

@@ -18,7 +18,7 @@
         {% endif %}
 
         {% if content.main %}
-            <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
+            <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main', settings.section_width) }}>
                 {{ content.main }}
             </div>
         {% endif %}

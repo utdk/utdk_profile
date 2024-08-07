@@ -1,6 +1,6 @@
-.readable.container {
+.layout .readable {
   max-width: 830px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .layout__region pre {
