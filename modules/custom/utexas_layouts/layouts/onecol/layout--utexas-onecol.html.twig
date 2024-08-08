@@ -10,17 +10,17 @@
  * @ingroup themeable
  */
 #}
+
 {% if content %}
+{% include "@utexas_layouts/layouts/backgrounds.html.twig" %}
+  <div {{ background.addClass(background_classes) }}>
     <div{{ attributes }}>
-
-        {% if background_image %}
-            <div{{ background_image }}></div>
-        {% endif %}
-
         {% if content.main %}
             <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
                 {{ content.main }}
             </div>
         {% endif %}
     </div>
+  </div>
+</div>
 {% endif %}

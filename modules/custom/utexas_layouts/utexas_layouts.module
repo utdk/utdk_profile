@@ -13,10 +13,9 @@ use Drupal\utexas_layouts\UtexasLayoutBuilderHelper;
  * Implements hook_preprocess_layout().
  */
 function utexas_layouts_preprocess_layout(&$variables) {
-  if (isset($variables['content']['#background_image'])) {
-    // Send background image to the template as a separate variable.
-    $variables['background_image'] = $variables['content']['#background_image'];
-  }
+  $variables['background_blur'] = $variables['content']['#background_blur'] ?? NULL;
+  $variables['background_image'] = $variables['content']['#background_image'] ?? NULL;
+  $variables['background_color'] = $variables['content']['#background_color'] ?? NULL;
 }
 
 /**

@@ -14,12 +14,12 @@
 .background-accent .layout__region .block {
   margin-bottom: 1rem;
 }
-.layout--utexas-onecol.background-accent > div {
+.background-accent .layout--utexas-onecol > div {
   padding-top: 1rem;
 }
-.background-accent.utexas-layout--twocol .layout__region,
-.background-accent.utexas-layout--threecol .layout__region,
-.background-accent.utexas-layout--fourcol .layout__region {
+.background-accent .utexas-layout--twocol .layout__region,
+.background-accent .utexas-layout--threecol .layout__region,
+.background-accent .utexas-layout--fourcol .layout__region {
   margin-left: 1rem;
 }
 .background-accent .utexas-layout--twocol-wrapper,
@@ -95,4 +95,21 @@ follow another background-accent region. */
 }
 #layout-builder .remove-section {
   margin-left: 1rem;
+}
+.background-blur {
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  -ms-filter: blur(5px);
+  margin: -10px;
+}
+.background-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1000;
+  background-size: cover;
+  bottom: 0;
 }
