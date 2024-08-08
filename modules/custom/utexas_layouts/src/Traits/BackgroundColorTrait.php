@@ -102,8 +102,7 @@ trait BackgroundColorTrait {
     if (!empty($this->configuration['background-color'])) {
       $hex_code = self::getAvailableColor($this->configuration['background-color']);
       if ($this->configuration['background-color'] !== "none") {
-        $build['#attributes']['class'][] = 'background-accent';
-        $build['#attributes']['class'][] = 'utexas-bg-' . $hex_code;
+        $build['#settings']['background'] = 'background-accent utexas-bg-' . $hex_code;
         $build['#attached']['library'][] = 'utexas_layouts/background-colors';
       }
     }

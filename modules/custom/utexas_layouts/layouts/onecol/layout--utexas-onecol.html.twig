@@ -11,16 +11,19 @@
  */
 #}
 {% if content %}
-    <div{{ attributes }}>
-
-        {% if background_image %}
-            <div{{ background_image }}></div>
-        {% endif %}
-
-        {% if content.main %}
-            <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
-                {{ content.main }}
-            </div>
-        {% endif %}
+    {% if background_image %}
+      <div{{ background_image }}>
+    {% elseif settings.background %}
+      <div class="{{ settings.background }}">
+    {% else %}
+      <div>
+    {% endif %}
+      <div{{ attributes }}>
+          {% if content.main %}
+              <div {{ region_attributes.main.addClass('layout__region', 'layout__region--main') }}>
+                  {{ content.main }}
+              </div>
+          {% endif %}
+      </div>
     </div>
 {% endif %}

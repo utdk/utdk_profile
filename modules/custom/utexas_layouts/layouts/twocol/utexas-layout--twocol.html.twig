@@ -11,11 +11,15 @@
  */
 #}
 {% if content %}
+  {% if background_image %}
+    <div{{ background_image }}>
+  {% elseif settings.background %}
+    <div class="{{ settings.background }}">
+  {% else %}
+    <div>
+  {% endif %}
   <div{{attributes}}>
     <div class="utexas-layout--twocol-wrapper">
-      {% if background_image %}
-        <div{{background_image}}></div>
-      {% endif %}
 
       {% if content.first %}
         <div {{ region_attributes.first.addClass('layout__region', 'layout__region--first') }}>
@@ -29,5 +33,6 @@
         </div>
       {% endif %}
     </div>
+  </div>
   </div>
 {% endif %}
