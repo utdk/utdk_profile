@@ -139,3 +139,12 @@ function utexas_text_format_flex_html_update_8114() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Make headline underline available in flex_html Styles dropdown (#2617).
+ */
+function utexas_text_format_flex_html_update_8115() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

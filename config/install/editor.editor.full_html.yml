@@ -71,6 +71,24 @@ settings:
         -
           label: 'Table padding'
           element: '<table class="tablesaw">'
+        -
+          label: 'H1 underline'
+          element: '<h1 class="ut-headline--underline">'
+        -
+          label: 'H2 underline'
+          element: '<h2 class="ut-headline--underline">'
+        -
+          label: 'H3 underline'
+          element: '<h3 class="ut-headline--underline">'
+        -
+          label: 'H4 underline'
+          element: '<h4 class="ut-headline--underline">'
+        -
+          label: 'H5 underline'
+          element: '<h5 class="ut-headline--underline">'
+        -
+          label: 'H6 underline'
+          element: '<h6 class="ut-headline--underline">'
     linkit_extension:
       linkit_enabled: true
       linkit_profile: flex_html
