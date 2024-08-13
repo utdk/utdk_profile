@@ -16,6 +16,5 @@ service apache2 reload
 mkdir -p $BROWSERTEST_OUTPUT_DIRECTORY
 chown -R www-data:www-data /var/www/html/utdk_scaffold
 chown -R www-data:www-data /var/www/html/.github/workflows/.fixtures
-#cp /var/www/html/utdk_scaffold/.docksal/drupal/patched/menu_block_test.info.yml /var/www/html/utdk_scaffold/web/modules/contrib/menu_block/tests/modules/menu_block_test/menu_block_test.info.yml
 chmod -R 774 /var/www/html/utdk_scaffold
 mkdir -p /tmp/test-results
