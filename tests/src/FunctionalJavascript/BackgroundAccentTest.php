@@ -97,26 +97,15 @@ class BackgroundAccentTest extends FunctionalJavascriptTestBase {
 
     // The available hex colors & their corresponding rgb values.
     $color_palette = [
-      '074d6a' => 'rgb(7, 77, 106)',
-      '138791' => 'rgb(19, 135, 145)',
-      'f9fafb' => 'rgb(249, 250, 251)',
+      'f2f1ed' => 'rgb(242, 241, 237)',
       'e6ebed' => 'rgb(230, 235, 237)',
-      'c4cdd4' => 'rgb(196, 205, 212)',
-      '7d8a92' => 'rgb(125, 138, 146)',
+      'c2c5c8' => 'rgb(194, 197, 200)',
+      '807e76' => 'rgb(128, 126, 118)',
       '5e686e' => 'rgb(94, 104, 110)',
-      '3e4549' => 'rgb(62, 69, 73)',
       '487d39' => 'rgb(72, 125, 57)',
       '9d4700' => 'rgb(157, 71, 0)',
-      'ebeced' => 'rgb(235, 236, 237)',
-      'c2c5c8' => 'rgb(194, 197, 200)',
-      '858c91' => 'rgb(133, 140, 145)',
-      '1f262b' => 'rgb(31, 38, 43)',
-      'fbfbf9' => 'rgb(251, 251, 249)',
-      'f2f1ed' => 'rgb(242, 241, 237)',
-      'e6e4dc' => 'rgb(230, 228, 220)',
-      'aba89e' => 'rgb(171, 168, 158)',
-      '807e76' => 'rgb(128, 126, 118)',
-      '56544e' => 'rgb(86, 84, 78)',
+      '138791' => 'rgb(19, 135, 145)',
+      '074d6a' => 'rgb(7, 77, 106)',
     ];
 
     // CRUD: CREATE.
@@ -167,7 +156,7 @@ class BackgroundAccentTest extends FunctionalJavascriptTestBase {
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $this->openSectionConfiguration('Section 1');
     $this->clickDetailsBySummaryText('Background color');
-    $this->verifyBgColor('56544e', $color_palette['56544e'], $assert, $page);
+    $this->verifyBgColor('5e686e', $color_palette['5e686e'], $assert, $page);
 
     // CRUD: UPDATE
     // Place Recent Content block on page.
