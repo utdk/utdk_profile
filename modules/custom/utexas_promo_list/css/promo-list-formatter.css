@@ -37,16 +37,6 @@
 .ut-promo-list-wrapper .promo-list .ut-copy > :last-child :last-child {
   margin-bottom: 0;
 }
-/* Headline-specific styling, overriding default ut-headline basis. */
-.utexas-promo-list-container .ut-headline.ut-headline--underline {
-  padding-top: 0;
-}
-
-.ut-promo-list-wrapper .promo-list .ut-headline {
-  padding-top: 0;
-  margin-top: 0;
-}
-
 .ut-promo-list-wrapper .promo-list .content {
   margin-top: 0;
   flex: 1 1 0;

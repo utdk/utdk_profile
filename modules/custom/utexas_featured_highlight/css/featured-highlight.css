@@ -9,12 +9,7 @@
 .utexas-featured-highlight .ut-copy * {
   color: #000;
 }
-.utexas-featured-highlight .content-wrapper .ut-headline,
-.utexas-featured-highlight .content-wrapper .ut-headline a {
-  color: #000;
-  padding-top: 0;
-  font-size: 2rem;
-}
+
 .utexas-featured-highlight .content-wrapper a.ut-btn {
   color: #fff;
 }
@@ -26,8 +21,7 @@
   background-color: #005f86;
   color: #fff;
 }
-.utexas-featured-highlight.medium .content-wrapper a,
-.utexas-featured-highlight.medium .content-wrapper .ut-headline {
+.utexas-featured-highlight.medium .content-wrapper a {
   color: #fff;
 }
 .utexas-featured-highlight.medium .ut-copy * {
@@ -41,8 +35,7 @@
   background-color: #333f48;
   color: #fff;
 }
-.utexas-featured-highlight.dark .content-wrapper a,
-.utexas-featured-highlight.dark .content-wrapper .ut-headline {
+.utexas-featured-highlight.dark .content-wrapper a {
   color: #fff;
 }
 .utexas-featured-highlight.dark .ut-copy * {
@@ -158,29 +151,11 @@
     padding: 2rem;
   }
 }
-
-/* Headline styles responsive */
-@media all and (min-width: 600px) {
-  .utexas-featured-highlight .content-wrapper .ut-headline a,
-  .utexas-featured-highlight .content-wrapper .ut-headline {
-    font-size: 1.25rem;
-    line-height: 1.5rem;
-  }
-}
-@media all and (min-width: 900px) {
-  .utexas-featured-highlight .content-wrapper .ut-headline a,
-  .utexas-featured-highlight .content-wrapper .ut-headline {
-    font-size: 1.75rem;
-    line-height: 1.75rem;
-  }
-}
-
 /* Tablet and Desktop styles */
 /* Container query to control layout based on container width. */
 .utexas-featured-highlight {
   container-type: inline-size;
 }
-
 @container (min-width: 570px) {
   .layout__region .utexas-featured-highlight-inner-wrapper {
     display: flex;

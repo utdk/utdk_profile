@@ -17,10 +17,6 @@
   position: relative;
 }
 
-.utexas-instagram-feed__header .ut-headline {
-  padding-top: 0;
-}
-
 .utexas-instagram-feed__controls> :first-child {
   margin-right: 20px;
 }

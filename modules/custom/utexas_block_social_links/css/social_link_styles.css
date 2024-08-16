@@ -10,12 +10,6 @@
   width: 80px;
   height: auto;
 }
-
-.block__ut-social-links .ut-headline {
-  font-size: 1.125rem;
-  margin-bottom: 8.5px;
-  text-align: center;
-}
 /* Only center icons within the main content block */
 .block-system-main-block .block__ut-social-links {
   text-align: center;
@@ -107,7 +101,4 @@ header .block__ut-social-links--items {
 /* Add padding to the bottom on social links blocks if border style is used. */
 .utexas-field-border .block__ut-social-links {
   padding-bottom: 1.625rem;
-}
-.utexas-field-border .block__ut-social-links .ut-headline {
-  padding: 0;
 }
