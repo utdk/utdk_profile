@@ -52,6 +52,15 @@
   flex: 0 0 100%;
 }
 
+/* Headline-specific styling, overriding default ut-headline basis. */
+.ut-resources-wrapper .ut-headline.ut-headline--underline {
+  padding-top: 0;
+}
+
+.utexas-resource .ut-headline {
+  padding-top: 0;
+}
+
 .utexas-resource .link-list {
   list-style-type: none;
   margin-bottom: 0;

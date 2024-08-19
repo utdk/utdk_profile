@@ -61,6 +61,10 @@
   }
 }
 
+.ut-photo-content-area .content-wrapper .ut-headline {
+  margin: 0 0 10px 0;
+}
+
 .ut-photo-content-area .content-wrapper ul.link-list {
   list-style-type: none;
   padding-left: 0;

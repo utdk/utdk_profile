@@ -7,12 +7,16 @@
   padding: 0.75rem;
 }
 
+/* Headline-specific styling, overriding default ut-headline basis. */
+.utexas-promo-unit-container .ut-headline.ut-headline--underline {
+  padding-top: 0;
+}
 
 /* Image Wrapper (Section 1) Styles */
 .utexas-promo-unit .image-wrapper {
   flex-shrink: 1;
   flex-grow: 1;
-  margin: 0 auto .625rem;
+  margin: 0 auto 2%;
 }
 .utexas-promo-unit .landscape-image {
   flex-basis: 40%;
@@ -48,6 +52,9 @@
   flex: 1 1 0;
   margin: 0 0 0 1.25rem;
   min-width: 175px;
+}
+.utexas-promo-unit .data-wrapper .ut-headline {
+  padding-top: 0;
 }
 .utexas-promo-unit .data-wrapper > :last-child,
 .utexas-promo-unit .data-wrapper > :last-child :last-child {
