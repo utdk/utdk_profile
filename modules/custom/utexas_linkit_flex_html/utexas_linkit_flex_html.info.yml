@@ -5,5 +5,4 @@ core_version_requirement: '^10 || ^11'
 dependencies:
   - 'drupal:node'
   - 'linkit:linkit'
-version: 8.x-1.0
 package: UTexas

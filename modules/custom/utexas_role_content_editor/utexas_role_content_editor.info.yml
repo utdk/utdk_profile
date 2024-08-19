@@ -8,4 +8,3 @@ dependencies:
   - user
   - 'utexas_content_type_flex_page:utexas_content_type_flex_page'
   - 'utexas_text_format_flex_html:utexas_text_format_flex_html'
-version: 8.x-1.0

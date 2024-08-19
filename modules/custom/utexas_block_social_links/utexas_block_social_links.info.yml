@@ -8,5 +8,4 @@ dependencies:
   - field
   - text
   - utexas_block_social_links
-version: 8.x-1.0
 package: UTexas
