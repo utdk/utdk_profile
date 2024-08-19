@@ -92,7 +92,6 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
         '#cta' => $cta,
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_hero/hero-default';
     return $elements;
   }
 

@@ -1,7 +1,3 @@
-quick-links:
-  css:
-    theme:
-      css/quick-links.css: {}
 widget:
   css:
     theme:

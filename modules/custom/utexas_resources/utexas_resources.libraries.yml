@@ -1,7 +1,3 @@
-resources-formatter:
-  css:
-    theme:
-      css/resources-formatter.css: {}
 resources-widget:
   css:
     theme:

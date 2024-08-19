@@ -158,7 +158,6 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
         '#links' => $links,
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_photo_content_area/photo-content-area';
     return $elements;
   }
 

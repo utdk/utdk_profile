@@ -3,7 +3,6 @@ slick-carousel:
     theme:
       /libraries/accessible360--accessible-slick/slick/slick.min.css: {}
       /libraries/accessible360--accessible-slick/slick/accessible-slick-theme.min.css: {}
-      css/carousel.css: {}
   js:
     /libraries/accessible360--accessible-slick/slick/slick.min.js: {}
     js/slick-carousel.init.js: {}

@@ -116,7 +116,6 @@ function utexas_block_social_links_utexas_demo_content() {
  */
 function utexas_block_social_links_preprocess_field__field_utexas_sl_social_links(&$variables) {
   $variables['icon_size'] = $variables['element']['#icon_size'];
-  $variables['#attached']['library'][] = 'utexas_block_social_links/social_link_style';
 }
 
 /**

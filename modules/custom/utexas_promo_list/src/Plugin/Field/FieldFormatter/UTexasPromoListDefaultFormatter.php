@@ -139,7 +139,6 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
         '#wrapper' => '',
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_promo_list/promo-list-formatter';
     return $elements;
   }
 

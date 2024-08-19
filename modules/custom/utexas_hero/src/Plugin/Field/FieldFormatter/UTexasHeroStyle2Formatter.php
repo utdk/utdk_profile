@@ -98,7 +98,6 @@ class UTexasHeroStyle2Formatter extends UTexasHeroFormatterBase {
         '#anchor_position' => 'center',
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_hero/hero-style-2';
     return $elements;
   }
 
