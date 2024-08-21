@@ -138,6 +138,10 @@ class UTexasQuickLinksWidget extends WidgetBase {
       // Links are stored as a serialized array.
       if (!empty($value['quick_links_items'])) {
         $links_to_store = [];
+        // Re-sort by the order provided by tabledrag.
+        usort($value['quick_links_items']['items'], function ($item1, $item2) {
+          return $item1['weight'] <=> $item2['weight'];
+        });
         foreach ($value['quick_links_items']['items'] as $link) {
           $link_data = $link['details']['item']['item'];
           if (!empty($link_data['uri'])) {
