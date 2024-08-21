@@ -1,0 +1,26 @@
+{% set background = create_attribute() %}
+{% set image = create_attribute() %}
+{% if background_color %}
+  {%
+    set background_classes = [
+      'background-accent',
+      background_color
+    ]
+  %}
+{% endif %}
+{% if background_image %}
+  {%
+    set background_classes = [
+      'background-accent',
+    ]
+  %}
+  {% set image = image.setAttribute('style', background_image) %}
+  {% set image = image.addClass('background-image') %}
+  {% if background_blur %}
+    {% set image = image.addClass('background-blur') %}
+  {% endif %}
+{% endif %}
+
+<div {{ background.addClass(background_classes) }}>
+  <div {{ image }}></div>
+
