@@ -1128,3 +1128,10 @@ function utexas_update_8161() {
 function utexas_update_8162() {
   InstallationHelper::configurePeopleView();
 }
+
+/**
+ * Rebuild cache to relocate utexas_qualtrics_filter (#2625).
+ */
+function utexas_update_8163() {
+  drupal_flush_all_caches();
+}

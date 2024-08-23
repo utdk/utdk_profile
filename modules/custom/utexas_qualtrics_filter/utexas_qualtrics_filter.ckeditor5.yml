@@ -1,0 +1,19 @@
+utexas_qualtrics_filter_button:
+  ckeditor5:
+    plugins:
+      - qualtrics.Qualtrics
+      # The name of the plugin is determined by the filename of the buildfile
+      # plus the componentFactory.add() name in the UI's init() function.
+      # The filename of the buildfile is determined by the directory name
+      # of the plugin.
+  drupal:
+    label: Qualtrics Embed
+    library: utexas_qualtrics_filter/plugin
+    # The library that provides the built JS plugin.
+    admin_library: utexas_qualtrics_filter/admin
+    toolbar_items:
+      # This name determines what will be shown in the Drupal interface.
+      qualtrics:
+        label: Qualtrics Embed
+    elements:
+      - <p>

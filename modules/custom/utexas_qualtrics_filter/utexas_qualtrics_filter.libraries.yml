@@ -1,0 +1,14 @@
+plugin:
+  js:
+    js/ckeditor5_plugins/qualtrics/build/qualtrics.js: { preprocess: false, minified: true }
+  dependencies:
+    - ckeditor5/ckeditor5
+admin:
+  css:
+    theme:
+      css/qualtrics.admin.css: { }
+qualtrics-form:
+  version: 1.x
+  css:
+    theme:
+      css/iframe-render.css: {}
