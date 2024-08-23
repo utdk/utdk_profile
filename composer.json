@@ -53,7 +53,7 @@
     "drupal/schema_metatag": "3.0.2",
     "drupal/svg_upload_sanitizer": "1.4.0",
     "drupal/updated": "2.0.0",
-    "drupal/url_embed": "3.0.0-alpha2",
+    "drupal/url_embed": "3.0.0-beta1",
     "drupal/xmlsitemap": "1.5.0",
     "utexas/forty_acres": "3.19.0",
     "npm-asset/accessible360--accessible-slick": "1.0.1",
@@ -73,9 +73,6 @@
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.patch",
         "Ability to set moderation state during cloning": "https://drupalkit.its.utexas.edu/patches/35-unpublish-cloned-page.patch"
-      },
-      "drupal/url_embed": {
-        "Make url_embed patch for responsive embeds, applicable for 3.0.0-alpha2": "https://drupalkit.its.utexas.edu/patches/44-urlembed-responsive.patch"
       },
       "drupal/layout_builder_iframe_modal": {
         "Close the Drupal off canvas dialog at the same time the LBIM modal is closed": "https://drupalkit.its.utexas.edu/patches/3344334-settings-tray-close.patch",
