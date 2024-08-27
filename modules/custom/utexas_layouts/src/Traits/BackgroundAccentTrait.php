@@ -63,6 +63,9 @@ trait BackgroundAccentTrait {
     if (!empty($wrapper['blur'])) {
       $this->configuration['blur'] = $wrapper['blur'];
     }
+    else {
+      $this->configuration['blur'] = 0;
+    }
   }
 
   /**
