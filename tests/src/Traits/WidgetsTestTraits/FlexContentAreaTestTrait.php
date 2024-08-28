@@ -253,6 +253,15 @@ trait FlexContentAreaTestTrait {
 
     // Test remove button.
     $form->pressButton('Remove item 1');
+    // Verify that a user can cancel the removal.
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->dismiss_alert();
+    // Item 1 is still present.
+    $this->assertTrue($assert->waitForText('Flex Content Area Headline 1'));
+    // Now verify a user can proceed with removal.
+    $form->pressButton('Remove item 1');
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-fca-0-remove'));
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');

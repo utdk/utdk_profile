@@ -157,6 +157,8 @@ trait ResourcesTestTrait {
     $form = $this->waitForForm($block_content_edit_form_id);
     // Clear out the data for (Resource 2).
     $form->pressButton('Remove item 2');
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     $assert->assertNoElementAfterWait('css', '#edit-field-block-resources-0-resource-items-items-1-actions');
     // Add Resource (3) and fill fields.
     $form->pressButton('Add another Resource item');

@@ -181,7 +181,7 @@ class UtexasWidgetBase extends WidgetBase implements WidgetInterface, ContainerF
         $headline = 'item ' . $offset;
         $element['remove'] = [
           '#type' => 'submit',
-          '#value' => $this->t('Remove %headline', [
+          '#value' => $this->t('Remove %headline?', [
             '%headline' => $headline,
           ]),
           '#name' => $field_name . $delta,
@@ -192,8 +192,34 @@ class UtexasWidgetBase extends WidgetBase implements WidgetInterface, ContainerF
           '#ajax' => [
             'callback' => [get_class($this), 'fieldRemoveTarget'],
             'wrapper' => $wrapper_id,
+            'event' => 'click',
+          ],
+          '#attributes' => [
+            'class' => [
+              'visually-hidden',
+            ],
           ],
           '#weight' => 101,
+        ];
+        $element['confirm-remove'] = [
+          '#type' => 'submit',
+          '#submit' => [],
+          '#value' => $this->t('Remove %headline', [
+            '%headline' => $headline,
+          ]),
+          '#button_type' => 'secondary',
+          '#attributes' => [
+            'class' => [
+              'confirm-remove',
+            ],
+            'data-remove-target' => $field_name . $delta,
+          ],
+          '#attached' => [
+            'library' => [
+              'utexas_form_elements/confirm-remove',
+            ],
+          ],
+          '#weight' => 102,
         ];
       }
     }

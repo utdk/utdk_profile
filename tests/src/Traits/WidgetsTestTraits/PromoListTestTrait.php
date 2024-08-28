@@ -201,6 +201,8 @@ trait PromoListTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     $form->pressButton('Remove item 2');
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     $this->assertEmpty($assert->assertNoElementAfterWait('css', '[data-drupal-selector="edit-field-block-pl-0-promo-list-items-items-1-actions"]'));
     // Save block.
     $form->pressButton('Save');

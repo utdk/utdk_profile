@@ -226,6 +226,8 @@ trait PromoUnitTestTrait {
     // CRUD: UPDATE
     // Clear out the data for item 2.
     $form->pressButton('Remove item 2');
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-pu-0-promo-unit-items-items-1-actions'));
     // Save block.
     $form->pressButton('Save');
