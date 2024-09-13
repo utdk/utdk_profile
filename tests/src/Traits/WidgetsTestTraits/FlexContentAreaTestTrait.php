@@ -41,7 +41,7 @@ trait FlexContentAreaTestTrait {
     // Open the media library.
     $session->wait(3000);
     $page->pressButton('Add media');
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->assertTrue($assert->waitForText('Add or select media'));
     $assert->pageTextContains('image-test.png');
     // Select the first media item (should be "500x500.png").
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
@@ -139,12 +139,12 @@ trait FlexContentAreaTestTrait {
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
     $fieldsets[0]->click();
     $page->pressButton('image-0-media-library-remove-button-field_block_fca-0-flex_content_area');
-    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $this->assertTrue($assert->waitForText('One media item remaining.'));
     $session->wait(3000);
     $page->pressButton('Add media');
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->assertTrue($assert->waitForText('Add or select media'));
     $this->clickLink("Video (External)");
-    $this->assertNotEmpty($assert->waitForText('Add Video (External) via URL'));
+    $this->assertTrue($assert->waitForText('Add Video (External) via URL'));
 
     $assert->pageTextContains('Video 1');
     // Select the 1st video media item (should be "Video 1").

@@ -62,8 +62,11 @@
       // 3. Move the new selectors to be adjacent to dynamic fields.
       var selector = document.getElementById('edit-utexas-hero-style-selector--wrapper');
       var anchor = document.getElementById('edit-utexas-hero-anchor--wrapper');
-      document.getElementById('hero_selector_target').appendChild(selector);
-      document.getElementById('hero_selector_target').appendChild(anchor);
+      var hero_selector_target = document.getElementById('hero_selector_target');
+      if (hero_selector_target) {
+        hero_selector_target.appendChild(selector);
+        hero_selector_target.appendChild(anchor);
+      }
 
       // 4. Set values of custom radio HTML elements.
       // Update the value in the style and anchor radio elements.

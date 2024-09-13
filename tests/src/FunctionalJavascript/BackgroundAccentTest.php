@@ -57,12 +57,12 @@ class BackgroundAccentTest extends FunctionalJavascriptTestBase {
     $this->savePageLayout();
 
     // CRUD: READ
-    // A "background-accent" class has been added to the section.
-    $assert->elementExists('css', '.layout.background-accent');
+    // A "background-accent" class has been added around the section.
+    $assert->elementExists('css', '.background-accent .layout');
     // The background image style matches the uploaded image.
     $assert->elementAttributeContains('xpath', '//div[contains(@class, "background-accent")]/div', 'style', 'utexas_image_style_1600w_500h/public/image-test.png');
     // There is no blur effect initially.
-    $assert->elementAttributeNotContains('xpath', '//div[contains(@class, "background-accent")]/div', 'style', 'filter:blur(5px)');
+    $assert->elementNotExists('css', '.background-blur');
     // White background is added to menu block automatically.
     $menu_nav_background_color = $this->getSession()->evaluateScript('jQuery(".background-accent nav").css("background-color")');
     $this->assertSame("rgb(255, 255, 255)", $menu_nav_background_color);
@@ -79,7 +79,7 @@ class BackgroundAccentTest extends FunctionalJavascriptTestBase {
 
     // CRUD: READ
     // Blur is present.
-    $assert->elementAttributeContains('xpath', '//div[contains(@class, "background-accent")]/div', 'style', 'filter:blur(5px)');
+    $assert->elementExists('css', '.background-blur');
 
     // TEST CLEANUP //
     // Remove test node.
@@ -181,7 +181,7 @@ class BackgroundAccentTest extends FunctionalJavascriptTestBase {
     $this->saveSectionConfiguration();
     $this->assertTrue($assert->waitForText('You have unsaved changes'));
     // A "background" class is added to the section. The correct color is found.
-    $this->assertNotEmpty($assert->waitForElementVisible('css', '.layout.utexas-bg-' . $input_hex));
+    $this->assertNotEmpty($assert->waitForElementVisible('css', '.utexas-bg-' . $input_hex));
     $actual_background = $this->getSession()->evaluateScript('jQuery(".background-accent.utexas-bg-' . $input_hex . '").css("background-color")');
     $this->assertSame($expected_rgb, $actual_background);
   }
