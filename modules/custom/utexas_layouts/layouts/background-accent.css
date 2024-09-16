@@ -6,11 +6,17 @@
 }
 
 /* Prevent images with height:100% from overflowing their container */
+/* Add space above and below block */
 .background-accent {
   overflow: hidden;
   position: relative;
+  padding: 1rem 0;
 }
-
+@media only screen and (min-width: 1200px) {
+  .background-accent {
+    padding: 2rem 0;
+  }
+}
 .background-accent .layout__region .block {
   margin-bottom: 1rem;
 }
@@ -46,7 +52,12 @@ follow a background-accent region. */
 /* Set no padding for background accent regions that
 follow another background-accent region. */
 .background-accent + .background-accent {
-  padding-top: 0;
+  padding: 1rem 0;
+}
+@media only screen and (min-width: 1200px) {
+  .background-accent + .background-accent {
+    padding: 2rem 0;
+  }
 }
 
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
