@@ -89,8 +89,10 @@ trait FlexListTestTrait {
     $this->drupalGet('/admin/content/block/');
     $this->getSession()->getPage()->findLink('Flex List Test')->click();
     $form = $this->waitForForm('block-content-utexas-flex-list-edit-form');
-    $this->getSession()->getPage()->find('css', '#edit-field-utexas-flex-list-items-0-remove')->click();
-    $assert->assertNoElementAfterWait('css', '#edit-field-utexas-flex-list-items-0-utexas-flex-list');
+    $form->pressButton('Remove item 1');
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
+    $this->assertTrue($assert->waitForElementRemoved('css', '[data-drupal-selector="edit-field-utexas-flex-list-items-0-confirm-remove"]'));
     $form->pressButton('Save');
 
     // CRUD: DELETE.

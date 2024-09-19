@@ -262,7 +262,7 @@ trait FlexContentAreaTestTrait {
     $form->pressButton('Remove item 1');
     // Press "OK" on confirm remove modal.
     $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
-    $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-fca-0-remove'));
+    $this->assertTrue($assert->waitForElementRemoved('css', '[data-drupal-selector="edit-field-block-fca-0-confirm-remove"]'));
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');
 

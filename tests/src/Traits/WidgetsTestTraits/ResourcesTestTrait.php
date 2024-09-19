@@ -159,7 +159,7 @@ trait ResourcesTestTrait {
     $form->pressButton('Remove item 2');
     // Press "OK" on confirm remove modal.
     $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
-    $assert->assertNoElementAfterWait('css', '#edit-field-block-resources-0-resource-items-items-1-actions');
+    $this->assertTrue($assert->waitForElementRemoved('css', '[data-drupal-selector="edit-field-block-resources-0-resource-items-items-1-actions-confirm-remove"]'));
     // Add Resource (3) and fill fields.
     $form->pressButton('Add another Resource item');
     $this->assertTrue($assert->waitForText('New Resource item'));
