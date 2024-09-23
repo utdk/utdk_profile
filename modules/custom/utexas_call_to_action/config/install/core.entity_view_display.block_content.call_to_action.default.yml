@@ -10,33 +10,9 @@ dependencies:
     - utexas_call_to_action
 third_party_settings:
   layout_builder:
-    sections:
-      -
-        layout_id: layout_onecol
-        layout_settings:
-          label: ''
-        components:
-          385553f5-45fa-4522-b123-fcf6b45954e2:
-            uuid: 385553f5-45fa-4522-b123-fcf6b45954e2
-            region: content
-            configuration:
-              id: 'field_block:block_content:call_to_action:field_utexas_call_to_action_link'
-              label_display: ''
-              formatter:
-                label: hidden
-                settings:
-                  trim_length: 80
-                  url_only: false
-                  url_plain: false
-                  rel: ''
-                  target: ''
-                third_party_settings: {  }
-                type: utexas_call_to_action_formatter
-              context_mapping:
-                entity: layout_builder.entity
-            additional: {  }
-            weight: 2
-        third_party_settings: {  }
+    sections: {  }
+    allow_custom: false
+    enabled: false
 id: block_content.call_to_action.default
 targetEntityType: block_content
 bundle: call_to_action
