@@ -19,8 +19,6 @@ trait HeroTestTrait {
     $session = $this->getSession();
     /** @var \Behat\Mink\Element\DocumentElement $page */
     $page = $session->getPage();
-    /** @var \Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver $driver */
-    $driver = $session->getDriver();
 
     // CRUD: CREATE.
     $flex_page_id = $this->createFlexPage();
@@ -79,7 +77,6 @@ trait HeroTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     // Fill Hero fields.
-    $driver->maximizeWindow();
     $form->fillField('field_block_hero[0][disable_image_styles]', '0');
     // Save block.
     $form->pressButton('Save');

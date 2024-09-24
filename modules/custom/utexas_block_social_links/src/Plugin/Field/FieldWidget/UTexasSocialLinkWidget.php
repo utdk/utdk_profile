@@ -88,7 +88,7 @@ class UTexasSocialLinkWidget extends WidgetBase {
         '#type' => 'url',
         '#title' => 'URL',
         '#default_value' => $items[$i]['social_account_url'] ?? NULL,
-        '#placeholder' => 'https://media-site-name.com/our-handle',
+        '#description' => $this->t('Example: https://media-site-name.com/our-handle'),
       ];
     }
     $element['social_account_links']['actions']['add'] = [

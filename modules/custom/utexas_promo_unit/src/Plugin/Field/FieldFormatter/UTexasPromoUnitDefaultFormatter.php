@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -103,6 +104,9 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
             if (!empty($instance_item['link']['uri'])) {
               $instances[$key]['headline'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker'], $instance_item['headline']);
             }
+            else {
+              $instances[$key]['headline'] = RenderElementHelper::filterSingleLineText($instance_item['headline'], TRUE);
+            }
           }
           $format = $instance_item['copy']['format'] ?? 'flex_html';
           $copy = $instance_item['copy']['value'] ?? '';
@@ -128,11 +132,10 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
       }
       $elements[$delta] = [
         '#theme' => 'utexas_promo_unit',
-        '#headline' => $item->headline,
+        '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
         '#promo_unit_items' => $instances,
         '#image_display' => 'landscape-image',
       ];
-      $elements[$delta]['#attached']['library'][] = 'utexas_promo_unit/promo-unit-formatter';
     }
     return $elements;
 

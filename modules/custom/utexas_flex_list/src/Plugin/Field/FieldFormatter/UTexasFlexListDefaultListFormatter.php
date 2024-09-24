@@ -67,7 +67,6 @@ class UTexasFlexListDefaultListFormatter extends UTexasFlexListFormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = parent::viewElements($items, $langcode);
-    $elements['#attached']['library'][] = 'utexas_flex_list/default';
     foreach ($elements as $delta => $element) {
       if (is_numeric($delta)) {
         $elements[$delta]['heading_level'] = ['#plain_text' => $this->getSetting('heading_level')];

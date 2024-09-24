@@ -1,7 +1,6 @@
 name: 'UTexas Text Format Flex HTML'
 type: module
 core_version_requirement: '^10 || ^11'
-version: 8.x-1.0
 package: UTexas
 dependencies:
   - 'drupal:ckeditor5'

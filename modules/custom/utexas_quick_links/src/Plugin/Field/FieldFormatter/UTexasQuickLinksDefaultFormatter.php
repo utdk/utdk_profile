@@ -4,7 +4,7 @@ namespace Drupal\utexas_quick_links\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
@@ -44,11 +44,10 @@ class UTexasQuickLinksDefaultFormatter extends FormatterBase {
       $copy = $item->copy_value ?? '';
       $elements[] = [
         '#theme' => 'utexas_quick_links',
-        '#headline' => $item->headline,
+        '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
         '#copy' => check_markup($copy, $format),
         '#links' => $links,
       ];
-      $elements['#attached']['library'][] = 'utexas_quick_links/quick-links';
     }
     return $elements;
   }

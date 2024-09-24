@@ -52,8 +52,8 @@ class ThreeColumnLayout extends DefaultConfigLayout {
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
     $form = $this->sectionWidthConfigurationForm($form, $form_state);
     $form = $this->multiWidthConfigurationForm($form, $form_state);
-    $form += $this->backgroundColorConfigurationForm($form, $form_state);
     $form += $this->backgroundConfigurationForm($form, $form_state);
+    $form += $this->backgroundColorConfigurationForm($form, $form_state);
     return $form;
   }
 

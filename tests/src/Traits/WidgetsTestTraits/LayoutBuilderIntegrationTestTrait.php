@@ -24,7 +24,7 @@ trait LayoutBuilderIntegrationTestTrait {
 
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $this->clickLink('Add block');
-    $this->assertNotEmpty($assert->waitForText('Create content block'));
+    $this->assertTrue($assert->waitForText('Create content block'));
 
     // Find all <a> links with text "Header Menu" in the settings tray.
     $headerMenuLink = $page->findAll('xpath', '//*[@id="drupal-off-canvas"]//a[text()="Header Menu"]');

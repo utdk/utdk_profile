@@ -8,18 +8,30 @@
    */
   Drupal.behaviors.utexasAutoAnchors = {
     attach: function (context, settings) {
-    let selector = '';
+    // Add a targetable unique ID attribute to eligible tags.
     // Summary is included to facilitate linkable accordions.
+    let anchorSelector = '';
     let anchor_elements = ['h2', 'h3', 'h4', 'h5', 'h6', 'summary'];
     for (var j = 0; j < anchor_elements.length; j++) {
-      selector += 'body ' + anchor_elements[j] + ', ';
+      anchorSelector += 'body ' + anchor_elements[j] + ', ';
     }
-    selector = selector.replace(/,\s*$/, "");
-    // Loop through all discovered headings and add a unique ID.
-    $(selector).each(function () {
+    anchorSelector = anchorSelector.replace(/,\s*$/, "");
+    $(anchorSelector).each(function () {
       generateAnchor(this);
     });
-     // Ensure that *after* JS has added IDs, the page is located on the hash.
+
+    // Add tabindex to headings (#2542).
+    let tabIndexSelector = '';
+    let tabindex_elements = ['h2', 'h3', 'h4', 'h5', 'h6'];
+    for (var j = 0; j < tabindex_elements.length; j++) {
+      tabIndexSelector += 'body ' + tabindex_elements[j] + ', ';
+    }
+    tabIndexSelector = tabIndexSelector.replace(/,\s*$/, "");
+    $(tabIndexSelector).each(function () {
+      this.tabIndex = -1;
+    });
+
+     // After JS adds IDs, if the URL includes an anchor target, scroll to it.
      let destination = $(window.location.hash).offset();
      if (typeof destination !== 'undefined') {
        $('html,body').animate({ scrollTop: destination.top }, 'slow');
@@ -32,8 +44,6 @@
    * @param {object} el The active heading element.
    */
   function generateAnchor(el) {
-    // Add tabindex (#2542).
-    el.tabIndex = -1;
     // Add id if none present.
     if (el.id) {
       return el.id;

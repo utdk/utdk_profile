@@ -6,8 +6,10 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\menu_link_content\MenuLinkContentInterface;
 use Drupal\utexas_form_elements\DocumentationLinks;
 use Drupal\utexas_form_elements\RenderElementHelper;
+use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
  * Implements hook_theme().
@@ -175,6 +177,95 @@ function utexas_form_elements_library_info_alter(&$libraries, $extension) {
         }
         $libraries['internal.drupal.ckeditor5.stylesheets']['css']['theme'][$path] = [];
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function utexas_form_elements_form_menu_link_content_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  // Modify Drupal core menu link interface to include UTexas link options.
+  $form['#entity_builders']['utexas_form_elements'] = 'utexas_form_elements_menu_link_content_form_entity_builder';
+  $menu_link = $form_state->getFormObject()->getEntity();
+  $form['#default_value']['options'] = [];
+  $link = $menu_link->link->getValue();
+  if (isset($link)) {
+    $form['#default_value']['options'] = $link[0]['options'];
+  }
+  if ($menu_link->isDefaultTranslationAffectedOnly() && !$menu_link->isDefaultTranslation()) {
+    return;
+  }
+  // Add link options form element.
+  $link_options_helper = new UtexasLinkOptionsHelper();
+  $form = $link_options_helper->addLinkOptions($form);
+}
+
+/**
+ * Implements entity_builder API (#2856660).
+ */
+function utexas_form_elements_menu_link_content_form_entity_builder($entity_type, $menu_link, &$form, &$form_state) {
+  if (!$menu_link->link || $menu_link->link->isEmpty()) {
+    return;
+  }
+
+  if ($menu_link->isDefaultTranslation() || !$menu_link->isDefaultTranslationAffectedOnly()) {
+    $target = $form_state->getValue('target');
+    $class = $form_state->getValue('class');
+    $menu_link_options = [
+      'attributes' => [],
+    ];
+    if (!empty($target)) {
+      $menu_link_options['attributes']['target'] = $target;
+    }
+    if (!empty($class)) {
+      $menu_link_options['attributes']['class'] = $class;
+    }
+  }
+  else {
+    $original = \Drupal::entityTypeManager()
+      ->getStorage($menu_link->getEntityTypeId())
+      ->loadRevision($menu_link->getLoadedRevisionId());
+    $menu_link_options = $original->get('link')->first()->options;
+  }
+  $menu_link->link->first()->options = $menu_link_options;
+  // Multilingual: set for other languages.
+  if ($menu_link->isDefaultTranslation() || !$menu_link->isDefaultTranslationAffectedOnly()) {
+    foreach ($menu_link->getTranslationLanguages() as $language) {
+      if ($language->getId() != $menu_link->language()->getId()) {
+        $menu_link->getTranslation($language->getId())->link->first()->options = $menu_link_options;
+      }
+    }
+  }
+}
+
+/**
+ * Implements template_preprocess_menu().
+ */
+function utexas_form_elements_preprocess_menu(&$variables) {
+  // Call recursive function to handle nested menu links.
+  _utexas_form_elements_preprocess_menu_items($variables['items']);
+}
+
+/**
+ * Helper function to recursively set link item attributes.
+ */
+function _utexas_form_elements_preprocess_menu_items(&$items) {
+  foreach ($items as $item) {
+    /** @var \Drupal\Core\Menu\MenuLinkInterface $menu_link */
+    $menu_link = $item['original_link'] ?? NULL;
+    if (!empty($menu_link)) {
+      $options = ($menu_link instanceof MenuLinkContentInterface) ?
+        $menu_link->link->first()->options : $menu_link->getOptions();
+      // Put attributes on link element.
+      if (isset($options) && isset($options['attributes'])) {
+        foreach ($options['attributes'] as $attribute => $value) {
+          $item['attributes']->setAttribute($attribute, $value);
+        }
+      }
+    }
+    if (!empty($item['below'])) {
+      _utexas_form_elements_preprocess_menu_items($item['below']);
     }
   }
 }

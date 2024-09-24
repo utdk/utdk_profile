@@ -1,17 +1,22 @@
 #!/bin/bash -ex
 
 apt-get update
-apt-get install -y libpng-dev
-apt-get install -y libnss3
-apt-get install -y zip
-#### Add php-zip to compress files for uploads to selenium container in tests.
 apt-get install -y \
-        libzip-dev \
-        zip
+    git \
+    openssh-client \
+    libpng-dev \
+    libwebp-dev \
+    libfreetype6-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libnss3 \
+    libzip-dev \
+    zip
+## Add php-zip to compress files for uploads to selenium container in tests.
 docker-php-ext-install zip
-####
-apt-get install -y git
-apt-get install -y openssh-client
+## Configure image protocol per 3280795#comment-15221199.
+docker-php-ext-install -j$(nproc) gd
+docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg
 docker-php-ext-install gd
 docker-php-ext-install mysqli pdo pdo_mysql
 apt-get install mariadb-client -y

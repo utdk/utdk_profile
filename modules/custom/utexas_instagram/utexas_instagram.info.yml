@@ -9,4 +9,3 @@ dependencies:
   - 'utexas_block_social_links:utexas_block_social_links'
   - 'utexas_instagram_api:utexas_instagram_api'
 package: UTexas
-version: '1.0'

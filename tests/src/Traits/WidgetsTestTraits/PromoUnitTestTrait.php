@@ -226,7 +226,9 @@ trait PromoUnitTestTrait {
     // CRUD: UPDATE
     // Clear out the data for item 2.
     $form->pressButton('Remove item 2');
-    $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-pu-0-promo-unit-items-items-1-actions'));
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
+    $this->assertTrue($assert->waitForElementRemoved('css', '[data-drupal-selector="edit-field-block-pu-0-promo-unit-items-items-1-actions-confirm-remove"]'));
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been updated.');

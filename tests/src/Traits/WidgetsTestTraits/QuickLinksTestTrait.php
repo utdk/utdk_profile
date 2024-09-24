@@ -107,7 +107,9 @@ trait QuickLinksTestTrait {
 
     // Remove link.
     $form->pressButton('Remove item 1');
-    $this->assertEmpty($assert->assertNoElementAfterWait('css', '#edit-field-block-ql-0-quick-links-items-items-0-details-item'));
+    // Press "OK" on confirm remove modal.
+    $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
+    $this->assertTrue($assert->waitForElementRemoved('css', '[data-drupal-selector="edit-field-block-ql-0-quick-links-items-items-0-actions-confirm-remove"]'));
     $form->pressButton('Save');
     $this->drupalGet('admin/content/block');
     $this->scrollLinkIntoViewAndClick($page, $block_name);

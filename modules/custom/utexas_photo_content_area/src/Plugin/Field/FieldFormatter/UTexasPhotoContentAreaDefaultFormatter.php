@@ -9,6 +9,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -151,13 +152,12 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
       $elements[] = [
         '#theme' => 'utexas_photo_content_area',
         '#image' => $image_render_array,
-        '#photo_credit' => $item->photo_credit,
-        '#headline' => $item->headline,
+        '#photo_credit' => RenderElementHelper::filterSingleLineText($item->photo_credit, TRUE),
+        '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
         '#copy' => check_markup($copy, $format),
         '#links' => $links,
       ];
     }
-    $elements['#attached']['library'][] = 'utexas_photo_content_area/photo-content-area';
     return $elements;
   }
 

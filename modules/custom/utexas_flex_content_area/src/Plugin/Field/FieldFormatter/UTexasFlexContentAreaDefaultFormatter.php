@@ -16,6 +16,7 @@ use Drupal\media\MediaInterface;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\IframeTitleHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -177,6 +178,9 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       if (!empty($cta_item['link_uri']) && !empty($item->headline)) {
         // Convert the headline to a link, if present.
         $headline = UtexasLinkOptionsHelper::buildLink($cta_item, ['ut-link--darker'], $item->headline);
+      }
+      elseif (empty($cta_item['link_uri']) && !empty($item->headline)) {
+        $headline = RenderElementHelper::filterSingleLineText($headline, TRUE);
       }
       if ($headline) {
         // Make the CTA non-tab-able if a headline is present.

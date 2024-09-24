@@ -6,20 +6,26 @@
 }
 
 /* Prevent images with height:100% from overflowing their container */
+/* Add space above and below block */
 .background-accent {
   overflow: hidden;
   position: relative;
+  padding: 1rem 0;
 }
-
+@media only screen and (min-width: 1200px) {
+  .background-accent {
+    padding: 2rem 0;
+  }
+}
 .background-accent .layout__region .block {
   margin-bottom: 1rem;
 }
-.layout--utexas-onecol.background-accent > div {
+.background-accent .layout--utexas-onecol > div {
   padding-top: 1rem;
 }
-.background-accent.utexas-layout--twocol .layout__region,
-.background-accent.utexas-layout--threecol .layout__region,
-.background-accent.utexas-layout--fourcol .layout__region {
+.background-accent .utexas-layout--twocol .layout__region,
+.background-accent .utexas-layout--threecol .layout__region,
+.background-accent .utexas-layout--fourcol .layout__region {
   margin-left: 1rem;
 }
 .background-accent .utexas-layout--twocol-wrapper,
@@ -46,7 +52,12 @@ follow a background-accent region. */
 /* Set no padding for background accent regions that
 follow another background-accent region. */
 .background-accent + .background-accent {
-  padding-top: 0;
+  padding: 1rem 0;
+}
+@media only screen and (min-width: 1200px) {
+  .background-accent + .background-accent {
+    padding: 2rem 0;
+  }
 }
 
 /* Give padding/spacing to widgets placed in sections with backgrounds. */
@@ -95,4 +106,21 @@ follow another background-accent region. */
 }
 #layout-builder .remove-section {
   margin-left: 1rem;
+}
+.background-blur {
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  -ms-filter: blur(5px);
+  margin: -10px;
+}
+.background-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1000;
+  background-size: cover;
+  bottom: 0;
 }

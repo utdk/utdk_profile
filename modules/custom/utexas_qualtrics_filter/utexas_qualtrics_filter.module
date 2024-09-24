@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Contains utexas_qualtrics_filter.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function utexas_qualtrics_filter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the utexas_qualtrics_filter module.
+    case 'help.page.utexas_qualtrics_filter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom text filter to allow Qualtrics forms into WYSIWYG fields') . '</p>';
+      return $output;
+
+    case 'help.page.ckeditor_qualtrics_button':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Allows to insert a Qualtrics button in CKEditor.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_qualtrics_filter_theme() {
+  return [
+    'utexas_qualtrics_filter' => [
+      'render element' => 'children',
+    ],
+  ];
+}

@@ -63,6 +63,9 @@ trait BackgroundAccentTrait {
     if (!empty($wrapper['blur'])) {
       $this->configuration['blur'] = $wrapper['blur'];
     }
+    else {
+      $this->configuration['blur'] = 0;
+    }
   }
 
   /**
@@ -74,7 +77,6 @@ trait BackgroundAccentTrait {
         $media_attributes = $media->get('field_utexas_media_image')->getValue();
         if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
           $uri = $file->getFileUri();
-          $build['#attributes']['class'][] = 'background-accent';
           $build['#background_image'] = new Attribute();
           // Exclude GIFs from image style to allow for animation.
           if ($file->getMimeType() != 'image/gif') {
@@ -85,19 +87,9 @@ trait BackgroundAccentTrait {
             $src = $file->createFileUrl();
           }
           if (!empty($this->configuration['blur'])) {
-            // Apply blur effect first to prevent mangled UTF8 encoding on $src.
-            $build['#background_image']['style'] = "filter:blur(5px);-webkit-filter:blur(5px);-ms-filter:blur(5px);margin:-10px;";
+            $build['#background_blur'] = TRUE;
           }
-          $build['#background_image']['style'] .= "background-image: url('$src');
-            background-position: center;
-            background-repeat: no-repeat;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            z-index: -1000;
-            background-size: cover;
-            bottom: 0;";
+          $build['#background_image'] = "background-image: url('$src');";
         }
       }
     }

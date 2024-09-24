@@ -30,5 +30,4 @@ dependencies:
   - 'updated:updated'
   - 'utexas_layouts:utexas_layouts'
   - 'utexas_text_format_flex_html:utexas_text_format_flex_html'
-version: 8.x-1.0
 core_incompatible: false

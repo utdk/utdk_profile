@@ -197,6 +197,10 @@ class ReadOnlyTest extends FunctionalTestBase {
 
     // Pages that should be read-only.
     foreach ($read_only_paths as $path) {
+      if ($path === '/admin/structure/media/manage/utexas_document/display') {
+        // @todo Skip until #3467501 is fixed (introduced in D10.3).
+        continue;
+      }
       $this->assertAllowed($path);
       $assert->pageTextContains($read_only_text);
     }

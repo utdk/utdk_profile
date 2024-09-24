@@ -1,7 +1,4 @@
 flex-content-area:
-  css:
-    theme:
-      css/flex-content-area.css: {}
   js:
     js/flex-content-area.js: {}
 widget:

@@ -48,6 +48,9 @@ class UTexasHeroWidget extends UtexasWidgetBase {
         ],
       ],
     ];
+    $element['selector_target'] = [
+      '#prefix' => '<div id="hero_selector_target"></div>',
+    ];
     $element['heading'] = [
       '#title' => $this->t('Heading'),
       '#type' => 'textfield',

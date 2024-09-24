@@ -126,9 +126,9 @@ trait UtexasFieldTrait {
       ];
       $offset = $inc + 1;
       $headline = 'item ' . $offset;
-      $form_items[$inc]['actions'] = [
+      $form_items[$inc]['actions']['remove'] = [
         '#type' => 'submit',
-        '#value' => $this->t('Remove %headline', [
+        '#value' => $this->t('Remove %headline?', [
           '%headline' => $headline,
         ]),
         '#container' => $container,
@@ -140,6 +140,31 @@ trait UtexasFieldTrait {
         '#ajax' => [
           'callback' => [get_class($this), 'subFieldRemoveTarget'],
           'wrapper' => $wrapper,
+          'event' => 'click',
+        ],
+        '#attributes' => [
+          'class' => [
+            'visually-hidden',
+          ],
+        ],
+      ];
+      $form_items[$inc]['actions']['confirm-remove'] = [
+        '#type' => 'submit',
+        '#submit' => [],
+        '#value' => $this->t('Remove %headline', [
+          '%headline' => $headline,
+        ]),
+        '#button_type' => 'secondary',
+        '#attributes' => [
+          'class' => [
+            'confirm-remove',
+          ],
+          'data-remove-target' => $wrapper . $inc,
+        ],
+        '#attached' => [
+          'library' => [
+            'utexas_form_elements/confirm-remove',
+          ],
         ],
       ];
       $inc++;

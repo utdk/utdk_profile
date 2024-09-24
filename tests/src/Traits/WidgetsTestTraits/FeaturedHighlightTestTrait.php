@@ -44,7 +44,7 @@ trait FeaturedHighlightTestTrait {
     $session->wait(3000);
     $page->pressButton('Add media');
     $session->wait(3000);
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->assertTrue($assert->waitForText('Add or select media'));
     $assert->pageTextContains('1000x1000.png');
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
@@ -137,10 +137,10 @@ trait FeaturedHighlightTestTrait {
     $this->scrollLinkIntoViewAndClick($page, $block_name);
     $form = $this->waitForForm($block_content_edit_form_id);
     $page->pressButton('media-0-media-library-remove-button-field_block_featured_highlight-0');
-    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $this->assertTrue($assert->waitForText('One media item remaining.'));
     $page->pressButton('Add media');
     $session->wait(3000);
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->assertTrue($assert->waitForText('Add or select media'));
     $checkbox_selector = '.media-library-view .js-click-to-select-checkbox input';
     $checkboxes = $page->findAll('css', $checkbox_selector);
     // Select the first media item.
@@ -163,11 +163,11 @@ trait FeaturedHighlightTestTrait {
     $this->drupalGet('admin/content/block');
     $page->findLink($block_name)->click();
     $page->pressButton('media-0-media-library-remove-button-field_block_featured_highlight-0');
-    $this->assertNotEmpty($assert->waitForText('One media item remaining.'));
+    $this->assertTrue($assert->waitForText('One media item remaining.'));
     $page->pressButton('Add media');
-    $this->assertNotEmpty($assert->waitForText('Add or select media'));
+    $this->assertTrue($assert->waitForText('Add or select media'));
     $this->clickLink("Video (External)");
-    $this->assertNotEmpty($assert->waitForText('Add Video (External) via URL'));
+    $this->assertTrue($assert->waitForText('Add Video (External) via URL'));
 
     $assert->pageTextContains('Video 1');
     // Select the 1st video media item (should be "Video 1").

@@ -20,11 +20,10 @@ use Drupal\media\MediaInterface;
 use Drupal\media\OEmbed\ResourceException;
 use Drupal\media\OEmbed\ResourceFetcherInterface;
 use Drupal\media\OEmbed\UrlResolverInterface;
-
+use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\IframeTitleHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
-
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -197,6 +196,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $link_item['link']['options'] = $item->link_options ?? [];
         if (isset($item->headline)) {
           $headline = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-link'], $item->headline);
+          $headline = $headline->toRenderable();
           // Add CTA-specific attributes & generate link.
           // Suppress link from screen readers -- redundant.
           $link_item['link']['options']['attributes']['aria-hidden'] = 'true';
@@ -205,6 +205,9 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         if (!empty($link_item['link']['title'])) {
           $cta = UtexasLinkOptionsHelper::buildLink($link_item, ['ut-btn']);
         }
+      }
+      else {
+        $headline = RenderElementHelper::filterSingleLineText($headline, TRUE);
       }
       $media_render_array = [];
       if ($media = $this->entityTypeManager->getStorage('media')->load($item->media)) {
