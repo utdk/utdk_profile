@@ -12,13 +12,15 @@ bundle: call_to_action
 mode: default
 content:
   field_utexas_call_to_action_link:
+    type: utexas_link_widget
     weight: 28
+    region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      linkit_profile: flex_html
+      linkit_auto_link_text: 0
     third_party_settings: {  }
-    type: utexas_link_widget
-    region: content
   info:
     type: string_textfield
     weight: -5

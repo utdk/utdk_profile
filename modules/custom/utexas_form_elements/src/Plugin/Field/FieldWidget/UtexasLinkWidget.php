@@ -4,7 +4,7 @@ namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\link\Plugin\Field\FieldWidget\LinkWidget;
+use Drupal\linkit\Plugin\Field\FieldWidget\LinkitWidget;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
@@ -18,7 +18,7 @@ use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
  *   }
  * )
  */
-class UtexasLinkWidget extends LinkWidget {
+class UtexasLinkWidget extends LinkitWidget {
 
   /**
    * {@inheritdoc}

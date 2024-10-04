@@ -6,7 +6,6 @@ dependencies:
     - field.field.block_content.call_to_action.field_utexas_call_to_action_link
   module:
     - layout_builder
-    - layout_discovery
     - utexas_call_to_action
 third_party_settings:
   layout_builder:
