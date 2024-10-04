@@ -139,6 +139,7 @@ trait FlexContentAreaTestTrait {
     $fieldsets = $page->findAll('css', 'div.field--type-utexas-flex-content-area details');
     $fieldsets[0]->click();
     $page->pressButton('image-0-media-library-remove-button-field_block_fca-0-flex_content_area');
+    $session->wait(3000);
     $this->assertTrue($assert->waitForText('One media item remaining.'));
     $session->wait(3000);
     $page->pressButton('Add media');
