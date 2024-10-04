@@ -35,3 +35,4 @@ jobs:
             git push public -d -f $DELETE_BRANCH
             exit 0
           fi
+          rm -rf $REPO
