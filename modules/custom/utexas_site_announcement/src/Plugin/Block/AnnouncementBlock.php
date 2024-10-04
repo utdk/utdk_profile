@@ -47,7 +47,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
    *   The entity type manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManager $entity_type_manager = NULL) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManager $entity_type_manager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entity_type_manager;
   }
@@ -77,7 +77,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
         'homepage' => $this->t("Active on homepage only"),
         'all' => $this->t("Active on all pages"),
       ],
-      '#default_value' => $config['status'] ?? 'inactive',
+      '#default_value' => $config['state'] ?? 'inactive',
     ];
     $form['title'] = [
       '#type' => 'textfield',
