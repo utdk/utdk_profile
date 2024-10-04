@@ -93,3 +93,7 @@ jobs:
           name: browser_output
           path: ${{ github.workspace }}/utdk_scaffold/web/sites/simpletest/browser_output
           retention-days: 5
+
+      - name: 'Cleanup'
+        run: |
+          rm -rf ${{ github.workspace }}/utdk_scaffold
