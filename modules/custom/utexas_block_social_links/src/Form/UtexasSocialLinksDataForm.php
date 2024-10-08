@@ -48,7 +48,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file handler.
    */
-  public function __construct(RendererInterface $renderer, MessengerInterface $messenger, FileSystemInterface $file_system = NULL) {
+  public function __construct(RendererInterface $renderer, MessengerInterface $messenger, ?FileSystemInterface $file_system = NULL) {
     $this->renderer = $renderer;
     $this->messenger = $messenger;
     $this->fileSystem = $file_system;

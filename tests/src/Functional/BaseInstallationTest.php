@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\Functional;
 
-use Drupal\filter\Entity\FilterFormat;
-
-use Drupal\node\Entity\Node;
-
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
-
+use Drupal\filter\Entity\FilterFormat;
+use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

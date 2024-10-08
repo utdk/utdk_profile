@@ -5,8 +5,8 @@
  * Contains utexas_featured_highlight.module.
  */
 
-use Drupal\block\BlockForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\block\BlockForm;
 
 /**
  * Implements hook_theme().

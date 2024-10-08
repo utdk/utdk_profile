@@ -62,7 +62,7 @@ class InstallationOptions extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, ?array &$install_state = NULL) {
     $form['#title'] = $this->t('Installation options');
     $form['default_content'] = [
       '#type' => 'checkbox',

@@ -26,7 +26,7 @@ class InstagramAuthListController extends ControllerBase {
    *   A render array as expected by
    *   \Drupal\Core\Render\RendererInterface::render().
    */
-  public function listing(Request $request = NULL) {
+  public function listing(?Request $request = NULL) {
 
     // Get URL paramters following successful Instagram Account OAuth request.
     $code = $request->query->get('code', NULL);

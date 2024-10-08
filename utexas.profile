@@ -5,10 +5,10 @@
  * Enables modules and site configuration for a standard UTDK installation.
  */
 
-use Drupal\block\Entity\Block;
-use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
