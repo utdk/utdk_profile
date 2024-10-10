@@ -1135,3 +1135,12 @@ function utexas_update_8162() {
 function utexas_update_8163() {
   drupal_flush_all_caches();
 }
+
+/**
+ * Uninstall Layout Builder Expose Field Blocks (#2636).
+ */
+function utexas_update_8164() {
+  if (\Drupal::moduleHandler()->moduleExists('layout_builder_expose_all_field_blocks') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['layout_builder_expose_all_field_blocks']);
+  }
+}
