@@ -32,7 +32,7 @@ class UTexasPromoUnitElement extends FormElement {
    */
   public static function processPromoUnitElement(&$element, FormStateInterface $form_state, &$form) {
     $validators = [
-      'file_validate_extensions' => ['jpg jpeg png gif'],
+      'FileExtension' => ['extensions' => 'jpg jpeg png gif'],
     ];
     $element['headline'] = [
       '#type' => 'textfield',

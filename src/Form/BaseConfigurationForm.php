@@ -89,7 +89,7 @@ class BaseConfigurationForm extends ConfigFormBase {
       '#multiple' => FALSE,
       '#description' => $this->t('Allowed extensions: jpg, jpeg, png. You must press "Save configuration" for changes to take effect.'),
       '#upload_validators' => [
-        'file_validate_extensions' => ['jpg png jpeg'],
+        'FileExtension' => ['extensions' => 'jpg jpeg png'],
       ],
       '#default_value' => [$fid],
       '#title' => $this->t('Default image for social media sharing'),
