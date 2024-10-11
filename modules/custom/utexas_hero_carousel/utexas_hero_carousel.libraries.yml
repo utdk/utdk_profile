@@ -1,13 +1,8 @@
 slick-carousel:
-  css:
-    theme:
-      /profiles/custom/utexas/libraries/accessible360-slick/slick/slick.min.css: {}
-      /profiles/custom/utexas/libraries/accessible360-slick/slick/accessible-slick-theme.min.css: {}
   js:
-    /profiles/custom/utexas/libraries/accessible360-slick/slick/slick.min.js: {}
     js/slick-carousel.init.js: {}
   dependencies:
-    - core/jquery
+    - utexas/accessible-slick
 widget:
   css:
     theme:
