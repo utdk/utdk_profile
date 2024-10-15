@@ -18,5 +18,5 @@ Accepted
 ## Consequences
 
 - Staying with Accessible 360 Slick, rather than adopting a different solution, will reduce short-term effort in refactoring carousel implementations.
-- Medium- and long-term, this decision does not preclude a future switch to a different solution/
+- Medium- and long-term, this decision does not preclude a future switch to a different solution
 - Maintaining our own version of the library means that there will be more effort involved in fixing bugs in that library, should they occur.
