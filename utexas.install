@@ -1146,7 +1146,7 @@ function utexas_update_8164() {
 }
 
 /**
- * Set Bootstrap Horizontal Tabs version to 5 (#2527).
+ * Set Bootstrap Horizontal Tabs version to 5 (#2572).
  */
 function utexas_update_8165() {
   if (\Drupal::moduleHandler()->moduleExists('bootstrap_horizontal_tabs') === TRUE) {
