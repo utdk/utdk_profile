@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="/var/www/html/utdk_scaffold/web/core/tests/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true" printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="/var/www/tests/utdk-project/web/core/tests/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true" printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
   <coverage>
     <include>
-      <directory>/var/www/html/utdk_scaffold/web/core/includes</directory>
-      <directory>/var/www/html/utdk_scaffold/web/core/lib</directory>
-      <directory>/var/www/html/utdk_scaffold/web/core/modules</directory>
-      <directory>/var/www/html/utdk_scaffold/web/modules</directory>
-      <directory>/var/www/html/utdk_scaffold/web/sites</directory>
+      <directory>/var/www/tests/utdk-project/web/core/includes</directory>
+      <directory>/var/www/tests/utdk-project/web/core/lib</directory>
+      <directory>/var/www/tests/utdk-project/web/core/modules</directory>
+      <directory>/var/www/tests/utdk-project/web/modules</directory>
+      <directory>/var/www/tests/utdk-project/web/sites</directory>
     </include>
   </coverage>
   <php>
@@ -21,16 +21,16 @@
   </php>
   <testsuites>
     <testsuite name="unit">
-      <file>/var/www/html/utdk_scaffold/web/core/tests/TestSuites/UnitTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/UnitTestSuite.php</file>
     </testsuite>
     <testsuite name="kernel">
-      <file>/var/www/html/utdk_scaffold/web/core/tests/TestSuites/KernelTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/KernelTestSuite.php</file>
     </testsuite>
     <testsuite name="functional">
-      <file>/var/www/html/utdk_scaffold/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>/var/www/html/utdk_scaffold/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
   <listeners>

@@ -6,6 +6,6 @@
  */
 
 $aliases['utdk'] = [
-  'root' => '/var/www/html/utdk_scaffold/web',
+  'root' => '/var/www/tests/utdk-project/web',
   'uri' => 'http://localhost:8080',
 ];

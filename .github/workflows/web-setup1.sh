@@ -25,6 +25,8 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 export COMPOSER_ALLOW_SUPERUSER
 
 # Ensure user/group is same as github user on host so cleanup is possible...
-usermod -u 993 www-data
-groupmod -g 988 www-data
+# NOTE: THESE IDS ARE SPECIFIC TO THE P02 VIRTUAL MACHINE AND WILL NOT WORK ON
+# THE T01 MACHINE. SEE https://wikis.utexas.edu/display/WCMS/GitHub+Actions
+usermod -u 994 www-data
+groupmod -g 989 www-data
 
