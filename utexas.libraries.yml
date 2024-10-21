@@ -39,5 +39,5 @@ bootstrap5:
       css/Bootstrap5/tab.css: {}
       css/Bootstrap5/tooltip.css: {}
   js:
-    js/Bootstrap5/bootstrap.bundle.js: {}
+    js/Bootstrap5/bootstrap.bundle.min.js: {}
     js/Bootstrap5/tooltip-initialize.js: {}
