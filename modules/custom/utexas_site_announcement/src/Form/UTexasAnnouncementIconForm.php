@@ -93,8 +93,8 @@ class UTexasAnnouncementIconForm extends EntityForm {
       '#title' => $this->t('SVG Icon'),
       '#description' => $this->t('Upload an SVG Icon to set as the default icon for this label. This upload will replace the active SVG icon if one is already set below.'),
       '#upload_validators' => [
-        'file_validate_extensions' => ['svg'],
-        'file_validate_size' => [25600000],
+        'FileExtension' => ['extensions' => 'svg'],
+        'FileSizeLimit' => ['fileLimit' => 25600000],
       ],
     ];
 
