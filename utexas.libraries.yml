@@ -30,3 +30,12 @@ bootstrap:
     js/tooltip.js: {}
   dependencies:
     - core/jquery
+accessible-slick:
+  css:
+    theme:
+      libraries/accessible360-slick/slick/slick.min.css: {}
+      libraries/accessible360-slick/slick/accessible-slick-theme.min.css: {}
+  js:
+    libraries/accessible360-slick/slick/slick.min.js: {}
+  dependencies:
+    - core/jquery

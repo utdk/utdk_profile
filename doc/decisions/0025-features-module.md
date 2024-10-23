@@ -1,4 +1,4 @@
-# 24. Use of the Features module for managing configuration
+# 25. Use of the Features module for managing configuration
 
 Date: 2024-06-06
 
