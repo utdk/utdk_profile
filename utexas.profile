@@ -203,7 +203,7 @@ function utexas_page_attachments(array &$attachments) {
     // `drush state:set utexas_bootstrap_disable TRUE`).
     // See https://www.drupal.org/docs/develop/drupal-apis/state-api/state-api-overview
     if (\Drupal::state()->get('utexas_bootstrap_disable') !== TRUE) {
-      $attachments['#attached']['library'][] = 'utexas/bootstrap';
+      $attachments['#attached']['library'][] = 'utexas/bootstrap5';
     }
   }
 }
