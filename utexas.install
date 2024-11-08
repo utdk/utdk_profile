@@ -1144,3 +1144,14 @@ function utexas_update_8164() {
     \Drupal::service('module_installer')->uninstall(['layout_builder_expose_all_field_blocks']);
   }
 }
+
+/**
+ * Set Bootstrap Horizontal Tabs version to 5 (#2572).
+ */
+function utexas_update_8165() {
+  if (\Drupal::moduleHandler()->moduleExists('bootstrap_horizontal_tabs') === TRUE) {
+    $bootstrap_horizontal_tabs = \Drupal::configFactory()->getEditable('bootstrap_horizontal_tabs.settings');
+    $bootstrap_horizontal_tabs->set("version", '5');
+    $bootstrap_horizontal_tabs->save();
+  }
+}
