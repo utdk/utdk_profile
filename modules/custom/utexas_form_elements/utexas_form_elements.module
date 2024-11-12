@@ -269,3 +269,18 @@ function _utexas_form_elements_preprocess_menu_items(&$items) {
     }
   }
 }
+
+/**
+ * Implements hook_block_alter().
+ */
+function utexas_form_elements_block_alter(&$definitions) {
+  // Alter the "AddToAny" labels (#1867).
+  foreach (array_keys($definitions) as $id) {
+    if ($id === 'addtoany_block') {
+      $definitions[$id]['admin_label'] = 'Share this content';
+    }
+    if ($id === 'addtoany_follow_block') {
+      $definitions[$id]['admin_label'] = 'Follow us';
+    }
+  }
+}
