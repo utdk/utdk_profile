@@ -24,6 +24,7 @@ layout_builder_ui:
       theme/layout-builder-ui.css: {}
   js:
     js/layout-builder-form-error.js: {}
+    js/sectionBackground.js: {}
 background-colors:
   css:
     theme:
