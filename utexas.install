@@ -107,6 +107,10 @@ function utexas_install() {
     ->set('display.feed_1.display_options.enabled', 0)
     ->set('display.page_1.display_options.enabled', 0)
     ->save(TRUE);
+
+  $state_api = \Drupal::state();
+  // Set Full HTML configuration opt-in.
+  $state_api->set('full_html_updates', 1);
 }
 
 /**

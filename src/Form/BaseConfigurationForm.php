@@ -83,7 +83,11 @@ class BaseConfigurationForm extends ConfigFormBase {
     if (!$fid) {
       $fid = 0;
     }
-    $form['default_og_image'] = [
+    $form['seo'] = [
+      '#title' => 'Search Engine Optimization',
+      '#type' => 'fieldset',
+    ];
+    $form['seo']['default_og_image'] = [
       '#type' => 'managed_file',
       '#upload_location' => 'public://',
       '#multiple' => FALSE,
@@ -94,6 +98,17 @@ class BaseConfigurationForm extends ConfigFormBase {
       '#default_value' => [$fid],
       '#title' => $this->t('Default image for social media sharing'),
     ];
+    $full_html_default = \Drupal::state()->get('full_html_updates') ?? 0;
+    $form['development_settings'] = [
+      '#title' => 'Development settings',
+      '#type' => 'fieldset',
+    ];
+    $form['development_settings']['full_html_updates'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Receive configuration updates for the "Full HTML" text format',
+      '#description' => $this->t('The "Full HTML" text format is a rich text editing configuration provided by the Drupal Kit. Periodically, the Drupal Kit updates configuration for this text format. For example, it may add a new option to the "Styles" dropdown or add a new text filter. Leave this checkbox selected to automatically receive those updates. For sites where developers have made their own customizations to the "Full HTML" text format, deselecting this checkbox provides a way to ensure that Drupal Kit updates to the text format do not overwrite those customizations.'),
+      '#default_value' => $full_html_default,
+    ];
     $form = parent::buildForm($form, $form_state);
     return $form;
   }
@@ -102,11 +117,15 @@ class BaseConfigurationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
     // We allow static calls to services.
     // phpcs:ignore
     $config = \Drupal::configFactory();
     // phpcs:ignore
     $state_api = \Drupal::state();
+    // Set Full HTML configuration opt-in.
+    $state_api->set('full_html_updates', $form_state->getValue('full_html_updates'));
+    // Set default OG image.
     $metatag_default = $config->getEditable('metatag.metatag_defaults.global');
     $field = $form_state->getValue('default_og_image');
     if (!isset($field[0])) {
