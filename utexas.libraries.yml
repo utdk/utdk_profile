@@ -36,6 +36,7 @@ bootstrap5:
       css/Bootstrap5/bootstrap.css: {}
       css/Bootstrap5/alert.css: {}
       css/Bootstrap5/collapse.css: {}
+      css/Bootstrap5/dropdown.css: {}
       css/Bootstrap5/modal.css: {}
       css/Bootstrap5/tab.css: {}
       css/Bootstrap5/tooltip.css: {}
