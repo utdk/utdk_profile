@@ -5,10 +5,10 @@
  * Defines additional configuration for utexas_block_social_links.
  */
 
-use Drupal\block\Entity\Block;
-use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
 
 /**
  * Implements hook_field_widget_form_alter().

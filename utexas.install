@@ -5,8 +5,8 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\block\Entity\Block;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\user\RoleInterface;
@@ -107,6 +107,10 @@ function utexas_install() {
     ->set('display.feed_1.display_options.enabled', 0)
     ->set('display.page_1.display_options.enabled', 0)
     ->save(TRUE);
+
+  $state_api = \Drupal::state();
+  // Set Full HTML configuration opt-in.
+  $state_api->set('full_html_updates', 1);
 }
 
 /**
@@ -1134,4 +1138,24 @@ function utexas_update_8162() {
  */
 function utexas_update_8163() {
   drupal_flush_all_caches();
+}
+
+/**
+ * Uninstall Layout Builder Expose Field Blocks (#2636).
+ */
+function utexas_update_8164() {
+  if (\Drupal::moduleHandler()->moduleExists('layout_builder_expose_all_field_blocks') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['layout_builder_expose_all_field_blocks']);
+  }
+}
+
+/**
+ * Set Bootstrap Horizontal Tabs version to 5 (#2572).
+ */
+function utexas_update_8165() {
+  if (\Drupal::moduleHandler()->moduleExists('bootstrap_horizontal_tabs') === TRUE) {
+    $bootstrap_horizontal_tabs = \Drupal::configFactory()->getEditable('bootstrap_horizontal_tabs.settings');
+    $bootstrap_horizontal_tabs->set("version", '5');
+    $bootstrap_horizontal_tabs->save();
+  }
 }

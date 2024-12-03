@@ -2,12 +2,12 @@
 
 namespace Drupal\utexas_site_announcement\Form;
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\block\Entity\Block;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

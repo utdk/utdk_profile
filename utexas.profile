@@ -5,10 +5,10 @@
  * Enables modules and site configuration for a standard UTDK installation.
  */
 
-use Drupal\block\Entity\Block;
-use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
@@ -190,6 +190,9 @@ function utexas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
  * Implements hook_page_attachments().
  */
 function utexas_page_attachments(array &$attachments) {
+  /** @var \Drupal\Core\Routing\CurrentRouteMatch $current_route_match */
+  $current_route_match = \Drupal::routeMatch();
+  $route_name = $current_route_match->getRouteName();
   // Add details fieldset optimizations to all pages.
   $attachments['#attached']['library'][] = 'utexas/menus';
   if (!\Drupal::service('router.admin_context')->isAdminRoute()) {
@@ -203,7 +206,14 @@ function utexas_page_attachments(array &$attachments) {
     // `drush state:set utexas_bootstrap_disable TRUE`).
     // See https://www.drupal.org/docs/develop/drupal-apis/state-api/state-api-overview
     if (\Drupal::state()->get('utexas_bootstrap_disable') !== TRUE) {
-      $attachments['#attached']['library'][] = 'utexas/bootstrap';
+      $attachments['#attached']['library'][] = 'utexas/bootstrap5-css';
+      $layout_builder_routes = [
+        'layout_builder.defaults.node.view',
+        'layout_builder.overrides.node.view',
+      ];
+      if (!in_array($route_name, $layout_builder_routes)) {
+        $attachments['#attached']['library'][] = 'utexas/bootstrap5-js';
+      }
     }
   }
 }

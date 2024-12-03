@@ -29,7 +29,7 @@ class UTexasAnnouncementIconDeleteForm extends EntityConfirmFormBase {
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system.
    */
-  public function __construct(FileSystemInterface $file_system = NULL) {
+  public function __construct(?FileSystemInterface $file_system = NULL) {
     $this->fileSystem = $file_system;
   }
 

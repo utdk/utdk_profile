@@ -9,8 +9,8 @@ use Behat\Mink\Element\TraversableElement;
 use Drupal\Core\Database\Database;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
 use Drupal\Tests\TestFileCreationTrait;
+use Drupal\Tests\contextual\FunctionalJavascript\ContextualLinkClickTrait;
 use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
@@ -896,7 +896,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
    * @param string $selector
    *   The xpath selector.
    */
-  protected function assertNotEmptyXpath(NodeElement $element = NULL, $selector) {
+  protected function assertNotEmptyXpath(NodeElement $element, $selector) {
     $message = 'No element matching xpath selector "' . $selector . '" was found, or the element is otherwise unavailable.';
     $this->assertNotEmpty($element, $message);
   }

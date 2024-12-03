@@ -48,7 +48,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
    * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file handler.
    */
-  public function __construct(RendererInterface $renderer, MessengerInterface $messenger, FileSystemInterface $file_system = NULL) {
+  public function __construct(RendererInterface $renderer, MessengerInterface $messenger, ?FileSystemInterface $file_system = NULL) {
     $this->renderer = $renderer;
     $this->messenger = $messenger;
     $this->fileSystem = $file_system;
@@ -93,8 +93,8 @@ class UtexasSocialLinksDataForm extends EntityForm {
       '#title' => $this->t('SVG Icon'),
       '#description' => $this->t('Upload an SVG Icon to set as the default icon for this social account. This upload will replace the active SVG icon if one is already set below.'),
       '#upload_validators' => [
-        'file_validate_extensions' => ['svg'],
-        'file_validate_size' => [25600000],
+        'FileExtension' => ['extensions' => 'svg'],
+        'FileSizeLimit' => ['fileLimit' => 25600000],
       ],
     ];
 

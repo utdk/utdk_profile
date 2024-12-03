@@ -1,7 +1,6 @@
 #!/bin/bash -ex
 
 COMPOSER="php -d memory_limit=-1 /usr/local/bin/composer"
-
 # Authenticate to gh cli
 echo $TOKEN | gh auth login --hostname $HOST --with-token
 gh auth setup-git --hostname $HOST
@@ -12,8 +11,8 @@ gh auth setup-git --hostname $HOST
 FORTYACRES=$(gh api repos/$OWNER/forty_acres/tags --jq '.[0].name' --hostname $HOST)
 # Install stuff for UTDK site with composer...
 # Executed on host/Github Action Runner VM for ease of management of access to protected resources, file permissions, and performance...
-$COMPOSER create-project utexas/utdk-project:dev-develop utdk_scaffold --stability=dev --remove-vcs --no-install
-cd utdk_scaffold/upstream-configuration
+$COMPOSER create-project utexas/utdk-project:dev-develop --stability=dev --remove-vcs --no-install
+cd utdk-project/upstream-configuration
 $COMPOSER remove utexas/utdk_profile --no-update
 cd ..
 $COMPOSER config repositories.utdk_profile vcs git@github.austin.utexas.edu:eis1-wcs/utdk_profile.git

@@ -25,7 +25,7 @@ class UtexasLinkOptionsHelper {
    * @return array
    *   The link element with options added.
    */
-  public function addLinkOptions(array $element, LinkItemInterface $item = NULL) {
+  public function addLinkOptions(array $element, ?LinkItemInterface $item = NULL) {
     // Add validation for the two listed elements to the parent element.
     $element['#element_validate'][] = [get_called_class(), 'validateLinkOptionsTarget'];
     $element['#element_validate'][] = [get_called_class(), 'validateLinkOptionsClass'];
@@ -82,7 +82,7 @@ class UtexasLinkOptionsHelper {
    * @return array
    *   The link element with link option defaults added.
    */
-  private function addLinkOptionsDefaults(array $element, LinkItemInterface $item = NULL) {
+  private function addLinkOptionsDefaults(array $element, ?LinkItemInterface $item = NULL) {
     // When a widget calls this method, we use the $item to access an 'options'
     // object. When another form element calls this method, we can access the
     // 'options' array directly.
@@ -110,7 +110,7 @@ class UtexasLinkOptionsHelper {
    * @return object
    *   The prepared link object.
    */
-  public static function buildLink(array $item, array $link_add_classes = [], string $link_title_override = NULL) {
+  public static function buildLink(array $item, array $link_add_classes = [], ?string $link_title_override = NULL) {
     // If no uri, return null.
     if (empty($item['link']['uri'])) {
       return NULL;

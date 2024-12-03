@@ -49,7 +49,7 @@ class InstallationComplete extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, array &$install_state = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, ?array &$install_state = NULL) {
     // Do a cache rebuild to ensure all components are registered.
     // We intermittently saw site installations initially result in PHP fatal
     // errors, so this is a preventative measure.

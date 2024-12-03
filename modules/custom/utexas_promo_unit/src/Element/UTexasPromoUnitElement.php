@@ -31,9 +31,6 @@ class UTexasPromoUnitElement extends FormElement {
    * Process handler for the link form element.
    */
   public static function processPromoUnitElement(&$element, FormStateInterface $form_state, &$form) {
-    $validators = [
-      'file_validate_extensions' => ['jpg jpeg png gif'],
-    ];
     $element['headline'] = [
       '#type' => 'textfield',
       '#title' => t('Item Headline'),
@@ -52,7 +49,6 @@ class UTexasPromoUnitElement extends FormElement {
       '#title' => t('Image'),
       '#default_value' => MediaEntityImageHelper::checkMediaExists($image_default),
       '#description' => t('Upload an image with aspect ratio appropriate to the view mode you select (see below). To accommodate high resolution screens, the image widths should be at least 1600 pixels.'),
-      '#upload_validators' => $validators,
       '#upload_location' => 'public://promo_unit_items/',
     ];
     $element['copy'] = [
