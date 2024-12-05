@@ -1159,3 +1159,12 @@ function utexas_update_8165() {
     $bootstrap_horizontal_tabs->save();
   }
 }
+
+/**
+ * Replace svg_upload_sanitizer contrib module with custom equivalent (#2682).
+ */
+function utexas_update_8166() {
+  if (\Drupal::moduleHandler()->moduleExists('svg_upload_sanitizer') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['svg_upload_sanitizer']);
+  }
+}
