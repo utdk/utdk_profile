@@ -1160,12 +1160,3 @@ function utexas_update_8165() {
   }
 }
 
-/**
- * Install webp module and flush image styles (#1591).
- */
-function utexas_update_8166() {
-  $module = 'webp';
-  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
-    \Drupal::service('module_installer')->install([$module]);
-  }
-}
