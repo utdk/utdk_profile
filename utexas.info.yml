@@ -67,6 +67,7 @@ install:
   - drupal:svg_upload_sanitizer
   - drupal:updated
   - drupal:url_embed
+  - drupal:webp
   - drupal:xmlsitemap
   # Custom
   - utexas_beacon
