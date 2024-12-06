@@ -12,3 +12,9 @@ effects:
       width: 64
       height: 64
       anchor: center-center
+  2469234b-11db-4635-b0d5-77549937a441:
+    uuid: 2469234b-11db-4635-b0d5-77549937a441
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp
