@@ -33,7 +33,7 @@ function utexas_image_styles_update_8103() {
 }
 
 /**
- * Add webp conversin (#1591).
+ * Add webp conversion (#1591).
  */
 function utexas_image_styles_update_8104() {
   \Drupal::service('features.manager')->import([
