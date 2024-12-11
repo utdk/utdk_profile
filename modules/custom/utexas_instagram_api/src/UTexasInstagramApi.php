@@ -21,7 +21,7 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
   /**
    * The configuration.
    *
-   * @var array
+   * @var Drupal\Core\Config\ImmutableConfig
    *
    * Consists of:
    * 'access_token' (the site's current access token)
@@ -106,15 +106,16 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
   public function __construct($config_id) {
 
     $this->configFactory = \Drupal::service('utexas_instagram_api.ig_auth_service');
+
     $this->config = $this->configFactory->get('utexas_instagram_api.ig_auth.' . $config_id);
-    $this->configId = $this->config->get('id');
-    $this->clientId = $this->config->get('client_id');
-    $this->clientSecret = $this->config->get('client_secret');
-    $this->redirectUriOverride = $this->config->get('redirect_uri_override');
+    $this->configId = $this->config->get('id') ?? '';
+    $this->clientId = $this->config->get('client_id') ?? '';
+    $this->clientSecret = $this->config->get('client_secret') ?? '';
+    $this->redirectUriOverride = $this->config->get('redirect_uri_override') ?? '';
 
     $this->state = \Drupal::service('utexas_instagram_api.ig_state_service');
-    $this->token = $this->state->get(self::STATE_API_PREFIX . $config_id . '.token');
-    $this->expiration = $this->state->get(self::STATE_API_PREFIX . $config_id . '.token_expiration');
+    $this->token = !$this->config->isNew() ? $this->state->get(self::STATE_API_PREFIX . $config_id . '.token') : '';
+    $this->expiration = !$this->config->isNew() ? $this->state->get(self::STATE_API_PREFIX . $config_id . '.token_expiration') : '';
 
     $this->baseUrl = \Drupal::request()->getHost();
     $this->redirectUri = $this->redirectUriOverride ?? URL::fromRoute('entity.utexas_ig_auth.collection', [], [
@@ -133,14 +134,14 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getToken() {
-    return $this->state->get(self::STATE_API_PREFIX . $this->config_id . '.token');
+    return $this->token;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setToken($token) {
-    $this->state->set(self::STATE_API_PREFIX . $this->config_id . '.token', $token);
+    $this->state->set(self::STATE_API_PREFIX . $this->configId . '.token', $token);
     $this->token = $token;
     return $this;
   }
@@ -149,14 +150,14 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getTokenExpiration() {
-    return $this->state->get(self::STATE_API_PREFIX . $this->config_id . '.token_expiration');
+    return $this->expiration;
   }
 
   /**
    * {@inheritdoc}
    */
   public function setTokenExpiration($expiration) {
-    $this->state->set(self::STATE_API_PREFIX . $this->config_id . '.token_expiration', $expiration);
+    $this->state->set(self::STATE_API_PREFIX . $this->configId . '.token_expiration', $expiration);
     $this->expiration = $expiration;
     return $this;
   }
@@ -172,15 +173,19 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getOauthAuthorizationCode() {
+
+    /* See https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login */
     $endpoint = "oauth/authorize?";
     $params = [
-      'client_id' => $this->client_id,
-      'scope' => 'user_profile,user_media',
-      'redirect_uri' => $this->redirect_uri,
+      'enable_fb_login' => '0',
+      'force_authentication' => '1',
+      'client_id' => $this->clientId,
+      'scope' => 'instagram_business_basic',
+      'redirect_uri' => $this->redirectUri,
       'response_type' => 'code',
-      'state' => $this->config_id,
+      'state' => $this->config->get('id'),
     ];
-    if (isset($this->client_id)) {
+    if (isset($this->clientId)) {
       $url = self::INSTAGRAM_API_URI . $endpoint . http_build_query($params, '', '&');
       $response = new TrustedRedirectResponse($url);
       $request = \Drupal::request();
@@ -195,12 +200,13 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getOauthAccessToken() {
+    /* See https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login#step-2---exchange-the-code-for-a-token */
     $endpoint = "oauth/access_token";
     $params = [
-      'client_id' => $this->client_id,
-      'client_secret' => $this->client_secret,
+      'client_id' => $this->clientId,
+      'client_secret' => $this->clientSecret,
       'grant_type' => 'authorization_code',
-      'redirect_uri' => $this->redirect_uri,
+      'redirect_uri' => $this->redirectUri,
       'code' => $this->token,
     ];
     $response = $this->request(self::INSTAGRAM_API_URI . $endpoint, $params, 'POST');
@@ -221,10 +227,11 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getGraphAccessToken() {
+    /* See https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login#long-lived */
     $endpoint = "access_token";
     $params = [
       'grant_type' => 'ig_exchange_token',
-      'client_secret' => $this->client_secret,
+      'client_secret' => $this->clientSecret,
       'access_token' => $this->token,
     ];
 
@@ -264,7 +271,12 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
    * {@inheritdoc}
    */
   public function getMedia() {
-    $endpoint = "me/media";
+    /* See https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/get-started#posts */
+    $account = $this->getCurrentUserAccount();
+    if (!isset($account)) {
+      \Drupal::logger('utexas_instagram_api')->error('Unable to retrieve the user account');
+    }
+    $endpoint = $account->user_id . "/media";
     $params = [
       'access_token' => $this->token,
       'fields' => 'caption,id,media_type,media_url,permalink,thumbnail_url,timestamp,username',
@@ -280,7 +292,7 @@ class UTexasInstagramApi implements UTexasInstagramApiInterface {
     $endpoint = "me";
     $params = [
       'access_token' => $this->token,
-      'fields' => 'username',
+      'fields' => 'user_id,username',
     ];
     return $this->request(self::INSTAGRAM_DATA_URI . $endpoint, $params, 'GET');
   }
