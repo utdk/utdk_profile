@@ -382,11 +382,11 @@ function utexas_preprocess_html(&$variables) {
     [
       '#tag' => 'meta',
       '#attributes' => [
-        'name' => 'application-name',
-        'content' => 'UT Drupal Kit version 3',
+        'name' => 'utexas-utdk-version',
+        'content' => '3',
       ],
     ],
-    'application-name',
+    'utexas-utdk-version',
   ];
 }
 
