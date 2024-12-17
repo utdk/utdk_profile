@@ -9,7 +9,7 @@
   Drupal.behaviors.utexasLinkAccessibility = {
     attach: function (context, settings) {
       $('body a').each(function () {
-        modifyLink(this);
+        modifyLink(this)
       });
     }
   }
