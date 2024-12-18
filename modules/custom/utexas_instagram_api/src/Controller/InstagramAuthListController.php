@@ -42,7 +42,6 @@ class InstagramAuthListController extends ControllerBase {
         $instagram_request->getOauthAccessToken();
       }
     }
-
     return $this->entityTypeManager()->getListBuilder('utexas_ig_auth')->render();
   }
 

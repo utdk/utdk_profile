@@ -16,14 +16,14 @@ interface UTexasInstagramApiInterface {
    *
    * @var string
    */
-  const INSTAGRAM_API_URI = 'https://api.instagram.com/';
+  const INSTAGRAM_API_URI = 'https://instagram.com/';
 
   /**
    * The GRAPH endpoint.
    *
    * @var string
    */
-  const INSTAGRAM_DATA_URI = 'https://graph.instagram.com/';
+  const INSTAGRAM_DATA_URI = 'https://graph.instagram.com/v21.0/';
 
   /**
    * The prefix for STATE API keys.
@@ -74,7 +74,7 @@ interface UTexasInstagramApiInterface {
   /**
    * Get OAuth short-lived authorization code.
    *
-   * GET https://api.instagram.com/oauth/authorize
+   * GET https://instagram.com/oauth/authorize
    *  ?client_id={instagram-app-id}
    *  &redirect_uri={redirect-uri}
    *  &scope={scope}
@@ -87,7 +87,7 @@ interface UTexasInstagramApiInterface {
    * Get a new OAuth short-lived access token.
    *
    * Curl -X POST \
-   * https://api.instagram.com/oauth/access_token \
+   * https://instagram.com/oauth/access_token \
    * -F client_id={instagram-app-id} \
    * -F client_secret={instagram-app-secret} \
    * -F grant_type=authorization_code \

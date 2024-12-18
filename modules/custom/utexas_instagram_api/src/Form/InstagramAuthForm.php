@@ -39,7 +39,6 @@ class InstagramAuthForm extends EntityForm {
 
     /** @var \Drupal\utexas_instagram_api\InstagramAuthInterface $ig_auth */
     $ig_auth = $this->entity;
-
     // "Default" form items.
     $form['label'] = [
       '#type' => 'textfield',
@@ -106,10 +105,11 @@ class InstagramAuthForm extends EntityForm {
         'disabled' => TRUE,
       ],
     ];
+    $date = $ig_auth->getAccessTokenExpiration() ? date('m/d/Y H:i:s', $ig_auth->getAccessTokenExpiration()) : '';
     $form['group2']['expiration_date'] = [
       '#type' => 'textfield',
       '#title' => $this->t("Token Expiration Date"),
-      '#default_value' => date('m/d/Y H:i:s', $ig_auth->getAccessTokenExpiration()),
+      '#default_value' => $date,
       '#description' => $this->t("Instagram Access Token Expiration Date"),
       '#attributes' => [
         'disabled' => TRUE,

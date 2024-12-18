@@ -7,7 +7,8 @@
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Routing\RouteMatchInterface;
-
+use Drupal\file\FileInterface;
+use Drupal\utexas_media_types\HookHandler\FileInsertHookHandler;
 use Drupal\utexas_media_types\IframeTitleHelper;
 
 /**
@@ -75,4 +76,13 @@ function utexas_media_types_form_alter(&$form, $form_state, $form_id) {
   if (in_array($form_id, $forms_to_admonish)) {
     \Drupal::messenger()->addWarning(t('For non-image documents such as PDFs, MS Office documents, or high-resolution images intended for download, consider using a third-party file sharing service instead of uploading to the Media Library. See <a href="@url" target="_blank">this KB article<span class="ut-cta-link--external"></span></a> for additional information.', ['@url' => 'https://ut.service-now.com/sp?id=kb_article&number=KB0019227']));
   }
+}
+
+/**
+ * Implements hook_entity_type_insert().
+ */
+function utexas_media_types_file_insert(FileInterface $file) {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(FileInsertHookHandler::class)
+    ->process($file);
 }
