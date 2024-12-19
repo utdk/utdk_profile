@@ -31,3 +31,12 @@ function utexas_image_styles_update_8103() {
     'utexas_image_styles',
   ], TRUE);
 }
+
+/**
+ * Add webp conversion (#1591).
+ */
+function utexas_image_styles_update_8104() {
+  \Drupal::service('features.manager')->import([
+    'utexas_image_styles',
+  ], TRUE);
+}

@@ -12,3 +12,9 @@ effects:
       width: 600
       height: 375
       anchor: center-center
+  fece391a-1096-4bcc-aced-ea2bf3019602:
+    uuid: fece391a-1096-4bcc-aced-ea2bf3019602
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp
