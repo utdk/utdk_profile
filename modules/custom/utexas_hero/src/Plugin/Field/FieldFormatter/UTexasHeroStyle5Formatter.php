@@ -98,6 +98,14 @@ class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
         '#cta' => $cta,
         '#anchor_position' => 'center',
       ];
+      if ($delta === 0) {
+        $preload = [
+          'rel' => 'preload',
+          'as' => 'image',
+          'href' => $large_src,
+        ];
+        $elements['#attached']['html_head_link'][] = [$preload];
+      }
     }
     return $elements;
   }

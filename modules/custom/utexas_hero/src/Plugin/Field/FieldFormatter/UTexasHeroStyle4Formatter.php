@@ -40,7 +40,7 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
       $cache_tags = Cache::mergeTags($cache_tags, $image_style->getCacheTags());
     }
 
-    foreach ($items as $item) {
+    foreach ($items as $delta => $item) {
       $cta_item['link']['uri'] = $item->link_uri;
       $cta_item['link']['title'] = $item->link_title ?? NULL;
       $cta_item['link']['options'] = $item->link_options ?? [];
@@ -87,6 +87,16 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
         '#subheading' => RenderElementHelper::filterSingleLineText($item->subheading, TRUE),
         '#cta' => $cta,
       ];
+      if ($delta === 0) {
+        $image_style = $this->entityTypeManager->getStorage('image_style')->load('utexas_image_style_1140w_616h');
+        $image_style_path = $image_style->buildUrl($image->uri);
+        $preload = [
+          'rel' => 'preload',
+          'as' => 'image',
+          'href' => $image_style_path,
+        ];
+        $elements['#attached']['html_head_link'][] = [$preload];
+      }
     }
     return $elements;
   }
