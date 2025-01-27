@@ -12,3 +12,9 @@ effects:
       width: 250
       height: 150
       anchor: center-center
+  e30593ee-cf7f-4de3-8a4f-7b99b4275c25:
+    uuid: e30593ee-cf7f-4de3-8a4f-7b99b4275c25
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

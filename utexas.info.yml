@@ -2,7 +2,7 @@ name: UTexas
 type: profile
 description: Installation profile for the UT Drupal Kit.
 core_version_requirement: '^10 || ^11'
-version: '3.21.1'
+version: '3.22.0'
 distribution:
   name: UTexas
 dependencies:
@@ -64,7 +64,6 @@ install:
   - drupal:responsive_tables_filter
   - drupal:role_delegation
   - drupal:seckit
-  - drupal:svg_upload_sanitizer
   - drupal:updated
   - drupal:url_embed
   - drupal:xmlsitemap

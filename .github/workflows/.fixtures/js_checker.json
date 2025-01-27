@@ -1,0 +1,23 @@
+{
+  "name": "utdk_profile",
+  "version": "1.0.0",
+  "description": "UT Drupal Kit installation profile",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-yml": "^1.16.0"
+  },
+  "dependencies": {
+    "eslint-config-drupal": "^5.0.2"
+  }
+}

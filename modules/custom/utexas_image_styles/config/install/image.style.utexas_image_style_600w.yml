@@ -12,3 +12,9 @@ effects:
       width: 600
       height: null
       upscale: false
+  fda0106e-a7d0-4e00-88f0-f5d2d80b209a:
+    uuid: fda0106e-a7d0-4e00-88f0-f5d2d80b209a
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp
