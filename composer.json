@@ -55,7 +55,8 @@
     "drupal/updated": "2.0.0",
     "drupal/url_embed": "3.0.0-beta2",
     "drupal/xmlsitemap": "1.5.0",
-    "utexas/forty_acres": "3.21.1",
+    "utexas/forty_acres": "3.22.0",
+    "utexas/utexas_pantheon_logs_http": "^2.0",
     "npm-asset/accessible360--accessible-slick": "1.0.1",
     "oomphinc/composer-installers-extender": "2.0.1"
   },
