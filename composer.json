@@ -1,7 +1,7 @@
 {
   "name": "utexas/utdk_profile",
   "type": "drupal-custom-profile",
-  "description": "Drupal 9 installation profile for the UT Drupal Kit",
+  "description": "Installation profile for the UT Drupal Kit",
   "keywords": [
     "Drupal",
     "UT Drupal Kit"
