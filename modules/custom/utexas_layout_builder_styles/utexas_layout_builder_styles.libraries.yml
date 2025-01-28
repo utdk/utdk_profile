@@ -15,3 +15,7 @@ image-border:
   css:
     theme:
       css/image-border.css: {}
+sections-margins-padding:
+  css:
+    theme:
+      css/sections-margins-padding.css: {}
