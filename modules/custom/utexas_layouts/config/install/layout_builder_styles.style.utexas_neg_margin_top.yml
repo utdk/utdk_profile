@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: utexas_neg_margin_top
-label: 'Negative margin top on sections'
+label: 'Reduce space at top of section'
 classes: utexas-negative-margin-top
 type: section
 group: utexas_section_margins_padding
