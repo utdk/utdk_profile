@@ -144,3 +144,12 @@ function utexas_layouts_update_8103(&$sandbox) {
   $sandbox['#finished'] = empty($sandbox['max']) ? 1 : $progress_fraction;
   \Drupal::logger('utexas_layouts')->notice('Processed ' . (round($progress_fraction * 100)) . '% (' . $sandbox['progress'] . ' of ' . $sandbox['max'] . ' rows)');
 }
+
+/**
+ * Add margin adjustment option to Layout Builder sections (#2683).
+ */
+function utexas_layouts_update_8113() {
+  \Drupal::service('features.manager')->import([
+    'utexas_layouts',
+  ], TRUE);
+}
