@@ -1,6 +1,6 @@
 /* Style to use a negative margin to pull up a section. */
 .utexas-negative-margin-top {
-  margin-top: -2.5rem;
+  margin-top: -2.5rem !important;
 }
 /* Style to hide effect of negative margin in layout builder mode. */
 .utexas-negative-margin-top.layout-builder__layout {
@@ -8,5 +8,5 @@
 }
 /* Style to add padding-top to add space above a section. */
 .utexas-padding-top-sections {
-  margin-top: 5rem;
+  margin-top: 5rem !important;
 }
