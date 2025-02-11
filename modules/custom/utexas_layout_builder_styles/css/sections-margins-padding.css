@@ -4,7 +4,7 @@
 }
 /* Style to hide effect of negative margin in layout builder mode. */
 .utexas-negative-margin-top.layout-builder__layout {
-  margin-top: 0;
+  margin-top: 0 !important;
 }
 /* Style to add padding-top to add space above a section. */
 .utexas-padding-top-sections {
