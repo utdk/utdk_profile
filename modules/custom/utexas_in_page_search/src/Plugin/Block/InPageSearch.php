@@ -56,6 +56,7 @@ class InPageSearch extends BlockBase {
     ];
     return $form;
   }
+
   /**
    * {@inheritdoc}
    */
@@ -75,4 +76,5 @@ class InPageSearch extends BlockBase {
     $build['#attached']['drupalSettings']['in_page_search']['delimiter'] = $this->configuration['delimiter'];
     return $build;
   }
+
 }
