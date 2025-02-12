@@ -1,0 +1,5 @@
+name: 'UTexas In-page Search'
+core_version_requirement: '>=10'
+package: UTexas
+description: 'Provide an in-page search for part of a page.'
+type: module

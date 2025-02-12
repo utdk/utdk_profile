@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Hooks and such for In-Page Search.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function utexas_in_page_search_theme() {
+  $theme['in_page_search'] = [
+    'variables' => [],
+  ];
+  return $theme;
+}

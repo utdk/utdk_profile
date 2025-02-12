@@ -1168,3 +1168,13 @@ function utexas_update_8166() {
     \Drupal::service('module_installer')->uninstall(['svg_upload_sanitizer']);
   }
 }
+
+/**
+ * Enable In-Page Search (#2728).
+ */
+function utexas_update_8167() {
+  $module = 'utexas_in_page_search';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}

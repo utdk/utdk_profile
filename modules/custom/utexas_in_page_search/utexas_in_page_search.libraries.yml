@@ -1,0 +1,5 @@
+searchform:
+  js:
+    js/search.js: {}
+  dependencies:
+    - core/drupalSettings
