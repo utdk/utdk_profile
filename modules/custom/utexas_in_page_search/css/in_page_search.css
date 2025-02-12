@@ -1,0 +1,12 @@
+#inPageSearchInput {
+  max-width: 300px;
+  display: inline-block;
+  margin-right: 0.8rem;
+}
+#inPageSearchNoResults {
+  display: none;
+  margin-top: 20px;
+}
+input.in-page-search.ut-btn {
+  width: auto;
+}

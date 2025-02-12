@@ -1,4 +1,7 @@
-<form name="searchBox" id="inPageSearchBox">
-  <input id="inPageSearchInput" type="text" name="keyword">
-  <input id="inPageSearchButton" type="button" class="button" value="Search">
+<form name="searchBox" id="inPageSearchBox" action="" method="get">
+  <label for="inPageSearchInput" class="sr-only">Search by keyword</label>
+  <input id="inPageSearchInput" type="text" name="keyword" placeholder="Search by keyword">
+  <input id="inPageSearchButton" type="submit" class="in-page-search ut-btn" value="Apply">
+  <input id="inPageSearchResetButton" type="reset" class="in-page-search ut-btn" value="Reset">
 </form>
+<p id="inPageSearchNoResults">No Results found.</p>
