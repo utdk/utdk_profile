@@ -35,7 +35,7 @@ class UTexasHeroWidget extends UtexasWidgetBase {
       '#cardinality' => 1,
       '#title' => $this->t('Image'),
       '#default_value' => MediaEntityImageHelper::checkMediaExists($item->media),
-      '#description' => $this->t('Image will be scaled and cropped to a 2.7:1 ratio. Upload an image with a minimum resolution of 1470x543 pixels to maintain quality and avoid cropping.'),
+      '#description' => $this->t('Upload an image with a minimum resolution of 2280px X 1232px (a 1.85:1 ratio) for the Default style or Hero style 4. Upload an image with a minimum resolution of 2250px X 900px (a 2.5:1 ratio) for Style 1, Style 2, Style 3 and Style 5, which also have a displayed height limitation of 543px.'),
     ];
     $element['disable_image_styles'] = [
       '#type' => 'checkbox',
