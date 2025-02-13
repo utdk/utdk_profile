@@ -5,16 +5,12 @@
  */
 
 Drupal.behaviors.inPageSearch = {
-  attach: ((context, drupalSettings) => {
+  attach: (context, drupalSettings) => {
     function inPageSearch() {
       if (drupalSettings.in_page_search == null) {
         return false;
       }
-      const selector =
-      "#" +
-      drupalSettings.in_page_search.target +
-       " "
-       + drupalSettings.in_page_search.delimiter;
+      const selector = `#${drupalSettings.in_page_search.target} ${drupalSettings.in_page_search.delimiter}`;
       const container = document.querySelectorAll(selector);
       if (container == null) {
         return false;
@@ -25,37 +21,40 @@ Drupal.behaviors.inPageSearch = {
       }
       const noResults = document.getElementById("inPageSearchNoResults");
       let noResultsCount = 0;
-      for (let item of container) {
+      Object.values(container).forEach(item => {
         if (item.matches(drupalSettings.in_page_search.delimiter)) {
-          if (!item.getHTML().toLowerCase().includes(keyword.value.toLowerCase())) {
+          if (
+            !item
+              .getHTML()
+              .toLowerCase()
+              .includes(keyword.value.toLowerCase())
+          ) {
             item.style.display = "none";
-            noResultsCount++;
-          }
-          else {
+            noResultsCount += 1;
+          } else {
             item.style.display = "";
           }
         }
-      }
+      });
       if (noResultsCount === container.length) {
         noResults.style.display = "block";
-      }
-      else {
+      } else {
         noResults.style.display = "none";
       }
     }
-    window.onload = (() => {
+    window.onload = () => {
       const searchBox = document.getElementById("inPageSearchBox");
       if (searchBox !== null) {
-        searchBox.addEventListener("keyup", (event => {
+        searchBox.addEventListener("keyup", event => {
           if (event.key !== 13) {
             inPageSearch();
           }
-        }))();
-        searchBox.addEventListener("keypress", (event => {
-          if (event.key == 13) {
+        });
+        searchBox.addEventListener("keypress", event => {
+          if (event.key === 13) {
             inPageSearch();
           }
-        }))();
+        });
         const searchField = document.getElementById("inPageSearchInput");
         const params = new URLSearchParams(document.location.search);
         const keyword = params.get("keyword");
@@ -63,11 +62,13 @@ Drupal.behaviors.inPageSearch = {
           searchField.value = keyword;
           inPageSearch();
         }
-        const searchResetButton = document.getElementById("inPageSearchResetButton");
-        searchResetButton.addEventListener("click", (() => {
+        const searchResetButton = document.getElementById(
+          "inPageSearchResetButton"
+        );
+        searchResetButton.addEventListener("click", () => {
           window.location = window.location.pathname;
-        }))();
+        });
       }
-    })();
-  })(),
+    };
+  }
 };
