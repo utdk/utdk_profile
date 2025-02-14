@@ -51,7 +51,7 @@ class InPageSearch extends BlockBase {
         'tr' => 'tr',
       ],
       '#required' => TRUE,
-      '#description' => $this->t('Which HTML element comprises the iterable sequence.'),
+      '#description' => $this->t('The HTML element that contains the data to search for. This will be wrapped in the ID entered above.'),
       '#default_value' => $this->configuration['delimiter'],
     ];
     return $form;
