@@ -10,6 +10,7 @@ use Drupal\Core\Session\AccountInterface;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
@@ -408,5 +409,23 @@ function utexas_user_format_name_alter(&$name, AccountInterface $account) {
       }
     }
     return;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Add content type suggestions.
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    if ($node instanceof NodeInterface) {
+      array_splice($suggestions, 1, 0, 'page__node__' . $node->getType());
+    }
+    else {
+      $node_revision = \Drupal::entityTypeManager()->getStorage('node')->load($node);
+      if ($node_revision instanceof NodeInterface) {
+        array_splice($suggestions, 1, 0, 'page__node__' . $node_revision->getType());
+      }
+    }
   }
 }
