@@ -12,10 +12,7 @@
 #}
 
 {% if content %}
-  {% if background_color or background_image or background_blur %}
-    {% include "@utexas_layouts/layouts/backgrounds.html.twig" %}
-  {% endif %}
-
+{% include "@utexas_layouts/layouts/backgrounds.html.twig" %}
   <div{{attributes}}>
     <div class="utexas-layout--threecol-wrapper">
       {% if content.first %}
