@@ -429,3 +429,20 @@ function utexas_theme_suggestions_page_alter(array &$suggestions, array $variabl
     }
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  $theme_name = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $theme_key = strtolower($theme_name) . '-';
+  // Remove the block, the themename (if present), and replace dashes with
+  // underscores in the block ID to use for the hook name.
+  if (isset($variables['attributes']['data-block'])) {
+    $hook = str_replace([$theme_key, 'block-', '-'], ['', '', '_'], $variables['attributes']['data-block']);
+    if ($block = Block::load($hook)) {
+      $region = $block->getRegion();
+      $suggestions[] = 'menu__' . $region;
+    }
+  }
+}
