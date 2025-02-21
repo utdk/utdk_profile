@@ -16,6 +16,7 @@ function utexas_layouts_preprocess_layout(&$variables) {
   $variables['background_blur'] = $variables['content']['#background_blur'] ?? NULL;
   $variables['background_image'] = $variables['content']['#background_image'] ?? NULL;
   $variables['background_color'] = $variables['content']['#background_color'] ?? NULL;
+  $variables['attributes']['class'][] = 'section-wrapper';
 }
 
 /**

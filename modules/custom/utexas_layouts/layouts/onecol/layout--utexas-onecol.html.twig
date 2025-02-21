@@ -12,7 +12,10 @@
 #}
 
 {% if content %}
-{% include "@utexas_layouts/layouts/backgrounds.html.twig" %}
+  {% if background_color or background_image or background_blur %}
+    {% include "@utexas_layouts/layouts/backgrounds.html.twig" %}
+  {% endif %}
+
   <div {{ background.addClass(background_classes) }}>
     <div{{ attributes }}>
         {% if content.main %}
