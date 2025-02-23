@@ -23,6 +23,7 @@ function utexas_layouts_preprocess_layout(&$variables) {
  */
 function utexas_layouts_preprocess_page(&$variables) {
   $variables['#attached']['library'][] = 'utexas_layouts/layout_builder_ui';
+  $variables['#attached']['library'][] = 'utexas_layouts/section-top-margin';
 }
 
 /**
