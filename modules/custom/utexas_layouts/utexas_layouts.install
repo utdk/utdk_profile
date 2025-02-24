@@ -148,7 +148,7 @@ function utexas_layouts_update_8103(&$sandbox) {
 /**
  * Add margin adjustment option to Layout Builder sections. (#8104)
  */
-function utexas_featured_highlight_update_8104() {
+function utexas_layouts_update_8104() {
   \Drupal::service('features.manager')->import([
     'utexas_layouts',
   ], TRUE);
