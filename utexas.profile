@@ -401,7 +401,7 @@ function utexas_user_format_name_alter(&$name, AccountInterface $account) {
     return;
   }
   $user = User::load($uid);
-  if ($user->hasField('field_utexas_full_name')) {
+  if ($user && $user->hasField('field_utexas_full_name')) {
     if ($value = ($user->get('field_utexas_full_name')->getString())) {
       // Only if the real name is a non-empty string is $name actually altered.
       if (mb_strlen($value)) {
