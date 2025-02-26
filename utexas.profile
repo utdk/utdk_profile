@@ -401,7 +401,7 @@ function utexas_user_format_name_alter(&$name, AccountInterface $account) {
     return;
   }
   $user = User::load($uid);
-  if ($user->hasField('field_utexas_full_name')) {
+  if ($user && $user->hasField('field_utexas_full_name')) {
     if ($value = ($user->get('field_utexas_full_name')->getString())) {
       // Only if the real name is a non-empty string is $name actually altered.
       if (mb_strlen($value)) {
@@ -426,6 +426,23 @@ function utexas_theme_suggestions_page_alter(array &$suggestions, array $variabl
       if ($node_revision instanceof NodeInterface) {
         array_splice($suggestions, 1, 0, 'page__node__' . $node_revision->getType());
       }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  $theme_name = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $theme_key = strtolower($theme_name) . '-';
+  // Remove the block, the themename (if present), and replace dashes with
+  // underscores in the block ID to use for the hook name.
+  if (isset($variables['attributes']['data-block'])) {
+    $hook = str_replace([$theme_key, 'block-', '-'], ['', '', '_'], $variables['attributes']['data-block']);
+    if ($block = Block::load($hook)) {
+      $region = $block->getRegion();
+      $suggestions[] = 'menu__' . $region;
     }
   }
 }

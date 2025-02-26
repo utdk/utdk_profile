@@ -284,3 +284,18 @@ function utexas_form_elements_block_alter(&$definitions) {
     }
   }
 }
+
+/**
+ * Implements hook_form_FORMTPYE_alter().
+ */
+function utexas_form_elements_form_search_block_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['keys']['#attributes']['placeholder'] = 'Search the site...';
+  $form['actions']['#attributes']['id'] = 'edit-search-actions';
+}
+
+/**
+ * Implements hook_form_FORMTPYE_alter().
+ */
+function utexas_form_elements_form_user_login_form_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
+}

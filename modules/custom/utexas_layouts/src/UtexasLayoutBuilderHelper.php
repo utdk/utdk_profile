@@ -3,6 +3,7 @@
 namespace Drupal\utexas_layouts;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 
 /**
  * Identify information about Layout Builder-enabled pages.
@@ -56,6 +57,30 @@ class UtexasLayoutBuilderHelper {
         }
       }
     }
+  }
+
+  /**
+   * Whether this is a Layout Builder page.
+   *
+   * @return bool
+   *   Whether this is a Layout Builder page.
+   */
+  public static function isLayoutBuilderPage() {
+    $entity = self::getRouteEntity();
+    $entity_type = $entity ? $entity->getEntityTypeId() : NULL;
+    $bundle = $entity ? $entity->bundle() : NULL;
+    if ($entity_type && $bundle) {
+      $display = \Drupal::entityTypeManager()
+        ->getStorage('entity_view_display')
+        ->load($entity_type . '.' . $bundle . '.default');
+      if (!$display) {
+        return FALSE;
+      }
+      if ($display instanceof LayoutBuilderEntityViewDisplay && $display->isLayoutBuilderEnabled()) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
 }
