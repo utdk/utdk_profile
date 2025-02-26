@@ -431,6 +431,33 @@ function utexas_theme_suggestions_page_alter(array &$suggestions, array $variabl
 }
 
 /**
+ * Implements hook_preprocess_field().
+ */
+function utexas_preprocess_field(&$variables, $hook) {
+  if (!isset($variables['element']['#bundle'])) {
+    return;
+  }
+  switch ($variables['element']['#bundle']) {
+    case 'feed_block':
+      if ($variables['element']['#field_name'] === 'field_read_more') {
+        // Add 'button' class to Read more <a> tag.
+        $variables['attributes']['class'][] = 'ut-cta';
+        $variables['items'][0]['content']['#options']['attributes']['class'][] = 'ut-btn--secondary';
+      }
+      if ($variables['element']['#field_name'] === 'field_intro_text') {
+        $variables['attributes']['class'][] = 'ut-copy';
+      }
+      break;
+
+    case 'basic':
+      if ($variables['element']['#field_name'] === 'body' && $variables['element']['#entity_type'] === 'block_content') {
+        $variables['attributes']['class'][] = 'ut-copy';
+      }
+      break;
+  }
+}
+
+/**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
