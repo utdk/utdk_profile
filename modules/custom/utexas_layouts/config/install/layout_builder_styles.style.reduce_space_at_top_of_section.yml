@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: reduce_space_at_top_of_section
-label: 'Reduce space at top of section'
+label: 'Reduce top margin of section'
 classes: utexas-section-margin-top-remove-space
 type: section
 group: utexas_section_margins_padding

@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: add_space_at_top_of_section
-label: 'Add space at top of section'
+label: 'Increase top margin of section'
 classes: utexas-section-margin-top-add-space
 type: section
 group: utexas_section_margins_padding
