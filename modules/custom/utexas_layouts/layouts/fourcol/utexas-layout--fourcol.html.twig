@@ -13,10 +13,9 @@
 
 
 {% if content %}
-{% include "@utexas_layouts/layouts/backgrounds.html.twig" %}
-  <div{{attributes}}>
+{% embed "@utexas_layouts/layouts/section.html.twig" %}
+  {% block layout %}
     <div class="utexas-layout--fourcol-wrapper">
-
     {% if content.first %}
       <div {{ region_attributes.first.addClass('layout__region', 'layout__region--first') }}>
         {{ content.first }}
@@ -41,6 +40,6 @@
       </div>
     {% endif %}
     </div>
-  </div>
-</div>
+  {% endblock %}
+{% endembed %}
 {% endif %}
