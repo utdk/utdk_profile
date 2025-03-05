@@ -473,3 +473,11 @@ function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variabl
     }
   }
 }
+
+/**
+ * Implements hook_template_preprocess_views_view_table().
+ */
+function utexas_preprocess_views_view_table(&$variables) {
+  // Override this with a sub-theme preprocess hook that removes the class.
+  $variables['attributes']['class'][] = 'border-1';
+}
