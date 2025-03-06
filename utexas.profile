@@ -15,6 +15,7 @@ use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Permissions;
+use Drupal\utexas\RenderHelper;
 
 /**
  * Implements hook_install_tasks().
@@ -471,6 +472,23 @@ function utexas_preprocess_field(&$variables, $hook) {
       }
       break;
   }
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
+function utexas_preprocess_breadcrumb(&$variables) {
+  // Use a placeholder to inject dynamic content.
+  $placeholder_title = [
+    '#lazy_builder' => [
+      RenderHelper::class . '::lazyBuilder',
+      ['page_title'],
+    ],
+    '#create_placeholder' => TRUE,
+  ];
+  $variables['breadcrumb'][] = [
+    'text' => $placeholder_title,
+  ];
 }
 
 /**
