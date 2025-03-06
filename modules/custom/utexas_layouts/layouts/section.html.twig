@@ -22,7 +22,9 @@
 {% endif %}
 
 <div {{ background.addClass(background_classes) }}>
-  <div {{ image }}></div>
+  {% if background_image %}
+    <div {{ image }}></div>
+  {% endif %}
   <div {{ attributes }}>
     {% block layout %}
       layout
