@@ -392,6 +392,22 @@ function utexas_preprocess_html(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_block().
+ */
+function utexas_preprocess_block(&$variables) {
+  $base_plugin_id = $variables['base_plugin_id'];
+
+  if (in_array($base_plugin_id, ['menu_block', 'addtoany_block', 'addtoany_follow_block'])) {
+    // AddToAny and Menu block titles should use the smaller `ut-headline`.
+    $variables['title_attributes']['class'][] = 'ut-headline';
+  }
+  else {
+    // All other block titles should use `ut-headline--xl`.
+    $variables['title_attributes']['class'][] = 'ut-headline--xl';
+  }
+}
+
+/**
  * Implements hook_user_format_name_alter().
  */
 function utexas_user_format_name_alter(&$name, AccountInterface $account) {
