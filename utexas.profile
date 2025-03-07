@@ -15,6 +15,7 @@ use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Permissions;
+use Drupal\utexas\ThemeHelper;
 use Drupal\utexas\RenderHelper;
 
 /**
@@ -377,7 +378,7 @@ function utexas_contextual_links_plugins_alter(array &$contextual_links) {
 }
 
 /**
- * Implements hook_preprocess_html() for html templates.
+ * Implements hook_preprocess_html().
  */
 function utexas_preprocess_html(&$variables) {
   $variables['page']['#attached']['html_head'][] = [
@@ -390,6 +391,16 @@ function utexas_preprocess_html(&$variables) {
     ],
     'utexas-utdk-version',
   ];
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function utexas_preprocess_page(&$variables) {
+  // If the current page uses Layout Builder, add a flag.
+  if (ThemeHelper::isLayoutBuilderPage()) {
+    $variables['is_layout_builder_page'] = TRUE;
+  }
 }
 
 /**
@@ -406,6 +417,18 @@ function utexas_preprocess_block(&$variables) {
     // All other block titles should use `ut-headline--xl`.
     $variables['title_attributes']['class'][] = 'ut-headline--xl';
   }
+
+  // Address blocks placed in the main 'content' region on Layout Builder pages.
+  if (!empty($variables['elements']['#utexas_layouts_region'])) {
+    if ($base_plugin_id !== 'system_main_block' && $variables['elements']['#utexas_layouts_region'] === 'content') {
+      // This is a resuable block placed located in the 'content' region.
+      // If the current page uses Layout Builder, set to 'container' width.
+      if (ThemeHelper::isLayoutBuilderPage()) {
+        $variables['attributes']['class'][] = 'container';
+      }
+    }
+  }
+
 }
 
 /**
