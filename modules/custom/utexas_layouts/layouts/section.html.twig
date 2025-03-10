@@ -1,10 +1,10 @@
-{% set background = create_attribute() %}
+{% set section_attr = create_attribute() %}
 {% set image = create_attribute() %}
 {% if background_color %}
   {%
     set background_classes = [
       'background-accent',
-      background_color
+      background_color,
     ]
   %}
 {% endif %}
@@ -21,7 +21,13 @@
   {% endif %}
 {% endif %}
 
-<div {{ background.addClass(background_classes) }}>
+{%
+  set classes = [
+    'section-wrapper'
+  ]
+%}
+
+<div {{ section_attr.addClass(background_classes, classes) }}>
   {% if background_image %}
     <div {{ image }}></div>
   {% endif %}

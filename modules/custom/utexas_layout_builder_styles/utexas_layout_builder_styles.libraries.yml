@@ -6,3 +6,4 @@ layout-builder-styles:
       css/readable.css: {}
       css/block-margins.css: {}
       css/image-border.css: {}
+      css/section-top-margin.css: {}

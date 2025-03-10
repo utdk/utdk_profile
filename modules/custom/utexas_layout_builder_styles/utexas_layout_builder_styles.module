@@ -11,7 +11,7 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_preprocess_page().
  */
 function utexas_layout_builder_styles_preprocess_page(&$variables) {
-  // Layout builder styles.
+  // Add Layout Builder Styles CSS to all pages.
   $variables['#attached']['library'][] = 'utexas_layout_builder_styles/layout-builder-styles';
 }
 

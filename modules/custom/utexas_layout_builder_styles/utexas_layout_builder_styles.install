@@ -282,3 +282,20 @@ function _utexas_layout_builder_styles_add_group() {
   }
 
 }
+
+/**
+ * Issue #2683: Add margin adjustment option to Layout Builder sections.
+ */
+function utexas_layout_builder_styles_update_8113() {
+  $styles = [
+    'layout_builder_styles.style.utexas_reduce_space_at_top_of_section',
+    'layout_builder_styles.style.utexas_add_space_at_top_of_section',
+  ];
+  $config_factory = \Drupal::configFactory();
+  foreach ($styles as $style) {
+    $config = $config_factory->getEditable($style);
+    if ($config->isNew()) {
+      StyleUpdateHelper::saveNewConfigurationFromYml($config, $style);
+    }
+  }
+}
