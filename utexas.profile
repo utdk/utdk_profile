@@ -538,3 +538,10 @@ function utexas_preprocess_views_view_table(&$variables) {
   // Override this with a sub-theme preprocess hook that removes the class.
   $variables['attributes']['class'][] = 'border-1';
 }
+
+/**
+ * Implements hook_preprocess_block_system_messages_block().
+ */
+function utexas_preprocess_block__system_messages_block(&$variables) {
+  $variables['content']['#include_fallback'] = FALSE;
+}
