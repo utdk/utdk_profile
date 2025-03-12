@@ -401,6 +401,8 @@ function utexas_preprocess_page(&$variables) {
   if (ThemeHelper::isLayoutBuilderPage()) {
     $variables['is_layout_builder_page'] = TRUE;
   }
+  // Year for use in footer copyright.
+  $variables['year'] = date('Y');
   /** @var \Drupal\Core\Routing\CurrentRouteMatch $current_route_match */
   $current_route_match = \Drupal::routeMatch();
   $route_name = $current_route_match->getRouteName();
