@@ -539,6 +539,23 @@ function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variabl
 }
 
 /**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Remove the block and replace dashes with underscores in the block ID to
+  // use for the hook name.
+  $base_plugin_id = $variables['elements']['#base_plugin_id'];
+  if (isset($base_plugin_id) && in_array($base_plugin_id, ['system_menu_block', 'menu_block'])) {
+    if (isset($variables['elements']['#id'])) {
+      $hook = $variables['elements']['#id'];
+      $block = Block::load($hook);
+      $region = $block->getRegion();
+      $suggestions[] = 'block__system_menu_block__' . $region;
+    }
+  }
+}
+
+/**
  * Implements hook_template_preprocess_views_view_table().
  */
 function utexas_preprocess_views_view_table(&$variables) {
