@@ -33,11 +33,11 @@ bootstrap4:
 bootstrap5-base:
   css:
     base:
-      css/Bootstrap5/base-customized.css: {}
+      css/Bootstrap5/bootstrap-base.css: {}
 bootstrap5-css:
   css:
     base:
-      css/Bootstrap5/bootstrap.css: {}
+      css/Bootstrap5/bootstrap-variables.css: {}
       css/Bootstrap5/alert.css: {}
       css/Bootstrap5/collapse.css: {}
       css/Bootstrap5/dropdown.css: {}
