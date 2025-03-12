@@ -30,6 +30,10 @@ bootstrap4:
     js/Bootstrap4/tooltip.js: {}
   dependencies:
     - core/jquery
+bootstrap5-base:
+  css:
+    base:
+      css/Bootstrap5/base-customized.css: {}
 bootstrap5-css:
   css:
     base:
