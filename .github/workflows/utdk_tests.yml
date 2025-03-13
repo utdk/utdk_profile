@@ -20,7 +20,7 @@ jobs:
         run: |
           sh .github/workflows/scripts/check_syntax.sh
   utdk3_testing_job:
-    runs-on: [ wcs-gh-p02-group ]
+    runs-on: [ wcs-p02a ]
     name: PHPUNIT TESTS
     needs: checksyntax
     services:
