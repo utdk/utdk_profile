@@ -39,6 +39,7 @@ bootstrap5-css:
     base:
       css/Bootstrap5/bootstrap-variables.css: {}
       css/Bootstrap5/alert.css: {}
+      css/Bootstrap5/carousel.css: {}
       css/Bootstrap5/collapse.css: {}
       css/Bootstrap5/dropdown.css: {}
       css/Bootstrap5/modal.css: {}

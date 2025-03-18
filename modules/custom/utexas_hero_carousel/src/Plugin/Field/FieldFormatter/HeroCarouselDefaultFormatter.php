@@ -58,8 +58,9 @@ class HeroCarouselDefaultFormatter extends UTexasHeroFormatterBase {
 
     $elements['#attributes']['id'] = $js_data_id;
     $elements['#attributes']['class'][] = 'utexas-hero-carousel';
-    $elements['#attached']['drupalSettings']['utexas_hero_carousel'][$js_data_id] = $drupal_settings;
-    $elements['#attached']['library'][] = 'utexas_hero_carousel/slick-carousel';
+    //$elements['#attached']['drupalSettings']['utexas_hero_carousel'][$js_data_id] = $drupal_settings;
+    $elements['#attached']['library'][] = 'utexas/bootstrap5-css';
+    $elements['#attached']['library'][] = 'utexas/bootstrap5-js';
     return $elements;
   }
 
