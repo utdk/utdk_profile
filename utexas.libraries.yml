@@ -10,6 +10,10 @@ menus:
   css:
     theme:
       css/menus.css: {}
+status-messages:
+  css:
+    theme:
+      css/status-messages.css: {}
 bootstrap4:
   css:
     base:

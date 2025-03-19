@@ -440,7 +440,6 @@ function utexas_preprocess_block(&$variables) {
       }
     }
   }
-
 }
 
 /**
@@ -573,4 +572,12 @@ function utexas_preprocess_views_view_table(&$variables) {
  */
 function utexas_preprocess_block__system_messages_block(&$variables) {
   $variables['content']['#include_fallback'] = FALSE;
+}
+
+/**
+ * Implements hook_preprocess_status_messages().
+ */
+function utexas_preprocess_status_messages(&$variables) {
+  $variables['#attached']['library'][] = 'utexas/status-messages';
+  $variables['attributes']['class'][] = 'status-messages';
 }
