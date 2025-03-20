@@ -31,6 +31,6 @@
 
 /* First section only: alter the default 'margin-remove' margin on the first block of any region in Section 1. */
 /* See #2159 */
-.layout:first-of-type .utexas-block-top-margin-remove:first-of-type {
+.section-wrapper:first-of-type .utexas-block-top-margin-remove:first-of-type {
   margin-top: -1rem !important;
 }
