@@ -67,6 +67,14 @@ function utexas_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_theme_registry_alter().
+ */
+function utexas_theme_registry_alter(&$theme_registry) {
+  $utexas = \Drupal::service('extension.list.profile')->getPath('utexas');
+  $theme_registry['feed_block_rss_item']['path'] = $utexas . '/templates';
+}
+
+/**
  * Batch installation of demo content.
  *
  * This installs specific demo content, then invokes any implementations of
