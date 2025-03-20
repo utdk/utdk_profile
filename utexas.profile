@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\block_content\BlockContentInterface;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
@@ -420,6 +421,13 @@ function utexas_preprocess_page(&$variables) {
  */
 function utexas_preprocess_block(&$variables) {
   $base_plugin_id = $variables['base_plugin_id'];
+  $content = $variables['elements']['content'] ?? [];
+  // Add a bundle identifier as a CSS class.
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface) {
+    if ($content['#block_content']->bundle() === 'feed_block') {
+      $variables['attributes']['class'][] = 'ut-newsreel';
+    }
+  }
 
   if (in_array($base_plugin_id, ['menu_block', 'addtoany_block', 'addtoany_follow_block'])) {
     // AddToAny and Menu block titles should use the smaller `ut-headline`.
