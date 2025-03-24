@@ -57,7 +57,7 @@
     "enshrined/svg-sanitize": "^0.21",
     "utexas/forty_acres": "3.23.0",
     "utexas/utexas_pantheon_logs_http": "^2.0",
-    "utexas/utexas_saml_auth_helper": "^3.0",
+    "utexas/utexas_saml_auth_helper": "^3.6",
     "oomphinc/composer-installers-extender": "2.0.1"
   },
   "conflict": {
