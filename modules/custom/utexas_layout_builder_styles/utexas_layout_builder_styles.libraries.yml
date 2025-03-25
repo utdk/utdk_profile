@@ -1,17 +1,9 @@
-border-styles:
+layout-builder-styles:
   css:
     theme:
       css/centered-headline.css: {}
       css/border-with-background.css: {}
-readable:
-  css:
-    theme:
       css/readable.css: {}
-block-margins:
-  css:
-    theme:
       css/block-margins.css: {}
-image-border:
-  css:
-    theme:
       css/image-border.css: {}
+      css/section-top-margin.css: {}

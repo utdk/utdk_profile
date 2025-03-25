@@ -81,11 +81,6 @@ follow another background-accent region. */
 }
 /* Reduce vertical padding on widgets on small screens */
 @media screen and (max-width: 600px) {
-  .background-accent .layout__region--first,
-  .background-accent .layout__region--second {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
   .background-accent .utexas-layout--twocol > .layout__region--first,
   .background-accent .utexas-layout--twocol > .layout__region--second,
   .background-accent .utexas-layout--onecol > .layout__region--main {

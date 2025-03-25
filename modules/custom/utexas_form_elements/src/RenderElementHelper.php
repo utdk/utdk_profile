@@ -81,7 +81,7 @@ class RenderElementHelper {
     if (!$value) {
       return $value;
     }
-    $prepared = strip_tags($value, '<em><i><strong><b>');
+    $prepared = strip_tags($value, '<em><i><strong><b><sub><sup><cite><wbr><span><abbr>');
     if ($renderable) {
       $prepared = ['#markup' => $prepared];
     }

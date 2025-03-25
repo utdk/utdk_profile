@@ -16,6 +16,15 @@ function utexas_layouts_preprocess_layout(&$variables) {
   $variables['background_blur'] = $variables['content']['#background_blur'] ?? NULL;
   $variables['background_image'] = $variables['content']['#background_image'] ?? NULL;
   $variables['background_color'] = $variables['content']['#background_color'] ?? NULL;
+  // If a class of "container-fluid" has NOT been applied to this layout,
+  // (i.e., via Layout Builder Styles) add "container".
+  $add_container = TRUE;
+  if (isset($variables['attributes']['class']) && in_array('container-fluid', $variables['attributes']['class'])) {
+    $add_container = FALSE;
+  }
+  if ($add_container) {
+    $variables['attributes']['class'][] = 'container';
+  }
 }
 
 /**
@@ -91,18 +100,23 @@ function utexas_layouts_block_view_alter(array &$build, BlockPluginInterface $bl
  * Implements hook_preprocess_block().
  */
 function utexas_layouts_preprocess_block(&$variables) {
-  if (!isset($variables['elements']['#utexas_layouts_region'])) {
+  $base_plugin_id = $variables['base_plugin_id'];
+
+  // Blocks placed on layout builder pages.
+  if (!isset($variables['elements']['#utexas_layouts_region']) || $variables['elements']['#utexas_layouts_region'] !== 'content') {
     // Some modules (e.g., Total Control) do not implement this hook correctly.
     return;
   }
-  $base_plugin_id = $variables['base_plugin_id'];
   // Limit to page title blocks placed in the main 'content' region.
-  if ($variables['elements']['#utexas_layouts_region'] !== 'content' || $base_plugin_id !== 'page_title_block') {
-    return;
-  }
-  if (UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
+  if ($base_plugin_id === 'page_title_block' && UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
     $variables['attributes']['class'][] = 'utexas-readable';
   }
+  // This is a resuable block placed in the 'content' region.
+  // If the current page uses Layout Builder, set to 'container' width.
+  if ($base_plugin_id !== 'system_main_block' && UtexasLayoutBuilderHelper::isLayoutBuilderPage()) {
+    $variables['attributes']['class'][] = 'container';
+  }
+
 }
 
 /**

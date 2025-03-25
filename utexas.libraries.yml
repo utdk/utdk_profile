@@ -10,6 +10,10 @@ menus:
   css:
     theme:
       css/menus.css: {}
+status-messages:
+  css:
+    theme:
+      css/status-messages.css: {}
 bootstrap4:
   css:
     base:
@@ -30,10 +34,14 @@ bootstrap4:
     js/Bootstrap4/tooltip.js: {}
   dependencies:
     - core/jquery
+bootstrap5-base:
+  css:
+    base:
+      css/Bootstrap5/bootstrap-base.css: {}
 bootstrap5-css:
   css:
     base:
-      css/Bootstrap5/bootstrap.css: {}
+      css/Bootstrap5/bootstrap-variables.css: {}
       css/Bootstrap5/alert.css: {}
       css/Bootstrap5/collapse.css: {}
       css/Bootstrap5/dropdown.css: {}

@@ -20,7 +20,7 @@ jobs:
         run: |
           sh .github/workflows/scripts/check_syntax.sh
   utdk3_testing_job:
-    runs-on: [ wcs-gh-p02-group ]
+    runs-on: [ wcs-p02a ]
     name: PHPUNIT TESTS
     needs: checksyntax
     services:
@@ -83,7 +83,7 @@ jobs:
 
       - name: 'Upload Artifacts'
         if: failure()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: browser_output
           path: ${{ github.workspace }}/utdk-project/web/sites/simpletest/browser_output

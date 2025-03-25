@@ -11,14 +11,8 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_preprocess_page().
  */
 function utexas_layout_builder_styles_preprocess_page(&$variables) {
-  // Add border styling to all pages.
-  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/border-styles';
-  // Add styles to constrain content to readable width for all content blocks.
-  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/readable';
-  // Add styles to remove/increase top/bottom block margins.
-  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/block-margins';
-  // Add styling for border around images.
-  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/image-border';
+  // Add Layout Builder Styles CSS to all pages.
+  $variables['#attached']['library'][] = 'utexas_layout_builder_styles/layout-builder-styles';
 }
 
 /**

@@ -9,11 +9,15 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
+use Drupal\block_content\BlockContentInterface;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
+use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Permissions;
+use Drupal\utexas\ThemeHelper;
+use Drupal\utexas\RenderHelper;
 
 /**
  * Implements hook_install_tasks().
@@ -60,6 +64,14 @@ function utexas_theme($existing, $type, $theme, $path) {
       'base hook' => 'block',
     ],
   ];
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ */
+function utexas_theme_registry_alter(&$theme_registry) {
+  $utexas = \Drupal::service('extension.list.profile')->getPath('utexas');
+  $theme_registry['feed_block_rss_item']['path'] = $utexas . '/templates';
 }
 
 /**
@@ -178,6 +190,9 @@ function utexas_form_search_form_alter(&$form, $form_state, $form_id) {
  * Implements hook_form_alter().
  */
 function utexas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_id === 'search_block_form') {
+    $form['#attributes']['class'][] = 'ut-search-form';
+  }
   if ($form_id === 'google_tag_container_form' && $form_state->getFormObject()->getEntity()->isNew()) {
     $form['conditions']['request_path']['pages']['#default_value'] = "/admin*\n/batch*\n/node/add*\n/node/*/edit\n/node/*/delete\n/node/*/layout\n/taxonomy/term/*/edit\n/taxonomy/term/*/layout\n/user/*/edit*\n/user/*/cancel*\n/user/*/layout\n/layout_builder/*";
     $form['conditions']['request_path']['negate']['#default_value'] = TRUE;
@@ -375,7 +390,7 @@ function utexas_contextual_links_plugins_alter(array &$contextual_links) {
 }
 
 /**
- * Implements hook_preprocess_html() for html templates.
+ * Implements hook_preprocess_html().
  */
 function utexas_preprocess_html(&$variables) {
   $variables['page']['#attached']['html_head'][] = [
@@ -391,6 +406,59 @@ function utexas_preprocess_html(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_page().
+ */
+function utexas_preprocess_page(&$variables) {
+  // If the current page uses Layout Builder, add a flag.
+  if (ThemeHelper::isLayoutBuilderPage()) {
+    $variables['is_layout_builder_page'] = TRUE;
+  }
+  // Year for use in footer copyright.
+  $variables['year'] = date('Y');
+  /** @var \Drupal\Core\Routing\CurrentRouteMatch $current_route_match */
+  $current_route_match = \Drupal::routeMatch();
+  $route_name = $current_route_match->getRouteName();
+  if ($route_name === 'search.view_google_cse_search') {
+    // Remove breadcrumbs block from breadcrumb region.
+    unset($variables['page']['breadcrumb']['breadcrumbs']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function utexas_preprocess_block(&$variables) {
+  $base_plugin_id = $variables['base_plugin_id'];
+  $content = $variables['elements']['content'] ?? [];
+  // Add a bundle identifier as a CSS class.
+  if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface) {
+    if ($content['#block_content']->bundle() === 'feed_block') {
+      $variables['attributes']['class'][] = 'ut-newsreel';
+    }
+  }
+
+  if (in_array($base_plugin_id, ['menu_block', 'addtoany_block', 'addtoany_follow_block'])) {
+    // AddToAny and Menu block titles should use the smaller `ut-headline`.
+    $variables['title_attributes']['class'][] = 'ut-headline';
+  }
+  else {
+    // All other block titles should use `ut-headline--xl`.
+    $variables['title_attributes']['class'][] = 'ut-headline--xl';
+  }
+
+  // Address blocks placed in the main 'content' region on Layout Builder pages.
+  if (!empty($variables['elements']['#utexas_layouts_region'])) {
+    if ($base_plugin_id !== 'system_main_block' && $variables['elements']['#utexas_layouts_region'] === 'content') {
+      // This is a resuable block placed located in the 'content' region.
+      // If the current page uses Layout Builder, set to 'container' width.
+      if (ThemeHelper::isLayoutBuilderPage()) {
+        $variables['attributes']['class'][] = 'container';
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_user_format_name_alter().
  */
 function utexas_user_format_name_alter(&$name, AccountInterface $account) {
@@ -400,7 +468,7 @@ function utexas_user_format_name_alter(&$name, AccountInterface $account) {
     return;
   }
   $user = User::load($uid);
-  if ($user->hasField('field_utexas_full_name')) {
+  if ($user && $user->hasField('field_utexas_full_name')) {
     if ($value = ($user->get('field_utexas_full_name')->getString())) {
       // Only if the real name is a non-empty string is $name actually altered.
       if (mb_strlen($value)) {
@@ -409,4 +477,123 @@ function utexas_user_format_name_alter(&$name, AccountInterface $account) {
     }
     return;
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  // Add content type suggestions.
+  if ($node = \Drupal::request()->attributes->get('node')) {
+    if ($node instanceof NodeInterface) {
+      array_splice($suggestions, 1, 0, 'page__node__' . $node->getType());
+    }
+    else {
+      $node_revision = \Drupal::entityTypeManager()->getStorage('node')->load($node);
+      if ($node_revision instanceof NodeInterface) {
+        array_splice($suggestions, 1, 0, 'page__node__' . $node_revision->getType());
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_field().
+ */
+function utexas_preprocess_field(&$variables, $hook) {
+  if (!isset($variables['element']['#bundle'])) {
+    return;
+  }
+  switch ($variables['element']['#bundle']) {
+    case 'feed_block':
+      if ($variables['element']['#field_name'] === 'field_read_more') {
+        // Add 'button' class to Read more <a> tag.
+        $variables['attributes']['class'][] = 'ut-cta';
+        $variables['items'][0]['content']['#options']['attributes']['class'][] = 'ut-btn--secondary';
+      }
+      if ($variables['element']['#field_name'] === 'field_intro_text') {
+        $variables['attributes']['class'][] = 'ut-copy';
+      }
+      break;
+
+    case 'basic':
+      if ($variables['element']['#field_name'] === 'body' && $variables['element']['#entity_type'] === 'block_content') {
+        $variables['attributes']['class'][] = 'ut-copy';
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
+function utexas_preprocess_breadcrumb(&$variables) {
+  // Use a placeholder to inject dynamic content.
+  $placeholder_title = [
+    '#lazy_builder' => [
+      RenderHelper::class . '::lazyBuilder',
+      ['page_title'],
+    ],
+    '#create_placeholder' => TRUE,
+  ];
+  $variables['breadcrumb'][] = [
+    'text' => $placeholder_title,
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
+  $theme_name = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $theme_key = strtolower($theme_name) . '-';
+  // Remove the block, the themename (if present), and replace dashes with
+  // underscores in the block ID to use for the hook name.
+  if (isset($variables['attributes']['data-block'])) {
+    $hook = str_replace([$theme_key, 'block-', '-'], ['', '', '_'], $variables['attributes']['data-block']);
+    if ($block = Block::load($hook)) {
+      $region = $block->getRegion();
+      $suggestions[] = 'menu__' . $region;
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function utexas_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  // Remove the block and replace dashes with underscores in the block ID to
+  // use for the hook name.
+  $base_plugin_id = $variables['elements']['#base_plugin_id'];
+  if (isset($base_plugin_id) && in_array($base_plugin_id, ['system_menu_block', 'menu_block'])) {
+    if (isset($variables['elements']['#id'])) {
+      $hook = $variables['elements']['#id'];
+      $block = Block::load($hook);
+      $region = $block->getRegion();
+      $suggestions[] = 'block__system_menu_block__' . $region;
+    }
+  }
+}
+
+/**
+ * Implements hook_template_preprocess_views_view_table().
+ */
+function utexas_preprocess_views_view_table(&$variables) {
+  // Override this with a sub-theme preprocess hook that removes the class.
+  $variables['attributes']['class'][] = 'border-1';
+}
+
+/**
+ * Implements hook_preprocess_block_system_messages_block().
+ */
+function utexas_preprocess_block__system_messages_block(&$variables) {
+  $variables['content']['#include_fallback'] = FALSE;
+}
+
+/**
+ * Implements hook_preprocess_status_messages().
+ */
+function utexas_preprocess_status_messages(&$variables) {
+  $variables['#attached']['library'][] = 'utexas/status-messages';
+  $variables['attributes']['class'][] = 'status-messages';
 }

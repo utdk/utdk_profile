@@ -85,6 +85,7 @@ class HeroCarouselWidget extends UTexasHeroWidget {
     }
     // Add element wrapper type.
     $element['hero_carousel']['#type'] = 'details';
+    $element['hero_carousel']['media']['#description'] = $this->t('Upload an image with a minimum resolution of 2280px X 900px (a 2.5:1 ratio). Images have a displayed height limitation of 543px.');
     // Get media entity name.
     if ($item->media) {
       /** @var \Drupal\media\MediaStorage $media_storage */
