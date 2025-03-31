@@ -1168,3 +1168,12 @@ function utexas_update_8166() {
     \Drupal::service('module_installer')->uninstall(['svg_upload_sanitizer']);
   }
 }
+
+/**
+ * Uninstall UTexas Beacon on existing sites (#2804).
+ */
+function utexas_update_8167() {
+  if (\Drupal::moduleHandler()->moduleExists('utexas_beacon') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['utexas_beacon']);
+  }
+}

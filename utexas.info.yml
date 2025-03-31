@@ -68,7 +68,6 @@ install:
   - drupal:url_embed
   - drupal:xmlsitemap
   # Custom
-  - utexas_beacon
   - utexas_block_required_links
   - utexas_block_social_links
   - utexas_call_to_action
