@@ -3,9 +3,9 @@
   Drupal.behaviors.utexasInstagram = {
     attach: function (context, settings) {
 
-      $(once('instagramFeed', '.utexas-instagram-feed', context)).each(function () {
+      $('.utexas-instagram-feed').each(function () {
         var
-          $item = $('.utexas-instagram-feed__list-item'),
+          $item = $(this).find('.utexas-instagram-feed__list-item'),
           visible = 1,
           index = 0,
           endIndex = ($item.length / visible) - 3,
