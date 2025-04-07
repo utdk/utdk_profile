@@ -1,24 +1,20 @@
-(function ($, Drupal, window, document, undefined) {
-
+(function($, Drupal, window, document, undefined) {
   Drupal.behaviors.utexasInstagram = {
-    attach: function (context, settings) {
+    attach(context, settings) {
+      $(".utexas-instagram-feed").each(function() {
+        const $item = $(this).find(".utexas-instagram-feed__list-item");
+        const visible = 1;
+        let index = 0;
+        const endIndex = $item.length / visible - 3;
+        const mobileIndex = $item.length / visible - 1;
 
-      $('.utexas-instagram-feed').each(function () {
-        var
-          $item = $(this).find('.utexas-instagram-feed__list-item'),
-          visible = 1,
-          index = 0,
-          endIndex = ($item.length / visible) - 3,
-          mobileIndex = ($item.length / visible) - 1;
+        const $backButton = $(".utexas-instagram-feed__controls-prev");
+        ($forwardButton = $(".utexas-instagram-feed__controls-next")),
+          (enabledClass = "js-enabled");
 
-        const
-          $backButton = $('.utexas-instagram-feed__controls-prev');
-          $forwardButton = $('.utexas-instagram-feed__controls-next'),
-          enabledClass = 'js-enabled';
-
-        $forwardButton.on('keydown click', function (e) {
+        $forwardButton.on("keydown click", function(e) {
           // If key was pressed, ignore all but spacebar and enter/return.
-          if (e.keyCode && (e.keyCode) !== 32 && (e.keyCode !== 13)) {
+          if (e.keyCode && e.keyCode !== 32 && e.keyCode !== 13) {
             return;
           }
           // Prevent default 'keydown' and 'click' behavior.
@@ -26,7 +22,7 @@
 
           if (index < endIndex) {
             index++;
-            $item.animate({ 'left': '-=35%' });
+            $item.animate({ left: "-=35%" });
           }
           if (index < endIndex) {
             $(this).addClass(enabledClass);
@@ -40,9 +36,9 @@
           }
         });
 
-        $backButton.on('keydown click', function (e) {
+        $backButton.on("keydown click", function(e) {
           // If key was pressed, ignore all but spacebar and enter/return.
-          if (e.keyCode && (e.keyCode) !== 32 && (e.keyCode !== 13)) {
+          if (e.keyCode && e.keyCode !== 32 && e.keyCode !== 13) {
             return;
           }
           // Prevent default 'keydown' and 'click' behavior.
@@ -50,7 +46,7 @@
 
           if (index > 0) {
             index--;
-            $item.animate({ 'left': '+=35%' });
+            $item.animate({ left: "+=35%" });
           }
           if (index > 0) {
             $(this).addClass(enabledClass);
@@ -64,21 +60,20 @@
           }
         });
 
-        $item.on('swiped-left', function (e) {
+        $item.on("swiped-left", function(e) {
           if ($(window).width() < 651 && index < mobileIndex) {
             index++;
-            $item.animate({ 'left': '-=100%' });
+            $item.animate({ left: "-=100%" });
           }
         });
 
-        $item.on('swiped-right', function (e) {
+        $item.on("swiped-right", function(e) {
           if ($(window).width() < 651 && index > 0) {
             index--;
-            $item.animate({ 'left': '+=100%' });
+            $item.animate({ left: "+=100%" });
           }
         });
       });
     }
   };
-
 })(jQuery, Drupal, this, this.document);
