@@ -20,6 +20,10 @@ function utexas_form_elements_theme($existing, $type, $theme, $path) {
       'render element' => 'element',
       'template' => 'utexas-link-options-element',
     ],
+    'utexas_link_options_element_multiple' => [
+      'render element' => 'element',
+      'template' => 'utexas-link-options-element-multiple',
+    ],
   ];
   return $variables;
 }
