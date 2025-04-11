@@ -1182,7 +1182,7 @@ function utexas_update_8167() {
  * Add utexas_standard_workflow 'Archive' option to bulk operations.
  */
 function utexas_update_8168() {
-  $config_name = 'system.action.archive_action_utexas';
+  $config_name = 'system.action.utexas_archive_action';
   $config = \Drupal::configFactory()->getEditable($config_name);
   $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
   if (!empty($config_path)) {

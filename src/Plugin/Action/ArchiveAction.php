@@ -13,8 +13,8 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Archives an entity that uses the UTexas-provided 'standard_workflow'.
  */
 #[Action(
-  id: 'entity:archive_action_utexas',
-  action_label: new TranslatableMarkup('Archive'),
+  id: 'entity:utexas_archive_action',
+  action_label: new TranslatableMarkup('Workflow: Archive content'),
   deriver: EntityPublishedActionDeriver::class
 )]
 class ArchiveAction extends EntityActionBase {

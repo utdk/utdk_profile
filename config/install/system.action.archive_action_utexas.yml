@@ -1,7 +1,7 @@
-id: archive_action_utexas
-label: 'Archive'
+id: utexas_archive_action
+label: 'Workflow: Archive'
 status: true
 langcode: en
 type: node
-plugin: entity:archive_action_utexas:node
+plugin: entity:utexas_archive_action:node
 configuration: { }
