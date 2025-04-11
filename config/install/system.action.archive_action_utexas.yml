@@ -1,7 +1,7 @@
-id: utexas_archive_action
+id: archive_action_utexas
 label: 'Archive'
 status: true
 langcode: en
 type: node
-plugin: entity:utexas_archive_action:node
+plugin: entity:archive_action_utexas:node
 configuration: { }

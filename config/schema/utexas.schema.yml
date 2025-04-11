@@ -1,3 +1,3 @@
-action.configuration.utexas_archive_action:
+action.configuration.archive_action_utexas:
   type: action_configuration_default
   label: 'Archive'
