@@ -1,5 +1,5 @@
 id: utexas_archive_action
-label: 'Workflow: Archive'
+label: 'Workflow: Archive content'
 status: true
 langcode: en
 type: node
