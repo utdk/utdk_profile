@@ -4,6 +4,10 @@
   margin-bottom: 20px;
 }
 
+.announcement-content .announcement-body a {
+  text-decoration: underline;
+}
+
 .announcement-content .cta a {
   color: white;
   text-decoration: none;
