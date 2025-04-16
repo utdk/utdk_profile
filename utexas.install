@@ -111,6 +111,20 @@ function utexas_install() {
   $state_api = \Drupal::state();
   // Set Full HTML configuration opt-in.
   $state_api->set('full_html_updates', 1);
+
+  // Remove rarely-used bulk actions.
+  $bulk_actions = [
+    'system.action.node_make_unsticky_action',
+    'system.action.node_make_sticky_action',
+    'system.action.node_promote_action',
+    'system.action.node_unpromote_action',
+  ];
+  foreach ($bulk_actions as $config) {
+    $config_handler = \Drupal::configFactory()->getEditable($config);
+    if (!is_null($config_handler)) {
+      $config_handler->delete(TRUE);
+    }
+  }
 }
 
 /**
@@ -1175,5 +1189,23 @@ function utexas_update_8166() {
 function utexas_update_8167() {
   if (\Drupal::moduleHandler()->moduleExists('utexas_beacon') === TRUE) {
     \Drupal::service('module_installer')->uninstall(['utexas_beacon']);
+  }
+}
+
+/**
+ * Remove rarely-used bulk actions (#2815).
+ */
+function utexas_update_8168() {
+  $bulk_actions = [
+    'system.action.node_make_unsticky_action',
+    'system.action.node_make_sticky_action',
+    'system.action.node_promote_action',
+    'system.action.node_unpromote_action',
+  ];
+  foreach ($bulk_actions as $config) {
+    $config_handler = \Drupal::configFactory()->getEditable($config);
+    if (!is_null($config_handler)) {
+      $config_handler->delete(TRUE);
+    }
   }
 }
