@@ -41,16 +41,19 @@ trait PhotoContentAreaTestTrait {
     $form->fillField('field_block_pca[0][headline]', 'Photo Content Area Headline');
     $form->fillField('field_block_pca[0][copy][value]', 'Photo Content Area Copy');
     // Fill Link 1 fields.
+    $this->clickDetailsBySummaryText('New Link');
     $form->fillField('field_block_pca[0][links][0][uri]', 'https://photocontentarea.test');
     $form->fillField('field_block_pca[0][links][0][title]', 'Photo Content Area Link');
     $form->fillField('field_block_pca[0][links][0][options][attributes][target][_blank]', ['_blank' => '_blank']);
     $form->fillField('field_block_pca[0][links][0][options][attributes][class]', 'ut-cta-link--external');
     // Add Link 2 and fill fields.
-    $this->addNonDraggableFormItem($form, 'Add link');
+    $page->pressButton('Add link');
+    $this->clickDetailsBySummaryText('New Link', 2);
     $form->fillField('field_block_pca[0][links][1][uri]', 'https://second.test');
     $form->fillField('field_block_pca[0][links][1][title]', 'Photo Content Area Second Link');
     // Add Link 3 and fill fields.
-    $this->addNonDraggableFormItem($form, 'Add link');
+    $page->pressButton('Add link');
+    $this->clickDetailsBySummaryText('New Link', 3);
     $form->fillField('field_block_pca[0][links][2][uri]', 'https://third.test');
     $form->fillField('field_block_pca[0][links][2][title]', 'Photo Content Area Third Link');
     // Save block.
@@ -94,6 +97,7 @@ trait PhotoContentAreaTestTrait {
     $form = $this->waitForForm($block_content_edit_form_id);
     // Remove data for the second link
     // (#1121: Verify links can be removed without loss of data.)
+    $this->clickDetailsBySummaryText('Link (Photo Content Area Second Link)');
     $form->fillField('field_block_pca[0][links][1][uri]', '');
     $form->fillField('field_block_pca[0][links][1][title]', '');
     // Save block.
