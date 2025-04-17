@@ -2,9 +2,10 @@
 
 namespace Drupal\utexas_form_elements\Element;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\Core\Url;
 
 use Drupal\utexas_form_elements\UtexasLinkOptionsElementHelper;
@@ -15,7 +16,7 @@ use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
  *
  * @FormElement("utexas_link_options_element")
  */
-class UtexasLinkOptionsElement extends FormElement {
+class UtexasLinkOptionsElement extends FormElementBase {
 
   /**
    * {@inheritdoc}
@@ -70,6 +71,17 @@ class UtexasLinkOptionsElement extends FormElement {
       '#access' => isset($element['#suppress_title_display']) ? FALSE : TRUE,
       '#description' => $element['#title_description'] ?? '',
     ];
+
+    if (!empty($element['title']['#default_value'])) {
+      $element['plaintitle'] = [
+        '#markup' => Unicode::Truncate($element['title']['#default_value'], 40, FALSE, TRUE),
+      ];
+    }
+    if (!empty($element['uri']['#default_value'])) {
+      $element['plainuri'] = [
+        '#markup' => Unicode::Truncate($element['uri']['#default_value'], 40, FALSE, TRUE),
+      ];
+    }
 
     // Add link options form element.
     $link_options_helper = new UtexasLinkOptionsHelper();

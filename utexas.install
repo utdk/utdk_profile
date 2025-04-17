@@ -111,6 +111,20 @@ function utexas_install() {
   $state_api = \Drupal::state();
   // Set Full HTML configuration opt-in.
   $state_api->set('full_html_updates', 1);
+
+  // Remove rarely-used bulk actions.
+  $bulk_actions = [
+    'system.action.node_make_unsticky_action',
+    'system.action.node_make_sticky_action',
+    'system.action.node_promote_action',
+    'system.action.node_unpromote_action',
+  ];
+  foreach ($bulk_actions as $config) {
+    $config_handler = \Drupal::configFactory()->getEditable($config);
+    if (!is_null($config_handler)) {
+      $config_handler->delete(TRUE);
+    }
+  }
 }
 
 /**
@@ -1179,7 +1193,7 @@ function utexas_update_8167() {
 }
 
 /**
- * Add utexas_standard_workflow 'Archive' option to bulk operations.
+ * Add utexas_standard_workflow 'Archive' option to bulk operations (#2807).
  */
 function utexas_update_8168() {
   $config_name = 'system.action.utexas_archive_action';
@@ -1190,6 +1204,24 @@ function utexas_update_8168() {
     if (is_array($data)) {
       $config->setData($data)->save(TRUE);
       \Drupal::logger('utexas')->notice('Adding "Archive" action to bulk operations.');
+    }
+  }
+}
+
+/**
+ * Remove rarely-used bulk actions (#2815).
+ */
+function utexas_update_8169() {
+  $bulk_actions = [
+    'system.action.node_make_unsticky_action',
+    'system.action.node_make_sticky_action',
+    'system.action.node_promote_action',
+    'system.action.node_unpromote_action',
+  ];
+  foreach ($bulk_actions as $config) {
+    $config_handler = \Drupal::configFactory()->getEditable($config);
+    if (!is_null($config_handler)) {
+      $config_handler->delete(TRUE);
     }
   }
 }
