@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\Traits;
 
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Language\Language;
 use Drupal\file\Entity\File;
@@ -86,7 +87,7 @@ trait EntityTestTrait {
     foreach ($files as $file) {
       $source_uri = $file->uri;
       $desination_uri = $target_uri . $file->filename;
-      $file_system->copy($source_uri, $desination_uri, FileSystemInterface::EXISTS_RENAME);
+      $file_system->copy($source_uri, $desination_uri, FileExists::Rename);
 
       $copied_files[$file->filename] = $file_system->realpath($desination_uri);
     }

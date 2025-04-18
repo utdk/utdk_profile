@@ -4,6 +4,7 @@ namespace Drupal\utexas_block_social_links\Form;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
@@ -200,7 +201,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
    *   This function wraps file_save_upload() to allow correct error handling in
    *   forms.
    */
-  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileSystemInterface::EXISTS_RENAME) {
+  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileExists::Rename) {
     /** @var \Drupal\Core\File\FileSystemInterface $file_system */
     // phpcs:ignore
     $file_system = \Drupal::service('file_system');
@@ -233,7 +234,7 @@ class UtexasSocialLinksDataForm extends EntityForm {
             '#items' => $errors_new,
           ],
         ];
-        $error_message = $this->renderer->renderPlain($render_array);
+        $error_message = $this->renderer->renderInIsolation($render_array);
       }
       else {
         $error_message = reset($errors_new);

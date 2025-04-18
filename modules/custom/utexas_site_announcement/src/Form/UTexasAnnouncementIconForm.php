@@ -4,6 +4,7 @@ namespace Drupal\utexas_site_announcement\Form;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Messenger\MessengerInterface;
@@ -199,7 +200,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
    *   This function wraps file_save_upload() to allow correct error handling in
    *   forms.
    */
-  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileSystemInterface::EXISTS_RENAME) {
+  private function saveFromForm(array $element, FormStateInterface $form_state, $delta = NULL, $replace = FileExists::Rename) {
     // Get all errors set before calling this method. This will also clear them
     // from $_SESSION.
     $errors_before = $this->messenger()->deleteByType(MessengerInterface::TYPE_ERROR);
@@ -227,7 +228,7 @@ class UTexasAnnouncementIconForm extends EntityForm {
             '#items' => $errors_new,
           ],
         ];
-        $error_message = $this->renderer->renderPlain($render_array);
+        $error_message = $this->renderer->renderInIsolation($render_array);
       }
       else {
         $error_message = reset($errors_new);

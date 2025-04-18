@@ -227,9 +227,9 @@ function utexas_form_elements_menu_link_content_form_entity_builder($entity_type
     }
   }
   else {
-    $original = \Drupal::entityTypeManager()
-      ->getStorage($menu_link->getEntityTypeId())
-      ->loadRevision($menu_link->getLoadedRevisionId());
+    $original = \Drupal::entityTypeManager()->getStorage($menu_link->getEntityTypeId());
+    /** @var \Drupal\Core\Entity\RevisionableStorageInterface $original */
+    $original->loadRevision($menu_link->getLoadedRevisionId());
     $menu_link_options = $original->get('link')->first()->options;
   }
   $menu_link->link->first()->options = $menu_link_options;

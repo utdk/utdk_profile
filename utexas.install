@@ -315,7 +315,7 @@ function utexas_update_8114() {
   $module_machine_name = 'utexas_block_library_access';
   if (!$module_handler->moduleExists($module_machine_name)) {
     $module_installer->install([$module_machine_name]);
-    $module_readable_name = $module_handler->getName($module_machine_name);
+    $module_readable_name = \Drupal::service('extension.list.module')->getName($module_machine_name);
     $messenger->addMessage(t('%module_name has been installed.', ['%module_name' => $module_readable_name]));
   }
 }
