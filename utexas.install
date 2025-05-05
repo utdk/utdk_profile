@@ -112,6 +112,9 @@ function utexas_install() {
   // Set Full HTML configuration opt-in.
   $state_api->set('full_html_updates', 1);
 
+  // Display Drupal Kit support links.
+  $state_api->set('display_links', 1);
+
   // Remove rarely-used bulk actions.
   $bulk_actions = [
     'system.action.node_make_unsticky_action',
@@ -1224,4 +1227,11 @@ function utexas_update_8169() {
       $config_handler->delete(TRUE);
     }
   }
+}
+
+/**
+ * Add toolbar links (#2816).
+ */
+function utexas_update_8170() {
+  \Drupal::state()->set('display_links', 1);
 }
