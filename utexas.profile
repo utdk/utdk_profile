@@ -17,6 +17,7 @@ use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\Permissions;
 use Drupal\utexas\ThemeHelper;
+use Drupal\utexas\ToolbarHandler;
 use Drupal\utexas\RenderHelper;
 
 /**
@@ -596,4 +597,13 @@ function utexas_preprocess_block__system_messages_block(&$variables) {
 function utexas_preprocess_status_messages(&$variables) {
   $variables['#attached']['library'][] = 'utexas/status-messages';
   $variables['attributes']['class'][] = 'status-messages';
+}
+
+/**
+ * Implements hook_toolbar().
+ */
+function utexas_toolbar() {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(ToolbarHandler::class)
+    ->toolbar();
 }

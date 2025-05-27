@@ -51,6 +51,7 @@ trait FlexContentAreaTestTrait {
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.media-library-item__remove'));
     $form->fillField('field_block_fca[0][flex_content_area][headline]', 'Flex Content Area Headline 1');
     $form->fillField('field_block_fca[0][flex_content_area][copy][value]', 'Flex Content Area Copy');
+    $this->clickDetailsBySummaryText('New Link');
     $form->fillField('field_block_fca[0][flex_content_area][cta_wrapper][link][uri]', 'https://utexas.edu');
     $form->fillField('field_block_fca[0][flex_content_area][cta_wrapper][link][title]', 'Flex Content Area Call to Action');
     $form->fillField('field_block_fca[0][flex_content_area][cta_wrapper][link][options][attributes][target][_blank]', ['_blank' => '_blank']);
@@ -61,11 +62,13 @@ trait FlexContentAreaTestTrait {
     $form->fillField('field_block_fca[0][flex_content_area][links][0][options][attributes][target][_blank]', ['_blank' => '_blank']);
     $form->fillField('field_block_fca[0][flex_content_area][links][0][options][attributes][class]', 'ut-cta-link--lock');
     // Add Flex Content Area 1 Link 2 and fill fields.
-    $this->addNonDraggableFormItem($form, 'Add link');
+    $page->pressButton('Add link');
+    $this->clickDetailsBySummaryText('New Link', 2);
     $form->fillField('field_block_fca[0][flex_content_area][links][1][title]', 'Flex Content Area Second Link');
     $form->fillField('field_block_fca[0][flex_content_area][links][1][uri]', 'https://second.test');
     // Add Flex Content Area 1 Link 3 and fill fields.
-    $this->addNonDraggableFormItem($form, 'Add link');
+    $page->pressButton('Add link');
+    $this->clickDetailsBySummaryText('New Link', 3);
     $form->fillField('field_block_fca[0][flex_content_area][links][2][title]', 'Flex Content Area Third Link');
     $form->fillField('field_block_fca[0][flex_content_area][links][2][uri]', 'https://third.test');
     // Save block.
@@ -89,6 +92,7 @@ trait FlexContentAreaTestTrait {
     $form->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][uri]', 'https://utexas.edu');
     $form->fillField('field_block_fca[1][flex_content_area][cta_wrapper][link][title]', 'Flex Content Area Call to Action 2');
     // Fill Flex Content Area 2 Link 1 fields.
+    $this->clickDetailsBySummaryText('New Link');
     $form->fillField('field_block_fca[1][flex_content_area][links][0][title]', 'Flex Content Area External Link 2');
     $form->fillField('field_block_fca[1][flex_content_area][links][0][uri]', 'https://utexas.edu');
     // Save block.

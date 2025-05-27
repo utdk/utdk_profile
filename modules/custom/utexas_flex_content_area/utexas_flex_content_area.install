@@ -40,3 +40,12 @@ function utexas_flex_content_area_update_8101() {
       ->execute();
   }
 }
+
+/**
+ * Issue #2827: Use larger image styles 1x/2x desktop presentations.
+ */
+function utexas_flex_content_area_update_8102() {
+  \Drupal::service('features.manager')->import([
+    'utexas_flex_content_area',
+  ], TRUE);
+}

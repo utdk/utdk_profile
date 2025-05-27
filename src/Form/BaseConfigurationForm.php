@@ -109,6 +109,17 @@ class BaseConfigurationForm extends ConfigFormBase {
       '#description' => $this->t('The "Full HTML" text format is a rich text editing configuration provided by the Drupal Kit. Periodically, the Drupal Kit updates configuration for this text format. For example, it may add a new option to the "Styles" dropdown or add a new text filter. Leave this checkbox selected to automatically receive those updates. For sites where developers have made their own customizations to the "Full HTML" text format, deselecting this checkbox provides a way to ensure that Drupal Kit updates to the text format do not overwrite those customizations.'),
       '#default_value' => $full_html_default,
     ];
+    $display_links = \Drupal::state()->get('display_links') ?? 0;
+    $form['toolbar_links'] = [
+      '#title' => 'Drupal Kit Support Links',
+      '#type' => 'fieldset',
+    ];
+    $form['toolbar_links']['display_links'] = [
+      '#type' => 'checkbox',
+      '#title' => 'Display Drupal Kit support links',
+      '#description' => $this->t('Links to email Drupal Kit support, the Drupal Kit demo site, and Drupal Kit documentation will be displayed in the admin toolbar.'),
+      '#default_value' => $display_links,
+    ];
     $form = parent::buildForm($form, $form_state);
     return $form;
   }
@@ -125,6 +136,8 @@ class BaseConfigurationForm extends ConfigFormBase {
     $state_api = \Drupal::state();
     // Set Full HTML configuration opt-in.
     $state_api->set('full_html_updates', $form_state->getValue('full_html_updates'));
+    // Toolbar links.
+    $state_api->set('display_links', $form_state->getValue('display_links'));
     // Set default OG image.
     $metatag_default = $config->getEditable('metatag.metatag_defaults.global');
     $field = $form_state->getValue('default_og_image');

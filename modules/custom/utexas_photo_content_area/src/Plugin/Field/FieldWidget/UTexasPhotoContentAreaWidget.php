@@ -88,7 +88,7 @@ class UTexasPhotoContentAreaWidget extends WidgetBase {
     $links = array_values($links);
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
-        '#type' => 'utexas_link_options_element',
+        '#type' => 'utexas_link_options_element_multiple',
         '#default_value' => [
           'uri' => $links[$i]['uri'] ?? '',
           'title' => $links[$i]['title'] ?? '',

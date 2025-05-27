@@ -3,7 +3,7 @@
 namespace Drupal\utexas_promo_unit\Element;
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
@@ -11,7 +11,7 @@ use Drupal\utexas_media_types\MediaEntityImageHelper;
  *
  * @FormElement("utexas_promo_unit")
  */
-class UTexasPromoUnitElement extends FormElement {
+class UTexasPromoUnitElement extends FormElementBase {
 
   /**
    * {@inheritdoc}

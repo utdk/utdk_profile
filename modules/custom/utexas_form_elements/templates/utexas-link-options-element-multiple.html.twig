@@ -14,8 +14,18 @@
  * @ingroup themeable
  */
 #}
-<div class="utexas-link-form-element">
+<details class="utexas-link-form-element claro-details">
+  <summary role="button" class="claro-details__summary">
+  {% if element.plaintitle|render != '' %}
+    Link ({{ element.plaintitle }})
+  {% elseif element.plainuri|render != '' %}
+    Link ({{ element.plainuri }})
+  {% else %}
+    New Link
+  {% endif %}
+  </summary>
   {{ element.uri }}
   {{ element.title }}
   {{ element.options }}
-</div>
+</details>
+

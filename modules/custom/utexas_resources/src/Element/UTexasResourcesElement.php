@@ -5,7 +5,7 @@ namespace Drupal\utexas_resources\Element;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element\FormElement;
+use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
@@ -13,7 +13,7 @@ use Drupal\utexas_media_types\MediaEntityImageHelper;
  *
  * @FormElement("utexas_resource")
  */
-class UTexasResourcesElement extends FormElement {
+class UTexasResourcesElement extends FormElementBase {
 
   /**
    * {@inheritdoc}
@@ -83,7 +83,7 @@ class UTexasResourcesElement extends FormElement {
     $element['links']['#suffix'] = '</div>';
     for ($i = 0; $i < $link_count; $i++) {
       $element['links'][$i] = [
-        '#type' => 'utexas_link_options_element',
+        '#type' => 'utexas_link_options_element_multiple',
         '#default_value' => [
           'uri' => $links[$i]['uri'] ?? NULL,
           'title' => $links[$i]['title'] ?? NULL,

@@ -40,3 +40,12 @@ function utexas_image_styles_update_8104() {
     'utexas_image_styles',
   ], TRUE);
 }
+
+/**
+ * Issue #2827: Use larger image styles 1x/2x desktop presentations.
+ */
+function utexas_image_styles_update_8105() {
+  \Drupal::service('features.manager')->import([
+    'utexas_image_styles',
+  ], TRUE);
+}
