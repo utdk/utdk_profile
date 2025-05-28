@@ -25,8 +25,10 @@ class LinkOptions extends CKEditor5PluginDefault {
     $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
     $basetheme = $themeinfo['base theme'] ?? '';
     $config = [];
+    $eligible_themes = ['forty_acres', 'speedway'];
+    $is_eligible_theme = in_array($theme, $eligible_themes) || in_array($basetheme, $eligible_themes);
 
-    if ($theme == 'forty_acres' || $basetheme == 'forty_acres') {
+    if ($is_eligible_theme) {
       $config['link']['decorators'][] = [
         'mode' => 'manual',
         'label' => 'Primary button',
