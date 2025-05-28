@@ -20,7 +20,19 @@
   margin-left: 0;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) and (max-width:991px) {
+  .utexas-layout--fourcol .utexas-layout--fourcol-wrapper > .layout__region {
+    flex: 1 1 40%;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width:1199px) {
+  .utexas-layout--fourcol .utexas-layout--fourcol-wrapper > .layout__region {
+    flex: 1 1 30%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
   .utexas-layout--fourcol .utexas-layout--fourcol-wrapper > .layout__region {
     flex: 1 1 22%;
   }
