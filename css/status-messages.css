@@ -1,92 +1,53 @@
 /**
  * @file
- * Styles for system messages. Copied originally from Drupal 9's Classy theme
+ * Styles for system messages. Copied from Core themes/claro/css/components/messages.css
  * and modified.
  */
+
+:root {
+  --messages-bg-color: #353641;
+  --messages-fg-color: #fff;
+  --messages--status-color: #42a877;
+  --messages--warning-color: #e0ac00;
+  --messages--error-color: #e34f4f;
+  --messages__link-color: #ffff00;
+  --messages__link--hover-color: #fff;
+}
 .status-messages {
-  padding: 15px 20px 15px 35px;
-  /* LTR */
-  word-wrap: break-word;
-  border: 1px solid;
-  border-width: 1px 1px 1px 0;
-  /* LTR */
+  overflow: auto;
+  /* Required to prevent text clipping. */
+  box-sizing: border-box;
+  margin-block: 1rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  color: var(--messages-fg-color);
+  border-width: 0 0 0 0.3125rem;
+  border-style: solid;
+  border-color: var(--messages-bg-color);
   border-radius: 2px;
-  background: no-repeat 10px 17px;
-  /* LTR */
-  overflow-wrap: break-word;
+  background-color: var(--messages-bg-color);
 }
-
-[dir="rtl"] .status-messages {
-  padding-right: 35px;
-  padding-left: 20px;
-  text-align: right;
-  border-width: 1px 0 1px 1px;
-  background-position: right 10px top 17px;
+.status-messages a,
+.status-messages a:link,
+.status-messages a:visited {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: var(--messages__link-color);
 }
-
-.status-messages+.status-messages {
-  margin-top: 1.538em;
+.status-messages a:hover {
+  color: var(--messages__link--hover-color);
 }
-
-/* List of messages to be displayed, grouped by type. */
-.messages__list {
+.status-messages pre {
   margin: 0;
-  padding: 0;
-  list-style: none;
 }
-
-.messages__item+.messages__item {
-  margin-top: 0.769em;
+[aria-label="Error message"].status-messages,
+.status-messages.messages--error {
+  border-color: var(--messages--error-color);
 }
-
-/* See .color-success in Seven's colors.css */
 [aria-label="Status message"].status-messages {
-  color: #325e1c;
-  border-color: #c9e1bd #c9e1bd #c9e1bd transparent;
-  /* LTR */
-  background-color: #f3faef;
-  background-image: url(../../../../core/misc/icons/73b355/check.svg);
-  box-shadow: -8px 0 0 #77b259;
-  /* LTR */
+  border-color: var(--messages--status-color);
 }
-
-[dir="rtl"] [aria-label="Status message"].status-messages {
-  margin-left: 0;
-  border-color: #c9e1bd transparent #c9e1bd #c9e1bd;
-  box-shadow: 8px 0 0 #77b259;
-}
-
-/* See .color-warning in Seven's colors.css */
-[aria-label="Warning message"].status-messages {
-  color: #734c00;
-  border-color: #f4daa6 #f4daa6 #f4daa6 transparent;
-  /* LTR */
-  background-color: #fdf8ed;
-  background-image: url(../../../../core/misc/icons/e29700/warning.svg);
-  box-shadow: -8px 0 0 #e09600;
-  /* LTR */
-}
-
-[dir="rtl"] [aria-label="Warning message"].status-messages {
-  border-color: #f4daa6 transparent #f4daa6 #f4daa6;
-  box-shadow: 8px 0 0 #e09600;
-}
-
-[aria-label="Error message"].status-messages {
-  color: #a51b00;
-  border-color: #f9c9bf #f9c9bf #f9c9bf transparent;
-  /* LTR */
-  background-color: #fcf4f2;
-  background-image: url(../../../../core/misc/icons/e32700/error.svg);
-  box-shadow: -8px 0 0 #e62600;
-  /* LTR */
-}
-
-[dir="rtl"] [aria-label="Error message"].status-messages {
-  border-color: #f9c9bf transparent #f9c9bf #f9c9bf;
-  box-shadow: 8px 0 0 #e62600;
-}
-
-[aria-label="Error message"].status-messages p.error {
-  color: #a51b00;
+[aria-label="Warning message"].status-messages,
+.status-messages.messages--warning {
+  border-color: var(--messages--warning-color);
 }
