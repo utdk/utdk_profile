@@ -23,7 +23,7 @@ function utexas_layouts_preprocess_layout(&$variables) {
     $add_container = FALSE;
   }
   if ($add_container) {
-    $variables['attributes']['class'][] = 'container';
+    $variables['attributes']['class'][] = 'container-lg';
   }
 }
 
@@ -114,7 +114,7 @@ function utexas_layouts_preprocess_block(&$variables) {
   // This is a resuable block placed in the 'content' region.
   // If the current page uses Layout Builder, set to 'container' width.
   if ($base_plugin_id !== 'system_main_block' && UtexasLayoutBuilderHelper::isLayoutBuilderPage()) {
-    $variables['attributes']['class'][] = 'container';
+    $variables['attributes']['class'][] = 'container-lg';
   }
 
 }
