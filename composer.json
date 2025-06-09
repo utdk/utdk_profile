@@ -26,7 +26,7 @@
     "drupal/core-composer-scaffold": "10.4.7",
     "drupal/core-recommended": "10.4.7",
     "drupal/date_ap_style": "2.0.2",
-    "drupal/diff": "2.0.0-beta3",
+    "drupal/diff": "^1 || 2.0.0-beta3",
     "drupal/editor_advanced_link": "2.2.6",
     "drupal/entity_clone": "2.1.0-beta1",
     "drupal/features": "3.14.0",
