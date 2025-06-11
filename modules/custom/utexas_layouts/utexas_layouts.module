@@ -112,7 +112,7 @@ function utexas_layouts_preprocess_block(&$variables) {
   }
   // Limit to page title blocks placed in the main 'content' region.
   if ($base_plugin_id === 'page_title_block' && UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
-    $variables['attributes']['class'][] = 'utexas-readable';
+    array_push($variables['attributes']['class'], 'utexas-readable', 'container');
   }
 }
 
