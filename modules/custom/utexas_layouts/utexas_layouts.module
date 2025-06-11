@@ -17,7 +17,7 @@ function utexas_layouts_preprocess_layout(&$variables) {
   $variables['background_image'] = $variables['content']['#background_image'] ?? NULL;
   $variables['background_color'] = $variables['content']['#background_color'] ?? NULL;
   // If a class of "container-fluid" has NOT been applied to this layout,
-  // (i.e., via Layout Builder Styles) add "container".
+  // (i.e., via Layout Builder Styles) add "container-lg".
   $add_container = TRUE;
   if (isset($variables['attributes']['class']) && in_array('container-fluid', $variables['attributes']['class'])) {
     $add_container = FALSE;
@@ -111,12 +111,6 @@ function utexas_layouts_preprocess_block(&$variables) {
   if ($base_plugin_id === 'page_title_block' && UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
     $variables['attributes']['class'][] = 'utexas-readable';
   }
-  // This is a resuable block placed in the 'content' region.
-  // If the current page uses Layout Builder, set to 'container' width.
-  if ($base_plugin_id !== 'system_main_block' && UtexasLayoutBuilderHelper::isLayoutBuilderPage()) {
-    $variables['attributes']['class'][] = 'container-lg';
-  }
-
 }
 
 /**
