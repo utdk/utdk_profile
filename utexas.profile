@@ -68,6 +68,25 @@ function utexas_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_themes_installed().
+ */
+function utexas_themes_installed($theme_list) {
+  // The theme 'Speedway' is being installed.
+  if (in_array('speedway', $theme_list)) {
+    $forty_acres = \Drupal::config('forty_acres.settings');
+    $link = $forty_acres->get('parent_link');
+    $title = $forty_acres->get('parent_link_title');
+    \Drupal::logger('utexas')->notice('Mapping Forty Acres settings to Speedway...');
+    if (isset($link) && isset($title)) {
+      $speedway = \Drupal::configFactory()->getEditable('speedway.settings');
+      $speedway->set('parent_link', $link);
+      $speedway->set('parent_link_title', $title);
+      $speedway->save();
+    }
+  }
+}
+
+/**
  * Implements hook_theme_registry_alter().
  */
 function utexas_theme_registry_alter(&$theme_registry) {
