@@ -162,18 +162,18 @@ trait FlexContentAreaTestTrait {
     $assert->pageTextContains($block_type . ' ' . $block_name . ' has been updated.');
 
     $this->drupalGet('node/' . $flex_page_id);
-    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
+    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DvXyqBkXDacU");
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'height', "100%");
 
     // The outer iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1763.
-    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'title', "YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)");
+    $assert->elementAttributeContains('css', '.ut-flex-content-area iframe', 'title', "UT Drupal Kit 2.0 Intro and Demo");
 
     // The inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
-    $this->assertSame('YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)', $session->evaluateScript("$inner_frame.getAttribute('title')"));
+    $this->assertSame('YouTube content: UT Drupal Kit 2.0 Intro and Demo', $session->evaluateScript("$inner_frame.getAttribute('title')"));
 
     // CRUD: UPDATE
     // Remove CTA title from Item 2, but leave CTA URL.

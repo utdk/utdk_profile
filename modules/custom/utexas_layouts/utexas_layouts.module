@@ -76,6 +76,15 @@ function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInt
  */
 function utexas_layouts_form_node_layout_builder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#attributes']['class'][] = 'container';
+  // Remove "Revert layout" button on Flex Pages.
+  $route_match = \Drupal::routeMatch();
+  $entity_type_id = $route_match->getParameter('entity_type_id');
+  if (isset($entity_type_id) && $entity_type_id !== NULL) {
+    $bundle = $route_match->getParameter($entity_type_id)->bundle();
+    if ($bundle === 'utexas_flex_page') {
+      unset($form["actions"]["revert"]);
+    }
+  }
 }
 
 /**
