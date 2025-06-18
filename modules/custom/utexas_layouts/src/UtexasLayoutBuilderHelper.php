@@ -3,7 +3,6 @@
 namespace Drupal\utexas_layouts;
 
 use Drupal\Core\Entity\ContentEntityInterface;
-use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 
 /**
  * Identify information about Layout Builder-enabled pages.
