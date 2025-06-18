@@ -109,23 +109,6 @@ function utexas_layouts_block_view_alter(array &$build, BlockPluginInterface $bl
 }
 
 /**
- * Implements hook_preprocess_block().
- */
-function utexas_layouts_preprocess_block(&$variables) {
-  $base_plugin_id = $variables['base_plugin_id'];
-
-  // Blocks placed on layout builder pages.
-  if (!isset($variables['elements']['#utexas_layouts_region']) || $variables['elements']['#utexas_layouts_region'] !== 'content') {
-    // Some modules (e.g., Total Control) do not implement this hook correctly.
-    return;
-  }
-  // Limit to page title blocks placed in the main 'content' region.
-  if ($base_plugin_id === 'page_title_block' && UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
-    array_push($variables['attributes']['class'], 'utexas-readable', 'container');
-  }
-}
-
-/**
  * Implements hook_contextual_links_plugins_alter().
  */
 function utexas_layouts_contextual_links_plugins_alter(array &$contextual_links) {
