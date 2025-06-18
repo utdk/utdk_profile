@@ -2,7 +2,9 @@
 
 namespace Drupal\layout_builder_content_usability\Controller;
 
+use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\layout_builder\SectionComponent;
 use Drupal\node\NodeInterface;
 
 /**
@@ -24,34 +26,50 @@ class UsabilityController extends ControllerBase {
   public static function revise($id) {
     $entity_storage = \Drupal::entityTypeManager()->getStorage('node');
     /** @var \Drupal\node\NodeInterface $node */
+    $do_save = FALSE;
     $node = $entity_storage->load($id);
-    $connection = \Drupal::database();
-    // Get a list of all block revision IDs in the system.
-    $query = $connection->select('block_content_field_revision', 'b');
-    $query->fields('b', ['revision_id']);
-    $result = $query->execute();
-    $block_revisions = $result->fetchCol();
-    $existing_block_revisions = array_values($block_revisions);
-
-    // Get all *current* Layout Builder layouts.
-    $query = $connection->select('node__layout_builder__layout', 'n');
-    $query->condition('n.bundle', 'utexas_flex_page', '=');
-    $query->condition('n.entity_id', $id, '=');
-    $query->fields('n', ['entity_id', 'layout_builder__layout_section']);
-    $result = $query->execute();
-    $layouts = $result->fetchAll();
-
-    foreach ($layouts as $layout) {
-      $section = unserialize($layout->layout_builder__layout_section);
-      $components = $section->getComponents();
-      foreach ($components as $component) {
-        $plugin = $component->getPlugin();
-        $component_array = $component->toArray();
-        if (isset($component_array['configuration']['block_revision_id'])) {
-          print_r($layout->entity_id);
-          print_r($component_array['configuration']['label']);
+    $layout = $node->get('layout_builder__layout')->getValue();
+    if (!empty($layout)) {
+      foreach ($layout as $section) {
+        if (isset($section['section'])) {
+          $components = $section['section']->getComponents();
+          foreach ($components as $component) {
+            if ($component instanceof SectionComponent && $component->getPluginId() === 'inline_block:basic') {
+              $configuration = $component->get('configuration');
+              $bid = $configuration['block_id'];
+              $block = BlockContent::load($bid);
+              if (!empty($block)) {
+                $content = $block->get('body')->getValue();
+                // @todo: inject LLM processing
+                $before = $content[0]['value'];
+                $after = self::modify($before);
+                if ($before !== $after) {
+                  $content[0]['value'] = $after;
+                  $do_save = TRUE;
+                  $block->set('body', $content);
+                  $block->setNewRevision();
+                  $block->save();
+                  $block_storage = \Drupal::service('entity_type.manager')->getStorage('block_content');
+                  $latest_revision_id = $block_storage->getLatestRevisionId($bid);
+                  if (!empty($latest_revision_id)) {
+                    $configuration['block_revision_id'] = $latest_revision_id;
+                    $component->setConfiguration($configuration);
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
+    if ($do_save) {
+      $node->set('layout_builder__layout', $layout);
+      $node->save();
+    }
+    return '';
+  }
+
+  public static function modify($text) {
+    return 'a change';
   }
 }
