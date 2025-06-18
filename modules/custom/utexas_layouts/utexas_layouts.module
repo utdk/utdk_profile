@@ -25,7 +25,7 @@ function utexas_layouts_preprocess_layout(&$variables) {
   if ($add_container && (in_array('readable', $variables['attributes']['class']) || in_array('utexas-readable', $variables['attributes']['class']))) {
     $variables['attributes']['class'][] = 'container';
   }
-  else {
+  elseif ($add_container) {
     $variables['attributes']['class'][] = 'container-lg';
   }
 }
