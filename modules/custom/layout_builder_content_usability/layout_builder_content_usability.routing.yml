@@ -1,0 +1,22 @@
+layout_builder_content_usability.settings:
+  path: '/admin/config/content/layout_builder_content_usability'
+  defaults:
+    _form: '\Drupal\layout_builder_content_usability\Form\LayoutBuilderContentUsabilitySettings'
+    _title: 'Layout Builder Content Usability'
+  options:
+    _admin_route: TRUE
+  requirements:
+    _permission: 'access content overview'
+layout_builder_content_usability.usability:
+  path: '/node/{node}/usability'
+  defaults:
+    _title: 'Improve usability'
+    _controller: '\Drupal\layout_builder_content_usability\Controller\UsabilityController::fix'
+  requirements:
+    _entity_access: 'node.view all revisions'
+    node: \d+
+  options:
+    _node_operation_route: TRUE
+    parameters:
+      node:
+        type: entity:node

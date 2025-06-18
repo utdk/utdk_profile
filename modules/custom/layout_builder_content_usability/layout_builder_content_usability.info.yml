@@ -1,0 +1,8 @@
+name: 'Layout Builder Content Usability'
+description: 'Creates new content revision of potential usability improvements for Layout Builder pages.'
+type: module
+core_version_requirement: '>=10'
+dependencies:
+  - 'drupal:block_content'
+  - 'drupal:layout_builder'
+core_incompatible: false

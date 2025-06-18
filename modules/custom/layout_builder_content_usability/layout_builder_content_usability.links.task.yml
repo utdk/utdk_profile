@@ -1,0 +1,5 @@
+layout_builder_content_usability.usability:
+  route_name: layout_builder_content_usability.usability
+  base_route: entity.node.canonical
+  title: 'Improve usability'
+  weight: 21
