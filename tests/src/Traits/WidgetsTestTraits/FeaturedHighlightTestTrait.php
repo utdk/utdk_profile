@@ -182,17 +182,17 @@ trait FeaturedHighlightTestTrait {
     // CRUD: READ
     // Verify video iframe details.
     $this->drupalGet('node/' . $flex_page_id);
-    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'src', "/media/oembed?url=https%3A//www.youtube.com/watch%3Fv%3DvXyqBkXDacU");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'width', "100%");
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
     // The outer iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1763.
-    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'title', "YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'title', "YouTube content: UT Drupal Kit 2.0 Intro and Demo");
     // The inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
     $this->assertSame(
-      'YouTube content: Rick Astley - Never Gonna Give You Up (Official Music Video)',
+      'YouTube content: UT Drupal Kit 2.0 Intro and Demo',
       $session->evaluateScript("$inner_frame.getAttribute('title')")
     );
 
