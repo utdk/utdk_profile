@@ -494,10 +494,6 @@ function utexas_preprocess_block(&$variables) {
     // Some modules (e.g., Total Control) do not implement this hook correctly.
     return;
   }
-  // Limit to page title blocks placed in the main 'content' region.
-  if ($base_plugin_id === 'page_title_block' && ThemeHelper::firstSectionIsReadable()) {
-    array_push($variables['attributes']['class'], 'utexas-readable', 'container');
-  }
   // This is a resuable block placed in the 'content' region.
   // If the current page uses Layout Builder, set to 'container' width.
   if ($base_plugin_id !== 'system_main_block' && ThemeHelper::isLayoutBuilderPage()) {
@@ -512,7 +508,7 @@ function utexas_preprocess_block(&$variables) {
       if (ThemeHelper::isLayoutBuilderPage() && ThemeHelper::firstSectionIsReadable()) {
         array_push($variables['attributes']['class'], 'readable', 'container');
       }
-      else {
+      elseif (ThemeHelper::isLayoutBuilderPage()) {
         $variables['attributes']['class'][] = 'container-lg';
       }
     }
