@@ -30,6 +30,13 @@ class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
     // Create flex page.
     $flex_page_id = $this->createFlexPage();
 
+    // CRUD: READ
+    // The default layout is twocol 50/50.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $assert->elementExists('css', '.utexas-layout--twocol--50-50');
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->removeSectionFromLayoutBuilder('Section 1');
+
     // Block info.
     $block_type = 'Featured Highlight';
     $block_type_id = 'utexas_featured_highlight';
@@ -45,18 +52,21 @@ class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+
+    // The one-column layout defaults to "readable" width.
+    $this->drupalGetNodeLayoutTab($flex_page_id);
+    $this->addSectionToLayoutBuilder('One column');
+    $this->savePageLayout();
+    $assert->elementExists('css', '.layout--utexas-onecol.readable');
+    $assert->elementNotExists('css', '.layout--utexas-onecol.container-fluid');
+    // The page title gets set to "readable" width, too.
+    $assert->elementExists('css', '.block-page-title-block.utexas-readable');
+
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');
     $this->placeExistingBlockOnFlexPage($form, $block_name);
     $this->savePageLayout();
-
-    // CRUD: READ
-    // The one-column layout defaults to "readable" width.
-    $assert->elementExists('css', '.layout--utexas-onecol.readable');
-    $assert->elementNotExists('css', '.layout--utexas-onecol.container-fluid');
-    // The page title gets set to "readable" width, too.
-    $assert->elementExists('css', '.block-page-title-block.utexas-readable');
 
     // CRUD: UPDATE
     // Set the section to "Full width of page".
@@ -68,7 +78,7 @@ class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
 
     // CRUD: READ
     // A "container-fluid" class is added to the section.
-    $assert->elementNotExists('css', '.layout.container.readable');
+    $assert->elementNotExists('css', '.layout.readable');
     $assert->elementExists('css', '.layout.container-fluid');
     // The page title does not get set to "readable" width.
     $assert->elementNotExists('css', '.block-page-title-block.utexas-readable');
