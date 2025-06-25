@@ -39,6 +39,7 @@ install:
   # Contrib
   - drupal:addtoany
   - drupal:admin_toolbar_links_access_filter
+  - drupal:backward_compatibility
   - drupal:breadcrumbs_visibility
   - drupal:diff
   - drupal:entity_clone
