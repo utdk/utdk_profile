@@ -4,7 +4,6 @@
 export PATH=/var/www/tests/utdk-project/vendor/bin:$PATH
 ## Set up drush...
 mkdir ~/.drush
-cp /var/www/tests/.github/workflows/.fixtures/aliases.drushrc.php ~/.drush/aliases.drushrc.php
 ## Setup vhost...
 cp -R /var/www/tests/.github/workflows/.fixtures/utdk-vhost.conf /etc/apache2/sites-available
 a2ensite utdk-vhost.conf

@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" bootstrap="/var/www/tests/utdk-project/web/core/tests/bootstrap.php" colors="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutOutputDuringTests="true" beStrictAboutChangesToGlobalState="true" printerClass="\Drupal\Tests\Listeners\HtmlOutputPrinter" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage>
-    <include>
-      <directory>/var/www/tests/utdk-project/web/core/includes</directory>
-      <directory>/var/www/tests/utdk-project/web/core/lib</directory>
-      <directory>/var/www/tests/utdk-project/web/core/modules</directory>
-      <directory>/var/www/tests/utdk-project/web/modules</directory>
-      <directory>/var/www/tests/utdk-project/web/sites</directory>
-    </include>
-  </coverage>
+    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      bootstrap="/var/www/tests/utdk-project/web/core/tests/bootstrap.php"
+      colors="true"
+      beStrictAboutTestsThatDoNotTestAnything="true"
+      beStrictAboutOutputDuringTests="true"
+      beStrictAboutChangesToGlobalState="true"
+      cacheResult="false"
+      xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+      cacheDirectory=".phpunit.cache">
   <php>
-    <!-- Set error reporting to E_ALL. -->
-    <ini name="error_reporting" value="32767"/>
-    <!-- Do not limit the amount of memory tests take to run. -->
-    <ini name="memory_limit" value="-1"/>
-    <env name="MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless",  "--disable-dev-shm-usage", "--no-sandbox"]}}, "http://chrome:9515"]'/>
-    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless", "--disable-dev-shm-usage", "--no-sandbox"]}}, "http://chrome:9515"]'/>
-    <env name="MINK_DRIVER_CLASS" value="Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver"/>
-    <env name="BROWSERTEST_CACHE_DB" value="1"/>
+    <ini name="error_reporting" value="32767" />
+    <ini name="memory_limit" value="-1" />
+    <env name="MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","goog:chromeOptions":{"w3c":false, "args":["--disable-gpu","--headless", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://chrome:9515"]'/>
+    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","goog:chromeOptions":{"w3c":false, "args":["--disable-gpu","--headless", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://chrome:9515"]'/>
   </php>
   <testsuites>
     <testsuite name="unit">
@@ -33,12 +28,4 @@
       <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
-  <listeners>
-    <listener class="\Drupal\Tests\Listeners\DrupalListener">
-    </listener>
-    <!-- The Symfony deprecation listener has to come after the Drupal listener -->
-    <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener">
-    </listener>
-  </listeners>
-  <!-- Filter for coverage reports. -->
 </phpunit>
