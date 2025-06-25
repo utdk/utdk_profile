@@ -21,7 +21,6 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/addtoany": "2.0.7",
     "drupal/admin_toolbar": "3.5.3",
-    "drupal/backward_compatibility": "^1.0",
     "drupal/breadcrumbs_visibility": "2.0.0",
     "drupal/config_update": "2.0.0-alpha4",
     "drupal/core-composer-scaffold": "11.2.1",
@@ -55,7 +54,6 @@
     "drupal/url_embed": "3.0.0-beta2",
     "drupal/xmlsitemap": "2.0.0",
     "enshrined/svg-sanitize": "^0.21",
-    "mglaman/composer-drupal-lenient": "dev-main",
     "utexas/forty_acres": "3.24.0",
     "utexas/utexas_pantheon_logs_http": "^2.0",
     "utexas/utexas_saml_auth_helper": "^3.6",
@@ -68,8 +66,7 @@
     "patches": {
       "drupal/core": {
         "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch",
-        "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch",
-        "PHP warning: gd-png: libpng warning: iCCP: known incorrect sRGB profile (Drupal 10.2.0)": "https://drupalkit.its.utexas.edu/patches/20-imagecreatefrompng-3261924-52.patch"
+        "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch"
       },
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.2.1.0-beta1.patch"
