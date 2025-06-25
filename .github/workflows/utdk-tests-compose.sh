@@ -17,7 +17,6 @@ $COMPOSER remove utexas/utdk_profile --no-update
 cd ..
 $COMPOSER config repositories.utdk_profile vcs git@github.austin.utexas.edu:eis1-wcs/utdk_profile.git
 $COMPOSER config repositories.forty_acres vcs git@github.austin.utexas.edu:eis1-wcs/forty_acres.git
-$COMPOSER config repositories.utdk_localdev vcs git@github.austin.utexas.edu:eis1-wcs/utdk_localdev.git
 $COMPOSER config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 $COMPOSER config --no-plugins allow-plugins.phpstan/extension-installer true
 
