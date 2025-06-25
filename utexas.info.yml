@@ -43,7 +43,6 @@ install:
   - drupal:breadcrumbs_visibility
   - drupal:diff
   - drupal:entity_clone
-  - drupal:features
   - drupal:feed_block
   - drupal:google_tag
   - drupal:google_cse
