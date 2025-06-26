@@ -497,7 +497,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $assert = $this->assertSession();
 
     $selector = $assert->buildXPathQuery(
-      '//span[contains(@class, "ui-dialog-title")][text()=:text]/../..',
+      '//*[contains(@class, "ui-dialog-title")][text()=:text]',
       [':text' => $text]
     );
     $ui_dialog = $assert->waitForElement('xpath', $selector, $this->getTimeout());
@@ -844,9 +844,8 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
       ':text' => $attribute_text,
       ':index' => $element_index,
     ];
-    $xpath_query = '(//' . $element_name . '[' . $attribute_name . '=:text])[:index]';
+    $xpath_query = '(//' . $element_name . '[text()[contains(.,' . $attribute_name . ')]])[:index]';
     $selector = $assert->buildXPathQuery($xpath_query, $substitutions);
-
     // Find element within parent.
     $element = $parent_element->find('xpath', $selector);
     $this->assertNotEmptyXpath($element, $selector);
