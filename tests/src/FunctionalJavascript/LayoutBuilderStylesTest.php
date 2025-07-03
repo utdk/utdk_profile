@@ -60,7 +60,7 @@ class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
     $assert->elementExists('css', '.layout--utexas-onecol.readable');
     $assert->elementNotExists('css', '.layout--utexas-onecol.container-fluid');
     // The page title gets set to "readable" width, too.
-    $assert->elementExists('css', '.block-page-title-block.utexas-readable');
+    $assert->elementExists('css', '.block-page-title-block.readable');
 
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
@@ -81,7 +81,7 @@ class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
     $assert->elementNotExists('css', '.layout.readable');
     $assert->elementExists('css', '.layout.container-fluid');
     // The page title does not get set to "readable" width.
-    $assert->elementNotExists('css', '.block-page-title-block.utexas-readable');
+    $assert->elementNotExists('css', '.block-page-title-block.readable');
     // Verify "Border with background" class is not present.
     $assert->elementNotExists('css', '.utexas-field-border.utexas-field-background');
     // Verify "Border without background" class is not present.

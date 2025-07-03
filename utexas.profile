@@ -487,17 +487,6 @@ function utexas_preprocess_block(&$variables) {
     // All other block titles should use `ut-headline--xl`.
     $variables['title_attributes']['class'][] = 'ut-headline--xl';
   }
-
-  // Address blocks placed in the main 'content' region on Layout Builder pages.
-  if (!empty($variables['elements']['#utexas_layouts_region'])) {
-    if ($base_plugin_id !== 'system_main_block' && $variables['elements']['#utexas_layouts_region'] === 'content') {
-      // This is a resuable block placed located in the 'content' region.
-      // If the current page uses Layout Builder, set to 'container' width.
-      if (ThemeHelper::isLayoutBuilderPage()) {
-        $variables['attributes']['class'][] = 'container';
-      }
-    }
-  }
 }
 
 /**
