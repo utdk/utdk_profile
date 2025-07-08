@@ -27,9 +27,9 @@
         </div>
       {% endif %}
       <div class="data-wrapper">
-        <h3 class="ut-headline">
-          {{ item.headline }}
-        </h3>
+        {% if item.headline %}
+          <h3 class="ut-headline">{{ item.headline }}</h3>
+        {% endif %}
         {% if item.links %}
           <ul class="link-list">
             {% for link in item.links %}
