@@ -148,3 +148,12 @@ function utexas_text_format_flex_html_update_8115() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Remove Qualtrics CKEditor Plugin from Flex HTML and Full HTML (#2860).
+ */
+function utexas_text_format_flex_html_update_8116() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}
