@@ -36,6 +36,7 @@ class UTexasImageLinkWidget extends WidgetBase {
       '#title' => $this->t('Image'),
       '#default_value' => MediaEntityImageHelper::checkMediaExists($item->image),
       '#description' => $this->t('This image will fill the width of the region it is placed in.'),
+      '#required' => TRUE,
     ];
     $element['link'] = [
       '#type' => 'utexas_link_options_element',

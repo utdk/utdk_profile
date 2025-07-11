@@ -90,6 +90,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
+    $image_render_array = [];
     $elements = [];
     $responsive_image_style_name = 'utexas_responsive_image_il';
     $cache_tags = $this->generateCacheTags($responsive_image_style_name);

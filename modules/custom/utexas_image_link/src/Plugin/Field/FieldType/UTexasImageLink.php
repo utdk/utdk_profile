@@ -35,7 +35,7 @@ class UTexasImageLink extends FieldItemBase {
     // Prevent early t() calls by using the TranslatableMarkup.
     $properties['image'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Image'))
-      ->setRequired(FALSE);
+      ->setRequired(TRUE);
     $properties['link'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Link'))
       ->setRequired(FALSE);
