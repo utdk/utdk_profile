@@ -196,7 +196,7 @@ function utexas_form_elements_form_menu_link_content_form_alter(array &$form, Fo
   $menu_link = $form_state->getFormObject()->getEntity();
   $form['#default_value']['options'] = [];
   $link = $menu_link->link->getValue();
-  if (isset($link)) {
+  if (isset($link[0]['options'])) {
     $form['#default_value']['options'] = $link[0]['options'];
   }
   if ($menu_link->isDefaultTranslationAffectedOnly() && !$menu_link->isDefaultTranslation()) {
