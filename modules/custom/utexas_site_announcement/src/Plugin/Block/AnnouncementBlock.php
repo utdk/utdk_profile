@@ -84,6 +84,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
       '#title' => $this->t('Announcement title'),
       '#description' => $this->t('Enter the text that should appear as the headline for the announcement'),
       '#default_value' => $config['title'] ?? '',
+      '#required' => TRUE,
     ];
     $icons = $this->entityTypeManager->getStorage('utexas_announcement_icon')->loadMultiple();
     foreach ($icons as $icon) {
@@ -117,7 +118,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     // Account for no available color schemes.
     if (empty($scheme_options)) {
       $scheme_options = ['none' => $this->t('None')];
-    };
+    }
     $scheme_options_keys = array_keys($scheme_options);
     $default_color_scheme_option = reset($scheme_options_keys);
     $form['scheme'] = [
