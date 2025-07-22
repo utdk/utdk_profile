@@ -68,6 +68,47 @@ function utexas_theme($existing, $type, $theme, $path) {
 }
 
 /**
+ * Implements hook_themes_installed().
+ */
+function utexas_themes_installed($theme_list) {
+  // The theme 'Speedway' is being installed.
+  if (in_array('speedway', $theme_list)) {
+
+    $config = \Drupal::config('system.theme');
+    $default_theme = $config->get('default');
+    $theme_config = \Drupal::config($default_theme . '.settings');
+
+    // Load additional theme settings.
+    $link = $theme_config->get('parent_link');
+    $title = $theme_config->get('parent_link_title');
+    $logo_height = $theme_config->get('logo_height');
+    $header_secondary_display = $theme_config->get('header_secondary_display');
+    $main_menu_alignment = $theme_config->get('main_menu_alignment');
+
+    // Save additional theme settings.
+    \Drupal::logger('utexas')->notice('Mapping your theme settings to Speedway...');
+    $speedway = \Drupal::configFactory()->getEditable('speedway.settings');
+    if (isset($link) && isset($title)) {
+      $speedway->set('parent_link', $link);
+      $speedway->set('parent_link_title', $title);
+      $speedway->save();
+    }
+    if (isset($logo_height)) {
+      $speedway->set('logo_height', $logo_height);
+      $speedway->save();
+    }
+    if (isset($header_secondary_display)) {
+      $speedway->set('header_secondary_display', $header_secondary_display);
+      $speedway->save();
+    }
+    if (isset($main_menu_alignment)) {
+      $speedway->set('main_menu_alignment', $main_menu_alignment);
+      $speedway->save();
+    }
+  }
+}
+
+/**
  * Implements hook_theme_registry_alter().
  */
 function utexas_theme_registry_alter(&$theme_registry) {
@@ -445,17 +486,6 @@ function utexas_preprocess_block(&$variables) {
   else {
     // All other block titles should use `ut-headline--xl`.
     $variables['title_attributes']['class'][] = 'ut-headline--xl';
-  }
-
-  // Address blocks placed in the main 'content' region on Layout Builder pages.
-  if (!empty($variables['elements']['#utexas_layouts_region'])) {
-    if ($base_plugin_id !== 'system_main_block' && $variables['elements']['#utexas_layouts_region'] === 'content') {
-      // This is a resuable block placed located in the 'content' region.
-      // If the current page uses Layout Builder, set to 'container' width.
-      if (ThemeHelper::isLayoutBuilderPage()) {
-        $variables['attributes']['class'][] = 'container';
-      }
-    }
   }
 }
 

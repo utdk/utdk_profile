@@ -123,7 +123,6 @@ class BaseInstallationTest extends BrowserTestBase {
         'insertTable',
         'drupalMedia',
         'urlembed',
-        'qualtrics',
         'blockQuote',
         'heading',
         'style',

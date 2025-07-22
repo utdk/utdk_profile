@@ -165,6 +165,8 @@ function utexas_form_elements_library_info_alter(&$libraries, $extension) {
     $theme = \Drupal::configFactory()->getEditable('system.theme')->get('default');
     $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
     $basetheme = $themeinfo['base theme'] ?? '';
+    $eligible_themes = ['forty_acres', 'speedway'];
+    $is_eligible_theme = in_array($theme, $eligible_themes) || in_array($basetheme, $eligible_themes);
     // Add paths to stylesheets specified by a modules's ckeditor5-stylesheets
     // config property.
     $module = 'utexas_form_elements';
@@ -175,8 +177,8 @@ function utexas_form_elements_library_info_alter(&$libraries, $extension) {
       foreach (array_values($css) as $url) {
         $path = '/' . $module_path . '/' . $url;
         // Only load utexas_form_elements ckeditor5-stylesheets if the active
-        // theme or base theme is forty_acres.
-        if ($theme != 'forty_acres' && $basetheme != 'forty_acres') {
+        // theme or base theme is eligible.
+        if (!$is_eligible_theme) {
           continue;
         }
         $libraries['internal.drupal.ckeditor5.stylesheets']['css']['theme'][$path] = [];
@@ -194,7 +196,7 @@ function utexas_form_elements_form_menu_link_content_form_alter(array &$form, Fo
   $menu_link = $form_state->getFormObject()->getEntity();
   $form['#default_value']['options'] = [];
   $link = $menu_link->link->getValue();
-  if (isset($link)) {
+  if (isset($link[0]['options'])) {
     $form['#default_value']['options'] = $link[0]['options'];
   }
   if ($menu_link->isDefaultTranslationAffectedOnly() && !$menu_link->isDefaultTranslation()) {

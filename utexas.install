@@ -1235,3 +1235,21 @@ function utexas_update_8169() {
 function utexas_update_8170() {
   \Drupal::state()->set('display_links', 1);
 }
+
+/**
+ * Remove Qualtrics CKEditor Plugin from Flex HTML and Full HTML (#2860).
+ */
+function utexas_update_8171() {
+  $full_html_default = \Drupal::state()->get('full_html_updates') ?? 0;
+  if ($full_html_default != 0) {
+    $config_name = 'editor.editor.full_html';
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/' . $config_name . '.yml';
+    if (!empty($config_path)) {
+      $data = Yaml::parse(file_get_contents($config_path));
+      if (is_array($data)) {
+        $config->setData($data)->save(TRUE);
+      }
+    }
+  }
+}

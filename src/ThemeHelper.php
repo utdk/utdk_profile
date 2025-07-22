@@ -11,6 +11,31 @@ use Drupal\layout_builder\Entity\LayoutBuilderEntityViewDisplay;
 class ThemeHelper {
 
   /**
+   * Whether the first section of this Layout Builder page is "Readable width".
+   *
+   * @return bool
+   *   Whether the first section of this Layout Builder page is "Readable".
+   */
+  public static function firstSectionIsReadable() {
+    $entity = self::getRouteEntity();
+    $entity_type = $entity ? $entity->getEntityTypeId() : NULL;
+    $bundle = $entity ? $entity->bundle() : NULL;
+    if (!$entity_type || !$bundle) {
+      return FALSE;
+    }
+    if ($entity->hasField('layout_builder__layout')) {
+      $sections = $entity->get('layout_builder__layout')->getSections();
+      if (isset($sections[0])) {
+        $settings = $entity->get('layout_builder__layout')->getSection(0)->getLayoutSettings();
+        if (isset($settings['section_width']) && $settings['section_width'] === 'readable') {
+          return TRUE;
+        }
+      }
+    }
+    return FALSE;
+  }
+
+  /**
    * Whether this is a Layout Builder page.
    *
    * @return bool

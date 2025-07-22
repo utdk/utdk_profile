@@ -1,5 +1,0 @@
-name: 'UTexas Beacon'
-type: module
-description: 'Provides "phone home" functionality for the UTexas distribution.'
-core_version_requirement: '^10 || ^11'
-package: 'UTexas'

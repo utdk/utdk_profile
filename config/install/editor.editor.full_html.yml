@@ -30,7 +30,6 @@ settings:
       - drupalMedia
       - urlembed
       - blockQuote
-      - qualtrics
       - heading
       - style
       - '|'

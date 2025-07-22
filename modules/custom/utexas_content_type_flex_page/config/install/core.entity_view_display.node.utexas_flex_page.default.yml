@@ -18,14 +18,19 @@ third_party_settings:
     allow_custom: true
     sections:
       -
-        layout_id: layout_utexas_onecol
+        layout_id: layout_utexas_twocol
         layout_settings:
           label: ''
+          context_mapping: {  }
           blur: 0
           background-color: none
-          section_width: readable
-          class: ''
-          background-accent: '0'
+          column_widths: 50-50
+          section_width: container
+          layout_builder_styles_style:
+            utexas_no_padding: 0
+            utexas_add_space_at_top_of_section: 0
+            utexas_reduce_space_at_top_of_section: 0
+          background-accent: 0
         components: {  }
         third_party_settings: {  }
   layout_builder_restrictions:

@@ -196,7 +196,7 @@ trait EntityTestTrait {
       'langcode' => Language::LANGCODE_NOT_SPECIFIED,
       'status' => '1',
       'field_media_oembed_video' => [
-        'value' => "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        'value' => "https://www.youtube.com/watch?v=vXyqBkXDacU",
       ],
     ]);
     $video_media->save();

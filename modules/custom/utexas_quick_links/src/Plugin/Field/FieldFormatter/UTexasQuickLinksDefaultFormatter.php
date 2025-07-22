@@ -28,8 +28,8 @@ class UTexasQuickLinksDefaultFormatter extends FormatterBase {
     $elements = [];
 
     foreach ($items as $item) {
-      $links = unserialize($item->links);
-      if (!empty($links)) {
+      if (!empty($item->links)) {
+        $links = unserialize($item->links, ['allowed_classes' => FALSE]);
         foreach ($links as &$link) {
           if (!empty($link['uri'])) {
             $link_item['link'] = $link;

@@ -20,7 +20,13 @@
   margin-left: 0;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) and (max-width:991px) {
+  .utexas-layout--threecol .utexas-layout--threecol-wrapper>.layout__region {
+    flex: 1 1 40%;
+  }
+}
+
+@media screen and (min-width: 992px) {
   .utexas-layout--threecol.utexas-layout--threecol--25-50-25 .utexas-layout--threecol-wrapper > .layout__region--first,
   .utexas-layout--threecol.utexas-layout--threecol--25-50-25 .utexas-layout--threecol-wrapper > .layout__region--third,
   .utexas-layout--threecol.utexas-layout--threecol--25-25-50 .utexas-layout--threecol-wrapper > .layout__region--first,

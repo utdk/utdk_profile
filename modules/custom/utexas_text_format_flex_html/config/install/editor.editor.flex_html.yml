@@ -29,7 +29,6 @@ settings:
       - insertTable
       - drupalMedia
       - urlembed
-      - qualtrics
       - blockQuote
       - heading
       - style

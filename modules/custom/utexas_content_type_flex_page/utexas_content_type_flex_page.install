@@ -24,9 +24,18 @@ function utexas_content_type_flex_page_update_8102() {
 }
 
 /**
- * Add "Page Summary" field to Flex Page content type. (#2006)
+ * Add "Page Summary" field to Flex Page content type (#2006).
  */
 function utexas_content_type_flex_page_update_8103() {
+  \Drupal::service('features.manager')->import([
+    'utexas_content_type_flex_page',
+  ], TRUE);
+}
+
+/**
+ * Update default section to 2-column (50/50) container width (#2855).
+ */
+function utexas_content_type_flex_page_update_8104() {
   \Drupal::service('features.manager')->import([
     'utexas_content_type_flex_page',
   ], TRUE);

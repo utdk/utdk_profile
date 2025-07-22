@@ -7,7 +7,7 @@
 
 use Drupal\Core\Block\BlockPluginInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\utexas_layouts\UtexasLayoutBuilderHelper;
+use Drupal\utexas\ThemeHelper;
 
 /**
  * Implements hook_preprocess_layout().
@@ -17,13 +17,13 @@ function utexas_layouts_preprocess_layout(&$variables) {
   $variables['background_image'] = $variables['content']['#background_image'] ?? NULL;
   $variables['background_color'] = $variables['content']['#background_color'] ?? NULL;
   // If a class of "container-fluid" has NOT been applied to this layout,
-  // (i.e., via Layout Builder Styles) add "container".
+  // (i.e., via Layout Builder Styles) add "container-lg".
   $add_container = TRUE;
   if (isset($variables['attributes']['class']) && in_array('container-fluid', $variables['attributes']['class'])) {
     $add_container = FALSE;
   }
   if ($add_container) {
-    $variables['attributes']['class'][] = 'container';
+    $variables['attributes']['class'][] = 'container-lg';
   }
 }
 
@@ -32,6 +32,36 @@ function utexas_layouts_preprocess_layout(&$variables) {
  */
 function utexas_layouts_preprocess_page(&$variables) {
   $variables['#attached']['library'][] = 'utexas_layouts/layout_builder_ui';
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function utexas_layouts_preprocess_block(&$variables) {
+  $base_plugin_id = $variables['base_plugin_id'];
+  // Blocks placed on layout builder pages.
+  if (!isset($variables['elements']['#utexas_layouts_region']) || $variables['elements']['#utexas_layouts_region'] !== 'content') {
+    // Some modules (e.g., Total Control) do not implement this hook correctly.
+    return;
+  }
+  // Address blocks placed in the main 'content' region on Layout Builder pages.
+  if (!empty($variables['elements']['#utexas_layouts_region'])) {
+    if ($base_plugin_id !== 'system_main_block' && $variables['elements']['#utexas_layouts_region'] === 'content') {
+      // Since this block may be present on non Layout Builder & Layout Builder
+      // pages, set the block to be uncacheable so it can vary.
+      $variables['#cache']['contexts'][] = 'url.path';
+      $variables['#cache']['max-age'] = 0;
+      // This is a reusable block placed located in the 'content' region.
+      // If the current page uses Layout Builder, set to 'container-lg' width.
+      if (ThemeHelper::isLayoutBuilderPage()) {
+        $variables['attributes']['class'][] = 'container-lg';
+      }
+      // If first section is set to "Readable" width, add the `readable` class.
+      if (ThemeHelper::firstSectionIsReadable()) {
+        $variables['attributes']['class'][] = 'readable';
+      }
+    }
+  }
 }
 
 /**
@@ -76,6 +106,15 @@ function utexas_layouts_form_layout_builder_add_block_alter(&$form, FormStateInt
  */
 function utexas_layouts_form_node_layout_builder_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $form['#attributes']['class'][] = 'container';
+  // Remove "Revert layout" button on Flex Pages.
+  $route_match = \Drupal::routeMatch();
+  $entity_type_id = $route_match->getParameter('entity_type_id');
+  if (isset($entity_type_id) && $entity_type_id !== NULL) {
+    $bundle = $route_match->getParameter($entity_type_id)->bundle();
+    if ($bundle === 'utexas_flex_page') {
+      unset($form["actions"]["revert"]);
+    }
+  }
 }
 
 /**
@@ -94,29 +133,6 @@ function utexas_layouts_block_view_alter(array &$build, BlockPluginInterface $bl
   $block_config_entity = $build['#block'];
   // Add a key/value for the region where the block is being rendered.
   $build['#utexas_layouts_region'] = $block_config_entity->getRegion();
-}
-
-/**
- * Implements hook_preprocess_block().
- */
-function utexas_layouts_preprocess_block(&$variables) {
-  $base_plugin_id = $variables['base_plugin_id'];
-
-  // Blocks placed on layout builder pages.
-  if (!isset($variables['elements']['#utexas_layouts_region']) || $variables['elements']['#utexas_layouts_region'] !== 'content') {
-    // Some modules (e.g., Total Control) do not implement this hook correctly.
-    return;
-  }
-  // Limit to page title blocks placed in the main 'content' region.
-  if ($base_plugin_id === 'page_title_block' && UtexasLayoutBuilderHelper::firstSectionIsReadable()) {
-    $variables['attributes']['class'][] = 'utexas-readable';
-  }
-  // This is a resuable block placed in the 'content' region.
-  // If the current page uses Layout Builder, set to 'container' width.
-  if ($base_plugin_id !== 'system_main_block' && UtexasLayoutBuilderHelper::isLayoutBuilderPage()) {
-    $variables['attributes']['class'][] = 'container';
-  }
-
 }
 
 /**
