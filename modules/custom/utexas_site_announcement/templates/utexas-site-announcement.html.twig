@@ -13,13 +13,12 @@
  * @ingroup themeable
  */
 #}
-
-<div id="{{ unique_id }}" class="announcement-content">
+<section id="{{ unique_id }}" class="announcement-content" aria-labelledby="{{ header_id }}">
   {{ edit_link }}
   <div>
     <span class="announcement-icon">{{ icon }}</span>
     {% if title %}
-      <h2 class="announcement-title">
+      <h2 class="announcement-title" id="{{ header_id }}">
         {{ title }}
       </h2>
     {% endif %}
@@ -28,4 +27,4 @@
   {% if cta %}
     <div class="cta">{{ cta }}</div>
   {% endif %}
-</div>
+</section>

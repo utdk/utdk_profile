@@ -16,6 +16,7 @@ function utexas_site_announcement_theme() {
     'utexas_site_announcement' => [
       'variables' => [
         'title' => NULL,
+        'header_id' => NULL,
         'icon' => NULL,
         'message' => NULL,
         'cta' => NULL,
