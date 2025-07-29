@@ -472,6 +472,11 @@ function utexas_preprocess_page(&$variables) {
 function utexas_preprocess_block(&$variables) {
   $base_plugin_id = $variables['base_plugin_id'];
   $content = $variables['elements']['content'] ?? [];
+  if (in_array($base_plugin_id, ['menu_block', 'system_menu_block'])) {
+    if (isset($variables['elements']['#id'])) {
+      $variables['content']['#attributes']['menu-block-id'] = $variables['elements']['#id'];
+    }
+  }
   // Add a bundle identifier as a CSS class.
   if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface) {
     if ($content['#block_content']->bundle() === 'feed_block') {
@@ -576,13 +581,8 @@ function utexas_preprocess_breadcrumb(&$variables) {
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  $theme_name = \Drupal::service('theme.manager')->getActiveTheme()->getName();
-  $theme_key = strtolower($theme_name) . '-';
-  // Remove the block, the themename (if present), and replace dashes with
-  // underscores in the block ID to use for the hook name.
-  if (isset($variables['attributes']['data-block'])) {
-    $hook = str_replace([$theme_key, 'block-', '-'], ['', '', '_'], $variables['attributes']['data-block']);
-    if ($block = Block::load($hook)) {
+  if (isset($variables['attributes']['menu-block-id'])) {
+    if ($block = Block::load($variables['attributes']['menu-block-id'])) {
       $region = $block->getRegion();
       $suggestions[] = 'menu__' . $region;
     }
