@@ -177,9 +177,9 @@ class LinkOptionsTest extends FunctionalJavascriptTestBase {
     // CRUD: READ
     // Delta 0 is present, links to an external site, shows an external icon,
     // and opens in a new tab.
-    $assert->responseContains('<a href="https://www.utexas.edu" target="_blank" class="ut-cta-link--external ut-link" rel="noopener noreferrer" aria-label="Link Number 1; Link opens in new window">Link Number 1</a>');
+    $assert->responseContains('<a href="https://www.utexas.edu" target="_blank" class="ut-cta-link--external ut-link" rel="noopener noreferrer" aria-label="Link Number 1; external link; opens in new window">Link Number 1</a>');
     // Delta 1 is present, links to an internal page, and has a lock.
-    $assert->responseContains('<a href="/test-flex-page" class="ut-cta-link--lock ut-link">Link Number 2</a>');
+    $assert->responseContains('<a href="/test-flex-page" class="ut-cta-link--lock ut-link" aria-label="Link Number 2; restricted link">Link Number 2</a>');
     // Delta 2 is present, links to the front page, and has a caret.
     $assert->responseContains('<a href="/" class="ut-cta-link--angle-right ut-link">Link Number 3</a>');
 

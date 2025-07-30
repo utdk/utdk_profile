@@ -11,16 +11,23 @@
    * @param {object} el The link element.
    */
   function modifyLink(el) {
-    const newWindowtext = "Link opens in new window";
+    const classes = el.getAttribute("class");
     const target = el.getAttribute("target");
-    const text = el.innerText;
-    if (target === "_blank" || target === "new") {
-      let label = el.getAttribute("aria-label");
-      if (label == null) {
-        label = `${text}; ${newWindowtext}`;
-      } else {
-        label = `${label}; ${newWindowtext}`;
+    let label = el.getAttribute("aria-label") ?? el.innerText;
+    let labelAppendage = "";
+    if (classes) {
+      if (classes.includes("ut-cta-link--external")) {
+        labelAppendage += "; external link";
       }
+      if (classes.includes("ut-cta-link--lock")) {
+        labelAppendage += "; restricted link";
+      }
+    }
+    if (target === "_blank" || target === "new") {
+      labelAppendage += "; opens in new window";
+    }
+    if (labelAppendage) {
+      label += labelAppendage;
       el.setAttribute("aria-label", label);
     }
   }
