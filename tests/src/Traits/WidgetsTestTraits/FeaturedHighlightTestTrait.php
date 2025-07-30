@@ -187,12 +187,12 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'height', "100%");
     // The outer iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1763.
-    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'title', "YouTube content: UT Drupal Kit 2.0 Intro and Demo");
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight iframe', 'title', "UT Drupal Kit 2.0 Intro and Demo");
     // The inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
     $this->assertSame(
-      'YouTube content: UT Drupal Kit 2.0 Intro and Demo',
+      'UT Drupal Kit 2.0 Intro and Demo',
       $session->evaluateScript("$inner_frame.getAttribute('title')")
     );
 

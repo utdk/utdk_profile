@@ -173,7 +173,7 @@ trait FlexContentAreaTestTrait {
     // The inner iframe has a title attribute.
     // See https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1201.
     $inner_frame = 'frames[0].document.querySelector("iframe")';
-    $this->assertSame('YouTube content: UT Drupal Kit 2.0 Intro and Demo', $session->evaluateScript("$inner_frame.getAttribute('title')"));
+    $this->assertSame('UT Drupal Kit 2.0 Intro and Demo', $session->evaluateScript("$inner_frame.getAttribute('title')"));
 
     // CRUD: UPDATE
     // Remove CTA title from Item 2, but leave CTA URL.
