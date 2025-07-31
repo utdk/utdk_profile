@@ -2,6 +2,7 @@
 
 namespace Drupal\utexas_block_social_links\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Link;
@@ -29,6 +30,26 @@ class UTexasSocialLinkFormatter extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $icons = UTexasSocialLinkOptions::getIcons();
+    // Add CSS derived from site-specific social media icons.
+    $inline_css = '';
+    foreach ($icons as $name => $icon) {
+      if (file_exists($icon)) {
+        // Bypass code syntax expectation for dependency injection.
+        // phpcs:ignore
+        $absolute_filepath = \Drupal::service('file_url_generator')->generateAbsoluteString($icon);
+        // phpcs:ignore
+        $relative_filepath = \Drupal::service('file_url_generator')->transformRelative($absolute_filepath);
+        $inline_css .= ".block__ut-social-links--link." . $name . " {
+          mask: url('" . $relative_filepath . "');mask-size: cover;}";
+      }
+    }
+    $elements['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => $inline_css,
+      ],
+      Html::getUniqueId('utexas-block-social-links'),
+    ];
     // Default to small for backwards compatibility.
     $icon_size = $items[0]->icon_size ?? 'ut-social-links--small';
     $elements['#icon_size'] = $icon_size;
@@ -39,30 +60,29 @@ class UTexasSocialLinkFormatter extends FormatterBase {
         // phpcs:ignore
         $social_account_links = (array) unserialize($stored_links, ['allowed_classes' => TRUE]);
         foreach ($social_account_links as $key => $val) {
-          if (!file_exists($icons[$val['social_account_name']])) {
+          $name = $val['social_account_name'];
+          if (!file_exists($icons[$name])) {
             // phpcs:ignore
             \Drupal::logger('utexas_block_social_links')->warning('The icon for %social is missing. Update it on the <a href="/admin/structure/social-links">social links configuration page</a>.', [
-              '%social' => $val['social_account_name'],
+              '%social' => $name,
             ]);
             continue;
           }
-          if (!empty($icons[$val['social_account_name']]) && $icon = file_get_contents($icons[$val['social_account_name']])) {
-            $icon_markup = Markup::create($icon);
-            $linked_icon_options = [
-              'attributes' => [
-                'class' => [
-                  'block__ut-social-links--link',
-                ],
-                'aria-label' => 'Find us on ' . ucfirst($val['social_account_name']),
+          $label = "Find us on " . ucfirst($name);
+          $link_text = Markup::create("<span class='sr-only'>$label</span>");
+          $linked_icon_options = [
+            'attributes' => [
+              'class' => [
+                'block__ut-social-links--link',
+                $name,
               ],
-            ];
-            $linked_icon = Link::fromTextAndUrl($icon_markup, Url::fromUri($val['social_account_url'], $linked_icon_options));
-            $renderable = $linked_icon->toRenderable();
-            $elements[$delta]['links'][$key] = $renderable;
-          }
+            ],
+          ];
+          $linked_icon = Link::fromTextAndUrl($link_text, Url::fromUri($val['social_account_url'], $linked_icon_options));
+          $renderable = $linked_icon->toRenderable();
+          $elements[$delta]['links'][$key] = $renderable;
         }
       }
-
       // Add class to the item.attributes object.
       $elements['#items'][$delta] = new \stdClass();
       $elements['#items'][$delta]->_attributes['class'][] = 'block__ut-social-links--item';
@@ -70,9 +90,6 @@ class UTexasSocialLinkFormatter extends FormatterBase {
       if ($item->headline) {
         $elements[$delta]['headline'] = RenderElementHelper::filterSingleLineText($item->headline, TRUE);
       }
-      $elements[$delta]['icon_size'] = [
-        '#markup' => $icon_size,
-      ];
     }
     return $elements;
   }
