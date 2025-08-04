@@ -192,12 +192,14 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     $background_color = $scheme !== NULL ? Html::escape($scheme->get('background_color')) : '';
     $text_color = $scheme !== NULL ? Html::escape($scheme->get('text_color')) : '';
     $unique_id = Html::getUniqueId("site-announcement");
+    $header_id = Html::getUniqueId("site-announcement-header");
     return [
       '#theme' => 'utexas_site_announcement',
       '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title'], TRUE) : '',
       '#icon' => $config['icon'] === 'none' ? NULL : $config['icon'],
       '#message' => !empty($config['message']['value']) ? check_markup($config['message']['value'], $config['message']['format']) : '',
       '#unique_id' => $unique_id,
+      '#header_id' => $header_id,
       '#cta' => $cta,
       '#attached' => [
         'library' => [
