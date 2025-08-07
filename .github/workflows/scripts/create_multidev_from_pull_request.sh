@@ -3,8 +3,10 @@
 TERMINUS_CMD="$HOME/vendor/bin/terminus"
 COMPOSER_CMD="php -d memory_limit=-1 /usr/local/bin/composer"
 
-# Enforce 11-charater limit on multidev names
+# Enforce 11-charater limit on multidev names and remove problematic characters
 MULTIDEV="${BRANCH:0:11}"
+MULTIDEV="${MULTIDEV//.}"
+MULTIDEV="${MULTIDEV//-}"
 
 get_latest_tag() {
   if [[ $1 = utexas ]];then
