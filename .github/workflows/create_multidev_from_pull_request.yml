@@ -1,44 +1,20 @@
-name: Create a multidev when an pull request is opened.
-
+name: Create a multidev for testing
 on:
-  pull_request:
-    types: [opened, reopened]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'utdk_profile git branch to use'
+        required: true
+        type: string
 env:
-  BRANCH: ${{github.event.pull_request.head.ref}}
+  BRANCH: ${{ github.event.inputs.branch }}
   SITE: 'utdkpr'
   REPO: 'utdk_profile'
-
 jobs:
   multidevcreator:
     runs-on: [ wcs-gh-p02-group ]
-    continue-on-error: true
     steps:
-      - name: "Derive Pantheon multidev name"
-        id: set_multidev
-        run: |
-          BRANCH=${{github.event.pull_request.head.ref}}
-          # Pantheon multidevs are limited to 11 characters.
-          MULTIDEV=${BRANCH:0:11}
-          echo "::set-output name=MULTIDEV::"${MULTIDEV}""
-
       - uses: actions/checkout@v3
-      - name: Do the Composer build and deploy
+      - name: CREATE A PANTHEON MULTIDEV
         id: createmultidev
-        continue-on-error: true
-        run: |
-          cd .github/workflows/scripts/
-          # Give sync to github.com a chance to complete
-          sleep 120
-          # Build a site from utdk-project using develop hashes
-          bash create.sh
-          # Do a site-installation and enable all the things
-          bash install.sh
-
-      - name: Add success comment
-        id: itworked
-        if: always() && steps.createmultidev.outcome == 'success'
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            A multidev for testing has been created at https://${{steps.set_multidev.outputs.MULTIDEV}}-utdkpr.pantheonsite.io .
+        run: bash .github/workflows/scripts/create_multidev_from_pull_request.sh
