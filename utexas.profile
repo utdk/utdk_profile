@@ -85,9 +85,17 @@ function utexas_themes_installed($theme_list) {
     $header_secondary_display = $theme_config->get('header_secondary_display');
     $main_menu_alignment = $theme_config->get('main_menu_alignment');
 
-    // Save additional theme settings.
+    // Map theme settings to Speedway.
     \Drupal::logger('utexas')->notice('Mapping your theme settings to Speedway...');
     $speedway = \Drupal::configFactory()->getEditable('speedway.settings');
+    // Migrate the custom logo, if defined.
+    $logo_use_default = $theme_config->get('logo.use_default');
+    $logo_path = $theme_config->get('logo.path');
+    if ($logo_use_default == FALSE) {
+      $speedway->set('logo.use_default', $logo_use_default);
+      $speedway->set('logo.path', $logo_path);
+    }
+    // Save additional theme settings.
     if (isset($link) && isset($title)) {
       $speedway->set('parent_link', $link);
       $speedway->set('parent_link_title', $title);
