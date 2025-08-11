@@ -60,7 +60,7 @@ $COMPOSER_CMD require utexas/utnews:"dev-develop as $UTNEWS" --no-update
 $COMPOSER_CMD require utexas/utprof:"dev-develop as $UTPROF" --no-update
 $COMPOSER_CMD require utexas/utdk_saas:dev-develop --no-update
 
-$COMPOSER_CMD install --ignore-platform-reqs
+$COMPOSER_CMD install
 if [ -f composer.lock ]; then
   git add .
   git commit -m "Deploy a site from branch $BRANCH" -a
