@@ -45,6 +45,8 @@ git clone https://github.com/utdk/utdk-project.git
 cd utdk-project
 git checkout -b $MULTIDEV
 
+$COMPOSER_CMD install
+
 # Add the Pantheon remote for utdkpr.
 GIT_URL=$($TERMINUS_CMD connection:info $SITE.dev --fields=git_url --format=string)
 git remote add pantheon $GIT_URL
@@ -60,7 +62,7 @@ $COMPOSER_CMD require utexas/utnews:"dev-develop as $UTNEWS" --no-update
 $COMPOSER_CMD require utexas/utprof:"dev-develop as $UTPROF" --no-update
 $COMPOSER_CMD require utexas/utdk_saas:dev-develop --no-update
 
-$COMPOSER_CMD install
+$COMPOSER_CMD update
 if [ -f composer.lock ]; then
   git add .
   git commit -m "Deploy a site from branch $BRANCH" -a
