@@ -11,6 +11,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utexas_icons\SvgImageHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -152,6 +153,9 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
       $media_attributes = MediaEntityImageHelper::getFileFieldValue($media);
       $image_render_array = [];
       if ($file = $this->entityTypeManager->getStorage('file')->load($media_attributes[0]['target_id'])) {
+        if (svg_image_is_file_svg($file)) {
+          return SvgImageHelper::renderAsSvg($file);
+        }
         $image = new \stdClass();
         $image->title = NULL;
         $image->alt = $media_attributes[0]['alt'];

@@ -1,0 +1,11 @@
+name: 'UTexas Icons'
+description: 'Provides a manifest of icons for use with Drupal media fields'
+type: module
+core_version_requirement: '^9.4 || ^10'
+package: UTexas
+dependencies:
+  - 'drupal:field'
+  - 'drupal:file'
+  - 'drupal:image'
+  - 'drupal:media'
+  - 'drupal:path'

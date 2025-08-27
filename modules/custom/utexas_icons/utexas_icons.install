@@ -1,0 +1,46 @@
+<?php
+
+use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Language\Language;
+use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
+
+/**
+ * Implements hook_install().
+ */
+function utexas_icons_install() {
+  $images = [
+    'facebook.svg',
+    'flickr.svg',
+    'instagram.svg',
+    'linkedin.svg',
+  ];
+  /** @var \Drupal\file\FileRepositoryInterface $file_repository */
+  $file_repository = \Drupal::service('file.repository');
+  $file_system = \Drupal::service('file_system');
+  $filedir = 'public://utexas_icons/';
+  $file_system->prepareDirectory($filedir, FileSystemInterface::CREATE_DIRECTORY);
+  foreach ($images as $image) {
+    $path = \Drupal::service('extension.list.module')->getPath('utexas_icons') . '/assets/' . $image;
+    $image = File::create();
+    $image->setFileUri($path);
+    $image->setOwnerId(\Drupal::currentUser()->id());
+    $image->setMimeType(\Drupal::service('file.mime_type.guesser')->guessMimeType($path));
+    $image->setFileName($file_system->basename($path));
+    $destination_dir = 'public://utexas_icons';
+    $file_system->prepareDirectory($destination_dir, FileSystemInterface::CREATE_DIRECTORY);
+    $destination = $destination_dir . '/' . basename($path);
+    $file = $file_repository->copy($image, $destination);
+    $image_media = Media::create([
+      'name' => $image,
+      'bundle' => 'utexas_icons',
+      'uid' => '1',
+      'langcode' => Language::LANGCODE_NOT_SPECIFIED,
+      'status' => '1',
+      'field_media_image' => [
+        'target_id' => $file->id(),
+      ],
+    ]);
+    $image_media->save();
+  }
+}

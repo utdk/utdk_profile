@@ -78,6 +78,7 @@ install:
   - utexas_flex_list
   - utexas_hero
   - utexas_hero_carousel
+  - utexas_icons
   - utexas_image_link
   - utexas_layouts
   - utexas_layout_builder_styles
