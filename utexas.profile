@@ -113,6 +113,13 @@ function utexas_themes_installed($theme_list) {
       $speedway->set('main_menu_alignment', $main_menu_alignment);
       $speedway->save();
     }
+    // Delete required links block.
+    $blocks = \Drupal::entityTypeManager()->getStorage('block')
+      ->loadByProperties(['plugin' => 'required_links_block', 'theme' => 'speedway']);
+    foreach ($blocks as $block) {
+      $block->delete();
+    }
+    \Drupal::configFactory()->getEditable('block.block.required_links_block')->delete();
   }
 }
 
