@@ -32,7 +32,5 @@ else
   $COMPOSER require utexas/forty_acres:"dev-develop as $FORTYACRES" --no-update
 fi
 
-# Pin to Drush 12 while on PHP 8.1
-composer require drush/drush:^12 --no-update
 $COMPOSER require "drupal/core-dev":"^10" --ignore-platform-reqs
 cat composer.json
