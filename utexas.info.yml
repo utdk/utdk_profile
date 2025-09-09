@@ -64,6 +64,7 @@ install:
   - drupal:responsive_tables_filter
   - drupal:role_delegation
   - drupal:seckit
+  - drupal:trash
   - drupal:updated
   - drupal:url_embed
   - drupal:xmlsitemap

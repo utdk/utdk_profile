@@ -1253,3 +1253,12 @@ function utexas_update_8171() {
     }
   }
 }
+
+/**
+ * Ability to recover deleted content (#2915).
+ */
+function utexas_update_8172() {
+  if (\Drupal::moduleHandler()->moduleExists('trash') === FALSE) {
+    \Drupal::service('module_installer')->install(['trash']);
+  }
+}
