@@ -5,6 +5,7 @@
  * Enables modules and site configuration for a standard UTDK installation.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\block\Entity\Block;
@@ -492,8 +493,10 @@ function utexas_preprocess_block(&$variables) {
       $variables['content']['#attributes']['menu-block-id'] = $variables['elements']['#id'];
     }
   }
-  // Add a bundle identifier as a CSS class.
   if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface) {
+    // Add bundle identifier.
+    $variables['attributes']['class'][] = Html::cleanCssIdentifier('block-bundle-' . $content['#block_content']->bundle());
+    // Add legacy identifier to our implementation of contrib feed_block module.
     if ($content['#block_content']->bundle() === 'feed_block') {
       $variables['attributes']['class'][] = 'ut-newsreel';
     }
