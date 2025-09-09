@@ -1267,7 +1267,6 @@ function utexas_update_8172() {
  * Grant trash bin access to roles with existing delete permission (#2915).
  */
 function utexas_update_8173() {
-  $available_permissions = \Drupal::service('user.permissions')->getPermissions();
   // Get static services.
   $trash_permissions = [
     'access trash',
