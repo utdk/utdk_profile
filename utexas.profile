@@ -306,18 +306,17 @@ function _utexas_install_footer_content() {
     $link->save();
   }
 
-  // Create block with textarea in Left Footer region.
+  // Create block with address placeholder text in 'Footer left' region.
   $block = BlockContent::create([
-    'info' => 'UTexas Block Footer Textarea',
+    'info' => 'Footer Address',
     'type' => 'basic',
     'langcode' => 'en',
     'body' => [
-      'value' => '<p class="footer-textarea">Powered by UT Drupal Kit</p>',
+      'value' => '<p>CSU Official Name<br>1234 Street Name St.<br>Austin, Texas, 78712</p><p><a href="tel:555-555-5555">555-555-5555</a><br><em>department@email-here</em></p>',
       'format' => 'flex_html',
     ],
   ]);
   $block->save();
-
   $config = \Drupal::config('system.theme');
   $placed_block = Block::create([
     'id' => $block->id(),
@@ -330,7 +329,7 @@ function _utexas_install_footer_content() {
   ]);
   $placed_block->save();
 
-  // Create CTA block and place in Right Footer region.
+  // Create CTA placeholder and place in 'Footer right' region.
   $block = BlockContent::create([
     'info' => 'Footer Call to Action',
     'type' => 'call_to_action',
@@ -341,23 +340,38 @@ function _utexas_install_footer_content() {
     ],
   ]);
   $block->save();
-
   $config = \Drupal::config('system.theme');
   $placed_block = Block::create([
-    'id' => 'footer_cta_block',
+    'id' => $block->id(),
     'weight' => 0,
     'theme' => $config->get('default'),
     'status' => TRUE,
     'region' => 'footer_right',
     'plugin' => 'block_content:' . $block->uuid(),
-    'settings' => [
-      'label' => 'Footer Call to Action',
-      'provider' => 'block_content',
-      'label_display' => '0',
-      'status' => TRUE,
-      'info' => '',
-      'view_mode' => 'full',
+    'settings' => [],
+  ]);
+  $placed_block->save();
+
+  // Create placeholder text for 'Footer right' region.
+  $block = BlockContent::create([
+    'info' => 'Footer Right Placeholder',
+    'type' => 'basic',
+    'langcode' => 'en',
+    'body' => [
+      'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content.</p>',
+      'format' => 'flex_html',
     ],
+  ]);
+  $block->save();
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => $block->id(),
+    'weight' => 1,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'footer_right',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
   ]);
   $placed_block->save();
 }
