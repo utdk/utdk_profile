@@ -461,6 +461,10 @@ function utexas_preprocess_html(&$variables) {
     ],
     'utexas-utdk-version',
   ];
+  if (!empty($variables['node_type'])) {
+    $node_type = $variables['node_type'];
+    $variables['attributes']['class'][] = 'page__' . $node_type;
+  }
 }
 
 /**
