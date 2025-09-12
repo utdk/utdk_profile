@@ -1272,6 +1272,7 @@ function utexas_update_8173() {
     'access trash',
     'purge node entities',
     'restore node entities',
+    'view deleted entities',
   ];
   $entity_type_manager = Drupal::entityTypeManager();
   $messenger = Drupal::messenger();
