@@ -37,7 +37,6 @@ class Permissions {
     'manage utexas site announcement',
     'update any media',
     'use text format full_html',
-    'view deleted entities,
   ];
 
   /**
@@ -110,6 +109,7 @@ class Permissions {
     'view any unpublished content',
     'view latest version',
     'view article revisions',
+    'view deleted entities',
     'view own unpublished content',
     'view own unpublished media',
     'view page revisions',
