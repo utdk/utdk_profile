@@ -37,6 +37,7 @@ class Permissions {
     'manage utexas site announcement',
     'update any media',
     'use text format full_html',
+    'view deleted entities,
   ];
 
   /**
