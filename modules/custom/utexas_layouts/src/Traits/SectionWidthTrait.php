@@ -55,7 +55,7 @@ trait SectionWidthTrait {
       $build['#attached']['library'][] = 'utexas_layouts/section-width';
     }
     if ($width === 'container') {
-      $width = 'container-lg';
+      $width = 'container-xl';
     }
     $build['#attributes']['class'][] = $width;
   }
