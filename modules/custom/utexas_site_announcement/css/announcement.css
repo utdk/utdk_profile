@@ -19,9 +19,10 @@
   line-height: 2.125rem;
   font-weight: 500;
   margin-bottom: 20px;
+  display: inline-block;
 }
 
-.announcement-content .announcement-title span {
+.announcement-content .announcement-icon {
   margin-right: 15px;
 }
 

@@ -5,11 +5,9 @@
  * Contains utexas_media_types.module.
  */
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\file\FileInterface;
 use Drupal\utexas_media_types\HookHandler\FileInsertHookHandler;
-use Drupal\utexas_media_types\IframeTitleHelper;
 
 /**
  * Implements hook_help().
@@ -46,21 +44,6 @@ function utexas_media_types_page_attachments(array &$attachments) {
   // Resolve issue in
   // https://github.austin.utexas.edu/eis1-wcs/utdk_profile/issues/1395.
   $attachments['#attached']['library'][] = 'utexas_media_types/media-oembed';
-}
-
-/**
- * Implements template_preprocess_media_oembed_iframe().
- */
-function utexas_media_types_preprocess_media_oembed_iframe(array &$variables) {
-  /** @var \Drupal\media\OEmbed\Resource $resource */
-  $resource = $variables['resource'];
-  $media = $variables['media'];
-  $html_dom = Html::load($media);
-  $iframes = $html_dom->getElementsByTagName('iframe');
-  foreach ($iframes as $iframe) {
-    $iframe->setAttribute('title', IframeTitleHelper::getTitle($resource));
-  }
-  $variables['media'] = Html::serialize($html_dom);
 }
 
 /**

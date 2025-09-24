@@ -16,6 +16,7 @@ $variable-prefix: bs-; // Deprecated in v5.2.0 for the shorter `$prefix`
 $prefix: $variable-prefix;
 $enable-container-classes: true;
 $enable-negative-margins: true;
+$enable-important-utilities: false;
 $grid-columns: 12;
 $grid-gutter-width: 1.5rem;
 $grid-row-columns: 6 !default;

@@ -24,8 +24,13 @@ $COMPOSER config --no-plugins allow-plugins.phpstan/extension-installer true
 
 $COMPOSER clear-cache
 $COMPOSER require utexas/utdk_profile:"dev-$BRANCH"  --no-update
-$COMPOSER require utexas/forty_acres:"dev-develop as $FORTYACRES" --no-update
-# Pin to Drush 12 while on PHP 8.1
-composer require drush/drush:^12 --no-update
+# If this is a release pull request, alias forty_acres with release tag
+if [[ "$BRANCH" == release-* ]]; then
+  RELEASE_TAG=$(sed "s/release-//" <<< "$BRANCH")
+  $COMPOSER require utexas/forty_acres:"dev-develop as $RELEASE_TAG" --no-update
+else
+  $COMPOSER require utexas/forty_acres:"dev-develop as $FORTYACRES" --no-update
+fi
+
 $COMPOSER require "drupal/core-dev":"^10" --ignore-platform-reqs
 cat composer.json

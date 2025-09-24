@@ -12,9 +12,3 @@ effects:
       width: 170
       height: 170
       anchor: center-center
-  dfc96c6d-64ef-443d-9a4b-607fed7bbd04:
-    uuid: dfc96c6d-64ef-443d-9a4b-607fed7bbd04
-    id: image_convert
-    weight: 2
-    data:
-      extension: webp

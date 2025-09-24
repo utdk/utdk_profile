@@ -33,9 +33,16 @@ class UTexasCallToActionFormatter extends LinkFormatter {
       ];
       if (isset($cta_values['options']['attributes']['class'])) {
         // Append any existing class to the classes that should be rendered.
-        $link_classes[] = $cta_values['options']['attributes']['class'];
+        if (is_array($cta_values['options']['attributes']['class'])) {
+          foreach ($cta_values['options']['attributes']['class'] as $class) {
+            $link_classes[] = $class;
+          }
+        }
+        else {
+          $link_classes[] = $cta_values['options']['attributes']['class'];
+        }
       }
-      $cta_values['options']['attributes']['class'] = $link_classes;
+      $cta_values['options']['attributes']['class'] = array_unique($link_classes);
       $cta_values['title'] = RenderElementHelper::filterSingleLineText($cta_values['title']);
       $items[$delta]->setValue($cta_values);
     }

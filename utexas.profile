@@ -5,6 +5,7 @@
  * Enables modules and site configuration for a standard UTDK installation.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\block\Entity\Block;
@@ -85,9 +86,17 @@ function utexas_themes_installed($theme_list) {
     $header_secondary_display = $theme_config->get('header_secondary_display');
     $main_menu_alignment = $theme_config->get('main_menu_alignment');
 
-    // Save additional theme settings.
+    // Map theme settings to Speedway.
     \Drupal::logger('utexas')->notice('Mapping your theme settings to Speedway...');
     $speedway = \Drupal::configFactory()->getEditable('speedway.settings');
+    // Migrate the custom logo, if defined.
+    $logo_use_default = $theme_config->get('logo.use_default');
+    $logo_path = $theme_config->get('logo.path');
+    if ($logo_use_default == FALSE) {
+      $speedway->set('logo.use_default', $logo_use_default);
+      $speedway->set('logo.path', $logo_path);
+    }
+    // Save additional theme settings.
     if (isset($link) && isset($title)) {
       $speedway->set('parent_link', $link);
       $speedway->set('parent_link_title', $title);
@@ -105,6 +114,13 @@ function utexas_themes_installed($theme_list) {
       $speedway->set('main_menu_alignment', $main_menu_alignment);
       $speedway->save();
     }
+    // Delete required links block.
+    $blocks = \Drupal::entityTypeManager()->getStorage('block')
+      ->loadByProperties(['plugin' => 'required_links_block', 'theme' => 'speedway']);
+    foreach ($blocks as $block) {
+      $block->delete();
+    }
+    \Drupal::configFactory()->getEditable('block.block.required_links_block')->delete();
   }
 }
 
@@ -290,18 +306,17 @@ function _utexas_install_footer_content() {
     $link->save();
   }
 
-  // Create block with textarea in Left Footer region.
+  // Create block with address placeholder text in 'Footer left' region.
   $block = BlockContent::create([
-    'info' => 'UTexas Block Footer Textarea',
+    'info' => 'Footer Address',
     'type' => 'basic',
     'langcode' => 'en',
     'body' => [
-      'value' => '<p class="footer-textarea">Powered by UT Drupal Kit</p>',
+      'value' => '<p>CSU Official Name<br>1234 Street Name St.<br>Austin, Texas, 78712</p><p><a href="tel:555-555-5555">555-555-5555</a><br><em>department@email-here</em></p>',
       'format' => 'flex_html',
     ],
   ]);
   $block->save();
-
   $config = \Drupal::config('system.theme');
   $placed_block = Block::create([
     'id' => $block->id(),
@@ -314,7 +329,7 @@ function _utexas_install_footer_content() {
   ]);
   $placed_block->save();
 
-  // Create CTA block and place in Right Footer region.
+  // Create CTA placeholder and place in 'Footer right' region.
   $block = BlockContent::create([
     'info' => 'Footer Call to Action',
     'type' => 'call_to_action',
@@ -325,23 +340,38 @@ function _utexas_install_footer_content() {
     ],
   ]);
   $block->save();
-
   $config = \Drupal::config('system.theme');
   $placed_block = Block::create([
-    'id' => 'footer_cta_block',
+    'id' => $block->id(),
     'weight' => 0,
     'theme' => $config->get('default'),
     'status' => TRUE,
     'region' => 'footer_right',
     'plugin' => 'block_content:' . $block->uuid(),
-    'settings' => [
-      'label' => 'Footer Call to Action',
-      'provider' => 'block_content',
-      'label_display' => '0',
-      'status' => TRUE,
-      'info' => '',
-      'view_mode' => 'full',
+    'settings' => [],
+  ]);
+  $placed_block->save();
+
+  // Create placeholder text for 'Footer right' region.
+  $block = BlockContent::create([
+    'info' => 'Footer Right Placeholder',
+    'type' => 'basic',
+    'langcode' => 'en',
+    'body' => [
+      'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content.</p>',
+      'format' => 'flex_html',
     ],
+  ]);
+  $block->save();
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => $block->id(),
+    'weight' => 1,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'footer_right',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
   ]);
   $placed_block->save();
 }
@@ -445,6 +475,10 @@ function utexas_preprocess_html(&$variables) {
     ],
     'utexas-utdk-version',
   ];
+  if (!empty($variables['node_type'])) {
+    $node_type = $variables['node_type'];
+    $variables['attributes']['class'][] = 'page__' . $node_type;
+  }
 }
 
 /**
@@ -472,8 +506,15 @@ function utexas_preprocess_page(&$variables) {
 function utexas_preprocess_block(&$variables) {
   $base_plugin_id = $variables['base_plugin_id'];
   $content = $variables['elements']['content'] ?? [];
-  // Add a bundle identifier as a CSS class.
+  if (in_array($base_plugin_id, ['menu_block', 'system_menu_block'])) {
+    if (isset($variables['elements']['#id'])) {
+      $variables['content']['#attributes']['menu-block-id'] = $variables['elements']['#id'];
+    }
+  }
   if (isset($content['#block_content']) && $content['#block_content'] instanceof BlockContentInterface) {
+    // Add bundle identifier.
+    $variables['attributes']['class'][] = Html::cleanCssIdentifier('block-bundle-' . $content['#block_content']->bundle());
+    // Add legacy identifier to our implementation of contrib feed_block module.
     if ($content['#block_content']->bundle() === 'feed_block') {
       $variables['attributes']['class'][] = 'ut-newsreel';
     }
@@ -576,13 +617,8 @@ function utexas_preprocess_breadcrumb(&$variables) {
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function utexas_theme_suggestions_menu_alter(array &$suggestions, array $variables) {
-  $theme_name = \Drupal::service('theme.manager')->getActiveTheme()->getName();
-  $theme_key = strtolower($theme_name) . '-';
-  // Remove the block, the themename (if present), and replace dashes with
-  // underscores in the block ID to use for the hook name.
-  if (isset($variables['attributes']['data-block'])) {
-    $hook = str_replace([$theme_key, 'block-', '-'], ['', '', '_'], $variables['attributes']['data-block']);
-    if ($block = Block::load($hook)) {
+  if (isset($variables['attributes']['menu-block-id'])) {
+    if ($block = Block::load($variables['attributes']['menu-block-id'])) {
       $region = $block->getRegion();
       $suggestions[] = 'menu__' . $region;
     }

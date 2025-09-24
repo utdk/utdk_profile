@@ -11,7 +11,8 @@
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020
+    "ecmaVersion": 2020,
+    "sourceType": "script"
   },
   "globals": {
     "Drupal": true,
@@ -32,6 +33,7 @@
     "FloatingUIDOM": true
   },
   "rules": {
+    "strict": 0,
     "prettier/prettier": "error",
     "consistent-return": [
       "off"

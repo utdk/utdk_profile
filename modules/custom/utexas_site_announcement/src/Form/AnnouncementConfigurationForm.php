@@ -105,6 +105,7 @@ class AnnouncementConfigurationForm extends ConfigFormBase {
     $form['title'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Announcement title'),
+      '#required' => TRUE,
       '#description' => $this->t('Enter the text that should appear as the headline for the announcement'),
       '#default_value' => $settings['title'] ?? '',
     ];

@@ -45,9 +45,9 @@
 <div{{ attributes.addClass(wrapper_classes) }}>
   {% for item in items %}
     {% if item.content.headline %}
-      <div class='ut-headline'>{{ item.content.headline }}</div>
+      <h3 class="ut-headline">{{ item.content.headline }}</h3>
     {% endif %}
-    <div class='block__ut-social-links--items {{ item.content.icon_size }}'>
+    <div class='block__ut-social-links--items'>
       {% for link in item.content.links %}
         <div{{item.attributes}}>{{ link }}</div>
       {% endfor %}
