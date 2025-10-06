@@ -91,6 +91,7 @@ class UTexasSocialLinkFormatter extends FormatterBase {
         $elements[$delta]['headline'] = RenderElementHelper::filterSingleLineText($item->headline, TRUE);
       }
     }
+    $elements['#attached']['library'][] = 'utexas_block_social_links/display';
     return $elements;
   }
 
