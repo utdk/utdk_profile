@@ -90,11 +90,13 @@ function utexas_themes_installed($theme_list) {
     \Drupal::logger('utexas')->notice('Mapping your theme settings to Speedway...');
     $speedway = \Drupal::configFactory()->getEditable('speedway.settings');
     // Migrate the custom logo, if defined.
-    $logo_use_default = $theme_config->get('logo.use_default');
     $logo_path = $theme_config->get('logo.path');
-    if ($logo_use_default == FALSE) {
-      $speedway->set('logo.use_default', $logo_use_default);
+    if ($logo_path) {
+      $speedway->set('logo.use_default', FALSE);
       $speedway->set('logo.path', $logo_path);
+    }
+    else {
+      $speedway->set('logo.use_default', TRUE);
     }
     // Save additional theme settings.
     if (isset($link) && isset($title)) {
