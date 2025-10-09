@@ -102,7 +102,7 @@ function utexas_form_elements_form_layout_builder_configure_block_alter(&$form, 
  * Implements hook_form_node_form_alter().
  */
 function utexas_form_elements_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['actions']['delete']['#title'] = t('Delete permanently');
+  $form['actions']['delete']['#title'] = t('Move to trash');
   // Add an "Archive" submit handler if the node uses the "Standard Workflow"
   // and the current user has the workflow transition permission.
   /** @var \Drupal\content_moderation\ModerationInformationInterface $moderation_info */

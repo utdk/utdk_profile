@@ -1253,3 +1253,44 @@ function utexas_update_8171() {
     }
   }
 }
+
+/**
+ * Ability to recover deleted content (#2915).
+ */
+function utexas_update_8172() {
+  if (\Drupal::moduleHandler()->moduleExists('trash') === FALSE) {
+    \Drupal::service('module_installer')->install(['trash']);
+  }
+}
+
+/**
+ * Grant trash bin access to roles with existing delete permission (#2915).
+ */
+function utexas_update_8173() {
+  // Get static services.
+  $trash_permissions = [
+    'access trash',
+    'purge node entities',
+    'restore node entities',
+    'view deleted entities',
+  ];
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    $needs_change = FALSE;
+    if ($role->hasPermission('delete any page content')) {
+      foreach ($trash_permissions as $permission) {
+        $role->grantPermission($permission);
+      }
+      $messenger->addMessage(t('Ability to use the trash bit has been granted to the %role role.', [
+        '%role' => $role->label(),
+      ]));
+      $needs_change = TRUE;
+    }
+    if ($needs_change) {
+      $role->save();
+    }
+  }
+}
