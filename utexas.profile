@@ -116,9 +116,10 @@ function utexas_themes_installed($theme_list) {
       $speedway->set('main_menu_alignment', $main_menu_alignment);
       $speedway->save();
     }
-    // Delete required links block.
+    // When Speedway is enabled, delete the Required Links block in the
+    // default theme (either Speedway or a sub-theme of Speedway).
     $blocks = \Drupal::entityTypeManager()->getStorage('block')
-      ->loadByProperties(['plugin' => 'required_links_block', 'theme' => 'speedway']);
+      ->loadByProperties(['plugin' => 'required_links_block', 'theme' => $default_theme]);
     foreach ($blocks as $block) {
       $block->delete();
     }
