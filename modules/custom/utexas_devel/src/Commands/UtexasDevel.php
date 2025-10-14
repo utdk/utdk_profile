@@ -49,7 +49,7 @@ class UtexasDevel extends DrushCommands {
     }
     else {
       $this->output()->writeln("Generating single Promo List with $number bytes");
-      $bytes = random_bytes($number);
+      $bytes = random_bytes($number / 2);
       $large_text = bin2hex($bytes);
       $list = [
         'headline' => "Promo list with $number bytes",

@@ -53,33 +53,33 @@ function utexas_devel_install() {
   $promo_list = _utexas_devel_create_promo_list($image_media);
   _utexas_devel_create_page_from_configuration('Promo List', $promo_list['block1'], $promo_list['block2']);
 
-  // $promo_unit = _utexas_devel_create_promo_unit($image_media);
-  // _utexas_devel_create_page_from_configuration('Promo Unit', $promo_unit['block1'], $promo_unit['block2']);
+  $promo_unit = _utexas_devel_create_promo_unit($image_media);
+  _utexas_devel_create_page_from_configuration('Promo Unit', $promo_unit['block1'], $promo_unit['block2']);
 
-  // $photo_content_area = _utexas_devel_create_photo_content_area($image_media);
-  // _utexas_devel_create_page_from_configuration('Photo Content Area', $photo_content_area['block1'], $photo_content_area['block2']);
+  $photo_content_area = _utexas_devel_create_photo_content_area($image_media);
+  _utexas_devel_create_page_from_configuration('Photo Content Area', $photo_content_area['block1'], $photo_content_area['block2']);
 
-  // $hero = _utexas_devel_create_hero($image_media, 'utexas_hero');
-  // _utexas_devel_create_page_from_configuration('Hero Default', $hero['block1'], $hero['block2']);
+  $hero = _utexas_devel_create_hero($image_media, 'utexas_hero');
+  _utexas_devel_create_page_from_configuration('Hero Default', $hero['block1'], $hero['block2']);
 
-  // $hero1 = _utexas_devel_create_hero($image_media, 'utexas_hero_1');
-  // _utexas_devel_create_page_from_configuration('Hero Style 1', $hero1['block1'], $hero1['block2']);
+  $hero1 = _utexas_devel_create_hero($image_media, 'utexas_hero_1');
+  _utexas_devel_create_page_from_configuration('Hero Style 1', $hero1['block1'], $hero1['block2']);
 
-  // $hero2 = _utexas_devel_create_hero($image_media, 'utexas_hero_2');
-  // _utexas_devel_create_page_from_configuration('Hero Style 2', $hero2['block1'], $hero2['block2']);
+  $hero2 = _utexas_devel_create_hero($image_media, 'utexas_hero_2');
+  _utexas_devel_create_page_from_configuration('Hero Style 2', $hero2['block1'], $hero2['block2']);
 
-  // $hero3 = _utexas_devel_create_hero($image_media, 'utexas_hero_3');
-  // _utexas_devel_create_page_from_configuration('Hero Style 3', $hero3['block1'], $hero3['block2']);
+  $hero3 = _utexas_devel_create_hero($image_media, 'utexas_hero_3');
+  _utexas_devel_create_page_from_configuration('Hero Style 3', $hero3['block1'], $hero3['block2']);
 
-  // $hero4 = _utexas_devel_create_hero($image_media, 'utexas_hero_4');
-  // _utexas_devel_create_page_from_configuration('Hero Style 4', $hero4['block1'], $hero4['block2']);
+  $hero4 = _utexas_devel_create_hero($image_media, 'utexas_hero_4');
+  _utexas_devel_create_page_from_configuration('Hero Style 4', $hero4['block1'], $hero4['block2']);
 
-  // $hero5 = _utexas_devel_create_hero($image_media, 'utexas_hero_5');
-  // _utexas_devel_create_page_from_configuration('Hero Style 5', $hero5['block1'], $hero5['block2']);
+  $hero5 = _utexas_devel_create_hero($image_media, 'utexas_hero_5');
+  _utexas_devel_create_page_from_configuration('Hero Style 5', $hero5['block1'], $hero5['block2']);
 
-  // $quick_links = _utexas_devel_create_quick_links();
-  // _utexas_devel_create_page_from_configuration('Quick Links', $quick_links['block1'], $quick_links['block2']);
+  $quick_links = _utexas_devel_create_quick_links();
+  _utexas_devel_create_page_from_configuration('Quick Links', $quick_links['block1'], $quick_links['block2']);
 
-  // $resources = _utexas_devel_create_resources($image_media);
-  // _utexas_devel_create_page_from_configuration('Resources', $resources['block1'], $resources['block2']);
+  $resources = _utexas_devel_create_resources($image_media);
+  _utexas_devel_create_page_from_configuration('Resources', $resources['block1'], $resources['block2']);
 }
