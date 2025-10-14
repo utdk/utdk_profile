@@ -44,11 +44,11 @@ function utexas_devel_install() {
   $image_media->save();
   $image_media = $image_media->id();
 
-  // $featured_highlight = _utexas_devel_create_featured_highlight($image_media);
-  // _utexas_devel_create_page_from_configuration('Featured Highlight', $featured_highlight['block1'], $featured_highlight['block2']);
+  $featured_highlight = _utexas_devel_create_featured_highlight($image_media);
+  _utexas_devel_create_page_from_configuration('Featured Highlight', $featured_highlight['block1'], $featured_highlight['block2']);
 
-  // $flex_content_area = _utexas_devel_create_flex_content_area($image_media);
-  // _utexas_devel_create_page_from_configuration('Flex Content Area', $flex_content_area['block1'], $flex_content_area['block2']);
+  $flex_content_area = _utexas_devel_create_flex_content_area($image_media);
+  _utexas_devel_create_page_from_configuration('Flex Content Area', $flex_content_area['block1'], $flex_content_area['block2']);
 
   $promo_list = _utexas_devel_create_promo_list($image_media);
   _utexas_devel_create_page_from_configuration('Promo List', $promo_list['block1'], $promo_list['block2']);
