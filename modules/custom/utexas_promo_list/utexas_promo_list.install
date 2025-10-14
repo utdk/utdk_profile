@@ -89,9 +89,9 @@ function utexas_promo_list_update_8102() {
 }
 
 /**
- * Issue #2950: Increase column size on promo list items.
+ * Issue #2950: Increase column size on Promo List items.
  */
-function utexas_promo_list_update_8104() {
+function utexas_promo_list_update_8103() {
   $entity_type_id = 'block_content';
   $field_type = 'utexas_promo_list';
   $field_name = 'promo_list_items';
