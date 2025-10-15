@@ -29,6 +29,7 @@
     "drupal/diff": "2.0.0-beta4",
     "drupal/editor_advanced_link": "2.2.6",
     "drupal/entity_clone": "2.1.0-beta1",
+    "drupal/entity_usage": "2.0-beta24",
     "drupal/features": "3.14.0",
     "drupal/feed_block": "3.0.0",
     "drupal/google_cse": "5.0.2",
