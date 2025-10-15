@@ -73,6 +73,7 @@ install:
   - utexas_block_social_links
   - utexas_call_to_action
   - utexas_content_type_flex_page
+  - utexas_entity_usage
   - utexas_favicons
   - utexas_featured_highlight
   - utexas_flex_content_area

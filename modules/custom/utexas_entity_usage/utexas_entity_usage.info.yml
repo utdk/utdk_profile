@@ -1,0 +1,6 @@
+name: 'UTexas: Entity Usage'
+type: module
+core_version_requirement: '>=10'
+dependencies:
+  - entity_usage
+package: UTexas
