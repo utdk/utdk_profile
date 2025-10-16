@@ -13,6 +13,7 @@ use Drupal\Core\Block\BlockBase;
  *  admin_label = @Translation("Required Links Block"),
  * )
  */
+#[\Drupal\Core\Block\Attribute\Block(id: 'required_links_block', category: new \Drupal\Core\StringTranslation\TranslatableMarkup('UTexas'), admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Required Links Block'))]
 class RequiredLinksBlock extends BlockBase {
 
   /**

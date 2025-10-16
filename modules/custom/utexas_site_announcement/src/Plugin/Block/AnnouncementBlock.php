@@ -26,6 +26,7 @@ const UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH = 'admin/config/site-announcemen
  *   category = @Translation("UTexas")
  * )
  */
+#[\Drupal\Core\Block\Attribute\Block(id: 'utexas_announcement', admin_label: new \Drupal\Core\StringTranslation\TranslatableMarkup('Site Announcement'), category: new \Drupal\Core\StringTranslation\TranslatableMarkup('UTexas'))]
 class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
