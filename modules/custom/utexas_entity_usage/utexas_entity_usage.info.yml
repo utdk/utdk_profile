@@ -3,5 +3,5 @@ type: module
 core_version_requirement: '>=10'
 description: 'Provides media usage tracking for custom UTexas field types.'
 dependencies:
-  - entity_usage
+  - entity_usage:entity_usage
 package: UTexas
