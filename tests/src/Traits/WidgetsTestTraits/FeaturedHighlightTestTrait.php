@@ -70,7 +70,6 @@ trait FeaturedHighlightTestTrait {
     $this->placeExistingBlockOnFlexPage($form, $block_name);
     $this->savePageLayout();
 
-
     // CRUD: READ
     // Verify page output.
     $assert->elementTextContains('css', 'h2.ut-headline a', 'Featured Highlight Headline');
