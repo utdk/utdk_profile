@@ -35,7 +35,6 @@ class CustomWidgetsTest extends FunctionalJavascriptTestBase {
   use PromoListTestTrait;
   use PromoUnitTestTrait;
   use QuickLinksTestTrait;
-
   use ResourcesTestTrait;
 
   /**
@@ -51,6 +50,7 @@ class CustomWidgetsTest extends FunctionalJavascriptTestBase {
    * Test any custom widgets sequentially, using the same installation.
    */
   public function testCustomWidgets() {
+    $this->verifyResources();
     $this->verifyFeaturedHighlight();
     $this->verifyFlexContentArea();
     $this->verifyFlexContentAreaMultiple();
@@ -65,7 +65,6 @@ class CustomWidgetsTest extends FunctionalJavascriptTestBase {
     $this->verifyPromoUnit();
     $this->verifyPromoUnitMultiple();
     $this->verifyQuickLinks();
-    $this->verifyResources();
     $this->verifyResourcesMultiple();
   }
 
