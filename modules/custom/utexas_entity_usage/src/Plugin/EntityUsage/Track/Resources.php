@@ -43,8 +43,12 @@ class Resources extends UtexasEntityUsageTrackBase {
         // custom field types that have media upload fields only allow a single
         // media item at a time, we can safely assume that the media value below
         // is always a single integer, not a string.
-        if (isset($item['item']['image'])) {
-          $references[] = 'media|' . $item['item']['image'];
+        $copy = $item['item']['copy']['value'] ?? NULL;
+        if (!is_null($copy)) {
+          $media_from_copy = $this->parseMediaFromText($copy);
+          foreach ($media_from_copy as $media) {
+            $references[] = $media;
+          }
         }
       }
     }

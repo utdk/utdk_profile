@@ -44,9 +44,12 @@ class PhotoContentArea extends UtexasEntityUsageTrackBase {
     // Process media entities references in copy field.
     // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic
     // from the entity_usage module's MediaEmbed::parseEntitiesFromText().
-    $media_from_copy = $this->parseMediaFromText($value['copy']['value']);
-    foreach ($media_from_copy as $media) {
-      $references[] = $media;
+    $copy = $value['copy']['value'] ?? NULL;
+    if (!is_null($copy)) {
+      $media_from_copy = $this->parseMediaFromText($copy);
+      foreach ($media_from_copy as $media) {
+        $references[] = $media;
+      }
     }
     return $references;
   }
