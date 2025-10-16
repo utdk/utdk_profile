@@ -1333,3 +1333,10 @@ function utexas_update_8175() {
     }
   }
 }
+
+/**
+ * Build tracking information for existing site media (#1747).
+ */
+function utexas_update_8176() {
+  \Drupal::service('entity_usage.batch_manager')->recreate();
+}
