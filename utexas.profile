@@ -116,7 +116,20 @@ function utexas_themes_installed($theme_list) {
       $speedway->set('main_menu_alignment', $main_menu_alignment);
       $speedway->save();
     }
-    // Delete required links block.
+    $theme_info = \Drupal::service('theme.initialization')->getActiveThemeByName($default_theme);
+    foreach ($theme_info->getBaseThemeExtensions() as $base_theme) {
+      $base_theme = $base_theme->getName();
+      if ($base_theme === 'speedway') {
+        // Delete required links if default theme is a sub-theme of Speedway.
+        $blocks = \Drupal::entityTypeManager()->getStorage('block')
+          ->loadByProperties(['plugin' => 'required_links_block', 'theme' => $default_theme]);
+        foreach ($blocks as $block) {
+          $block->delete();
+        }
+        \Drupal::configFactory()->getEditable('block.block.required_links_block')->delete();
+      }
+    }
+    // Delete required links from Speedway.
     $blocks = \Drupal::entityTypeManager()->getStorage('block')
       ->loadByProperties(['plugin' => 'required_links_block', 'theme' => 'speedway']);
     foreach ($blocks as $block) {
