@@ -33,18 +33,21 @@ class Resources extends UtexasEntityUsageTrackBase {
   public function getTargetEntities(FieldItemInterface $item): array {
     $references = [];
     $value = $item->getValue();
-    // The entity_usage module is designed to execute implementations of
-    // getTargetEntities() on each delta of a field instance; since our custom
-    // field types that have media upload fields only allow a single media item
-    // at a time, we can safely assume that the media value below is always a
-    // a single integer, not a string.
-    if (isset($value['media'])) {
-      $references[] = 'media|' . $value['media'];
+    if (isset($value['resource_items'])) {
+      // We can safely unserialize Resource items.
+      // phpcs:ignore
+      $resource_items = unserialize($value['resource_items']);
+      foreach ($resource_items as $item) {
+        // The entity_usage module is designed to execute implementations of
+        // getTargetEntities() on each delta of a field instance; since our
+        // custom field types that have media upload fields only allow a single
+        // media item at a time, we can safely assume that the media value below
+        // is always a single integer, not a string.
+        if (isset($item['item']['image'])) {
+          $references[] = 'media|' . $item['item']['image'];
+        }
+      }
     }
-    // Process media entities references in copy field.
-    // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic
-    // from the entity_usage module's MediaEmbed::parseEntitiesFromText().
-    $references = array_merge($references, $this->parseMediaFromText($value['copy']['value']));
     return $references;
   }
 

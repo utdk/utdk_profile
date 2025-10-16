@@ -33,18 +33,29 @@ class PromoUnit extends UtexasEntityUsageTrackBase {
   public function getTargetEntities(FieldItemInterface $item): array {
     $references = [];
     $value = $item->getValue();
-    // The entity_usage module is designed to execute implementations of
-    // getTargetEntities() on each delta of a field instance; since our custom
-    // field types that have media upload fields only allow a single media item
-    // at a time, we can safely assume that the media value below is always a
-    // a single integer, not a string.
-    if (isset($value['media'])) {
-      $references[] = 'media|' . $value['media'];
+    if (isset($value['promo_unit_items'])) {
+      // We can safely unserialize Promo Unit items.
+      // phpcs:ignore
+      $promo_unit_items = unserialize($value['promo_unit_items']);
+      foreach ($promo_unit_items as $item) {
+        // The entity_usage module is designed to execute implementations of
+        // getTargetEntities() on each delta of a field instance; since our
+        // custom field types that have media upload fields only allow a single
+        // media item at a time, we can safely assume that the media value below
+        // is always a single integer, not a string.
+        if (isset($item['item']['image'])) {
+          $references[] = 'media|' . $item['item']['image'];
+        }
+        // Process media entities references in copy field.
+        // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates
+        // logic from the entity_usage module's
+        // MediaEmbed::parseEntitiesFromText().
+        $media_from_copy = $this->parseMediaFromText($item['item']['copy']['value']);
+        foreach ($media_from_copy as $media) {
+          $references[] = $media;
+        }
+      }
     }
-    // Process media entities references in copy field.
-    // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic
-    // from the entity_usage module's MediaEmbed::parseEntitiesFromText().
-    $references = array_merge($references, $this->parseMediaFromText($value['copy']['value']));
     return $references;
   }
 

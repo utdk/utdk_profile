@@ -38,13 +38,16 @@ class PhotoContentArea extends UtexasEntityUsageTrackBase {
     // field types that have media upload fields only allow a single media item
     // at a time, we can safely assume that the media value below is always a
     // a single integer, not a string.
-    if (isset($value['media'])) {
-      $references[] = 'media|' . $value['media'];
+    if (isset($value['image'])) {
+      $references[] = 'media|' . $value['image'];
     }
     // Process media entities references in copy field.
     // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic
     // from the entity_usage module's MediaEmbed::parseEntitiesFromText().
-    $references = array_merge($references, $this->parseMediaFromText($value['copy']['value']));
+    $media_from_copy = $this->parseMediaFromText($value['copy']['value']);
+    foreach ($media_from_copy as $media) {
+      $references[] = $media;
+    }
     return $references;
   }
 

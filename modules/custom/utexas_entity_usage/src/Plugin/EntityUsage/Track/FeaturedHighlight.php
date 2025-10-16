@@ -44,7 +44,10 @@ class FeaturedHighlight extends UtexasEntityUsageTrackBase {
     // Process media entities references in copy field.
     // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic
     // from the entity_usage module's MediaEmbed::parseEntitiesFromText().
-    $references = array_merge($references, $this->parseMediaFromText($value['copy']['value']));
+    $media_from_copy = $this->parseMediaFromText($value['copy']['value']);
+    foreach ($media_from_copy as $media) {
+      $references[] = $media;
+    }
     return $references;
   }
 
