@@ -3,18 +3,28 @@
 namespace Drupal\utexas_entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Core\Field\FieldItemInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Tracks usage of entities referenced in a custom field type.
  *
  * @EntityUsageTrack(
- *   id = "utexas_hero_field",
- *   label = @Translation("UTexas Hero Field"),
+ *   id = "utexas_hero",
+ *   label = @Translation("UTexas Hero"),
  *   description = @Translation("Tracks relationships created with 'Hero' fields."),
  *   field_types = {"utexas_hero"},
  *   source_entity_class = "Drupal\Core\Entity\FieldableEntityInterface",
  * )
  */
+#[
+  EntityUsageTrack(
+    id: 'utexas_hero',
+    label: new TranslatableMarkup('UTexas Hero'),
+    description: new TranslatableMarkup("Tracks relationships created with 'Hero' fields."),
+    field_types: ['utexas_hero'],
+    source_entity_class: 'Drupal\Core\Entity\FieldableEntityInterface'
+  )
+]
 class Hero extends UtexasEntityUsageTrackBase {
 
   /**

@@ -9,23 +9,23 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
  * Tracks usage of entities referenced in a custom field type.
  *
  * @EntityUsageTrack(
- *   id = "utexas_featured_highlight",
- *   label = @Translation("UTexas Featured Highlight"),
- *   description = @Translation("Tracks relationships created with 'Featured Highlight' fields."),
- *   field_types = {"utexas_featured_highlight"},
+ *   id = "utexas_promo_list",
+ *   label = @Translation("UTexas Promo List"),
+ *   description = @Translation("Tracks relationships created with 'Promo List' fields."),
+ *   field_types = {"utexas_promo_list"},
  *   source_entity_class = "Drupal\Core\Entity\FieldableEntityInterface",
  * )
  */
 #[
   EntityUsageTrack(
-    id: 'utexas_featured_highlight',
-    label: new TranslatableMarkup('UTexas Featured Highlight'),
-    description: new TranslatableMarkup("Tracks relationships created with 'Featured Highlight' fields."),
-    field_types: ['utexas_featured_highlight'],
+    id: 'utexas_promo_list',
+    label: new TranslatableMarkup('UTexas Promo List'),
+    description: new TranslatableMarkup("Tracks relationships created with 'Promo List' fields."),
+    field_types: ['utexas_promo_list'],
     source_entity_class: 'Drupal\Core\Entity\FieldableEntityInterface'
   )
 ]
-class FeaturedHighlight extends UtexasEntityUsageTrackBase {
+class PromoList extends UtexasEntityUsageTrackBase {
 
   /**
    * {@inheritdoc}
