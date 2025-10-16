@@ -5,7 +5,7 @@ namespace Drupal\utexas_entity_usage\Plugin\EntityUsage\Track;
 use Drupal\Core\Field\FieldItemInterface;
 
 /**
- * Tracks usage of entities related in utexas_hero fields.
+ * Tracks usage of entities referenced in a custom field type.
  *
  * @EntityUsageTrack(
  *   id = "utexas_hero_field",
@@ -23,6 +23,11 @@ class Hero extends UtexasEntityUsageTrackBase {
   public function getTargetEntities(FieldItemInterface $item): array {
     $references = [];
     $value = $item->getValue();
+    // The entity_usage module is designed to execute implementations of
+    // getTargetEntities() on each delta of a field instance; since our custom
+    // field types that have media upload fields only allow a single media item
+    // at a time, we can safely assume that the media value below is always a
+    // a single integer, not a string.
     if (isset($value['media'])) {
       $references[] = 'media|' . $value['media'];
     }
