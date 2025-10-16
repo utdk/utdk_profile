@@ -1299,6 +1299,16 @@ function utexas_update_8173() {
  * Track usage of media entities (#1747).
  */
 function utexas_update_8174() {
+  $module_to_install = 'entity_usage';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}
+
+/**
+ * Track usage of media entities -- customizations (#1747).
+ */
+function utexas_update_8175() {
   $module_to_install = 'utexas_entity_usage';
   if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
     \Drupal::service('module_installer')->install([$module_to_install]);
@@ -1308,7 +1318,7 @@ function utexas_update_8174() {
 /**
  * Grant entity usage access to roles with create media permission (#1747).
  */
-function utexas_update_8175() {
+function utexas_update_8176() {
   $existing_permission = 'create media';
   $new_permissions = [
     'access entity usage statistics',
@@ -1337,6 +1347,6 @@ function utexas_update_8175() {
 /**
  * Build tracking information for existing site media (#1747).
  */
-function utexas_update_8176() {
+function utexas_update_8177() {
   \Drupal::service('entity_usage.batch_manager')->recreate();
 }
