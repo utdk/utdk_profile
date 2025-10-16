@@ -1294,3 +1294,32 @@ function utexas_update_8173() {
     }
   }
 }
+
+/**
+ * Grant entity usage access to roles with create media permission (#1747).
+ */
+function utexas_update_8174() {
+  $existing_permission = 'create media';
+  $new_permissions = [
+    'access entity usage statistics',
+  ];
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    $needs_change = FALSE;
+    if ($role->hasPermission($existing_permission)) {
+      foreach ($new_permissions as $permission) {
+        $role->grantPermission($permission);
+      }
+      $messenger->addMessage(t('Ability to access media usage has been granted to the %role role', [
+        '%role' => $role->label(),
+      ]));
+      $needs_change = TRUE;
+    }
+    if ($needs_change) {
+      $role->save();
+    }
+  }
+}
