@@ -1294,3 +1294,12 @@ function utexas_update_8173() {
     }
   }
 }
+
+/**
+ * Uninstall Admin Toolbar Links Access Filter (#2951).
+ */
+function utexas_update_8174() {
+  if (\Drupal::moduleHandler()->moduleExists('admin_toolbar_links_access_filter') === TRUE) {
+    \Drupal::service('module_installer')->uninstall(['admin_toolbar_links_access_filter']);
+  }
+}

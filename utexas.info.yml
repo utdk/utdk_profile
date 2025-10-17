@@ -38,7 +38,7 @@ install:
   - drupal:workflows
   # Contrib
   - drupal:addtoany
-  - drupal:admin_toolbar_links_access_filter
+  - drupal:admin_toolbar
   - drupal:breadcrumbs_visibility
   - drupal:diff
   - drupal:entity_clone
