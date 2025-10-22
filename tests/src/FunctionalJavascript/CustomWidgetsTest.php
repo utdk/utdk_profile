@@ -35,7 +35,6 @@ class CustomWidgetsTest extends FunctionalJavascriptTestBase {
   use PromoListTestTrait;
   use PromoUnitTestTrait;
   use QuickLinksTestTrait;
-
   use ResourcesTestTrait;
 
   /**

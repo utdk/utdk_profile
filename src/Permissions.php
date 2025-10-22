@@ -49,6 +49,7 @@ class Permissions {
     'access block library',
     'access content overview',
     'access contextual links',
+    'access entity usage statistics',
     'access files overview',
     'access media overview',
     'access site in maintenance mode',
