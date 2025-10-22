@@ -54,7 +54,7 @@ class UTexasPromoUnit extends FieldItemBase {
         ],
         'promo_unit_items' => [
           'type' => 'blob',
-          'size' => 'normal',
+          'size' => 'big',
         ],
       ],
     ];
