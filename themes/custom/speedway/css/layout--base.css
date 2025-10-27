@@ -1,0 +1,5 @@
+
+/* Add a margin-bottom to wherever .block class is used in the main content region. */
+.block {
+  margin-bottom: 2.5rem;
+}

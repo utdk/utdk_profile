@@ -1,0 +1,23 @@
+{
+  "name": "@utexas/speedway",
+  "version": "1.0.0",
+  "description": "Drupal theme used with the UT Drupal Kit",
+  "repository": {
+    "type": "git",
+    "url": "git@github.austin.utexas.edu:eis1-wcs/speedway.git"
+  },
+  "author": {
+    "name": "Web Content Management Solutions Team, Information Technology Services, The University of Texas at Austin",
+    "email": "drupal-kit-support@utlists.utexas.edu",
+    "url": "https://drupalkit.its.utexas.edu"
+  },
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-drupal": "^5.0.2",
+    "eslint-plugin-yml": "^1.16.0",
+    "stylelint": "^16.20.0",
+    "stylelint-config-standard": "^38.0.0"
+  }
+}
