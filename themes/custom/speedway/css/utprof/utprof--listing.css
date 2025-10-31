@@ -16,6 +16,11 @@
     font-size: 1rem;
   }
 
+  h3.utprof__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
   /* Applies to both Basic and Prominent displays */
   .utprof__list-img {
     width: 66px;
