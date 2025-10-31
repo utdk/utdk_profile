@@ -71,6 +71,12 @@
     a::after {
       margin-right: 4px;
     }
+    .text--copyright a {
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
     .footer-required-links a:not(:first-child) {
       padding-left: 8px;
     }
