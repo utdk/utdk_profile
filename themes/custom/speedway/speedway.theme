@@ -96,6 +96,11 @@ function speedway_preprocess_block(&$variables) {
  * Implements hook_form_alter().
  */
 function speedway_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
-  $form['actions']['reset']['#attributes']['class'][] = 'ut-btn--secondary';
+  $exceptions = [
+    'search_block_form',
+  ];
+  if (!in_array($form_id, $exceptions)) {
+    $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
+    $form['actions']['reset']['#attributes']['class'][] = 'ut-btn--secondary';
+  }
 }
