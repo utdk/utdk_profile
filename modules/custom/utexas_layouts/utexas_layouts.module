@@ -50,7 +50,6 @@ function utexas_layouts_preprocess_block(&$variables) {
       // Since this block may be present on non Layout Builder & Layout Builder
       // pages, set the block to be uncacheable so it can vary.
       $variables['#cache']['contexts'][] = 'url.path';
-      $variables['#cache']['max-age'] = 0;
       // This is a reusable block placed located in the 'content' region.
       // If the current page uses Layout Builder, set to 'container-xl' width.
       if (ThemeHelper::isLayoutBuilderPage()) {
