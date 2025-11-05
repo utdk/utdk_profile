@@ -20,6 +20,26 @@
   }
 }
 
+/* Use container query to narrow width so QLs do not break layout */
+.utexas-quick-links {
+  container-type: inline-size;
+  container-name: container-ql;
+}
+
+@container container-ql (min-width: 130px) and (max-width: 190px) {
+  .utexas-quick-links ul.link-list {
+    --ipr-grid-min-min-size: 170px;
+    --ipr-grid-min-max-size: 170px;
+  }
+}
+
+@container container-ql (min-width: 191px) and (max-width: 222px) {
+  .utexas-quick-links ul.link-list {
+    --ipr-grid-min-min-size: 200px;
+    --ipr-grid-min-max-size: 220px;
+  }
+}
+
 .utexas-onecol .utexas-quick-links ul.link-list {
   --ipr-grid-min-max-size: 100%;
 }
