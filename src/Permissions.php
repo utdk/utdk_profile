@@ -72,6 +72,7 @@ class Permissions {
     'create utexas_flex_page content',
     'delete all revisions',
     'delete any article content',
+    'delete any file',
     'delete any page content',
     'delete any utexas_flex_page content',
     'delete article revisions',
