@@ -1359,3 +1359,23 @@ function utexas_update_8178() {
     \Drupal::service('module_installer')->uninstall(['admin_toolbar_links_access_filter']);
   }
 }
+
+/**
+ * Delete associated file on deletion of a media entity (#1667).
+ */
+function utexas_update_8179() {
+  $module_to_install = 'media_file_delete';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}
+
+/**
+ * Delete associated file on deletion of a media entity (#1667).
+ */
+function utexas_update_8180() {
+  $module_to_install = 'media_file_delete_entity_usage';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}
