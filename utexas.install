@@ -1384,7 +1384,7 @@ function utexas_update_8180() {
  * Delete associated file on deletion of a media entity (#1667).
  */
 function utexas_update_8181() {
-  $existing_permission = 'delete media';
+  $existing_permission = 'delete any media';
   $new_permissions = [
     'delete any file',
   ];
