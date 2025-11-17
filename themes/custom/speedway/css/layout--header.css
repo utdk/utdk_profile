@@ -30,7 +30,7 @@
   }
 
   .ut-upper-header {
-    border-top: 8px solid var(--ut-burntorange);
+    border-top: 4px solid var(--ut-burntorange);
     background: var(--ut-limestone--t15);
     height: 48px;
 
