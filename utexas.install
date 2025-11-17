@@ -1361,7 +1361,7 @@ function utexas_update_8178() {
 }
 
 /**
- * Delete associated file on deletion of a media entity (#1667).
+ * Install the Media File Delete module on existing sites (#1667).
  */
 function utexas_update_8179() {
   $module_to_install = 'media_file_delete';
@@ -1371,7 +1371,7 @@ function utexas_update_8179() {
 }
 
 /**
- * Delete associated file on deletion of a media entity (#1667).
+ * Grant file deletion to roles with media deletion permission (#1667).
  */
 function utexas_update_8180() {
   $existing_permission = 'delete media';
