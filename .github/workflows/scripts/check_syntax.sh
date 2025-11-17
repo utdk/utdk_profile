@@ -61,6 +61,19 @@ if [ ! -z "$JS_LIST" ]; then
   npx eslint $JS_LIST
 fi
 
+CSS_LIST=$( git diff $TO_MERGE --name-only --diff-filter=ACMRX -- "*.css")
+if [ ! -z "$CSS_LIST" ]; then
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm install 20 && nvm use 20
+  npm install
+  echo "*** Changed CSS files ****"
+  echo $CSS_LIST
+  echo "*** Linting... ***"
+  npx stylelint $CSS_LIST
+fi
+
 # Clean up before exiting.
 rm -rf $REPO
 
