@@ -52,6 +52,7 @@ install:
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
   - drupal:menu_trail_by_path
+  - drupal:media_file_delete
   - drupal:metatag
   - drupal:metatag_open_graph
   - drupal:metatag_twitter_cards

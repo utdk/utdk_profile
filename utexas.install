@@ -1359,3 +1359,43 @@ function utexas_update_8178() {
     \Drupal::service('module_installer')->uninstall(['admin_toolbar_links_access_filter']);
   }
 }
+
+/**
+ * Install the Media File Delete module on existing sites (#1667).
+ */
+function utexas_update_8179() {
+  $module_to_install = 'media_file_delete';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}
+
+/**
+ * Grant file deletion to roles with media deletion permission (#1667).
+ */
+function utexas_update_8180() {
+  $existing_permission = 'delete media';
+  $new_permissions = [
+    'delete any file',
+    'delete any media',
+  ];
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    $needs_change = FALSE;
+    if ($role->hasPermission($existing_permission)) {
+      foreach ($new_permissions as $permission) {
+        $role->grantPermission($permission);
+      }
+      $messenger->addMessage(t('Ability to delete files associated with media entities has been granted to the %role role', [
+        '%role' => $role->label(),
+      ]));
+      $needs_change = TRUE;
+    }
+    if ($needs_change) {
+      $role->save();
+    }
+  }
+}
