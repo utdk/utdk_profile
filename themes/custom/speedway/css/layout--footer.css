@@ -44,6 +44,7 @@
         a,
         a.is-active,
         span {
+          display: inline;
           color: var(--ut-burntorange--s10);
           background-color: transparent;
           text-decoration: none;
