@@ -2,7 +2,6 @@
 
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldType;
 
-use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -11,14 +10,15 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'utexas_flex_list' field type.
+ *
+ * @FieldType(
+ *   id = "utexas_flex_list",
+ *   label = @Translation("Flex list"),
+ *   description = @Translation("Heading + content fields, displayable in a variety of formats"),
+ *   default_widget = "utexas_flex_list",
+ *   default_formatter = "utexas_flex_list_default"
+ * )
  */
-#[FieldType(
-  id: 'utexas_flex_list',
-  label: new TranslatableMarkup('Flex list'),
-  description: new TranslatableMarkup('Heading + content fields, displayable in a variety of formats'),
-  default_widget: 'utexas_flex_list',
-  default_formatter: 'utexas_flex_list_default'
-)]
 class UTexasFlexList extends FieldItemBase {
 
   /**

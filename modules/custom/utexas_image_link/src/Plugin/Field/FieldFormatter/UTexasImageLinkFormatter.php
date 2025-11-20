@@ -4,13 +4,11 @@ namespace Drupal\utexas_image_link\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -18,12 +16,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_image_link' formatter.
+ *
+ * @FieldFormatter(
+ *   id = "utexas_image_link",
+ *   label = @Translation("UTexas Image Link Formatter"),
+ *   field_types = {
+ *     "utexas_image_link"
+ *   }
+ * )
  */
-#[FieldFormatter(
-  id: 'utexas_image_link',
-  label: new TranslatableMarkup('UTexas Image Link Formatter'),
-  field_types: ['utexas_image_link']
-)]
 class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**

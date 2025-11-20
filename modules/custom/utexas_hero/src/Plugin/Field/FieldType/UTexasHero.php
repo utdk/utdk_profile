@@ -3,7 +3,6 @@
 namespace Drupal\utexas_hero\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
-use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -18,14 +17,15 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_hero' field type.
+ *
+ * @FieldType(
+ *   id = "utexas_hero",
+ *   label = @Translation("Hero"),
+ *   description = @Translation("Large-display media field, with heading/subheading/link"),
+ *   default_widget = "utexas_hero",
+ *   default_formatter = "utexas_hero"
+ * )
  */
-#[FieldType(
-  id: 'utexas_hero',
-  label: new TranslatableMarkup('Hero'),
-  description: new TranslatableMarkup('Large-display media field, with heading/subheading/link'),
-  default_widget: 'utexas_hero',
-  default_formatter: 'utexas_hero'
-)]
 class UTexasHero extends FieldItemBase {
 
   /**

@@ -2,28 +2,27 @@
 
 namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\OptionsButtonsWidget as BaseOptionsButtonsWidget;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\Traits\TaxonomyDescriptionTrait;
 
 /**
  * Alters the default 'options_buttons' widget.
+ *
+ * @FieldWidget(
+ *   id = "options_buttons",
+ *   label = @Translation("Check boxes/radio buttons"),
+ *   field_types = {
+ *     "boolean",
+ *     "entity_reference",
+ *     "list_integer",
+ *     "list_float",
+ *     "list_string",
+ *   },
+ *   multiple_values = TRUE
+ * )
  */
-#[FieldWidget(
-  id: 'options_buttons',
-  label: new TranslatableMarkup('Check boxes/radio buttons'),
-  field_types: [
-    'boolean',
-    'entity_reference',
-    'list_integer',
-    'list_float',
-    'list_string',
-  ],
-  multiple_values: TRUE
-)]
 class OptionsButtonsWidget extends BaseOptionsButtonsWidget {
 
   use TaxonomyDescriptionTrait;

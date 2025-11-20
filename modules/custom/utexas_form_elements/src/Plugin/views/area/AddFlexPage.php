@@ -5,7 +5,6 @@ namespace Drupal\utexas_form_elements\Plugin\views\area;
 use Drupal\Core\Access\AccessManagerInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
-use Drupal\views\Attribute\ViewsArea;
 use Drupal\views\Plugin\views\area\AreaPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -13,8 +12,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines an area plugin to display an Add Flex Page link.
  *
  * @ingroup views_area_handlers
+ *
+ * @ViewsArea("add_flex_page")
  */
-#[ViewsArea("add_flex_page")]
 class AddFlexPage extends AreaPluginBase {
 
   /**

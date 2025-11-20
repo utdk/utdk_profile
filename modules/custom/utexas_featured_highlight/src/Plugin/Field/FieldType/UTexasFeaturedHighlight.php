@@ -3,7 +3,6 @@
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
-use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -18,14 +17,15 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_featured_highlight' field type.
+ *
+ * @FieldType(
+ *   id = "utexas_featured_highlight",
+ *   label = @Translation("Featured Highlight"),
+ *   description = @Translation("A field with headline, media, date, copy, & link."),
+ *   default_widget = "utexas_featured_highlight",
+ *   default_formatter = "utexas_featured_highlight"
+ * )
  */
-#[FieldType(
-  id: 'utexas_featured_highlight',
-  label: new TranslatableMarkup('Featured Highlight'),
-  description: new TranslatableMarkup('A field with headline, media, date, copy, & link.'),
-  default_widget: 'utexas_featured_highlight',
-  default_formatter: 'utexas_featured_highlight'
-)]
 class UTexasFeaturedHighlight extends FieldItemBase {
 
   /**

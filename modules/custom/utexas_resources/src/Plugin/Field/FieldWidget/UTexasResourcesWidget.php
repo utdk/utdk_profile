@@ -2,21 +2,22 @@
 
 namespace Drupal\utexas_resources\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\Traits\UtexasFieldTrait;
 
 /**
  * Plugin implementation of the 'utexas_resources' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_resources",
+ *   label = @Translation("Resources"),
+ *   field_types = {
+ *     "utexas_resources"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_resources',
-  label: new TranslatableMarkup('Resources'),
-  field_types: ['utexas_resources']
-)]
 class UTexasResourcesWidget extends WidgetBase {
 
   use UtexasFieldTrait;

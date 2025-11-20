@@ -3,21 +3,22 @@
 namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero_5' formatter.
+ *
+ * @FieldFormatter(
+ *   id = "utexas_hero_5",
+ *   label = @Translation("Style 5: Medium image, floated right, with large heading, subheading and burnt orange call-to-action, image centered"),
+ *   field_types = {
+ *     "utexas_hero"
+ *   }
+ * )
  */
-#[FieldFormatter(
-  id: 'utexas_hero_5',
-  label: new TranslatableMarkup('Style 5: Medium image, floated right, with large heading, subheading and burnt orange call-to-action, image centered'),
-  field_types: ['utexas_hero']
-)]
 class UTexasHeroStyle5Formatter extends UTexasHeroFormatterBase {
 
   /**

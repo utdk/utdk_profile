@@ -4,21 +4,22 @@ namespace Drupal\utexas_flex_content_area\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_flex_content_area' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_flex_content_area",
+ *   label = @Translation("Flex Content Area"),
+ *   field_types = {
+ *     "utexas_flex_content_area"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_flex_content_area',
-  label: new TranslatableMarkup('Flex Content Area'),
-  field_types: ['utexas_flex_content_area']
-)]
 class UTexasFlexContentAreaWidget extends UtexasWidgetBase {
 
   /**

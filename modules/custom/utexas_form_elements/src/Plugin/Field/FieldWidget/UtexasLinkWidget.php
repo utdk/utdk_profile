@@ -2,21 +2,22 @@
 
 namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\linkit\Plugin\Field\FieldWidget\LinkitWidget;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
  * Plugin implementation of the 'utexas_link_widget' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_link_widget",
+ *   label = @Translation("Link with options"),
+ *   field_types = {
+ *     "link"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_link_widget',
-  label: new TranslatableMarkup('Link with options'),
-  field_types: ['link']
-)]
 class UtexasLinkWidget extends LinkitWidget {
 
   /**

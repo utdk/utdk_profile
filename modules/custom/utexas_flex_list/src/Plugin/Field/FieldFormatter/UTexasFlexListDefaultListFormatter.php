@@ -2,19 +2,20 @@
 
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'utexas_flex_list' formatter.
+ *
+ * @FieldFormatter(
+ *   id = "utexas_flex_list_default",
+ *   label = @Translation("Title/body list"),
+ *   field_types = {
+ *     "utexas_flex_list"
+ *   }
+ * )
  */
-#[FieldFormatter(
-  id: 'utexas_flex_list_default',
-  label: new TranslatableMarkup('Title/body list'),
-  field_types: ['utexas_flex_list']
-)]
 class UTexasFlexListDefaultListFormatter extends UTexasFlexListFormatterBase {
 
   /**

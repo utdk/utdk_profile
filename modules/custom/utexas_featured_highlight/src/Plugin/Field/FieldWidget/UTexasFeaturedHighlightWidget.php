@@ -2,21 +2,23 @@
 
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
+
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_featured_highlight' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_featured_highlight",
+ *   label = @Translation("Featured Highlight"),
+ *   field_types = {
+ *     "utexas_featured_highlight"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_featured_highlight',
-  label: new TranslatableMarkup('Featured Highlight'),
-  field_types: ['utexas_featured_highlight']
-)]
 class UTexasFeaturedHighlightWidget extends WidgetBase {
 
   /**

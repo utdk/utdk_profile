@@ -3,7 +3,6 @@
 namespace Drupal\utexas_resources\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
-use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -17,14 +16,15 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_resources' field type.
+ *
+ * @FieldType(
+ *   id = "utexas_resources",
+ *   label = @Translation("Resources"),
+ *   description = @Translation("Headline, image, unlimited links"),
+ *   default_widget = "utexas_resources",
+ *   default_formatter = "utexas_resources"
+ * )
  */
-#[FieldType(
-  id: 'utexas_resources',
-  label: new TranslatableMarkup('Resources'),
-  description: new TranslatableMarkup('Headline, image, unlimited links'),
-  default_widget: 'utexas_resources',
-  default_formatter: 'utexas_resources'
-)]
 class UTexasResources extends FieldItemBase {
 
   /**

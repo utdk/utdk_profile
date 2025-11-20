@@ -2,21 +2,22 @@
 
 namespace Drupal\utexas_call_to_action\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Render\Markup;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\link\Plugin\Field\FieldFormatter\LinkFormatter;
 use Drupal\utexas_form_elements\RenderElementHelper;
 
 /**
  * Plugin implementation of the 'utexas_call_to_action_formatter' formatter.
+ *
+ * @FieldFormatter(
+ *   id = "utexas_call_to_action_formatter",
+ *   label = @Translation("UTexas Call to Action"),
+ *   field_types = {
+ *     "link"
+ *   }
+ * )
  */
-#[FieldFormatter(
-  id: 'utexas_call_to_action_formatter',
-  label: new TranslatableMarkup('UTexas Call to Action'),
-  field_types: ['link']
-)]
 class UTexasCallToActionFormatter extends LinkFormatter {
 
   /**

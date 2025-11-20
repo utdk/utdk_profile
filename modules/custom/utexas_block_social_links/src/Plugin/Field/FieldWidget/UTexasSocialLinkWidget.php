@@ -4,21 +4,22 @@ namespace Drupal\utexas_block_social_links\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
 
 /**
  * Plugin implementation of the 'utexas_social_link_widget' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_social_link_widget",
+ *   label = @Translation("UTexas Social Link"),
+ *   field_types = {
+ *     "utexas_social_link_field"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_social_link_widget',
-  label: new TranslatableMarkup('UTexas Social Link'),
-  field_types: ['utexas_social_link_field']
-)]
 class UTexasSocialLinkWidget extends WidgetBase {
 
   /**

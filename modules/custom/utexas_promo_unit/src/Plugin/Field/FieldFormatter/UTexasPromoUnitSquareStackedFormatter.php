@@ -2,19 +2,20 @@
 
 namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
-use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' formatter.
+ *
+ * @FieldFormatter(
+ *   id = "utexas_promo_unit_6",
+ *   label = @Translation("Stacked Square (1:1 ratio)"),
+ *   field_types = {
+ *     "utexas_promo_unit"
+ *   },
+ *   weight = 6,
+ * )
  */
-#[FieldFormatter(
-  id: 'utexas_promo_unit_6',
-  label: new TranslatableMarkup('Stacked Square (1:1 ratio)'),
-  field_types: ['utexas_promo_unit'],
-  weight: 6
-)]
 class UTexasPromoUnitSquareStackedFormatter extends UTexasPromoUnitSquareFormatter {
 
   /**

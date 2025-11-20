@@ -3,23 +3,25 @@
 namespace Drupal\utexas_hero_carousel\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_hero\Plugin\Field\FieldWidget\UTexasHeroWidget;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_hero' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_hero_Carousel",
+ *   label = @Translation("Hero Carousel"),
+ *   field_types = {
+ *     "utexas_hero"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_hero_Carousel',
-  label: new TranslatableMarkup('Hero Carousel'),
-  field_types: ['utexas_hero']
-)]
 class HeroCarouselWidget extends UTexasHeroWidget {
 
   /**

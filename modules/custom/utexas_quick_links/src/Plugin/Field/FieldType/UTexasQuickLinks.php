@@ -3,7 +3,6 @@
 namespace Drupal\utexas_quick_links\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
-use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -12,14 +11,15 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'utexas_quick_links' field type.
+ *
+ * @FieldType(
+ *   id = "utexas_quick_links",
+ *   label = @Translation("Quick Links"),
+ *   description = @Translation("Unlimited links, with optional copy text"),
+ *   default_widget = "utexas_quick_links",
+ *   default_formatter = "utexas_quick_links"
+ * )
  */
-#[FieldType(
-  id: 'utexas_quick_links',
-  label: new TranslatableMarkup('Quick Links'),
-  description: new TranslatableMarkup('Unlimited links, with optional copy text'),
-  default_widget: 'utexas_quick_links',
-  default_formatter: 'utexas_quick_links'
-)]
 class UTexasQuickLinks extends FieldItemBase {
 
   /**

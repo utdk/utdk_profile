@@ -2,21 +2,22 @@
 
 namespace Drupal\utexas_promo_unit\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\Traits\UtexasFieldTrait;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' widget.
+ *
+ * @FieldWidget(
+ *   id = "utexas_promo_unit",
+ *   label = @Translation("Promo Unit"),
+ *   field_types = {
+ *     "utexas_promo_unit"
+ *   }
+ * )
  */
-#[FieldWidget(
-  id: 'utexas_promo_unit',
-  label: new TranslatableMarkup('Promo Unit'),
-  field_types: ['utexas_promo_unit']
-)]
 class UTexasPromoUnitWidget extends WidgetBase {
 
   use UtexasFieldTrait;
