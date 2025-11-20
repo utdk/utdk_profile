@@ -18,6 +18,9 @@
   .utevent-event-field__label {
     font-weight: 600;
 
+    &::after {
+      content: ':';
+    }
   }
   .utevent-event-field--field-utevent-main-media {
     float: left;
