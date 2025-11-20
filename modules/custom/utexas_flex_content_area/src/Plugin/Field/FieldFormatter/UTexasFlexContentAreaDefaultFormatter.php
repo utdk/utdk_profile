@@ -211,7 +211,12 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         '#theme' => 'utexas_flex_content_area',
         '#media' => $media_render_array,
         '#headline' => $headline,
-        '#copy' => check_markup($copy, $format),
+        '#copy' => [
+          '#type' => 'processed_text',
+          '#text' => $copy,
+          '#format' => $format,
+          '#langcode' => $item->getLangcode(),
+        ],
         '#media_ratio' => $media_ratio,
         '#links' => $links,
         '#cta' => $cta,

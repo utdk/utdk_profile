@@ -110,7 +110,12 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
           }
           $format = $instance_item['copy']['format'] ?? 'flex_html';
           $copy = $instance_item['copy']['value'] ?? '';
-          $instances[$key]['copy'] = check_markup($copy, $format);
+          $instances[$key]['copy'] = [
+            '#type' => 'processed_text',
+            '#text' => $copy,
+            '#format' => $format,
+            '#langcode' => $item->getLangcode(),
+          ];
           // Show link below title and/or copy field only if there is link text.
           if ((!empty($instance_item['link']['uri'])) && (!empty($instance_item['link']['title']))) {
             $link_item = [

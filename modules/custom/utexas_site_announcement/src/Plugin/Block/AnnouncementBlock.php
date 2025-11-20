@@ -193,11 +193,21 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     $text_color = $scheme !== NULL ? Html::escape($scheme->get('text_color')) : '';
     $unique_id = Html::getUniqueId("site-announcement");
     $header_id = Html::getUniqueId("site-announcement-header");
+    $message = '';
+    if (!empty($config['message']['value'])) {
+      $message = [
+        '#type' => 'processed_text',
+        '#text' => $config['message']['value'],
+        '#format' => $config['message']['format'],
+        '#langcode' => \Drupal::languageManager()->getCurrentLanguage()->getId(),
+      ];
+    }
+
     return [
       '#theme' => 'utexas_site_announcement',
       '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title'], TRUE) : '',
       '#icon' => $config['icon'] === 'none' ? NULL : $config['icon'],
-      '#message' => !empty($config['message']['value']) ? check_markup($config['message']['value'], $config['message']['format']) : '',
+      '#message' => $message,
       '#unique_id' => $unique_id,
       '#header_id' => $header_id,
       '#cta' => $cta,

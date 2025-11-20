@@ -121,7 +121,12 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
             }
           }
           if (!empty($instance_item['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
+            $instances[$key]['copy'] = [
+              '#type' => 'processed_text',
+              '#text' => $instance_item['copy']['value'],
+              '#format' => $instance_item['copy']['format'],
+              '#langcode' => $item->getLangcode(),
+            ];
           }
           if (!empty($instance_item['link']['uri'])) {
             $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker']);

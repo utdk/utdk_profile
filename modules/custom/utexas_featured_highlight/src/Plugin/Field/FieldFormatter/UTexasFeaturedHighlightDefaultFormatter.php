@@ -242,7 +242,12 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         '#headline' => $headline,
         '#media_identifier' => $id,
         '#media' => $media_render_array,
-        '#copy' => check_markup($copy, $format),
+        '#copy' => [
+          '#type' => 'processed_text',
+          '#text' => $copy,
+          '#format' => $format,
+          '#langcode' => $item->getLangcode(),
+        ],
         '#date' => $item->date,
         '#cta' => $cta,
         '#style' => '',
