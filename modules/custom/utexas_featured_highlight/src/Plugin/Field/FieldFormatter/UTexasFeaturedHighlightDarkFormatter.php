@@ -2,19 +2,18 @@
 
 namespace Drupal\utexas_featured_highlight\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'utexas_featured_highlight' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_featured_highlight_3",
- *   label = @Translation("Charcoal (Dark)"),
- *   field_types = {
- *     "utexas_featured_highlight"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_featured_highlight_3',
+  label: new TranslatableMarkup('Charcoal (Dark)'),
+  field_types: ['utexas_featured_highlight']
+)]
 class UTexasFeaturedHighlightDarkFormatter extends UTexasFeaturedHighlightDefaultFormatter {
 
   /**

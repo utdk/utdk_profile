@@ -3,6 +3,7 @@
 namespace Drupal\utexas_promo_list\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -16,15 +17,14 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_promo_list' field type.
- *
- * @FieldType(
- *   id = "utexas_promo_list",
- *   label = @Translation("Promo List"),
- *   description = @Translation("A field with headline, image, copy, & link."),
- *   default_widget = "utexas_promo_list",
- *   default_formatter = "utexas_promo_list"
- * )
  */
+#[FieldType(
+  id: 'utexas_promo_list',
+  label: new TranslatableMarkup('Promo List'),
+  description: new TranslatableMarkup('A field with headline, image, copy, & link.'),
+  default_widget: 'utexas_promo_list',
+  default_formatter: 'utexas_promo_list'
+)]
 class UTexasPromoList extends FieldItemBase {
 
   /**

@@ -3,6 +3,7 @@
 namespace Drupal\utexas_photo_content_area\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -16,15 +17,14 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_photo_content_area' field type.
- *
- * @FieldType(
- *   id = "utexas_photo_content_area",
- *   label = @Translation("Photo Content Area"),
- *   description = @Translation("A field with headline, media, date, copy, & link."),
- *   default_widget = "utexas_photo_content_area",
- *   default_formatter = "utexas_photo_content_area"
- * )
  */
+#[FieldType(
+  id: 'utexas_photo_content_area',
+  label: new TranslatableMarkup('Photo Content Area'),
+  description: new TranslatableMarkup('A field with headline, media, date, copy, & link.'),
+  default_widget: 'utexas_photo_content_area',
+  default_formatter: 'utexas_photo_content_area'
+)]
 class UTexasPhotoContentArea extends FieldItemBase {
 
   /**

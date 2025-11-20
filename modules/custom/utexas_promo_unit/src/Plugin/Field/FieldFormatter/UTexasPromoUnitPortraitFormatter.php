@@ -2,20 +2,19 @@
 
 namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_promo_unit_2",
- *   label = @Translation("Portrait (150x188, 4:5 ratio)"),
- *   field_types = {
- *     "utexas_promo_unit"
- *   },
- *   weight = 1,
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_promo_unit_2',
+  label: new TranslatableMarkup('Portrait (150x188, 4:5 ratio)'),
+  field_types: ['utexas_promo_unit'],
+  weight: 1
+)]
 class UTexasPromoUnitPortraitFormatter extends UTexasPromoUnitDefaultFormatter {
 
   /**

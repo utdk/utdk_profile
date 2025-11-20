@@ -4,11 +4,13 @@ namespace Drupal\utexas_promo_list\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -16,15 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_promo_list' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_promo_list",
- *   label = @Translation("Single list full (1 item per row)"),
- *   field_types = {
- *     "utexas_promo_list"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_promo_list',
+  label: new TranslatableMarkup('Single list full (1 item per row)'),
+  field_types: ['utexas_promo_list']
+)]
 class UTexasPromoListDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**

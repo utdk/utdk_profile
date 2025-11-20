@@ -2,19 +2,18 @@
 
 namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'utexas_hero' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_hero_3_left",
- *   label = @Translation("Style 3: White bottom pane with heading, subheading and burnt orange call to action, image anchored left"),
- *   field_types = {
- *     "utexas_hero"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_hero_3_left',
+  label: new TranslatableMarkup('Style 3: White bottom pane with heading, subheading and burnt orange call to action, image anchored left'),
+  field_types: ['utexas_hero']
+)]
 class UTexasHeroStyle3FormatterLeft extends UTexasHeroStyle3Formatter {
 
   /**

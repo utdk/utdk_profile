@@ -4,11 +4,13 @@ namespace Drupal\utexas_photo_content_area\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -16,15 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_photo_content_area' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_photo_content_area",
- *   label = @Translation("Default display"),
- *   field_types = {
- *     "utexas_photo_content_area"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_photo_content_area',
+  label: new TranslatableMarkup('Default display'),
+  field_types: ['utexas_photo_content_area']
+)]
 class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**

@@ -2,23 +2,22 @@
 
 namespace Drupal\utexas_flex_list\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
 /**
  * Plugin implementation of the 'utexas_flex_list' widget.
- *
- * @FieldWidget(
- *   id = "utexas_flex_list",
- *   label = @Translation("Flex list"),
- *   field_types = {
- *     "utexas_flex_list"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'utexas_flex_list',
+  label: new TranslatableMarkup('Flex list'),
+  field_types: ['utexas_flex_list']
+)]
 class UTexasFlexList extends UtexasWidgetBase {
   use StringTranslationTrait;
 

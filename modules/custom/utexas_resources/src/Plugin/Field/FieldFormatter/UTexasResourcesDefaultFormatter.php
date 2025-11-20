@@ -4,11 +4,13 @@ namespace Drupal\utexas_resources\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -16,15 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_resources",
- *   label = @Translation("Default display"),
- *   field_types = {
- *     "utexas_resources"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_resources',
+  label: new TranslatableMarkup('Default display'),
+  field_types: ['utexas_resources']
+)]
 class UTexasResourcesDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**

@@ -4,6 +4,7 @@ namespace Drupal\utexas_form_elements\Plugin\views\area;
 
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\views\Attribute\ViewsArea;
 use Drupal\views\Plugin\views\area\AreaPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -11,9 +12,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * Defines an area plugin to display a link to set the site homepage.
  *
  * @ingroup views_area_handlers
- *
- * @ViewsArea("set_site_homepage")
  */
+#[ViewsArea("set_site_homepage")]
 class SetSiteHomepage extends AreaPluginBase {
 
   /**

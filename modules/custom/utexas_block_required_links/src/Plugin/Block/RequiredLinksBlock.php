@@ -2,17 +2,18 @@
 
 namespace Drupal\utexas_block_required_links\Plugin\Block;
 
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Provides a 'RequiredLinksBlock' block.
- *
- * @Block(
- *  id = "required_links_block",
- *  category = @Translation("UTexas"),
- *  admin_label = @Translation("Required Links Block"),
- * )
  */
+#[Block(
+  id: 'required_links_block',
+  category: new TranslatableMarkup('UTexas'),
+  admin_label: new TranslatableMarkup('Required Links Block')
+)]
 class RequiredLinksBlock extends BlockBase {
 
   /**

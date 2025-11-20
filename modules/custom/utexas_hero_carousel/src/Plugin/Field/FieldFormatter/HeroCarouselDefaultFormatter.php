@@ -3,21 +3,19 @@
 namespace Drupal\utexas_hero_carousel\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
-
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_hero\Plugin\Field\FieldFormatter\UTexasHeroFormatterBase;
 
 /**
  * Plugin implementation of the 'utexas_hero' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_hero_carousel",
- *   label = @Translation("Hero Carousel: full-width image"),
- *   field_types = {
- *     "utexas_hero"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_hero_carousel',
+  label: new TranslatableMarkup('Hero Carousel: full-width image'),
+  field_types: ['utexas_hero']
+)]
 class HeroCarouselDefaultFormatter extends UTexasHeroFormatterBase {
 
   /**
