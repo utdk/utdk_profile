@@ -3,22 +3,21 @@
 namespace Drupal\utexas_quick_links\Plugin\Field\FieldWidget;
 
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\Traits\UtexasFieldTrait;
 
 /**
  * Plugin implementation of the 'utexas_quick_links' widget.
- *
- * @FieldWidget(
- *   id = "utexas_quick_links",
- *   label = @Translation("UTexas Quick Links"),
- *   field_types = {
- *     "utexas_quick_links"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'utexas_quick_links',
+  label: new TranslatableMarkup('UTexas Quick Links'),
+  field_types: ['utexas_quick_links']
+)]
 class UTexasQuickLinksWidget extends WidgetBase {
 
   use UtexasFieldTrait;

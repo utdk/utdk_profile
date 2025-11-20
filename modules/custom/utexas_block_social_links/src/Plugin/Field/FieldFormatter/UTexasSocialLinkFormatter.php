@@ -3,25 +3,24 @@
 namespace Drupal\utexas_block_social_links\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Link;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\utexas_block_social_links\Services\UTexasSocialLinkOptions;
 use Drupal\utexas_form_elements\RenderElementHelper;
 
 /**
  * Plugin implementation of the 'utexas_social_link_formatter' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_social_link_formatter",
- *   label = @Translation("UTexas Social Link"),
- *   field_types = {
- *     "utexas_social_link_field"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_social_link_formatter',
+  label: new TranslatableMarkup('UTexas Social Link'),
+  field_types: ['utexas_social_link_field']
+)]
 class UTexasSocialLinkFormatter extends FormatterBase {
 
   /**

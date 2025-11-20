@@ -3,22 +3,21 @@
 namespace Drupal\utexas_hero\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_hero_2",
- *   label = @Translation("Style 2: Bold heading on dark background, anchored at base of media, image anchored center"),
- *   field_types = {
- *     "utexas_hero"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_hero_2',
+  label: new TranslatableMarkup('Style 2: Bold heading on dark background, anchored at base of media, image anchored center'),
+  field_types: ['utexas_hero']
+)]
 class UTexasHeroStyle2Formatter extends UTexasHeroFormatterBase {
 
   /**

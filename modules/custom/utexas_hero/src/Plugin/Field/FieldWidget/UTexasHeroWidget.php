@@ -2,22 +2,21 @@
 
 namespace Drupal\utexas_hero\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\UtexasWidgetBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_hero' widget.
- *
- * @FieldWidget(
- *   id = "utexas_hero",
- *   label = @Translation("Hero"),
- *   field_types = {
- *     "utexas_hero"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'utexas_hero',
+  label: new TranslatableMarkup('Hero'),
+  field_types: ['utexas_hero']
+)]
 class UTexasHeroWidget extends UtexasWidgetBase {
 
   /**

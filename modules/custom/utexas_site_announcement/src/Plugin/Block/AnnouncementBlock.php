@@ -3,11 +3,13 @@
 namespace Drupal\utexas_site_announcement\Plugin\Block;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,13 +21,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 const UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH = 'admin/config/site-announcement';
 /**
  * Provides a 'Site Announcement' block.
- *
- * @Block(
- *   id = "utexas_announcement",
- *   admin_label = @Translation("Site Announcement"),
- *   category = @Translation("UTexas")
- * )
  */
+#[Block(
+  id: 'utexas_announcement',
+  admin_label: new TranslatableMarkup('Site Announcement'),
+  category: new TranslatableMarkup('UTexas')
+)]
 class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**

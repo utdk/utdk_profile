@@ -2,23 +2,22 @@
 
 namespace Drupal\utexas_form_elements\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\Plugin\Field\FieldWidget\EntityReferenceAutocompleteWidget as BaseAutocompleteWidget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\Traits\TaxonomyDescriptionTrait;
 
 /**
  * Alters the default 'entity_reference_autocomplete' widget.
- *
- * @FieldWidget(
- *   id = "entity_reference_autocomplete",
- *   label = @Translation("Autocomplete"),
- *   description = @Translation("An autocomplete text field."),
- *   field_types = {
- *     "entity_reference"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'entity_reference_autocomplete',
+  label: new TranslatableMarkup('Autocomplete'),
+  description: new TranslatableMarkup('An autocomplete text field.'),
+  field_types: ['entity_reference']
+)]
 class EntityReferenceAutocompleteWidget extends BaseAutocompleteWidget {
 
   use TaxonomyDescriptionTrait;

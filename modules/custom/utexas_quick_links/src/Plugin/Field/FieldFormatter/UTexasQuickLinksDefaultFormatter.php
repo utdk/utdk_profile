@@ -2,23 +2,22 @@
 
 namespace Drupal\utexas_quick_links\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
  * Plugin implementation of the 'utexas_quick_links' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_quick_links",
- *   label = @Translation("Display Links in 1 column"),
- *   field_types = {
- *     "utexas_quick_links"
- *   },
- *   weight = 1,
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_quick_links',
+  label: new TranslatableMarkup('Display Links in 1 column'),
+  field_types: ['utexas_quick_links'],
+  weight: 1
+)]
 class UTexasQuickLinksDefaultFormatter extends FormatterBase {
 
   /**
