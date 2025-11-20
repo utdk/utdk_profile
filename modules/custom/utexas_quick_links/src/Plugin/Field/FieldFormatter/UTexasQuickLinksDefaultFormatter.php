@@ -45,7 +45,12 @@ class UTexasQuickLinksDefaultFormatter extends FormatterBase {
       $elements[] = [
         '#theme' => 'utexas_quick_links',
         '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
-        '#copy' => check_markup($copy, $format),
+        '#copy' => [
+          '#type' => 'processed_text',
+          '#text' => $copy,
+          '#format' => $format,
+          '#langcode' => $item->getLangcode(),
+        ],
         '#links' => $links,
       ];
     }

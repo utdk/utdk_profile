@@ -154,7 +154,12 @@ class UTexasPhotoContentAreaDefaultFormatter extends FormatterBase implements Co
         '#image' => $image_render_array,
         '#photo_credit' => RenderElementHelper::filterSingleLineText($item->photo_credit, TRUE),
         '#headline' => RenderElementHelper::filterSingleLineText($item->headline, TRUE),
-        '#copy' => check_markup($copy, $format),
+        '#copy' => [
+          '#type' => 'processed_text',
+          '#text' => $copy,
+          '#format' => $format,
+          '#langcode' => $item->getLangcode(),
+        ],
         '#links' => $links,
       ];
     }
