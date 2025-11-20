@@ -123,6 +123,9 @@
         }
       }
     }
+    p {
+      margin-bottom: 0;
+    }
   }
   .region-utility-nav,
   .region-header-primary,
