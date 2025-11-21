@@ -6,30 +6,30 @@
   grid-gap: var(--ipr-grid-gap);
   grid-template-columns: repeat(auto-fit, minmax(max(var(--ipr-grid-min-min-size), var(--ipr-grid-min-max-size)), 1fr));
   padding-left: 0;
+}
 
-  .utprof__profile-item {
-    list-style-type: none;
+.utprof__profile-item {
+  list-style-type: none;
+}
+
+.utprof__directory-link,
+.utprof__email {
+  font-size: 1rem;
+}
+
+h3.utprof__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+ /* Applies to both Basic and Prominent displays */
+.utprof__list-img {
+  width: 66px;
+  @media (min-width: 576px) {
+    width: 112px;
   }
-
-  .utprof__directory-link,
-  .utprof__email {
-    font-size: 1rem;
-  }
-
-  h3.utprof__title {
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-
-  /* Applies to both Basic and Prominent displays */
-  .utprof__list-img {
-    width: 66px;
-    @media (min-width: 576px) {
-      width: 112px;
-    }
-    @media (min-width: 768px) {
-      width: 140px;
-    }
+  @media (min-width: 768px) {
+    width: 140px;
   }
 }
 
