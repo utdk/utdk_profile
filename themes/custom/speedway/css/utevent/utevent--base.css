@@ -60,9 +60,6 @@
 .field--name-field-utevent-location .utevent-event-field__label {
   display: block;
 
-  &::after {
-    content: ':';
-  }
 }
 /* Avoid excessive margin after last paragraph of event description */
 .utevent-event-field__item > p:last-of-type {
