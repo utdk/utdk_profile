@@ -57,7 +57,7 @@
     "drupal/updated": "2.0.0",
     "drupal/url_embed": "3.0.0",
     "drupal/xmlsitemap": "2.0.0",
-    "enshrined/svg-sanitize": "^0.21",
+    "enshrined/svg-sanitize": "~0.21",
     "utexas/forty_acres": "3.26.0",
     "utexas/utexas_pantheon_logs_http": "^2.0",
     "utexas/utexas_saml_auth_helper": "^3.6",
