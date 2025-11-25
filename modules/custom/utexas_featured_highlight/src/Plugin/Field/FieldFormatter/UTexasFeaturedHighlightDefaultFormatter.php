@@ -174,14 +174,14 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $id = Html::getUniqueId('featured-highlight');
       if (isset($item->date)) {
         $options = [
-          'always_display_year' => 1,
-          'display_noon_and_midnight' => 1,
+          'always_display_year' => TRUE,
+          'display_noon_and_midnight' => TRUE,
           'timezone' => '',
-          'display_day' => 0,
-          'display_time' => 0,
-          'time_before_date' => 0,
-          'use_all_day' => 0,
-          'capitalize_noon_and_midnight' => 0,
+          'display_day' => FALSE,
+          'display_time' => FALSE,
+          'time_before_date' => FALSE,
+          'use_all_day' => FALSE,
+          'capitalize_noon_and_midnight' => FALSE,
         ];
         $timezone = $this->configFactory->get('system.date')->get('timezone');
         $item->date = $this->apStyleDateFormatter->formatTimestamp(strtotime($item->date), $options, $timezone['default'], Language::LANGCODE_NOT_SPECIFIED);
