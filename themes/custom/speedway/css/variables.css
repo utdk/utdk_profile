@@ -65,4 +65,5 @@
   --bs-breadcrumb-font-size: .75rem;
   --bs-breadcrumb-padding-x: 1rem;
   --bs-breadcrumb-padding-y: .5rem;
+  --bs-breadcrumb-margin-bottom: 0;
 }
