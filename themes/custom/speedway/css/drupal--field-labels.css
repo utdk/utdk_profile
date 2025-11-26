@@ -1,7 +1,7 @@
 /* Visual styles for fields. */
 
 .field__label {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .field--label-inline .field__label,

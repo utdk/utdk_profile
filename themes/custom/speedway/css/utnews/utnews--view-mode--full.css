@@ -1,7 +1,6 @@
 .utnews-news.full {
-  .field__label,
   .utnews__external-link-wrapper span {
-    font-weight: bold;
+    font-weight: 600;
   }
   .utnews__author-wrapper span {
     font-weight: normal;
