@@ -2,6 +2,8 @@ auto-anchors:
   js:
     js/autoAnchors.js: {}
     js/linkAccessibility.js: []
+  dependencies:
+    - core/once
 utexas-install:
   css:
     theme:
