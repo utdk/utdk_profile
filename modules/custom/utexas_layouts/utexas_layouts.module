@@ -17,13 +17,13 @@ function utexas_layouts_preprocess_layout(&$variables) {
   $variables['background_image'] = $variables['content']['#background_image'] ?? NULL;
   $variables['background_color'] = $variables['content']['#background_color'] ?? NULL;
   // If a class of "container-fluid" has NOT been applied to this layout,
-  // (i.e., via Layout Builder Styles) add "container-lg".
+  // (i.e., via Layout Builder Styles) add "container-xl".
   $add_container = TRUE;
   if (isset($variables['attributes']['class']) && in_array('container-fluid', $variables['attributes']['class'])) {
     $add_container = FALSE;
   }
   if ($add_container) {
-    $variables['attributes']['class'][] = 'container-lg';
+    $variables['attributes']['class'][] = 'container-xl';
   }
 }
 
@@ -50,11 +50,10 @@ function utexas_layouts_preprocess_block(&$variables) {
       // Since this block may be present on non Layout Builder & Layout Builder
       // pages, set the block to be uncacheable so it can vary.
       $variables['#cache']['contexts'][] = 'url.path';
-      $variables['#cache']['max-age'] = 0;
       // This is a reusable block placed located in the 'content' region.
-      // If the current page uses Layout Builder, set to 'container-lg' width.
+      // If the current page uses Layout Builder, set to 'container-xl' width.
       if (ThemeHelper::isLayoutBuilderPage()) {
-        $variables['attributes']['class'][] = 'container-lg';
+        $variables['attributes']['class'][] = 'container-xl';
       }
       // If first section is set to "Readable" width, add the `readable` class.
       if (ThemeHelper::firstSectionIsReadable()) {

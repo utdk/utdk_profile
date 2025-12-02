@@ -19,7 +19,7 @@ trait TextFormatsTestTrait {
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
     $allowed_elements = [
-      '<a href="https://google.com" hreflang="test">test</a>',
+      '<a href="https://google.com" hreflang="test" data-once="link">test</a>',
       '<em>test</em>',
       '<strong>test</strong>',
       '<cite>test</cite>',
@@ -80,7 +80,7 @@ trait TextFormatsTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $allowed_elements = [
-      '<a href="https://google.com" hreflang="test">test</a>',
+      '<a href="https://google.com" hreflang="test" data-once="link">test</a>',
       '<em>test</em>',
       '<strong>test</strong>',
       '<cite>test</cite>',
@@ -178,7 +178,7 @@ trait TextFormatsTestTrait {
     $assert = $this->assertSession();
     $page = $this->getSession()->getPage();
     $allowed_elements = [
-      '<a href="https://google.com" hreflang="test" class="test" id="test" name="test" role="test" title="test" aria-controls="test" aria-haspopup="test" aria-label="test" aria-expanded="test" aria-selected="test" data-entity-substitution="test" data-entity-type="test" data-entity-uuid="test" data-toggle="test" data-slide="test" media="test" rel="test" target="test">test</a>',
+      '<a href="https://google.com" hreflang="test" class="test" id="test" name="test" role="test" title="test" aria-controls="test" aria-haspopup="test" data-once="link" aria-label="test" aria-expanded="test" aria-selected="test" data-entity-substitution="test" data-entity-type="test" data-entity-uuid="test" data-toggle="test" data-slide="test" media="test" rel="test" target="test">test</a>',
       '<abbr title="test" class="test" id="test" role="test">test</abbr>',
       '<address class="test" id="test" role="test">test</address>',
       '<article class="test" id="test" role="test">test</article>',

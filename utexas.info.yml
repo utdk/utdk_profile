@@ -2,7 +2,7 @@ name: UTexas
 type: profile
 description: Installation profile for the UT Drupal Kit.
 core_version_requirement: '^10 || ^11'
-version: '3.26.2'
+version: '3.27.0'
 distribution:
   name: UTexas
 dependencies:
@@ -38,10 +38,11 @@ install:
   - drupal:workflows
   # Contrib
   - drupal:addtoany
-  - drupal:admin_toolbar_links_access_filter
+  - drupal:admin_toolbar
   - drupal:breadcrumbs_visibility
   - drupal:diff
   - drupal:entity_clone
+  - drupal:entity_usage
   - drupal:features
   - drupal:feed_block
   - drupal:google_tag
@@ -51,6 +52,7 @@ install:
   - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
   - drupal:menu_trail_by_path
+  - drupal:media_file_delete
   - drupal:metatag
   - drupal:metatag_open_graph
   - drupal:metatag_twitter_cards
@@ -64,6 +66,7 @@ install:
   - drupal:responsive_tables_filter
   - drupal:role_delegation
   - drupal:seckit
+  - drupal:trash
   - drupal:updated
   - drupal:url_embed
   - drupal:xmlsitemap
@@ -72,6 +75,7 @@ install:
   - utexas_block_social_links
   - utexas_call_to_action
   - utexas_content_type_flex_page
+  - utexas_entity_usage
   - utexas_favicons
   - utexas_featured_highlight
   - utexas_flex_content_area

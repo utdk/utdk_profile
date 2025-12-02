@@ -3,6 +3,7 @@
 namespace Drupal\utexas_promo_unit\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -16,15 +17,14 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' field type.
- *
- * @FieldType(
- *   id = "utexas_promo_unit",
- *   label = @Translation("Promo Unit"),
- *   description = @Translation("A compound field with image, headline, copy text, and link."),
- *   default_widget = "utexas_promo_unit",
- *   default_formatter = "utexas_promo_unit"
- * )
  */
+#[FieldType(
+  id: 'utexas_promo_unit',
+  label: new TranslatableMarkup('Promo Unit'),
+  description: new TranslatableMarkup('A compound field with image, headline, copy text, and link.'),
+  default_widget: 'utexas_promo_unit',
+  default_formatter: 'utexas_promo_unit'
+)]
 class UTexasPromoUnit extends FieldItemBase {
 
   /**
@@ -54,7 +54,7 @@ class UTexasPromoUnit extends FieldItemBase {
         ],
         'promo_unit_items' => [
           'type' => 'blob',
-          'size' => 'normal',
+          'size' => 'big',
         ],
       ],
     ];

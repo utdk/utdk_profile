@@ -6,6 +6,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
@@ -13,6 +14,7 @@ use Drupal\Core\Language\Language;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\date_ap_style\ApStyleDateFormatter;
 use Drupal\media\IFrameUrlHelper;
@@ -27,15 +29,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_featured_highlight' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_featured_highlight",
- *   label = @Translation("Limestone (Light)"),
- *   field_types = {
- *     "utexas_featured_highlight"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_featured_highlight',
+  label: new TranslatableMarkup('Limestone (Light)'),
+  field_types: ['utexas_featured_highlight']
+)]
 class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
@@ -175,14 +174,14 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $id = Html::getUniqueId('featured-highlight');
       if (isset($item->date)) {
         $options = [
-          'always_display_year' => 1,
-          'display_noon_and_midnight' => 1,
+          'always_display_year' => TRUE,
+          'display_noon_and_midnight' => TRUE,
           'timezone' => '',
-          'display_day' => 0,
-          'display_time' => 0,
-          'time_before_date' => 0,
-          'use_all_day' => 0,
-          'capitalize_noon_and_midnight' => 0,
+          'display_day' => FALSE,
+          'display_time' => FALSE,
+          'time_before_date' => FALSE,
+          'use_all_day' => FALSE,
+          'capitalize_noon_and_midnight' => FALSE,
         ];
         $timezone = $this->configFactory->get('system.date')->get('timezone');
         $item->date = $this->apStyleDateFormatter->formatTimestamp(strtotime($item->date), $options, $timezone['default'], Language::LANGCODE_NOT_SPECIFIED);
@@ -242,7 +241,12 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         '#headline' => $headline,
         '#media_identifier' => $id,
         '#media' => $media_render_array,
-        '#copy' => check_markup($copy, $format),
+        '#copy' => [
+          '#type' => 'processed_text',
+          '#text' => $copy,
+          '#format' => $format,
+          '#langcode' => $item->getLangcode(),
+        ],
         '#date' => $item->date,
         '#cta' => $cta,
         '#style' => '',

@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * @file
+ * The primary PHP file for the Speedway theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function speedway_preprocess_page(&$variables) {
+  $current_route = \Drupal::routeMatch();
+  $route_name = $current_route->getRouteName();
+
+  // Provide a {{ main_content_attributes }} object to page.html.twig.
+  $variables['main_content_attributes'] = new Attribute();
+  $variables['main_content_attributes']->setAttribute('role', 'main');
+  // Default classes for page.html.twig.
+  $variables['main_content_attributes']->addClass(['layout-content', 'col']);
+  // Modify classes for certain page routes.
+  if ($route_name === 'search.view_google_cse_search') {
+    $variables['main_content_attributes']->removeClass(['col']);
+    $variables['main_content_attributes']->addClass([
+      'mx-auto',
+      'col-sm-12',
+      'col-md-9',
+      'col-lg-9',
+      'col-xl-9',
+      'search-results-page',
+    ]);
+  }
+  // Logo height defaults to short unless otherwise specified.
+  $logo_height = theme_get_setting('logo_height') ?? 'short_logo';
+  $variables['logo_height'] = str_replace('_', '-', $logo_height);
+  // Parent entity.
+  $variables['parent_entity_title'] = theme_get_setting('parent_link_title');
+  $variables['parent_entity_link'] = theme_get_setting('parent_link');
+}
+
+/**
+ * Implements hook_preprocess_region().
+ */
+function speedway_preprocess_region(&$variables) {
+  // Add Bootstrap wrapping divs to regions that should be containerized.
+  if (in_array($variables['region'], [
+    'breadcrumb',
+    'help',
+    'highlighted',
+  ])) {
+    $variables['add_bootstrap_container'] = TRUE;
+  }
+
+  if ($variables['region'] === 'header_secondary') {
+    // Add class when theme setting has been set to "side-by-side".
+    if (theme_get_setting('header_secondary_display') !== 'side_by_side') {
+      $variables['attributes']['class'][] = 'flex-column row-gap-2 align-items-end';
+    }
+    else {
+      $variables['attributes']['class'][] = 'align-items-center';
+    }
+  }
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function speedway_preprocess_block(&$variables) {
+  $base_plugin_id = $variables['base_plugin_id'];
+  // Add logo alt text.
+  if ($base_plugin_id === 'system_branding_block') {
+    $config = \Drupal::config('system.site');
+    $variables['logo_alt_text'] = $config->get('name');
+  }
+  if (in_array($base_plugin_id, ['menu_block', 'system_menu_block'])) {
+    $region = $variables['elements']['#utexas_layouts_region'] ?? '';
+    if ($region === 'primary_menu') {
+      // Add class when main menu alignment setting is checked.
+      $alignment = theme_get_setting('main_menu_alignment');
+      if ($alignment === 'left_alignment') {
+        $variables['content']['#attributes']['class'][] = 'justify-content-start';
+      }
+      elseif ($alignment === 'right_alignment') {
+        $variables['content']['#attributes']['class'][] = 'justify-content-end';
+      }
+      else {
+        $variables['content']['#attributes']['class'][] = 'justify-content-between';
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function speedway_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $exceptions = [
+    'search_block_form',
+  ];
+  if (!in_array($form_id, $exceptions)) {
+    $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
+    $form['actions']['reset']['#attributes']['class'][] = 'ut-btn--secondary';
+  }
+}

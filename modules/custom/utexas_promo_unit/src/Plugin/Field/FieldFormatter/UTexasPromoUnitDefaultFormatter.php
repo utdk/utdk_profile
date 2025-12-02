@@ -4,11 +4,13 @@ namespace Drupal\utexas_promo_unit\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -16,15 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_promo_unit' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_promo_unit",
- *   label = @Translation("Landscape (220x140, 11:7 ratio)"),
- *   field_types = {
- *     "utexas_promo_unit"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_promo_unit',
+  label: new TranslatableMarkup('Landscape (220x140, 11:7 ratio)'),
+  field_types: ['utexas_promo_unit']
+)]
 class UTexasPromoUnitDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
@@ -110,7 +109,12 @@ class UTexasPromoUnitDefaultFormatter extends FormatterBase implements Container
           }
           $format = $instance_item['copy']['format'] ?? 'flex_html';
           $copy = $instance_item['copy']['value'] ?? '';
-          $instances[$key]['copy'] = check_markup($copy, $format);
+          $instances[$key]['copy'] = [
+            '#type' => 'processed_text',
+            '#text' => $copy,
+            '#format' => $format,
+            '#langcode' => $item->getLangcode(),
+          ];
           // Show link below title and/or copy field only if there is link text.
           if ((!empty($instance_item['link']['uri'])) && (!empty($instance_item['link']['title']))) {
             $link_item = [

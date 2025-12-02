@@ -3,6 +3,7 @@
 namespace Drupal\utexas_image_link\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -17,15 +18,14 @@ use Drupal\media\Entity\Media;
 
 /**
  * Plugin implementation of the 'utexas_image_link' field type.
- *
- * @FieldType(
- *   id = "utexas_image_link",
- *   label = @Translation("Image Link"),
- *   description = @Translation("Linked image"),
- *   default_widget = "utexas_image_link",
- *   default_formatter = "utexas_image_link"
- * )
  */
+#[FieldType(
+  id: 'utexas_image_link',
+  label: new TranslatableMarkup('Image Link'),
+  description: new TranslatableMarkup('Linked image'),
+  default_widget: 'utexas_image_link',
+  default_formatter: 'utexas_image_link'
+)]
 class UTexasImageLink extends FieldItemBase {
 
   /**

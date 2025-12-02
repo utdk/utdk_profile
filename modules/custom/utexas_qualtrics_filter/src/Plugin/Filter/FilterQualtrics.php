@@ -4,19 +4,21 @@ namespace Drupal\utexas_qualtrics_filter\Plugin\Filter;
 
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\filter\Attribute\Filter;
 use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
+use Drupal\filter\Plugin\FilterInterface;
 
 /**
  * Convert shortcode to iframe.
- *
- * @Filter(
- *   id = "filter_qualtrics",
- *   title = @Translation("Render Qualtrics shortcodes"),
- *   description = @Translation("Display Qualtrics shortcodes in the rich text editors as forms."),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_REVERSIBLE,
- * )
  */
+#[Filter(
+  id: 'filter_qualtrics',
+  title: new TranslatableMarkup('Render Qualtrics shortcodes'),
+  description: new TranslatableMarkup('Display Qualtrics shortcodes in the rich text editors as forms.'),
+  type: FilterInterface::TYPE_TRANSFORM_REVERSIBLE,
+)]
 class FilterQualtrics extends FilterBase {
 
   /**

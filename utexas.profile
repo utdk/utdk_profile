@@ -90,11 +90,13 @@ function utexas_themes_installed($theme_list) {
     \Drupal::logger('utexas')->notice('Mapping your theme settings to Speedway...');
     $speedway = \Drupal::configFactory()->getEditable('speedway.settings');
     // Migrate the custom logo, if defined.
-    $logo_use_default = $theme_config->get('logo.use_default');
     $logo_path = $theme_config->get('logo.path');
-    if ($logo_use_default == FALSE) {
-      $speedway->set('logo.use_default', $logo_use_default);
+    if ($logo_path) {
+      $speedway->set('logo.use_default', FALSE);
       $speedway->set('logo.path', $logo_path);
+    }
+    else {
+      $speedway->set('logo.use_default', TRUE);
     }
     // Save additional theme settings.
     if (isset($link) && isset($title)) {
@@ -114,7 +116,20 @@ function utexas_themes_installed($theme_list) {
       $speedway->set('main_menu_alignment', $main_menu_alignment);
       $speedway->save();
     }
-    // Delete required links block.
+    $theme_info = \Drupal::service('theme.initialization')->getActiveThemeByName($default_theme);
+    foreach ($theme_info->getBaseThemeExtensions() as $base_theme) {
+      $base_theme = $base_theme->getName();
+      if ($base_theme === 'speedway') {
+        // Delete required links if default theme is a sub-theme of Speedway.
+        $blocks = \Drupal::entityTypeManager()->getStorage('block')
+          ->loadByProperties(['plugin' => 'required_links_block', 'theme' => $default_theme]);
+        foreach ($blocks as $block) {
+          $block->delete();
+        }
+        \Drupal::configFactory()->getEditable('block.block.required_links_block')->delete();
+      }
+    }
+    // Delete required links from Speedway.
     $blocks = \Drupal::entityTypeManager()->getStorage('block')
       ->loadByProperties(['plugin' => 'required_links_block', 'theme' => 'speedway']);
     foreach ($blocks as $block) {
@@ -358,7 +373,7 @@ function _utexas_install_footer_content() {
     'type' => 'basic',
     'langcode' => 'en',
     'body' => [
-      'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content.</p>',
+      'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content. See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region.</p>',
       'format' => 'flex_html',
     ],
   ]);

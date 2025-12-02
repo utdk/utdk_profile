@@ -4,12 +4,14 @@ namespace Drupal\utexas_flex_content_area\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\media\IFrameUrlHelper;
 use Drupal\media\MediaInterface;
@@ -23,15 +25,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_flex_content_area' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_flex_content_area",
- *   label = @Translation("Display 2 items per row"),
- *   field_types = {
- *     "utexas_flex_content_area"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_flex_content_area',
+  label: new TranslatableMarkup('Display 2 items per row'),
+  field_types: ['utexas_flex_content_area']
+)]
 class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
@@ -211,7 +210,12 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
         '#theme' => 'utexas_flex_content_area',
         '#media' => $media_render_array,
         '#headline' => $headline,
-        '#copy' => check_markup($copy, $format),
+        '#copy' => [
+          '#type' => 'processed_text',
+          '#text' => $copy,
+          '#format' => $format,
+          '#langcode' => $item->getLangcode(),
+        ],
         '#media_ratio' => $media_ratio,
         '#links' => $links,
         '#cta' => $cta,

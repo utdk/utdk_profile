@@ -66,6 +66,8 @@ trait ResourcesTestTrait {
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    $this->drupalGet('/media/1/edit/usage');
+    $assert->pageTextContains('Content block: Resources');
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');

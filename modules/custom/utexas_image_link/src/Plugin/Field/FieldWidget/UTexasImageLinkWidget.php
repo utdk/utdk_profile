@@ -2,22 +2,21 @@
 
 namespace Drupal\utexas_image_link\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Plugin implementation of the 'utexas_image_link' widget.
- *
- * @FieldWidget(
- *   id = "utexas_image_link",
- *   label = @Translation("UTexas Image Link"),
- *   field_types = {
- *     "utexas_image_link"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'utexas_image_link',
+  label: new TranslatableMarkup('UTexas Image Link'),
+  field_types: ['utexas_image_link']
+)]
 class UTexasImageLinkWidget extends WidgetBase {
 
   /**

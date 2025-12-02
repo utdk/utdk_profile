@@ -24,7 +24,7 @@ trait FeaturedHighlightTestTrait {
     $flex_page_id = $this->createFlexPage();
 
     // Create custom media image.
-    $this->createTestMediaImage('image-1000x1000.png');
+    $mid = $this->createTestMediaImage('image-1000x1000.png');
 
     // Block info.
     $block_type = 'Featured Highlight';
@@ -62,6 +62,8 @@ trait FeaturedHighlightTestTrait {
     // Save block.
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
+    $this->drupalGet('/media/' . $mid . '/edit/usage');
+    $assert->pageTextContains('Content block: Featured Highlight');
     // Place the block on the Flex page.
     $this->drupalGetNodeLayoutTab($flex_page_id);
     $form = $this->waitForForm('node-utexas-flex-page-layout-builder-form');

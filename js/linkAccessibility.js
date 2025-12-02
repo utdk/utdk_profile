@@ -1,4 +1,4 @@
-(($, Drupal) => {
+(($, Drupal, once) => {
   "use strict";
 
   /**
@@ -34,9 +34,9 @@
 
   Drupal.behaviors.utexasLinkAccessibility = {
     attach() {
-      $("body a").each(function handleLink() {
+      $(once("link", "body a")).each(function handleLink() {
         modifyLink(this);
       });
     }
   };
-})(jQuery, Drupal);
+})(jQuery, Drupal, once);

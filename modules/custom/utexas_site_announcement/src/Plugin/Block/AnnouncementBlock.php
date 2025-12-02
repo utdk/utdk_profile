@@ -3,11 +3,13 @@
 namespace Drupal\utexas_site_announcement\Plugin\Block;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,13 +21,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 const UTEXAS_SITE_ANNOUNCEMENT_CONFIG_FORM_PATH = 'admin/config/site-announcement';
 /**
  * Provides a 'Site Announcement' block.
- *
- * @Block(
- *   id = "utexas_announcement",
- *   admin_label = @Translation("Site Announcement"),
- *   category = @Translation("UTexas")
- * )
  */
+#[Block(
+  id: 'utexas_announcement',
+  admin_label: new TranslatableMarkup('Site Announcement'),
+  category: new TranslatableMarkup('UTexas')
+)]
 class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
@@ -193,11 +194,21 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     $text_color = $scheme !== NULL ? Html::escape($scheme->get('text_color')) : '';
     $unique_id = Html::getUniqueId("site-announcement");
     $header_id = Html::getUniqueId("site-announcement-header");
+    $message = '';
+    if (!empty($config['message']['value'])) {
+      $message = [
+        '#type' => 'processed_text',
+        '#text' => $config['message']['value'],
+        '#format' => $config['message']['format'],
+        '#langcode' => \Drupal::languageManager()->getCurrentLanguage()->getId(),
+      ];
+    }
+
     return [
       '#theme' => 'utexas_site_announcement',
       '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title'], TRUE) : '',
       '#icon' => $config['icon'] === 'none' ? NULL : $config['icon'],
-      '#message' => !empty($config['message']['value']) ? check_markup($config['message']['value'], $config['message']['format']) : '',
+      '#message' => $message,
       '#unique_id' => $unique_id,
       '#header_id' => $header_id,
       '#cta' => $cta,

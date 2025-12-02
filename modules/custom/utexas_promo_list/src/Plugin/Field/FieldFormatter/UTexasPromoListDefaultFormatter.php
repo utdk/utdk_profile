@@ -4,11 +4,13 @@ namespace Drupal\utexas_promo_list\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_form_elements\RenderElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
@@ -16,15 +18,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'utexas_promo_list' formatter.
- *
- * @FieldFormatter(
- *   id = "utexas_promo_list",
- *   label = @Translation("Single list full (1 item per row)"),
- *   field_types = {
- *     "utexas_promo_list"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'utexas_promo_list',
+  label: new TranslatableMarkup('Single list full (1 item per row)'),
+  field_types: ['utexas_promo_list']
+)]
 class UTexasPromoListDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
@@ -121,7 +120,12 @@ class UTexasPromoListDefaultFormatter extends FormatterBase implements Container
             }
           }
           if (!empty($instance_item['copy']['value'])) {
-            $instances[$key]['copy'] = check_markup($instance_item['copy']['value'], $instance_item['copy']['format']);
+            $instances[$key]['copy'] = [
+              '#type' => 'processed_text',
+              '#text' => $instance_item['copy']['value'],
+              '#format' => $instance_item['copy']['format'],
+              '#langcode' => $item->getLangcode(),
+            ];
           }
           if (!empty($instance_item['link']['uri'])) {
             $instances[$key]['link'] = UtexasLinkOptionsHelper::buildLink($instance_item, ['ut-link--darker']);

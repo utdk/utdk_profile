@@ -47,7 +47,6 @@ function utexas_site_announcement_preprocess_utexas_site_announcement(array &$va
     $link = $link->toRenderable();
     $link['#attributes'] = [
       'class' => [
-        'ut-btn',
         'ut-btn--secondary',
       ],
     ];
