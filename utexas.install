@@ -46,7 +46,7 @@ function utexas_install() {
   \Drupal::configFactory()
     ->getEditable('system.theme')
     ->set('admin', 'claro')
-    ->set('default', 'forty_acres')
+    ->set('default', 'speedway')
     ->save(TRUE);
   \Drupal::configFactory()
     ->getEditable('node.settings')
