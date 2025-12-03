@@ -6,9 +6,9 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
+    - speedway
 id: user_account_menu
-theme: forty_acres
+theme: speedway
 region: secondary_menu
 weight: 0
 provider: null

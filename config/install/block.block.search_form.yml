@@ -4,9 +4,9 @@ dependencies:
   module:
     - search
   theme:
-    - forty_acres
+    - speedway
 id: search_form
-theme: forty_acres
+theme: speedway
 region: header_tertiary
 weight: 4
 provider: null

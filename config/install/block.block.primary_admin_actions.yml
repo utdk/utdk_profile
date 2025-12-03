@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - forty_acres
+    - speedway
 id: primary_admin_actions
-theme: forty_acres
+theme: speedway
 region: highlighted
 weight: 1
 provider: null

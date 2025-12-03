@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
+    - speedway
 id: main_page_content
-theme: forty_acres
+theme: speedway
 region: content
 weight: -7
 provider: null

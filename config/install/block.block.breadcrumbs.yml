@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
+    - speedway
 id: breadcrumbs
-theme: forty_acres
+theme: speedway
 region: breadcrumb
 weight: 0
 provider: null

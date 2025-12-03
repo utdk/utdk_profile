@@ -2,9 +2,9 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - forty_acres
+    - speedway
 id: page_title
-theme: forty_acres
+theme: speedway
 region: content
 weight: -9
 provider: null

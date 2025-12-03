@@ -4,9 +4,9 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
+    - speedway
 id: site_branding_footer
-theme: forty_acres
+theme: speedway
 region: footer_left
 weight: 0
 provider: null

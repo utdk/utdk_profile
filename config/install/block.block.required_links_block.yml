@@ -4,9 +4,9 @@ dependencies:
   module:
     - utexas_block_required_links
   theme:
-    - forty_acres
+    - speedway
 id: required_links_block
-theme: forty_acres
+theme: speedway
 region: footer_right
 weight: 0
 provider: null
