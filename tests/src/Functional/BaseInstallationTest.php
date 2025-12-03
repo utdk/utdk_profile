@@ -35,7 +35,7 @@ class BaseInstallationTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $defaultTheme = 'forty_acres';
+  protected $defaultTheme = 'speedway';
 
   /**
    * {@inheritdoc}
@@ -73,7 +73,7 @@ class BaseInstallationTest extends BrowserTestBase {
     }
     // Assert that Forty Acres is the active theme.
     $default_theme = \Drupal::config('system.theme')->get('default');
-    $this->assertEquals($default_theme, 'forty_acres');
+    $this->assertEquals($default_theme, 'speedway');
 
     // Assert country and timezone set to US and America/Chicago.
     // $timezone = $this->config('system.date')->get('timezone.default');

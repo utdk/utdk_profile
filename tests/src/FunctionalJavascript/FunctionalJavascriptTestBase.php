@@ -42,7 +42,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
    *
    * @var string
    */
-  protected $defaultTheme = 'forty_acres';
+  protected $defaultTheme = 'speedway';
 
   /**
    * A user with permissions to administer content types and image styles.

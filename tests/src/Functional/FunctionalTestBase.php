@@ -31,7 +31,7 @@ abstract class FunctionalTestBase extends BrowserTestBase {
    *
    * @var string
    */
-  protected $defaultTheme = 'forty_acres';
+  protected $defaultTheme = 'speedway';
 
   /**
    * A user with permissions to administer content types and image styles.
