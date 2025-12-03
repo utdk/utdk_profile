@@ -157,11 +157,17 @@ function utexas_install_demo_content(&$install_state) {
   // Note: the equivalent can be achieved during a drush site installation:
   // drush si utexas utexas_installation_options.default_content=NULL -y .
   $create_default_content = \Drupal::state()->get('utexas_installation_options.default_content', FALSE);
+  $config = \Drupal::config('system.theme');
+  $default_theme = $config->get('default');
   if ($create_default_content) {
     // Function call to create footer demo content.
     _utexas_install_footer_content();
     // Function call to create header demo content.
     _utexas_install_header_content();
+    // Function call to create utility nav demo content in speedway theme.
+    if ($default_theme == 'speedway') {
+      _utexas_install_utility_nav_content();
+    }
 
     // Each of the 'utexas_demo_content' implementations will be added as a
     // batch job.
@@ -442,8 +448,36 @@ function _utexas_install_header_content() {
 }
 
 /**
- * Implements hook_link_alter().
+ * Populate utility nav region with demo content.
  */
+function _utexas_install_utility_nav_content() {
+  // Create block with placeholder text in 'Utility nav' region.
+  $block = BlockContent::create([
+    'info' => 'Utility Navigation default content',
+    'type' => 'basic',
+    'langcode' => 'en',
+    'body' => [
+      'value' => '<p>See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region</p>',
+      'format' => 'flex_html',
+    ],
+  ]);
+  $block->save();
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => $block->id(),
+    'weight' => 0,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'utility_nav',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
+  ]);
+  $placed_block->save();
+}
+
+  /**
+   * Implements hook_link_alter().
+   */
 function utexas_link_alter(&$variables) {
   // Add a targetable class to menu links not visible to anonymous users.
   // This is modeled on conversation at
