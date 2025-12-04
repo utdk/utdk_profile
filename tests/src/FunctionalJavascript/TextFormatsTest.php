@@ -8,8 +8,6 @@ use Drupal\Tests\utexas\Traits\TextFormatsTestTraits\TextFormatsTestTrait;
 
 /**
  * Verifies Flex HTML behavior.
- *
- * @group utexas
  */
 class TextFormatsTest extends FunctionalJavascriptTestBase {
 

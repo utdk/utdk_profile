@@ -39,7 +39,8 @@ class FeaturedHighlight extends UtexasEntityUsageTrackBase {
     // at a time, we can safely assume that the media value below is always a
     // a single integer, not a string.
     if (isset($value['media'])) {
-      $references[] = 'media|' . $value['media'];
+      $target = (string) $value['media'];
+      $references[] = 'media|' . $target;
     }
     // Process media entities references in copy field.
     // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic

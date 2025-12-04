@@ -8,8 +8,6 @@ use Drupal\utexas_readonly\ReadOnlyHelper;
 
 /**
  * Verifies add-on specific Field UI pages are read-only.
- *
- * @group utexas
  */
 class ReadOnlyTest extends FunctionalTestBase {
 
@@ -135,10 +133,10 @@ class ReadOnlyTest extends FunctionalTestBase {
       '/admin/structure/types/manage/page/form-display',
       '/admin/structure/types/manage/page/display',
       '/admin/structure/types/manage/page/fields/add-field',
-      '/admin/structure/block/block-content/manage/basic/fields',
-      '/admin/structure/block/block-content/manage/basic/fields/add-field',
-      '/admin/structure/block/block-content/manage/basic/form-display',
-      '/admin/structure/block/block-content/manage/basic/display',
+      '/admin/structure/block-content/manage/basic/fields',
+      '/admin/structure/block-content/manage/basic/fields/add-field',
+      '/admin/structure/block-content/manage/basic/form-display',
+      '/admin/structure/block-content/manage/basic/display',
       '/admin/structure/views/view/content',
       '/admin/structure/views/view/content/delete',
       '/admin/config/content/formats',
@@ -167,7 +165,7 @@ class ReadOnlyTest extends FunctionalTestBase {
       $fourohthree[] = '/admin/structure/types/manage/' . $machine_name . '/fields/add-field';
     }
     foreach (ReadOnlyHelper::$restrictedBlockTypes as $machine_name) {
-      $fourohthree[] = '/admin/structure/block/block-content/manage/' . $machine_name . '/fields/add-field';
+      $fourohthree[] = '/admin/structure/block-content/manage/' . $machine_name . '/fields/add-field';
     }
     foreach ($fourohthree as $path) {
       $this->assertForbidden($path);
@@ -182,7 +180,7 @@ class ReadOnlyTest extends FunctionalTestBase {
       $read_only_paths[] = '/admin/structure/types/manage/' . $machine_name . '/display';
     }
     foreach (ReadOnlyHelper::$restrictedBlockTypes as $machine_name) {
-      $read_only_paths[] = '/admin/structure/block/block-content/manage/' . $machine_name . '/fields';
+      $read_only_paths[] = '/admin/structure/block-content/manage/' . $machine_name . '/fields';
     }
     foreach (ReadOnlyHelper::$restrictedMediaTypes as $machine_name) {
       $read_only_paths[] = '/admin/structure/media/manage/' . $machine_name . '/fields';

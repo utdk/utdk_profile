@@ -17,13 +17,13 @@ $COMPOSER remove utexas/utdk_profile --no-update
 cd ..
 $COMPOSER config repositories.utdk_profile vcs git@github.austin.utexas.edu:eis1-wcs/utdk_profile.git
 $COMPOSER config repositories.forty_acres vcs git@github.austin.utexas.edu:eis1-wcs/forty_acres.git
-$COMPOSER config repositories.utexas_qualtrics_filter vcs git@github.austin.utexas.edu:eis1-wcs/utexas_qualtrics_filter.git
-$COMPOSER config repositories.utdk_localdev vcs git@github.austin.utexas.edu:eis1-wcs/utdk_localdev.git
 $COMPOSER config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 $COMPOSER config --no-plugins allow-plugins.phpstan/extension-installer true
 
 $COMPOSER clear-cache
 $COMPOSER require utexas/utdk_profile:"dev-$BRANCH"  --no-update
+$COMPOSER require "drupal/core-dev" --ignore-platform-reqs
+
 # If this is a release pull request, alias forty_acres with release tag
 if [[ "$BRANCH" == release-* ]]; then
   RELEASE_TAG=$(sed "s/release-//" <<< "$BRANCH")
@@ -32,5 +32,4 @@ else
   $COMPOSER require utexas/forty_acres:"dev-develop as $FORTYACRES" --no-update
 fi
 
-$COMPOSER require "drupal/core-dev":"^10" --ignore-platform-reqs
 cat composer.json
