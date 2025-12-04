@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 /**
  * Verify functionality of 1, 2, 3, and 4 column layouts.
- *
- * @group utexas
  */
 class LayoutsTest extends FunctionalJavascriptTestBase {
 

@@ -19,8 +19,6 @@ use Drupal\Tests\utexas\Traits\WidgetsTestTraits\ResourcesTestTrait;
 
 /**
  * Verifies custom compound field schema, validation, & output.
- *
- * @group utexas
  */
 class CustomWidgetsTest extends FunctionalJavascriptTestBase {
 

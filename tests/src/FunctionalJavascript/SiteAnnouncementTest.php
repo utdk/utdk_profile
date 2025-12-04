@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 /**
  * Test all aspects of site announcement functionality.
- *
- * @group utexas
  */
 class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
 

@@ -23,8 +23,8 @@
     "drupal/admin_toolbar": "3.6.2",
     "drupal/breadcrumbs_visibility": "2.0.0",
     "drupal/config_update": "2.0.0-alpha4",
-    "drupal/core-composer-scaffold": "10.5.6",
-    "drupal/core-recommended": "10.5.6",
+    "drupal/core-composer-scaffold": "11.2.8",
+    "drupal/core-recommended": "11.2.8",
     "drupal/date_ap_style": "2.1.2",
     "drupal/diff": "2.0.0-beta4",
     "drupal/editor_advanced_link": "2.3.3",
@@ -70,8 +70,7 @@
     "patches": {
       "drupal/core": {
         "Revision log message field missing from layout overrides entity form": "https://drupalkit.its.utexas.edu/patches/2232-revision-log-message.patch",
-        "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch",
-        "PHP warning: gd-png: libpng warning: iCCP: known incorrect sRGB profile (Drupal 10.2.0)": "https://drupalkit.its.utexas.edu/patches/20-imagecreatefrompng-3261924-52.patch"
+        "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch"
       },
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.2.1.0-beta1.patch"

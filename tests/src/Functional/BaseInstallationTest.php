@@ -14,8 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Verifies full installation completes with everything enabled.
- *
- * @group utexas
  */
 class BaseInstallationTest extends BrowserTestBase {
 

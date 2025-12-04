@@ -20,7 +20,7 @@ function _utexas_devel_create_hero($media_id, $view_mode) {
   $block->field_block_hero = [
     'heading' => "Hero",
     'subheading' => "Subheading content",
-    'media' => [$media_id],
+    'media' => $media_id,
     "caption" => "A short caption may be added, describing the hero",
     "credit" => "Copyright University of Texas at Austin",
     "link_uri" => "https://www.utexas.edu",
@@ -45,7 +45,7 @@ function _utexas_devel_create_hero($media_id, $view_mode) {
   $block->field_block_hero = [
     'heading' => "New and Improved",
     'subheading' => "Heros can display in 6 styles",
-    'media' => [$media_id],
+    'media' => $media_id,
     "link_uri" => "https://www.utexas.edu",
     "link_title" => "Visit Texas",
     "caption" => "A short caption may be added, describing the hero",

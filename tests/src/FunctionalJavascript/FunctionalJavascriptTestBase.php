@@ -199,20 +199,14 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
   protected function createInlineBlockOnFlexPage($block_type_label, array $form_values = []) {
     /** @var \Behat\Mink\Element\DocumentElement $page */
     $page = $this->getSession()->getPage();
-
     $this->scrollLinkIntoViewAndClick($page, 'Add block');
-
-    $dialog = $this->waitForUiDialogTitle('Choose a block');
-    $this->scrollLinkIntoViewAndClick($dialog, 'Create content block');
-
-    $dialog = $this->waitForUiDialogTitle('Add a new content block');
-    $this->scrollLinkIntoViewAndClick($dialog, $block_type_label);
-
+    $this->waitForUiDialogTitle('Choose a block');
+    $this->clickLink('Create content block');
+    $this->waitForUiDialogTitle('Add a new content block');
+    $this->clickLink($block_type_label);
     $this->switchToLayoutBuilderIframe();
-    // Wait for form.
     $form_id = 'layout-builder-add-block';
     $this->waitForForm($form_id);
-
     $this->submitForm($form_values, 'Add block', $form_id);
     $this->switchFromLayoutBuilderIframe();
   }
@@ -321,8 +315,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $selector = '//div[contains(@class, "js-media-library-item")][contains(@class, "checked")]';
     $item = $assert->waitForElement('xpath', $selector, $this->getTimeout());
     $this->assertNotEmptyXpath($item, $selector);
-
-    $this->scrollButtonIntoViewAndClick($dialog, 'Insert selected');
+    $assert->elementExists('css', '.ui-dialog-buttonpane')->pressButton('Insert selected');
 
     // Verify media has been inserted.
     $selector = '//input[contains(@class, "media-library-item__remove")]';
@@ -497,7 +490,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $assert = $this->assertSession();
 
     $selector = $assert->buildXPathQuery(
-      '//span[contains(@class, "ui-dialog-title")][text()=:text]/../..',
+      '//*[contains(@class, "ui-dialog-title")][text()=:text]',
       [':text' => $text]
     );
     $ui_dialog = $assert->waitForElement('xpath', $selector, $this->getTimeout());
@@ -711,10 +704,10 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $this->clickLink('Add section');
 
     // Wait for "section add" modal to OPEN.
-    $dialog = $this->waitForUiDialogTitle('Choose a layout for this section');
+    $this->waitForUiDialogTitle('Choose a layout for this section');
 
     // Click section layout.
-    $this->scrollElementIntoViewAndClick($dialog, 'a/div', 'normalize-space(text())', $section_layout);
+    $this->clickLink($section_layout);
 
     $this->waitForUiDialogTitle('Configure section');
     $this->switchToLayoutBuilderIframe();
@@ -759,8 +752,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
     $assert = $this->assertSession();
 
-    // Note the pecularities of "normalize-space() if things go awry.
-    $selector = $this->scrollElementIntoViewAndClick($parent_element, 'a', 'normalize-space(text())', $link_text, $link_index);
+    $selector = $this->scrollElementIntoViewAndClick($parent_element, 'a', '', $link_text, $link_index);
 
     if ($no_element_after_wait) {
       // Wait for input element to go away.
@@ -798,27 +790,6 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
   }
 
   /**
-   * Use JS to scroll a button element into view and "press" it.
-   *
-   * @param \Behat\Mink\Element\TraversableElement $parent_element
-   *   A parent element to the button.
-   * @param string $button_text
-   *   The text within the target button element.
-   * @param int|null $button_index
-   *   Provide if an button element besides the first match is needed.
-   */
-  protected function scrollButtonIntoViewAndClick(TraversableElement $parent_element, $button_text, $button_index = 1) {
-    /** @var \Drupal\FunctionalJavascriptTests\WebDriverWebAssert $assert */
-    $assert = $this->assertSession();
-
-    $selector = $this->scrollElementIntoViewAndClick($parent_element, 'button', 'normalize-space(text())', $button_text, $button_index);
-
-    // Wait for button element to go away.
-    $message = 'Element exists on the page. xpath: ' . $selector;
-    $assert->assertNoElementAfterWait('xpath', $selector, $this->getTimeout(), $message);
-  }
-
-  /**
    * Use JS to scroll an element into view and "click" it.
    *
    * @param \Behat\Mink\Element\TraversableElement $parent_element
@@ -844,11 +815,18 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
       ':text' => $attribute_text,
       ':index' => $element_index,
     ];
-    $xpath_query = '(//' . $element_name . '[' . $attribute_name . '=:text])[:index]';
+    if (!empty($attribute_name)) {
+      $xpath_query = '(//' . $element_name . '[' . $attribute_name . '=:text])[:index]';
+    }
+    else {
+      $xpath_query = '(//' . $element_name . '[text()[contains(.,:text)]])[:index]';
+    }
     $selector = $assert->buildXPathQuery($xpath_query, $substitutions);
-
     // Find element within parent.
     $element = $parent_element->find('xpath', $selector);
+    if (!$element) {
+      $this->assertEquals('An element with the following xpath should be found', $selector);
+    }
     $this->assertNotEmptyXpath($element, $selector);
 
     // Ensure that element is visible.

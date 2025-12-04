@@ -5,7 +5,12 @@
     margin: 0;
   }
 
-  nav > ul:not(.utexas-primary-menu) {
+  a[class*="ut-btn"],
+  p {
+    margin: 0;
+  }
+
+  nav>ul:not(.utexas-primary-menu) {
     list-style: none;
     display: flex;
     gap: 21px;
@@ -35,7 +40,6 @@
     height: 48px;
 
     .ut-parent-entity {
-
       a {
         color: var(--ut-limestone--s50);
         font-family: var(--ut-font--serif);
@@ -103,8 +107,7 @@
       }
     }
 
-    .ut-btn {
-      margin: 0;
+    a[class*="ut-btn"] {
       padding: .25rem .75rem;
       font-size: .75rem;
     }
@@ -122,9 +125,6 @@
           color: var(--ut-charcoal--s40);
         }
       }
-    }
-    p {
-      margin-bottom: 0;
     }
   }
   .region-utility-nav,
@@ -252,14 +252,12 @@
 
       &:hover {
         background-color: var(--ut-burntorange);
-
         .navbar-text {
           color: var(--ut-white);
         }
         .navbar-visualisation-closed {
           border-top: 4px solid var(--ut-white);
           border-bottom: 4px solid var(--ut-white);
-
           &::before {
             border-top: 4px solid var(--ut-white);
           }

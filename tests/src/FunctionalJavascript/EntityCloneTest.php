@@ -8,8 +8,6 @@ use Drupal\Tests\Traits\Core\CronRunTrait;
 
 /**
  * Demonstrate that various node types can be cloned.
- *
- * @group utexas
  */
 class EntityCloneTest extends FunctionalJavascriptTestBase {
 

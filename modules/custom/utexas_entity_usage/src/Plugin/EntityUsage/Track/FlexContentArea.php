@@ -40,7 +40,8 @@ class FlexContentArea extends UtexasEntityUsageTrackBase {
     // a single integer, not a string.
     if (isset($value['image'])) {
       // On Flex Content Area, 'image' is valid for either video or image.
-      $references[] = 'media|' . $value['image'];
+      $target = (string) $value['image'];
+      $references[] = 'media|' . $target;
     }
     // Process media entities references in copy field.
     // UtexasEntityUsageTrackBase::parseMediaFromText() largely replicates logic

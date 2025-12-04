@@ -26,7 +26,7 @@ function _utexas_devel_create_photo_content_area($media_id) {
       "2" => ['uri' => "https://www.utexas.edu", 'title' => "Student guide"],
     ]),
     'photo_credit' => "Ⓒ Photo by University of Texas at Austin",
-    'image' => [$media_id],
+    'image' => $media_id,
   ];
   $block->save();
   $configuration1 = [
@@ -52,7 +52,7 @@ function _utexas_devel_create_photo_content_area($media_id) {
       "1" => ['uri' => "https://www.utexas.edu", 'title' => "Graduate applications"],
       "2" => ['uri' => "https://www.utexas.edu", 'title' => "Post-doctoral fellowships"],
     ]),
-    'image' => [$media_id],
+    'image' => $media_id,
   ];
   $block->save();
   $configuration2 = [

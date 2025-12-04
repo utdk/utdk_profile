@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      bootstrap="/var/www/tests/utdk-project/web/core/tests/bootstrap.php"
+      colors="true"
+      beStrictAboutTestsThatDoNotTestAnything="true"
+      beStrictAboutOutputDuringTests="true"
+      beStrictAboutChangesToGlobalState="true"
+      cacheResult="false"
+      xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+      cacheDirectory=".phpunit.cache">
+  <php>
+    <ini name="error_reporting" value="32767" />
+    <ini name="memory_limit" value="-1" />
+    <env name="MINK_DRIVER_ARGS" value='["chrome", {"browserName":"chrome","goog:chromeOptions":{"w3c":false, "args":["--disable-gpu","--headless", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://chrome:9515"]'/>
+    <env name="MINK_DRIVER_ARGS_WEBDRIVER" value='["chrome", {"browserName":"chrome","goog:chromeOptions":{"w3c":false, "args":["--disable-gpu","--headless", "--no-sandbox", "--disable-dev-shm-usage"]}}, "http://chrome:9515"]'/>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
+  </php>
+  <testsuites>
+    <testsuite name="unit">
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/UnitTestSuite.php</file>
+    </testsuite>
+    <testsuite name="kernel">
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/KernelTestSuite.php</file>
+    </testsuite>
+    <testsuite name="functional">
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
+    </testsuite>
+    <testsuite name="functional-javascript">
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
+    </testsuite>
+  </testsuites>
+  <source restrictDeprecations="true"
+    restrictNotices="true"
+    restrictWarnings="true">
+    <include>
+      <directory>/var/www/tests/utdk-project/web/profiles/custom/utexas</directory>
+    </include>
+  </source>
+</phpunit>
