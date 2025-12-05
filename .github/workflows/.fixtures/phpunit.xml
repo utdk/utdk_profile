@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
     <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      bootstrap="/var/www/tests/utdk_scaffold/web/core/tests/bootstrap.php"
+      bootstrap="/var/www/tests/utdk-project/web/core/tests/bootstrap.php"
       colors="true"
       beStrictAboutTestsThatDoNotTestAnything="true"
       beStrictAboutOutputDuringTests="true"
@@ -17,23 +17,23 @@
   </php>
   <testsuites>
     <testsuite name="unit">
-      <file>/var/www/tests/utdk_scaffold/web/core/tests/TestSuites/UnitTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/UnitTestSuite.php</file>
     </testsuite>
     <testsuite name="kernel">
-      <file>/var/www/tests/utdk_scaffold/web/core/tests/TestSuites/KernelTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/KernelTestSuite.php</file>
     </testsuite>
     <testsuite name="functional">
-      <file>/var/www/tests/utdk_scaffold/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
     <testsuite name="functional-javascript">
-      <file>/var/www/tests/utdk_scaffold/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
+      <file>/var/www/tests/utdk-project/web/core/tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
   </testsuites>
   <source restrictDeprecations="true"
     restrictNotices="true"
     restrictWarnings="true">
     <include>
-      <directory>/var/www/tests/utdk_scaffold/web/profiles/custom/utexas</directory>
+      <directory>/var/www/tests/utdk-project/web/profiles/custom/utexas</directory>
     </include>
   </source>
 </phpunit>
