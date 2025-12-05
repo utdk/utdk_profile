@@ -201,7 +201,9 @@
       text-align: center;
 
       &:hover,
-      &:focus {
+      &:focus,
+      &:hover:visited,
+      &:focus:visited {
         color: var(--ut-white);
       }
     }
