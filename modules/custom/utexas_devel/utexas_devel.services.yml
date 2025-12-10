@@ -1,0 +1,2 @@
+parameters:
+  automated_cron.skip_procedural_hook_scan: true

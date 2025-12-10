@@ -14,7 +14,6 @@ class Hooks {
    */
   #[Hook('form_node_form_alter')]
   public function formNodeFormAlter(&$form, &$form_state, $form_id) {
-    print_r('here');
     /** @var Drupal\Core\Entity\FieldableEntityInterface $node */
     $node = $form_state->getFormObject()->getEntity();
     if ($node->getType() !== 'utexas_flex_page') {
