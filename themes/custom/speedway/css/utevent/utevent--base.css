@@ -65,7 +65,7 @@
 .utevent-event-field__item > p:last-of-type {
   margin-bottom: 0;
 }
-.utevent-event-field--field-utevent-datetime button {
+.node--type-utevent-event .utevent-event-field--field-utevent-datetime button {
   color: var(--ut-burntorange);
   display: block;
   background: none;
