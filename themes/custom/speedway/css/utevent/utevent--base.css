@@ -191,23 +191,23 @@
       width: 100%;
       text-align: center;
     }
-    .ut-btn--secondary {
-      border: solid 2px var(--ut-limestone--s20);
-      color: var(--ut-burntorange);
+    .ut-btn--secondary:link,
+    .ut-btn--secondary:visited {
+      border: solid 2px var(--ut-charcoal--t60);
+      color: var(--ut-limestone--s60);
       margin: 0 -3px 1rem;
       border-radius: 0;
       font-weight: normal;
       width: 100%;
       text-align: center;
+    }
+    .ut-btn--secondary:hover,
+    .ut-btn--secondary:focus-visible {
+      border: 2px solid var(--ut-burntorange--s20);
+      background-color: var(--ut-burntorange--s20);
+      color: var(--ut-white) !important;
+    }
 
-      &:hover,
-      &:focus {
-        color: var(--ut-white);
-      }
-    }
-    .ut-btn--secondary:visited {
-      color: var(--ut-limestone--s60);
-    }
     @media screen and (min-width: 576px) {
       .ut-btn:link,
       .ut-btn:visited,
@@ -221,8 +221,13 @@
         width: auto;
         text-align: left;
       }
-      .upcoming-btn+.past-btn {
+      .ut-btn.upcoming-btn + .past-btn {
         border-left: solid 2px var(--ut-burntorange--s20);
+      }
+      .ut-btn[href="/calendar"] {
+        border-right: 2px solid var(--ut-burntorange);
+        position: relative;
+        z-index: 2;
       }
     }
   }
