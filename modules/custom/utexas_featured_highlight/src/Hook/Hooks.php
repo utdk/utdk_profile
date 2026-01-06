@@ -7,7 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 
 /**
- * Hook implementations for utexas_featured_highlight.
+ * Hook implementations.
  */
 class Hooks {
 

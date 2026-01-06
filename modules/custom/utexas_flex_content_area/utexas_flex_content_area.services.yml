@@ -1,2 +1,2 @@
 parameters:
-  automated_cron.skip_procedural_hook_scan: true
+  utexas_flex_content_area.skip_procedural_hook_scan: true

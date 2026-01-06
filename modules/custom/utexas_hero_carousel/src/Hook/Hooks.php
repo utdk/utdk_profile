@@ -1,0 +1,54 @@
+<?php
+
+namespace Drupal\utexas_hero_carousel\Hook;
+
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Hook\Attribute\Hook;
+
+/**
+ * Hook implementations.
+ */
+class Hooks {
+
+  /**
+   * Implements hook_entity_view_alter().
+   */
+  #[Hook('entity_view_alter')]
+  public function entityViewAlter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+    // Bail if not our target block bundle.
+    if (!$entity instanceof BlockContent || $entity->bundle() !== 'utexas_hero_carousel') {
+      return;
+    }
+
+    // Bail if there is not an id attribute for the carousel.
+    if (!isset($build['field_hero_carousel']['#attributes']['id'])) {
+      return;
+    }
+    $id = $build['field_hero_carousel']['#attributes']['id'];
+
+    // Map field names to Slick parameter names.
+    $drupal_settings_field_map = [
+      'field_hero_carousel_fade' => 'fade',
+      'field_hero_carousel_autoplay' => 'autoplay',
+      'field_hero_carousel_speed' => 'autoplaySpeed',
+    ];
+    // Assign values from block fields to drupalSettings.
+    foreach ($drupal_settings_field_map as $field_name => $setting_key) {
+      if (!$entity->hasField($field_name)) {
+        continue;
+      }
+      $field_value = $entity->get($field_name)->getString();
+      $drupal_settings[$setting_key] = $field_value;
+    }
+
+    // Merge drupalSettings from block field values with the settings already
+    // present in the field formatter.
+    $drupal_settings = array_merge($build['field_hero_carousel']['#attached']['drupalSettings']['utexas_hero_carousel'][$id] ?? [], $drupal_settings);
+
+    // Assign augmented drupalSettings for slick back to the appropriate key.
+    $build['field_hero_carousel']['#attached']['drupalSettings']['utexas_hero_carousel'][$id] = $drupal_settings;
+  }
+
+}

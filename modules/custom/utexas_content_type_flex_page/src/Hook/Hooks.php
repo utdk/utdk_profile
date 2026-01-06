@@ -5,7 +5,7 @@ namespace Drupal\utexas_content_type_flex_page\Hook;
 use Drupal\Core\Hook\Attribute\Hook;
 
 /**
- * Hook implementations for utexas_content_type_flex_page.
+ * Hook implementations.
  */
 class Hooks {
 
