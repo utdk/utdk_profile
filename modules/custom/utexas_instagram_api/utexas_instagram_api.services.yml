@@ -7,3 +7,5 @@ services:
     class: Drupal\utexas_instagram_api\Services\InstagramStateService
     arguments:
       - '@state'
+parameters:
+  utexas_instagram_api.skip_procedural_hook_scan: true
