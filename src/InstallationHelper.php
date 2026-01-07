@@ -2,9 +2,11 @@
 
 namespace Drupal\utexas;
 
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\block\Entity\Block;
+use Drupal\block_content\Entity\BlockContent;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -22,6 +24,7 @@ class InstallationHelper {
       return;
     }
     $blockEntityManager = \Drupal::entityTypeManager()->getStorage('block');
+    /** @var \Drupal\block\BlockInterface $block */
     $block = $blockEntityManager->create([
       'id' => 'addtoany_utexas',
       'settings' => [
@@ -185,6 +188,141 @@ class InstallationHelper {
           ->condition('delta', $metatags->delta, '=')
           ->execute();
       }
+    }
+  }
+
+  /**
+   * Populate footer regions with demo content.
+   */
+  public static function installFooterContent() {
+    // Add footer menu links.
+    for ($i = 1; $i < 6; $i++) {
+      $link = MenuLinkContent::create([
+        'title'      => 'Footer Link ' . $i,
+        'link'       => ['uri' => 'route:<nolink>'],
+        'menu_name'  => 'footer',
+        'weight'     => $i,
+      ]);
+      $link->save();
+    }
+
+    // Create block with address placeholder text in 'Footer left' region.
+    $block = BlockContent::create([
+      'info' => 'Footer Address',
+      'type' => 'basic',
+      'langcode' => 'en',
+      'body' => [
+        'value' => '<p>CSU Official Name<br>1234 Street Name St.<br>Austin, Texas, 78712</p><p><a href="tel:555-555-5555">555-555-5555</a><br><em>department@email-here</em></p>',
+        'format' => 'flex_html',
+      ],
+    ]);
+    $block->save();
+    $config = \Drupal::config('system.theme');
+    $placed_block = Block::create([
+      'id' => $block->id(),
+      'weight' => 0,
+      'theme' => $config->get('default'),
+      'status' => TRUE,
+      'region' => 'footer_left',
+      'plugin' => 'block_content:' . $block->uuid(),
+      'settings' => [],
+    ]);
+    $placed_block->save();
+
+    // Create CTA placeholder and place in 'Footer right' region.
+    $block = BlockContent::create([
+      'info' => 'Footer Call to Action',
+      'type' => 'call_to_action',
+      'langcode' => 'en',
+      'field_utexas_call_to_action_link' => [
+        'uri' => 'https://utexas.edu',
+        'title' => 'Call to Action',
+      ],
+    ]);
+    $block->save();
+    $config = \Drupal::config('system.theme');
+    $placed_block = Block::create([
+      'id' => $block->id(),
+      'weight' => 0,
+      'theme' => $config->get('default'),
+      'status' => TRUE,
+      'region' => 'footer_right',
+      'plugin' => 'block_content:' . $block->uuid(),
+      'settings' => [],
+    ]);
+    $placed_block->save();
+
+    // Create placeholder text for 'Footer right' region.
+    $block = BlockContent::create([
+      'info' => 'Footer Right Placeholder',
+      'type' => 'basic',
+      'langcode' => 'en',
+      'body' => [
+        'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content. See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region.</p>',
+        'format' => 'flex_html',
+      ],
+    ]);
+    $block->save();
+    $config = \Drupal::config('system.theme');
+    $placed_block = Block::create([
+      'id' => $block->id(),
+      'weight' => 1,
+      'theme' => $config->get('default'),
+      'status' => TRUE,
+      'region' => 'footer_right',
+      'plugin' => 'block_content:' . $block->uuid(),
+      'settings' => [],
+    ]);
+    $placed_block->save();
+  }
+
+  /**
+   * Populate header regions with demo content.
+   */
+  public static function installHeaderContent() {
+    // Populate header menu links.
+    for ($i = 1; $i < 4; $i++) {
+      $link = MenuLinkContent::create([
+        'title'      => 'Header Link ' . $i,
+        'link'       => ['uri' => 'route:<nolink>'],
+        'menu_name'  => 'header',
+        'weight'     => $i,
+      ]);
+      $link->save();
+    }
+
+    // Populate main menu links.
+    $menu_link_titles = [
+      'Undergraduate Program' => 'route:<nolink>##',
+      'Graduate Program' => 'route:<nolink>',
+      'Course Directory' => 'route:<nolink>',
+      'News' => 'route:<nolink>',
+      'Events' => 'route:<nolink>',
+      'About' => 'route:<nolink>',
+    ];
+    $i = 0;
+    foreach ($menu_link_titles as $menu_link_title => $uri) {
+      $link = MenuLinkContent::create([
+        'title'      => $menu_link_title,
+        'link'       => ['uri' => $uri],
+        'menu_name'  => 'main',
+        'weight'     => $i,
+        'expanded'   => TRUE,
+      ]);
+      $link->save();
+      $active_link = $link;
+      for ($j = 0; $j < 4; $j++) {
+        $mid = $active_link->getPluginId();
+        $link = MenuLinkContent::create([
+          'title'      => 'Lorem Ipsum',
+          'link'       => ['uri' => 'route:<nolink>'],
+          'menu_name'  => 'main',
+          'weight'     => 2,
+          'parent'     => $mid,
+        ]);
+        $link->save();
+      }
+      $i++;
     }
   }
 
