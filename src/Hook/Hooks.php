@@ -47,15 +47,19 @@ class Hooks {
     if ($form_id === 'search_block_form') {
       $form['#attributes']['class'][] = 'ut-search-form';
     }
-    /** @var \Drupal\Core\Entity\ContentEntityFormInterface $form_object */
-    $form_object = $form_state->getFormObject();
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-    $entity = $form_object->getEntity();
-    if ($form_id === 'google_tag_container_form' && $entity->isNew()) {
-      $form['conditions']['request_path']['pages']['#default_value'] = "/admin*\n/batch*\n/node/add*\n/node/*/edit\n/node/*/delete\n/node/*/layout\n/taxonomy/term/*/edit\n/taxonomy/term/*/layout\n/user/*/edit*\n/user/*/cancel*\n/user/*/layout\n/layout_builder/*";
-      $form['conditions']['request_path']['negate']['#default_value'] = TRUE;
-      $form['conditions']['response_code']['response_codes']['#default_value'] = "403\n404";
-      $form['conditions']['response_code']['negate']['#default_value'] = TRUE;
+
+    // Prepopulate Google Tag containers with good defaults.
+    if ($form_id === 'google_tag_container_form') {
+      /** @var \Drupal\Core\Entity\ContentEntityFormInterface $form_object */
+      $form_object = $form_state->getFormObject();
+      /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+      $entity = $form_object->getEntity();
+      if ($entity->isNew()) {
+        $form['conditions']['request_path']['pages']['#default_value'] = "/admin*\n/batch*\n/node/add*\n/node/*/edit\n/node/*/delete\n/node/*/layout\n/taxonomy/term/*/edit\n/taxonomy/term/*/layout\n/user/*/edit*\n/user/*/cancel*\n/user/*/layout\n/layout_builder/*";
+        $form['conditions']['request_path']['negate']['#default_value'] = TRUE;
+        $form['conditions']['response_code']['response_codes']['#default_value'] = "403\n404";
+        $form['conditions']['response_code']['negate']['#default_value'] = TRUE;
+      }
     }
   }
 
