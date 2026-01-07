@@ -3,3 +3,5 @@ services:
     class: Drupal\utexas_layouts\EventSubscriber\BlockComponentRenderArray
     tags:
       - { name: event_subscriber }
+parameters:
+  utexas_layout_builder_styles.skip_procedural_hook_scan: true
