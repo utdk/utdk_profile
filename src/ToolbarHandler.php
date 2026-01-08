@@ -64,6 +64,8 @@ class ToolbarHandler implements ContainerInjectionInterface {
   public function toolbar() {
 
     // Show Drupal Kit support links.
+    // We allow non-dependency injection calls.
+    // phpcs:ignore
     if (!\Drupal::state()->get('display_links')) {
       return [];
     }

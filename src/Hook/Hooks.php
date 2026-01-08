@@ -390,6 +390,8 @@ class Hooks {
   public function themeSuggestionsBlockAlter(array &$suggestions, array $variables) {
     // Remove the block and replace dashes with underscores in the block ID to
     // use for the hook name.
+    // @todo Once no sites are using Forty Acres, we can remove this hook,
+    // since Speedway does not use it.
     $base_plugin_id = $variables['elements']['#base_plugin_id'];
     if (isset($base_plugin_id) && in_array($base_plugin_id, ['system_menu_block', 'menu_block'])) {
       if (isset($variables['elements']['#id'])) {
@@ -420,6 +422,8 @@ class Hooks {
   #[Hook('theme_suggestions_page_alter')]
   public function themeSuggestionsPageAlter(array &$suggestions, array $variables) {
     // Add content type suggestions.
+    // @todo Once no sites are using Forty Acres, we can remove this hook,
+    // since Speedway does not use it.
     if ($node = \Drupal::request()->attributes->get('node')) {
       if ($node instanceof NodeInterface) {
         array_splice($suggestions, 1, 0, 'page__node__' . $node->getType());
