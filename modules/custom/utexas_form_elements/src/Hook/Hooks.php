@@ -34,16 +34,6 @@ class Hooks {
   }
 
   /**
-   * Implements hook_ckeditor_css_alter().
-   */
-  #[Hook('ckeditor_css_alter')]
-  public function ckeditorCssAlter(array &$css, $editor) {
-    $module_handler = \Drupal::service('module_handler');
-    $module_path = $module_handler->getModule('utexas_form_elements')->getPath();
-    $css[] = $module_path . '/css/ckeditor.css';
-  }
-
-  /**
    * Implements hook_element_info_alter().
    */
   #[Hook('element_info_alter')]
@@ -121,7 +111,7 @@ class Hooks {
     /** @var \Drupal\Core\Entity\ContentEntityForm $form_object */
     $form_object = $form_state->getFormObject();
     /** @var \Drupal\node\Entity\Node $node */
-    $node = $$form_object->getEntity();
+    $node = $form_object->getEntity();
     $op = $form_object->getOperation();
     if ($op !== 'edit') {
       return;
@@ -137,19 +127,18 @@ class Hooks {
     }
     $delete_weight = $form['actions']['delete']['#weight'];
     $submit_actions = $form['actions']['submit']['#submit'];
-    $archive_submit = [$this, 'archiveSubmit'];
     foreach (array_values($submit_actions) as $action) {
       $archive_submit[] = $action;
     }
     $form['actions']['archive'] = [
       '#type' => 'submit',
       '#value' => $this->t('Archive'),
-      '#submit' => $archive_submit,
       '#weight' => $delete_weight - 1,
       '#attributes' => [
         'class' => ['button', 'button--danger'],
       ],
     ];
+    $form['actions']['archive']['#submit'][] = [$this, 'archiveSubmit'];
   }
 
   /**
@@ -167,7 +156,7 @@ class Hooks {
   #[Hook('form_menu_link_content_form_alter')]
   public function formMenuLinkContentAlter(array &$form, FormStateInterface $form_state, $form_id) {
     // Modify Drupal core menu link interface to include UTexas link options.
-    $form['#entity_builders']['utexas_form_elements'] = 'utexas_form_elements_menu_link_content_form_entity_builder';
+    $form['#entity_builders']['utexas_form_elements'] = [$this, 'menuLinkContentFormEntityBuilder'];
     $menu_link = $form_state->getFormObject()->getEntity();
     $form['#default_value']['options'] = [];
     $link = $menu_link->link->getValue();
@@ -243,7 +232,6 @@ class Hooks {
   /**
    * Implements entity_builder API (#2856660).
    */
-  #[Hook('menu_link_content_form_entity_builder')]
   public function menuLinkContentFormEntityBuilder($entity_type, $menu_link, &$form, &$form_state) {
     if (!$menu_link->link || $menu_link->link->isEmpty()) {
       return;
