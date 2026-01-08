@@ -26,4 +26,4 @@ services:
     class: enshrined\svgSanitize\Sanitizer
 
 parameters:
-  utexas_layout_builder_styles.skip_procedural_hook_scan: true
+  utexas_media_types.skip_procedural_hook_scan: true

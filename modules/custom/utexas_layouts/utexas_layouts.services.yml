@@ -4,4 +4,4 @@ services:
     tags:
       - { name: event_subscriber }
 parameters:
-  utexas_layout_builder_styles.skip_procedural_hook_scan: true
+  utexas_layouts.skip_procedural_hook_scan: true
