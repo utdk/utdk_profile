@@ -61,7 +61,7 @@
 
 /* Bootstrap breadcrumb variable overrides */
 .breadcrumb {
-  --bs-breadcrumb-divider: '>';
+  --bs-breadcrumb-divider: '';
   --bs-breadcrumb-font-size: .75rem;
   --bs-breadcrumb-padding-x: 1rem;
   --bs-breadcrumb-padding-y: .5rem;

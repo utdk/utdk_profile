@@ -56,8 +56,9 @@ settings:
         - '<span>'
         - '<img src alt height width data-entity-type data-entity-uuid data-align data-caption>'
     ckeditor5_list:
-      reversed: false
-      startIndex: true
+      properties:
+        reversed: true
+        startIndex: true
     ckeditor5_imageResize:
       allow_resize: true
     linkit_extension:
