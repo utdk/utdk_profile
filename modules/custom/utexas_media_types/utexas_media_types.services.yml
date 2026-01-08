@@ -24,3 +24,6 @@ services:
   # SANITIZER
   utexas_media_types.sanitizer.svg:
     class: enshrined\svgSanitize\Sanitizer
+
+parameters:
+  utexas_layout_builder_styles.skip_procedural_hook_scan: true
