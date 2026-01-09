@@ -33,7 +33,7 @@ class BaseInstallationTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $defaultTheme = 'forty_acres';
+  protected $defaultTheme = 'speedway';
 
   /**
    * {@inheritdoc}
@@ -71,7 +71,7 @@ class BaseInstallationTest extends BrowserTestBase {
     }
     // Assert that Forty Acres is the active theme.
     $default_theme = \Drupal::config('system.theme')->get('default');
-    $this->assertEquals($default_theme, 'forty_acres');
+    $this->assertEquals($default_theme, 'speedway');
 
     // Assert country and timezone set to US and America/Chicago.
     // $timezone = $this->config('system.date')->get('timezone.default');
@@ -197,7 +197,7 @@ class BaseInstallationTest extends BrowserTestBase {
 
     // Verify main menu link does not have an icon or new window target.
     $this->drupalGet('<front>');
-    $assert->elementAttributeNotExists('css', '.main-menu__link', 'target');
+    $assert->elementAttributeNotExists('css', '.l1-link', 'target');
     // Set the menu item to a link and set link options.
     $this->drupalGet('/admin/structure/menu/item/9/edit');
     $this->assertSession()
@@ -209,8 +209,8 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->submitForm([], 'Save');
     // Verify main menu item is set to open in a new window and has lock icon.
     $this->drupalGet('<front>');
-    $assert->elementAttributeContains('css', '.main-menu__link', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.main-menu__link', 'class', 'ut-cta-link--lock');
+    $assert->elementAttributeContains('css', '.l1-link', 'target', '_blank');
+    $assert->elementAttributeContains('css', '.l1-link', 'class', 'ut-cta-link--lock');
     // Set the menu item to a non-link and change the link options.
     $this->drupalGet('/admin/structure/menu/item/9/edit');
     $this->assertSession()
@@ -221,15 +221,15 @@ class BaseInstallationTest extends BrowserTestBase {
     $this->getSession()->getPage()->selectFieldOption('class', 'ut-cta-link--external');
     $this->submitForm([], 'Save');
     $this->drupalGet('<front>');
-    $assert->elementAttributeNotExists('css', '.main-menu__link', 'target');
-    $assert->elementAttributeContains('css', '.main-menu__link', 'class', 'ut-cta-link--external');
+    $assert->elementAttributeNotExists('css', '.l1-link', 'target');
+    $assert->elementAttributeContains('css', '.l1-link', 'class', 'ut-cta-link--external');
     // Confirm link options can be completely unset.
     $this->drupalGet('/admin/structure/menu/item/9/edit');
     $page = $this->getSession()->getPage();
     $this->getSession()->getPage()->selectFieldOption('class', '0');
     $this->submitForm([], 'Save');
     $this->drupalGet('<front>');
-    $assert->elementAttributeNotContains('css', '.main-menu__link', 'class', 'ut-cta-link--external');
+    $assert->elementAttributeNotContains('css', '.l1-link', 'class', 'ut-cta-link--external');
 
     // Make sure that a Content Editor has default access to the
     // Flex HTML format.

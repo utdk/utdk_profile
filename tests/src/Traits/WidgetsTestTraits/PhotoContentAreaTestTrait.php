@@ -77,7 +77,7 @@ trait PhotoContentAreaTestTrait {
     $assert->linkByHrefExists('https://third.test');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.ut-photo-content-area .ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify responsive image is present.
     $expected_path = 'utexas_image_style_450w_600h/public/image-test';
     $assert->elementAttributeContains('css', '.photo-wrapper picture img', 'src', $expected_path);

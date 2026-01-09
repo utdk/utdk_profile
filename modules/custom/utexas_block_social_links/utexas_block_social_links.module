@@ -89,16 +89,6 @@ function utexas_block_social_links_utexas_demo_content() {
   $block->save();
 
   $config = \Drupal::config('system.theme');
-  $header_block = Block::create([
-    'id' => 'header_sitewide_social_links',
-    'weight' => 0,
-    'theme' => $config->get('default'),
-    'status' => TRUE,
-    'region' => 'header',
-    'plugin' => 'block_content:' . $block->uuid(),
-    'settings' => [],
-  ]);
-  $header_block->save();
   $footer_block = Block::create([
     'id' => 'footer_sitewide_social_links',
     'weight' => 2,
