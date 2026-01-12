@@ -110,7 +110,7 @@ trait HeroTestTrait {
     $assert->linkByHrefExists('https://hero.test');
     $assert->pageTextContains('Hero CTA');
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.ut-hero .ut-cta-link--external', 'rel', 'noopener noreferrer');
 
     // CRUD: UPDATE
     // Set display to "Hero Style 1 Left".

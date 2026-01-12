@@ -71,7 +71,6 @@ install:
   - drupal:url_embed
   - drupal:xmlsitemap
   # Custom
-  - utexas_block_required_links
   - utexas_block_social_links
   - utexas_call_to_action
   - utexas_content_type_flex_page
@@ -99,4 +98,4 @@ install:
   - utexas_instagram
 themes:
   - claro
-  - forty_acres
+  - speedway

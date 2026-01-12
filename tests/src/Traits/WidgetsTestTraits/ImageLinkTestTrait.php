@@ -63,7 +63,7 @@ trait ImageLinkTestTrait {
     $assert->elementAttributeContains('css', 'a[href^="https://imagelink.test"] picture img', 'alt', 'Alt value');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.utexas-image-link .ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--external');
 
     // CRUD: UPDATE

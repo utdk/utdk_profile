@@ -4,16 +4,16 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
-id: breadcrumbs
-theme: forty_acres
+    - speedway
+id: speedway_breadcrumbs
+theme: speedway
 region: breadcrumb
 weight: 0
 provider: null
 plugin: system_breadcrumb_block
 settings:
-  id: system_breadcrumb_block
+  id: speedway_system_breadcrumb_block
   label: Breadcrumbs
-  provider: system
   label_display: '0'
+  provider: system
 visibility: {  }

@@ -46,7 +46,7 @@ function utexas_install() {
   \Drupal::configFactory()
     ->getEditable('system.theme')
     ->set('admin', 'claro')
-    ->set('default', 'forty_acres')
+    ->set('default', 'speedway')
     ->save(TRUE);
   \Drupal::configFactory()
     ->getEditable('node.settings')
@@ -90,8 +90,6 @@ function utexas_install() {
   // Add configuration for the Metatag Twitter module to set default
   // page title and URL meta.
   InstallationHelper::populateDefaultMetatags();
-  // Add generic Social Sharing block.
-  InstallationHelper::addSocialSharing();
   // Set /admin/people configuration to UT Drupal Kit default.
   InstallationHelper::configurePeopleView();
 

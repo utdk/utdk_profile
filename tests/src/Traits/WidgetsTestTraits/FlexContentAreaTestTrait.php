@@ -122,7 +122,7 @@ trait FlexContentAreaTestTrait {
     $assert->elementTextContains('css', 'a.ut-btn', 'Flex Content Area Call to Action');
     // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.ut-flex-content-area .ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
     $assert->elementAttributeContains('css', 'div.content-wrapper > a.ut-cta-link--external', 'tabindex', '-1');
     $assert->elementExists('css', '.ut-cta-link--lock');

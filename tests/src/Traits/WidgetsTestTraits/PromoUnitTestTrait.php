@@ -92,7 +92,7 @@ trait PromoUnitTestTrait {
     $assert->linkByHrefExists('test-flex-page');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.utexas-promo-unit-container .ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
     $assert->elementAttributeContains('css', 'div > a.ut-cta-link--external', 'tabindex', '-1');
     $assert->elementExists('css', '.ut-cta-link--lock');

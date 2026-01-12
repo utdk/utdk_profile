@@ -4,16 +4,16 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
-id: main_page_content
-theme: forty_acres
+    - speedway
+id: speedway_main_page_content
+theme: speedway
 region: content
 weight: -7
 provider: null
 plugin: system_main_block
 settings:
-  id: system_main_block
+  id: speedway_system_main_block
   label: 'Main page content'
-  provider: system
   label_display: '0'
+  provider: system
 visibility: {  }

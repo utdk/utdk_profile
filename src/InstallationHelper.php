@@ -2,8 +2,6 @@
 
 namespace Drupal\utexas;
 
-use Drupal\block\Entity\Block;
-use Drupal\block_content\Entity\BlockContent;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
@@ -13,49 +11,6 @@ use Symfony\Component\Yaml\Yaml;
  * Helper methods used during installations & updates.
  */
 class InstallationHelper {
-
-  /**
-   * Helper function to place AddToAny block.
-   */
-  public static function addSocialSharing() {
-    $moduleHandler = \Drupal::service('module_handler');
-    // Only add if the addtoany module is enabled.
-    if (!$moduleHandler->moduleExists('addtoany')) {
-      return;
-    }
-    $blockEntityManager = \Drupal::entityTypeManager()->getStorage('block');
-    /** @var \Drupal\block\BlockInterface $block */
-    $block = $blockEntityManager->create([
-      'id' => 'addtoany_utexas',
-      'settings' => [
-        'label' => 'Share this content',
-        'provider' => 'addtoany',
-        'label_display' => 'visible',
-      ],
-      'plugin' => 'addtoany_block',
-      'theme' => \Drupal::configFactory()->getEditable('system.theme')->get('default'),
-    ]);
-    $block->setRegion('content');
-
-    $weight = 0;
-    // Place this block directly above the main content.
-    if ($page_title = Block::load('main_page_content')) {
-      $weight = $page_title->getWeight();
-      $weight = $weight - 1;
-    }
-    $block->setWeight($weight);
-    $block->enable();
-    $block->setVisibilityConfig("entity_bundle:node", [
-      'bundles' => [
-        'page' => 'page',
-      ],
-      'negate' => FALSE,
-      'context_mapping' => [
-        'node' => '@node.node_route_context:node',
-      ],
-    ]);
-    $block->save();
-  }
 
   /**
    * Import a default image file for use with metatags.
@@ -324,6 +279,29 @@ class InstallationHelper {
       }
       $i++;
     }
+
+    // Create block with placeholder text in 'Utility nav' region.
+    $block = BlockContent::create([
+      'info' => 'Utility Navigation default content',
+      'type' => 'basic',
+      'langcode' => 'en',
+      'body' => [
+        'value' => '<p>See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region</p>',
+        'format' => 'flex_html',
+      ],
+    ]);
+    $block->save();
+    $config = \Drupal::config('system.theme');
+    $placed_block = Block::create([
+      'id' => $block->id(),
+      'weight' => 0,
+      'theme' => $config->get('default'),
+      'status' => TRUE,
+      'region' => 'utility_nav',
+      'plugin' => 'block_content:' . $block->uuid(),
+      'settings' => [],
+    ]);
+    $placed_block->save();
   }
 
   /**

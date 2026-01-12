@@ -85,7 +85,7 @@ trait FeaturedHighlightTestTrait {
     $assert->elementAttributeContains('css', '.utexas-featured-highlight .image-wrapper picture img', 'src', $expected_path);
     // // Verify link exists with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.utexas-featured-highlight .ut-cta-link--external', 'rel', 'noopener noreferrer');
     // Verify CTA not tabbable when headline and link present.
     $assert->elementAttributeContains('css', '.ut-btn.ut-cta-link--external', 'tabindex', '-1');
 
