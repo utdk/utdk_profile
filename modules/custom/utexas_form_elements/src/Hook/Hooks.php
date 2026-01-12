@@ -300,6 +300,25 @@ class Hooks {
   }
 
   /**
+   * Implements hook_preprocess_HOOK() for table.
+   */
+  #[Hook('preprocess_table')]
+  public function preprocessTable(&$variables): void {
+    // Add a CSS target to draggable tables with <td> elements with <details>.
+    if (!empty($variables['rows'])) {
+      foreach ($variables['rows'] as &$row) {
+        /** @var \Drupal\Core\Template\Attribute $row['attributes'] */
+        if (!empty($row['attributes']) && $row['attributes']->hasClass('utexas-draggable')) {
+          // The 'attributes' key is always here and it is an
+          // \Drupal\Core\Template\Attribute.
+          // @see \Drupal\Core\Theme\ThemePreprocess::preprocessTable();
+          $row['cells'][1]['attributes']->addClass('utexas-tabledrag-cell');
+        }
+      }
+    }
+  }
+
+  /**
    * Implements hook_theme().
    */
   #[Hook('theme')]
