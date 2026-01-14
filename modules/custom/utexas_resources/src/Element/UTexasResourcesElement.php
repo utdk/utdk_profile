@@ -105,7 +105,6 @@ class UTexasResourcesElement extends FormElementBase {
         'wrapper' => $wrapper_id,
       ],
     ];
-    $element['#attached']['library'][] = 'utexas_resources/resources-widget';
 
     return $element;
   }

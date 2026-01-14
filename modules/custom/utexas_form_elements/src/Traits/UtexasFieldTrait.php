@@ -89,6 +89,7 @@ trait UtexasFieldTrait {
     $form['items'] = [
       '#type' => 'table',
       '#header' => [
+        $this->t('Order'),
         $this->t('Items'),
         $this->t('Weight'),
         $this->t('Remove'),
@@ -112,7 +113,9 @@ trait UtexasFieldTrait {
       $inc = (int) $inc;
       $form_items[$inc] = [];
       $form_items[$inc]['#attributes']['class'][] = 'draggable';
+      $form_items[$inc]['#attributes']['class'][] = 'utexas-draggable';
       $form_items[$inc]['#weight'] = $weight;
+      $form_items[$inc]['drag'] = [];
       // Let the form take care of populating default values from user input.
       $form_items[$inc]['details']['item'] = $item;
       // Weight column.
@@ -164,6 +167,7 @@ trait UtexasFieldTrait {
         '#attached' => [
           'library' => [
             'utexas_form_elements/confirm-remove',
+            'utexas_form_elements/draggable-table',
           ],
         ],
       ];

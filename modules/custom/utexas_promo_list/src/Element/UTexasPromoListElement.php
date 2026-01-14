@@ -71,7 +71,6 @@ class UTexasPromoListElement extends FormElementBase {
       '%external' => 'https://example.com',
       '%front' => '<front>',
     ]);
-    $element['#attached']['library'][] = 'utexas_promo_list/promo-list-widget';
     return $element;
   }
 
