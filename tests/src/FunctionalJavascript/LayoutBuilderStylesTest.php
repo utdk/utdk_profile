@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 /**
  * Verifies default Layout Builder Styles are present & add expected classes.
- *
- * @group utexas
  */
 class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
 

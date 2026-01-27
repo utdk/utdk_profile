@@ -11,3 +11,8 @@ link-options:
 confirm-remove:
   js:
     js/confirmRemove.js: {}
+
+draggable-table:
+  css:
+    theme:
+      css/draggable-table.css: {}

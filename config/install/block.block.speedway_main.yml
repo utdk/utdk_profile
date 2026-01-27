@@ -6,18 +6,19 @@ dependencies:
   module:
     - system
   theme:
-    - forty_acres
-id: main
-theme: forty_acres
+    - speedway
+id: speedway_main
+theme: speedway
 region: primary_menu
 weight: 0
 provider: null
 plugin: 'system_menu_block:main'
 settings:
-  id: 'system_menu_block:main'
+  id: 'system_menu_block:speedway_main'
   label: 'Main navigation'
-  provider: system
   label_display: '0'
+  provider: system
   level: 1
   depth: 0
+  expand_all_items: false
 visibility: {  }

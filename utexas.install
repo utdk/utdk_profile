@@ -15,6 +15,8 @@ use Drupal\utexas\InstallationHelper;
 use Drupal\utexas_missing_blocks\BlockLayoutReferenceDeleter;
 use Drupal\utexas_missing_blocks\Defuser;
 use Symfony\Component\Yaml\Yaml;
+use Drupal\Core\Config\Entity\ConfigEntityUpdater;
+use Drupal\editor\Entity\Editor;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -46,7 +48,7 @@ function utexas_install() {
   \Drupal::configFactory()
     ->getEditable('system.theme')
     ->set('admin', 'claro')
-    ->set('default', 'forty_acres')
+    ->set('default', 'speedway')
     ->save(TRUE);
   \Drupal::configFactory()
     ->getEditable('node.settings')
@@ -90,8 +92,6 @@ function utexas_install() {
   // Add configuration for the Metatag Twitter module to set default
   // page title and URL meta.
   InstallationHelper::populateDefaultMetatags();
-  // Add generic Social Sharing block.
-  InstallationHelper::addSocialSharing();
   // Set /admin/people configuration to UT Drupal Kit default.
   InstallationHelper::configurePeopleView();
 
@@ -1398,4 +1398,29 @@ function utexas_update_8180() {
       $role->save();
     }
   }
+}
+
+/**
+ * Ensure correct keys on CKEditor list settings (#3062).
+ */
+function utexas_update_11000(array &$sandbox = []) {
+  $config_entity_updater = \Drupal::classResolver(ConfigEntityUpdater::class);
+  $config_entity_updater->update($sandbox, 'editor', function (Editor $editor): bool {
+    // Only try to update editors using CKEditor 5.
+    if ($editor->getEditor() !== 'ckeditor5') {
+      return FALSE;
+    }
+    $settings = $editor->getSettings();
+    if (isset($settings['plugins']['ckeditor5_list'])) {
+      if (!array_key_exists('properties', $settings['plugins']['ckeditor5_list'])) {
+        $properties = $settings['plugins']['ckeditor5_list'];
+        unset($settings['plugins']['ckeditor5_list']);
+        $settings['plugins']['ckeditor5_list'] = [
+          'properties' => $properties,
+        ];
+        $editor->setSettings($settings);
+      }
+    }
+    return TRUE;
+  });
 }

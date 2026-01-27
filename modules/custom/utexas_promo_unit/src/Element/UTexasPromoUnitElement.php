@@ -66,7 +66,6 @@ class UTexasPromoUnitElement extends FormElementBase {
       ],
       '#title_description' => "Optional. Leave blank to link only the item headline. Add text to print a second link at the bottom of the item.",
     ];
-    $element['#attached']['library'][] = 'utexas_promo_unit/promo-unit-widget';
     return $element;
   }
 

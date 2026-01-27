@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 /**
  * Test all aspects of Social Links functionality.
- *
- * @group utexas
  */
 class SocialLinksTest extends FunctionalJavascriptTestBase {
 

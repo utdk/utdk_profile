@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - forty_acres
-id: page_title
-theme: forty_acres
+    - speedway
+id: speedway_page_title
+theme: speedway
 region: content
 weight: -9
 provider: null
 plugin: page_title_block
 settings:
-  id: page_title_block
+  id: speedway_page_title_block
   label: 'Page title'
-  provider: core
   label_display: '0'
+  provider: core
 visibility: {  }

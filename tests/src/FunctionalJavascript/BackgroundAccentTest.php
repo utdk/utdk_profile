@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 /**
  * Verifies background colors/images can be added to sections.
- *
- * @group utexas
  */
 class BackgroundAccentTest extends FunctionalJavascriptTestBase {
 

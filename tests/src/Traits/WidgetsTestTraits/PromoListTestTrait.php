@@ -94,7 +94,7 @@ trait PromoListTestTrait {
     $assert->linkByHrefExists('test-flex-page');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.utexas-promo-list-container .ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive image is present.
     $assert->elementExists('css', '.ut-promo-list-wrapper .promo-list:nth-child(2) picture source');

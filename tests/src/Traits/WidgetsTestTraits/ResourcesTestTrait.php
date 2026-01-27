@@ -98,7 +98,7 @@ trait ResourcesTestTrait {
     $assert->linkByHrefExists('https://resource.test');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
-    $assert->elementAttributeContains('css', '.ut-cta-link--external', 'rel', 'noopener noreferrer');
+    $assert->elementAttributeContains('css', '.ut-resources-wrapper .ut-cta-link--external', 'rel', 'noopener noreferrer');
     $assert->elementExists('css', '.ut-cta-link--lock');
     // Verify responsive and expect image is present.
     $assert->elementExists('css', 'picture source');

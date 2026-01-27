@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\Functional;
 
 /**
  * Verifies Social Links field schema & validation.
- *
- * @group utexas
  */
 class SiteAnnouncementTest extends FunctionalTestBase {
 

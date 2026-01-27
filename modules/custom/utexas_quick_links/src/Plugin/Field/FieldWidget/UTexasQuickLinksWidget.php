@@ -87,7 +87,6 @@ class UTexasQuickLinksWidget extends WidgetBase {
         'wrapper' => $wrapper_id,
       ],
     ];
-    $element['#attached']['library'][] = 'utexas_quick_links/widget';
     return $element;
   }
 

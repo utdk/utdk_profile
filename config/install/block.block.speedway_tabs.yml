@@ -2,18 +2,18 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - forty_acres
-id: tabs
-theme: forty_acres
+    - speedway
+id: speedway_tabs
+theme: speedway
 region: highlighted
 weight: 0
 provider: null
 plugin: local_tasks_block
 settings:
-  id: local_tasks_block
+  id: speedway_local_tasks_block
   label: Tabs
-  provider: core
   label_display: '0'
+  provider: core
   primary: true
   secondary: true
 visibility: {  }

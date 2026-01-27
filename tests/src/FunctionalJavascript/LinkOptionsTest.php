@@ -6,8 +6,6 @@ namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 /**
  * Verifies custom link options behavior.
- *
- * @group utexas
  */
 class LinkOptionsTest extends FunctionalJavascriptTestBase {
 

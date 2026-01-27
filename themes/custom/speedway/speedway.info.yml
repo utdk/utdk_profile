@@ -1,9 +1,8 @@
 core_version_requirement: '>=10'
-version: '(PRE-RELEASE PREVIEW)'
 type: theme
 base theme: stable9
 name: 'Speedway'
-description: WARNING - This theme is in pre-release status. DO NOT USE ON PRODUCTION SITES.
+description: Default theme for the Drupal Kit, implementing the University of Texas brand guidelines.
 screenshot: images/screenshot.png
 
 regions:

@@ -162,6 +162,8 @@ function utexas_install_demo_content(&$install_state) {
     _utexas_install_footer_content();
     // Function call to create header demo content.
     _utexas_install_header_content();
+    // Function call to create utility nav demo content in speedway theme.
+    _utexas_install_utility_nav_content();
 
     // Each of the 'utexas_demo_content' implementations will be added as a
     // batch job.
@@ -439,6 +441,34 @@ function _utexas_install_header_content() {
     }
     $i++;
   }
+}
+
+/**
+ * Populate utility nav region with demo content.
+ */
+function _utexas_install_utility_nav_content() {
+  // Create block with placeholder text in 'Utility nav' region.
+  $block = BlockContent::create([
+    'info' => 'Utility Navigation default content',
+    'type' => 'basic',
+    'langcode' => 'en',
+    'body' => [
+      'value' => '<p>See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region</p>',
+      'format' => 'flex_html',
+    ],
+  ]);
+  $block->save();
+  $config = \Drupal::config('system.theme');
+  $placed_block = Block::create([
+    'id' => $block->id(),
+    'weight' => 0,
+    'theme' => $config->get('default'),
+    'status' => TRUE,
+    'region' => 'utility_nav',
+    'plugin' => 'block_content:' . $block->uuid(),
+    'settings' => [],
+  ]);
+  $placed_block->save();
 }
 
 /**
