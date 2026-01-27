@@ -1,5 +1,9 @@
 /* Base typography styles */
 
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
 /* Reset font-size in articles containers. */
 @media screen and (min-width: 1200px) {
   main {
@@ -85,52 +89,42 @@ h6,
 .ut-h5,
 .ut-h6 {
   color: var(--ut-charcoal);
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  line-height: 1.2;
 }
 h1,
 .ut-h1 {
+  font-size: 3.0625rem;
+  line-height: 1.143;
   font-weight: 600;
-  font-size: calc(1.375rem + 1.5vw);
-
-  @media (min-width: 1200px) {
-    font-size: 2.5rem;
-  }
 }
+h2,
 .ut-h2 {
-  font-size: calc(1.325rem + 0.9vw);
-
-  @media (min-width: 1200px) {
-    font-size: 2rem;
-  }
+  font-size: 2.4375rem;
+  line-height: 1.154;
+  font-weight: 500;
 }
+h3,
 .ut-h3 {
-  font-size: calc(1.3rem + 0.6vw);
-
-  @media (min-width: 1200px) {
-    font-size: 1.75rem;
-  }
+  font-size: 1.5625rem;
+  line-height: 1.25;
+  font-weight: 500;
 }
 h4,
 .ut-h4 {
+  font-size: 1.25rem;
+  line-height: 1.25;
   font-weight: normal;
-  font-size: calc(1.275rem + 0.3vw);
-
-  @media (min-width: 1200px) {
-    font-size: 1.5rem;
-  }
 }
 h5,
 .ut-h5 {
+  font-size: 1rem;
+  line-height: 1.5625;
   font-weight: 600;
-  font-size: 1.25rem;
 }
 h6,
 .ut-h6 {
+  font-size: 0.8125rem;
+  line-height: 1.385;
   font-weight: 600;
-  font-size: 1rem;
 }
 
 /* Lists */

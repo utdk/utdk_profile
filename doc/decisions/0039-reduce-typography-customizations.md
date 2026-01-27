@@ -37,6 +37,8 @@ This refines our previous decision in "Divide development into two phases" (0010
 
 Phase One will still focus on incorporating the "painstakingly identified" use cases from Forty Acres CSS, but will also be open to minor visual changes related to the typography when it allows us to simplify the CSS without negatively affecting the intent of the Forty Acres design.
 
+This does not apply to headings 1-6. Headings will continue to use custom font sizes as set in Forty Acres to show a greater visual differnce between headings.
+
 ## Consequences
 
 - We will be able to simplify and reduce the CSS included in the Speedway theme compared to what is in Forty Acres.
