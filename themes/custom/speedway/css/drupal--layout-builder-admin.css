@@ -103,3 +103,9 @@
     }
   }
 }
+
+form.layout-builder-discard-changes.confirmation {
+  input.ut-btn {
+    color: var(--ut-charcoal--s40);
+  }
+}
