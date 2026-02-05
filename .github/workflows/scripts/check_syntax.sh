@@ -2,11 +2,8 @@
 
 set -e
 
-COMPOSER_CMD="php -d memory_limit=-1 /usr/local/bin/composer"
 TOOLING=".github/workflows/.fixtures/"
 REPO="utdk_profile"
-HOST="github.austin.utexas.edu"
-OWNER="eis1-wcs"
 WORKINGDIR="syntax/"
 
 mkdir -p $WORKINGDIR
@@ -16,9 +13,6 @@ if [ -d $REPO ]; then
   rm -rf $REPO
 fi
 
-# Authenticate to gh cli
-echo $TOKEN | gh auth login --hostname $HOST --with-token
-gh auth setup-git --hostname $HOST
 gh repo clone $OWNER/$REPO
 cd $REPO
 
@@ -28,7 +22,7 @@ git checkout -f
 git fetch --depth=100 && git checkout develop
 git fetch --depth=100 && git checkout $BRANCH
 
-$COMPOSER_CMD validate --no-check-all
+composer validate --no-check-all
 # If there are composer validation issues, this will send an exit code of 1.
 
 # Limit to where this branch diverged...
@@ -41,7 +35,7 @@ if [ ! -z "$PHP_LIST" ]; then
   echo "*** Changed PHP files ****"
   echo $PHP_LIST
   cp $TOOLING/php_checker.json composer.json
-  $COMPOSER_CMD install --ignore-platform-reqs
+  composer install --ignore-platform-reqs
   EXCLUDE_RULES="Drupal.InfoFiles.AutoAddedKeys,DrupalPractice.Objects.GlobalDrupal,DrupalPractice.FunctionCalls.InsecureUnserialize"
   vendor/bin/phpcs --standard="vendor/drupal/coder/coder_sniffer/DrupalPractice/ruleset.xml" $PHP_LIST --extensions=$PHP_EXTENSIONS --exclude=$EXCLUDE_RULES
   vendor/bin/phpcs --standard="vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml" $PHP_LIST --extensions=$PHP_EXTENSIONS --exclude=$EXCLUDE_RULES
