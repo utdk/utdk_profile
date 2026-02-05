@@ -13,7 +13,7 @@ if [ -d $REPO ]; then
   rm -rf $REPO
 fi
 
-gh repo clone $OWNER/$REPO
+gh repo clone utexas-utdk/$REPO
 cd $REPO
 
 # GitHub Actions performs a 'shallow' fetch, so we get more history with --depth
