@@ -3,7 +3,6 @@
 set -e
 
 TOOLING=".github/workflows/.fixtures/"
-REPO="utdk_profile"
 WORKINGDIR="syntax/"
 
 mkdir -p $WORKINGDIR
