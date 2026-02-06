@@ -46,8 +46,7 @@ jobs:
           fi
           composer config --no-plugins allow-plugins.phpstan/extension-installer true
           composer require utexas/utdk_profile:"dev-$BRANCH" --no-update
-          composer require brianium/paratest drupal/core-dev:^11 --dev -W --no-update
-          composer install
+          composer require brianium/paratest drupal/core-dev:^11 --dev -W
           gh repo clone utexas-utdk/utdk_localdev .vscode -- --depth=1
           cp .vscode/.lando.yml .lando.yml
 
