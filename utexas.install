@@ -72,6 +72,12 @@ function utexas_install() {
     ->set('display.default.display_options.pager.type', 'full')
     ->save(TRUE);
 
+  // Set page caching to 1 day #2752.
+  \Drupal::configFactory()
+    ->getEditable('system.performance')
+    ->set('cache.page.max_age', 86400)
+    ->save(TRUE);
+
   // Add permissions to anonymous role.
   $anon_perms = [
     'access content',
@@ -1423,4 +1429,13 @@ function utexas_update_11000(array &$sandbox = []) {
     }
     return TRUE;
   });
+}
+
+/**
+ * Set page caching to 1 day #2752.
+ */
+function utexas_update_11001() {
+  $config = \Drupal::service('config.factory')->getEditable('system.performance');
+  $config->set('cache.page.max_age', 86400);
+  $config->save();
 }

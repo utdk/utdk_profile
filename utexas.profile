@@ -197,11 +197,6 @@ function utexas_install_cleanup(&$install_state) {
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')
     ->save(TRUE);
-
-  // Set base value for max-age in Cache-Control header for reverse proxies.
-  $config = \Drupal::service('config.factory')->getEditable('system.performance');
-  $config->set('cache.page.max_age', 900);
-  $config->save();
 }
 
 /**
