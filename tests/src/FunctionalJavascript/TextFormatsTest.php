@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 use Drupal\Tests\utexas\Traits\TextFormatsTestTraits\TextFormatsTestTrait;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Verifies Flex HTML behavior.
  */
+#[Group('utexas--general')]
 class TextFormatsTest extends FunctionalJavascriptTestBase {
 
   use TextFormatsTestTrait;

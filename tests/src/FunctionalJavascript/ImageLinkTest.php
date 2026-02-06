@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\Group;
+
 /**
  * Verifies custom compound field schema, validation, & output.
  */
+#[Group('utexas--block-one')]
 class ImageLinkTest extends FunctionalJavascriptTestBase {
 
   /**

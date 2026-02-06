@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\Group;
+
 /**
  * Verifies custom link options behavior.
  */
+#[Group('utexas--storage')]
 class LinkOptionsTest extends FunctionalJavascriptTestBase {
 
   /**

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\Group;
+
 /**
  * Verifies default Layout Builder Styles are present & add expected classes.
  */
+#[Group('utexas--layout')]
 class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
 
   /**

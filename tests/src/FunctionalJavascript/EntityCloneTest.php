@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 use Drupal\Tests\Traits\Core\CronRunTrait;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Demonstrate that various node types can be cloned.
  */
+#[Group('utexas--storage')]
 class EntityCloneTest extends FunctionalJavascriptTestBase {
 
   use CronRunTrait;

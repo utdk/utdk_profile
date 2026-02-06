@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        chunk: [1/6, 2/6, 3/6, 4/6, 5/6, 6/6]
+        chunk: [default, utexas--block-one, utexas--block-two, utexas--general, utexas--layout, utexas--storage]
     steps:
       - name: Add SSH key for use with GitHub
         uses: shimataro/ssh-key-action@v2
@@ -65,24 +65,6 @@ jobs:
           # lando start
           # lando drush si -y
 
-      - name: Find and split files
-        uses: remarkablemark/find-and-split@v1
-        id: tests
-        with:
-          directory: utdk-project/web/profiles/custom/utexas/tests/src
-          pattern: '*Test.php'
-          chunk: ${{ matrix.chunk }}
-
-      - name: Print files
-        run: echo ${{ steps.tests.outputs.files }}
-
       - name: Run tests (shard ${{ matrix.chunk }})
         run: |
-          FILES="${{ steps.tests.outputs.files }}"
-          echo $FILES
-          # cd utdk-project
-          # if [[ "${{ matrix.ci_node_index }}" = "1" ]]; then
-          #   lando test web/profiles/custom/utexas/tests/src/Functional
-          # else
-          #   lando test web/profiles/custom/utexas/tests/src/FunctionalJavascript
-          # fi
+          echo "lando test web/profiles/custom/utexas/tests/ --group=${{ matrix.chunk }}"

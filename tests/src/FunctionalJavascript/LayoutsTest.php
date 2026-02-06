@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\Group;
+
 /**
  * Verify functionality of 1, 2, 3, and 4 column layouts.
  */
+#[Group('utexas--layout')]
 class LayoutsTest extends FunctionalJavascriptTestBase {
 
   /**
