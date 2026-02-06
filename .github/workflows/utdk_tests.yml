@@ -10,7 +10,7 @@ env:
   BRANCH: ${{ github.head_ref }}
   GH_TOKEN: ${{ secrets.GH_CLI_PAT_FOR_VMS_USING_GITHUB_ACTIONS }}
 jobs:
-  unit_tests:
+  prepare:
     runs-on: ubuntu-latest
     name: Run automated tests
     steps:
@@ -50,24 +50,10 @@ jobs:
           composer config --no-interaction preferred-install auto
           composer config --no-plugins allow-plugins.phpstan/extension-installer true
           composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer
-          composer require utexas/utdk_profile:"dev-$BRANCH" --no-update
+          composer require utexas/utdk_profile:"dev-3096-paratest-b" --no-update
           composer require brianium/paratest drupal/core-dev:^11 --dev -W
           gh repo clone utexas-utdk/utdk_localdev .vscode -- --depth=1
           cp .vscode/.lando.yml .lando.yml
-
-      - name: Cache Composer
-        uses: actions/cache@v4
-        with:
-          path: ~/.composer/cache
-          key: ${{ runner.os }}-composer-cache-${{ hashFiles('utdk-project/composer.lock') }}
-          restore-keys: ${{ runner.os }}-composer-cache-
-
-      - name: Cache vendor
-        uses: actions/cache@v4
-        with:
-          path: utdk-project/vendor
-          key: ${{ runner.os }}-vendor-${{ hashFiles('utdk-project/composer.lock') }}
-          restore-keys: ${{ runner.os }}-vendor-
 
       - name: Install Drupal Kit Site
         run: |
@@ -75,7 +61,21 @@ jobs:
           lando start
           lando drush si -y
 
-      - name: Run tests
+  runtests:
+    runs-on: ubuntu-latest
+    name: Run automated tests shard ${{ matrix.ci_node_index }}/2
+    needs: prepare
+    strategy:
+      fail-fast: true
+      matrix:
+        ci_node_index: [1, 2]
+        ci_node_total: [2]
+    steps:
+      - name: Run tests (shard ${{ matrix.ci_node_index }})
         run: |
           cd utdk-project
-          # lando test web/profiles/custom/utexas/tests
+          if [[ "${{ matrix.ci_node_index }}" = 1 ]]; then
+            lando test web/profiles/custom/utexas/tests/src/Functional
+          else
+            lando test web/profiles/custom/utexas/tests/src/FunctionalJavascript
+          fi
