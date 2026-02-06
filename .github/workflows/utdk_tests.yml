@@ -55,6 +55,20 @@ jobs:
           gh repo clone utexas-utdk/utdk_localdev .vscode -- --depth=1
           cp .vscode/.lando.yml .lando.yml
 
+      - name: Cache Composer
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: ${{ runner.os }}-composer-cache-${{ hashFiles('utdk-project/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-cache-
+
+      - name: Cache vendor
+        uses: actions/cache@v4
+        with:
+          path: utdk-project/vendor
+          key: ${{ runner.os }}-vendor-${{ hashFiles('utdk-project/composer.lock') }}
+          restore-keys: ${{ runner.os }}-vendor-
+
       - name: Install Drupal Kit Site
         run: |
           cd utdk-project
