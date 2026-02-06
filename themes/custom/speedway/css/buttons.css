@@ -3,7 +3,7 @@
 .ut-btn--large,
 .ut-btn--disabled,
 .ut-btn--secondary,
-button:not(.trigger, .ui-button, .ck-button, .link-edit-summary, .slick-arrow, .slick-autoplay-toggle-button, .navbar-toggler) {
+button:not(.trigger, .ui-button, .ck-button, .link-edit-summary, .slick-arrow, .slick-autoplay-toggle-button, .navbar-toggler, .tablesaw-sortable-btn) {
   background-color: var(--ut-burntorange);
   border: 2px solid var(--ut-burntorange);
   border-radius: 4px;
@@ -26,7 +26,7 @@ button:not(.trigger, .ui-button, .ck-button, .link-edit-summary, .slick-arrow, .
 .ut-btn,
 .ut-btn--small,
 .ut-btn--large,
-button:not(.trigger, .ui-button, .ck-button, .link-edit-summary, .slick-arrow, .slick-autoplay-toggle-button, .navbar-toggler) {
+button:not(.trigger, .ui-button, .ck-button, .link-edit-summary, .slick-arrow, .slick-autoplay-toggle-button, .navbar-toggler, .tablesaw-sortable-btn) {
   color: var(--ut-white);
 
   &:link,
