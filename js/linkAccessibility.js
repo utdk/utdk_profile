@@ -27,8 +27,11 @@
       labelAppendage += "; opens in new window";
     }
     if (labelAppendage) {
-      label += labelAppendage;
-      el.setAttribute("aria-label", label);
+      const ariaHidden = el.getAttribute("aria-hidden");
+      if (ariaHidden !== "true") {
+        label += labelAppendage;
+        el.setAttribute("aria-label", label);
+      }
     }
   }
 
