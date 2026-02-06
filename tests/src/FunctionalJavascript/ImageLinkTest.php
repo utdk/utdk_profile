@@ -93,10 +93,6 @@ class ImageLinkTest extends FunctionalJavascriptTestBase {
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w/public/image-test.png';
     $assert->elementAttributeContains('css', 'a[href^="/test-flex-page"] picture img', 'src', $expected_path);
-
-    // CRUD: DELETE.
-    $this->removeblocks([$block_name]);
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

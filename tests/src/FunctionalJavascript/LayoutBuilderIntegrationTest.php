@@ -40,9 +40,6 @@ class LayoutBuilderIntegrationTest extends FunctionalJavascriptTestBase {
 
     // There is only one link with text "Header Menu".
     $this->assertEquals(1, count($headerMenuLink));
-
-    // CRUD: DELETE.
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

@@ -137,10 +137,6 @@ class PhotoContentAreaTest extends FunctionalJavascriptTestBase {
     $assert->fieldValueEquals('field_block_pca[0][links][1][uri]', 'https://third.test');
     // Verify data for removed link is not present.
     $assert->pageTextNotContains('https://second.test');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

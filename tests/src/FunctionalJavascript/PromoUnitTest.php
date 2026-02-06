@@ -250,9 +250,6 @@ class PromoUnitTest extends FunctionalJavascriptTestBase {
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify that text has been removed.
     $assert->pageTextNotContains('Promo Unit 3 Headline');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
   }
 
 }

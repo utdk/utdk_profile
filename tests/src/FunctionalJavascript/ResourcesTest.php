@@ -293,8 +293,6 @@ class ResourcesTest extends FunctionalJavascriptTestBase {
     $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][links][0][title]', 'Link 3');
     $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][links][1][title]', 'Link 4');
     $assert->fieldValueEquals('field_block_resources[0][resource_items][items][1][details][item][item][links][2][title]', 'Link 5');
-
-    $this->removeBlocks([$block_name]);
   }
 
 }

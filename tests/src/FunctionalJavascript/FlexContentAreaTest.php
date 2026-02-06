@@ -289,9 +289,6 @@ class FlexContentAreaTest extends FunctionalJavascriptTestBase {
     $this->waitForForm($block_content_edit_form_id);
     // Verify data for removed item is not present.
     $assert->pageTextNotContains('Flex Content Area Headline 1');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
   }
 
 }

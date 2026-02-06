@@ -76,9 +76,6 @@ class FlexPageRevisionsTest extends FunctionalJavascriptTestBase {
     // The page has "Revision 3" now.
     $this->drupalGet('node/' . $flex_page_id);
     $assert->pageTextContains('Revision 3');
-
-    // CRUD: DELETE.
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

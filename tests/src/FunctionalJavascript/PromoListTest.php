@@ -225,9 +225,6 @@ class PromoListTest extends FunctionalJavascriptTestBase {
     $form = $this->waitForForm($block_content_edit_form_id);
     // Verify that text has been removed.
     $assert->pageTextNotContains('List 1 item 3');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
   }
 
 }

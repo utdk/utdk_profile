@@ -103,10 +103,6 @@ class FlexListTest extends FunctionalJavascriptTestBase {
     $this->getSession()->getDriver()->getWebDriverSession()->accept_alert();
     $this->assertTrue($assert->waitForElementRemoved('css', '[data-drupal-selector="edit-field-utexas-flex-list-items-0-confirm-remove"]'));
     $form->pressButton('Save');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

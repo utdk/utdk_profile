@@ -129,10 +129,6 @@ class QuickLinksTest extends FunctionalJavascriptTestBase {
     $this->waitForForm($block_content_edit_form_id);
     // Assert former first link is now gone.
     $assert->pageTextNotContains('Quick Links Link!');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
-    $this->removeNodes([$flex_page_id]);
   }
 
 }
