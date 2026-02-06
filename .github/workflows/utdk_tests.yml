@@ -10,9 +10,14 @@ env:
   BRANCH: ${{ github.head_ref }}
   GH_TOKEN: ${{ secrets.GH_CLI_PAT_FOR_VMS_USING_GITHUB_ACTIONS }}
 jobs:
-  prepare:
+  runtests:
     runs-on: ubuntu-latest
     name: Run automated tests
+    strategy:
+      fail-fast: true
+      matrix:
+        ci_node_index: [1, 2]
+        ci_node_total: [2]
     steps:
       - name: Add SSH key for use with GitHub
         uses: shimataro/ssh-key-action@v2
@@ -61,24 +66,11 @@ jobs:
           lando start
           lando drush si -y
 
-  runtests:
-    runs-on: ubuntu-latest
-    name: Run automated tests shard ${{ matrix.ci_node_index }}/2
-    needs: prepare
-    strategy:
-      fail-fast: true
-      matrix:
-        ci_node_index: [1, 2]
-        ci_node_total: [2]
-    steps:
       - name: Run tests (shard ${{ matrix.ci_node_index }})
         run: |
-          # cd utdk-project
+          cd utdk-project
           if [[ "${{ matrix.ci_node_index }}" = "1" ]]; then
-            pwd
-            ls -al
             lando test web/profiles/custom/utexas/tests/src/Functional
           else
-            pwd
             lando test web/profiles/custom/utexas/tests/src/FunctionalJavascript
           fi
