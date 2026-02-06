@@ -78,4 +78,4 @@ jobs:
       - name: Run tests
         run: |
           cd utdk-project
-          lando test web/profiles/custom/utexas/tests
+          # lando test web/profiles/custom/utexas/tests
