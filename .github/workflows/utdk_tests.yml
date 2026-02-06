@@ -44,6 +44,10 @@ jobs:
           if [ -z "$BRANCH" ]; then
             BRANCH="develop"
           fi
+          composer config --no-interaction allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+          composer config --no-interaction allow-plugins.phpstan/extension-installer true
+          composer config --no-interaction allow-plugins.php-http/discovery true
+          composer config --no-interaction preferred-install auto
           composer require utexas/utdk_profile:"dev-$BRANCH" --no-update
           composer require drupal/core-dev:^11 --no-update
           composer install
