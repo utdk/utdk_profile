@@ -73,9 +73,12 @@ jobs:
     steps:
       - name: Run tests (shard ${{ matrix.ci_node_index }})
         run: |
-          cd utdk-project
-          if [[ "${{ matrix.ci_node_index }}" = 1 ]]; then
+          # cd utdk-project
+          if [[ "${{ matrix.ci_node_index }}" = "1" ]]; then
+            pwd
+            ls -al
             lando test web/profiles/custom/utexas/tests/src/Functional
           else
+            pwd
             lando test web/profiles/custom/utexas/tests/src/FunctionalJavascript
           fi
