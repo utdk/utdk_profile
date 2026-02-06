@@ -16,8 +16,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        ci_node_index: [1, 2]
-        ci_node_total: [2]
+        chunk: [1/6, 2/6, 3/6, 4/6, 5/6, 6/6]
     steps:
       - name: Add SSH key for use with GitHub
         uses: shimataro/ssh-key-action@v2
@@ -77,7 +76,7 @@ jobs:
       - name: Print files
         run: echo ${{ steps.tests.outputs.files }}
 
-      - name: Run tests (shard ${{ matrix.ci_node_index }})
+      - name: Run tests (shard ${{ matrix.chunk }})
         run: |
           FILES="${{ steps.tests.outputs.files }}"
           echo $FILES
