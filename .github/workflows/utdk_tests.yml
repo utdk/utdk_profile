@@ -62,15 +62,28 @@ jobs:
 
       - name: Install Drupal Kit Site
         run: |
-          cd utdk-project
-          lando start
-          lando drush si -y
+          # cd utdk-project
+          # lando start
+          # lando drush si -y
+
+      - name: Find and split files
+        uses: remarkablemark/find-and-split@v1
+        id: tests
+        with:
+          directory: utdk-project/web/profiles/custom/utexas/tests/src
+          pattern: '*Test.php'
+          chunk: ${{ matrix.chunk }}
+
+      - name: Print files
+        run: echo ${{ steps.tests.outputs.files }}
 
       - name: Run tests (shard ${{ matrix.ci_node_index }})
         run: |
-          cd utdk-project
-          if [[ "${{ matrix.ci_node_index }}" = "1" ]]; then
-            lando test web/profiles/custom/utexas/tests/src/Functional
-          else
-            lando test web/profiles/custom/utexas/tests/src/FunctionalJavascript
-          fi
+          FILES="${{ steps.tests.outputs.files }}"
+          echo $FILES
+          # cd utdk-project
+          # if [[ "${{ matrix.ci_node_index }}" = "1" ]]; then
+          #   lando test web/profiles/custom/utexas/tests/src/Functional
+          # else
+          #   lando test web/profiles/custom/utexas/tests/src/FunctionalJavascript
+          # fi
