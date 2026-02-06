@@ -135,10 +135,6 @@ class EntityCloneTest extends FunctionalJavascriptTestBase {
     $this->cronRun();
     $this->drupalGet('node/' . $flex_page_id_clone);
     $assert->pageTextContains('Inline block revision to clone');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name_reusable]);
-    $this->removeNodes([$flex_page_id_clone]);
   }
 
 }

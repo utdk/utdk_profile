@@ -119,10 +119,6 @@ class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
     // CRUD: READ
     // A "utexas-layout-no-padding" class is added to the section.
     $assert->elementExists('xpath', '//div[contains(@class, "layout")][contains(@class, "utexas-layout-no-padding")]');
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

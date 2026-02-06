@@ -206,10 +206,6 @@ class FeaturedHighlightTest extends FunctionalJavascriptTestBase {
       'UT Drupal Kit 2.0 Intro and Demo',
       $session->evaluateScript("$inner_frame.getAttribute('title')")
     );
-
-    // CRUD: DELETE.
-    $this->removeBlocks([$block_name]);
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

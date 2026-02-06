@@ -239,9 +239,6 @@ class SocialLinksTest extends FunctionalJavascriptTestBase {
     // CRUD: READ
     // Verify that an external link is required for the URL.
     $assert->statusMessageContainsAfterWait('1 error has been found');
-
-    // CRUD: DELETE.
-    $this->removeNodes([$flex_page_id]);
   }
 
 }

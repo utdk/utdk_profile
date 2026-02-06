@@ -232,9 +232,6 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
       $assert->responseNotContains('#43695b');
       $assert->responseNotContains('#ffffff');
     }
-
-    // CRUD: DELETE.
-    $this->removeNodes([$basic_page_id]);
   }
 
 }
