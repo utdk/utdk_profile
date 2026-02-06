@@ -61,10 +61,11 @@ jobs:
 
       - name: Install Drupal Kit Site
         run: |
-          # cd utdk-project
-          # lando start
-          # lando drush si -y
+          cd utdk-project
+          lando start
+          lando drush si -y
 
       - name: Run tests (shard ${{ matrix.chunk }})
         run: |
-          echo "lando test web/profiles/custom/utexas/tests/ --group=${{ matrix.chunk }}"
+          cd utdk-project
+          lando test web/profiles/custom/utexas/tests/ --group=${{ matrix.chunk }}"
