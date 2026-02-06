@@ -4,24 +4,10 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\FeaturedHighlightTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\FlexContentAreaTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\FlexListTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\FlexPageRevisionsTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\HeroTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\ImageLinkTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\LayoutBuilderIntegrationTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\PhotoContentAreaTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\PromoListTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\PromoUnitTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\QuickLinksTestTrait;
-use Drupal\Tests\utexas\Traits\WidgetsTestTraits\ResourcesTestTrait;
-
 /**
  * Verifies custom compound field schema, validation, & output.
  */
 class PhotoContentAreaTest extends FunctionalJavascriptTestBase {
-
 
   /**
    * {@inheritdoc}
