@@ -21,7 +21,7 @@
         {% if L1.below %}
           {% set thisNavId = (L1.title|clean_unique_id) %}
           <a class="dropdown-toggle" href="#" id="{{ thisNavId }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="sr-only">More {{ L1.title }} pages</span>
+            <span class="visually-hidden">More {{ L1.title }} pages</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="{{ thisNavId }}">
             {% for L2 in L1.below %}
