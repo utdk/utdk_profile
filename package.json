@@ -14,7 +14,8 @@
   "license": "GPL-2.0-or-later",
   "scripts": {
     "postCSS": "npx postcss css/Bootstrap5/bootstrap-base.css --use autoprefixer -d css/Bootstrap5 --no-map",
-    "build": "sass --no-source-map --style=expanded scss:css/Bootstrap5 --silence-deprecation=slash-div,mixed-decls,call-string,color-functions,global-builtin,import && npm run postCSS"
+    "build": "sass --no-source-map --style=expanded scss:css/Bootstrap5 --silence-deprecation=slash-div,mixed-decls,call-string,color-functions,global-builtin,import && npm run postCSS && npm run copyJS",
+    "copyJS": "cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js js/Bootstrap5/bootstrap.bundle.min.js"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
