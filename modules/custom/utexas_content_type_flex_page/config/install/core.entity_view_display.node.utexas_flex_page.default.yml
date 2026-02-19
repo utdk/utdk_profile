@@ -43,6 +43,7 @@ third_party_settings:
       denylisted_blocks: {  }
       allowlisted_blocks: {  }
       restricted_categories:
+        - 'Chaos Tools'
         - 'Content fields'
         - Forms
         - 'Last Updated'
