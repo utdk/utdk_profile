@@ -65,7 +65,7 @@ function utexas_media_types_form_alter(&$form, $form_state, $form_id) {
     'media_library_add_form_upload',
   ];
   if (in_array($form_id, $utexas_media_forms)) {
-    array_unshift($form['#validate'], '_utexas_media_types_media_form_validate');
+    $form['#validate'][] = '_utexas_media_types_media_form_validate';
   }
 }
 
