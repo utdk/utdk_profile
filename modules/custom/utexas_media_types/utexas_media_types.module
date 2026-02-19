@@ -59,6 +59,36 @@ function utexas_media_types_form_alter(&$form, $form_state, $form_id) {
   if (in_array($form_id, $forms_to_admonish)) {
     \Drupal::messenger()->addWarning(t('For non-image documents such as PDFs, MS Office documents, or high-resolution images intended for download, consider using a third-party file sharing service instead of uploading to the Media Library. See <a href="@url" target="_blank">this KB article<span class="ut-cta-link--external"></span></a> for additional information.', ['@url' => 'https://ut.service-now.com/sp?id=kb_article&number=KB0019227']));
   }
+  $utexas_media_forms = [
+    'media_utexas_image_add_form',
+    'media_utexas_image_edit_form',
+    'media_library_add_form_upload',
+  ];
+  if (in_array($form_id, $utexas_media_forms)) {
+    array_unshift($form['#validate'], '_utexas_media_types_media_form_validate');
+  }
+}
+
+/**
+ * Form validation handler for media form alt text.
+ */
+function _utexas_media_types_media_form_validate($form, &$form_state) {
+  $minimum_characters = 80;
+  if ($form['#form_id'] == 'media_library_add_form_upload') {
+    $image = $form_state->getValue('media');
+    $alt = $image[0]['fields']['field_utexas_media_image'][0]['alt'] ?? "";
+    $name = 'media][0][fields][field_utexas_media_image][0][alt';
+  }
+  else {
+    $image = $form_state->getValue('field_utexas_media_image');
+    $alt = $image[0]['alt'] ?? "";
+    $name = 'field_utexas_media_image][0][alt';
+  }
+  if (isset($alt) && $alt !== "") {
+    if (mb_strlen($alt) < $minimum_characters) {
+      $form_state->setErrorByName($name, t('Alt text must be longer than %minimum characters', ['%minimum' => $minimum_characters]));
+    }
+  }
 }
 
 /**
