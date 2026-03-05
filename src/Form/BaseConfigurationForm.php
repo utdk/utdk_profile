@@ -79,7 +79,6 @@ class BaseConfigurationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
     $form['intro']['#markup'] = $this->t('<h3>Introduction</h3><p>The UT Drupal Kit is a website solution tailored to the Texas brand, based on the Drupal content management system. This configuration section includes settings that are specifically provided by the UT Drupal Kit, distinct from general Drupal settings.</p><p>Permissions associated with the Drupal Kit can be assigned to site roles via the <a href="/admin/config/content/utexas/permissions">Permissions configuration</a> tab.');
     // We allow static calls to services.
     // phpcs:ignore
