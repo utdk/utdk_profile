@@ -86,6 +86,8 @@ class UTexasHeroStyle2Formatter extends UTexasHeroFormatterBase {
             ],
             'utexas-hero-' . $id,
           ];
+          $this->renderer->addCacheableDependency($elements, $file);
+          $this->renderer->addCacheableDependency($elements, $media);
         }
       }
       $elements[$delta] = [

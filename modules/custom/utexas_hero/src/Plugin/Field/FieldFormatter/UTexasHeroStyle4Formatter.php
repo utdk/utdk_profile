@@ -75,6 +75,8 @@ class UTexasHeroStyle4Formatter extends UTexasHeroFormatterBase {
             ];
           }
         }
+        $this->renderer->addCacheableDependency($image_render_array, $file);
+        $this->renderer->addCacheableDependency($image_render_array, $media);
         if (MediaEntityImageHelper::mediaIsRestricted($media)) {
           $image_render_array = [];
         }

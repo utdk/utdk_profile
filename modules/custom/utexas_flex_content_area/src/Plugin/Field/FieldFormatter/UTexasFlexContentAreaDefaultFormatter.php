@@ -334,6 +334,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       // Add the file entity to the cache dependencies.
       // This will clear our cache when this entity updates.
       $this->renderer->addCacheableDependency($media_render_array, $file);
+      $this->renderer->addCacheableDependency($media_render_array, $media);
     }
     if (MediaEntityImageHelper::mediaIsRestricted($media)) {
       return [];

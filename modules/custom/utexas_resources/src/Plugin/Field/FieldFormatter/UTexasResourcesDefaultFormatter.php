@@ -141,6 +141,7 @@ class UTexasResourcesDefaultFormatter extends FormatterBase implements Container
             // Add the file entity to the cache dependencies.
             // This will clear our cache when this entity updates.
             $this->renderer->addCacheableDependency($image_render_array, $file);
+            $this->renderer->addCacheableDependency($image_render_array, $media);
             $instances[$key]['image'] = $image_render_array;
           }
           if (!empty($instance_item['links'])) {
