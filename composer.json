@@ -69,7 +69,8 @@
   "extra": {
     "patches": {
       "drupal/core": {
-        "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch"
+        "Possible log noise as of Drupal 10.1.1: BadRequestHttpException: The theme must be passed as a query argument": "https://drupalkit.its.utexas.edu/patches/18-bad-request-2296.patch",
+        "Image Media thumbnail alt text cannot be changed without reuploading the image": "https://wcms.its.utexas.edu/patches/3232414-thumbnail-alt-text.patch"
       },
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.2.1.0-beta1.patch"
