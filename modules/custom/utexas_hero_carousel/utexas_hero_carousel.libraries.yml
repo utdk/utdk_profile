@@ -1,9 +1,7 @@
-slick-carousel:
-  js:
-    js/slick-carousel.init.js: {}
-  dependencies:
-    - utexas/accessible-slick
 widget:
   css:
     theme:
       css/utexas_hero_carousel.widget.css: {}
+formatter:
+  js:
+    js/bootstrap-carousel.js: {}
