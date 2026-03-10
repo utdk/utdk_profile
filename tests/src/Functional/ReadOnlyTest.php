@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\utexas_readonly\ReadOnlyHelper;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Verifies add-on specific Field UI pages are read-only.
  */
+#[RunTestsInSeparateProcesses]
 class ReadOnlyTest extends FunctionalTestBase {
 
   /**

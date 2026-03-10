@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\Functional;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Verifies Social Links field schema & validation.
  */
+#[RunTestsInSeparateProcesses]
 class SocialLinksTest extends FunctionalTestBase {
 
   /**

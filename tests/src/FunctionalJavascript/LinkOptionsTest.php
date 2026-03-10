@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Verifies custom link options behavior.
  */
+#[RunTestsInSeparateProcesses]
 class LinkOptionsTest extends FunctionalJavascriptTestBase {
 
   /**

@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Verifies default Layout Builder Styles are present & add expected classes.
  */
+#[RunTestsInSeparateProcesses]
 class LayoutBuilderStylesTest extends FunctionalJavascriptTestBase {
 
   /**

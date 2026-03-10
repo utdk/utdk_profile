@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Test all aspects of Social Links functionality.
  */
+#[RunTestsInSeparateProcesses]
 class SocialLinksTest extends FunctionalJavascriptTestBase {
 
   /**

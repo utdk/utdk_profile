@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Verifies background colors/images can be added to sections.
  */
+#[RunTestsInSeparateProcesses]
 class BackgroundAccentTest extends FunctionalJavascriptTestBase {
 
   /**

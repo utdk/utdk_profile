@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
+
 /**
  * Test all aspects of site announcement functionality.
  */
+#[RunTestsInSeparateProcesses]
 class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
 
   /**

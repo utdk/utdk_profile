@@ -16,10 +16,12 @@ use Drupal\Tests\utexas\Traits\WidgetsTestTraits\PromoListTestTrait;
 use Drupal\Tests\utexas\Traits\WidgetsTestTraits\PromoUnitTestTrait;
 use Drupal\Tests\utexas\Traits\WidgetsTestTraits\QuickLinksTestTrait;
 use Drupal\Tests\utexas\Traits\WidgetsTestTraits\ResourcesTestTrait;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Verifies custom compound field schema, validation, & output.
  */
+#[RunTestsInSeparateProcesses]
 class CustomWidgetsTest extends FunctionalJavascriptTestBase {
 
   use FeaturedHighlightTestTrait;
