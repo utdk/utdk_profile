@@ -76,6 +76,7 @@
 form.search-form {
   position: relative;
   margin-top: -30px;
+  max-width: 830px;
 
   .container-inline div {
     display: block;
@@ -206,6 +207,10 @@ form.search-form {
   .gsc-above-wrapper-area {
     border-bottom: 0;
     padding: 5px 0 15px;
+    max-width: 830px;
+  }
+  .gsc-wrapper {
+    max-width: 830px;
   }
 
   .gsc-webResult .gsc-result {

@@ -24,11 +24,6 @@ function speedway_preprocess_page(&$variables) {
   if ($route_name === 'search.view_google_cse_search') {
     $variables['main_content_attributes']->removeClass(['col']);
     $variables['main_content_attributes']->addClass([
-      'mx-auto',
-      'col-sm-12',
-      'col-md-9',
-      'col-lg-9',
-      'col-xl-9',
       'search-results-page',
     ]);
   }
