@@ -1448,3 +1448,13 @@ function utexas_update_11002() {
     \Drupal::service('module_installer')->uninstall(['ctools'], FALSE);
   }
 }
+
+/**
+ * Uninstall Ban module #3064.
+ */
+function utexas_update_11003() {
+  $module = 'ban';
+  if (\Drupal::moduleHandler()->moduleExists($module) === TRUE) {
+    \Drupal::service('module_installer')->uninstall([$module]);
+  }
+}
