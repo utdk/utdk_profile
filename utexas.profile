@@ -541,8 +541,8 @@ function utexas_preprocess_page(&$variables) {
   $current_route_match = \Drupal::routeMatch();
   $route_name = $current_route_match->getRouteName();
   if ($route_name === 'search.view_google_cse_search') {
-    // Remove breadcrumbs block from breadcrumb region.
-    unset($variables['page']['breadcrumb']['breadcrumbs']);
+    // Omit the entire breadcrumb region from the page.
+    unset($variables['page']['breadcrumb']);
   }
 }
 
