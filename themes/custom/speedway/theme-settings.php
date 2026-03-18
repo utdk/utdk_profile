@@ -11,12 +11,13 @@ use Drupal\Core\Form\FormStateInterface;
  * Implements hook_form_system_theme_settings_alter().
  */
 function speedway_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+  $theme_settings = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
   // Speedway custom settings.
   $form['logo']['#weight'] = -1;
   $form['ut_vertical_tabs'] = [
     '#type' => 'vertical_tabs',
   ];
-  $setting = theme_get_setting('logo_height');
+  $setting = $theme_settings->getSetting('logo_height');
   $form['logo']['logo_height'] = [
     '#type' => 'radios',
     '#title' => t('Logo Height'),
@@ -37,14 +38,14 @@ function speedway_form_system_theme_settings_alter(&$form, FormStateInterface $f
     '#type' => 'textfield',
     '#title' => t('Parent Entity name'),
     '#description' => t("Enter the name of the site's parent college or office. This will appear as a link at the upper left of the header, adjacent to the wordmark."),
-    '#default_value' => theme_get_setting('parent_link_title'),
+    '#default_value' => $theme_settings->getSetting('parent_link_title'),
     '#maxlength' => 256,
   ];
   $form['parent_entity_fieldset']['parent_link'] = [
     '#type' => 'url',
     '#title' => t('Parent Entity website'),
     '#description' => t("Enter the URL to the site's parent college or office."),
-    '#default_value' => theme_get_setting('parent_link'),
+    '#default_value' => $theme_settings->getSetting('parent_link'),
     '#maxlength' => 256,
     '#attributes'    => [
       'placeholder' => t('https://'),
@@ -57,7 +58,7 @@ function speedway_form_system_theme_settings_alter(&$form, FormStateInterface $f
     '#title' => t('Region display settings'),
     '#weight' => '0',
   ];
-  $header_secondary_display_setting = theme_get_setting('header_secondary_display');
+  $header_secondary_display_setting = $theme_settings->getSetting('header_secondary_display');
   $form['region_display_fieldset']['header_secondary_display'] = [
     '#type' => 'radios',
     '#title' => t('Header Secondary display'),
@@ -74,7 +75,7 @@ function speedway_form_system_theme_settings_alter(&$form, FormStateInterface $f
     '#title' => t('Main menu settings'),
     '#weight' => '0',
   ];
-  $header_main_menu_setting = theme_get_setting('main_menu_alignment');
+  $header_main_menu_setting = $theme_settings->getSetting('main_menu_alignment');
   $form['menu_display_fieldset']['main_menu_alignment'] = [
     '#type' => 'radios',
     '#title' => t('Main menu alignment'),
