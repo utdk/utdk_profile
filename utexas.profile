@@ -269,6 +269,13 @@ function utexas_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['conditions']['response_code']['response_codes']['#default_value'] = "403\n404";
     $form['conditions']['response_code']['negate']['#default_value'] = TRUE;
   }
+  if ($form_id === 'utexas_general_config') {
+    $utdk_saas = \Drupal::state()->get('utexas_utdk_saas', FALSE);
+    if ($utdk_saas) {
+      // UTDK Managed sites should not be able to change this setting.
+      $form['development_settings']['full_html_updates']['#disabled'] = TRUE;
+    }
+  }
 }
 
 /**
