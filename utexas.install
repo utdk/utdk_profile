@@ -1458,3 +1458,13 @@ function utexas_update_11003() {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
   }
 }
+
+/**
+ * Uninstall the utdk_saas module (#3147).
+ */
+function utexas_update_11004() {
+  $module = 'utdk_saas';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+}
