@@ -160,4 +160,79 @@ class InstallationHelper {
     }
   }
 
+  /**
+   * Given a module name, check for active dependencies (config or module).
+   *
+   * @param string $module
+   *   The machine name of the module to check.
+   *
+   * @return bool
+   *   Whether or not the module has an active dependency.
+   */
+  public static function moduleHasNoActiveDependencies($module) {
+    $messenger = \Drupal::messenger();
+    $t = \Drupal::service('string_translation');
+    if (!\Drupal::moduleHandler()->moduleExists($module)) {
+      $messenger->addMessage($t->translate('@module is not installed.', ['@module' => $module]));
+      return FALSE;
+    }
+    if (self::moduleHasModuleDependencies($module)) {
+      $messenger->addMessage($t->translate('@module has active module dependencies.', ['@module' => $module]));
+      return FALSE;
+    }
+    // Check all configuration for module dependency.
+    $config_manager = \Drupal::service('config.manager');
+    $dependents = $config_manager->findConfigEntityDependencies('module', [$module]);
+    if (!empty($dependents)) {
+      $messenger->addMessage($t->translate('@module has active configuration dependencies.', ['@module' => $module]));
+      return FALSE;
+    }
+    $messenger->addMessage($t->translate('@module has no active dependencies and can be uninstalled.', ['@module' => $module]));
+    return TRUE;
+  }
+
+  /**
+   * Given a module name, check if it has active *module* dependencies.
+   *
+   * @param string $module_to_check
+   *   The machine name of the module to check.
+   *
+   * @return bool
+   *   Whether or not the module has an active *module* dependency.
+   */
+  public static function moduleHasModuleDependencies($module_to_check) {
+    /** @var \Drupal\Core\Extension\ModuleHandlerInterface $module_handler */
+    $module_handler = \Drupal::moduleHandler();
+    $extensions = $module_handler->getModuleList();
+    $installed_modules = array_keys($extensions);
+    $extension = \Drupal::service("extension.list.module");
+    foreach ($installed_modules as $module) {
+      if ($module === $module_to_check) {
+        continue;
+      }
+      $active_module_dependencies = [];
+      $info = $extension->getExtensionInfo($module);
+      $raw_names = isset($info['dependencies']) && is_array($info['dependencies'])
+        ? $info['dependencies']
+        : [];
+      // Normalize dependency strings to module names.
+      foreach ($raw_names as $name) {
+        // Remove vendor prefixes (e.g., "drupal:ctools" -> "ctools").
+        if (strpos($name, ':') !== FALSE) {
+          $parts = explode(':', $name, 2);
+          $name = $parts[1];
+        }
+        // Remove trailing version constraints: "module (>=1.2)" -> "module".
+        $name = preg_replace('/\s*\(.*\)\s*$/', '', $name);
+        // Trim whitespace just in case.
+        $name = trim($name);
+        $active_module_dependencies[] = $name;
+      }
+      if (in_array($module_to_check, $active_module_dependencies)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
+  }
+
 }

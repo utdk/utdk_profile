@@ -10,11 +10,13 @@ use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\filter\Entity\FilterFormat;
 use Drupal\node\Entity\Node;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Verifies full installation completes with everything enabled.
  */
+#[RunTestsInSeparateProcesses]
 class BaseInstallationTest extends BrowserTestBase {
 
   use InstallTestTrait;

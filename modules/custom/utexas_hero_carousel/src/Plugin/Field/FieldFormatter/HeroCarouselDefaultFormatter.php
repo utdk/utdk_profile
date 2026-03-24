@@ -43,21 +43,7 @@ class HeroCarouselDefaultFormatter extends UTexasHeroFormatterBase {
 
     // Add unique id.
     $js_data_id = Html::getUniqueId($items->getFieldDefinition()->getName());
-
-    // Set "default" drupalSettings for Slick JS.
-    $drupal_settings = [
-      'autoplay' => 1,
-      'autoplaySpeed' => 5,
-      'dots' => 1,
-      'fade' => 0,
-      'slidesToScroll' => 1,
-      'slidesToShow' => 1,
-    ];
-
     $elements['#attributes']['id'] = $js_data_id;
-    $elements['#attributes']['class'][] = 'utexas-hero-carousel';
-    $elements['#attached']['drupalSettings']['utexas_hero_carousel'][$js_data_id] = $drupal_settings;
-    $elements['#attached']['library'][] = 'utexas_hero_carousel/slick-carousel';
     return $elements;
   }
 

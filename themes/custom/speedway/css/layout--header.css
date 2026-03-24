@@ -74,10 +74,6 @@
       li a {
         color: var(--ut-limestone--s50);
 
-        &.is-active {
-          font-weight: bold;
-        }
-
         &:hover {
           color: var(--ut-limestone--s60);
         }

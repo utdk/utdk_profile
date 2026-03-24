@@ -50,26 +50,18 @@
     position: relative;
     width: 100%;
     background: #ebeced;
-    padding: 0;
+    padding: 10px 0 0;
     margin: 0;
     height: 45px;
-    display: flex;
-    align-items: center;
+
     [data-bs-target] {
       background-clip: inherit;
-      width: 17px;
+      width: 24px;
       outline: 3px solid #1f262b !important; /* important used to override bootstrap.base.css button: focus:not(:focus-visible) */
-      border-radius: 14px;
-      margin-right: 9px;
-      border-top: 7px;
-      height: 7px;
+      border-radius: 20px;
+      margin-right: 7.5px;
       &.active {
         transition: opacity 1.5s ease;
-      }
-      &:hover {
-        outline: 3px solid #fff !important; /* important used to override bootstrap.base.css button: focus:not(:focus-visible) */
-        background: #1f262b;
-        opacity: 1;
       }
       &:focus-visible {
         outline: 5px solid blue !important;
@@ -97,15 +89,5 @@
     border-style: double;
     border-width: 0 0 0 20px;
     border-color: #1f262b;
-  }
-
-  container: carousel-container / inline-size;
-
-  @container carousel-container (max-width: 499px) {
-
-    .carousel-control-prev,
-    .carousel-control-next {
-      top: 20%;
-    }
   }
 }

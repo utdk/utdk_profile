@@ -197,11 +197,6 @@ function utexas_install_cleanup(&$install_state) {
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')
     ->save(TRUE);
-
-  // Set base value for max-age in Cache-Control header for reverse proxies.
-  $config = \Drupal::service('config.factory')->getEditable('system.performance');
-  $config->set('cache.page.max_age', 900);
-  $config->save();
 }
 
 /**
@@ -546,8 +541,8 @@ function utexas_preprocess_page(&$variables) {
   $current_route_match = \Drupal::routeMatch();
   $route_name = $current_route_match->getRouteName();
   if ($route_name === 'search.view_google_cse_search') {
-    // Remove breadcrumbs block from breadcrumb region.
-    unset($variables['page']['breadcrumb']['breadcrumbs']);
+    // Omit the entire breadcrumb region from the page.
+    unset($variables['page']['breadcrumb']);
   }
 }
 

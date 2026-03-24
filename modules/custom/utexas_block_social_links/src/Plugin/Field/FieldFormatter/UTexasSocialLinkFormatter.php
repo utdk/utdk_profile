@@ -68,7 +68,7 @@ class UTexasSocialLinkFormatter extends FormatterBase {
             continue;
           }
           $label = "Find us on " . ucfirst($name);
-          $link_text = Markup::create("<span class='sr-only'>$label</span>");
+          $link_text = Markup::create("<span class='visually-hidden'>$label</span>");
           $linked_icon_options = [
             'attributes' => [
               'class' => [

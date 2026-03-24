@@ -5,8 +5,10 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
-use Drupal\Core\Entity\FieldableEntityInterface;
 use Drupal\block\Entity\Block;
+use Drupal\Core\Config\Entity\ConfigEntityUpdater;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\editor\Entity\Editor;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\user\RoleInterface;
@@ -15,8 +17,6 @@ use Drupal\utexas\InstallationHelper;
 use Drupal\utexas_missing_blocks\BlockLayoutReferenceDeleter;
 use Drupal\utexas_missing_blocks\Defuser;
 use Symfony\Component\Yaml\Yaml;
-use Drupal\Core\Config\Entity\ConfigEntityUpdater;
-use Drupal\editor\Entity\Editor;
 
 /**
  * Implements hook_preprocess_install_page().
@@ -70,6 +70,12 @@ function utexas_install() {
   \Drupal::configFactory()
     ->getEditable('views.view.media_library')
     ->set('display.default.display_options.pager.type', 'full')
+    ->save(TRUE);
+
+  // Set page caching to 1 day #2752.
+  \Drupal::configFactory()
+    ->getEditable('system.performance')
+    ->set('cache.page.max_age', 86400)
     ->save(TRUE);
 
   // Add permissions to anonymous role.
@@ -1423,4 +1429,32 @@ function utexas_update_11000(array &$sandbox = []) {
     }
     return TRUE;
   });
+}
+
+/**
+ * Set page caching to 1 day #2752.
+ */
+function utexas_update_11001() {
+  $config = \Drupal::service('config.factory')->getEditable('system.performance');
+  $config->set('cache.page.max_age', 86400);
+  $config->save();
+}
+
+/**
+ * Uninstall ctools from sites without active dependencies #3112.
+ */
+function utexas_update_11002() {
+  if (InstallationHelper::moduleHasNoActiveDependencies('ctools')) {
+    \Drupal::service('module_installer')->uninstall(['ctools'], FALSE);
+  }
+}
+
+/**
+ * Uninstall ban module #3064.
+ */
+function utexas_update_11003() {
+  $module = 'ban';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
 }

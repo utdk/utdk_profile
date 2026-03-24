@@ -1,6 +1,11 @@
 .utexas-primary-menu {
   .nav-item {
     display: flex;
+    &.active {
+      .l1-link {
+        color: var(--ut-burntorange);
+      }
+    }
   }
   .l1-link {
     font-size: 0.875rem;
