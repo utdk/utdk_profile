@@ -346,7 +346,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
       $media_render_array = [
         '#theme' => 'responsive_image_formatter',
         '#item' => $image,
-        '#item_attributes' => [],
+        '#attributes' => [],
         '#responsive_image_style_id' => $responsive_image_style_name,
         '#cache' => [
           'tags' => $this->generateImageCacheTags($responsive_image_style_name),
@@ -356,7 +356,7 @@ class UTexasFeaturedHighlightDefaultFormatter extends FormatterBase implements C
         $media_render_array = [
           '#theme' => 'image_style',
           '#uri' => $image->uri,
-          '#item_attributes' => [],
+          '#attributes' => [],
           '#style_name' => 'utexas_image_style_500w',
           '#cache' => [
             'tags' => $this->generateImageCacheTags('utexas_image_style_500w'),
