@@ -53,6 +53,7 @@
     "drupal/role_delegation": "1.6.0",
     "drupal/seckit": "2.0.3",
     "drupal/schema_metatag": "3.0.4",
+    "drupal/smtp":"1.4.0",
     "drupal/trash": "3.0.25",
     "drupal/updated": "2.0.0",
     "drupal/url_embed": "3.0.0",
