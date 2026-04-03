@@ -1468,3 +1468,22 @@ function utexas_update_11004() {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
   }
 }
+
+/**
+ * Uninstall the admin_toolbar, toolbar and install navigation (#3126).
+ */
+function utexas_update_11005() {
+  $modules = [
+    'admin_toolbar',
+    'toolbar',
+  ];
+  foreach ($modules as $module) {
+    if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+      \Drupal::service('module_installer')->uninstall([$module], FALSE);
+    }
+  }
+  $module_to_install = 'navigation';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}

@@ -25,7 +25,6 @@ dependencies:
   - drupal:path
   - drupal:search
   - drupal:taxonomy
-  - drupal:toolbar
   - drupal:views
 install:
   # Core
@@ -34,11 +33,11 @@ install:
   - drupal:dblog
   - drupal:dynamic_page_cache
   - drupal:inline_form_errors
+  - drupal:navigation
   - drupal:page_cache
   - drupal:workflows
   # Contrib
   - drupal:addtoany
-  - drupal:admin_toolbar
   - drupal:breadcrumbs_visibility
   - drupal:diff
   - drupal:entity_clone
