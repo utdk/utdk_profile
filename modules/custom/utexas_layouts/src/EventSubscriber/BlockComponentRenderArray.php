@@ -35,6 +35,20 @@ class BlockComponentRenderArray implements EventSubscriberInterface {
 
     // Get the current "build," add the key/value and reset the "build".
     $build = $event->getBuild();
+
+    // If the build is empty, the block produced no renderable content (e.g.,
+    // access denied or empty output). Core's subscriber returns early in that
+    // case without calling setBuild(), leaving $build as []. Adding
+    // #utexas_layouts_region to an empty array causes NavigationLayout::build()
+    // to treat the component as non-empty (Element::isEmpty() only ignores
+    // #cache and #weight keys), which results in '#theme' => 'block__navigation'
+    // being applied to a render array lacking the required 'content' key,
+    // triggering PHP warnings in BlockHooks::preprocessBlock() and
+    // BlockContentHooks::themeSuggestionsBlockAlter().
+    if (empty($build)) {
+      return;
+    }
+
     $build['#utexas_layouts_region'] = $region;
     $event->setBuild($build);
   }
