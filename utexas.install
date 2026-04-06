@@ -1470,9 +1470,44 @@ function utexas_update_11004() {
 }
 
 /**
- * Uninstall the admin_toolbar, toolbar and install navigation (#3126).
+ * Install the navigation module (#3126).
  */
 function utexas_update_11005() {
+  $module = 'navigation';
+  if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
+    \Drupal::service('module_installer')->install([$module]);
+  }
+}
+
+/**
+ * Replace toolbar access permission with navigation access (#3126).
+ */
+function utexas_update_11006() {
+  $old_permission = 'access toolbar';
+  $new_permission = 'access navigation';
+  $entity_type_manager = Drupal::entityTypeManager();
+  $messenger = Drupal::messenger();
+  $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
+
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    if ($role->hasPermission($old_permission)) {
+      $role->grantPermission($new_permission);
+      $role->revokePermission($old_permission);
+      $role->save();
+      $messenger->addMessage(t('The %old permission has been replaced with %new for the %role role.', [
+        '%old' => $old_permission,
+        '%new' => $new_permission,
+        '%role' => $role->label(),
+      ]));
+    }
+  }
+}
+
+/**
+ * Uninstall the admin_toolbar and toolbar modules (#3126).
+ */
+function utexas_update_11007() {
   $modules = [
     'admin_toolbar',
     'toolbar',
@@ -1481,9 +1516,5 @@ function utexas_update_11005() {
     if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
       \Drupal::service('module_installer')->uninstall([$module], FALSE);
     }
-  }
-  $module_to_install = 'navigation';
-  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
-    \Drupal::service('module_installer')->install([$module_to_install]);
   }
 }

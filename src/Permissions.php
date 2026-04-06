@@ -16,7 +16,7 @@ class Permissions {
    */
   public static $manager = [
     'access site reports',
-    'access toolbar',
+    'access navigation',
     'access user profiles',
     'administer addtoany',
     'administer blocks',
@@ -54,7 +54,7 @@ class Permissions {
     'access media overview',
     'access site in maintenance mode',
     'access taxonomy overview',
-    'access toolbar',
+    'access navigation',
     'access trash',
     'administer block content',
     'administer breadcrumbs visibility config',
