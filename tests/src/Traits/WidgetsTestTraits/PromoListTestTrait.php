@@ -59,6 +59,7 @@ trait PromoListTestTrait {
     $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][item][link][uri]', '/node/' . $flex_page_id);
     $form->fillField('field_block_pl[1][promo_list_items][items][0][details][item][item][link][options][attributes][class]', 'ut-cta-link--lock');
     // Save block.
+    $this->getSession()->resizeWindow(2000, 4000);
     $form->pressButton('Save');
     $assert->statusMessageContainsAfterWait($block_type . ' ' . $block_name . ' has been created.');
     $this->drupalGet('/media/1/edit/usage');
@@ -91,7 +92,7 @@ trait PromoListTestTrait {
     $assert->elementTextContains('css', '.block-block-content div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
-    $assert->linkByHrefExists('test-flex-page');
+    $assert->linkByHrefExists('/node/' . $flex_page_id);
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.utexas-promo-list-container .ut-cta-link--external', 'rel', 'noopener noreferrer');

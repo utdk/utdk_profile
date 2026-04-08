@@ -74,7 +74,7 @@ trait QuickLinksTestTrait {
     // Verify Quick Links link, delta 1, is present, is an internal link, and
     // has appropriate options.
     $assert->linkExists('Quick Links Link Number 2!');
-    $assert->elementAttributeContains('css', '.utexas-quick-links a[href^="/test-flex-page"]', 'class', 'ut-cta-link--lock ut-link');
+    $assert->elementAttributeContains('css', '.utexas-quick-links .link-list li:nth-child(2) a', 'class', 'ut-cta-link--lock ut-link');
     // An automatic anchor (ID) has been added to the headline.
     $assert->elementExists('css', '#quick-links-headline');
 
