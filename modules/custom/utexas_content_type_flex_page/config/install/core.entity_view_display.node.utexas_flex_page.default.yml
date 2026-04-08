@@ -45,11 +45,13 @@ third_party_settings:
       restricted_categories:
         - 'Chaos Tools'
         - 'Content fields'
+        - core
         - Forms
         - 'Last Updated'
+        - 'Menus (Navigation)'
+        - Navigation
         - System
         - User
-        - core
     allowed_block_categories: {  }
 id: node.utexas_flex_page.default
 targetEntityType: node

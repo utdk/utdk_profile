@@ -1483,21 +1483,20 @@ function utexas_update_11005() {
  * Replace toolbar access permission with navigation access (#3126).
  */
 function utexas_update_11006() {
-  $old_permission = 'access toolbar';
-  $new_permission = 'access navigation';
   $entity_type_manager = Drupal::entityTypeManager();
   $messenger = Drupal::messenger();
   $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
 
   /** @var Drupal\user\Entity\Role $role */
   foreach ($roles as $role) {
-    if ($role->hasPermission($old_permission)) {
-      $role->grantPermission($new_permission);
-      $role->revokePermission($old_permission);
+    if ($role->hasPermission('access toolbar')) {
+      $role->grantPermission('access navigation');
+      $role->revokePermission('access toolbar');
+      $role->revokePermission('use admin toolbar search');
       $role->save();
       $messenger->addMessage(t('The %old permission has been replaced with %new for the %role role.', [
-        '%old' => $old_permission,
-        '%new' => $new_permission,
+        '%old' => 'access toolbar and use admin toolbar search',
+        '%new' => 'access navigation',
         '%role' => $role->label(),
       ]));
     }
@@ -1510,6 +1509,9 @@ function utexas_update_11006() {
 function utexas_update_11007() {
   $modules = [
     'admin_toolbar',
+    'admin_toolbar_tools',
+    'admin_toolbar_search',
+    'admin_toolbar_links_access_filter',
     'toolbar',
   ];
   foreach ($modules as $module) {
