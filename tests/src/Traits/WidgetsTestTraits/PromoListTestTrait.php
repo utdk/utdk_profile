@@ -92,7 +92,7 @@ trait PromoListTestTrait {
     $assert->elementTextContains('css', '.block-block-content div div:nth-child(2) h3.ut-headline--underline', 'Promo List 2 Headline');
     $assert->pageTextContains('Copy text for list 1 item 1');
     $assert->pageTextContains('Copy text for list 2 item 1');
-    $assert->linkByHrefExists('/node/' . $flex_page_id);
+    $assert->linkByHrefExists('test-flex-page');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.utexas-promo-list-container .ut-cta-link--external', 'rel', 'noopener noreferrer');

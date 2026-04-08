@@ -89,7 +89,7 @@ trait PromoUnitTestTrait {
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(2)', 'Promo Unit 1 Copy');
     $assert->elementTextContains('css', '.utexas-promo-unit:nth-child(1)', 'Promo Unit 2 Copy');
     $assert->linkByHrefExists('https://promounit.test');
-    $assert->linkByHrefExists('node/' . $flex_page_id);
+    $assert->linkByHrefExists('test-flex-page');
     // Verify links exist with options.
     $assert->elementAttributeContains('css', '.ut-cta-link--external', 'target', '_blank');
     $assert->elementAttributeContains('css', '.utexas-promo-unit-container .ut-cta-link--external', 'rel', 'noopener noreferrer');

@@ -83,7 +83,7 @@ trait ImageLinkTestTrait {
     $this->drupalGet('node/' . $flex_page_id);
     $assert->elementExists('css', 'a picture source');
     $expected_path = 'utexas_image_style_500w/public/image-test.png';
-    $assert->elementAttributeContains('css', '.utexas-image-link a picture img', 'src', $expected_path);
+    $assert->elementAttributeContains('css', 'a[href^="/test-flex-page"] picture img', 'src', $expected_path);
 
     // CRUD: DELETE.
     $this->removeblocks([$block_name]);
