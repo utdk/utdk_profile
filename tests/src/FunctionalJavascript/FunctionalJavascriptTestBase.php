@@ -111,7 +111,6 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
     $this->testContentEditorUser = $this->initializeContentEditor();
     $this->testSiteManagerUser = $this->initializeSiteManager();
 
-    $this->drupalLogin($this->testAdminUser);
     $this->testImageId = $this->createTestMediaImage();
     $this->testVideoId = $this->createTestMediaVideoExternal();
 
