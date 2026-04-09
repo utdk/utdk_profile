@@ -60,7 +60,7 @@ class Permissions {
     'administer breadcrumbs visibility config',
     'administer menu',
     'administer node last updated date',
-    'administer nodes',
+    'administer node published status',
     'administer page display visibility config',
     'configure any layout',
     'create and edit custom blocks',
