@@ -120,7 +120,7 @@ abstract class FunctionalJavascriptTestBase extends WebDriverTestBase {
 
     // 20 seconds.
     $this->setTimeout(20000);
-    $this->getSession()->resizeWindow(1200, 4000);
+    $this->getSession()->resizeWindow(1600, 4000);
   }
 
   /**
