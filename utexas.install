@@ -1472,7 +1472,7 @@ function utexas_update_11004() {
 /**
  * Install the navigation module (#3126).
  */
-function utexas_update_11005() {
+function utexas_update_11006() {
   $module = 'navigation';
   if (\Drupal::moduleHandler()->moduleExists($module) === FALSE) {
     \Drupal::service('module_installer')->install([$module]);
@@ -1482,7 +1482,7 @@ function utexas_update_11005() {
 /**
  * Replace toolbar access permission with navigation access (#3126).
  */
-function utexas_update_11006() {
+function utexas_update_11007() {
   $entity_type_manager = Drupal::entityTypeManager();
   $messenger = Drupal::messenger();
   $roles = $entity_type_manager->getStorage('user_role')->loadMultiple();
@@ -1506,7 +1506,7 @@ function utexas_update_11006() {
 /**
  * Uninstall the admin_toolbar and toolbar modules (#3126).
  */
-function utexas_update_11007() {
+function utexas_update_11008() {
   $modules = [
     'admin_toolbar',
     'admin_toolbar_tools',
