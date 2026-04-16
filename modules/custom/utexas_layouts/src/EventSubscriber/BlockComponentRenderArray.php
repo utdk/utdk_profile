@@ -34,6 +34,8 @@ class BlockComponentRenderArray implements EventSubscriberInterface {
     $region = $event->getComponent()->getRegion();
 
     // Get the current "build," add the key/value and reset the "build".
+    // This is used in the preprocess_block Hook to modify blocks only when they
+    // are placed in the "Content" region.
     $build = $event->getBuild();
 
     // Prevent warnings with NavigationLayout::build() when the build is empty.
