@@ -91,3 +91,17 @@ button:not(.trigger, .ui-button, .ck-button, .link-edit-summary, .navbar-toggler
 .corner--pill {
   border-radius: 2rem !important;
 }
+
+/* Theme resets for Diff displays (#3150) */
+.dropbutton-widget button[type="button"] {
+  color: inherit;
+  border: 0;
+  background-color: unset;
+
+  &:hover,
+  &:focus-visible {
+    color: inherit;
+    border: 0;
+    background-color: unset;
+  }
+}
