@@ -6,7 +6,7 @@ utexas.configuration:
   weight: -10
 utexas.support:
   title: 'Open Support Ticket'
-  url: 'mailto:drupal-kit-support@utlists.utexas.edu'
+  url: ''
   weight: 0
   menu_name: utdk-links
 utexas.docs:

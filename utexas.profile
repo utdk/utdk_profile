@@ -719,6 +719,24 @@ function utexas_preprocess_status_messages(&$variables) {
 }
 
 /**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function utexas_menu_links_discovered_alter(&$links) {
+  $utdk_links = ['utexas.support', 'utexas.docs', 'utexas.demo'];
+  $host = \Drupal::service('request_stack')->getCurrentRequest()->getHost();
+  if (isset($links['utexas.support'])) {
+    $links['utexas.support']['url'] = 'mailto:drupal-kit-support@utlists.utexas.edu?subject=Drupal%20Kit%20support%20request:%20' . $host;
+  }
+  if (!\Drupal::state()->get('display_links')) {
+    foreach ($utdk_links as $link_id) {
+      if (isset($links[$link_id])) {
+        $links[$link_id]['enabled'] = 0;
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_toolbar().
  */
 function utexas_toolbar() {
