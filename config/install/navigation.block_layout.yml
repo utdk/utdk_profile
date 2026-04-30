@@ -1,20 +1,21 @@
 langcode: en
 sections:
-  -
-    layout_id: navigation_layout
+  - layout_id: navigation_layout
     layout_settings:
       label: ''
     components:
       2622e40b-8786-4b8c-8883-19e49da53023:
+        uuid: 2622e40b-8786-4b8c-8883-19e49da53023
         region: content
         configuration:
           id: navigation_shortcuts
           label: Shortcuts
           label_display: '0'
           provider: navigation
-        weight: -2
-        additional: {  }
+        weight: 0
+        additional: { }
       3ff7be01-c8b0-4444-88f3-2364d7a8054e:
+        uuid: 3ff7be01-c8b0-4444-88f3-2364d7a8054e
         region: content
         configuration:
           id: 'navigation_menu:content'
@@ -23,9 +24,10 @@ sections:
           provider: navigation
           level: 1
           depth: 2
-        weight: 0
-        additional: {  }
+        weight: 1
+        additional: { }
       3f2f743f-856f-404a-9c28-57ee83af4691:
+        uuid: 3f2f743f-856f-404a-9c28-57ee83af4691
         region: content
         configuration:
           id: 'navigation_menu:admin'
@@ -34,9 +36,10 @@ sections:
           provider: navigation
           level: 2
           depth: 2
-        weight: 1
-        additional: {  }
+        weight: 2
+        additional: { }
       283da777-e051-4571-8089-47633a9ce706:
+        uuid: 283da777-e051-4571-8089-47633a9ce706
         region: footer
         configuration:
           id: navigation_user
@@ -44,21 +47,23 @@ sections:
           label_display: '0'
           provider: navigation
         weight: 0
-        additional: {  }
+        additional: { }
       6d7080a7-abab-4bad-b960-2459ca892a54:
+        uuid: 6d7080a7-abab-4bad-b960-2459ca892a54
         region: footer
         configuration:
           id: navigation_link
           label: Help
           label_display: '0'
           provider: navigation
-          context_mapping: {  }
+          context_mapping: { }
           title: Help
           uri: 'internal:/admin/help'
           icon_class: help
         weight: -2
-        additional: {  }
-      b0157b19-0458-4e03-a31b-807dc15e1930:
+        additional: { }
+      8c9e1a7b-5c3d-4c0b-9f1e-8a2f1b2c3d4e:
+        uuid: 8c9e1a7b-5c3d-4c0b-9f1e-8a2f1b2c3d4e
         region: content
         configuration:
           id: 'navigation_menu:utdk-links'
@@ -79,4 +84,4 @@ sections:
             utexas_block_bottom_margin_remove: 0
             utexas_block_top_margin_increase: 0
             utexas_block_bottom_margin_increase: 0
-    third_party_settings: {  }
+    third_party_settings: { }
