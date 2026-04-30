@@ -1555,3 +1555,22 @@ function utexas_update_11008() {
     }
   }
 }
+
+/**
+ * Import navigation block layout and UTDK links menu config (#3126).
+ */
+function utexas_update_11009() {
+  $profile_path = \Drupal::service('extension.list.profile')->getPath('utexas');
+  $configs = [
+    'navigation.block_layout',
+    'system.menu.utdk-links',
+  ];
+  foreach ($configs as $config_name) {
+    $config_path = $profile_path . '/config/install/' . $config_name . '.yml';
+    $config = \Drupal::configFactory()->getEditable($config_name);
+    $data = Yaml::parse(file_get_contents($config_path));
+    if (is_array($data)) {
+      $config->setData($data)->save(TRUE);
+    }
+  }
+}

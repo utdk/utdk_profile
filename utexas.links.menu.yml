@@ -4,3 +4,18 @@ utexas.configuration:
   route_name: utexas.configuration
   parent: system.admin_config_content
   weight: -10
+utexas.support:
+  title: 'Open Support Ticket'
+  url: 'mailto:drupal-kit-support@utlists.utexas.edu'
+  weight: 0
+  menu_name: utdk-links
+utexas.docs:
+  title: 'Drupal Kit Documentation'
+  url: 'https://drupalkit.its.utexas.edu/docs'
+  weight: 1
+  menu_name: utdk-links
+utexas.demo:
+  title: 'Drupal Kit Demo site'
+  url: 'https://demo.drupalkit.its.utexas.edu/'
+  weight: 2
+  menu_name: utdk-links
