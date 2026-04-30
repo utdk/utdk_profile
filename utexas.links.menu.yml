@@ -9,13 +9,25 @@ utexas.support:
   url: ''
   weight: 0
   menu_name: utdk-links
+  options:
+    icon:
+      pack_id: navigation
+      icon_id: entity-user-collection
 utexas.docs:
   title: 'Drupal Kit Documentation'
   url: 'https://drupalkit.its.utexas.edu/docs'
   weight: 1
   menu_name: utdk-links
+  options:
+    icon:
+      pack_id: navigation
+      icon_id: navigation-files
 utexas.demo:
   title: 'Drupal Kit Demo site'
   url: 'https://demo.drupalkit.its.utexas.edu/'
   weight: 2
   menu_name: utdk-links
+  options:
+    icon:
+      pack_id: navigation
+      icon_id: navigation-files
