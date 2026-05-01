@@ -105,7 +105,7 @@ function utexas_install_tasks_alter(array &$tasks, array $install_state) {
  * Implements hook_navigation_content_top().
  */
 function utexas_navigation_content_top(): array {
-  if (!\Drupal::state()->get('utexas_display_links', TRUE)) {
+  if (!\Drupal::state()->get('display_links')) {
     return [];
   }
   $account = \Drupal::currentUser();
