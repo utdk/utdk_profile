@@ -118,7 +118,7 @@ function utexas_navigation_content_top(): array {
   return [
     'utexas_support_links' => [
       '#theme' => 'navigation_menu',
-      '#links' => [
+      '#items' => [
         'support' => [
           'title' => t('Open Support Ticket'),
           'url' => Url::fromUri($support_url),
