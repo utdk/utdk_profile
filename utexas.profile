@@ -118,20 +118,22 @@ function utexas_navigation_content_top(): array {
   return [
     'utexas_support_links' => [
       '#theme' => 'links',
+      '#attributes' => ['style' => 'list-style: none; padding: 0; margin: 0;'],
       '#links' => [
         'support' => [
           'title' => t('Open Support Ticket'),
           'url' => Url::fromUri($support_url),
+          'attributes' => ['style' => ['color: var(--toolbar-button-color); text-decoration: none']],
         ],
         'docs' => [
           'title' => t('Drupal Kit Documentation'),
           'url' => Url::fromUri('https://drupalkit.its.utexas.edu/docs'),
-          'attributes' => ['target' => '_blank'],
+          'attributes' => ['target' => '_blank', 'style' => ['color: var(--toolbar-button-color); text-decoration: none']],
         ],
         'demo' => [
           'title' => t('Drupal Kit Demo site'),
           'url' => Url::fromUri('https://demo.drupalkit.its.utexas.edu/'),
-          'attributes' => ['target' => '_blank'],
+          'attributes' => ['target' => '_blank', 'style' => ['color: var(--toolbar-button-color); text-decoration: none']],
         ],
       ],
       '#cache' => [
