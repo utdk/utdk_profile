@@ -411,8 +411,10 @@ class Hooks {
       if (isset($variables['elements']['#id'])) {
         $hook = $variables['elements']['#id'];
         $block = Block::load($hook);
-        $region = $block->getRegion();
-        $suggestions[] = 'block__system_menu_block__' . $region;
+        if (!empty($block)) {
+          $region = $block->getRegion();
+          $suggestions[] = 'block__system_menu_block__' . $region;
+        }
       }
     }
   }

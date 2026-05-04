@@ -180,8 +180,8 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     }
 
     // @todo Fix problem sanitize svg here.
-    $icon = $this->entityTypeManager->getStorage('utexas_announcement_icon')->load($config['icon']);
-    if ($icon !== NULL) {
+    if (isset($config['icon'])) {
+      $icon = $this->entityTypeManager->getStorage('utexas_announcement_icon')->load($config['icon']);
       $icon_content = file_get_contents($icon->get('icon'));
       $icon_markup = Markup::create($icon_content);
       $config['icon'] = [
@@ -189,7 +189,10 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
         '#markup' => $icon_markup,
       ];
     }
-    $scheme = $this->entityTypeManager->getStorage('utexas_announcement_color_scheme')->load($config['scheme']);
+    $scheme = NULL;
+    if (isset($config['scheme'])) {
+      $scheme = $this->entityTypeManager->getStorage('utexas_announcement_color_scheme')->load($config['scheme']);
+    }
     $background_color = $scheme !== NULL ? Html::escape($scheme->get('background_color')) : '';
     $text_color = $scheme !== NULL ? Html::escape($scheme->get('text_color')) : '';
     $unique_id = Html::getUniqueId("site-announcement");
@@ -207,7 +210,7 @@ class AnnouncementBlock extends BlockBase implements ContainerFactoryPluginInter
     return [
       '#theme' => 'utexas_site_announcement',
       '#title' => !empty($config['title']) ? RenderElementHelper::filterSingleLineText($config['title'], TRUE) : '',
-      '#icon' => $config['icon'] === 'none' ? NULL : $config['icon'],
+      '#icon' => $config['icon'] ?? NULL,
       '#message' => $message,
       '#unique_id' => $unique_id,
       '#header_id' => $header_id,
