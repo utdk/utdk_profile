@@ -516,6 +516,8 @@ class Hooks {
           'utexas_support' => [
             'title' => $this->t('Drupal Kit Support'),
             'url' => Url::fromRoute('<nolink>'),
+            'class' => 'utdk-support',
+            'icon' => ['icon_id' => 'help'],
             'below' => [
               'support' => [
                 'title' => $this->t('Open Support Ticket'),
