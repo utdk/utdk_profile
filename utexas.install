@@ -1574,3 +1574,13 @@ function utexas_update_11009() {
     }
   }
 }
+
+/**
+ * Hide the Navigation logo to save vertical space (#3126).
+ */
+function utexas_update_11010() {
+  \Drupal::configFactory()
+    ->getEditable('navigation.settings')
+    ->set('logo.provider', 'hide')
+    ->save(TRUE);
+}

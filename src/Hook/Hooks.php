@@ -9,6 +9,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use Drupal\utexas\RenderHelper;
@@ -490,6 +491,56 @@ class Hooks {
       }
       return;
     }
+  }
+
+  /**
+   * Implements hook_navigation_content_top().
+   */
+  #[Hook('navigation_content_top')]
+  public function navigationContentTop(): array {
+    if (!\Drupal::state()->get('display_links')) {
+      return [];
+    }
+    $account = \Drupal::currentUser();
+    if (!$account->hasRole('utexas_site_manager') && !$account->hasRole('utexas_content_editor')) {
+      return [];
+    }
+    $host = \Drupal::request()->getHost();
+    $support_url = 'mailto:drupal-kit-support@utlists.utexas.edu?subject=Support%20Request%20from%20' . rawurlencode($host);
+
+    return [
+      'utexas_support_links' => [
+        '#theme' => 'navigation_menu',
+        '#title' => $this->t('Drupal Kit Support'),
+        '#items' => [
+          'utexas_support' => [
+            'title' => $this->t('Drupal Kit Support'),
+            'url' => Url::fromRoute('<nolink>'),
+            'below' => [
+              'support' => [
+                'title' => $this->t('Open Support Ticket'),
+                'url' => Url::fromUri($support_url),
+              ],
+              'docs' => [
+                'title' => $this->t('Drupal Kit Documentation'),
+                'url' => Url::fromUri('https://drupalkit.its.utexas.edu/docs', [
+                  'attributes' => ['target' => '_blank'],
+                ]),
+              ],
+              'demo' => [
+                'title' => $this->t('Drupal Kit Demo Site'),
+                'url' => Url::fromUri('https://demo.drupalkit.its.utexas.edu/', [
+                  'attributes' => ['target' => '_blank'],
+                ]),
+              ],
+            ],
+          ],
+        ],
+        '#cache' => [
+          'contexts' => ['user.roles', 'url.site'],
+        ],
+      ],
+    ];
   }
 
 }

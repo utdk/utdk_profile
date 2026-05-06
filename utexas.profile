@@ -5,7 +5,6 @@
  * Enables modules and site configuration for a standard UTDK installation.
  */
 
-use Drupal\Core\Url;
 use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\InstallationHelper;
@@ -77,6 +76,11 @@ function utexas_install_cleanup(&$install_state) {
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')
     ->save(TRUE);
+  // Hide the Navigation logo to save vertical space in the content top area.
+  \Drupal::configFactory()
+    ->getEditable('navigation.settings')
+    ->set('logo.provider', 'hide')
+    ->save(TRUE);
 }
 
 /**
@@ -99,44 +103,4 @@ function utexas_install_post_installation_modules(&$install_state) {
  */
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
   unset($tasks['install_select_language']);
-}
-
-/**
- * Implements hook_navigation_content_top().
- */
-function utexas_navigation_content_top(): array {
-  if (!\Drupal::state()->get('display_links')) {
-    return [];
-  }
-  $account = \Drupal::currentUser();
-  if (!$account->hasRole('utexas_site_manager') && !$account->hasRole('utexas_content_editor')) {
-    return [];
-  }
-  $host = \Drupal::request()->getHost();
-  $support_url = 'mailto:drupal-kit-support@utlists.utexas.edu?subject=Support%20Request%20from%20' . rawurlencode($host);
-
-  return [
-    'utexas_support_links' => [
-      '#theme' => 'navigation_menu',
-      '#items' => [
-        'support' => [
-          'title' => t('Open Support Ticket'),
-          'url' => Url::fromUri($support_url),
-        ],
-        'docs' => [
-          'title' => t('Drupal Kit Documentation'),
-          'url' => Url::fromUri('https://drupalkit.its.utexas.edu/docs'),
-          'attributes' => ['target' => '_blank'],
-        ],
-        'demo' => [
-          'title' => t('Drupal Kit Demo site'),
-          'url' => Url::fromUri('https://demo.drupalkit.its.utexas.edu/'),
-          'attributes' => ['target' => '_blank'],
-        ],
-      ],
-      '#cache' => [
-        'contexts' => ['user.roles', 'url.site'],
-      ],
-    ],
-  ];
 }
