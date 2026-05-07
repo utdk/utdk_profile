@@ -22,7 +22,7 @@ class ArchiveAction extends EntityActionBase {
   /**
    * {@inheritdoc}
    */
-  public function execute($entity = NULL) {
+  public function execute(?object $entity = NULL) {
     $entity->set('moderation_state', 'archived');
     $entity->save();
   }

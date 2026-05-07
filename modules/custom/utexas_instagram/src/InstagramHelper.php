@@ -3,6 +3,7 @@
 namespace Drupal\utexas_instagram;
 
 use Drupal\Component\Utility\Html;
+use Drupal\text\TextSummary;
 use Drupal\utexas_instagram_api\UTexasInstagramApi;
 
 /**
@@ -120,7 +121,7 @@ class InstagramHelper {
     foreach ($data as $key => $post) {
       if (isset($post->caption)) {
         $caption = str_replace("\n", "<br />", $post->caption);
-        $instagram_posts[$key]['pic_text'] = text_summary($caption, 'restricted_html', 300);
+        $instagram_posts[$key]['pic_text'] = \Drupal::service(TextSummary::class)->generate($caption, 'restricted_html', 300);
         $instagram_posts[$key]['pic_alt'] = $instagram_posts[$key]['pic_text'];
       }
       else {

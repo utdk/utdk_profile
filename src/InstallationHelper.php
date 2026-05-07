@@ -78,8 +78,7 @@ class InstallationHelper {
     }
     \Drupal::configFactory()
       ->getEditable('metatag.metatag_defaults.global')
-      ->set('tags', $tags)
-      ->save(TRUE);
+      ->set('tags', $tags)->save();
   }
 
   /**
@@ -381,7 +380,7 @@ class InstallationHelper {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }
