@@ -215,7 +215,7 @@ class InstallationHelper {
       'type' => 'basic',
       'langcode' => 'en',
       'body' => [
-        'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content. See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region.</p>',
+        'value' => '<p>This part of the footer may contain any type of content, such as paragraph text, a call-to-action button, a list of links, or a logo or map. Alternatively, leave it blank by removing this placeholder content. See <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/regions.aspx" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region.</p>',
         'format' => 'flex_html',
       ],
     ]);
@@ -288,7 +288,7 @@ class InstallationHelper {
       'type' => 'basic',
       'langcode' => 'en',
       'body' => [
-        'value' => '<p>See <a href="https://drupalkit.its.utexas.edu/docs/content/regions.html" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region</p>',
+        'value' => '<p>See <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/regions.aspx" target="_blank" class="ut-cta-link--external">documentation</a> about managing content in this region</p>',
         'format' => 'flex_html',
       ],
     ]);

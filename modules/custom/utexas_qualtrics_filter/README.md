@@ -2,7 +2,7 @@
 
 This is a Drupal module that provides a text format filter to embed Qualtrics forms into WYSIWYG fields.
 
-Full documentation can be found at https://drupalkit.its.utexas.edu/docs/content/embedding_qualtrics_forms.html
+Full documentation can be found at https://utexas.sharepoint.com/sites/UTDK/SitePages/embedding-qualtrics-forms.aspx
 
 
 ### Expected shortcode syntax for text format filter

@@ -118,7 +118,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: true
-          content: '<p>No content has been created for this site.</p><ul><li><a class="ut-cta-link--external" href="https://drupalkit.its.utexas.edu/docs/" target="_blank">Go to Drupal Kit documentation</a></li><li><a class="ut-cta-link--external" href="https://demo.drupalkit.its.utexas.edu/" target="_blank">Visit the demonstration site</a></li></ul>'
+          content: '<p>No content has been created for this site.</p><ul><li><a class="ut-cta-link--external" href="https://utexas.sharepoint.com/sites/UTDK" target="_blank">Go to Drupal Kit documentation</a></li><li><a class="ut-cta-link--external" href="https://demo.drupalkit.its.utexas.edu/" target="_blank">Visit the demonstration site</a></li></ul>'
           tokenize: false
         add_flex_page:
           id: add_flex_page
@@ -304,7 +304,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<p>No homepage has been set for this site.</p><ul><li><a class=\"ut-cta-link--external\" href="https://drupalkit.its.utexas.edu/docs/" target="_blank">Go to Drupal Kit documentation</a></li><li><a class=\"ut-cta-link--external" href="https://demo.drupalkit.its.utexas.edu/" target="_blank">Visit the demonstration site</a></li></ul>'
+          content: '<p>No homepage has been set for this site.</p><ul><li><a class=\"ut-cta-link--external\" href="https://utexas.sharepoint.com/sites/UTDK" target="_blank">Go to Drupal Kit documentation</a></li><li><a class=\"ut-cta-link--external" href="https://demo.drupalkit.its.utexas.edu/" target="_blank">Visit the demonstration site</a></li></ul>'
           tokenize: false
         set_site_homepage:
           id: set_site_homepage
