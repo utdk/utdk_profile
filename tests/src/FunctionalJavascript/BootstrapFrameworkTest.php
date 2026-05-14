@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Drupal\Tests\utexas\FunctionalJavascript;
 
 use Drupal\node\Entity\Node;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Verifies Bootstrap Javascript works as intended (#3108).
  */
+#[RunTestsInSeparateProcesses]
 class BootstrapFrameworkTest extends FunctionalJavascriptTestBase {
 
   /**
