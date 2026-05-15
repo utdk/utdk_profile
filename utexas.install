@@ -1503,3 +1503,23 @@ function utexas_update_11005() {
     }
   }
 }
+
+/**
+ * Enable UTDK service SMTP for sites using service credentials (#3107).
+ */
+function utexas_update_11006() {
+  if (!function_exists('pantheon_get_secret')) {
+    return;
+  }
+  $smtp_config = \Drupal::configFactory()->getEditable('smtp.settings');
+  $current_username = $smtp_config->get('smtp_username');
+  $current_password = $smtp_config->get('smtp_password');
+  $secret_username = pantheon_get_secret('utexas_smtp_username');
+  $secret_password = pantheon_get_secret('utexas_smtp_password');
+  if (!is_null($secret_username) && $current_username === $secret_username && $current_password === $secret_password) {
+    $smtp_config->set('smtp_username', '');
+    $smtp_config->set('smtp_password', '');
+    $smtp_config->save();
+    \Drupal::state()->set('utexas_use_service_smtp', TRUE);
+  }
+}

@@ -3,3 +3,7 @@ services:
     class: '\Drupal\utexas\EventSubscriber\HttpResponseSubscriber'
     tags:
       - { name: 'event_subscriber' }
+  utexas.smtp_config_override:
+    class: '\Drupal\utexas\Config\SmtpConfigOverride'
+    tags:
+      - { name: 'config.factory.override', priority: 5 }

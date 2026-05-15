@@ -123,6 +123,19 @@ class BaseConfigurationForm extends ConfigFormBase {
       '#description' => $this->t('Links to email Drupal Kit support, the Drupal Kit demo site, and Drupal Kit documentation will be displayed in the admin toolbar.'),
       '#default_value' => $display_links,
     ];
+    // We allow static calls to services.
+    // phpcs:ignore
+    $use_service_smtp = \Drupal::state()->get('utexas_use_service_smtp', TRUE);
+    $form['smtp_settings'] = [
+      '#title' => 'SMTP',
+      '#type' => 'fieldset',
+    ];
+    $form['smtp_settings']['utexas_use_service_smtp'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use UTDK SMTP service'),
+      '#description' => $this->t('When enabled, SMTP credentials (host, port, protocol, username, and password) are sourced from the UTDK Pantheon organization secrets instead of being stored in site configuration. Uncheck this if the site uses its own SMTP connection.'),
+      '#default_value' => $use_service_smtp,
+    ];
     $form = parent::buildForm($form, $form_state);
     return $form;
   }
@@ -141,6 +154,8 @@ class BaseConfigurationForm extends ConfigFormBase {
     $state_api->set('full_html_updates', $form_state->getValue('full_html_updates'));
     // Toolbar links.
     $state_api->set('display_links', $form_state->getValue('display_links'));
+    // UTDK service SMTP opt-in.
+    $state_api->set('utexas_use_service_smtp', (bool) $form_state->getValue('utexas_use_service_smtp'));
     // Set default OG image.
     $metatag_default = $config->getEditable('metatag.metatag_defaults.global');
     $field = $form_state->getValue('default_og_image');
