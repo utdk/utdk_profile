@@ -74,29 +74,6 @@ class Hooks {
   /**
    * Implements hook_form_FORM_ID_alter().
    */
-  #[Hook('form_smtp_admin_settings_alter')]
-  public function formSmtpAdminSettingsAlter(&$form, FormStateInterface $form_state, $form_id) {
-    // We allow static calls to services.
-    // phpcs:ignore
-    if (\Drupal::state()->get('utexas_use_service_smtp', TRUE)) {
-      array_unshift($form['#submit'], [static::class, 'smtpAdminSettingsSubmit']);
-    }
-  }
-
-  /**
-   * Submit handler prepended to smtp_admin_settings when service SMTP is on.
-   *
-   * Clears credential values before the normal handler saves the form so they
-   * are not stored in the database.
-   */
-  public static function smtpAdminSettingsSubmit(array $form, FormStateInterface &$form_state) {
-    $form_state->setValue('smtp_username', '');
-    $form_state->setValue('smtp_password', '');
-  }
-
-  /**
-   * Implements hook_form_FORM_ID_alter().
-   */
   #[Hook('form_install_configure_form_alter')]
   public function formInstallConfigureFormAlter(&$form, $form_state, $form_id) {
     // Unsetting Country and Timezone selects from installation form.

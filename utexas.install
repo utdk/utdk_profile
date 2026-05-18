@@ -121,6 +121,9 @@ function utexas_install() {
   // Display Drupal Kit support links.
   $state_api->set('display_links', 1);
 
+  // Set SMTP opt-in.
+  $state_api->set('utexas_smtp', 1);
+
   // Remove rarely-used bulk actions.
   $bulk_actions = [
     'system.action.node_make_unsticky_action',
@@ -1520,6 +1523,6 @@ function utexas_update_11006() {
     $smtp_config->set('smtp_username', '');
     $smtp_config->set('smtp_password', '');
     $smtp_config->save();
-    \Drupal::state()->set('utexas_use_service_smtp', TRUE);
+    \Drupal::state()->set('utexas_smtp', 1);
   }
 }

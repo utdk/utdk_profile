@@ -21,7 +21,7 @@ class SmtpConfigOverride implements ConfigFactoryOverrideInterface {
     }
     // We allow static calls to services.
     // phpcs:ignore
-    if (!\Drupal::state()->get('utexas_use_service_smtp', TRUE)) {
+    if (!\Drupal::state()->get('utexas_smtp')) {
       return $overrides;
     }
     if (!function_exists('pantheon_get_secret')) {

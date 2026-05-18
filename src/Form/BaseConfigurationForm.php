@@ -125,12 +125,12 @@ class BaseConfigurationForm extends ConfigFormBase {
     ];
     // We allow static calls to services.
     // phpcs:ignore
-    $use_service_smtp = \Drupal::state()->get('utexas_use_service_smtp', TRUE);
+    $use_service_smtp = \Drupal::state()->get('utexas_smtp', 0);
     $form['smtp_settings'] = [
       '#title' => 'SMTP',
       '#type' => 'fieldset',
     ];
-    $form['smtp_settings']['utexas_use_service_smtp'] = [
+    $form['smtp_settings']['utexas_smtp'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use UTDK SMTP service'),
       '#description' => $this->t('When enabled, SMTP credentials (host, port, protocol, username, and password) are sourced from the UTDK Pantheon organization secrets instead of being stored in site configuration. Uncheck this if the site uses its own SMTP connection.'),
@@ -155,7 +155,7 @@ class BaseConfigurationForm extends ConfigFormBase {
     // Toolbar links.
     $state_api->set('display_links', $form_state->getValue('display_links'));
     // UTDK service SMTP opt-in.
-    $state_api->set('utexas_use_service_smtp', (bool) $form_state->getValue('utexas_use_service_smtp'));
+    $state_api->set('utexas_smtp', $form_state->getValue('utexas_smtp'));
     // Set default OG image.
     $metatag_default = $config->getEditable('metatag.metatag_defaults.global');
     $field = $form_state->getValue('default_og_image');
