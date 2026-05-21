@@ -25,7 +25,7 @@ class DocumentationLinks {
     'utexas_promo_unit' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/promo-unit.aspx',
     'utexas_quick_links' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/quick-links.aspx',
     'utexas_resources' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/resources.aspx',
-    'utnews_article_listing' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/news.aspx#news-listings',
+    'utnews_article_listing' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/news.aspx#news-article-listing-blocks',
     'utprof_profile_listing' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/Profiles.aspx#profile-listings',
     'social_links' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/social-links.aspx',
     'call_to_action' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/call-to-action.aspx',
