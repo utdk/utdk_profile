@@ -323,7 +323,7 @@ class UTexasFlexContentAreaDefaultFormatter extends FormatterBase implements Con
       $media_render_array = [
         '#theme' => 'responsive_image_formatter',
         '#item' => $image,
-        '#item_attributes' => [
+        '#attributes' => [
           'class' => 'ut-img--fluid',
         ],
         '#responsive_image_style_id' => $responsive_image_style_name,

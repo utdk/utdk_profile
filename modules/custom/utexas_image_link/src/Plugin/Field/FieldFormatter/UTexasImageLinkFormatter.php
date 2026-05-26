@@ -160,7 +160,7 @@ class UTexasImageLinkFormatter extends FormatterBase implements ContainerFactory
         $image_render_array = [
           '#theme' => 'responsive_image_formatter',
           '#item' => $image,
-          '#item_attributes' => [],
+          '#attributes' => [],
           '#responsive_image_style_id' => $responsive_image_style_name,
           '#url' => $link ?? '',
           '#cache' => [

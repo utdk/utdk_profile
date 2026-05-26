@@ -75,7 +75,6 @@
 }
 form.search-form {
   position: relative;
-  margin-top: -30px;
   max-width: 830px;
 
   .container-inline div {
@@ -164,6 +163,11 @@ form.search-form {
 }
 
 .search-results-page {
+
+  /* Reduce standard 2.5rem margin bottom on page title in this context. */
+  .block-page-title-block {
+    margin-bottom: 0;
+  }
 
   /* Visually hide the search results title. */
   h2 {

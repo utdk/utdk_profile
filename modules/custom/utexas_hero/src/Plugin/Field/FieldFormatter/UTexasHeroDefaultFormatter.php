@@ -60,7 +60,7 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
             $image_render_array = [
               '#theme' => 'responsive_image_formatter',
               '#item' => $image,
-              '#item_attributes' => [],
+              '#attributes' => [],
               '#responsive_image_style_id' => $responsive_image_style_name,
               '#cache' => [
                 'tags' => $cache_tags,
@@ -90,7 +90,7 @@ class UTexasHeroDefaultFormatter extends UTexasHeroFormatterBase {
         '#credit' => RenderElementHelper::filterSingleLineText($item->credit, TRUE),
         '#cta' => $cta,
       ];
-      if ($delta === 0) {
+      if ($delta === 0 && isset($image)) {
         $image_style = $this->entityTypeManager->getStorage('image_style')->load('utexas_image_style_1140w_616h');
         $image_style_path = $image_style->buildUrl($image->uri);
         $preload = [
