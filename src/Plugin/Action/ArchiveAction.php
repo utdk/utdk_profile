@@ -6,6 +6,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Action\Plugin\Action\Derivative\EntityPublishedActionDeriver;
 use Drupal\Core\Action\Plugin\Action\EntityActionBase;
 use Drupal\Core\Action\Attribute\Action;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
@@ -22,7 +23,7 @@ class ArchiveAction extends EntityActionBase {
   /**
    * {@inheritdoc}
    */
-  public function execute(?object $entity = NULL) {
+  public function execute(?EntityInterface $entity = NULL) {
     $entity->set('moderation_state', 'archived');
     $entity->save();
   }
