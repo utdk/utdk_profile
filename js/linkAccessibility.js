@@ -37,11 +37,15 @@
 
   Drupal.behaviors.utexasLinkAccessibility = {
     attach(context) {
-      window.addEventListener("load", () => {
-        $(once("link", "a", context)).each(function handleLink() {
-          modifyLink(this);
-        });
-      }, { once: true });
+      window.addEventListener(
+        "load",
+        () => {
+          $(once("link", "a", context)).each(function handleLink() {
+            modifyLink(this);
+          });
+        },
+        { once: true }
+      );
     }
   };
 })(jQuery, Drupal, once);
