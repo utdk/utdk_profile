@@ -2,7 +2,7 @@
 
 This is a Drupal theme maintained by the University of Texas at Austin for use with the UT Drupal Kit. It is based on the Bootstrap library v5.
 
-Full documentation can be found at https://drupalkit.its.utexas.edu/docs/speedway/index.html
+Full documentation can be found at https://utexas.sharepoint.com/sites/UTDK/SitePages/configuration.aspx#theme-settings
 
 ## Local development (internal, WCMS Team)
 

@@ -1503,3 +1503,10 @@ function utexas_update_11005() {
     }
   }
 }
+
+/**
+ * Rebuild tracking information for existing site media (#3197).
+ */
+function utexas_update_11006() {
+  \Drupal::service('entity_usage.batch_manager')->recreate();
+}
