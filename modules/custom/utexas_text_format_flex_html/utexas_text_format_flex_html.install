@@ -157,3 +157,12 @@ function utexas_text_format_flex_html_update_8116() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Allow <q> in Flex HTML text form (#2868).
+ */
+function utexas_text_format_flex_html_update_8117() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

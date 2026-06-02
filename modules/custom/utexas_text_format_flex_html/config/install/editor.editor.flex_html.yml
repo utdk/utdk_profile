@@ -103,6 +103,7 @@ settings:
         - '<ol class id role aria-labelledby type>'
         - '<p class id role>'
         - '<pre class id role>'
+        - '<q class id cite>'
         - '<rowspan class id role>'
         - '<s class id role>'
         - '<section class id role>'
