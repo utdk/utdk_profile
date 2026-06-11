@@ -27,6 +27,7 @@ class UtexasLinkOptionsHelper {
    */
   public function addLinkOptions(array $element, ?LinkItemInterface $item = NULL) {
     // Add validation for the two listed elements to the parent element.
+    $element['#element_validate'][] = [get_called_class(), 'validateLinkUri'];
     $element['#element_validate'][] = [get_called_class(), 'validateLinkOptionsTarget'];
     $element['#element_validate'][] = [get_called_class(), 'validateLinkOptionsClass'];
 
@@ -170,6 +171,30 @@ class UtexasLinkOptionsHelper {
         ]
         )
       );
+    }
+  }
+
+  /**
+   * Form element validation handler for valid link URIs.
+   *
+   * Requires the URL value if an options class was filled in.
+   */
+  public static function validateLinkUri(&$element, FormStateInterface $form_state, $form) {
+
+    if (!empty($element['uri']['#value'])) {
+      $test_uri = UtexasLinkOptionsElementHelper::uriFromUserInput($element['uri']['#value']);
+      try {
+        Url::fromUri(rawurldecode($test_uri));
+      }
+      catch (\Exception $e) {
+        $form_state->setError(
+          $element['uri'],
+          t(
+            'The URL @uri does not appear to be valid.',
+            ['@uri' => $element['uri']['#value']]
+          )
+        );
+      }
     }
   }
 
