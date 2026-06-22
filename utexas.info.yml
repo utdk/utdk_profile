@@ -93,6 +93,7 @@ install:
   - utexas_readonly
   - utexas_resources
   - utexas_site_announcement
+  - utexas_smtp_helper
   - utexas_text_format_flex_html
   - utexas_instagram_api
   - utexas_instagram
