@@ -153,9 +153,6 @@ form.search-form {
 
 /* Google PSE results page styles. */
 .google-cse {
-  label {
-    display: none;
-  }
 
   .search-help-link {
     font-size: 0.8125rem;

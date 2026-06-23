@@ -174,6 +174,7 @@ class Hooks {
   #[Hook('form_search_block_form_alter')]
   public function formSearchBlockFormAlter(&$form, FormStateInterface $form_state, $form_id) {
     $form['keys']['#attributes']['placeholder'] = 'Search the site...';
+    unset($form['keys']['#attributes']['title']);
     $form['actions']['#attributes']['id'] = 'edit-search-actions';
   }
 

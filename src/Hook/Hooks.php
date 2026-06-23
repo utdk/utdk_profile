@@ -123,6 +123,7 @@ class Hooks {
       '#type' => 'details',
       '#collapsed' => TRUE,
     ];
+    $form['basic']['keys']['#label_attributes']['class'][] = 'visually-hidden';
     $form['help_link']['markup'] = $markup;
   }
 
