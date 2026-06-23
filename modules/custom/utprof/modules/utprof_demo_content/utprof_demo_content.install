@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the utprof_demo_content module.
+ */
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_install().
+ */
+function utprof_demo_content_install() {
+  // Create demo Group terms.
+  $profile_groups = ['Leadership', 'Faculty', 'Staff'];
+  $weight = 0;
+  foreach ($profile_groups as $term) {
+    Term::create([
+      'name' => $term,
+      'vid' => 'utprof_groups',
+      'weight' => $weight,
+    ])->save();
+    $weight++;
+  }
+  /** @var \Drupal\node\NodeInterface $default_profile_nodes */
+  $default_profile_nodes = [];
+  // The $default_profile_nodes content is defined in an array in
+  // utprof_demo_content.default_content.inc.
+  require_once 'utprof_demo_content.default_content.inc';
+  foreach ($default_profile_nodes as $data) {
+    _utprof_demo_content_create_node($data);
+  }
+}

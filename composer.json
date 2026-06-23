@@ -21,6 +21,7 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/addtoany": "2.0.7",
     "drupal/admin_toolbar": "3.6.3",
+    "drupal/bootstrap_horizontal_tabs": "3.1.0",
     "drupal/breadcrumbs_visibility": "2.0.0",
     "drupal/config_update": "2.0.0-alpha4",
     "drupal/core-composer-scaffold": "~11.3.10",
@@ -32,6 +33,7 @@
     "drupal/entity_usage": "2.0.0-beta29",
     "drupal/features": "3.16.0",
     "drupal/feed_block": "3.0.0",
+    "drupal/field_group": "4.0.0",
     "drupal/google_cse": "5.0.4",
     "drupal/google_tag": "2.0.9",
     "drupal/iframe_title_filter": "3.1.0",
@@ -65,7 +67,8 @@
     "oomphinc/composer-installers-extender": "2.0.1"
   },
   "conflict": {
-    "drupal/drupal": "*"
+    "drupal/drupal": "*",
+    "utexas/utprof": "*"
   },
   "extra": {
     "patches": {
