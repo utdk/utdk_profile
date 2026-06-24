@@ -32,5 +32,4 @@ ckeditor5-stylesheets:
   - css/typography--fonts.css
   - css/variables.css
   - css/typography--base.css
-  - css/buttons.css
   - css/drupal--ckeditor-customizations.css
