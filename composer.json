@@ -19,6 +19,7 @@
   ],
   "require": {
     "cweagans/composer-patches": "~1.0",
+    "drupal/addtocal_augment": "1.2.5",
     "drupal/addtoany": "2.0.7",
     "drupal/admin_toolbar": "3.6.3",
     "drupal/bootstrap_horizontal_tabs": "3.1.0",
@@ -27,13 +28,18 @@
     "drupal/core-composer-scaffold": "~11.3.10",
     "drupal/core-recommended": "~11.3.10",
     "drupal/date_ap_style": "3.0.0",
+    "drupal/date_augmenter": "1.1.2",
     "drupal/diff": "2.0.0",
     "drupal/editor_advanced_link": "2.3.4",
     "drupal/entity_clone": "2.1.0-beta1",
     "drupal/entity_usage": "2.0.0-beta29",
     "drupal/features": "3.16.0",
     "drupal/feed_block": "3.0.0",
+    "drupal/feeds": "3.2.0",
+    "drupal/feeds_ex": "1.0.0-beta5",
+    "drupal/feeds_tamper": "2.0.0-rc1",
     "drupal/field_group": "4.0.0",
+    "drupal/fullcalendar_view": "5.2.5",
     "drupal/google_cse": "5.0.4",
     "drupal/google_tag": "2.0.9",
     "drupal/iframe_title_filter": "3.1.0",
@@ -55,6 +61,7 @@
     "drupal/role_delegation": "1.6.0",
     "drupal/seckit": "2.0.3",
     "drupal/schema_metatag": "3.0.4",
+    "drupal/smart_date": "4.2.5",
     "drupal/trash": "3.0.27",
     "drupal/updated": "2.0.0",
     "drupal/url_embed": "3.0.1",
@@ -68,6 +75,7 @@
   },
   "conflict": {
     "drupal/drupal": "*",
+    "utexas/utevent": "*",
     "utexas/utprof": "*"
   },
   "extra": {

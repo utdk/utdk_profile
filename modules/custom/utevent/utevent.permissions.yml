@@ -1,0 +1,3 @@
+administer utevent:
+  title: 'Administer Event add-on configuration'
+  description: 'Allows a user to configure Event add-on settings.'
