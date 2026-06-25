@@ -334,4 +334,26 @@ class Hooks {
     return $variables;
   }
 
+  /**
+   * Implements hook_views_data().
+   */
+  #[Hook('views_data')]
+  public function viewsData() {
+    $data['views']['add_flex_page'] = [
+      'title' => $this->t('Link for "Add new Flex Page content"'),
+      'help' => $this->t('Display an "Add new Flex Page content" link.'),
+      'area' => [
+        'id' => 'add_flex_page',
+      ],
+    ];
+    $data['views']['set_site_homepage'] = [
+      'title' => $this->t('Link for "Set site homepage"'),
+      'help' => $this->t('Display a "Set site homepage" link.'),
+      'area' => [
+        'id' => 'set_site_homepage',
+      ],
+    ];
+    return $data;
+  }
+
 }
