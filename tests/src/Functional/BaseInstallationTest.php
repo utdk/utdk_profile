@@ -57,6 +57,7 @@ class BaseInstallationTest extends BrowserTestBase {
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
       'utexas_role_content_editor',
+      'utexas_role_site_manager',
       'block',
     ];
     foreach ($should_be_enabled as $module) {
@@ -64,7 +65,6 @@ class BaseInstallationTest extends BrowserTestBase {
       $this->assertTrue($module_enabled);
     }
     $should_not_be_enabled = [
-      'utexas_role_site_manager',
       'utexas_devel',
     ];
     foreach ($should_not_be_enabled as $module) {

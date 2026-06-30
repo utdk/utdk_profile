@@ -85,12 +85,15 @@ function utexas_install_post_installation_modules(&$install_state) {
   // Add modules that depend on installation configuration.
   $modules = [
     'utexas_role_content_editor',
+    'utexas_role_site_manager',
   ];
   // Install modules.
   \Drupal::service('module_installer')->install($modules);
 
   // Add editing permissions to "utexas_content_editor".
   Permissions::assignPermissions('editor', 'utexas_content_editor');
+  // Add management permissions to "utexas_site_manager".
+  Permissions::assignPermissions('manager', 'utexas_site_manager');
 }
 
 /**
