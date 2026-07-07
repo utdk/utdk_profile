@@ -89,6 +89,9 @@
       },
       "drupal/entity_clone": {
         "Inline Blocks on cloned nodes are deleted when originating nodes are deleted": "https://drupalkit.its.utexas.edu/patches/2227-inline.2.1.0-beta1.patch"
+      },
+      "drupal/pathauto": {
+        "Exception during UI-based installation": "https://wcms.its.utexas.edu/patches/66-ui-installer-exception.patch"
       }
     },
     "drupal-scaffold": {
