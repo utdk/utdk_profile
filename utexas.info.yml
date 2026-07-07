@@ -4,7 +4,7 @@ description: Installation profile for the UT Drupal Kit.
 core_version_requirement: '^10 || ^11'
 version: '3.30.0'
 distribution:
-  name: UTexas
+  name: UT Drupal Kit
 dependencies:
   # Core
   - drupal:block

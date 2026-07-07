@@ -4,7 +4,6 @@ body.install-page {
 .layout-container {
     border-radius: 0;
     border: 2px solid #bf5700;
-    box-shadow: 0;
 }
 h1.page-title {
     color:#bf5700;
@@ -27,11 +26,10 @@ h1.page-title {
     background-image: none;
 }
 header {
-    background-image: url(../logo.png);
+    background-image: url("../logo.png");
     background-size: 200px;
     background-repeat: no-repeat;
     background-position-x: calc(35% + 8.7em);
-    background-position-y: 20px;
 }
 @media (max-width: 48em) {
     header {
