@@ -145,3 +145,12 @@ function utnews_view_listing_page_update_8105() {
     'utnews_view_listing_page',
   ], TRUE);
 }
+
+/**
+ * Add News RSS feed view (#3266).
+ */
+function utnews_view_listing_page_update_8106() {
+  \Drupal::service('features.manager')->import([
+    'utnews_view_listing_page',
+  ], TRUE);
+}
