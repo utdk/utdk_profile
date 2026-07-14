@@ -117,3 +117,12 @@ function utexas_promo_unit_update_8104() {
     }
   }
 }
+
+/**
+ * Issue #3258: Remove implicit dependencies on Layout Builder Restrictions.
+ */
+function utexas_promo_unit_update_8105() {
+  \Drupal::service('features.manager')->import([
+    'utexas_promo_unit',
+  ], TRUE);
+}

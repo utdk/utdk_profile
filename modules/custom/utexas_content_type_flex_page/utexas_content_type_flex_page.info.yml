@@ -24,7 +24,6 @@ dependencies:
   - 'drupal:toolbar'
   - 'drupal:user'
   - 'drupal:workflows'
-  - 'layout_builder_restrictions:layout_builder_restrictions'
   - 'metatag:metatag'
   - 'page_title_visibility:page_title_visibility'
   - 'updated:updated'
