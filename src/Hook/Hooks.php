@@ -187,6 +187,14 @@ class Hooks {
   }
 
   /**
+   * Implements hook_preprocess_addtoany_standard().
+   */
+  #[Hook('preprocess_addtoany_standard')]
+  public function preprocessAddToAny(&$variables) {
+    $variables['link_title'] = strip_tags($variables['link_title']);
+  }
+
+  /**
    * Implements hook_preprocess_block().
    */
   #[Hook('preprocess_block')]
