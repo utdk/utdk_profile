@@ -1,0 +1,15 @@
+{
+  "name": "utexas/utexas-scheduled-transitions",
+  "description": "Restricts scheduled transitions to top-of-hour times.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "UT Austin Web Services"
+    }
+  ],
+  "require": {
+    "drupal/core": "^11 || ^12",
+    "drupal/scheduled_transitions": "^2.0"
+  }
+}

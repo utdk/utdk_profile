@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * @file
+ * Restrict scheduled transitions to top-of-hour times.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function utexas_scheduled_transitions_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // The form_id for scheduled transitions forms includes the entity type.
+  // Examples:
+  //   - Add form: scheduled_transition_add_form, node_page_scheduled_transitions_add_form, etc.
+  //   - Reschedule form: scheduled_transition_reschedule_form, etc.
+  // This pattern matching catches both add and reschedule variants.
+  if (strpos($form_id, 'scheduled_transition') !== FALSE &&
+      (strpos($form_id, 'add') !== FALSE || strpos($form_id, 'reschedule') !== FALSE)) {
+    // Attach the hour-restrict library for client-side behavior.
+    $form['#attached']['library'][] = 'utexas_scheduled_transitions/datetime_hour_restrict';
+
+    // Add custom validation handler.
+    $form['#validate'][] = '_utexas_scheduled_transitions_validate_time';
+
+    // Add help text to the appropriate section.
+    // The add form has a 'scheduled_transitions' container.
+    // The reschedule form may have a 'date' field at the top level.
+    $help_text = '<div class="form-help-text">' .
+      t('Scheduled transitions are only allowed at the top of the hour.') .
+      '</div>';
+
+    if (isset($form['scheduled_transitions'])) {
+      // Add form structure.
+      $form['scheduled_transitions']['#prefix'] = $help_text;
+    }
+    elseif (isset($form['date'])) {
+      // Reschedule form structure.
+      $form['date']['#prefix'] = $help_text;
+    }
+  }
+}
+
+/**
+ * Custom validation handler for scheduled transitions form.
+ */
+function _utexas_scheduled_transitions_validate_time(&$form, FormStateInterface $form_state) {
+  // Get the transition date/time. The form may use a split date/time field.
+  // Try the combined field first, then fall back to separate date/time fields.
+
+  $transition_on = $form_state->getValue(['scheduled_transitions', 'new_meta', 'transition_on']);
+
+  // If transition_on is not a DateTime, try the split date/time format.
+  if (!($transition_on instanceof \DateTime)) {
+    // Check for split date/time fields (on[date] and on[time]).
+    $on_data = $form_state->getValue(['scheduled_transitions', 'new_meta', 'on']);
+
+    if (is_array($on_data) && isset($on_data['time'])) {
+      $time_value = $on_data['time'];
+
+      // Time format is HH:mm. Check if minutes are 00.
+      if ($time_value && preg_match('/^(\d{2}):(\d{2})$/', $time_value, $matches)) {
+        $minutes = (int) $matches[2];
+
+        if ($minutes !== 0) {
+          $form_state->setErrorByName(
+            'scheduled_transitions][new_meta][on][time',
+            t('Scheduled transitions must occur at the top of the hour (minutes must be 00).')
+          );
+        }
+      }
+      return;
+    }
+  }
+
+  // Handle combined DateTime field.
+  if ($transition_on instanceof \DateTime) {
+    $minutes = (int) $transition_on->format('i');
+    $seconds = (int) $transition_on->format('s');
+
+    if ($minutes !== 0 || $seconds !== 0) {
+      $form_state->setErrorByName(
+        'scheduled_transitions][new_meta][transition_on',
+        t('Scheduled transitions must occur at the top of the hour (minutes and seconds must be 00:00).')
+      );
+    }
+  }
+}
