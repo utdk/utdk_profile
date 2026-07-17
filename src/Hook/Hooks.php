@@ -415,7 +415,7 @@ class Hooks {
   }
 
   /**
-   * Implements hook_template_preprocess_views_view_table().
+   * Implements hook_preprocess_views_view_table().
    */
   #[Hook('preprocess_views_view_table')]
   public function preprocessViewsViewTable(&$variables) {
