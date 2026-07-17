@@ -3,7 +3,7 @@ Date: 2026-04-22
 
 ## Status
 
-Accepted; Refines `0009-dependency-version-constraints`
+Superseded by [44. Revert to exact version constraints for Drupal core](0044-revert-to-exact-drupal-core-version-constraints.md); Refines `0009-dependency-version-constraints`
 
 ## Context
 
