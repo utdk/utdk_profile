@@ -31,13 +31,13 @@ function utexas_scheduled_transitions_form_alter(&$form, FormStateInterface $for
       t('Scheduled transitions are only allowed at the top of the hour.') .
       '</div>';
 
-    if (isset($form['scheduled_transitions'])) {
-      // Add form structure.
-      $form['scheduled_transitions']['#prefix'] = $help_text;
+    if (isset($form['scheduled_transitions']['new_meta']['on'])) {
+      // Add form structure: help text before the date/time inputs.
+      $form['scheduled_transitions']['new_meta']['on']['#suffix'] = $help_text;
     }
     elseif (isset($form['date'])) {
       // Reschedule form structure.
-      $form['date']['#prefix'] = $help_text;
+      $form['date']['#suffix'] = $help_text;
     }
   }
 }
