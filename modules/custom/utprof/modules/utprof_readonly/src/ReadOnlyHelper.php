@@ -3,7 +3,7 @@
 namespace Drupal\utprof_readonly;
 
 /**
- * Business logic for making the add-on UI read-only.
+ * Business logic for making the feature UI read-only.
  */
 class ReadOnlyHelper {
 
@@ -60,7 +60,7 @@ class ReadOnlyHelper {
   ];
 
   /**
-   * Print a warning message about the add-on read-only status.
+   * Print a warning message about the feature read-only status.
    *
    * @param string $id
    *   A machine name that may contain the restricted entity.
@@ -78,10 +78,10 @@ class ReadOnlyHelper {
   }
 
   /**
-   * Print a warning message about the add-on read-only status.
+   * Print a warning message about the feature read-only status.
    */
   public static function warn() {
-    \Drupal::messenger()->addWarning(t('The Profile add-on is read-only and may not be changed. Developers who want to customize this add-on should first read <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/Developers/Developers--What-configuration-can-and-cannot-be-modified.aspx">https://utexas.sharepoint.com/sites/UTDK/SitePages/Developers/Developers--What-configuration-can-and-cannot-be-modified.aspx</a>.'));
+    \Drupal::messenger()->addWarning(t('The Profile feature is read-only and may not be changed. Developers who want to customize this feature should first read <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/Developers/Developers--What-configuration-can-and-cannot-be-modified.aspx">https://utexas.sharepoint.com/sites/UTDK/SitePages/Developers/Developers--What-configuration-can-and-cannot-be-modified.aspx</a>.'));
   }
 
   /**

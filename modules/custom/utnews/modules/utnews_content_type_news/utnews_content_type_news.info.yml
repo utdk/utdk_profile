@@ -1,6 +1,6 @@
 name: 'Content Type - News Articles'
 description: 'Provides the "News articles" content type for the "UT News" module.'
-package: 'UT Drupal Kit News Add-on'
+package: 'UT Drupal Kit News Feature'
 type: module
 core_version_requirement: ^10 || ^11
 dependencies:

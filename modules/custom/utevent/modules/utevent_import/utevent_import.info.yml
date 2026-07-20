@@ -10,4 +10,4 @@ dependencies:
   - 'metatag:metatag'
   - 'smart_date:smart_date'
   - 'utevent_content_type_event:utevent_content_type_event'
-package: 'UT Drupal Kit Event Add-on'
+package: 'UT Drupal Kit Event Feature'

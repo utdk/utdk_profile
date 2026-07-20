@@ -9,13 +9,13 @@
  * Implements hook_install().
  */
 function utprof_install() {
-  // Enable this add-on's read-only functionality. We do this in a
+  // Enable this feature's read-only functionality. We do this in a
   // hook_install() implementation so that the module may be uninstalled.
   if (\Drupal::moduleHandler()->moduleExists('utprof_readonly') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_readonly']);
   }
 
-  // Enable this add-on's dynamic overrides module. We do this here so that the
+  // Enable this feature's dynamic overrides module. We do this here so that the
   // module may be uninstalled.
   if (\Drupal::moduleHandler()->moduleExists('utprof_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_overrides']);
@@ -26,7 +26,7 @@ function utprof_install() {
  * Enable the utprof_readonly module.
  */
 function utprof_update_8101() {
-  // Enable this add-ons read-only functionality.
+  // Enable this features read-only functionality.
   if (\Drupal::moduleHandler()->moduleExists('utprof_readonly') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_readonly']);
   }
@@ -36,7 +36,7 @@ function utprof_update_8101() {
  * Issue #308: HOTFIX: Allow field_utprof_basic_media node field to...
  */
 function utprof_update_8102() {
-  // Enable this add-on's dynamic overrides module.
+  // Enable this feature's dynamic overrides module.
   if (\Drupal::moduleHandler()->moduleExists('utprof_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_overrides']);
   }

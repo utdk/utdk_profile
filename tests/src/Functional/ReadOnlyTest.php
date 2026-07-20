@@ -8,7 +8,7 @@ use Drupal\utexas_readonly\ReadOnlyHelper;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Verifies add-on specific Field UI pages are read-only.
+ * Verifies specific Field UI pages are read-only.
  */
 #[RunTestsInSeparateProcesses]
 class ReadOnlyTest extends FunctionalTestBase {

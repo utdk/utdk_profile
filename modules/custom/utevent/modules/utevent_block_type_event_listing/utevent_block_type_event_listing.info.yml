@@ -18,4 +18,4 @@ dependencies:
   - 'utevent_vocabulary_location:utevent_vocabulary_location'
   - 'utevent_vocabulary_tags:utevent_vocabulary_tags'
   - 'utexas_image_styles:utexas_image_styles'
-package: 'UT Drupal Kit Event Add-on'
+package: 'UT Drupal Kit Event Feature'

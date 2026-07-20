@@ -1,6 +1,6 @@
 name: 'View - Event Listing Page'
 description: 'Provides the "Event" listing page'
-package: 'UT Drupal Kit Event Add-on'
+package: 'UT Drupal Kit Event Feature'
 type: module
 core_version_requirement: '^10 || ^11'
 dependencies:

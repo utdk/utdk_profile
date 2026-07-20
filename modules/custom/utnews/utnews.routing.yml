@@ -2,7 +2,7 @@ utnews.configuration:
   path: '/admin/config/content/utnews'
   defaults:
     _form: '\Drupal\utnews\Form\BaseConfigurationForm'
-    _title: 'News add-on'
+    _title: 'News feature'
   requirements:
     _permission: 'administer utnews'
 utnews.permissions:

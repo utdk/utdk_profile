@@ -60,7 +60,7 @@ function utprof_content_type_profile_requirements($phase) {
     ]);
     if ($early_beta or $has_alpha !== FALSE) {
       $requirements['install_profile']['severity'] = REQUIREMENT_ERROR;
-      $requirements['install_profile']['description'] = t('The UT Drupal Kit Profile add-on could not be installed because it requires the UT Drupal Kit version 3.0.0-beta.5 or higher.');
+      $requirements['install_profile']['description'] = t('The UT Drupal Kit Profile feature could not be installed because it requires the UT Drupal Kit version 3.0.0-beta.5 or higher.');
     }
   }
   return $requirements;

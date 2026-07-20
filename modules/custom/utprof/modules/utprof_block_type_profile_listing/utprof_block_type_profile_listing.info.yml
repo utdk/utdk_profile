@@ -16,5 +16,5 @@ dependencies:
   - 'utprof:utprof_vocabulary_groups'
   - 'utprof:utprof_vocabulary_tags'
   - 'utprof_content_type_profile:utprof_content_type_profile'
-package: 'UT Drupal Kit Profile Add-on'
+package: 'UT Drupal Kit Profile Feature'
 core_incompatible: false

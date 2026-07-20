@@ -6,7 +6,7 @@ use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Verifies add-on specific Field UI pages are read-only.
+ * Verifies feature-specific Field UI pages are read-only.
  *
  * @group utexas
  */
@@ -120,7 +120,7 @@ class ReadOnlyTest extends BrowserTestBase {
   private function isAccessible($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextNotContains('The Event add-on is read-only');
+    $this->assertSession()->pageTextNotContains('The Event feature is read-only');
   }
 
   /**
@@ -132,7 +132,7 @@ class ReadOnlyTest extends BrowserTestBase {
   private function isNotAccessible($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(403);
-    $this->assertSession()->pageTextContains('The Event add-on is read-only');
+    $this->assertSession()->pageTextContains('The Event feature is read-only');
   }
 
   /**
@@ -144,7 +144,7 @@ class ReadOnlyTest extends BrowserTestBase {
   private function isReadOnly($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('The Event add-on is read-only');
+    $this->assertSession()->pageTextContains('The Event feature is read-only');
   }
 
 }

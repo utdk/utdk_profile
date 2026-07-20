@@ -78,7 +78,7 @@ class BaseConfigurationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['intro']['#markup'] = $this->t('<h3>Introduction</h3><p>The Profile add-on provides the ability to create persona-based content in flexible, templated displays. The most common uses for the Profile include faculty and staff directories, endowed positions, donor lists, and featured students. Full documentation can be found at <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/profiles.aspx">https://utexas.sharepoint.com/sites/UTDK/SitePages/profiles.aspx</a>.</p><p>This add-on does not currently have any display settings. Permissions associated with this add-on can be assigned to site roles via the <a href="/admin/config/content/utprof/permissions">Permissions configuration</a> tab.');
+    $form['intro']['#markup'] = $this->t('<h3>Introduction</h3><p>The Profile feature provides the ability to create persona-based content in flexible, templated displays. The most common uses for the Profile include faculty and staff directories, endowed positions, donor lists, and featured students. Full documentation can be found at <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/profiles.aspx">https://utexas.sharepoint.com/sites/UTDK/SitePages/profiles.aspx</a>.</p><p>This feature does not currently have any display settings. Permissions associated with this feature can be assigned to site roles via the <a href="/admin/config/content/utprof/permissions">Permissions configuration</a> tab.');
 
     // Remove the default submit button provided by ConfigFormBase
     // until we have actual settings on this page by NOT returning the parent:
