@@ -32,9 +32,6 @@ class Permissions {
     'view utevent_import_json feeds',
     'view utevent_import_xml feeds',
     'access feed overview',
-    'view scheduled transitions node utevent_event',
-    'add scheduled transitions node utevent_event',
-    'reschedule scheduled transitions node utevent_event',
   ];
 
   /**
@@ -43,6 +40,7 @@ class Permissions {
    * @var array
    */
   public static $editor = [
+    'add scheduled transitions node utevent_event',
     'cancel smart date recur instances',
     'create terms in utevent_location',
     'create terms in utevent_tags',
@@ -57,8 +55,10 @@ class Permissions {
     'edit terms in utevent_location',
     'edit terms in utevent_tags',
     'make smart dates recur',
+    'reschedule scheduled transitions node utevent_event',
     'reschedule smart date recur instances',
     'revert utevent_event revisions',
+    'view scheduled transitions node utevent_event',
     'view utevent_event revisions',
   ];
 
