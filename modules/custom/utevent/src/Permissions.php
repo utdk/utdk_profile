@@ -32,6 +32,9 @@ class Permissions {
     'view utevent_import_json feeds',
     'view utevent_import_xml feeds',
     'access feed overview',
+    'view scheduled transitions node utevent_event',
+    'add scheduled transitions node utevent_event',
+    'reschedule scheduled transitions node utevent_event',
   ];
 
   /**

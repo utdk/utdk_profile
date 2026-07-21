@@ -38,6 +38,9 @@ class Permissions {
     'edit terms in utprof_tags',
     'revert utprof_profile revisions',
     'view utprof_profile revisions',
+    'view scheduled transitions node utprof_profile',
+    'add scheduled transitions node utprof_profile',
+    'reschedule scheduled transitions node utprof_profile',
   ];
 
   /**

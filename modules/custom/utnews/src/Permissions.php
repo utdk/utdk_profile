@@ -41,7 +41,9 @@ class Permissions {
     'edit terms in utnews_tags',
     'revert utnews_news revisions',
     'view utnews_news revisions',
-
+    'view scheduled transitions node utnews_news',
+    'add scheduled transitions node utnews_news',
+    'reschedule scheduled transitions node utnews_news',
   ];
 
   /**

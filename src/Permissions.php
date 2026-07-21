@@ -57,10 +57,7 @@ class Permissions {
     'access toolbar',
     'access trash',
     'add scheduled transitions node page',
-    'add scheduled transitions node utevent_event',
     'add scheduled transitions node utexas_flex_page',
-    'add scheduled transitions node utnews_news',
-    'add scheduled transitions node utprof_profile',
     'administer block content',
     'administer breadcrumbs visibility config',
     'administer menu',
@@ -99,10 +96,7 @@ class Permissions {
     'link to any page',
     'purge node entities',
     'reschedule scheduled transitions node page',
-    'reschedule scheduled transitions node utevent_event',
     'reschedule scheduled transitions node utexas_flex_page',
-    'reschedule scheduled transitions node utnews_news',
-    'reschedule scheduled transitions node utprof_profile',
     'restore node entities',
     'revert all revisions',
     'revert article revisions',
@@ -130,10 +124,7 @@ class Permissions {
     'view the administration theme',
     'view utexas_flex_page revisions',
     'view scheduled transitions node page',
-    'view scheduled transitions node utevent_event',
     'view scheduled transitions node utexas_flex_page',
-    'view scheduled transitions node utnews_news',
-    'view scheduled transitions node utprof_profile',
   ];
 
   /**
