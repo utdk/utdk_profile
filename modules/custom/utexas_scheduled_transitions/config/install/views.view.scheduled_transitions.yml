@@ -1,4 +1,3 @@
-uuid: 7cf20aa0-66b2-457c-bfa4-9460aee33ec3
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - dynamic_entity_reference
     - scheduled_transitions
     - user
-_core:
-  default_config_hash: CRJ4wWdCQQzLovoZ1qzwF5h0wcg1wOuGxdyX8Ma75Fk
 id: scheduled_transitions
 label: 'Scheduled Transitions'
 module: views
