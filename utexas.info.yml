@@ -92,6 +92,7 @@ install:
   - utexas_quick_links
   - utexas_readonly
   - utexas_resources
+  - utexas_scheduled_transitions
   - utexas_site_announcement
   - utexas_smtp_helper
   - utexas_text_format_flex_html

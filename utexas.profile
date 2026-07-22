@@ -157,7 +157,6 @@ function utexas_install_post_installation_modules(&$install_state) {
   $modules = [
     'utexas_role_content_editor',
     'utexas_role_site_manager',
-    'utexas_scheduled_transitions',
   ];
   // Install modules.
   \Drupal::service('module_installer')->install($modules);
