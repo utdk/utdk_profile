@@ -173,3 +173,30 @@ function utexas_install_post_installation_modules(&$install_state) {
 function utexas_install_tasks_alter(array &$tasks, array $install_state) {
   unset($tasks['install_select_language']);
 }
+
+/**
+ * Implements hook_modules_installed().
+ */
+function utexas_modules_installed(array $modules, $is_syncing) {
+  if (in_array('utexas_scheduled_transitions', $modules)) {
+    $roles = Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+    /** @var Drupal\user\Entity\Role $role */
+    foreach ($roles as $role_id => $role) {
+      $role_permissions = $role->getPermissions();
+      foreach ($role_permissions as $permission) {
+        if ($permission == 'create page content') {
+          Permissions::assignPermissions('editor', $role_id);
+          Drupal::messenger()->addMessage(t('Schedule transitions permissions set for %role role.', [
+            '%role' => $role->label(),
+          ]));
+        }
+        if ($permission == 'create utexas_flex_page content') {
+          Permissions::assignPermissions('editor', $role_id);
+          Drupal::messenger()->addMessage(t('Schedule transitions permissions set for %role role.', [
+            '%role' => $role->label(),
+          ]));
+        }
+      }
+    }
+  }
+}
