@@ -31,6 +31,11 @@ function utexas_scheduled_transitions_form_alter(&$form, FormStateInterface $for
       t('Scheduled transitions are only allowed at the top of the hour.') .
       '</div>';
 
+    // Disable the "Recreate pending revision" checkbox; keep it always checked.
+    if (isset($form['scheduled_transitions']['to_options']['recreate_non_default_head'])) {
+      $form['scheduled_transitions']['to_options']['recreate_non_default_head']['#disabled'] = TRUE;
+    }
+
     if (isset($form['scheduled_transitions']['new_meta']['on'])) {
       // Add form structure: help text before the date/time inputs.
       $form['scheduled_transitions']['new_meta']['on']['#suffix'] = $help_text;
