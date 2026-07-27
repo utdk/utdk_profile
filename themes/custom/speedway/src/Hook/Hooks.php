@@ -40,7 +40,7 @@ class Hooks {
     // Default classes for page.html.twig.
     $variables['main_content_attributes']->addClass(['layout-content', 'col']);
     // Modify classes for certain page routes.
-    if ($route_name === 'search.view_google_cse_search') {
+    if (in_array($route_name, ['search.view_google_cse_search', 'utexas_google_search.search'])) {
       $variables['main_content_attributes']->removeClass(['col']);
       $variables['main_content_attributes']->addClass([
         'search-results-page',

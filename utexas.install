@@ -81,8 +81,6 @@ function utexas_install() {
   // Add permissions to anonymous role.
   $anon_perms = [
     'access content',
-    'search Google CSE',
-    'search content',
     'use text format restricted_html',
     'view media',
   ];
@@ -90,8 +88,6 @@ function utexas_install() {
   // Add permissions to authenticated role.
   $auth_perms = [
     'access content',
-    'search Google CSE',
-    'search content',
     'view media',
   ];
   user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, $auth_perms);

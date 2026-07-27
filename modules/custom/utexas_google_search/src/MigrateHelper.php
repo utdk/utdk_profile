@@ -46,7 +46,7 @@ class MigrateHelper {
       }
       if (in_array($settings['page_id'] ?? NULL, $legacy_configuration, TRUE)) {
         $legacy_search_blocks[] = $block->id();
-        // Create new UTexas Google Search block (/admin/structure/block).
+        // Create new Utexas Google Search block (/admin/structure/block).
         $new = \Drupal::service('entity_type.manager')
           ->getStorage('block')
           ->create([
@@ -56,6 +56,12 @@ class MigrateHelper {
             'weight' => $block->getWeight(),
             'provider' => 'utexas_google_search',
             'plugin' => 'utexas_google_search',
+            'settings' => [
+              'id' => 'utexas_google_search',
+              'label' => $settings['label'] ?? 'Google Search',
+              'label_display' => 'hidden',
+              'provider' => 'utexas_google_search',
+            ],
             'visibility' => $block->getVisibility(),
           ]);
         $new->save();
