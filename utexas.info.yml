@@ -23,7 +23,6 @@ dependencies:
   - drupal:node
   - drupal:options
   - drupal:path
-  - drupal:search
   - drupal:taxonomy
   - drupal:toolbar
   - drupal:views

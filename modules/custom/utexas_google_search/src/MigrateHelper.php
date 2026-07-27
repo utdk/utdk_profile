@@ -59,7 +59,7 @@ class MigrateHelper {
             'settings' => [
               'id' => 'utexas_google_search',
               'label' => $settings['label'] ?? 'Google Search',
-              'label_display' => 'hidden',
+              'label_display' => 0,
               'provider' => 'utexas_google_search',
             ],
             'visibility' => $block->getVisibility(),
