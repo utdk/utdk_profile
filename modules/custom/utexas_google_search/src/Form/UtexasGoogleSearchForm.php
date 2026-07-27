@@ -1,0 +1,125 @@
+<?php
+
+namespace Drupal\utexas_google_search\Form;
+
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+/**
+ * Form builder for the searchbox forms.
+ *
+ * @package Drupal\utexas_google_search\Form
+ */
+class UtexasGoogleSearchForm extends FormBase {
+
+  /**
+   * RequestStack object for getting requests.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * The renderer.
+   *
+   * @var \Drupal\Core\Render\RendererInterface
+   */
+  protected $renderer;
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
+   * UtexasGoogleSearchForm constructor.
+   *
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request object.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
+   * @param \Drupal\Core\Render\RendererInterface $renderer
+   *   The renderer.
+   */
+  public function __construct(RequestStack $requestStack, ConfigFactoryInterface $config_factory, RendererInterface $renderer) {
+    $this->requestStack = $requestStack;
+    $this->configFactory = $config_factory;
+    $this->renderer = $renderer;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('request_stack'),
+      $container->get('config.factory'),
+      $container->get('renderer')
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormId() {
+    return 'utexas_search_form';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $google_pse_id = \Drupal::state()->get('utexas.google_pse_id') ?? '';
+    if (empty($google_pse_id)) {
+      return [];
+    }
+    $form['#action'] = Url::fromRoute('utexas_google_search.search')->toString();
+    $form['keys'] = [
+      '#type' => 'search',
+      '#title' => $this->t('Search'),
+      '#title_display' => 'invisible',
+      '#id' => 'google-cse-query',
+      '#size' => 40,
+      '#default_value' => '',
+      '#value' => \Drupal::request()->query->get('keys') ?? '',
+      '#attributes' => ['title' => $this->t('Enter the terms you wish to search for.')],
+    ];
+    $form['#cache']['contexts'][] = 'url.query_args';
+    $form['actions'] = ['#type' => 'actions'];
+    $form['#method'] = 'get';
+    $form['#attributes']['class'][] = 'google-cse';
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Search'),
+      // Prevent op from showing up in the query string.
+      '#name' => '',
+    ];
+    $form['#attached']['html_head'][] = [
+      [
+        '#type' => 'html_tag',
+        '#tag' => 'script',
+        '#attributes' => [
+          'async' => '',
+          'src' => 'https://cse.google.com/cse.js?cx=' . $google_pse_id,
+        ],
+      ],
+      'utexas_google_search_' . $google_pse_id,
+    ];
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // This form submits to the search page, so processing happens there.
+  }
+
+}
