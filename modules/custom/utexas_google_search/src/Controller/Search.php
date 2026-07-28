@@ -50,6 +50,7 @@ class Search extends ControllerBase {
       '@google' => Link::fromTextAndUrl('View the results at Google', $url)->toString(),
     ]);
     $build['search_form'] = $this->formBuilder()->getForm(UtexasGoogleSearchForm::class);
+    $build['search_form']['#attributes']['class'][] = 'in-page-google-search';
     $build['search_results'] = [
       '#theme' => 'utexas_google_search_results',
       '#attached' => [

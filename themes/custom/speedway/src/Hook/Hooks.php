@@ -17,7 +17,7 @@ class Hooks {
   #[Hook('form_alter')]
   public function formAlter(&$form, FormStateInterface $form_state, $form_id) {
     $exceptions = [
-      'search_block_form',
+      'utexas_search_form',
     ];
     if (!in_array($form_id, $exceptions)) {
       $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
@@ -29,29 +29,31 @@ class Hooks {
    * Implements hook_preprocess_page().
    */
   #[Hook('preprocess_page')]
-  public function preprocessPage(&$variables) {
+  public function preprocessPage(array &$variables) {
     $current_route = \Drupal::routeMatch();
     $route_name = $current_route->getRouteName();
     $theme_settings = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
 
-    // Provide a {{ main_content_attributes }} object to page.html.twig.
+    // Provide a {{ main_content_attributes }} object to all pages.
     $variables['main_content_attributes'] = new Attribute();
     $variables['main_content_attributes']->setAttribute('role', 'main');
     // Default classes for page.html.twig.
     $variables['main_content_attributes']->addClass(['layout-content', 'col']);
-    // Modify classes for certain page routes.
-    if (in_array($route_name, ['search.view_google_cse_search', 'utexas_google_search.search'])) {
-      $variables['main_content_attributes']->removeClass(['col']);
-      $variables['main_content_attributes']->addClass([
-        'search-results-page',
-      ]);
-    }
+
     // Logo height defaults to short unless otherwise specified.
     $logo_height = $theme_settings->getSetting('logo_height') ?? 'short_logo';
     $variables['logo_height'] = str_replace('_', '-', $logo_height);
     // Parent entity.
     $variables['parent_entity_title'] = $theme_settings->getSetting('parent_link_title');
     $variables['parent_entity_link'] = $theme_settings->getSetting('parent_link');
+
+    // Modify classes for certain page routes.
+    if ($route_name === 'utexas_google_search.search') {
+      $variables['main_content_attributes']->removeClass(['col']);
+      $variables['main_content_attributes']->addClass([
+        'search-results-page',
+      ]);
+    }
   }
 
   /**

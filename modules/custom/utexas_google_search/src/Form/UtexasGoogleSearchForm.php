@@ -94,7 +94,6 @@ class UtexasGoogleSearchForm extends FormBase {
     $form['#cache']['contexts'][] = 'url.query_args';
     $form['actions'] = ['#type' => 'actions'];
     $form['#method'] = 'get';
-    $form['#attributes']['class'][] = 'google-cse';
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Search'),

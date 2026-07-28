@@ -18,8 +18,8 @@ class Hooks {
    * itself, because the tokens are added to the form after the builder function
    * is called. So, we have to do it in a form_alter.
    */
-  #[Hook('form_utexas_google_search_box_form_alter')]
-  public function formGoogleCseSearchBoxFormAlter(&$form, FormStateInterface $form_state): void {
+  #[Hook('form_utexas_search_form_alter')]
+  public function formUtexasSearchFormAlter(&$form, FormStateInterface $form_state): void {
     $form['form_build_id']['#access'] = FALSE;
     $form['form_token']['#access'] = FALSE;
     $form['form_id']['#access'] = FALSE;
