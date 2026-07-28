@@ -2,15 +2,15 @@
 
 namespace Drupal\Tests\utevent_readonly\Functional;
 
-use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\Group;
+use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Verifies feature-specific Field UI pages are read-only.
- *
- * @group utexas
+ * Verifies add-on specific Field UI pages are read-only.
  */
 #[RunTestsInSeparateProcesses]
+#[Group('utexas')]
 class ReadOnlyTest extends BrowserTestBase {
 
   /**

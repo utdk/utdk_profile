@@ -5,9 +5,9 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\block\Entity\Block;
 use Drupal\editor\Entity\Editor;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -37,46 +37,38 @@ function utexas_install() {
   // Set front page to "node".
   \Drupal::configFactory()
     ->getEditable('system.site')
-    ->set('page.front', '/node')
-    ->save(TRUE);
+    ->set('page.front', '/node')->save();
   // Restrict user registration to admin role creation.
   \Drupal::configFactory()
     ->getEditable('user.settings')
-    ->set('register', UserInterface::REGISTER_ADMINISTRATORS_ONLY)
-    ->save(TRUE);
+    ->set('register', UserInterface::REGISTER_ADMINISTRATORS_ONLY)->save();
   // Set the admin and default theme.
   \Drupal::configFactory()
     ->getEditable('system.theme')
     ->set('admin', 'claro')
-    ->set('default', 'speedway')
-    ->save(TRUE);
+    ->set('default', 'speedway')->save();
   \Drupal::configFactory()
     ->getEditable('node.settings')
-    ->set('use_admin_theme', TRUE)
-    ->save(TRUE);
+    ->set('use_admin_theme', TRUE)->save();
   // Set language to EN by default.
   // This is not strictly necessary, since the default
   // is EN.
   \Drupal::configFactory()
     ->getEditable('system.site')
-    ->set('langcode', 'en')
-    ->save(TRUE);
+    ->set('langcode', 'en')->save();
   \Drupal::configFactory()
     ->getEditable('system.site')
-    ->set('default_langcode', 'en')
-    ->save(TRUE);
+    ->set('default_langcode', 'en')->save();
 
   // Set Media Library pager to 'full' instead of 'mini (#985).
   \Drupal::configFactory()
     ->getEditable('views.view.media_library')
-    ->set('display.default.display_options.pager.type', 'full')
-    ->save(TRUE);
+    ->set('display.default.display_options.pager.type', 'full')->save();
 
   // Set page caching to 1 day #2752.
   \Drupal::configFactory()
     ->getEditable('system.performance')
-    ->set('cache.page.max_age', 86400)
-    ->save(TRUE);
+    ->set('cache.page.max_age', 86400)->save();
 
   // Add permissions to anonymous role.
   $anon_perms = [
@@ -104,15 +96,13 @@ function utexas_install() {
   // Set frontpage to use custom UTexas Frontpage view (#2328).
   \Drupal::configFactory()
     ->getEditable('system.site')
-    ->set('page.front', '/utexas-frontpage')
-    ->save(TRUE);
+    ->set('page.front', '/utexas-frontpage')->save();
 
   // Disable page and feed display on default frontpage (#2328).
   \Drupal::configFactory()
     ->getEditable('views.view.frontpage')
     ->set('display.feed_1.display_options.enabled', 0)
-    ->set('display.page_1.display_options.enabled', 0)
-    ->save(TRUE);
+    ->set('display.page_1.display_options.enabled', 0)->save();
 
   $state_api = \Drupal::state();
   // Set Full HTML configuration opt-in.
@@ -157,7 +147,7 @@ function utexas_update_8101() {
   $actual_metatag_values = $metatag_config->get('tags');
   if ($actual_metatag_values == $expected_metatag_defaults) {
     $metatag_config->set('tags', $new_metatag_defaults);
-    $metatag_config->save(TRUE);
+    $metatag_config->save();
   }
 }
 
@@ -216,7 +206,7 @@ function utexas_update_8107() {
   if (!empty($config_path)) {
     $data = Yaml::parse(file_get_contents($config_path));
     if (is_array($data)) {
-      $config->setData($data)->save(TRUE);
+      $config->setData($data)->save();
     }
   }
 }
@@ -248,7 +238,7 @@ function utexas_update_8109() {
       if (!empty($config_path)) {
         $data = Yaml::parse(file_get_contents($config_path));
         if (is_array($data)) {
-          $config->setData($data)->save(TRUE);
+          $config->setData($data)->save();
         }
       }
     }
@@ -276,8 +266,7 @@ function utexas_update_8111() {
   \Drupal::service('theme_installer')->install(['claro']);
   \Drupal::configFactory()
     ->getEditable('system.theme')
-    ->set('admin', 'claro')
-    ->save(TRUE);
+    ->set('admin', 'claro')->save();
 }
 
 /**
@@ -460,7 +449,7 @@ function utexas_update_8122() {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }
@@ -512,7 +501,7 @@ function utexas_update_8126() {
       if (!empty($config_path)) {
         $data = Yaml::parse(file_get_contents($config_path));
         if (is_array($data)) {
-          $config->setData($data)->save(TRUE);
+          $config->setData($data)->save();
         }
       }
     }
@@ -532,8 +521,7 @@ function utexas_update_8127() {
 function utexas_update_8128() {
   \Drupal::configFactory()
     ->getEditable('views.view.media_library')
-    ->set('display.default.display_options.pager.type', 'full')
-    ->save(TRUE);
+    ->set('display.default.display_options.pager.type', 'full')->save();
 }
 
 /**
@@ -597,7 +585,7 @@ function utexas_update_8133() {
   if (!empty($config_path)) {
     $data = Yaml::parse(file_get_contents($config_path));
     if (is_array($data)) {
-      $config->setData($data)->save(TRUE);
+      $config->setData($data)->save();
     }
   }
 }
@@ -703,7 +691,7 @@ function utexas_update_8140() {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }
@@ -745,7 +733,7 @@ function utexas_update_8143() {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }
@@ -903,7 +891,7 @@ function utexas_update_8150() {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
         \Drupal::logger('utexas')->notice('Installing standard workflow.');
       }
     }
@@ -1022,7 +1010,7 @@ function utexas_update_8155() {
     \Drupal::logger('utexas')->notice('Updating Basic HTML allowed HTML...');
     $filter = \Drupal::configFactory()->getEditable('filter.format.basic_html');
     $filter->set('filters.filter_html.settings.allowed_html', $data['filters']['filter_html']['settings']['allowed_html']);
-    $filter->save(TRUE);
+    $filter->save();
   }
   $config_path = \Drupal::service('extension.list.profile')->getPath('utexas') . '/config/install/editor.editor.basic_html.yml';
   $data = Yaml::parse(file_get_contents($config_path));
@@ -1030,7 +1018,7 @@ function utexas_update_8155() {
     \Drupal::logger('utexas')->notice('Updating Basic HTML allowed tags...');
     $filter = \Drupal::configFactory()->getEditable('editor.editor.basic_html');
     $filter->set('settings.plugins.ckeditor5_sourceEditing.allowed_tags', $data['settings']['plugins']['ckeditor5_sourceEditing']['allowed_tags']);
-    $filter->save(TRUE);
+    $filter->save();
   }
 }
 
@@ -1047,7 +1035,7 @@ function utexas_update_8156() {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }
@@ -1211,7 +1199,7 @@ function utexas_update_8168() {
   if (!empty($config_path)) {
     $data = Yaml::parse(file_get_contents($config_path));
     if (is_array($data)) {
-      $config->setData($data)->save(TRUE);
+      $config->setData($data)->save();
       \Drupal::logger('utexas')->notice('Adding "Archive" action to bulk operations.');
     }
   }
@@ -1254,7 +1242,7 @@ function utexas_update_8171() {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }

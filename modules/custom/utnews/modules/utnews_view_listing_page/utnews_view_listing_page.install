@@ -29,7 +29,7 @@ function _utnews_view_listing_page_add_configuration() {
   $config = 'utnews_view_listing_page.config';
   $config_path = $module_path . '/config/default/' . $config . '.yml';
   $data = Yaml::parse(file_get_contents($config_path));
-  \Drupal::configFactory()->getEditable($config)->setData($data)->save(TRUE);
+  \Drupal::configFactory()->getEditable($config)->setData($data)->save();
 }
 
 /**
@@ -121,9 +121,9 @@ function utnews_view_listing_page_update_8103() {
   // Set display options to "true" for existing sites.
   $settings = 'utnews_view_listing_page.config';
   $config = \Drupal::configFactory()->getEditable($settings);
-  $config->set('display_thumbnail', 1)->save(TRUE);
-  $config->set('display_summary', 1)->save(TRUE);
-  $config->set('display_date', 1)->save(TRUE);
+  $config->set('display_thumbnail', 1)->save();
+  $config->set('display_summary', 1)->save();
+  $config->set('display_date', 1)->save();
 }
 
 /**

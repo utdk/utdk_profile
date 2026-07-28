@@ -5,6 +5,7 @@ namespace Drupal\utexas_form_elements\Element;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Attribute\FormElement;
 use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\Core\Url;
 use Drupal\utexas_form_elements\UtexasLinkOptionsElementHelper;
@@ -12,9 +13,8 @@ use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
 /**
  * Defines an element for a single link + title field, including options.
- *
- * @FormElement("utexas_link_options_element")
  */
+#[FormElement('utexas_link_options_element')]
 class UtexasLinkOptionsElement extends FormElementBase {
 
   /**

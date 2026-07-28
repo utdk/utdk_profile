@@ -5,14 +5,14 @@ namespace Drupal\utexas_resources\Element;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Attribute\FormElement;
 use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Defines an element with image, headline, and unlimited links.
- *
- * @FormElement("utexas_resource")
  */
+#[FormElement('utexas_resource')]
 class UTexasResourcesElement extends FormElementBase {
 
   /**

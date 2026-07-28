@@ -3,24 +3,24 @@
 namespace Drupal\Tests\utnews\FunctionalJavascript;
 
 use Drupal\Core\Language\Language;
-use Drupal\file\Entity\File;
-use Drupal\file\FileInterface;
 use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
-use Drupal\media\Entity\Media;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\Tests\TestFileCreationTrait;
 use Drupal\Tests\ckeditor5\Traits\CKEditor5TestTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
-use Drupal\Tests\TestFileCreationTrait;
+use Drupal\file\Entity\File;
+use Drupal\file\FileInterface;
+use Drupal\media\Entity\Media;
+use Drupal\taxonomy\Entity\Term;
 use Drupal\utexas\Permissions as UtexasPermissions;
 use Drupal\utnews\Permissions as UtnewsPermissions;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Test all aspects of News CRUD functionality.
- *
- * @group utexas
  */
 #[RunTestsInSeparateProcesses]
+#[Group('utexas')]
 class BasicUtnewsTest extends WebDriverTestBase {
 
   use TestFileCreationTrait;

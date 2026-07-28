@@ -2,6 +2,8 @@
 
 namespace Drupal\utevent_import\Plugin\Tamper;
 
+use Drupal\tamper\Attribute\Tamper;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\File\Exception\FileException;
@@ -13,14 +15,13 @@ use GuzzleHttp\Client;
 
 /**
  * Plugin implementation of the utevent_create_media_tamper plugin.
- *
- * @Tamper(
- *   id = "utevent_create_media_tamper",
- *   label = @Translation("Create Media Tamper"),
- *   description = @Translation("Create a utexas_image media entity from an image URL."),
- *   category = "Other"
- * )
  */
+#[Tamper(
+  id: 'utevent_create_media_tamper',
+  label: new TranslatableMarkup('Create Media Tamper'),
+  description: new TranslatableMarkup('Create a utexas_image media entity from an image URL.'),
+  category: new TranslatableMarkup('Other')
+)]
 class UtEventCreateMedia extends TamperBase {
 
   /**

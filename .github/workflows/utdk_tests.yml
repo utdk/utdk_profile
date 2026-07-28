@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure codebase
         run: |
-          composer create-project utexas/utdk-project:dev-develop --stability=dev --remove-vcs --no-install
+          composer create-project utexas/utdk-project:dev-develop --stability=dev --remove-vcs
           cd utdk-project
           cd upstream-configuration
           composer remove utexas/utdk_profile --no-update
@@ -48,9 +48,9 @@ jobs:
           composer config --no-interaction allow-plugins.phpstan/extension-installer true
           composer config --no-interaction allow-plugins.php-http/discovery true
           composer config --no-interaction preferred-install auto
-          composer require utexas/utdk_profile:"dev-$BRANCH" --no-update
+          (cd upstream-configuration && composer require utexas/utdk_profile:dev-$BRANCH --no-update --quiet)
           composer require drupal/core-dev:^11 --no-update
-          composer install
+          composer update
           gh repo clone utexas-utdk/utdk_localdev .vscode -- --depth=1
           cp .vscode/.lando.yml .lando.yml
 
