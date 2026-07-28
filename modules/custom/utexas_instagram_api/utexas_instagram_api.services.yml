@@ -1,3 +1,5 @@
+parameters:
+  utexas_instagram_api.skip_procedural_hook_scan: true
 services:
   utexas_instagram_api.ig_auth_service:
     class: Drupal\utexas_instagram_api\Services\InstagramAuthService

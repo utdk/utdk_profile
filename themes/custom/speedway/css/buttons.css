@@ -1,3 +1,16 @@
+/* By design we target the `button` element so that by default, any buttons get
+Speedway's look and feel (think the user login page). This necessitates a number
+of exclusions where that styling should not apply:
+
+ - `.trigger`: The contextual ("pencil") icon
+ - `.ui-button`: The "Close" icon in the top right of a Layout Builder modal
+ - `.ck-button`: CKEditor toolbar buttons
+ - `.link-edit-summary`: The "Edit Summary" link on textarea with summary fields
+ - `.navbar-toggler`: The Bootstrap menu toggler
+ - `[data-bs-target]`: The Bootstrap menu toggler
+ - `.tablesaw-sortable-btn`: https: //github.com/utexas-utdk/utdk_profile/issues/3086
+*/
+
 .ut-btn:not(.button--primary),
 .ut-btn--small,
 .ut-btn--large,

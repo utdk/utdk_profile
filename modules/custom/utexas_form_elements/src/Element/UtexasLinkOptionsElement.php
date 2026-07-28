@@ -2,12 +2,11 @@
 
 namespace Drupal\utexas_form_elements\Element;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Component\Utility\NestedArray;
+use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\Core\Url;
-
 use Drupal\utexas_form_elements\UtexasLinkOptionsElementHelper;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
 
@@ -225,7 +224,16 @@ class UtexasLinkOptionsElement extends FormElementBase {
     // URI , ensure the raw value begins with '/', '?' or '#'.
     // @todo '<front>' is valid input for BC reasons, may be removed by
     //   https://www.drupal.org/node/2421941
-    if (
+    $input_host = parse_url($element['#value'], PHP_URL_HOST);
+    $input_path = parse_url($element['#value'], PHP_URL_PATH);
+    $request_host = \Drupal::request()->getHost();
+    if ($input_host === $request_host) {
+      $form_state->setError($element, t('Links to the current site should be entered as a relative path (e.g., enter <strong>%relative</strong> instead of %absolute)', [
+        '%absolute' => \Drupal::request()->getSchemeAndHttpHost() . $input_path,
+        '%relative' => $input_path,
+      ]));
+    }
+    elseif (
       parse_url($uri, PHP_URL_SCHEME) === 'internal' &&
       !in_array($element['#value'][0], ['/', '?', '#'], TRUE) &&
       substr($element['#value'], 0, 7) !== '<front>'

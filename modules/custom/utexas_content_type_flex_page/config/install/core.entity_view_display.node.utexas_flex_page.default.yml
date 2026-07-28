@@ -8,7 +8,6 @@ dependencies:
     - node.type.utexas_flex_page
   module:
     - layout_builder
-    - layout_builder_restrictions
     - metatag
     - user
     - utexas_layouts
@@ -33,24 +32,6 @@ third_party_settings:
           background-accent: 0
         components: {  }
         third_party_settings: {  }
-  layout_builder_restrictions:
-    entity_view_mode_restriction:
-      allowed_layouts:
-        - layout_utexas_onecol
-        - layout_utexas_twocol
-        - layout_utexas_threecol
-        - layout_utexas_fourcol
-      denylisted_blocks: {  }
-      allowlisted_blocks: {  }
-      restricted_categories:
-        - 'Chaos Tools'
-        - 'Content fields'
-        - Forms
-        - 'Last Updated'
-        - System
-        - User
-        - core
-    allowed_block_categories: {  }
 id: node.utexas_flex_page.default
 targetEntityType: node
 bundle: utexas_flex_page

@@ -9,7 +9,7 @@ dependencies:
 id: speedway_addtoany_utexas
 theme: speedway
 region: content
-weight: -10
+weight: -8
 provider: null
 plugin: addtoany_block
 settings:

@@ -13,9 +13,11 @@
   a:focus {
     color: var(--ut-burntorange);
   }
-  .utprof__designation h3 {
+  .utprof__designation .ut-h3 {
     font-size: 1rem;
     font-style: italic;
+    font-weight: 500;
+    margin-bottom: 0.5em;
   }
   /* Wrap text when the container is small */
   @container (min-width: 500px) {

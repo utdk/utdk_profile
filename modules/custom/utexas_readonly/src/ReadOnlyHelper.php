@@ -3,7 +3,7 @@
 namespace Drupal\utexas_readonly;
 
 /**
- * Business logic for making the add-on UI read-only.
+ * Business logic for making the feature UI read-only.
  */
 class ReadOnlyHelper {
 
@@ -132,7 +132,7 @@ class ReadOnlyHelper {
   ];
 
   /**
-   * Print a warning message about the add-on read-only status.
+   * Print a warning message about the feature read-only status.
    */
   public static function warn() {
     \Drupal::messenger()->addWarning(t('This component is read-only and should not be modified.'));

@@ -15,18 +15,18 @@ Accepted
 
 ## Decision
 
-We will locate the `utevent`, `utnews`, and `utprof` add-ons in the Drupal Kit kernel.
+We will locate the `utevent`, `utnews`, and `utprof` add-ons in the Drupal Kit kernel and subsequently refer to them as (lowercase) "features."
 
 We make this change for the following reasons:
 
 - It facilitates LLM-based coding by providing direct access to more codebase context in a single repository.
-- It allows automated tests for News, Events, and Profile to run on pull requests to the kernel, increasing test coverage and helping demonstrate that kernel changes do not negatively affect the add-ons.
-- It simplifies add-on development by keeping module code and related Speedway theme assets in the same repository, eliminating the need for combo pull requests across repositories.
-- It normalizes Drupal Kit sites by ensuring that all sites have the add-ons present in code, regardless of service offering.
-- It reduces Composer dependency-resolution work by removing separate dependencies for these add-ons, which should improve build speed.
+- It allows automated tests for News, Events, and Profile to run on pull requests to the kernel, increasing test coverage and helping demonstrate that kernel changes do not negatively affect the features.
+- It simplifies development by keeping module code and related Speedway theme assets in the same repository, eliminating the need for combo pull requests across repositories.
+- It normalizes Drupal Kit sites by ensuring that all sites have the features present in code, regardless of service offering.
+- It reduces Composer dependency-resolution work by removing separate dependencies for these features, which should improve build speed.
 
 ## Consequences
 
-- Sites that do not want to use the add-ons will that code present in the codebase but will leave the modules uninstalled.
-- Sites that rely on Configuration Override API customizations for the add-ons can continue doing so with no change.
-- We will perform due diligence to establish that there is no compatibility risk on UTDK Self-Managed sites that improperly modified the add-ons.
+- Sites that do not want to use the features will that code present in the codebase but will leave the modules uninstalled.
+- Sites that rely on Configuration Override API customizations for the features can continue doing so with no change.
+- We will perform due diligence to establish that there is no compatibility risk on UTDK Self-Managed sites that improperly modified the features.

@@ -41,3 +41,8 @@
 .utprof__contact-wrapper .utprof__bldg-code a {
   text-decoration: underline;
 }
+
+.field--name-field-utprof-designation .ut-h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}

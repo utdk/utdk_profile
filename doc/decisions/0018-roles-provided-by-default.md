@@ -6,6 +6,8 @@ Date: 2022-12-05
 
 Accepted
 
+Revised by [43. Default roles include Site Manager](0043-default-roles-include-manager.md)
+
 ## Context
 
 Although sites can define the number and type of Drupal roles appropriate for their site, Drupal core provides some conventions: the Anonymous user, Authenticated user, Administrator, and Content Editor are installed by the `Standard` installation profile. We want to respect convention so that site roles are familiar to people who have used Drupal before, but we also want to provide a role schema that is both flexible and fits the most common types of UT Drupal Kit sites.

@@ -2,9 +2,9 @@ name: UTexas
 type: profile
 description: Installation profile for the UT Drupal Kit.
 core_version_requirement: '^10 || ^11'
-version: '3.30.0'
+version: '3.31.0'
 distribution:
-  name: UTexas
+  name: UT Drupal Kit
 dependencies:
   # Core
   - drupal:block
@@ -93,6 +93,7 @@ install:
   - utexas_readonly
   - utexas_resources
   - utexas_site_announcement
+  - utexas_smtp_helper
   - utexas_text_format_flex_html
   - utexas_instagram_api
   - utexas_instagram

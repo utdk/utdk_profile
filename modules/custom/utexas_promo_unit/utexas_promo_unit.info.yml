@@ -9,7 +9,6 @@ dependencies:
   - 'drupal:image'
   - 'drupal:layout_builder'
   - 'drupal:responsive_image'
-  - 'layout_builder_restrictions:layout_builder_restrictions'
   - 'media_library_form_element:media_library_form_element'
   - 'utexas_image_styles:utexas_image_styles'
   - 'utexas_promo_unit:utexas_promo_unit'

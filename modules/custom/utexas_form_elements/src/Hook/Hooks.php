@@ -174,6 +174,7 @@ class Hooks {
   #[Hook('form_search_block_form_alter')]
   public function formSearchBlockFormAlter(&$form, FormStateInterface $form_state, $form_id) {
     $form['keys']['#attributes']['placeholder'] = 'Search the site...';
+    unset($form['keys']['#attributes']['title']);
     $form['actions']['#attributes']['id'] = 'edit-search-actions';
   }
 
@@ -265,7 +266,7 @@ class Hooks {
   }
 
   /**
-   * Implements template_preprocess_menu().
+   * Implements hook_preprocess_menu().
    */
   #[Hook('preprocess_menu')]
   public function preprocessMenu(&$variables) {
@@ -331,6 +332,28 @@ class Hooks {
       ],
     ];
     return $variables;
+  }
+
+  /**
+   * Implements hook_views_data().
+   */
+  #[Hook('views_data')]
+  public function viewsData() {
+    $data['views']['add_flex_page'] = [
+      'title' => $this->t('Link for "Add new Flex Page content"'),
+      'help' => $this->t('Display an "Add new Flex Page content" link.'),
+      'area' => [
+        'id' => 'add_flex_page',
+      ],
+    ];
+    $data['views']['set_site_homepage'] = [
+      'title' => $this->t('Link for "Set site homepage"'),
+      'help' => $this->t('Display a "Set site homepage" link.'),
+      'area' => [
+        'id' => 'set_site_homepage',
+      ],
+    ];
+    return $data;
   }
 
 }

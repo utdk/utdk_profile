@@ -4,6 +4,7 @@ namespace Drupal\utexas\Hook;
 
 use Drupal\block\Entity\Block;
 use Drupal\block_content\BlockContentInterface;
+use Drupal\ckeditor5\Plugin\CKEditor5PluginDefinition;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
@@ -21,6 +22,22 @@ use Drupal\utexas\ToolbarHandler;
 class Hooks {
 
   use StringTranslationTrait;
+
+  /**
+  * Implements hook_ckeditor5_plugin_info_alter().
+  */
+  #[Hook('ckeditor5_plugin_info_alter')]
+  public function ckeditorPluginInfoAlter(array &$plugin_definitions) {
+    if (isset($plugin_definitions['ckeditor5_table'])) {
+      $table_plugin_definition = $plugin_definitions['ckeditor5_table']->toArray();
+      // Default new CKEditor tables to have 1 header row.
+      $table_plugin_definition['ckeditor5']['config']['table']['defaultHeadings'] = [
+        'rows' => 1,
+        'columns' => 0,
+      ];
+      $plugin_definitions['ckeditor5_table'] = new CKEditor5PluginDefinition($table_plugin_definition);
+    }
+  }
 
   /**
    * Implements hook_contextual_links_plugins_alter().
@@ -106,6 +123,7 @@ class Hooks {
       '#type' => 'details',
       '#collapsed' => TRUE,
     ];
+    $form['basic']['keys']['#label_attributes']['class'][] = 'visually-hidden';
     $form['help_link']['markup'] = $markup;
   }
 
@@ -166,6 +184,14 @@ class Hooks {
         }
       }
     }
+  }
+
+  /**
+   * Implements hook_preprocess_addtoany_standard().
+   */
+  #[Hook('preprocess_addtoany_standard')]
+  public function preprocessAddToAny(&$variables) {
+    $variables['link_title'] = strip_tags($variables['link_title']);
   }
 
   /**
@@ -389,7 +415,7 @@ class Hooks {
   }
 
   /**
-   * Implements hook_template_preprocess_views_view_table().
+   * Implements hook_preprocess_views_view_table().
    */
   #[Hook('preprocess_views_view_table')]
   public function preprocessViewsViewTable(&$variables) {
