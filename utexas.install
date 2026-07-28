@@ -134,6 +134,19 @@ function utexas_install() {
       $config_handler->delete(TRUE);
     }
   }
+
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = [
+    [
+      'entity_type' => 'node',
+      'bundle' => 'page',
+    ],
+    [
+      'entity_type' => 'node',
+      'bundle' => 'utexas_flex_page',
+    ],
+  ];
+  $config->set('bundles', $bundles)->save();
 }
 
 /**
