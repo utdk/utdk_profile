@@ -17,20 +17,17 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
   use TextFormatsTestTrait;
 
   /**
-   * {@inheritdoc}
-   */
-  protected function setUp(): void {
-    parent::setUp();
-    $this->drupalLogin($this->initializeSuperAdminUser());
-  }
-
-  /**
    * Test behavior of existing text formats.
    */
   public function testGoogleSearch() {
     $page = $this->getSession()->getPage();
     $assert = $this->assertSession();
+    $this->assertFalse(\Drupal::moduleHandler()->moduleExists('google_cse'), 'The Google CSE module is not installed.');
+    $this->drupalGet('<front>');
     $assert->elementTextContains('css', '.region-header-tertiary', 'Search');
+    $assert->elementTextContains('css', '.utexas-search-form', 'Search');
+    $google_pse_id = \Drupal::state()->get('utexas.google_pse_id') ?? '';
+    $this->assertEquals('000942273509853053164:aaajrnruaja', $google_pse_id, 'Google PSE ID default is set');
     $page->fillField('google-cse-query', 'Web Content Management Office Hours');
     $this->submitForm([], 'Search');
 
@@ -38,6 +35,16 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
     $this->assertStringNotContainsString('form_build_id', $this->getUrl(), 'Form build information is omitted from GET parameters per formUtexasSearchFormAlter');
     $assert->pageTextContains("Search for 'Web Content Management Office Hours'");
     $assert->elementTextContains('css', '.gsc-orderby-label', 'Sort by');
+
+    // Confirm setting is editable by Site Manager.
+    $this->drupalLogin($this->initializeSiteManager());
+    $this->drupalGet('/admin/config/content/utexas');
+    $assert->fieldValueEquals('google_pse_id', '000942273509853053164:aaajrnruaja');
+    $page->fillField('google_pse_id', 'user-entered-string');
+    $this->submitForm([], 'Save configuration');
+    $this->drupalGet('/admin/config/content/utexas');
+    $assert->fieldValueEquals('google_pse_id', 'user-entered-string');
+    $this->drupalLogout();
 
     // Simulate an update from a site with Google CSE.
     // @todo Remove this after all sites have updated to 3.32.0.

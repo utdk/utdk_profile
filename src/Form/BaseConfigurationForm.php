@@ -7,9 +7,7 @@ use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerInterface;
-use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -82,18 +80,6 @@ class BaseConfigurationForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['intro']['#markup'] = $this->t('<h3>Introduction</h3><p>The UT Drupal Kit is a website solution tailored to the Texas brand, based on the Drupal content management system. This configuration section includes settings that are specifically provided by the UT Drupal Kit, distinct from general Drupal settings.</p><p>Permissions associated with the Drupal Kit can be assigned to site roles via the <a href="/admin/config/content/utexas/permissions">Permissions configuration</a> tab.');
-    // We allow static calls to services.
-    // phpcs:ignore
-    $google_pse_id = \Drupal::state()->get('utexas.google_pse_id') ?? '';
-    $form['google_pse_id'] = [
-      '#title' => $this->t('Google Programmable Search Engine ID'),
-      '#type' => 'textfield',
-      '#default_value' => $google_pse_id,
-      '#description' => $this->t('Enter your @google.', [
-        '@google' => Link::fromTextAndUrl('Google PSE ID', Url::fromUri('https://programmablesearchengine.google.com/controlpanel/all'))->toString(),
-      ]),
-      '#required' => TRUE,
-    ];
     // We allow static calls to services.
     // phpcs:ignore
     $fid = \Drupal::state()->get('default_og_image');

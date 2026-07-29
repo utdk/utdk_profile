@@ -4,6 +4,7 @@ namespace Drupal\utexas_google_search\Hook;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\utexas_google_search\Form\SettingsForm;
 
 /**
  * Hook implementations for Googlesearch.
@@ -23,6 +24,15 @@ class Hooks {
     $form['form_build_id']['#access'] = FALSE;
     $form['form_token']['#access'] = FALSE;
     $form['form_id']['#access'] = FALSE;
+  }
+
+  /**
+   * Implements hook_form_FORM_ID_alter() for the general config form.
+   */
+  #[Hook('form_utexas_general_config_alter')]
+  public function formUtexasGeneralConfigAlter(&$form, FormStateInterface $form_state, $form_id) {
+    // Alter the general config form to include the content configuration.
+    \Drupal::classResolver(SettingsForm::class)->alterForm($form, $form_state, $form_id);
   }
 
   /**
