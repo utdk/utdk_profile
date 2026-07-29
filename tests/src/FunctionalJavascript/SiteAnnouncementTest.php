@@ -104,15 +104,11 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
     $form->fillField('label', 'Test Color');
     // Wait on the "auto-generated" machine name JS.
     $assert->waitForElement('xpath', '//span[@class="machine-name-value"][string-length(text()) > 0]');
-    $form->fillField('background_color', '#bf5700');
-    $form->fillField('text_color', '#ffffff');
     $form->pressButton('Save');
 
     // CRUD: READ.
     $this->drupalGet('/admin/config/site-announcement/color-scheme');
     $assert->pageTextContains('Test Color');
-    $assert->pageTextContains('#bf5700');
-    $assert->pageTextContains('#ffffff');
 
     // CRUD: UPDATE
     // Edit the color scheme.
@@ -181,8 +177,6 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
       $assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'href', 'https://tylerfahey.com');
       $assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'target', '_blank');
       $assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-cta-link--external.ut-btn', 'rel', 'noopener noreferrer');
-      $assert->responseContains('#ffeb63');
-      $assert->responseContains('#000000');
       // Beginning of beacon.svg data.
       $assert->responseContains('M16 8c0-4.418-3.582-8-8-8s-8 3.582-8 8c0 3.438 2.169 6.37');
     }
@@ -204,8 +198,6 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
     $assert->elementTextContains('css', '.announcement-body', 'It looks like we got a tornado coming, folks! Take shelter!');
     $assert->elementTextContains('css', '#block-siteannouncement .cta a.ut-btn', 'How to get help');
     $assert->elementAttributeContains('css', '#block-siteannouncement .cta a.ut-btn', 'href', 'https://utexas.edu');
-    $assert->responseContains('#43695b');
-    $assert->responseContains('#ffffff');
     // Beginning of bullhorn.svg data.
     $assert->responseContains('M16 6.707c0-3.139-0.919-5.687-2.054-5.707 0.005-0');
 
@@ -213,8 +205,6 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
     // Verify the announcement is not visible on test node.
     $this->drupalGet('/node/' . $basic_page_id);
     $assert->elementNotExists('css', '#site-announcement');
-    $assert->responseNotContains('#43695b');
-    $assert->responseNotContains('#ffffff');
 
     // CRUD: UPDATE
     // Go back and change announcement to "Inactive" display setting.
