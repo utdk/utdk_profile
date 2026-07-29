@@ -3,34 +3,36 @@
  * Adds accessibility enhancements to Google search results.
  */
 
-(function ($, Drupal, drupalSettings) {
-  'use strict';
+(function utexasGoogleSearchAccessibility(Drupal) {
+  "use strict";
 
   Drupal.behaviors.utexasGoogleSearchAccessibility = {
-    attach: function () {
-      window.addEventListener('load', function () {
-        let results = document.getElementsByClassName('gsc-result-info');
+    attach() {
+      window.addEventListener("load", function setGoogleSearchAriaRoles() {
+        const results = document.getElementsByClassName("gsc-result-info");
         Object.keys(results).forEach(key => {
-          results[key].setAttribute('role', 'status');
-        })
+          results[key].setAttribute("role", "status");
+        });
         // Handle no results.
-        let noresults = document.getElementsByClassName('gs-no-results-result');
+        const noresults = document.getElementsByClassName(
+          "gs-no-results-result"
+        );
         Object.keys(noresults).forEach(key => {
-          noresults[key].setAttribute('role', 'status');
-        })
+          noresults[key].setAttribute("role", "status");
+        });
 
         // Convert title <div> to <h3> for semantic usability.
-        let titles = document.querySelectorAll('div.gsc-thumbnail-inside > div.gs-title');
+        const titles = document.querySelectorAll(
+          "div.gsc-thumbnail-inside > div.gs-title"
+        );
         Object.keys(titles).forEach(key => {
-          let header = document.createElement("h3");
-          let inner = titles[key].innerHTML;
+          const header = document.createElement("h3");
+          const inner = titles[key].innerHTML;
           header.innerHTML = inner;
-          header.classList.add('gs-title');
+          header.classList.add("gs-title");
           titles[key].replaceWith(header);
-        })
-
-      })
-
+        });
+      });
     }
   };
-})(jQuery, Drupal);
+})(Drupal);
