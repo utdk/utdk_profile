@@ -12,7 +12,7 @@ weight: 4
 provider: null
 plugin: utexas_google_search
 settings:
-  id: speedway_search_form_block
+  id: utexas_google_search
   label: 'Search form'
   label_display: '0'
   provider: utexas_google_search
