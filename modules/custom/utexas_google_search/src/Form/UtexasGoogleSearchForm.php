@@ -91,9 +91,8 @@ class UtexasGoogleSearchForm extends FormBase {
       '#title_display' => 'invisible',
       '#id' => 'google-cse-query',
       '#size' => 40,
-      '#default_value' => '',
+      '#default_value' => $user_input,
       '#placeholder' => 'Search the site...',
-      '#value' => Html::escape($user_input),
       '#attributes' => ['title' => $this->t('Enter the terms you wish to search for.')],
     ];
     $form['#cache']['contexts'][] = 'url.query_args:keys';
