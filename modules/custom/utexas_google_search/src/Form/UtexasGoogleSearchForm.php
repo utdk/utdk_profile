@@ -96,7 +96,7 @@ class UtexasGoogleSearchForm extends FormBase {
       '#value' => Html::escape($user_input),
       '#attributes' => ['title' => $this->t('Enter the terms you wish to search for.')],
     ];
-    $form['#cache']['contexts'][] = 'url.query_args';
+    $form['#cache']['contexts'][] = 'url.query_args:keys';
     $form['actions'] = ['#type' => 'actions'];
     $form['#method'] = 'get';
     $form['actions']['submit'] = [
