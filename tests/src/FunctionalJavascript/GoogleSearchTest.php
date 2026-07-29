@@ -44,6 +44,9 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
     $module_installer = $this->container->get('module_installer');
     $module_installer->uninstall(['utexas_google_search']);
     $module_installer->install(['legacy_google_cse']);
+    $config = \Drupal::configFactory()->getEditable('search.settings');
+    $config->set('default_page', 'google_cse_search');
+    $config->save();
     // Add permissions to anonymous role.
     $anon_perms = [
       'access content',
@@ -72,6 +75,7 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
     $assert->elementNotExists('css', '.search-block-form');
     // (c) Replaces it with the new Utexas Google Search block
     $assert->elementTextContains('css', '.region-header-tertiary', 'Search');
+    $assert->elementTextContains('css', '.utexas-search-form', 'Search');
   }
 
 }

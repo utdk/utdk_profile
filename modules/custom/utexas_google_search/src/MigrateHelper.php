@@ -15,6 +15,9 @@ class MigrateHelper {
   public static function migrateFromGoogleCse(): void {
     $legacy_configuration = [];
     $default_core_search = '';
+    if (\Drupal::moduleHandler()->moduleExists('search') === FALSE) {
+      return;
+    }
     $search_implementations = SearchPage::loadMultiple();
     foreach ($search_implementations as $search) {
       if ($search->getPlugin()->getPluginId() !== 'google_cse_search') {
@@ -26,12 +29,13 @@ class MigrateHelper {
       $legacy_configuration[] = $search->id();
       $config = \Drupal::service('config.factory')->getEditable('search.page.' . $search->id());
       $configuration = $search->getPlugin()->getConfiguration();
-      // Add Utexas Google Search setting.
+      \Drupal::logger('utexas_google_search')->notice('Migrating Google PSE ID %id', [
+        '%id' => $configuration['cx'],
+      ]);
       \Drupal::state()->set('utexas.google_pse_id', $configuration['cx']);
       // Delete Google CSE Drupal search config (admin/config/search/pages).
       $config->delete();
     }
-    $legacy_search_blocks = [];
     // Load all search form blocks.
     $search_form_blocks = \Drupal::service('entity_type.manager')
       ->getStorage('block')
@@ -45,12 +49,15 @@ class MigrateHelper {
         $settings['page_id'] = $default_core_search;
       }
       if (in_array($settings['page_id'] ?? NULL, $legacy_configuration, TRUE)) {
-        $legacy_search_blocks[] = $block->id();
+        \Drupal::logger('utexas_google_search')->notice('Deleting legacy core search block form %bid', [
+          '%bid' => $block->id(),
+        ]);
+        $block->delete();
         // Create new Utexas Google Search block (/admin/structure/block).
         $new = \Drupal::service('entity_type.manager')
           ->getStorage('block')
           ->create([
-            'id' => $block->id() . '_google_search',
+            'id' => 'speedway_search_form_block',
             'theme' => $block->getTheme(),
             'region' => $block->getRegion(),
             'weight' => $block->getWeight(),
@@ -64,9 +71,10 @@ class MigrateHelper {
             ],
             'visibility' => $block->getVisibility(),
           ]);
+        \Drupal::logger('utexas_google_search')->notice('Creating new Utexas Google Search block %bid', [
+          '%bid' => $new->id(),
+        ]);
         $new->save();
-        // Delete legacy block core search form block (/admin/structure/block).
-        $block->delete();
       }
     }
   }
