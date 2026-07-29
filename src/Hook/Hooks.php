@@ -283,7 +283,7 @@ class Hooks {
     /** @var \Drupal\Core\Routing\CurrentRouteMatch $current_route_match */
     $current_route_match = \Drupal::routeMatch();
     $route_name = $current_route_match->getRouteName();
-    if ($route_name === 'search.view_google_cse_search') {
+    if ($route_name === 'utexas_google_search.search') {
       // Omit the entire breadcrumb region from the page.
       unset($variables['page']['breadcrumb']);
     }
