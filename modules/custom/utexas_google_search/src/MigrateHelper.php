@@ -49,6 +49,11 @@ class MigrateHelper {
         $settings['page_id'] = $default_core_search;
       }
       if (in_array($settings['page_id'] ?? NULL, $legacy_configuration, TRUE)) {
+        $block_id = $block->id();
+        $theme = $block->getTheme();
+        $region = $block->getRegion();
+        $weight = $block->getWeight();
+        $visibility = $block->getVisibility();
         \Drupal::logger('utexas_google_search')->notice('Deleting legacy core search block form %bid', [
           '%bid' => $block->id(),
         ]);
@@ -57,10 +62,10 @@ class MigrateHelper {
         $new = \Drupal::service('entity_type.manager')
           ->getStorage('block')
           ->create([
-            'id' => 'speedway_search_form_block',
-            'theme' => $block->getTheme(),
-            'region' => $block->getRegion(),
-            'weight' => $block->getWeight(),
+            'id' => $block_id,
+            'theme' => $theme,
+            'region' => $region,
+            'weight' => $weight,
             'provider' => 'utexas_google_search',
             'plugin' => 'utexas_google_search',
             'settings' => [
@@ -69,7 +74,7 @@ class MigrateHelper {
               'label_display' => 0,
               'provider' => 'utexas_google_search',
             ],
-            'visibility' => $block->getVisibility(),
+            'visibility' => $visibility,
           ]);
         \Drupal::logger('utexas_google_search')->notice('Creating new Utexas Google Search block %bid', [
           '%bid' => $new->id(),

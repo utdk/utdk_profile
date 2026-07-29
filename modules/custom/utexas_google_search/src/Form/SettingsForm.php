@@ -21,7 +21,7 @@ class SettingsForm extends BaseConfigurationForm {
     $google_pse_id = \Drupal::state()->get('utexas.google_pse_id') ?? '';
     $form['google_pse'] = [
       '#type' => 'fieldset',
-      '#title' => 'Google Site Search',
+      '#title' => $this->t('Google Site Search'),
     ];
     $form['google_pse']['google_pse_id'] = [
       '#title' => $this->t('Google Programmable Search Engine ID'),

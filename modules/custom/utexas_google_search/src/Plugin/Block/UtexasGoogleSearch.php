@@ -121,7 +121,7 @@ class UtexasGoogleSearch extends BlockBase implements ContainerFactoryPluginInte
       return [];
     }
     $build['#attributes']['class'][] = 'ut-search-form';
-    $build['form'] = $this->formBuilder->getForm(UtexasGoogleSearchForm::class, $google_pse_id);
+    $build['form'] = $this->formBuilder->getForm(UtexasGoogleSearchForm::class);
     return $build;
   }
 
