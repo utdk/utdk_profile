@@ -42,16 +42,6 @@ class Search extends ControllerBase {
       ],
       'utexas_google_search_' . $google_pse_id,
     ];
-    // Noscript fallback.
-    $url = Url::fromUri('https://cse.google.com/cse', [
-      'query' => [
-        'cx' => $google_pse_id,
-        'q' => $search_term,
-      ],
-    ]);
-    $build['#noscript'] = $this->t('@google, or enable JavaScript to view them here.', [
-      '@google' => Link::fromTextAndUrl('View the results at Google', $url)->toString(),
-    ]);
     $build['search_form'] = $this->formBuilder()->getForm(UtexasGoogleSearchForm::class);
     $build['search_form']['#attributes']['class'][] = 'in-page-google-search';
     $build['search_form']['suffix'] = [
@@ -65,6 +55,16 @@ class Search extends ControllerBase {
         ],
       ],
     ];
+    // Noscript fallback.
+    $url = Url::fromUri('https://cse.google.com/cse', [
+      'query' => [
+        'cx' => $google_pse_id,
+        'q' => $search_term,
+      ],
+    ]);
+    $build['search_results']['#noscript'] = $this->t('@google, or enable JavaScript to view them here.', [
+      '@google' => Link::fromTextAndUrl('View the results at Google', $url)->toString(),
+    ]);
     return $build;
   }
 
