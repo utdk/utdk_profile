@@ -4,4 +4,4 @@ utexas_google_search.search:
     _controller: '\Drupal\utexas_google_search\Controller\Search::view'
     _title: 'Search'
   requirements:
-    _permission: 'use utexas google search'
+    _permission: 'access content'

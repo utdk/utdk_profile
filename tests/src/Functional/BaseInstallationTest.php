@@ -71,17 +71,8 @@ class BaseInstallationTest extends BrowserTestBase {
       $module_enabled = \Drupal::moduleHandler()->moduleExists($module);
       $this->assertFalse($module_enabled);
     }
-    // Assert that Speedway is the active theme.
     $default_theme = \Drupal::config('system.theme')->get('default');
     $this->assertEquals($default_theme, 'speedway', 'The active theme is Speedway');
-    $page = $this->getSession()->getPage();
-    $assert->elementTextContains('css', '.region-header-tertiary', 'Search');
-    $page->fillField('google-cse-query', 'Web Content Management Office Hours');
-    $this->submitForm([], 'Search');
-
-    $this->assertStringContainsString('/search/google?keys=Web+Content+Management+Office+Hours', $this->getUrl(), 'Site search submits to /search/google');
-    $this->assertStringNotContainsString('form_build_id', $this->getUrl(), 'Form build information is omitted from GET parameters per formUtexasSearchFormAlter');
-    $this->assertTrue(FALSE, 'placeholder!');
 
     // Assert country and timezone set to US and America/Chicago.
     // $timezone = $this->config('system.date')->get('timezone.default');

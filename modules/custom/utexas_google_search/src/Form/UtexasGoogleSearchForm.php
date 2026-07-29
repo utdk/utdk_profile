@@ -88,6 +88,7 @@ class UtexasGoogleSearchForm extends FormBase {
       '#id' => 'google-cse-query',
       '#size' => 40,
       '#default_value' => '',
+      '#placeholder' => 'Search the site...',
       '#value' => \Drupal::request()->query->get('keys') ?? '',
       '#attributes' => ['title' => $this->t('Enter the terms you wish to search for.')],
     ];

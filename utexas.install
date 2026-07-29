@@ -5,9 +5,9 @@
  * Install and uninstall functions for the UTexas profile.
  */
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Config\Entity\ConfigEntityUpdater;
 use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\block\Entity\Block;
 use Drupal\editor\Entity\Editor;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
