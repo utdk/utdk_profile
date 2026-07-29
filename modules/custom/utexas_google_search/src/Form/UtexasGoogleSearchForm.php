@@ -2,7 +2,6 @@
 
 namespace Drupal\utexas_google_search\Form;
 
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
