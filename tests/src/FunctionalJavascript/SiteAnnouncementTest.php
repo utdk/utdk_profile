@@ -104,11 +104,15 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
     $form->fillField('label', 'Test Color');
     // Wait on the "auto-generated" machine name JS.
     $assert->waitForElement('xpath', '//span[@class="machine-name-value"][string-length(text()) > 0]');
+    $form->fillField('background_color', '#bf5700');
+    $form->fillField('text_color', '#ffffff');
     $form->pressButton('Save');
 
     // CRUD: READ.
     $this->drupalGet('/admin/config/site-announcement/color-scheme');
     $assert->pageTextContains('Test Color');
+    $assert->pageTextContains('#bf5700');
+    $assert->pageTextContains('#ffffff');
 
     // CRUD: UPDATE
     // Edit the color scheme.
