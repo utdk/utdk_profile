@@ -103,17 +103,6 @@ class UtexasGoogleSearchForm extends FormBase {
       // Prevent op from showing up in the query string.
       '#name' => '',
     ];
-    $form['#attached']['html_head'][] = [
-      [
-        '#type' => 'html_tag',
-        '#tag' => 'script',
-        '#attributes' => [
-          'async' => '',
-          'src' => 'https://cse.google.com/cse.js?cx=' . $google_pse_id,
-        ],
-      ],
-      'utexas_google_search_' . $google_pse_id,
-    ];
     return $form;
   }
 
