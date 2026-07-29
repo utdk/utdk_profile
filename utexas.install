@@ -1506,3 +1506,13 @@ function utexas_update_11005() {
 function utexas_update_11006() {
   \Drupal::service('entity_usage.batch_manager')->recreate();
 }
+
+/**
+ * Install UTexas Google Search existing sites (#3289).
+ */
+function utexas_update_11007() {
+  $module_to_install = 'utexas_google_search';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}
