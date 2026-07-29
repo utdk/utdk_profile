@@ -141,8 +141,7 @@ function utexas_install_cleanup(&$install_state) {
   \Drupal::configFactory()
     ->getEditable('system.date')
     ->set('timezone.default', 'America/Chicago')
-    ->set('country.default', 'US')
-    ->save(TRUE);
+    ->set('country.default', 'US')->save();
 }
 
 /**

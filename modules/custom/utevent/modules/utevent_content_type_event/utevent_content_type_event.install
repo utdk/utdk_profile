@@ -52,7 +52,7 @@ function utevent_content_type_event_install() {
   foreach ($configurations as $configuration) {
     $config_path = $module_path . '/config/default/' . $configuration . '.yml';
     $data = Yaml::parse(file_get_contents($config_path));
-    \Drupal::configFactory()->getEditable($configuration)->setData($data)->save(TRUE);
+    \Drupal::configFactory()->getEditable($configuration)->setData($data)->save();
   }
 
   // Add standard permissions to "utexas_site_manager" & "utexas_content_editor"

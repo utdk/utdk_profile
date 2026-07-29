@@ -51,7 +51,7 @@ trait UserTestTrait {
    */
   protected function initializeProfileEditor() {
     $this->testUser = $this->drupalCreateUser();
-    $testUser = user_load_by_name($this->testUser->getAccountName());
+    $testUser = array_values(\Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['name' => $this->testUser->getAccountName()]))[0] ?? FALSE;
     // $testUser->addRole('utexas_profile_editor');
     $testUser->save();
   }
