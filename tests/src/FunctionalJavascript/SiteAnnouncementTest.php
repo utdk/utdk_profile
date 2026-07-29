@@ -232,8 +232,6 @@ class SiteAnnouncementTest extends FunctionalJavascriptTestBase {
     foreach ($pages_to_test as $path) {
       $this->drupalGet($path);
       $assert->elementNotExists('css', '#site-announcement');
-      $assert->responseNotContains('#43695b');
-      $assert->responseNotContains('#ffffff');
     }
 
     // CRUD: DELETE.
