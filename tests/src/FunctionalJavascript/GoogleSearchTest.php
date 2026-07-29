@@ -35,6 +35,7 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
     $this->assertStringContainsString('/search/google?keys=%3Cem%3EWeb%3C%2Fem%3E+Content+Management+Office+Hours', $this->getUrl(), 'Site search submits to /search/google');
     $this->assertStringNotContainsString('form_build_id', $this->getUrl(), 'Form build information is omitted from GET parameters per formUtexasSearchFormAlter');
     $assert->pageTextContains("Search for <em>Web</em> Content Management Office Hours");
+    $this->assertNotNull($assert->waitForElement('css', '.gsc-result-info'));
     // 'Sort by' establishes that Google is embedding search results.
     $assert->elementTextContains('css', '.gsc-orderby-label', 'Sort by');
     // Search results information includes accessibility role=status.
