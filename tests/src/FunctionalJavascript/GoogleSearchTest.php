@@ -9,7 +9,7 @@ use Drupal\user\RoleInterface;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Verifies Flex HTML behavior.
+ * Utexas Google Search tests.
  */
 #[RunTestsInSeparateProcesses]
 class GoogleSearchTest extends FunctionalJavascriptTestBase {
@@ -17,7 +17,7 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
   use TextFormatsTestTrait;
 
   /**
-   * Test behavior of existing text formats.
+   * Test behavior the custom Utexas Google Search module.
    */
   public function testGoogleSearch() {
     $page = $this->getSession()->getPage();
