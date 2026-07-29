@@ -145,6 +145,7 @@ form.in-page-google-search {
     background: transparent;
     color: transparent;
     border: none;
+    z-index: 2;
   }
 
   #edit-help-link {

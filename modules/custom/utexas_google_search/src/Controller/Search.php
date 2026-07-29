@@ -2,6 +2,7 @@
 
 namespace Drupal\utexas_google_search\Controller;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
@@ -23,10 +24,12 @@ class Search extends ControllerBase {
    *   The search form and search results build array.
    */
   public function view(Request $request) {
+    // We allow static calls to Drupal methods.
+    // phpcs:ignore
     $google_pse_id = \Drupal::state()->get('utexas.google_pse_id') ?? '';
     $build['#cache']['contexts'][] = 'url.query_args:keys';
-    $search_term = $request->query->get('keys');
-    $build['#title'] = !empty($search_term) ? "Search for '$search_term'" : "Search";
+    $search_term = Html::escape($request->query->get('keys'));
+    $build['#title']['#markup'] = !empty($search_term) ? "Search for <q>$search_term</q>" : "Search";
     // Add the Google Programmable Search library itself, with ID as a param.
     $build['#attached']['html_head'][] = [
       [
@@ -52,7 +55,7 @@ class Search extends ControllerBase {
     $build['search_form'] = $this->formBuilder()->getForm(UtexasGoogleSearchForm::class);
     $build['search_form']['#attributes']['class'][] = 'in-page-google-search';
     $build['search_form']['suffix'] = [
-      '#markup' => '<details><summary>About searching<span class="summary"></span></summary><ul data-drupal-selector="edit-list"><li>Search looks for exact, case-insensitive keywords; keywords shorter than a minimum length are ignored.</li><li>Use upper-case OR to get more results. Example: cat OR dog (content contains either "cat" or "dog").</li><li>You can use upper-case AND to require all words, but this is the same as the default behavior. Example: cat AND dog (same as cat dog, content must contain both "cat" and "dog").</li><li>Use quotes to search for a phrase. Example: "the cat eats mice".</li><li>You can precede keywords by - to exclude them; you must still have at least one "positive" keyword. Example: cat -dog (content must contain cat and cannot contain dog).</li></ul></details>',
+      '#markup' => '<details id="edit-help-link"><summary>About searching<span class="summary"></span></summary><ul data-drupal-selector="edit-list"><li>Search looks for exact, case-insensitive keywords; keywords shorter than a minimum length are ignored.</li><li>Use upper-case OR to get more results. Example: cat OR dog (content contains either "cat" or "dog").</li><li>You can use upper-case AND to require all words, but this is the same as the default behavior. Example: cat AND dog (same as cat dog, content must contain both "cat" and "dog").</li><li>Use quotes to search for a phrase. Example: "the cat eats mice".</li><li>You can precede keywords by - to exclude them; you must still have at least one "positive" keyword. Example: cat -dog (content must contain cat and cannot contain dog).</li></ul></details>',
     ];
     $build['search_results'] = [
       '#theme' => 'utexas_google_search_results',

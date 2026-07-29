@@ -28,13 +28,21 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
     $assert->elementTextContains('css', '.utexas-search-form', 'Search');
     $google_pse_id = \Drupal::state()->get('utexas.google_pse_id') ?? '';
     $this->assertEquals('000942273509853053164:aaajrnruaja', $google_pse_id, 'Google PSE ID default is set');
-    $page->fillField('google-cse-query', 'Web Content Management Office Hours');
+    // Enter a search with markup to demonstrate input sanitization.
+    $page->fillField('google-cse-query', '<em>Web</em> Content Management Office Hours');
     $this->submitForm([], 'Search');
 
-    $this->assertStringContainsString('/search/google?keys=Web+Content+Management+Office+Hours', $this->getUrl(), 'Site search submits to /search/google');
+    $this->assertStringContainsString('/search/google?keys=%3Cem%3EWeb%3C%2Fem%3E+Content+Management+Office+Hours', $this->getUrl(), 'Site search submits to /search/google');
     $this->assertStringNotContainsString('form_build_id', $this->getUrl(), 'Form build information is omitted from GET parameters per formUtexasSearchFormAlter');
-    $assert->pageTextContains("Search for 'Web Content Management Office Hours'");
+    $assert->pageTextContains("Search for <em>Web</em> Content Management Office Hours");
+    // 'Sort by' establishes that Google is embedding search results.
     $assert->elementTextContains('css', '.gsc-orderby-label', 'Sort by');
+    // Search results information includes accessibility role=status.
+    $assert->elementAttributeContains('css', '.gsc-result-info', 'role', 'status');
+    // Search result titles are rendered in h3 tags.
+    $assert->elementExists('css', '.gsc-thumbnail-inside h3');
+    // The breadcrumb block is suppressed from the search page.
+    $assert->elementNotExists('css', '.block-system-breadcrumb-block');
 
     // Confirm setting is editable by Site Manager.
     $this->drupalLogin($this->initializeSiteManager());

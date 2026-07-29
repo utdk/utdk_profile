@@ -2,6 +2,7 @@
 
 namespace Drupal\utexas_google_search\Form;
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -80,6 +81,9 @@ class UtexasGoogleSearchForm extends FormBase {
     if (empty($google_pse_id)) {
       return [];
     }
+    // We allow static calls to Drupal methods.
+    // phpcs:ignore
+    $user_input = \Drupal::request()->query->get('keys') ?? '';
     $form['#action'] = Url::fromRoute('utexas_google_search.search')->toString();
     $form['keys'] = [
       '#type' => 'search',
@@ -89,7 +93,7 @@ class UtexasGoogleSearchForm extends FormBase {
       '#size' => 40,
       '#default_value' => '',
       '#placeholder' => 'Search the site...',
-      '#value' => \Drupal::request()->query->get('keys') ?? '',
+      '#value' => Html::escape($user_input),
       '#attributes' => ['title' => $this->t('Enter the terms you wish to search for.')],
     ];
     $form['#cache']['contexts'][] = 'url.query_args';
