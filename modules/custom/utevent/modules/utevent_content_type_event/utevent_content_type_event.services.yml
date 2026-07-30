@@ -1,2 +1,0 @@
-parameters:
-  utevent_content_type_event.skip_procedural_hook_scan: true
