@@ -55,6 +55,14 @@ function utevent_content_type_event_install() {
     \Drupal::configFactory()->getEditable($configuration)->setData($data)->save(TRUE);
   }
 
+  // Add configuration for scheduled transitions.
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $event_bundle = ['entity_type' => 'node', 'bundle' => 'utevent_event'];
+  if (!in_array($event_bundle, $bundles)) {
+    $bundles[] = $event_bundle;
+    $config->set('bundles', $bundles)->save();
+  }
   // Add standard permissions to "utexas_site_manager" & "utexas_content_editor"
   // if those roles exist.
   Permissions::assignPermissions('editor', 'utexas_content_editor');
