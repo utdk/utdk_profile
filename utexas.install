@@ -1504,3 +1504,18 @@ function utexas_update_11007() {
     \Drupal::service('module_installer')->install([$module_to_install]);
   }
 }
+
+/**
+ * Uninstall modules Google CSE and Search (#3289).
+ */
+function utexas_update_11008() {
+  $modules_to_uninstall = [
+    'google_cse',
+    'search',
+  ];
+  foreach ($modules_to_uninstall as $module) {
+    if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+      \Drupal::service('module_installer')->uninstall([$module], FALSE);
+    }
+  }
+}
