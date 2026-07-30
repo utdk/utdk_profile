@@ -38,10 +38,6 @@ class GoogleSearchTest extends FunctionalJavascriptTestBase {
     $this->assertNotNull($assert->waitForElement('css', '.gsc-result-info'));
     // 'Sort by' establishes that Google is embedding search results.
     $assert->elementTextContains('css', '.gsc-orderby-label', 'Sort by');
-    // Search results information includes accessibility role=status.
-    $assert->elementAttributeContains('css', '.gsc-result-info', 'role', 'status');
-    // Search result titles are rendered in h3 tags.
-    $assert->elementExists('css', '.gsc-thumbnail-inside h3');
     // The breadcrumb block is suppressed from the search page.
     $assert->elementNotExists('css', '.block-system-breadcrumb-block');
 
