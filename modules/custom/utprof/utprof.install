@@ -20,6 +20,15 @@ function utprof_install() {
   if (\Drupal::moduleHandler()->moduleExists('utprof_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_overrides']);
   }
+
+  // Add configuration for scheduled transitions.
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $profile_bundle = ['entity_type' => 'node', 'bundle' => 'utprof_profile'];
+  if (!in_array($profile_bundle, $bundles)) {
+    $bundles[] = $profile_bundle;
+    $config->set('bundles', $bundles)->save();
+  }
 }
 
 /**

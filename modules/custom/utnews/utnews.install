@@ -19,6 +19,15 @@ function utnews_install() {
   if (\Drupal::moduleHandler()->moduleExists('utnews_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utnews_overrides']);
   }
+
+  // Add configuration for scheduled transitions.
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $news_bundle = ['entity_type' => 'node', 'bundle' => 'utnews_news'];
+  if (!in_array($news_bundle, $bundles)) {
+    $bundles[] = $news_bundle;
+    $config->set('bundles', $bundles)->save();
+  }
 }
 
 /**
