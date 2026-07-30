@@ -23,9 +23,6 @@ dependencies:
   - drupal:node
   - drupal:options
   - drupal:path
-  # @todo: remove Drupal's Search module after the release that replaces it
-  # with UTexas Google Search
-  - drupal:search
   - drupal:taxonomy
   - drupal:toolbar
   - drupal:views
