@@ -186,13 +186,31 @@ function utexas_modules_installed(array $modules, $is_syncing) {
       foreach ($role_permissions as $permission) {
         if ($permission == 'create page content') {
           Permissions::assignPermissions('editor', $role_id);
-          Drupal::messenger()->addMessage(t('Schedule transitions permissions set for %role role.', [
+          Drupal::messenger()->addMessage(t('Basic page scheduling permissions set for %role role.', [
             '%role' => $role->label(),
           ]));
         }
         if ($permission == 'create utexas_flex_page content') {
           Permissions::assignPermissions('editor', $role_id);
-          Drupal::messenger()->addMessage(t('Schedule transitions permissions set for %role role.', [
+          Drupal::messenger()->addMessage(t('Flex page scheduling permissions set for %role role.', [
+            '%role' => $role->label(),
+          ]));
+        }
+        if ($permission == 'create utevent_event content') {
+          Permissions::assignPermissions('editor', $role_id);
+          Drupal::messenger()->addMessage(t('Event scheduling permissions set for %role role.', [
+            '%role' => $role->label(),
+          ]));
+        }
+        if ($permission == 'create utnews_news content') {
+          Permissions::assignPermissions('editor', $role_id);
+          Drupal::messenger()->addMessage(t('News scheduling permissions set for %role role.', [
+            '%role' => $role->label(),
+          ]));
+        }
+        if ($permission == 'create utprof_profile content') {
+          Permissions::assignPermissions('editor', $role_id);
+          Drupal::messenger()->addMessage(t('Profile scheduling permissions set for %role role.', [
             '%role' => $role->label(),
           ]));
         }
