@@ -1526,7 +1526,6 @@ function utexas_update_11008() {
   }
 }
 
-
 /**
  * Uninstall Google CSE (#3289).
  */
