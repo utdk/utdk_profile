@@ -20,20 +20,20 @@ class MigrateHelper {
     }
     $search_implementations = SearchPage::loadMultiple();
     foreach ($search_implementations as $search) {
-      if ($search->getPlugin()->getPluginId() !== 'google_cse_search') {
-        continue;
-      }
+
       if ($search->isDefaultSearch()) {
         $default_core_search = $search->id();
       }
       $legacy_configuration[] = $search->id();
       $config = \Drupal::service('config.factory')->getEditable('search.page.' . $search->id());
       $configuration = $search->getPlugin()->getConfiguration();
-      \Drupal::logger('utexas_google_search')->notice('Migrating Google PSE ID %id', [
-        '%id' => $configuration['cx'],
-      ]);
-      \Drupal::state()->set('utexas.google_pse_id', $configuration['cx']);
-      // Delete Google CSE Drupal search config (admin/config/search/pages).
+      if ($search->getPlugin()->getPluginId() !== 'google_cse_search') {
+        \Drupal::logger('utexas_google_search')->notice('Migrating Google PSE ID %id', [
+          '%id' => $configuration['cx'],
+        ]);
+        \Drupal::state()->set('utexas.google_pse_id', $configuration['cx']);
+      }
+      // Delete all Drupal search configurations (admin/config/search/pages).
       $config->delete();
     }
     // Load all search form blocks.
