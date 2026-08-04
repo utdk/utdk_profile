@@ -1507,7 +1507,6 @@ function utexas_update_11007() {
       if ($search->getPlugin()->getPluginId() === 'google_cse_search') {
         // If Google CSE was the default site search...
         if ($search->isDefaultSearch() === TRUE) {
-          \Drupal::logger('utexas_google_search')->notice($search->getPlugin()->getPluginId());
           // Delete search settings.
           $config = \Drupal::service('config.factory')->getEditable('search.settings');
           $config->delete();

@@ -16,10 +16,14 @@ class MigrateHelper {
     if (\Drupal::moduleHandler()->moduleExists('search') === FALSE) {
       return;
     }
+    $google_cse_is_default = FALSE;
     $search_implementations = SearchPage::loadMultiple();
     foreach ($search_implementations as $search) {
       // Delete all Google CSE configurations (admin/config/search/pages).
       if ($search->getPlugin()->getPluginId() == 'google_cse_search') {
+        if ($search->isDefaultSearch()) {
+          $google_cse_is_default = TRUE;
+        }
         $config = \Drupal::service('config.factory')->getEditable('search.page.' . $search->id());
         $configuration = $search->getPlugin()->getConfiguration();
         \Drupal::logger('utexas_google_search')->notice('Migrating Google PSE ID %id', [
@@ -35,8 +39,9 @@ class MigrateHelper {
       ->loadByProperties(['plugin' => 'search_form_block']);
     foreach ($search_form_blocks as $block) {
       $settings = $block->get('settings');
-      // Check for blocks that reference a Google CSE form submit.
-      if ($settings['provider'] === 'google_cse') {
+      // Check for blocks that explicitly set the search to Google CSE
+      // or sites where the default search is Google CSE.
+      if ($settings['provider'] === 'google_cse' || (is_null($settings['page_id']) && $google_cse_is_default)) {
         $block_id = $block->id();
         $theme = $block->getTheme();
         $region = $block->getRegion();
