@@ -26,7 +26,7 @@ class MigrateHelper {
       }
       $legacy_configuration[] = $search->id();
       $config = \Drupal::service('config.factory')->getEditable('search.page.' . $search->id());
-      if ($search->getPlugin()->getPluginId() !== 'google_cse_search') {
+      if ($search->getPlugin()->getPluginId() == 'google_cse_search') {
         $configuration = $search->getPlugin()->getConfiguration();
         \Drupal::logger('utexas_google_search')->notice('Migrating Google PSE ID %id', [
           '%id' => $configuration['cx'],
@@ -55,8 +55,9 @@ class MigrateHelper {
         $weight = $block->getWeight();
         $visibility = $block->getVisibility();
         \Drupal::logger('utexas_google_search')->notice('Deleting legacy core search block form %bid', [
-          '%bid' => $block->id(),
+          '%bid' => $block_id,
         ]);
+        $block->delete();
         // Create new Utexas Google Search block (/admin/structure/block).
         $new = \Drupal::service('entity_type.manager')
           ->getStorage('block')
@@ -80,7 +81,6 @@ class MigrateHelper {
         ]);
         $new->save();
       }
-      $block->delete();
     }
     $config = \Drupal::service('config.factory')->getEditable('search.settings');
     $config->delete();
