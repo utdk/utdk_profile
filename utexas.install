@@ -11,6 +11,7 @@ use Drupal\block\Entity\Block;
 use Drupal\editor\Entity\Editor;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\utexas\InstallationHelper;
@@ -1506,16 +1507,42 @@ function utexas_update_11007() {
 }
 
 /**
- * Uninstall modules Google CSE and Search (#3289).
+ * Remove legacy search permissions (#3289).
  */
 function utexas_update_11008() {
-  $modules_to_uninstall = [
-    'google_cse',
-    'search',
-  ];
-  foreach ($modules_to_uninstall as $module) {
-    if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
-      \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  foreach (Role::loadMultiple() as $role) {
+    if ($role->hasPermission('search content')) {
+      $role->revokePermission('search content');
+      $role->save();
     }
+    if ($role->hasPermission('search Google CSE')) {
+      $role->revokePermission('search Google CSE');
+      $role->save();
+    }
+    if ($role->hasPermission('administer search')) {
+      $role->revokePermission('administer search');
+      $role->save();
+    }
+  }
+}
+
+
+/**
+ * Uninstall Google CSE (#3289).
+ */
+function utexas_update_11009() {
+  $module = 'google_cse';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+}
+
+/**
+ * Uninstall Search module (#3289).
+ */
+function utexas_update_11010() {
+  $module = 'search';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
   }
 }
