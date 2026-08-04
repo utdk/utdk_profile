@@ -41,6 +41,9 @@ class MigrateHelper {
       $settings = $block->get('settings');
       // Check for blocks that explicitly set the search to Google CSE
       // or sites where the default search is Google CSE.
+      if ($block->status() === FALSE) {
+        $block->delete();
+      }
       if ($settings['provider'] === 'google_cse' || (is_null($settings['page_id']) && $google_cse_is_default)) {
         $block_id = $block->id();
         $theme = $block->getTheme();
