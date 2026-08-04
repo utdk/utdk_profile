@@ -81,11 +81,6 @@ class MigrateHelper {
         $new->save();
       }
     }
-    if ($default_core_search !== '') {
-      // If Google CSE was the default site search, delete search settings.
-      $config = \Drupal::service('config.factory')->getEditable('search.settings');
-      $config->delete();
-    }
   }
 
 }
