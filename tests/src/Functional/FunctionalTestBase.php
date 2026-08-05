@@ -6,18 +6,25 @@ namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\Core\Database\Database;
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
-use Drupal\Tests\utexas\Traits\UserTestTrait;
 
 /**
  * Base class for Functional tests.
+ *
+ * Slimmed down after a review found EntityTestTrait/UserTestTrait,
+ * $testContentEditorUser/$testSiteManagerUser, and assertAllowed()/
+ * assertForbidden() had no remaining consumers — every test that used
+ * them was either fully browser-based (moved to
+ * tests/playwright/SiteAnnouncementTest.php and SocialLinksTest.php, then
+ * deleted here) or didn't use them at all (ReadOnlyTest.php, the one
+ * remaining subclass, only reads config directly). Deliberately not
+ * re-adding assertAllowed()/assertForbidden(): that's exactly the
+ * browser-testing pattern this profile's tests are moving to Playwright
+ * for — see tests/playwright/BaseInstallationTest.php's class docblock.
  */
 abstract class FunctionalTestBase extends BrowserTestBase {
 
-  use EntityTestTrait;
   use InstallTestTrait;
-  use UserTestTrait;
 
   /**
    * Use the 'utexas' installation profile.
@@ -34,28 +41,11 @@ abstract class FunctionalTestBase extends BrowserTestBase {
   protected $defaultTheme = 'speedway';
 
   /**
-   * A user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testSiteManagerUser;
-
-  /**
-   * A user with permissions to administer content types and image styles.
-   *
-   * @var \Drupal\user\UserInterface
-   */
-  protected $testContentEditorUser;
-
-  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     $this->utexasSharedSetup();
     parent::setUp();
-
-    $this->testContentEditorUser = $this->initializeContentEditor();
-    $this->testSiteManagerUser = $this->initializeSiteManager();
   }
 
   /**
@@ -83,28 +73,6 @@ abstract class FunctionalTestBase extends BrowserTestBase {
     // cleanup. See utdk_localdev#99.
     // @codingStandardsIgnoreLine
     // \Drupal::service('file_system')->deleteRecursive($this->siteDirectory, [$this, 'filePreDeleteCallback']);
-  }
-
-  /**
-   * Asserts that the current user can access a Drupal route.
-   *
-   * @param string $path
-   *   The route path to visit.
-   */
-  protected function assertAllowed($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(200);
-  }
-
-  /**
-   * Asserts that the current user cannot access a Drupal route.
-   *
-   * @param string $path
-   *   The route path to visit.
-   */
-  protected function assertForbidden($path) {
-    $this->drupalGet($path);
-    $this->assertSession()->statusCodeEquals(403);
   }
 
 }
