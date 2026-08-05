@@ -16,11 +16,13 @@ class MigrateHelper {
     if (\Drupal::moduleHandler()->moduleExists('search') === FALSE) {
       return;
     }
+    $google_cse_search_pages = [];
     $google_cse_is_default = FALSE;
     $search_implementations = SearchPage::loadMultiple();
     foreach ($search_implementations as $search) {
       // Delete all Google CSE configurations (admin/config/search/pages).
       if ($search->getPlugin()->getPluginId() == 'google_cse_search') {
+        $google_cse_search_pages[] = $search->id();
         if ($search->isDefaultSearch()) {
           $google_cse_is_default = TRUE;
         }
@@ -36,15 +38,28 @@ class MigrateHelper {
     // Load all search form blocks.
     $search_form_blocks = \Drupal::service('entity_type.manager')
       ->getStorage('block')
-      ->loadByProperties(['plugin' => 'search_form_block']);
+      ->loadByProperties([
+        'plugin' => 'search_form_block',
+      ]);
     foreach ($search_form_blocks as $block) {
       $settings = $block->get('settings');
-      // Check for blocks that explicitly set the search to Google CSE
-      // or sites where the default search is Google CSE.
+
       if ($block->status() === FALSE) {
         $block->delete();
       }
-      if ($settings['provider'] === 'google_cse' || (is_null($settings['page_id']) && $google_cse_is_default)) {
+      $this_is_google_cse = FALSE;
+      // Check for blocks that explicitly set the search to Google CSE
+      // or sites where the default search is Google CSE.
+      if ($settings['provider'] === 'google_cse') {
+        $this_is_google_cse = TRUE;
+      }
+      if (is_null($settings['page_id']) && $google_cse_is_default) {
+        $this_is_google_cse = TRUE;
+      }
+      if (in_array($settings['page_id'], $google_cse_search_pages)) {
+        $this_is_google_cse = TRUE;
+      }
+      if ($this_is_google_cse) {
         $block_id = $block->id();
         $theme = $block->getTheme();
         $region = $block->getRegion();
