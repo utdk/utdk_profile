@@ -21,6 +21,11 @@ function utexas_install_tasks() {
       'type' => 'form',
       'function' => InstallationOptions::class,
     ],
+    'utexas_install_post_installation_modules' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
     'utexas_install_features' => [
       'display' => FALSE,
       'type' => 'batch',
@@ -32,11 +37,6 @@ function utexas_install_tasks() {
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
     'utexas_install_cleanup' => [
-      'display' => FALSE,
-      'type' => 'batch',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    ],
-    'utexas_install_post_installation_modules' => [
       'display' => FALSE,
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
