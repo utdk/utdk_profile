@@ -125,18 +125,6 @@ function utexas_install() {
     }
   }
 
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = [
-    [
-      'entity_type' => 'node',
-      'bundle' => 'page',
-    ],
-    [
-      'entity_type' => 'node',
-      'bundle' => 'utexas_flex_page',
-    ],
-  ];
-  $config->set('bundles', $bundles)->save();
 }
 
 /**
@@ -1518,18 +1506,5 @@ function utexas_update_11006() {
 function utexas_update_11007() {
   if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions') === FALSE) {
     \Drupal::service('module_installer')->install(['utexas_scheduled_transitions']);
-
-    $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-    $bundles = [
-      [
-        'entity_type' => 'node',
-        'bundle' => 'page',
-      ],
-      [
-        'entity_type' => 'node',
-        'bundle' => 'utexas_flex_page',
-      ],
-    ];
-    $config->set('bundles', $bundles)->save();
   }
 }

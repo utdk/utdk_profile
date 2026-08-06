@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for UTexas Scheduled Transitions.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function utexas_scheduled_transitions_install() {
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = [
+    [
+      'entity_type' => 'node',
+      'bundle' => 'page',
+    ],
+    [
+      'entity_type' => 'node',
+      'bundle' => 'utexas_flex_page',
+    ],
+  ];
+  $config->set('bundles', $bundles)->save();
+}
