@@ -59,7 +59,7 @@ class Hooks {
    * Blocks submission for read-only forms.
    */
   public static function validateFailure(array &$form, FormStateInterface $form_state) {
-    $form_state->setErrorByName('', \Drupal::translation()->translate('The News add-on is read-only and may not be changed.'));
+    $form_state->setErrorByName('', \Drupal::translation()->translate('The News feature is read-only and may not be changed.'));
   }
 
   /**

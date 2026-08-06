@@ -1,6 +1,6 @@
 name: 'Content Type - Event'
 type: module
-description: 'Provides the base content type component for the Events add-on.'
+description: 'Provides the base content type component for the Event feature.'
 core_version_requirement: '^10 || ^11'
 dependencies:
   - 'addtocal_augment:addtocal_augment'
@@ -38,4 +38,4 @@ dependencies:
   - 'utexas_media_types:utexas_media_types'
   - 'utexas_text_format_flex_html:utexas_text_format_flex_html'
   - 'xmlsitemap:xmlsitemap'
-package: 'UT Drupal Kit Event Add-on'
+package: 'UT Drupal Kit Event Feature'

@@ -187,6 +187,14 @@ class Hooks {
   }
 
   /**
+   * Implements hook_preprocess_addtoany_standard().
+   */
+  #[Hook('preprocess_addtoany_standard')]
+  public function preprocessAddToAny(&$variables) {
+    $variables['link_title'] = strip_tags($variables['link_title']);
+  }
+
+  /**
    * Implements hook_preprocess_block().
    */
   #[Hook('preprocess_block')]
@@ -407,7 +415,7 @@ class Hooks {
   }
 
   /**
-   * Implements hook_template_preprocess_views_view_table().
+   * Implements hook_preprocess_views_view_table().
    */
   #[Hook('preprocess_views_view_table')]
   public function preprocessViewsViewTable(&$variables) {

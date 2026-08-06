@@ -21,7 +21,12 @@ function utexas_install_tasks() {
       'type' => 'form',
       'function' => InstallationOptions::class,
     ],
-    'utexas_install_addons' => [
+    'utexas_install_post_installation_modules' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
+    'utexas_install_features' => [
       'display' => FALSE,
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
@@ -36,11 +41,6 @@ function utexas_install_tasks() {
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
-    'utexas_install_post_installation_modules' => [
-      'display' => FALSE,
-      'type' => 'batch',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    ],
     'utexas_finish_installation' => [
       'display_name' => t('Installation complete'),
       'display' => TRUE,
@@ -51,9 +51,9 @@ function utexas_install_tasks() {
 }
 
 /**
- * Batch installation of add-on modules selected during installation.
+ * Batch install News/Event/Profile modules selected during installation.
  */
-function utexas_install_addons(&$install_state) {
+function utexas_install_features(&$install_state) {
   $state = \Drupal::state();
   if ($state->get('utexas_installation_options.install_news', FALSE)) {
     // We allow non-dependency injection calls.
@@ -145,8 +145,7 @@ function utexas_install_cleanup(&$install_state) {
   \Drupal::configFactory()
     ->getEditable('system.date')
     ->set('timezone.default', 'America/Chicago')
-    ->set('country.default', 'US')
-    ->save(TRUE);
+    ->set('country.default', 'US')->save();
 }
 
 /**

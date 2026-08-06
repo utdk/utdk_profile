@@ -1,6 +1,6 @@
 name: Vocabulary - Groups
 description: Provides the 'Groups' vocabulary component for the 'Profile' module.
-package: UT Drupal Kit Profile Add-on
+package: UT Drupal Kit Profile Feature
 type: module
 core_version_requirement: ^10 || ^11
 dependencies:

@@ -3,43 +3,44 @@
 namespace Drupal\utexas_instagram_api\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\Attribute\ConfigEntityType;
 use Drupal\Core\Entity\EntityStorageInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\utexas_instagram_api\InstagramAuthInterface;
 use Drupal\utexas_instagram_api\UTexasInstagramApi;
 
 /**
  * Defines the UTexas Instagram API ig_auth entity.
- *
- * @ConfigEntityType(
- *   id = "utexas_ig_auth",
- *   label = @Translation("Instagram account authorization"),
- *   handlers = {
- *     "list_builder" = "Drupal\utexas_instagram_api\Controller\InstagramAuthListBuilder",
- *     "form" = {
- *       "add" = "Drupal\utexas_instagram_api\Form\InstagramAuthForm",
- *       "edit" = "Drupal\utexas_instagram_api\Form\InstagramAuthForm",
- *       "delete" = "Drupal\utexas_instagram_api\Form\InstagramAuthDeleteForm",
- *     }
- *   },
- *   config_prefix = "ig_auth",
- *   admin_permission = "administer site configuration",
- *   entity_keys = {
- *     "id" = "id",
- *     "label" = "label",
- *   },
- *   config_export = {
- *     "id",
- *     "label",
- *     "client_id",
- *     "client_secret",
- *     "redirect_uri_override"
- *   },
- *   links = {
- *     "edit-form" = "/admin/config/media/utexas-instagram-api/instagram-authorization/{utexas_ig_auth}",
- *     "delete-form" = "/admin/config/media/utexas-instagram-api/instagram-authorization/{utexas_ig_auth}/delete",
- *   }
- * )
  */
+#[ConfigEntityType(
+  id: 'utexas_ig_auth',
+  label: new TranslatableMarkup('Instagram account authorization'),
+  handlers: [
+    'list_builder' => 'Drupal\utexas_instagram_api\Controller\InstagramAuthListBuilder',
+    'form' => [
+      'add' => 'Drupal\utexas_instagram_api\Form\InstagramAuthForm',
+      'edit' => 'Drupal\utexas_instagram_api\Form\InstagramAuthForm',
+      'delete' => 'Drupal\utexas_instagram_api\Form\InstagramAuthDeleteForm',
+    ],
+  ],
+  config_prefix: 'ig_auth',
+  admin_permission: 'administer site configuration',
+  entity_keys: [
+    'id' => 'id',
+    'label' => 'label',
+  ],
+  config_export: [
+    'id',
+    'label',
+    'client_id',
+    'client_secret',
+    'redirect_uri_override',
+  ],
+  links: [
+    'edit-form' => '/admin/config/media/utexas-instagram-api/instagram-authorization/{utexas_ig_auth}',
+    'delete-form' => '/admin/config/media/utexas-instagram-api/instagram-authorization/{utexas_ig_auth}/delete',
+  ]
+)]
 class InstagramAuth extends ConfigEntityBase implements InstagramAuthInterface {
 
   /**

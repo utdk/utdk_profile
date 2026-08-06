@@ -2,9 +2,9 @@
 
 namespace Drupal\utexas;
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Symfony\Component\Yaml\Yaml;
@@ -78,8 +78,7 @@ class InstallationHelper {
     }
     \Drupal::configFactory()
       ->getEditable('metatag.metatag_defaults.global')
-      ->set('tags', $tags)
-      ->save(TRUE);
+      ->set('tags', $tags)->save();
   }
 
   /**
@@ -381,7 +380,7 @@ class InstallationHelper {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }

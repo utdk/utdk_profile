@@ -1,5 +1,5 @@
 utevent.configuration:
-  title: 'Event add-on'
+  title: 'Event feature'
   description: 'Configure the "Event" content type and supporting components.'
   route_name: utevent.configuration
   parent: system.admin_config_content

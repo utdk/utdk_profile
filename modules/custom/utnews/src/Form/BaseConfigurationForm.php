@@ -78,7 +78,7 @@ class BaseConfigurationForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['intro']['#markup'] = $this->t('<h3>Introduction</h3><p>The News add-on provides the ability to create timely content. News articles can be attributed to authors and assigned top-level categories as well as tagged. Full documentation can be found at <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/news.aspx">https://utexas.sharepoint.com/sites/UTDK/SitePages/news.aspx</a>.</p><p>Permissions associated with this add-on can be assigned to site roles via the <a href="/admin/config/content/utnews/permissions">Permissions configuration</a> tab.');
+    $form['intro']['#markup'] = $this->t('<h3>Introduction</h3><p>The News feature provides the ability to create timely content. News articles can be attributed to authors and assigned top-level categories as well as tagged. Full documentation can be found at <a href="https://utexas.sharepoint.com/sites/UTDK/SitePages/news.aspx">https://utexas.sharepoint.com/sites/UTDK/SitePages/news.aspx</a>.</p><p>Permissions associated with this feature can be assigned to site roles via the <a href="/admin/config/content/utnews/permissions">Permissions configuration</a> tab.');
 
     return parent::buildForm($form, $form_state);
   }
