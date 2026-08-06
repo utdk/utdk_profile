@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function utnews_update_dependencies() {
+  // Stipulate order of update hooks.
+  $dependencies['utnews'][8103] = [
+    'utexas' => 11007,
+  ];
+  return $dependencies;
+}
+
+/**
  * Implements hook_install().
  */
 function utnews_install() {

@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_update_dependencies().
+ */
+function utevent_update_dependencies() {
+  // Stipulate order of update hooks.
+  $dependencies['utevent'][8104] = [
+    'utexas' => 11007,
+  ];
+  return $dependencies;
+}
+
+/**
  * Implements hook_install().
  */
 function utevent_install() {
