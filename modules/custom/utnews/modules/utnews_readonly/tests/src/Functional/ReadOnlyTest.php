@@ -3,14 +3,14 @@
 namespace Drupal\Tests\utnews_readonly\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
  * Verifies add-on specific Field UI pages are read-only.
- *
- * @group utexas
  */
 #[RunTestsInSeparateProcesses]
+#[Group('utexas')]
 class ReadOnlyTest extends BrowserTestBase {
 
   /**
@@ -140,7 +140,7 @@ class ReadOnlyTest extends BrowserTestBase {
   private function isAccessible($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextNotContains('The News add-on is read-only');
+    $this->assertSession()->pageTextNotContains('The News feature is read-only');
   }
 
   /**
@@ -152,7 +152,7 @@ class ReadOnlyTest extends BrowserTestBase {
   private function isNotAccessible($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(403);
-    $this->assertSession()->pageTextContains('The News add-on is read-only');
+    $this->assertSession()->pageTextContains('The News feature is read-only');
   }
 
   /**
@@ -164,7 +164,7 @@ class ReadOnlyTest extends BrowserTestBase {
   private function isReadOnly($path) {
     $this->drupalGet($path);
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('The News add-on is read-only');
+    $this->assertSession()->pageTextContains('The News feature is read-only');
   }
 
 }

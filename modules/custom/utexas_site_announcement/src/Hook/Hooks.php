@@ -38,7 +38,7 @@ class Hooks {
   }
 
   /**
-   * Implements hook_preprocess_HOOK().
+   * Implements template_preprocess_site_announcement().
    */
   #[Hook('preprocess_site_announcement')]
   public function preprocessSiteAnnouncement(array &$variables): void {

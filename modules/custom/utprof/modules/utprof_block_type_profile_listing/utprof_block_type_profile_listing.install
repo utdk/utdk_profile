@@ -109,6 +109,6 @@ function utprof_block_type_profile_listing_update_8106() {
   $config = \Drupal::configFactory()->getEditable('field.field.block_content.utprof_profile_listing.field_utprof_view_mode');
   if ($config->get('default_value_callback') === 'utprof_block_type_profile_listing_view_mode_default_value') {
     $config->set('default_value_callback', 'Drupal\utprof_block_type_profile_listing\Hook\Hooks::viewModeDefaultValue');
-    $config->save(TRUE);
+    $config->save();
   }
 }

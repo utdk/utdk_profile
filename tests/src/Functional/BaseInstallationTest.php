@@ -9,6 +9,7 @@ use Drupal\Tests\utexas\Traits\EntityTestTrait;
 use Drupal\Tests\utexas\Traits\InstallTestTrait;
 use Drupal\Tests\utexas\Traits\UserTestTrait;
 use Drupal\filter\Entity\FilterFormat;
+use Drupal\filter\FilterFormatRepositoryInterface;
 use Drupal\node\Entity\Node;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -242,7 +243,7 @@ class BaseInstallationTest extends BrowserTestBase {
     $full_html = FilterFormat::load('full_html');
     $this->assertFalse($full_html->access('use', $testContentEditorUser), 'A Content Editor does not have access to the Full HTML format.');
     // Verify that 'Flex HTML' is at the top of the filter_formats list.
-    $formats = array_keys(filter_formats());
+    $formats = array_keys(\Drupal::service(FilterFormatRepositoryInterface::class)->getAllFormats());
     $this->assertTrue($formats[0] == 'flex_html', 'Flex HTML is at the top of the filter_formats list.');
     // Make sure a Content Editor doesn't have access to Field UI.
     $this->drupalGet('admin/structure/types/manage/utexas_flex_page/fields');

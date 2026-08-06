@@ -13,7 +13,7 @@ use Drupal\views\ViewExecutable;
 class Hooks {
 
   /**
-   * Implements template_preprocess_views_view_field().
+   * Implements hook_preprocess_views_view_field().
    */
   #[Hook('preprocess_views_view_fields')]
   public function preprocessViewsViewFields(&$variables) {

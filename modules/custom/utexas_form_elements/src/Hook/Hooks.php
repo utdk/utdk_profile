@@ -266,7 +266,7 @@ class Hooks {
   }
 
   /**
-   * Implements template_preprocess_menu().
+   * Implements hook_preprocess_menu().
    */
   #[Hook('preprocess_menu')]
   public function preprocessMenu(&$variables) {

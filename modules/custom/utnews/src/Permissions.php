@@ -10,7 +10,7 @@ use Drupal\user\Entity\Role;
 class Permissions {
 
   /**
-   * Permissions associated with add-on management.
+   * Permissions associated with feature management.
    *
    * @var array
    */

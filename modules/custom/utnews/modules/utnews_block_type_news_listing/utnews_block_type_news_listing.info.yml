@@ -15,4 +15,4 @@ dependencies:
   - 'utnews:utnews_content_type_news'
   - 'utnews_vocabulary_categories:utnews_vocabulary_categories'
   - 'utnews_vocabulary_tags:utnews_vocabulary_tags'
-package: 'UT Drupal Kit News Add-on'
+package: 'UT Drupal Kit News Feature'

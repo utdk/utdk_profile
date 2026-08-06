@@ -5,11 +5,13 @@ namespace Drupal\Tests\utexas_qualtrics_filter\Unit;
 use Drupal\Tests\UnitTestCase;
 use Drupal\filter\Plugin\Filter\FilterHtml;
 use Drupal\utexas_qualtrics_filter\Plugin\Filter\FilterQualtrics;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @coversDefaultClass \Drupal\utexas_qualtrics_filter\Plugin\Filter\FilterQualtrics
- * @group filter
  */
+#[Group('filter')]
 class FilterQualtricsTest extends UnitTestCase {
 
   /**
@@ -49,13 +51,13 @@ class FilterQualtricsTest extends UnitTestCase {
   /**
    * @covers ::utexas_qualtrics_filter
    *
-   * @dataProvider providerFilterAttributes
    *
    * @param string $html
    *   Input HTML.
    * @param string $expected
    *   The expected output string.
    */
+  #[DataProvider('providerFilterAttributes')]
   public function testfilterAttributes($html, $expected) {
     $html_filter = $this->filter->filterAttributes($html);
     $result = $this->filterQualtrics->convertToIframe($html_filter);
@@ -69,7 +71,7 @@ class FilterQualtricsTest extends UnitTestCase {
    * @return array
    *   An array of test data.
    */
-  public function providerFilterAttributes() {
+  public static function providerFilterAttributes() {
     return [
       [
         '[embed]https://utexas.qualtrics.com/jfe/form/SV_5v9vZ8R3joHCOgt | height:400 | title:hola[/embed]',

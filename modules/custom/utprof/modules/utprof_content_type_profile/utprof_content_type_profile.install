@@ -44,29 +44,6 @@ function utprof_content_type_profile_update_dependencies() {
 }
 
 /**
- * Implements hook_requirements().
- */
-function utprof_content_type_profile_requirements($phase) {
-  $requirements = [];
-  if ($phase === 'install') {
-    $active_profile = \Drupal::installProfile();
-    $profile_information = \Drupal::service('extension.list.profile')->getExtensionInfo($active_profile);
-    $has_alpha = strpos($profile_information['version'], '3.0.0-alpha');
-    $early_beta = in_array($profile_information['version'], [
-      '3.0.0-beta.1',
-      '3.0.0-beta.2',
-      '3.0.0-beta.3',
-      '3.0.0-beta.4',
-    ]);
-    if ($early_beta or $has_alpha !== FALSE) {
-      $requirements['install_profile']['severity'] = REQUIREMENT_ERROR;
-      $requirements['install_profile']['description'] = t('The UT Drupal Kit Profile add-on could not be installed because it requires the UT Drupal Kit version 3.0.0-beta.5 or higher.');
-    }
-  }
-  return $requirements;
-}
-
-/**
  * Check if a pathauto pattern has a condition for `utprof_profile`.
  */
 function _utprof_no_existing_pathauto_pattern() {
@@ -115,7 +92,7 @@ function _utprof_add_metatags() {
   $config = 'metatag.metatag_defaults.node__utprof_profile';
   $config_path = $module_path . '/config/default/' . $config . '.yml';
   $data = Yaml::parse(file_get_contents($config_path));
-  \Drupal::configFactory()->getEditable($config)->setData($data)->save(TRUE);
+  \Drupal::configFactory()->getEditable($config)->setData($data)->save();
 }
 
 /**
