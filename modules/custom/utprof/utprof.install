@@ -6,17 +6,6 @@
  */
 
 /**
- * Implements hook_update_dependencies().
- */
-function utprof_update_dependencies() {
-  // Stipulate order of update hooks.
-  $dependencies['utprof'][8103] = [
-    'utexas' => 11007,
-  ];
-  return $dependencies;
-}
-
-/**
  * Implements hook_install().
  */
 function utprof_install() {
@@ -59,19 +48,5 @@ function utprof_update_8102() {
   // Enable this feature's dynamic overrides module.
   if (\Drupal::moduleHandler()->moduleExists('utprof_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_overrides']);
-  }
-}
-
-/**
- * Add configuration for scheduled transitions. (#3222)
- */
-function utprof_update_8103() {
-  // Add configuration for scheduled transitions.
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = $config->get('bundles') ?? [];
-  $profile_bundle = ['entity_type' => 'node', 'bundle' => 'utprof_profile'];
-  if (!in_array($profile_bundle, $bundles)) {
-    $bundles[] = $profile_bundle;
-    $config->set('bundles', $bundles)->save();
   }
 }

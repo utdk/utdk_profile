@@ -6,17 +6,6 @@
  */
 
 /**
- * Implements hook_update_dependencies().
- */
-function utevent_update_dependencies() {
-  // Stipulate order of update hooks.
-  $dependencies['utevent'][8104] = [
-    'utexas' => 11007,
-  ];
-  return $dependencies;
-}
-
-/**
  * Implements hook_install().
  */
 function utevent_install() {
@@ -67,19 +56,5 @@ function utevent_update_8102() {
 function utevent_update_8103() {
   if (\Drupal::moduleHandler()->moduleExists('datetime_range') === FALSE) {
     \Drupal::service('module_installer')->install(['datetime_range']);
-  }
-}
-
-/**
- * Add configuration for scheduled transitions. (Issue #3222).
- */
-function utevent_update_8104() {
-  // Add configuration for scheduled transitions.
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = $config->get('bundles') ?? [];
-  $event_bundle = ['entity_type' => 'node', 'bundle' => 'utevent_event'];
-  if (!in_array($event_bundle, $bundles)) {
-    $bundles[] = $event_bundle;
-    $config->set('bundles', $bundles)->save();
   }
 }
