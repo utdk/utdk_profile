@@ -12,6 +12,16 @@ use Drupal\utnews\Permissions;
  */
 function utnews_modules_installed($modules, $is_syncing) {
 
+  // Add configuration for scheduled transitions.
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $news_bundle = ['entity_type' => 'node', 'bundle' => 'utnews_news'];
+  if (!in_array($news_bundle, $bundles)) {
+    $bundles[] = $news_bundle;
+    $config->set('bundles', $bundles)->save();
+  }
+
+  // Add scheduling permissions to all roles that can create News content.
   $roles = Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
   /** @var Drupal\user\Entity\Role $role */
   foreach ($roles as $role_id => $role) {

@@ -12,6 +12,16 @@ use Drupal\utevent\Permissions;
  */
 function utevent_modules_installed($modules, $is_syncing) {
 
+  // Add configuration for scheduled transitions.
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $event_bundle = ['entity_type' => 'node', 'bundle' => 'utevent_event'];
+  if (!in_array($event_bundle, $bundles)) {
+    $bundles[] = $event_bundle;
+    $config->set('bundles', $bundles)->save();
+  }
+
+  // Assign permissions to roles that can create events.
   $roles = Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
   /** @var Drupal\user\Entity\Role $role */
   foreach ($roles as $role_id => $role) {
