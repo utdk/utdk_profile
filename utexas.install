@@ -1498,48 +1498,9 @@ function utexas_update_11006() {
 }
 
 /**
- * Remove legacy search permissions if primary search is Google CSE (#3289).
- */
-function utexas_update_11007() {
-  if (\Drupal::moduleHandler()->moduleExists('search') !== FALSE) {
-    $search_implementations = SearchPage::loadMultiple();
-    foreach ($search_implementations as $search) {
-      if ($search->getPlugin()->getPluginId() === 'google_cse_search') {
-        // If Google CSE was the default site search...
-        if ($search->isDefaultSearch() === TRUE) {
-          // Delete search settings.
-          $config = \Drupal::service('config.factory')->getEditable('search.settings');
-          $config->delete();
-
-          // Remove legacy search permissions.
-          foreach (Role::loadMultiple() as $role) {
-            if ($role->hasPermission('search content')) {
-              $role->revokePermission('search content');
-              $role->save();
-            }
-            if ($role->hasPermission('search Google CSE')) {
-              $role->revokePermission('search Google CSE');
-              $role->save();
-            }
-            if ($role->hasPermission('administer search')) {
-              $role->revokePermission('administer search');
-              $role->save();
-            }
-            if ($role->hasPermission('use advanced search')) {
-              $role->revokePermission('use advanced search');
-              $role->save();
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-/**
  * Install UTexas Google Search existing sites (#3289).
  */
-function utexas_update_11008() {
+function utexas_update_11007() {
   $module_to_install = 'utexas_google_search';
   if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
     \Drupal::service('module_installer')->install([$module_to_install]);
@@ -1547,19 +1508,40 @@ function utexas_update_11008() {
 }
 
 /**
- * Uninstall Google CSE (#3289).
+ * Remove legacy search elements if no search pages remain (#3289).
  */
-function utexas_update_11009() {
+function utexas_update_11008() {
+  if (\Drupal::moduleHandler()->moduleExists('search') !== FALSE) {
+    return;
+  }
+  $search_implementations = SearchPage::loadMultiple();
+  if (empty($search_implementations)) {
+    $config = \Drupal::service('config.factory')->getEditable('search.settings');
+    $config->delete();
+    // Remove legacy search permissions.
+    foreach (Role::loadMultiple() as $role) {
+      if ($role->hasPermission('search content')) {
+        $role->revokePermission('search content');
+        $role->save();
+      }
+      if ($role->hasPermission('search Google CSE')) {
+        $role->revokePermission('search Google CSE');
+        $role->save();
+      }
+      if ($role->hasPermission('administer search')) {
+        $role->revokePermission('administer search');
+        $role->save();
+      }
+      if ($role->hasPermission('use advanced search')) {
+        $role->revokePermission('use advanced search');
+        $role->save();
+      }
+    }
+  }
   $module = 'google_cse';
   if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
   }
-}
-
-/**
- * Uninstall Search module (#3289).
- */
-function utexas_update_11010() {
   $module = 'search';
   if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
