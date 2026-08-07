@@ -1,13 +1,5 @@
-/* Style search form. */
-.ut-search-form {
-  display: inline-block;
-  &:focus-visible {
-    outline: none;
-  }
-  button.trigger.focusable {
-    display: none;
-  }
-  form {
+div[role=search] {
+  form.ut-search-form {
     display: inline-block;
     position: relative;
     .form-type-search {

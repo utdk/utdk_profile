@@ -16,15 +16,15 @@ class Hooks {
    */
   #[Hook('form_alter')]
   public function formAlter(&$form, FormStateInterface $form_state, $form_id) {
-    $exceptions = [
+    $search_forms = [
       'utexas_search_form',
       'search_block_form',
     ];
-    if (!in_array($form_id, $exceptions)) {
+    if (!in_array($form_id, $search_forms)) {
       $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
       $form['actions']['reset']['#attributes']['class'][] = 'ut-btn--secondary';
     }
-    if ($form_id === 'search_block_form') {
+    if (in_array($form_id, $search_forms)) {
       $form['#attributes']['class'][] = 'ut-search-form';
     }
   }

@@ -120,7 +120,7 @@ class UtexasGoogleSearch extends BlockBase implements ContainerFactoryPluginInte
       // This conditional handles search configurations that were deleted.
       return [];
     }
-    $build['#attributes']['class'][] = 'ut-search-form';
+    $build['#attributes']['role'][] = 'search';
     $build['form'] = $this->formBuilder->getForm(UtexasGoogleSearchForm::class);
     return $build;
   }
