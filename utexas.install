@@ -1498,3 +1498,11 @@ function utexas_update_11005() {
 function utexas_update_11006() {
   \Drupal::service('entity_usage.batch_manager')->recreate();
 }
+
+/**
+ * Explicitly mark existing sites' installation processes complete (#3301).
+ */
+function utexas_update_11007() {
+  $state_api = \Drupal::state();
+  $state_api->set('install_task', 'done');
+}
