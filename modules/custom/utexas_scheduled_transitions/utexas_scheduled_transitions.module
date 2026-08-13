@@ -12,9 +12,6 @@ use Drupal\Core\Form\FormStateInterface;
  */
 function utexas_scheduled_transitions_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // The form_id for scheduled transitions forms includes the entity type.
-  // Examples:
-  //   - Add form: scheduled_transition_add_form, node_page_scheduled_transitions_add_form, etc.
-  //   - Reschedule form: scheduled_transition_reschedule_form, etc.
   // This pattern matching catches both add and reschedule variants.
   if (strpos($form_id, 'scheduled_transition') !== FALSE &&
       (strpos($form_id, 'add') !== FALSE || strpos($form_id, 'reschedule') !== FALSE)) {
@@ -53,7 +50,6 @@ function utexas_scheduled_transitions_form_alter(&$form, FormStateInterface $for
 function _utexas_scheduled_transitions_validate_time(&$form, FormStateInterface $form_state) {
   // Get the transition date/time. The form may use a split date/time field.
   // Try the combined field first, then fall back to separate date/time fields.
-
   $transition_on = $form_state->getValue(['scheduled_transitions', 'new_meta', 'transition_on']);
 
   // If transition_on is not a DateTime, try the split date/time format.

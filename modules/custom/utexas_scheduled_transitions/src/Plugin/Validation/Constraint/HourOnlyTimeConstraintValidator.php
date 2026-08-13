@@ -19,8 +19,8 @@ class HourOnlyTimeConstraintValidator extends ConstraintValidator {
     }
 
     if ($value instanceof \DateTime) {
-      $minutes = (int)$value->format('i');
-      $seconds = (int)$value->format('s');
+      $minutes = (int) $value->format('i');
+      $seconds = (int) $value->format('s');
 
       if ($minutes !== 0 || $seconds !== 0) {
         $this->context->addViolation($constraint->message);
