@@ -1505,7 +1505,6 @@ function utexas_update_11007() {
   $state_api->set('install_task', 'done');
 }
 
-
 /**
  * Install UTexas Google Search existing sites (#3289).
  */
