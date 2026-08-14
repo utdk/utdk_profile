@@ -1498,9 +1498,18 @@ function utexas_update_11006() {
 }
 
 /**
- * Install UTexas Google Search existing sites (#3289).
+ * Explicitly mark existing sites' installation processes complete (#3301).
  */
 function utexas_update_11007() {
+  $state_api = \Drupal::state();
+  $state_api->set('install_task', 'done');
+}
+
+
+/**
+ * Install UTexas Google Search existing sites (#3289).
+ */
+function utexas_update_11008() {
   $module_to_install = 'utexas_google_search';
   if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
     \Drupal::service('module_installer')->install([$module_to_install]);
@@ -1510,7 +1519,7 @@ function utexas_update_11007() {
 /**
  * Remove legacy search elements if no search pages remain (#3289).
  */
-function utexas_update_11008() {
+function utexas_update_11009() {
   if (\Drupal::moduleHandler()->moduleExists('search') !== FALSE) {
     return;
   }
@@ -1546,4 +1555,5 @@ function utexas_update_11008() {
   if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
   }
+
 }

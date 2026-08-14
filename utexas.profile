@@ -5,7 +5,6 @@
  * Enables modules and site configuration for a standard UTDK installation.
  */
 
-use Drupal\utexas\Form\InstallationComplete;
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\InstallationHelper;
 use Drupal\utexas\Permissions;
@@ -21,6 +20,11 @@ function utexas_install_tasks() {
       'type' => 'form',
       'function' => InstallationOptions::class,
     ],
+    'utexas_install_post_installation_modules' => [
+      'display' => FALSE,
+      'type' => 'batch',
+      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
+    ],
     'utexas_install_features' => [
       'display' => FALSE,
       'type' => 'batch',
@@ -35,17 +39,6 @@ function utexas_install_tasks() {
       'display' => FALSE,
       'type' => 'batch',
       'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    ],
-    'utexas_install_post_installation_modules' => [
-      'display' => FALSE,
-      'type' => 'batch',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
-    ],
-    'utexas_finish_installation' => [
-      'display_name' => t('Installation complete'),
-      'display' => TRUE,
-      'type' => 'form',
-      'function' => InstallationComplete::class,
     ],
   ];
 }
@@ -142,6 +135,11 @@ function utexas_install_cleanup(&$install_state) {
     ->getEditable('system.date')
     ->set('timezone.default', 'America/Chicago')
     ->set('country.default', 'US')->save();
+  // Reset installation options to ensure they cannot re-run.
+  \Drupal::state()->delete('utexas_installation_options.default_content');
+  \Drupal::state()->delete('utexas_installation_options.install_profile');
+  \Drupal::state()->delete('utexas_installation_options.install_event');
+  \Drupal::state()->delete('utexas_installation_options.install_news');
 }
 
 /**
