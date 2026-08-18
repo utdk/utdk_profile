@@ -20,13 +20,11 @@ function utevent_install() {
     \Drupal::service('module_installer')->install(['utevent_overrides']);
   }
 
-  // Add configuration for scheduled transitions.
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = $config->get('bundles') ?? [];
-  $event_bundle = ['entity_type' => 'node', 'bundle' => 'utevent_event'];
-  if (!in_array($event_bundle, $bundles)) {
-    $bundles[] = $event_bundle;
-    $config->set('bundles', $bundles)->save();
+  // If utexas_scheduled_transitions was already installed before utevent,
+  // utevent_modules_installed() never saw it in its install batch, so
+  // configure it here instead.
+  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
+    utevent_configure_scheduled_transitions();
   }
 }
 

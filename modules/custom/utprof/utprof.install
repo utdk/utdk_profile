@@ -21,13 +21,11 @@ function utprof_install() {
     \Drupal::service('module_installer')->install(['utprof_overrides']);
   }
 
-  // Add configuration for scheduled transitions.
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = $config->get('bundles') ?? [];
-  $profile_bundle = ['entity_type' => 'node', 'bundle' => 'utprof_profile'];
-  if (!in_array($profile_bundle, $bundles)) {
-    $bundles[] = $profile_bundle;
-    $config->set('bundles', $bundles)->save();
+  // If utexas_scheduled_transitions was already installed before utprof,
+  // utprof_modules_installed() never saw it in its install batch, so
+  // configure it here instead.
+  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
+    utprof_configure_scheduled_transitions();
   }
 }
 

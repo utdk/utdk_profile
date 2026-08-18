@@ -12,27 +12,34 @@ use Drupal\utprof\Permissions;
  */
 function utprof_modules_installed($modules, $is_syncing) {
   if (in_array('utexas_scheduled_transitions', $modules)) {
-    // Add configuration for scheduled transitions.
-    $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-    $bundles = $config->get('bundles') ?? [];
-    $profile_bundle = ['entity_type' => 'node', 'bundle' => 'utprof_profile'];
-    if (!in_array($profile_bundle, $bundles)) {
-      $bundles[] = $profile_bundle;
-      $config->set('bundles', $bundles)->save();
-    }
+    utprof_configure_scheduled_transitions();
+  }
+}
 
-    // Add permissions for scheduled transitions.
-    $roles = Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
-    /** @var Drupal\user\Entity\Role $role */
-    foreach ($roles as $role_id => $role) {
-      $role_permissions = $role->getPermissions();
-      foreach ($role_permissions as $permission) {
-        if ($permission == 'create utprof_profile content') {
-          Permissions::assignPermissions('editor', $role_id);
-          Drupal::messenger()->addMessage(t('Profile scheduling permissions set for %role role.', [
-            '%role' => $role->label(),
-          ]));
-        }
+/**
+ * Helper function registers utprof_profile bundle with Scheduled Transitions.
+ */
+function utprof_configure_scheduled_transitions() {
+  // Add configuration for scheduled transitions.
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $profile_bundle = ['entity_type' => 'node', 'bundle' => 'utprof_profile'];
+  if (!in_array($profile_bundle, $bundles)) {
+    $bundles[] = $profile_bundle;
+    $config->set('bundles', $bundles)->save();
+  }
+
+  // Add permissions for scheduled transitions.
+  $roles = Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+  /** @var Drupal\user\Entity\Role $role */
+  foreach ($roles as $role_id => $role) {
+    $role_permissions = $role->getPermissions();
+    foreach ($role_permissions as $permission) {
+      if ($permission == 'create utprof_profile content') {
+        Permissions::assignPermissions('editor', $role_id);
+        Drupal::messenger()->addMessage(t('Profile scheduling permissions set for %role role.', [
+          '%role' => $role->label(),
+        ]));
       }
     }
   }

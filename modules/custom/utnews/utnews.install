@@ -20,13 +20,11 @@ function utnews_install() {
     \Drupal::service('module_installer')->install(['utnews_overrides']);
   }
 
-  // Add configuration for scheduled transitions.
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = $config->get('bundles') ?? [];
-  $news_bundle = ['entity_type' => 'node', 'bundle' => 'utnews_news'];
-  if (!in_array($news_bundle, $bundles)) {
-    $bundles[] = $news_bundle;
-    $config->set('bundles', $bundles)->save();
+  // If utexas_scheduled_transitions was already installed before utnews,
+  // utnews_modules_installed() never saw it in its install batch, so
+  // configure it here instead.
+  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
+    utnews_configure_scheduled_transitions();
   }
 }
 
