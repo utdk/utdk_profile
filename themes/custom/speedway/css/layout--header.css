@@ -62,6 +62,7 @@
 
   .utexas-menu-wrapper {
     align-items: stretch;
+    z-index: 4;
   }
 
   .navbar {
