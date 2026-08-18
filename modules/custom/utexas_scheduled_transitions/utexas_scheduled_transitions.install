@@ -5,20 +5,16 @@
  * Contains install and update functions for UTexas Scheduled Transitions.
  */
 
+use Drupal\node\Entity\NodeType;
+
 /**
  * Implements hook_install().
  */
 function utexas_scheduled_transitions_install() {
-  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-  $bundles = [
-    [
-      'entity_type' => 'node',
-      'bundle' => 'page',
-    ],
-    [
-      'entity_type' => 'node',
-      'bundle' => 'utexas_flex_page',
-    ],
-  ];
-  $config->set('bundles', $bundles)->save();
+  // Register every existing node bundle: the UT Drupal Kit defaults, plus
+  // any site-specific content types already in place. Bundles managed by
+  // their own modules are skipped inside the helper.
+  foreach (array_keys(NodeType::loadMultiple()) as $bundle) {
+    utexas_scheduled_transitions_register_bundle($bundle);
+  }
 }

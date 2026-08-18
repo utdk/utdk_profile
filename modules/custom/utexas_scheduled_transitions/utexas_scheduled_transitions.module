@@ -2,10 +2,70 @@
 
 /**
  * @file
- * Restrict scheduled transitions to top-of-hour times.
+ * Functions for the installation and UI of scheduled transitions.
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeTypeInterface;
+use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
+
+/**
+ * Registers a node bundle with Scheduled Transitions and grants access.
+ */
+function utexas_scheduled_transitions_register_bundle($bundle) {
+  // Skip the featured add-ons. Their install hooks are handled separately.
+  $excluded_bundles = ['utevent_event', 'utnews_news', 'utprof_profile'];
+  if (in_array($bundle, $excluded_bundles)) {
+    return;
+  }
+
+  $entity_type = 'node';
+
+  $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+  $bundles = $config->get('bundles') ?? [];
+  $entry = ['entity_type' => $entity_type, 'bundle' => $bundle];
+  if (!in_array($entry, $bundles)) {
+    $bundles[] = $entry;
+    $config->set('bundles', $bundles)->save();
+  }
+
+  // Generate the new permissions dynamically.
+  $permissions = [
+    ScheduledTransitionsPermissions::viewScheduledTransitionsPermission($entity_type, $bundle),
+    ScheduledTransitionsPermissions::addScheduledTransitionsPermission($entity_type, $bundle),
+    ScheduledTransitionsPermissions::rescheduleScheduledTransitionsPermission($entity_type, $bundle),
+  ];
+  $available_permissions = \Drupal::service('user.permissions')->getPermissions();
+
+  $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+  /** @var \Drupal\user\Entity\Role $role */
+  foreach ($roles as $role) {
+    if (!$role->hasPermission("create $bundle content")) {
+      continue;
+    }
+    $granted = FALSE;
+    foreach ($permissions as $permission) {
+      if (isset($available_permissions[$permission]) && !$role->hasPermission($permission)) {
+        $role->grantPermission($permission);
+        $granted = TRUE;
+      }
+    }
+    if ($granted) {
+      $role->save();
+      \Drupal::messenger()->addMessage(t('Scheduled transitions permissions set for %role role on %bundle content.', [
+        '%role' => $role->label(),
+        '%bundle' => $bundle,
+      ]));
+    }
+  }
+}
+
+/**
+ * Implements hook_node_type_insert().
+ */
+function utexas_scheduled_transitions_node_type_insert(NodeTypeInterface $type) {
+  utexas_scheduled_transitions_register_bundle($type->id());
+}
 
 /**
  * Implements hook_form_alter().
