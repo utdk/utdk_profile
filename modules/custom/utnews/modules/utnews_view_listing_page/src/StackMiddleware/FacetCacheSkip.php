@@ -9,7 +9,6 @@ use Drupal\Core\PageCache\ResponsePolicyInterface;
 use Drupal\page_cache\StackMiddleware\PageCache;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
@@ -25,13 +24,6 @@ class FacetCacheSkip extends PageCache {
   protected ?EventDispatcherInterface $eventDispatcher;
 
   /**
-   * The defined query parameters.
-   *
-   * @var array
-   */
-  protected $definedQueryParameters = ['f'];
-
-  /**
    * {@inheritdoc}
    */
   public function __construct(HttpKernelInterface $http_kernel, CacheBackendInterface $cache, RequestPolicyInterface $request_policy, ResponsePolicyInterface $response_policy, ?EventDispatcherInterface $event_dispatcher = NULL) {
@@ -43,6 +35,9 @@ class FacetCacheSkip extends PageCache {
    * {@inheritdoc}
    */
   protected function getCacheId(Request $request) {
+    // This is the method we are modifying. It sends the request URI to our
+    // helper method, $this->clear(), which strips the 'f' query parameter
+    // and returns the "clean" result for the purposes of the Drupal page cache.
     if (!isset($this->cid)) {
       $cleared = $this->clear($request->getRequestUri());
       $cid_parts = [
@@ -55,29 +50,7 @@ class FacetCacheSkip extends PageCache {
   }
 
   /**
-   * {@inheritdoc}
-   */
-  protected function get(Request $request, $allow_invalid = FALSE) {
-    $coreCid = parent::getCacheId($request);
-    // The cid is cached once computed, so it has to be reset to recompute.
-    $this->cid = NULL;
-    $customCid = $this->getCacheId($request);
-    if ($customCid === $coreCid) {
-      // If cids are the same, we can hand over control right away.
-      return parent::get($request);
-    }
-    return parent::get($request);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function set(Request $request, Response $response, $expire, array $tags) {
-    parent::set($request, $response, $expire, $tags);
-  }
-
-  /**
-   * Clear query string.
+   * The actual business logic. Strip out 'f' query parameters for /news.
    *
    * @param string $value
    *   The value to cleanup.
@@ -97,8 +70,8 @@ class FacetCacheSkip extends PageCache {
     if (!empty($request_parts['path'])) {
       $request_uri .= $request_parts['path'];
     }
-    // Remove the query arguments that are excluded.
-    $request_query = UrlHelper::filterQueryParameters($request_parts['query'], $this->definedQueryParameters);
+    // Explicitly remove any 'f' query arguments.
+    $request_query = UrlHelper::filterQueryParameters($request_parts['query'], ['f']);
     if (!empty($request_query)) {
       // Sort the query parameters to minimize cache variants.
       ksort($request_query);
