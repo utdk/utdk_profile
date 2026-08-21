@@ -13,7 +13,3 @@ services:
     tags:
       - {name: config.factory.override, priority: 5}
 
-  utnews_view_listing_page.subscriber:
-    class: Drupal\utnews_view_listing_page\EventSubscriber\RemoveQueryParams
-    tags:
-      - { name: event_subscriber }

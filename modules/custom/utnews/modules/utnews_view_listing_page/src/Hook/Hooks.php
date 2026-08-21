@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\utnews_view_listing_page\Form\ListingPageConfig;
+use Drupal\views\ViewExecutable;
 
 /**
  * Hook implementations.
@@ -60,6 +61,97 @@ class Hooks {
         'id' => 'utnews_listing_search_api',
       ],
     ];
+  }
+
+  /**
+   * Implements hook_views_pre_build().
+   */
+  // #[Hook('views_pre_build')]
+  // public function preBuild(ViewExecutable $view) {
+  //   if ($view->id() === 'utnews_listing_page') {
+  //     /** @var \Symfony\Component\HttpFoundation\Request $request */
+  //     $request = $view->getRequest();
+  //     /** @var \Drupal\Core\Http\InputBag $query */
+  //     $query = $request->query;
+  //     if ($sort_by = $query->get('f')) {
+  //       $foo = 'bar';
+  //       // Compare to the list of allowed values to see if it's valid.
+  //       // If it's not, then remove the sort_by from the query completely.
+  //       // $view_sorts = $view->sort;
+  //       // if (!isset($view_sorts[$sort_by])) {
+  //       //   $query->remove('sort_by');
+  //       // }
+  //     }
+  //   }
+  // }
+
+
+
+  /**
+   * Implements hook_form_BASE_FORM_ID_alter() for views_exposed_form.
+   */
+  #[Hook('form_views_exposed_form_alter')]
+  public function formViewsExposedFormAlter(&$form, FormStateInterface $form_state, $form_id) {
+    $view = $form_state->getStorage()['view'];
+    if ($view->id() !== 'utnews_listing_page') {
+      return;
+    }
+    $terms_to_check = [
+      'author' => [
+        'vid' => 'utnews_authors',
+        'field' => 'utnews_article_author',
+      ],
+      'category' => [
+        'vid' => 'utnews_categories',
+        'field' => 'utnews_news_categories',
+      ],
+      'tags' => [
+        'vid' => 'utnews_tags',
+        'field' => 'utnews_news_tags',
+      ],
+    ];
+    $database = \Drupal::database();
+    foreach ($terms_to_check as $filter => $category) {
+      $remove = FALSE;
+      $terms = \Drupal::entityQuery('taxonomy_term')
+        ->condition('vid', $category['vid'])
+        ->accessCheck(TRUE)
+        ->execute();
+      if (empty($terms)) {
+        $remove = TRUE;
+      }
+      else {
+        $used_tids = $database->select('node__field_' . $category['field'], 'f')
+          ->fields('f', ['field_' . $category['field'] . '_target_id'])
+          ->condition('entity_id', array_values($terms), 'IN')
+          ->distinct()
+          ->execute()
+          ->fetchCol();
+        if (empty($used_tids)) {
+          $remove = TRUE;
+        }
+        else {
+          foreach (array_values($terms) as $key) {
+            if (!in_array($key, $used_tids)) {
+              unset($form[$filter]['#options'][$key]);
+            }
+          }
+        }
+      }
+      if ($remove) {
+        $form[$filter]['#access'] = FALSE;
+      }
+    }
+    // If all exposed filters are removed, removed the search action, too.
+    $remove_search = TRUE;
+    foreach (array_keys($terms_to_check) as $filter) {
+      if ($form[$filter]['#access'] !== FALSE) {
+        $remove_search = FALSE;
+      }
+    }
+    if ($remove_search) {
+      unset($form['actions']);
+    }
   }
 
 }

@@ -78,8 +78,8 @@ class ProfileContentTypeHelper {
           'image_link' => '',
         ],
       ]);
+      \Drupal::service('renderer')->addCacheableDependency($image_render_array, $media);
     }
-
     return $image_render_array ?? FALSE;
   }
 
