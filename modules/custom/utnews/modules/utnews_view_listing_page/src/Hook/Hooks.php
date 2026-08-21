@@ -64,30 +64,6 @@ class Hooks {
   }
 
   /**
-   * Implements hook_views_pre_build().
-   */
-  // #[Hook('views_pre_build')]
-  // public function preBuild(ViewExecutable $view) {
-  //   if ($view->id() === 'utnews_listing_page') {
-  //     /** @var \Symfony\Component\HttpFoundation\Request $request */
-  //     $request = $view->getRequest();
-  //     /** @var \Drupal\Core\Http\InputBag $query */
-  //     $query = $request->query;
-  //     if ($sort_by = $query->get('f')) {
-  //       $foo = 'bar';
-  //       // Compare to the list of allowed values to see if it's valid.
-  //       // If it's not, then remove the sort_by from the query completely.
-  //       // $view_sorts = $view->sort;
-  //       // if (!isset($view_sorts[$sort_by])) {
-  //       //   $query->remove('sort_by');
-  //       // }
-  //     }
-  //   }
-  // }
-
-
-
-  /**
    * Implements hook_form_BASE_FORM_ID_alter() for views_exposed_form.
    */
   #[Hook('form_views_exposed_form_alter')]
@@ -118,6 +94,7 @@ class Hooks {
         ->accessCheck(TRUE)
         ->execute();
       if (empty($terms)) {
+        // There are no taxonomy terms defined. Remove!
         $remove = TRUE;
       }
       else {
@@ -128,10 +105,12 @@ class Hooks {
           ->execute()
           ->fetchCol();
         if (empty($used_tids)) {
+          // There are taxonomy terms, but none are used. Remove!
           $remove = TRUE;
         }
         else {
           foreach (array_values($terms) as $key) {
+            // This taxonomy term is not used by any nodes. De-list it!
             if (!in_array($key, $used_tids)) {
               unset($form[$filter]['#options'][$key]);
             }
@@ -142,7 +121,7 @@ class Hooks {
         $form[$filter]['#access'] = FALSE;
       }
     }
-    // If all exposed filters are removed, removed the search action, too.
+    // If *all* exposed filters are removed, removed the search actions, too.
     $remove_search = TRUE;
     foreach (array_keys($terms_to_check) as $filter) {
       if ($form[$filter]['#access'] !== FALSE) {

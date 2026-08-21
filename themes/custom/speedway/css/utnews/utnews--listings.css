@@ -58,6 +58,7 @@
       border-radius: 4px;
       transition: background-color, color, border-color, 0.33s ease-out !important;
       width: auto;
+      max-width: 200px;
     }
     .form-type-select, .form-actions {
       display: inline-block;
