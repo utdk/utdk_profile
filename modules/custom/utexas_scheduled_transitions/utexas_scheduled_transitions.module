@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeTypeInterface;
+use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
 
 /**
@@ -27,6 +28,12 @@ function utexas_scheduled_transitions_register_bundle($bundle) {
   if (!in_array($entry, $bundles)) {
     $bundles[] = $entry;
     $config->set('bundles', $bundles)->save();
+    // ScheduledTransitionsUtility::getBundles() caches the enabled bundle
+    // list under this tag; the settings form invalidates it on save, but a
+    // direct config save (as done here) does not, so later dynamic
+    // permissions in this request would otherwise be computed from a stale
+    // cache and miss the bundle just added.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
   }
 
   // Generate the new permissions dynamically.

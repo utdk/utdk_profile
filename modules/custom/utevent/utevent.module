@@ -5,6 +5,7 @@
  * Provides the base content type component for the Events add-on.
  */
 
+use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\utevent\Permissions;
 
 /**
@@ -27,6 +28,12 @@ function utevent_configure_scheduled_transitions() {
   if (!in_array($event_bundle, $bundles)) {
     $bundles[] = $event_bundle;
     $config->set('bundles', $bundles)->save();
+    // ScheduledTransitionsUtility::getBundles() caches the enabled bundle
+    // list under this tag; the settings form invalidates it on save, but a
+    // direct config save (as done here) does not, so later dynamic
+    // permissions in this request would otherwise be computed from a stale
+    // cache and miss the bundle just added.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
   }
 
   // Assign permissions to roles that can create events.

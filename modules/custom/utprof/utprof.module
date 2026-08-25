@@ -5,6 +5,7 @@
  * Provides the base content type component for the Profiles add-on.
  */
 
+use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\utprof\Permissions;
 
 /**
@@ -27,6 +28,12 @@ function utprof_configure_scheduled_transitions() {
   if (!in_array($profile_bundle, $bundles)) {
     $bundles[] = $profile_bundle;
     $config->set('bundles', $bundles)->save();
+    // ScheduledTransitionsUtility::getBundles() caches the enabled bundle
+    // list under this tag; the settings form invalidates it on save, but a
+    // direct config save (as done here) does not, so later dynamic
+    // permissions in this request would otherwise be computed from a stale
+    // cache and miss the bundle just added.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
   }
 
   // Add permissions for scheduled transitions.
