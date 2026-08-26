@@ -324,13 +324,17 @@ This refers to syntax which tells Composer to install 'this version and version 
 
 In contrast, developers may use a [next significant release operator](https://github.austin.utexas.edu/eis1-wcs/utdk-project/wiki/Glossary-of-terms#next-significant-release-operator) to specify a range of applicable updates.
 
+#### Features
+
+Features such as utevent, utnews and utprof are included in the base installation as of July 2026. Other [add-ons](https://github.austin.utexas.edu/eis1-wcs/utdk-project/wiki/Glossary-of-terms#add-ons) for specific use cases remain separate for the utdk_profile kernel.
+
 #### Kernel of the UT Drupal Kit
 
 The "kernel" (or "distribution kernel") refers to the components that provides the base installation of the UT Drupal Kit and which provides functionality intrinsic to it. This consists of a Drupal installation profile, as well as a collection of custom modules, a number of contributed module dependencies, and scaffolding files.
 
 The kernel itself is bundled as a single Composer package, [utdk_profile](https://github.com/utdk/utdk_profile).
 
-In contrast, the starting theme, Forty Acres, and the [add-ons](https://github.austin.utexas.edu/eis1-wcs/utdk-project/wiki/Glossary-of-terms#add-ons) are not part of the kernel.
+As of July 2026, the starting theme, Speedway, and the utevent, utnews and utprof [features](https://github.austin.utexas.edu/eis1-wcs/utdk-project/wiki/Glossary-of-terms#features) are also included as part of the kernel.
 
 #### Next significant release operator
 
