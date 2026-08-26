@@ -87,7 +87,6 @@ assignments:
         contact_form: contact_form
         block_content_type: block_content_type
         rdf_mapping: rdf_mapping
-        search_page: search_page
         taxonomy_vocabulary: taxonomy_vocabulary
         editor: editor
         filter_format: filter_format

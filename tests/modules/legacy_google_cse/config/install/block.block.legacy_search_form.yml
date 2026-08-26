@@ -2,19 +2,19 @@ langcode: en
 status: true
 dependencies:
   module:
-    - utexas_google_search
+    - search
   theme:
     - speedway
-id: speedway_search_form
+id: legacy_search_form
 theme: speedway
 region: header_tertiary
 weight: 4
 provider: null
-plugin: utexas_google_search
+plugin: search_form_block
 settings:
-  id: utexas_google_search
+  id: legacy_search_form_block
   label: 'Search form'
   label_display: '0'
-  provider: utexas_google_search
+  provider: search
   page_id: null
 visibility: {  }
