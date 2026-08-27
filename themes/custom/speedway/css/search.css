@@ -1,13 +1,5 @@
-/* Style search form. */
-.ut-search-form {
-  display: inline-block;
-  &:focus-visible {
-    outline: none;
-  }
-  button.trigger.focusable {
-    display: none;
-  }
-  form {
+div[role="search"] {
+  form.ut-search-form {
     display: inline-block;
     position: relative;
     .form-type-search {
@@ -73,7 +65,9 @@
     }
   }
 }
-form.search-form {
+form.search-form,
+form.in-page-google-search {
+  display: block;
   position: relative;
   max-width: 830px;
 
@@ -81,6 +75,7 @@ form.search-form {
     display: block;
   }
 
+  [data-drupal-selector="edit-actions"],
   [data-drupal-selector="edit-basic"] {
 
     &::after {
@@ -144,6 +139,7 @@ form.search-form {
     background: transparent;
     color: transparent;
     border: none;
+    z-index: 2;
   }
 
   #edit-help-link {

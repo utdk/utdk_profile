@@ -21,6 +21,7 @@
       {{ media }}
     </div>
     {% endif %}
+    {% if heading or subheading or cta %}
     <div class="hero-callout">
       <div class="text-box">
         {% if heading %}
@@ -36,5 +37,6 @@
         </div>
       {% endif %}
     </div>
+    {% endif %}
   </div>
 </div>
