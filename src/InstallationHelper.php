@@ -390,11 +390,13 @@ class InstallationHelper {
    *
    * @param string $module
    *   The machine name of the module to check.
+   * @param string $check_configuration
+   *   Whether to check for configuration dependencies.
    *
    * @return bool
    *   Whether or not the module has an active dependency.
    */
-  public static function moduleHasNoActiveDependencies($module) {
+  public static function moduleHasNoActiveDependencies($module, $check_configuration = TRUE) {
     $messenger = \Drupal::messenger();
     $t = \Drupal::service('string_translation');
     if (!\Drupal::moduleHandler()->moduleExists($module)) {
@@ -405,12 +407,17 @@ class InstallationHelper {
       $messenger->addMessage($t->translate('@module has active module dependencies.', ['@module' => $module]));
       return FALSE;
     }
-    // Check all configuration for module dependency.
-    $config_manager = \Drupal::service('config.manager');
-    $dependents = $config_manager->findConfigEntityDependencies('module', [$module]);
-    if (!empty($dependents)) {
-      $messenger->addMessage($t->translate('@module has active configuration dependencies.', ['@module' => $module]));
-      return FALSE;
+    if ($check_configuration) {
+      // Check all configuration for module dependency.
+      $config_manager = \Drupal::service('config.manager');
+      $dependents = $config_manager->findConfigEntityDependencies('module', [$module]);
+      if (!empty($dependents)) {
+        $messenger->addMessage($t->translate('@module has active configuration dependencies: @dependents', [
+          '@module' => $module,
+          '@dependents' => serialize($dependents),
+        ]));
+        return FALSE;
+      }
     }
     $messenger->addMessage($t->translate('@module has no active dependencies and can be uninstalled.', ['@module' => $module]));
     return TRUE;
