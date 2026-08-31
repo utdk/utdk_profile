@@ -37,16 +37,14 @@
   .utevent-event-field__item--scheduled,
   &.utevent-event-field--status-scheduled {
     position: absolute !important;
-    clip: rect(1px, 1px, 1px, 1px);
     overflow: hidden;
     height: 1px;
     width: 1px;
-    word-wrap: normal;
+    overflow-wrap: normal;
   }
   .utevent-event-field__item--scheduled:active,
   .utevent-event-field__item--scheduled:focus {
     position: static !important;
-    clip: auto;
     overflow: visible;
     height: auto;
     width: auto;
