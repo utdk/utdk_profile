@@ -1519,7 +1519,7 @@ function utexas_update_11008() {
  * Remove legacy search elements if no search pages remain (#3289).
  */
 function utexas_update_11009() {
-  if (\Drupal::moduleHandler()->moduleExists('search') !== FALSE) {
+  if (!\Drupal::moduleHandler()->moduleExists('search')) {
     return;
   }
   $search_implementations = SearchPage::loadMultiple();
