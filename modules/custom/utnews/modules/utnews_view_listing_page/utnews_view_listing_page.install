@@ -5,9 +5,8 @@
  * UT News view listing page installation file.
  */
 
-use Drupal\block\Entity\Block;
-use Symfony\Component\Yaml\Yaml;
 use Drupal\utexas\InstallationHelper;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_install().

@@ -114,8 +114,8 @@ class Hooks {
     foreach ($filters_to_check as $filter => $category) {
       $vid = $category['vid'];
       if (empty($utnews_taxonomies[$vid]) || empty($published_news)) {
-        // There are zero taxonomy terms in this vocab, so we can skip the filter
-        // altogether without further processing.
+        // There are zero taxonomy terms in this vocab, so we can skip the
+        // filter altogether without further processing.
         $form[$filter]['#access'] = FALSE;
       }
       else {
