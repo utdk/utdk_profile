@@ -106,9 +106,12 @@ class Hooks {
     // Get a list of *published* News article nids.
     $published_news = $database->select('node_field_data', 'n')
       ->fields('n', ['nid'])
-      ->condition('status', '1')
-      ->condition('deleted', NULL, 'IS NULL')
-      ->condition('type', 'utnews_news')
+      ->condition('status', '1');
+    if (\Drupal::moduleHandler()->moduleExists('trash') === TRUE) {
+      // Only check for trash context if the module is enabled.
+      $published_news->condition('deleted', NULL, 'IS NULL');
+    }
+    $published_news->condition('type', 'utnews_news')
       ->execute()
       ->fetchCol(0);
     foreach ($filters_to_check as $filter => $category) {
