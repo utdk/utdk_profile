@@ -10,6 +10,7 @@ use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\media\Entity\Media;
+use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\utexas\Permissions as UtexasPermissions;
 use Drupal\utnews\Permissions as UtnewsPermissions;
@@ -174,11 +175,33 @@ class BasicUtnewsTest extends WebDriverTestBase {
     $text = "<p>Pellentesque tristique senectus <strong>et netus</strong> et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p><ul><li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li><li>Aliquam tincidunt mauris eu risus.</li><li>Vestibulum auctor dapibus neque.</li></ul>";
     $this->fillCkeditorField('.form-item--field-utnews-body-0-value', $text);
 
+    sleep(1);
+    // Add a demo tag, but not category or author.
+    $page->fillField('field_utnews_news_tags[target_id]', 'Demo Tag 1');
+    // Create the node.
+    $page->pressButton('Save');
+
+    // View as an anonymous user.
+    $this->drupalLogout();
+    $this->drupalGet('/news');
+    // The tags select dropdown displays.
+    $assert->elementTextEquals('css', 'select[name="tags"] option:nth-of-type(2)', 'Demo Tag 1');
+    // The 'Search' button exists.
+    $assert->elementExists('css', '[data-drupal-selector="edit-submit-utnews-listing-page"]');
+    // The 'Category' dropdown does not render because no categories are tagged.
+    $assert->elementNotExists('css', 'select[name="category"]');
+    // The 'Author' dropdown does not render because no authors are tagged.
+    $assert->elementNotExists('css', 'select[name="author"]');
+    $page->fillField('tags', '6');
+    $page->pressButton('edit-submit-utnews-listing-page');
+    // After a filter is submitted, the "Reset" button displays.
+    $assert->elementExists('css', '[data-drupal-selector="edit-reset"]');
+
+    $this->drupalLogin($this->user);
+    $this->drupalGet('/node/1/edit');
+    // Add news category and author.
     $page->checkField('field_utnews_news_categories[3]');
     $page->fillField('field_utnews_article_author', '4');
-    $page->fillField('field_utnews_news_tags[target_id]', 'Demo Tag 1');
-
-    // Create the node.
     $page->pressButton('Save');
 
     // View as an anonymous user.
@@ -217,12 +240,17 @@ class BasicUtnewsTest extends WebDriverTestBase {
     $assert->linkByHrefExists('https://news.utexas.edu', 0, 'The news title links to an external URL.');
     $assert->elementTextEquals('css', '.field--name-field-utnews-publication-date', 'July 31, 2023');
     $assert->elementTextEquals('css', '.field--name-field-utnews-body', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
-    $assert->pageTextContains('Filter by News Category');
-    $assert->pageTextContains('Press Releases (1)');
+    $assert->pageTextContains('Filter by Category');
     $assert->pageTextContains('Filter by Tag');
-    $assert->pageTextContains('Demo Tag 1 (1)');
     $assert->pageTextContains('Filter by Author');
-    $assert->pageTextContains('Demo Author 1 (1)');
+    // Demo Tag 1 is listed as a filter option since an article tags it.
+    $assert->elementTextEquals('css', 'select[name="tags"] option:nth-of-type(2)', 'Demo Tag 1');
+    // Demo Tag 2 is NOT listed, because no articles tag it.
+    $assert->elementNotExists('css', 'select[name="tags"] option:nth-of-type(3)');
+    // Category dropdown is present.
+    $assert->elementExists('css', 'select[name="category"]');
+    // Author dropdown is present.
+    $assert->elementExists('css', 'select[name="author"]');
 
     // Confirm that a News node can be deleted from the system via user
     // actions.
@@ -232,6 +260,45 @@ class BasicUtnewsTest extends WebDriverTestBase {
     $this->assertTrue($assert->waitForText('Are you sure you want to delete the content item Test News 1?'));
     $page->pressButton('Delete');
     $this->assertTrue($assert->waitForText('The News article Test News 1 has been deleted.'));
+
+    $this->drupalLogout();
+    $this->drupalGet('/news');
+    // Since no published articles are associated with author, tag, or category,
+    // no exposed filters display, without requiring a cache rebuild.
+    $assert->elementNotExists('css', 'select[name="category"]');
+    $assert->elementNotExists('css', 'select[name="author"]');
+    $assert->elementNotExists('css', 'select[name="tags"]');
+
+    // If there are more than 100 items in a dropdown, it is capped at 100.
+    $weight = 3;
+    $tids = [];
+    foreach (range(101, 300) as $number) {
+      $term = Term::create([
+        'name' => "Demo Tag $number",
+        'vid' => 'utnews_tags',
+        'weight' => $weight,
+      ]);
+      $term->save();
+      $tids[] = $term->id();
+      $weight++;
+    }
+    $node = Node::create(['type' => 'utnews_news']);
+    $node->set('title', 'A Very Silly News Node');
+    $node->set('uid', '1');
+    $node->set('field_utnews_news_tags', $tids);
+    $body = [
+      'value' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+      'summary' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'format' => 'flex_html',
+    ];
+    $node->set('field_utnews_body', $body);
+    $node->status = 1;
+    $node->enforceIsNew();
+    $node->save();
+
+    $this->drupalGet('/news');
+    $assert->elementExists('css', 'select[name="tags"] option:nth-of-type(100)');
+    $assert->elementNotExists('css', 'select[name="tags"] option:nth-of-type(101)');
   }
 
   /**

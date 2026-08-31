@@ -55,14 +55,17 @@ class NewsContentTypeHelper {
     }
     $tid = $node->get($author_field)->getString();
     $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
-    $url = Url::fromUri('internal:/news?f[0]=author:' . $term->id());
-    $title = $term->getName();
-    $authoring_information = [
-      'name' => Link::fromTextAndUrl($title, $url),
-      'description' => ['#markup' => $term->getDescription()],
-      'image' => self::prepareAuthorImage($term),
-    ];
-    return $authoring_information;
+    if ($term) {
+      $url = Url::fromUri('internal:/news?author=' . $term->id());
+      $title = $term->getName();
+      $authoring_information = [
+        'name' => Link::fromTextAndUrl($title, $url),
+        'description' => ['#markup' => $term->getDescription()],
+        'image' => self::prepareAuthorImage($term),
+      ];
+      return $authoring_information;
+    }
+    return [];
   }
 
   /**
@@ -87,7 +90,7 @@ class NewsContentTypeHelper {
     $values = $node->get($field)->getValue();
     foreach ($values as $value) {
       if ($term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($value['target_id'])) {
-        $url = Url::fromUri('internal:/news?f[0]=' . $facet . ':' . $term->id());
+        $url = Url::fromUri('internal:/news?' . $facet . '=' . $term->id());
         $title = $term->getName();
         $output[] = Link::fromTextAndUrl($title, $url);
       }

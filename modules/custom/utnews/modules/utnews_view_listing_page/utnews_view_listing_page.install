@@ -7,19 +7,12 @@
 
 use Drupal\block\Entity\Block;
 use Symfony\Component\Yaml\Yaml;
+use Drupal\utexas\InstallationHelper;
 
 /**
  * Implements hook_install().
  */
 function utnews_view_listing_page_install() {
-  _utnews_view_listing_page_add_facetblocks();
-  _utnews_view_listing_page_add_configuration();
-}
-
-/**
- * Helper function to create default configuration.
- */
-function _utnews_view_listing_page_add_configuration() {
   // Import default configuration that can subsequently be managed by sites.
   // For SaaS-type sites to inherit changes to this configuration, an update
   // hook needs to be added that will programmatically load the configuration
@@ -30,58 +23,6 @@ function _utnews_view_listing_page_add_configuration() {
   $config_path = $module_path . '/config/default/' . $config . '.yml';
   $data = Yaml::parse(file_get_contents($config_path));
   \Drupal::configFactory()->getEditable($config)->setData($data)->save();
-}
-
-/**
- * Helper function. Programmatically place facet block instances in layout.
- */
-function _utnews_view_listing_page_add_facetblocks() {
-  $facet_blocks = [
-    'categories' => 'Filter by News Category',
-    'tags' => 'Filter by Tag',
-    'author' => 'Filter by Author',
-  ];
-  $theme = \Drupal::config('system.theme')->get('default');
-  $blockEntityManager = \Drupal::entityTypeManager()->getStorage('block');
-  $inc = 0;
-  foreach ($facet_blocks as $key => $label) {
-    if (Block::load('utnews_' . $key)) {
-      // Do not populate facet block if it already exists.
-      continue;
-    }
-    $block = $blockEntityManager->create([
-      'id' => 'utnews_' . $key,
-      'settings' => [
-        'label' => $label,
-        'label_display' => 'visible',
-      ],
-      'weight' => $inc,
-      'plugin' => 'facet_block:' . $key,
-    ]);
-    $block->set('theme', $theme);
-    $block->setVisibilityConfig('request_path', ['pages' => '/news']);
-    // If the current theme does not have this region, no harm will be caused.
-    $block->setRegion('sidebar_first');
-    $block->enable();
-    $block->save();
-    $inc++;
-  }
-  if (!Block::load('utnews_facets_summary_block')) {
-    $block = $blockEntityManager->create([
-      'id' => 'utnews_facets_summary_block',
-      'settings' => [
-        'label' => 'News listing page facet summary',
-        'label_display' => 0,
-      ],
-      'weight' => -100,
-      'plugin' => 'facets_summary_block:utnews',
-    ]);
-    $block->set('theme', $theme);
-    $block->setVisibilityConfig('request_path', ['pages' => '/news']);
-    $block->setRegion('content');
-    $block->enable();
-    $block->save();
-  }
 }
 
 /**
@@ -107,8 +48,6 @@ function utnews_view_listing_page_update_8102() {
   \Drupal::service('features.manager')->import([
     'utnews_view_listing_page',
   ], TRUE);
-  // Place facets in block layout.
-  _utnews_view_listing_page_add_facetblocks();
 }
 
 /**
@@ -153,4 +92,40 @@ function utnews_view_listing_page_update_8106() {
   \Drupal::service('features.manager')->import([
     'utnews_view_listing_page',
   ], TRUE);
+}
+
+/**
+ * Replace existing facet-based News view with new exposed filter News view.
+ */
+function utnews_view_listing_page_update_8107() {
+  // If the View `utnews_listing_page` exists in config, delete and recreate.
+  $view_config = 'views.view.utnews_listing_page';
+  $view = \Drupal::configFactory()->getEditable($view_config);
+  if (!empty($view)) {
+    $view->delete();
+    $module_handler = \Drupal::service('module_handler');
+    $module_path = $module_handler->getModule('utnews_view_listing_page')->getPath();
+    $config_path = $module_path . '/config/install/' . $view_config . '.yml';
+    $data = Yaml::parse(file_get_contents($config_path));
+    \Drupal::configFactory()->getEditable($view_config)->setData($data)->save();
+  }
+}
+
+/**
+ * If after #8107, no dependencies require facets or search_api, uninstall.
+ */
+function utnews_view_listing_page_update_8108() {
+  // These need to be checked in this specific order!
+  $modules_to_safely_uninstall = [
+    'facets_summary',
+    'facets',
+    'search_api_db',
+    'search_api',
+  ];
+  foreach ($modules_to_safely_uninstall as $module) {
+    if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+      \Drupal::service('module_installer')->uninstall([$module], FALSE);
+    }
+  }
+
 }
