@@ -118,7 +118,7 @@ function utnews_view_listing_page_update_8107() {
       'utnews_author',
     ];
     foreach ($blocks_to_delete as $block_id) {
-      Block::load($block_id);
+      $block = Block::load($block_id);
       if (!empty($block)) {
         $logger->notice($t->translate('Deleting @config...', ['@config' => $block_id]));
         $block->delete();
@@ -127,7 +127,7 @@ function utnews_view_listing_page_update_8107() {
 
     // Deleting associated facet configuration.
     $facet_configuration_to_delete = [
-      'authors',
+      'author',
       'categories',
       'tags',
     ];
