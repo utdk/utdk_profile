@@ -175,7 +175,7 @@ function utnews_view_listing_page_update_8108() {
     'search_api',
   ];
   foreach ($modules_to_safely_uninstall as $module) {
-    if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+    if (InstallationHelper::moduleHasNoActiveDependencies($module, TRUE)) {
       $logger = \Drupal::logger('utnews_view_listing');
       $t = \Drupal::service('string_translation');
       $logger->notice($t->translate('Uninstalling @module...', ['@module' => $module]));
