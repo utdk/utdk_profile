@@ -5,6 +5,8 @@
  * UT News view listing page installation file.
  */
 
+use Drupal\block\Entity\Block;
+use Drupal\facets\Entity\Facet;
 use Drupal\utexas\InstallationHelper;
 use Symfony\Component\Yaml\Yaml;
 
@@ -97,15 +99,66 @@ function utnews_view_listing_page_update_8106() {
  * Replace existing facet-based News view with new exposed filter News view.
  */
 function utnews_view_listing_page_update_8107() {
+  // De-register page_cache_ignore_query service.
+  drupal_flush_all_caches();
+  $logger = \Drupal::logger('utnews_view_listing');
+  $t = \Drupal::service('string_translation');
   // If the View `utnews_listing_page` exists in config, delete and recreate.
   $view_config = 'views.view.utnews_listing_page';
   $view = \Drupal::configFactory()->getEditable($view_config);
   if (!empty($view)) {
+    $logger->notice($t->translate('Deleting facet-based News listing page...'));
     $view->delete();
+
+    // Deleting associated facet blocks.
+    $blocks_to_delete = [
+      'utnews_facets_summary_block',
+      'utnews_categories',
+      'utnews_tags',
+      'utnews_author',
+    ];
+    foreach ($blocks_to_delete as $block_id) {
+      Block::load($block_id);
+      if (!empty($block)) {
+        $logger->notice($t->translate('Deleting @config...', ['@config' => $block_id]));
+        $block->delete();
+      }
+    }
+
+    // Deleting associated facet configuration.
+    $facet_configuration_to_delete = [
+      'authors',
+      'categories',
+      'tags',
+    ];
+    foreach ($facet_configuration_to_delete as $facet_id) {
+      $facet = Facet::load($facet_id);
+      if (!empty($facet)) {
+        $logger->notice($t->translate('Deleting @config...', ['@config' => $facet_id]));
+        $facet->delete();
+      }
+    }
+    $facet_summary = \Drupal::configFactory()->getEditable('facets_summary.facets_summary.utnews');
+    if (!empty($facet_summary)) {
+      $logger->notice($t->translate('Deleting @config...', ['@config' => 'facets_summary.facets_summary.utnews']));
+      $facet_summary->delete();
+    }
+    // Deleting associated search_api configuration.
+    $search_index = \Drupal::configFactory()->getEditable('search_api.index.utnews');
+    if (!empty($search_index)) {
+      $logger->notice($t->translate('Deleting @config...', ['@config' => 'search_api.index.utnews']));
+      $search_index->delete();
+    }
+    $search_server = \Drupal::configFactory()->getEditable('search_api.server.utnews');
+    if (!empty($search_server)) {
+      $logger->notice($t->translate('Deleting @config...', ['@config' => 'search_api.server.utnews']));
+      $search_server->delete();
+    }
     $module_handler = \Drupal::service('module_handler');
     $module_path = $module_handler->getModule('utnews_view_listing_page')->getPath();
     $config_path = $module_path . '/config/install/' . $view_config . '.yml';
     $data = Yaml::parse(file_get_contents($config_path));
+    $logger->notice($t->translate('Installing exposed-filter-based News listing page...'));
     \Drupal::configFactory()->getEditable($view_config)->setData($data)->save();
   }
 }
@@ -123,6 +176,9 @@ function utnews_view_listing_page_update_8108() {
   ];
   foreach ($modules_to_safely_uninstall as $module) {
     if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+      $logger = \Drupal::logger('utnews_view_listing');
+      $t = \Drupal::service('string_translation');
+      $logger->notice($t->translate('Uninstalling @module...', ['@module' => $module]));
       \Drupal::service('module_installer')->uninstall([$module], FALSE);
     }
   }
