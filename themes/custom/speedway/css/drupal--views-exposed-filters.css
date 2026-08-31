@@ -17,6 +17,7 @@
       background-color: var(--ut-white);
       color: var(--ut-charcoal);
       margin: 0.25em 0;
+      width: 200px;
     }
 
     select,

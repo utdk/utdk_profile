@@ -184,17 +184,19 @@ class BasicUtnewsTest extends WebDriverTestBase {
     // View as an anonymous user.
     $this->drupalLogout();
     $this->drupalGet('/news');
-    // The tags select dropdown displays.
+    // The Tags select dropdown displays because an item has been tagged.
     $assert->elementTextEquals('css', 'select[name="tags"] option:nth-of-type(2)', 'Demo Tag 1');
-    // The 'Search' button exists.
-    $assert->elementExists('css', '[data-drupal-selector="edit-submit-utnews-listing-page"]');
     // The 'Category' dropdown does not render because no categories are tagged.
     $assert->elementNotExists('css', 'select[name="category"]');
     // The 'Author' dropdown does not render because no authors are tagged.
     $assert->elementNotExists('css', 'select[name="author"]');
+    // The listing view displays "Search" button when at least one dropdown is
+    // present, but the "Reset" button is omitted.
+    $assert->elementExists('css', '[data-drupal-selector="edit-submit-utnews-listing-page"]');
+    $assert->elementNotExists('css', '[data-drupal-selector="edit-reset"]');
     $page->fillField('tags', '6');
     $page->pressButton('edit-submit-utnews-listing-page');
-    // After a filter is submitted, the "Reset" button displays.
+    // After a filter is performed, the "Reset" button is available.
     $assert->elementExists('css', '[data-drupal-selector="edit-reset"]');
 
     $this->drupalLogin($this->user);
@@ -220,6 +222,9 @@ class BasicUtnewsTest extends WebDriverTestBase {
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.field--name-field-utexas-media-image'), 'The news node should display an image.');
     $assert->elementTextEquals('css', '.utnews__author-information-wrapper h3', 'Demo Author 1');
     $this->assertNotEmpty($assert->waitForElementVisible('css', '.utnews__author-information-wrapper .field--name-field-utexas-media-image'));
+    // Sidebar links on individual news articles go to the filter result.
+    $this->clickLink('Demo Tag 1');
+    $assert->addressEquals('/news?tags=6');
 
     // Set the news article to an external link and save the node.
     $this->drupalLogin($this->user);
