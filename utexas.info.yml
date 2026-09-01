@@ -47,7 +47,6 @@ install:
   - drupal:google_tag
   - drupal:iframe_title_filter
   - drupal:layout_builder_iframe_modal
-  - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
   - drupal:menu_trail_by_path
   - drupal:media_file_delete

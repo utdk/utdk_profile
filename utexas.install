@@ -1556,3 +1556,13 @@ function utexas_update_11009() {
   }
 
 }
+
+/**
+ * Uninstall Layout Builder Restrictions (#3268).
+ */
+function utexas_update_11010() {
+  $module = 'layout_builder_restrictions';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+}
