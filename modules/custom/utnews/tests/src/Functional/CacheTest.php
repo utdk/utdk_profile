@@ -7,7 +7,7 @@ namespace Drupal\Tests\utnews\Functional;
 use Drupal\Tests\BrowserTestBase;
 
 /**
- * Base class for Functional tests.
+ * Functional test for query parameter caching.
  */
 class CacheTest extends BrowserTestBase {
 
