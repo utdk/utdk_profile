@@ -61,9 +61,10 @@ class CacheTest extends BrowserTestBase {
 
     // A legacy query facets query parameters return cache HIT, using the
     // normalized cache ID of the base request.
-    $this->drupalGet('/news', ['query' => [
-      'f' => ['0' => 'author:8'],
-    ],
+    $this->drupalGet('/news', [
+      'query' => [
+        'f' => ['0' => 'author:8'],
+      ],
     ]);
     $assert->responseHeaderEquals('X-Drupal-Cache', 'HIT');
 
