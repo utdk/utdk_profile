@@ -13,7 +13,7 @@ dependencies:
     - taxonomy
     - user
 id: utnews_listing_page
-label: 'News'
+label: 'News Listing Page'
 module: views
 description: ''
 tag: ''

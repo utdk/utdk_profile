@@ -2,10 +2,13 @@
 
 namespace Drupal\utnews_view_listing_page\Hook;
 
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\utnews_view_listing_page\Form\ListingPageConfig;
+use Drupal\views\Plugin\views\row\EntityRow;
+use Drupal\views\ViewExecutable;
 
 /**
  * Hook implementations.
@@ -24,42 +27,46 @@ class Hooks {
   }
 
   /**
-   * Implements hook_preprocess_HOOK().
+   * Implements hook_views_pre_execute().
    */
-  #[Hook('preprocess_page__news')]
-  public function preprocessPageNews(&$variables) {
-    // Styling variables.
-    $variables['attributes']['class'][] = 'utexas-field-border';
-    $variables['attributes']['class'][] = 'utexas-field-background';
-    $variables['page']['sidebar_first_width'] = 'col-md-4';
-  }
-
-  /**
-   * Implements hook_plugin_filter_TYPE__CONSUMER_alter().
-   */
-  #[Hook('plugin_filter_block__layout_builder_alter')]
-  public function pluginFilterBlockLayoutBuilderAlter(array &$definitions) {
-    // News facets are not designed to be placed with Layout Builder.
-    // Suppress them from that context.
-    unset($definitions['facet_block:author']);
-    unset($definitions['facet_block:categories']);
-    unset($definitions['facet_block:tags']);
-    unset($definitions['facets_summary_block:utnews']);
-  }
-
-  /**
-   * Implements hook_views_data_alter().
-   */
-  #[Hook('views_data_alter')]
-  public function viewsDataAlter(array &$data) {
-    $data['search_api_index_utnews']['utnews_listing_search_api'] = [
-      'title' => $this->t('News Listing dynamic view mode'),
-      'field' => [
-        'title' => $this->t('News Listing (Search API)'),
-        'help' => $this->t('Render news article with configurable settings for summary, image, and date'),
-        'id' => 'utnews_listing_search_api',
-      ],
-    ];
+  #[Hook('views_pre_execute')]
+  public function viewsPreBuild(ViewExecutable $view) {
+    if ($view->id() === 'utnews_listing_page') {
+      // Add cache invalidation if the New Listing Page Config changes.
+      $cache_metadata = CacheableMetadata::createFromRenderArray($view->element);
+      $cache_metadata->addCacheTags(['config:utnews_view_listing_page.config']);
+      $cache_metadata->applyTo($view->element);
+      if ($view->rowPlugin instanceof EntityRow) {
+        $date = 1;
+        $summary = 1;
+        $image = 1;
+        // Get date, summary, & thumbnail displays from block fields.
+        $config = \Drupal::config('utnews_view_listing_page.config');
+        if ((int) $config->get('display_date') === 0) {
+          $date = 0;
+        }
+        if ((int) $config->get('display_summary') === 0) {
+          $summary = 0;
+        }
+        if ((int) $config->get('display_thumbnail') === 0) {
+          $image = 0;
+        }
+        $matrix = (string) $date . (string) $summary . (string) $image;
+        // 000 = no date, summary, or image (i.e., title only).
+        // 111 = date, summary, and image, etc.
+        $view_mode_map = [
+          '000' => 'teaser',
+          '001' => 'utnews_image',
+          '010' => 'utnews_summary',
+          '100' => 'utnews_date',
+          '011' => 'utnews_summary_image',
+          '110' => 'utnews_summary_date',
+          '101' => 'utnews_date_image',
+          '111' => 'utnews_summary_image_date',
+        ];
+        $view->rowPlugin->options['view_mode'] = $view_mode_map[$matrix];
+      }
+    }
   }
 
   /**

@@ -82,18 +82,15 @@ class NewsListingHelper {
     $user_defined_filters = self::generateFilters($block_content);
     $view = Views::getView('utnews_listing_block');
     if (is_object($view)) {
-      // Get date, summary, & thumbnail displays from block fields.
-      if ($block_content->hasField('field_utnews_display_summaries')) {
-        $display = $block_content->get('field_utnews_display_summaries')->getValue()[0]['value'];
-        $summary = $display;
+      $config = \Drupal::config('utnews_view_listing_page.config');
+      if ((int) $config->get('display_date') === 0) {
+        $date = 0;
       }
-      if ($block_content->hasField('field_utnews_display_dates')) {
-        $display = $block_content->get('field_utnews_display_dates')->getValue()[0]['value'];
-        $date = $display;
+      if ((int) $config->get('display_summary') === 0) {
+        $summary = 0;
       }
-      if ($block_content->hasField('field_utnews_display_thumbnails')) {
-        $display = $block_content->get('field_utnews_display_thumbnails')->getValue()[0]['value'];
-        $image = $display;
+      if ((int) $config->get('display_thumbnail') === 0) {
+        $image = 0;
       }
       $matrix = (string) $date . (string) $summary . (string) $image;
       // 000 = no date, summary, or image (i.e., title only).

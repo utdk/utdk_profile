@@ -76,4 +76,3 @@ hidden:
   field_utnews_news_categories: true
   field_utnews_news_tags: true
   links: true
-  search_api_excerpt: true

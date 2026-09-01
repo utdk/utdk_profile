@@ -75,22 +75,22 @@ class NewsContentTypeHelper {
    *   The node object.
    * @param string $field
    *   The field that provides the taxonomy term reference.
-   * @param string $facet
-   *   Facet identifier associated with this reference (defined as the url_alias
-   *   in admin/config/search/facets/).
+   * @param string $vocab
+   *   Vocabulary identifier associated with this reference.
    *
    * @return array
    *   A simple array of matching taxonomy terms.
    */
-  public static function prepareNewsTaxonomy(Node $node, $field, $facet) {
+  public static function prepareNewsTaxonomy(Node $node, $field, $vocab) {
     $output = [];
     if (!$node->hasField($field) || $node->get($field)->isEmpty()) {
       return $output;
     }
     $values = $node->get($field)->getValue();
     foreach ($values as $value) {
+      /** @var \Drupal\taxonomy\Entity\term */
       if ($term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($value['target_id'])) {
-        $url = Url::fromUri('internal:/news?' . $facet . '=' . $term->id());
+        $url = Url::fromUri('internal:/news?' . $vocab . '=' . $term->id());
         $title = $term->getName();
         $output[] = Link::fromTextAndUrl($title, $url);
       }
