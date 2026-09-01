@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\utnews\Functional;
 
-use Drupal\Core\PageCache\RequestPolicyInterface;
 use Drupal\Tests\BrowserTestBase;
-use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Base class for Functional tests.
@@ -45,18 +43,7 @@ class CacheTest extends BrowserTestBase {
   protected function setUp(): void {
     $this->strictConfigSchema = NULL;
     parent::setUp();
-
-    // We need to disable a test-only Mink step that normally bypasses
-    // Middleware. See
-    // $this->container->get('page_cache_request_policy')
-    //   ->addPolicy(new class implements RequestPolicyInterface {
-    //     public function check(Request $request) {
-    //       // Forcefully return ALLOW to override CommandLineOrUnsafeMethod
-    //       return RequestPolicyInterface::ALLOW;
-    //     }
-    //   });
   }
-
 
   /**
    * Legacy facet-style query parameters are cache-normalized.
@@ -76,7 +63,7 @@ class CacheTest extends BrowserTestBase {
     // normalized cache ID of the base request.
     $this->drupalGet('/news', ['query' => [
       'f' => ['0' => 'author:8'],
-      ],
+    ],
     ]);
     $assert->responseHeaderEquals('X-Drupal-Cache', 'HIT');
 
