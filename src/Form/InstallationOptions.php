@@ -90,7 +90,9 @@ class InstallationOptions extends FormBase {
     ];
     $form['install_scheduled_transitions'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable Scheduled Transitions feature'),
+      '#title' => $this->t('Enable <a href=":url" target="_blank">Scheduled Transitions feature<span class="ut-cta-link--external"></span></a>', [
+        ':url' => 'https://utexas.sharepoint.com/sites/UTDK/SitePages/scheduled-transitions.aspx',
+      ]),
       '#default_value' => 0,
       '#weight' => 4,
     ];
@@ -128,6 +130,9 @@ class InstallationOptions extends FormBase {
     }
     if ($values['install_profile']) {
       $this->stateFactory->set('utexas_installation_options.install_profile', TRUE);
+    }
+    if ($values['install_scheduled_transitions']) {
+      $this->stateFactory->set('utexas_installation_options.install_scheduled_transitions', TRUE);
     }
   }
 
