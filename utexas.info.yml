@@ -23,7 +23,6 @@ dependencies:
   - drupal:node
   - drupal:options
   - drupal:path
-  - drupal:search
   - drupal:taxonomy
   - drupal:toolbar
   - drupal:views
@@ -46,10 +45,8 @@ install:
   - drupal:features
   - drupal:feed_block
   - drupal:google_tag
-  - drupal:google_cse
   - drupal:iframe_title_filter
   - drupal:layout_builder_iframe_modal
-  - drupal:layout_builder_restrictions
   - drupal:layout_builder_styles
   - drupal:menu_trail_by_path
   - drupal:media_file_delete
@@ -79,6 +76,7 @@ install:
   - utexas_featured_highlight
   - utexas_flex_content_area
   - utexas_flex_list
+  - utexas_google_search
   - utexas_hero
   - utexas_hero_carousel
   - utexas_image_link

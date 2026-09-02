@@ -17,7 +17,6 @@ dependencies:
   - 'drupal:menu_ui'
   - 'drupal:node'
   - 'drupal:path'
-  - 'drupal:search'
   - 'drupal:system'
   - 'drupal:taxonomy'
   - 'drupal:text'

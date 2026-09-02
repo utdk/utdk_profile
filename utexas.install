@@ -11,6 +11,8 @@ use Drupal\block\Entity\Block;
 use Drupal\editor\Entity\Editor;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\search\Entity\SearchPage;
+use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\utexas\InstallationHelper;
@@ -73,8 +75,6 @@ function utexas_install() {
   // Add permissions to anonymous role.
   $anon_perms = [
     'access content',
-    'search Google CSE',
-    'search content',
     'use text format restricted_html',
     'view media',
   ];
@@ -82,8 +82,6 @@ function utexas_install() {
   // Add permissions to authenticated role.
   $auth_perms = [
     'access content',
-    'search Google CSE',
-    'search content',
     'view media',
   ];
   user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, $auth_perms);
@@ -1506,4 +1504,66 @@ function utexas_update_11006() {
 function utexas_update_11007() {
   $state_api = \Drupal::state();
   $state_api->set('install_task', 'done');
+}
+
+/**
+ * Install UTexas Google Search existing sites (#3289).
+ */
+function utexas_update_11008() {
+  $module_to_install = 'utexas_google_search';
+  if (\Drupal::moduleHandler()->moduleExists($module_to_install) === FALSE) {
+    \Drupal::service('module_installer')->install([$module_to_install]);
+  }
+}
+
+/**
+ * Remove legacy search elements if no search pages remain (#3289).
+ */
+function utexas_update_11009() {
+  if (!\Drupal::moduleHandler()->moduleExists('search')) {
+    return;
+  }
+  $search_implementations = SearchPage::loadMultiple();
+  if (empty($search_implementations)) {
+    $config = \Drupal::service('config.factory')->getEditable('search.settings');
+    $config->delete();
+    // Remove legacy search permissions.
+    foreach (Role::loadMultiple() as $role) {
+      if ($role->hasPermission('search content')) {
+        $role->revokePermission('search content');
+        $role->save();
+      }
+      if ($role->hasPermission('search Google CSE')) {
+        $role->revokePermission('search Google CSE');
+        $role->save();
+      }
+      if ($role->hasPermission('administer search')) {
+        $role->revokePermission('administer search');
+        $role->save();
+      }
+      if ($role->hasPermission('use advanced search')) {
+        $role->revokePermission('use advanced search');
+        $role->save();
+      }
+    }
+  }
+  $module = 'google_cse';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+  $module = 'search';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+
+}
+
+/**
+ * Uninstall Layout Builder Restrictions (#3268).
+ */
+function utexas_update_11010() {
+  $module = 'layout_builder_restrictions';
+  if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
 }
