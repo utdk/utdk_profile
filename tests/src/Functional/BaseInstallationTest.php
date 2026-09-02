@@ -132,6 +132,7 @@ class BaseInstallationTest extends BrowserTestBase {
         'superscript',
         'underline',
         'sourceEditing',
+        'fullscreen',
         '-',
       ],
     ];
