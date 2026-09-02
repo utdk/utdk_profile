@@ -88,11 +88,17 @@ class InstallationOptions extends FormBase {
       '#default_value' => 0,
       '#weight' => 3,
     ];
+    $form['install_scheduled_transitions'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable Scheduled Transitions feature'),
+      '#default_value' => 0,
+      '#weight' => 4,
+    ];
     $form['default_content'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Populate example pages and menu items to model realistic site content.'),
       '#default_value' => 1,
-      '#weight' => 4,
+      '#weight' => 5,
     ];
     $form['actions'] = [
       'continue' => [
@@ -100,7 +106,7 @@ class InstallationOptions extends FormBase {
         '#value' => $this->t('Complete installation'),
       ],
       '#type' => 'actions',
-      '#weight' => 4,
+      '#weight' => 5,
     ];
 
     return $form;
