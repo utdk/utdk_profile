@@ -89,7 +89,8 @@ need to be replayed in this file.
     }
   }
   figcaption.ck-editor__editable {
-    width: max-content;
+    font-size: 0.875rem;
+    background-color: unset;
   }
    .ut-btn:not(.button--primary),
    .ut-btn--small,
