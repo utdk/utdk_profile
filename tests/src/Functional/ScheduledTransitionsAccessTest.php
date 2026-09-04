@@ -54,7 +54,9 @@ class ScheduledTransitionsAccessTest extends FunctionalTestBase {
 
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->elementTextNotContains('css', '.block-local-tasks-block', 'Scheduled transitions');
+    // With only 'access content', there is nothing but the (suppressed)
+    // View tab, so core's local tasks block renders nothing at all.
+    $this->assertSession()->elementNotExists('css', '.block-local-tasks-block');
 
     $this->assertForbidden($node->toUrl('scheduled_transitions'));
     $this->assertForbidden($node->toUrl('scheduled_transition_add'));
