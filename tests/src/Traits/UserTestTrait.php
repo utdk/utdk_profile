@@ -68,13 +68,6 @@ trait UserTestTrait {
    *   The user.
    */
   protected function initializeSiteManager(array $additional_permissions = []) {
-    /** @var \Drupal\Tests\BrowserTestBase $this */
-    // The 'utexas_site_manager' role is not enabled by default on generic
-    // UTDK3 sites, so we enable it for testing purposes.
-    /** @var \Drupal\Core\Extension\ModuleInstaller $module_installer */
-    $module_installer = \Drupal::service('module_installer');
-    $module_installer->install(['utexas_role_site_manager']);
-    Permissions::assignPermissions('manager', 'utexas_site_manager');
     Permissions::assignPermissions('editor', 'utexas_site_manager');
 
     // /** @var \Drupal\user\UserInterface $testUser */
