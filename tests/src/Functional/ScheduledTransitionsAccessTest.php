@@ -54,7 +54,7 @@ class ScheduledTransitionsAccessTest extends FunctionalTestBase {
 
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->elementTextNotContains('css', 'nav.tabs', 'Scheduled transitions');
+    $this->assertSession()->elementTextNotContains('css', '.block-local-tasks-block', 'Scheduled transitions');
 
     $this->assertForbidden($node->toUrl('scheduled_transitions'));
     $this->assertForbidden($node->toUrl('scheduled_transition_add'));
@@ -80,7 +80,7 @@ class ScheduledTransitionsAccessTest extends FunctionalTestBase {
 
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->elementTextContains('css', 'nav.tabs', 'Scheduled transitions');
+    $this->assertSession()->elementTextContains('css', '.block-local-tasks-block', 'Scheduled transitions');
 
     $this->assertAllowed($node->toUrl('scheduled_transitions'));
     $this->assertAllowed($node->toUrl('scheduled_transition_add'));
