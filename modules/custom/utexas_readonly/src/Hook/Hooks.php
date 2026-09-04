@@ -30,6 +30,11 @@ class Hooks {
     if ($form_id == 'image_style_flush_form') {
       return;
     }
+    // The taxonomy overview page should not be restricted so terms can be
+    // reordered (#3328).
+    if ($form_id === 'taxonomy_overview_terms') {
+      return;
+    }
     $form_entity = $form_object->getEntity();
     $form_id = $form_entity->id() ?? '';
     $parts = explode('.', $form_id);

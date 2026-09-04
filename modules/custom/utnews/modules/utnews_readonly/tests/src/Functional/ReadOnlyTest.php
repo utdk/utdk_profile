@@ -125,6 +125,9 @@ class ReadOnlyTest extends BrowserTestBase {
       '/admin/config/search/search-api/index/utnews/delete',
       '/admin/config/search/search-api/index/utnews/fields',
       '/admin/config/search/search-api/index/utnews/processors',
+      '/admin/structure/taxonomy/manage/utnews_authors/overview',
+      '/admin/structure/taxonomy/manage/utnews_tags/overview',
+      '/admin/structure/taxonomy/manage/utnews_categories/overview',
     ];
     foreach ($read_only as $path) {
       $this->isReadOnly($path);
