@@ -6,6 +6,7 @@ namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\node\Entity\Node;
 use Drupal\scheduled_transitions\Entity\ScheduledTransition;
+use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions as Permissions;
 
 /**
@@ -39,6 +40,14 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
         ['entity_type' => 'node', 'bundle' => 'page'],
       ])
       ->save(TRUE);
+
+    // ScheduledTransitionsUtility::getBundles() caches its result
+    // permanently against this tag, which is normally only invalidated by
+    // the settings form's submit handler. parent::setUp() already creates
+    // users (and so already resolves the, at that point, empty bundle list)
+    // before this config is saved, so that stale cache must be invalidated
+    // by hand or the permissions below register as invalid.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
 
     $this->node = Node::create([
       'type' => 'page',
