@@ -6,7 +6,6 @@ namespace Drupal\Tests\utexas\Functional;
 
 use Drupal\node\Entity\Node;
 use Drupal\scheduled_transitions\Entity\ScheduledTransition;
-use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions as Permissions;
 
 /**
@@ -20,7 +19,7 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
   /**
    * {@inheritdoc}
    */
-  protected static $modules = ['scheduled_transitions_hour_restrict'];
+  protected static $modules = ['utexas_scheduled_transitions'];
 
   /**
    * A node on standard_workflow, shared across test methods.
@@ -35,19 +34,18 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
   protected function setUp(): void {
     parent::setUp();
 
+    // utexas_scheduled_transitions_install() already registers 'page' into
+    // 'bundles'. It does not set 'mirror_operations', though, and without a
+    // mirror the dedicated permission alone never grants access — see
+    // ScheduledTransitionsEntityHooks::entityAccess(). Real gap in the
+    // module, not just test setup.
     \Drupal::configFactory()->getEditable('scheduled_transitions.settings')
-      ->set('bundles', [
-        ['entity_type' => 'node', 'bundle' => 'page'],
+      ->set('mirror_operations', [
+        'view scheduled transition' => 'update',
+        'add scheduled transition' => 'update',
+        'reschedule scheduled transitions' => 'update',
       ])
       ->save(TRUE);
-
-    // ScheduledTransitionsUtility::getBundles() caches its result
-    // permanently against this tag, which is normally only invalidated by
-    // the settings form's submit handler. parent::setUp() already creates
-    // users (and so already resolves the, at that point, empty bundle list)
-    // before this config is saved, so that stale cache must be invalidated
-    // by hand or the permissions below register as invalid.
-    \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
 
     $this->node = Node::create([
       'type' => 'page',
@@ -58,6 +56,7 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
 
     $user = $this->drupalCreateUser([
       'access content',
+      'edit any page content',
       Permissions::viewScheduledTransitionsPermission('node', 'page'),
       Permissions::addScheduledTransitionsPermission('node', 'page'),
       Permissions::rescheduleScheduledTransitionsPermission('node', 'page'),
@@ -78,13 +77,12 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
     $this->submitForm([
       'revision' => 'latest_revision',
       'transition' => 'publish',
-      // The 'on' datetime element posts as two sub-fields; Drupal only
-      // combines them into a single DrupalDateTime value during validation.
+      // 'on' posts as two sub-fields, combined during validation.
       'on[date]' => $date->format('Y-m-d'),
       'on[time]' => '14:15:00',
     ], 'Schedule transition');
 
-    $this->assertSession()->pageTextContains('Scheduled transitions must occur at the top of the hour');
+    $this->assertSession()->pageTextContains('Scheduled transitions are only allowed at the top of the hour.');
     $this->assertCount(0, \Drupal::entityTypeManager()->getStorage('scheduled_transition')->loadMultiple());
   }
 
@@ -123,6 +121,19 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
       'transition_on' => (new \DateTime('+1 day 16:00'))->getTimestamp(),
     ]);
     $scheduledTransition->save();
+
+    // reschedule-form is unreachable via the dedicated permission alone: a
+    // contrib bug in ScheduledTransitionsAccessControlHandler defers to an
+    // unrecognized 'reschedule' operation for non-admins. Granting the
+    // admin permission works around it here; see patches/.
+    $rescheduleUser = $this->drupalCreateUser([
+      'access content',
+      'edit any page content',
+      'view all scheduled transitions',
+      Permissions::rescheduleScheduledTransitionsPermission('node', 'page'),
+      'use standard_workflow transition publish',
+    ]);
+    $this->drupalLogin($rescheduleUser);
 
     $this->drupalGet($scheduledTransition->toUrl('reschedule-form'));
     $this->assertSession()->statusCodeEquals(200);

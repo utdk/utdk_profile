@@ -28,23 +28,26 @@ class ScheduledTransitionsAccessTest extends FunctionalTestBase {
     parent::setUp();
     $this->drupalPlaceBlock('local_tasks_block');
 
-    // The 'page' bundle is on standard_workflow by default (see
-    // profile config/install/workflows.workflow.standard_workflow.yml), but
-    // Scheduled Transitions' own content-moderation-support access check
-    // additionally requires the bundle to be listed here.
+    // 'page' is on standard_workflow by default; also enable it for
+    // scheduled transitions. Without 'mirror_operations', the dedicated
+    // permission alone never grants access — see
+    // ScheduledTransitionsEntityHooks::entityAccess().
     \Drupal::configFactory()->getEditable('scheduled_transitions.settings')
       ->set('bundles', [
         ['entity_type' => 'node', 'bundle' => 'page'],
       ])
+      ->set('mirror_operations', [
+        'view scheduled transition' => 'update',
+        'add scheduled transition' => 'update',
+        'reschedule scheduled transitions' => 'update',
+      ])
       ->save(TRUE);
 
-    // ScheduledTransitionsUtility::getBundles() caches its result
-    // permanently against this tag, which is normally only invalidated by
-    // the settings form's submit handler. parent::setUp() already creates
-    // users (and so already resolves the, at that point, empty bundle list)
-    // before this config is saved, so that stale cache must be invalidated
-    // by hand or the permissions below register as invalid.
+    // getBundles() caches its result permanently; parent::setUp() already
+    // creates users (computing an empty cache) before this config is saved,
+    // so force a refresh.
     \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
+    \Drupal::cache()->delete('scheduled_transitions_enabled_bundles');
   }
 
   /**
@@ -63,8 +66,8 @@ class ScheduledTransitionsAccessTest extends FunctionalTestBase {
 
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
-    // With only 'access content', there is nothing but the (suppressed)
-    // View tab, so core's local tasks block renders nothing at all.
+    // Only 'access content': core hides the tabs block when View would be
+    // the only tab.
     $this->assertSession()->elementNotExists('css', '.block-local-tasks-block');
 
     $this->assertForbidden($node->toUrl('scheduled_transitions'));
@@ -84,17 +87,22 @@ class ScheduledTransitionsAccessTest extends FunctionalTestBase {
 
     $user = $this->drupalCreateUser([
       'access content',
+      'edit any page content',
+      // Content Moderation blocks 'update' without a valid transition
+      // permission; scheduled_transitions mirrors onto 'update'.
+      'use standard_workflow transition create_new_draft',
       Permissions::viewScheduledTransitionsPermission('node', 'page'),
       Permissions::addScheduledTransitionsPermission('node', 'page'),
     ]);
     $this->drupalLogin($user);
 
+    // Check route access first to isolate route vs. tab-rendering issues.
+    $this->assertAllowed($node->toUrl('scheduled_transitions'));
+    $this->assertAllowed($node->toUrl('scheduled_transition_add'));
+
     $this->drupalGet($node->toUrl());
     $this->assertSession()->statusCodeEquals(200);
     $this->assertSession()->elementTextContains('css', '.block-local-tasks-block', 'Scheduled transitions');
-
-    $this->assertAllowed($node->toUrl('scheduled_transitions'));
-    $this->assertAllowed($node->toUrl('scheduled_transition_add'));
   }
 
   /**
