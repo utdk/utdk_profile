@@ -82,7 +82,7 @@ class ScheduledTransitionsHourRestrictTest extends FunctionalTestBase {
       'on[time]' => '14:15:00',
     ], 'Schedule transition');
 
-    $this->assertSession()->pageTextContains('Scheduled transitions are only allowed at the top of the hour.');
+    $this->assertSession()->pageTextContains('Scheduled transitions must occur at the top of the hour');
     $this->assertCount(0, \Drupal::entityTypeManager()->getStorage('scheduled_transition')->loadMultiple());
   }
 
