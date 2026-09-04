@@ -5,6 +5,7 @@
  * Functions for the installation and UI of scheduled transitions.
  */
 
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\node\NodeTypeInterface;
 use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
@@ -115,43 +116,33 @@ function utexas_scheduled_transitions_form_alter(&$form, FormStateInterface $for
  * Custom validation handler for scheduled transitions form.
  */
 function _utexas_scheduled_transitions_validate_time(&$form, FormStateInterface $form_state) {
-  // Get the transition date/time. The form may use a split date/time field.
-  // Try the combined field first, then fall back to separate date/time fields.
-  $transition_on = $form_state->getValue(['scheduled_transitions', 'new_meta', 'transition_on']);
-
-  // If transition_on is not a DateTime, try the split date/time format.
-  if (!($transition_on instanceof \DateTime)) {
-    // Check for split date/time fields (on[date] and on[time]).
-    $on_data = $form_state->getValue(['scheduled_transitions', 'new_meta', 'on']);
-
-    if (is_array($on_data) && isset($on_data['time'])) {
-      $time_value = $on_data['time'];
-
-      // Time format is HH:mm. Check if minutes are 00.
-      if ($time_value && preg_match('/^(\d{2}):(\d{2})$/', $time_value, $matches)) {
-        $minutes = (int) $matches[2];
-
-        if ($minutes !== 0) {
-          $form_state->setErrorByName(
-            'scheduled_transitions][new_meta][on][time',
-            t('Scheduled transitions must occur at the top of the hour (minutes must be 00).')
-          );
-        }
-      }
-      return;
-    }
+  // The add form posts 'on' and the reschedule form posts 'date', both
+  // top-level (the 'scheduled_transitions' wrapper isn't a #tree element).
+  // By the time this runs, element validation has converted the value to
+  // a DrupalDateTime.
+  if (isset($form['scheduled_transitions']['new_meta']['on'])) {
+    $date = $form_state->getValue('on');
+    $error_element = $form['scheduled_transitions']['new_meta']['on'];
+  }
+  elseif (isset($form['date'])) {
+    $date = $form_state->getValue('date');
+    $error_element = $form['date'];
+  }
+  else {
+    return;
   }
 
-  // Handle combined DateTime field.
-  if ($transition_on instanceof \DateTime) {
-    $minutes = (int) $transition_on->format('i');
-    $seconds = (int) $transition_on->format('s');
+  if (!($date instanceof DrupalDateTime) || $date->hasErrors()) {
+    return;
+  }
 
-    if ($minutes !== 0 || $seconds !== 0) {
-      $form_state->setErrorByName(
-        'scheduled_transitions][new_meta][transition_on',
-        t('Scheduled transitions must occur at the top of the hour (minutes and seconds must be 00:00).')
-      );
-    }
+  $minutes = (int) $date->format('i');
+  $seconds = (int) $date->format('s');
+
+  if ($minutes !== 0 || $seconds !== 0) {
+    $form_state->setError(
+      $error_element,
+      t('Scheduled transitions must occur at the top of the hour (minutes and seconds must be 00:00).')
+    );
   }
 }
