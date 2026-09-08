@@ -19,13 +19,6 @@ function utnews_install() {
   if (\Drupal::moduleHandler()->moduleExists('utnews_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utnews_overrides']);
   }
-
-  // If utexas_scheduled_transitions was already installed before utnews,
-  // utnews_modules_installed() never saw it in its install batch, so
-  // configure it here instead.
-  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
-    utnews_configure_scheduled_transitions();
-  }
 }
 
 /**

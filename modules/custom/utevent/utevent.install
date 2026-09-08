@@ -19,13 +19,6 @@ function utevent_install() {
   if (\Drupal::moduleHandler()->moduleExists('utevent_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utevent_overrides']);
   }
-
-  // If utexas_scheduled_transitions was already installed before utevent,
-  // utevent_modules_installed() never saw it in its install batch, so
-  // configure it here instead.
-  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
-    utevent_configure_scheduled_transitions();
-  }
 }
 
 /**
