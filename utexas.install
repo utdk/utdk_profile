@@ -16,6 +16,7 @@ use Drupal\user\Entity\Role;
 use Drupal\user\RoleInterface;
 use Drupal\user\UserInterface;
 use Drupal\utexas\InstallationHelper;
+use Drupal\utexas\Permissions;
 use Drupal\utexas_missing_blocks\BlockLayoutReferenceDeleter;
 use Drupal\utexas_missing_blocks\Defuser;
 use Symfony\Component\Yaml\Yaml;
@@ -85,6 +86,21 @@ function utexas_install() {
     'view media',
   ];
   user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, $auth_perms);
+
+  // Add default manager and editor roles.
+  Role::create([
+    'id' => 'utexas_site_manager',
+    'label' => 'Site Manager',
+  ])->save();
+  Role::create([
+    'id' => 'utexas_content_editor',
+    'label' => 'Content Editor',
+  ])->save();
+  // Add editing permissions to "utexas_content_editor".
+  Permissions::assignPermissions('editor', 'utexas_content_editor');
+  // Add management permissions to "utexas_site_manager".
+  Permissions::assignPermissions('manager', 'utexas_site_manager');
+
   // Add configuration for the Metatag Twitter module to set default
   // page title and URL meta.
   InstallationHelper::populateDefaultMetatags();
@@ -1564,5 +1580,20 @@ function utexas_update_11010() {
   $module = 'layout_builder_restrictions';
   if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+}
+
+/**
+ * Uninstall UTexas-provided role modules (#3333).
+ */
+function utexas_update_11011() {
+  $modules = [
+    'utexas_role_content_editor',
+    'utexas_role_site_manager',
+  ];
+  foreach ($modules as $module) {
+    if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
+      \Drupal::service('module_installer')->uninstall([$module], FALSE);
+    }
   }
 }

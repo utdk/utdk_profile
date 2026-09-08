@@ -7,7 +7,6 @@
 
 use Drupal\utexas\Form\InstallationOptions;
 use Drupal\utexas\InstallationHelper;
-use Drupal\utexas\Permissions;
 
 /**
  * Implements hook_install_tasks().
@@ -19,11 +18,6 @@ function utexas_install_tasks() {
       'display' => TRUE,
       'type' => 'form',
       'function' => InstallationOptions::class,
-    ],
-    'utexas_install_post_installation_modules' => [
-      'display' => FALSE,
-      'type' => 'batch',
-      'run' => INSTALL_TASK_RUN_IF_NOT_COMPLETED,
     ],
     'utexas_install_features' => [
       'display' => FALSE,
@@ -140,24 +134,6 @@ function utexas_install_cleanup(&$install_state) {
   \Drupal::state()->delete('utexas_installation_options.install_profile');
   \Drupal::state()->delete('utexas_installation_options.install_event');
   \Drupal::state()->delete('utexas_installation_options.install_news');
-}
-
-/**
- * Perform final module installation task.
- */
-function utexas_install_post_installation_modules(&$install_state) {
-  // Add modules that depend on installation configuration.
-  $modules = [
-    'utexas_role_content_editor',
-    'utexas_role_site_manager',
-  ];
-  // Install modules.
-  \Drupal::service('module_installer')->install($modules);
-
-  // Add editing permissions to "utexas_content_editor".
-  Permissions::assignPermissions('editor', 'utexas_content_editor');
-  // Add management permissions to "utexas_site_manager".
-  Permissions::assignPermissions('manager', 'utexas_site_manager');
 }
 
 /**
