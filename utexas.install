@@ -1566,10 +1566,6 @@ function utexas_update_11009() {
   if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
     \Drupal::service('module_installer')->uninstall([$module], FALSE);
   }
-  $module = 'search';
-  if (InstallationHelper::moduleHasNoActiveDependencies($module)) {
-    \Drupal::service('module_installer')->uninstall([$module], FALSE);
-  }
 
 }
 

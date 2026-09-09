@@ -397,14 +397,14 @@ class InstallationHelper {
    *   Whether or not the module has an active dependency.
    */
   public static function moduleHasNoActiveDependencies($module, $check_configuration = TRUE) {
-    $messenger = \Drupal::messenger();
+    $logger = \Drupal::logger('utexas');
     $t = \Drupal::service('string_translation');
     if (!\Drupal::moduleHandler()->moduleExists($module)) {
-      $messenger->addMessage($t->translate('@module is not installed.', ['@module' => $module]));
+      $logger->notice($t->translate('@module is not installed.', ['@module' => $module]));
       return FALSE;
     }
     if (self::moduleHasModuleDependencies($module)) {
-      $messenger->addMessage($t->translate('@module has active module dependencies.', ['@module' => $module]));
+      $logger->notice($t->translate('@module has active module dependencies.', ['@module' => $module]));
       return FALSE;
     }
     if ($check_configuration) {
@@ -412,14 +412,14 @@ class InstallationHelper {
       $config_manager = \Drupal::service('config.manager');
       $dependents = $config_manager->findConfigEntityDependencies('module', [$module]);
       if (!empty($dependents)) {
-        $messenger->addMessage($t->translate('@module has active configuration dependencies: @dependents', [
+        $logger->notice($t->translate('@module has active configuration dependencies: @dependents', [
           '@module' => $module,
           '@dependents' => serialize($dependents),
         ]));
         return FALSE;
       }
     }
-    $messenger->addMessage($t->translate('@module has no active dependencies and can be uninstalled.', ['@module' => $module]));
+    $logger->notice($t->translate('@module has no active dependencies and can be uninstalled.', ['@module' => $module]));
     return TRUE;
   }
 
