@@ -38,6 +38,7 @@ settings:
       - superscript
       - underline
       - sourceEditing
+      - fullscreen
       - '-'
   plugins:
     ckeditor5_alignment:
