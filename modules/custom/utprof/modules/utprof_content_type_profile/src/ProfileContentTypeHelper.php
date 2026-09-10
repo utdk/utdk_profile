@@ -5,8 +5,8 @@ namespace Drupal\utprof_content_type_profile;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
-use Drupal\utprof_content_type_profile\Form\FormAlter;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
+use Drupal\utprof_content_type_profile\Form\FormAlter;
 
 /**
  * Business logic for rendering the content type.
@@ -78,6 +78,7 @@ class ProfileContentTypeHelper {
           'image_link' => '',
         ],
       ]);
+      \Drupal::service('renderer')->addCacheableDependency($image_render_array, $media);
     }
 
     return $image_render_array ?? FALSE;

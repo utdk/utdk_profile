@@ -57,8 +57,6 @@ class BaseInstallationTest extends BrowserTestBase {
     $should_be_enabled = [
       'utexas_block_social_links',
       'utexas_content_type_flex_page',
-      'utexas_role_content_editor',
-      'utexas_role_site_manager',
       'block',
     ];
     foreach ($should_be_enabled as $module) {
@@ -67,6 +65,8 @@ class BaseInstallationTest extends BrowserTestBase {
     }
     $should_not_be_enabled = [
       'utexas_devel',
+      'utexas_role_content_editor',
+      'utexas_role_site_manager',
     ];
     foreach ($should_not_be_enabled as $module) {
       $module_enabled = \Drupal::moduleHandler()->moduleExists($module);
