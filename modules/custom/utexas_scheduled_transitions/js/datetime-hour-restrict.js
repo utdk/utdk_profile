@@ -3,7 +3,7 @@
  * Client-side behavior to restrict datetime inputs to top-of-hour.
  */
 
-(function(Drupal, $) {
+(function (Drupal) {
   "use strict";
 
   Drupal.behaviors.datetimeHourRestrict = {
@@ -14,10 +14,10 @@
        * The time input format is HH:mm or HH:mm:ss.
        * Normalizes to HH:00 or HH:00:00 respectively.
        *
-       * @param {jQuery} $input - The time input jQuery object.
+       * @param {HTMLInputElement} input - The time input element.
        */
-      const restrictToHour = $input => {
-        const value = $input.val();
+      const restrictToHour = input => {
+        const { value } = input;
 
         if (!value) {
           return;
@@ -35,55 +35,35 @@
               : `${match[1]}:00`;
 
           if (value !== restrictedValue) {
-            $input.val(restrictedValue);
+            input.value = restrictedValue;
             // Trigger change event so form knows the value changed.
-            $input.trigger("change");
+            input.dispatchEvent(new Event("change", { bubbles: true }));
           }
         }
       };
 
       // Look for the time inputs that should be restricted.
       // Match: on[time] (add form) and date[time] (reschedule form).
-      const $timeInput = $(
-        'input[name="on[time]"], input[name="date[time]"]',
-        context
+      const timeInputs = context.querySelectorAll(
+        'input[name="on[time]"], input[name="date[time]"]'
       );
 
-      if ($timeInput.length === 0) {
-        return;
-      }
-
-      $timeInput.each(function() {
-        const $input = $(this);
-
+      timeInputs.forEach(input => {
         // Set step attribute to 3600 (1 hour).
-        $input.attr("step", "3600");
-        $input.attr("data-hour-only", "true");
+        input.setAttribute("step", "3600");
+        input.setAttribute("data-hour-only", "true");
 
         // Bind events for real-time normalization.
-        $input.on("change", function() {
-          restrictToHour($input);
+        ["change", "blur", "input", "keyup"].forEach(eventName => {
+          input.addEventListener(eventName, () => restrictToHour(input));
         });
 
-        $input.on("blur", function() {
-          restrictToHour($input);
-        });
-
-        $input.on("input", function() {
-          restrictToHour($input);
-        });
-
-        $input.on("keyup", function() {
-          restrictToHour($input);
-        });
-
-        $input.on("paste", function() {
-          const self = this;
-          setTimeout(function() {
-            restrictToHour($(self));
+        input.addEventListener("paste", () => {
+          setTimeout(() => {
+            restrictToHour(input);
           }, 50);
         });
       });
     }
   };
-})(Drupal, jQuery);
+})(Drupal);

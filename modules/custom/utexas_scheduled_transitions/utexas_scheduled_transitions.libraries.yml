@@ -4,4 +4,3 @@ datetime_hour_restrict:
     js/datetime-hour-restrict.js: {}
   dependencies:
     - core/drupal
-    - core/jquery
