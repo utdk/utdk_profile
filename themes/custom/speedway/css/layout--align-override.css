@@ -18,7 +18,10 @@
 .align-center {
   text-align: center;
 }
-
+/* Match Bootstrap (https: //getbootstrap.com/docs/5.0/content/figures/) */
+figcaption {
+  font-size: 0.875rem;
+}
 /* Ensure caption text does not exceed image */
 /* Solution modeled after https://stackoverflow.com/a/28394126 */
 figure.align-right,

@@ -4,7 +4,9 @@ namespace Drupal\speedway\Hook;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
 
 /**
  * Hook implementations.
@@ -50,7 +52,15 @@ class Hooks {
     // Parent entity.
     $variables['parent_entity_title'] = $theme_settings->getSetting('parent_link_title');
     $variables['parent_entity_link'] = $theme_settings->getSetting('parent_link');
-
+    if (!empty($variables['parent_entity_title']) && !empty($variables['parent_entity_link'])) {
+      if ($url = Url::fromUri($theme_settings->getSetting('parent_link'))) {
+        $variables['parent_entity'] = [
+          'prefix' => ['#markup' => '<span class="ut-parent-entity">'],
+          'link' => Link::fromTextAndUrl($variables['parent_entity_title'], $url)->toRenderable(),
+          'suffix' => ['#markup' => '</span>'],
+        ];
+      }
+    }
     // Modify classes for certain page routes.
     if ($route_name === 'utexas_google_search.search') {
       $variables['main_content_attributes']->removeClass(['col']);

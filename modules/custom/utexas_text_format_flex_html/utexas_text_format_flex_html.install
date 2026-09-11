@@ -166,3 +166,12 @@ function utexas_text_format_flex_html_update_8117() {
     'utexas_text_format_flex_html',
   ], TRUE);
 }
+
+/**
+ * Allow fullscreen editing (#2876).
+ */
+function utexas_text_format_flex_html_update_8118() {
+  \Drupal::service('features.manager')->import([
+    'utexas_text_format_flex_html',
+  ], TRUE);
+}

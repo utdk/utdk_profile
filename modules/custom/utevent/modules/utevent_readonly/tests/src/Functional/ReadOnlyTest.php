@@ -105,6 +105,8 @@ class ReadOnlyTest extends BrowserTestBase {
       '/admin/structure/taxonomy/manage/utevent_tags/overview/display',
       '/admin/structure/views/view/utevent_listing_page',
       '/admin/structure/views/view/utevent_listing_block',
+      '/admin/structure/taxonomy/manage/utevent_tags/overview',
+      '/admin/structure/taxonomy/manage/utevent_location/overview',
     ];
     foreach ($read_only as $path) {
       $this->isReadOnly($path);
