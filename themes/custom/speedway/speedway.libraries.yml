@@ -48,6 +48,7 @@ global:
       css/drupal--field-labels.css: {}
       css/drupal--layout-builder-admin.css: {}
       css/drupal--pager.css: {}
+      css/drupal--views-exposed-filters.css: {}
       css/forms.css: {}
   js:
     js/search-facets.js: {}

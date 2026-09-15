@@ -59,7 +59,6 @@ class ListingPageConfig extends BaseConfigurationForm {
       $config->set($setting, $value);
     }
     $config->save();
-    drupal_flush_all_caches();
   }
 
 }
