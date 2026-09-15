@@ -5,6 +5,8 @@
  * Profile base module installation file.
  */
 
+use Drupal\utprof\Hook\Hooks;
+
 /**
  * Implements hook_install().
  */
@@ -19,6 +21,13 @@ function utprof_install() {
   // module may be uninstalled.
   if (\Drupal::moduleHandler()->moduleExists('utprof_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utprof_overrides']);
+  }
+
+  // If utexas_scheduled_transitions was already installed before utprof,
+  // Hooks::modulesInstalled() never saw it in its install batch, so
+  // configure it here instead.
+  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
+    (new Hooks())->configureScheduledTransitions();
   }
 }
 

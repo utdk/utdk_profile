@@ -1,34 +1,15 @@
 <?php
 
-namespace Drupal\utevent\Hook;
+namespace Drupal\utnews\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
-use Drupal\utevent\Permissions;
+use Drupal\utnews\Permissions;
 
 /**
  * Hook implementations.
  */
 class Hooks {
-
-  /**
-   * Implements hook_cron().
-   */
-  #[Hook('cron')]
-  public function cron() {
-    // Invalidate the events view cache tag if we haven't done so today.
-    // This is done so that the events list always shows the proper "start"
-    // date of today when it's rendered. If we didn't do this, it's possible
-    // that events from previous days could be shown.
-    // This relies on using the "Date Sensitive" cache view plugin.
-    $state_key = 'events_view_last_cleared';
-    $last_cleared = \Drupal::state()->get($state_key);
-    $today = date('Y-m-d');
-    if ($last_cleared != $today) {
-      \Drupal::state()->set($state_key, $today);
-      \Drupal::service('cache_tags.invalidator')->invalidateTags(['date_sensitive']);
-    }
-  }
 
   /**
    * Implements hook_modules_installed().
@@ -41,15 +22,15 @@ class Hooks {
   }
 
   /**
-   * Registers the utevent_event bundle with Scheduled Transitions.
+   * Registers the utnews_news bundle with Scheduled Transitions.
    */
   public function configureScheduledTransitions() {
     // Add configuration for scheduled transitions.
     $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
     $bundles = $config->get('bundles') ?? [];
-    $event_bundle = ['entity_type' => 'node', 'bundle' => 'utevent_event'];
-    if (!in_array($event_bundle, $bundles)) {
-      $bundles[] = $event_bundle;
+    $news_bundle = ['entity_type' => 'node', 'bundle' => 'utnews_news'];
+    if (!in_array($news_bundle, $bundles)) {
+      $bundles[] = $news_bundle;
       $config->set('bundles', $bundles)->save();
       // ScheduledTransitionsUtility::getBundles() caches the enabled bundle
       // list under this tag; the settings form invalidates it on save, but a
@@ -59,15 +40,15 @@ class Hooks {
       \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
     }
 
-    // Assign permissions to roles that can create events.
+    // Add scheduling permissions to all roles that can create News content.
     $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
     /** @var \Drupal\user\Entity\Role $role */
     foreach ($roles as $role_id => $role) {
       $role_permissions = $role->getPermissions();
       foreach ($role_permissions as $permission) {
-        if ($permission == 'create utevent_event content') {
+        if ($permission == 'create utnews_news content') {
           Permissions::assignPermissions('editor', $role_id);
-          \Drupal::messenger()->addMessage(t('Event scheduling permissions set for %role role.', [
+          \Drupal::messenger()->addMessage(t('News scheduling permissions set for %role role.', [
             '%role' => $role->label(),
           ]));
         }

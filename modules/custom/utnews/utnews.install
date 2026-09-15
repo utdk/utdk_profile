@@ -5,6 +5,8 @@
  * UT News base module installation file.
  */
 
+use Drupal\utnews\Hook\Hooks;
+
 /**
  * Implements hook_install().
  */
@@ -18,6 +20,13 @@ function utnews_install() {
   // module may be uninstalled.
   if (\Drupal::moduleHandler()->moduleExists('utnews_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utnews_overrides']);
+  }
+
+  // If utexas_scheduled_transitions was already installed before utnews,
+  // Hooks::modulesInstalled() never saw it in its install batch, so
+  // configure it here instead.
+  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
+    (new Hooks())->configureScheduledTransitions();
   }
 }
 

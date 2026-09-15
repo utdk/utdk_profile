@@ -5,6 +5,8 @@
  * UT Event base module installation file.
  */
 
+use Drupal\utevent\Hook\Hooks;
+
 /**
  * Implements hook_install().
  */
@@ -18,6 +20,13 @@ function utevent_install() {
   // module may be uninstalled.
   if (\Drupal::moduleHandler()->moduleExists('utevent_overrides') === FALSE) {
     \Drupal::service('module_installer')->install(['utevent_overrides']);
+  }
+
+  // If utexas_scheduled_transitions was already installed before utevent,
+  // Hooks::modulesInstalled() never saw it in its install batch, so
+  // configure it here instead.
+  if (\Drupal::moduleHandler()->moduleExists('utexas_scheduled_transitions')) {
+    (new Hooks())->configureScheduledTransitions();
   }
 }
 
