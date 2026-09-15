@@ -1593,3 +1593,13 @@ function utexas_update_11011() {
     }
   }
 }
+
+/**
+ * Uninstall UTexas required links block (#3291).
+ */
+function utexas_update_11012() {
+  $module = ['utexas_block_required_links'];
+  if (InstallationHelper::moduleHasNoActiveDependencies($module, FALSE)) {
+    \Drupal::service('module_installer')->uninstall([$module], FALSE);
+  }
+}
