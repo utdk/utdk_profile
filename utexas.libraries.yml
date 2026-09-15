@@ -55,12 +55,3 @@ bootstrap5-js:
   js:
     js/Bootstrap5/bootstrap.bundle.min.js: {}
     js/Bootstrap5/tooltip-initialize.js: {}
-accessible-slick:
-  css:
-    theme:
-      libraries/accessible360-slick/slick/slick.min.css: {}
-      libraries/accessible360-slick/slick/accessible-slick-theme.min.css: {}
-  js:
-    libraries/accessible360-slick/slick/slick.min.js: {}
-  dependencies:
-    - core/jquery

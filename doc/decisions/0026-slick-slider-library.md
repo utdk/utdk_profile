@@ -4,7 +4,7 @@ Date: 2024-10-14
 
 ## Status
 
-Accepted
+Outdated as of 2026-10-01
 
 ## Context
 
