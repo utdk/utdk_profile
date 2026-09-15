@@ -20,10 +20,6 @@ class Hooks {
    */
   public function registerBundle($bundle) {
     // Skip the featured add-ons. Their install hooks are handled separately.
-    $excluded_bundles = ['utevent_event', 'utnews_news', 'utprof_profile'];
-    if (in_array($bundle, $excluded_bundles)) {
-      return;
-    }
 
     $entity_type = 'node';
 

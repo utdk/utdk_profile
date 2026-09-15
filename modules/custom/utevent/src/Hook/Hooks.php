@@ -3,8 +3,6 @@
 namespace Drupal\utevent\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
-use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
-use Drupal\utevent\Permissions;
 
 /**
  * Hook implementations.
@@ -27,51 +25,6 @@ class Hooks {
     if ($last_cleared != $today) {
       \Drupal::state()->set($state_key, $today);
       \Drupal::service('cache_tags.invalidator')->invalidateTags(['date_sensitive']);
-    }
-  }
-
-  /**
-   * Implements hook_modules_installed().
-   */
-  #[Hook('modules_installed')]
-  public function modulesInstalled($modules, $is_syncing) {
-    if (in_array('utexas_scheduled_transitions', $modules)) {
-      $this->configureScheduledTransitions();
-    }
-  }
-
-  /**
-   * Registers the utevent_event bundle with Scheduled Transitions.
-   */
-  public function configureScheduledTransitions() {
-    // Add configuration for scheduled transitions.
-    $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
-    $bundles = $config->get('bundles') ?? [];
-    $event_bundle = ['entity_type' => 'node', 'bundle' => 'utevent_event'];
-    if (!in_array($event_bundle, $bundles)) {
-      $bundles[] = $event_bundle;
-      $config->set('bundles', $bundles)->save();
-      // ScheduledTransitionsUtility::getBundles() caches the enabled bundle
-      // list under this tag; the settings form invalidates it on save, but a
-      // direct config save (as done here) does not, so later dynamic
-      // permissions in this request would otherwise be computed from a stale
-      // cache and miss the bundle just added.
-      \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
-    }
-
-    // Assign permissions to roles that can create events.
-    $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
-    /** @var \Drupal\user\Entity\Role $role */
-    foreach ($roles as $role_id => $role) {
-      $role_permissions = $role->getPermissions();
-      foreach ($role_permissions as $permission) {
-        if ($permission == 'create utevent_event content') {
-          Permissions::assignPermissions('editor', $role_id);
-          \Drupal::messenger()->addMessage(t('Event scheduling permissions set for %role role.', [
-            '%role' => $role->label(),
-          ]));
-        }
-      }
     }
   }
 
