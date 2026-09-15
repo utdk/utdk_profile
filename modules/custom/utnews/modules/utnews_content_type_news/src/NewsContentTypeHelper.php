@@ -2,9 +2,9 @@
 
 namespace Drupal\utnews_content_type_news;
 
-use Drupal\block\Entity\Block;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\block\Entity\Block;
 use Drupal\node\Entity\Node;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\utexas_form_elements\UtexasLinkOptionsHelper;
@@ -55,14 +55,17 @@ class NewsContentTypeHelper {
     }
     $tid = $node->get($author_field)->getString();
     $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
-    $url = Url::fromUri('internal:/news?f[0]=author:' . $term->id());
-    $title = $term->getName();
-    $authoring_information = [
-      'name' => Link::fromTextAndUrl($title, $url),
-      'description' => ['#markup' => $term->getDescription()],
-      'image' => self::prepareAuthorImage($term),
-    ];
-    return $authoring_information;
+    if ($term) {
+      $url = Url::fromUri('internal:/news?author=' . $term->id());
+      $title = $term->getName();
+      $authoring_information = [
+        'name' => Link::fromTextAndUrl($title, $url),
+        'description' => ['#markup' => $term->getDescription()],
+        'image' => self::prepareAuthorImage($term),
+      ];
+      return $authoring_information;
+    }
+    return [];
   }
 
   /**
@@ -72,22 +75,22 @@ class NewsContentTypeHelper {
    *   The node object.
    * @param string $field
    *   The field that provides the taxonomy term reference.
-   * @param string $facet
-   *   Facet identifier associated with this reference (defined as the url_alias
-   *   in admin/config/search/facets/).
+   * @param string $vocab
+   *   Vocabulary identifier associated with this reference.
    *
    * @return array
    *   A simple array of matching taxonomy terms.
    */
-  public static function prepareNewsTaxonomy(Node $node, $field, $facet) {
+  public static function prepareNewsTaxonomy(Node $node, $field, $vocab) {
     $output = [];
     if (!$node->hasField($field) || $node->get($field)->isEmpty()) {
       return $output;
     }
     $values = $node->get($field)->getValue();
     foreach ($values as $value) {
+      /** @var \Drupal\taxonomy\Entity\term */
       if ($term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($value['target_id'])) {
-        $url = Url::fromUri('internal:/news?f[0]=' . $facet . ':' . $term->id());
+        $url = Url::fromUri('internal:/news?' . $vocab . '=' . $term->id());
         $title = $term->getName();
         $output[] = Link::fromTextAndUrl($title, $url);
       }

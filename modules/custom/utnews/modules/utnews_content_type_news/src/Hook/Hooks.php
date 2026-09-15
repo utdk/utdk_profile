@@ -43,7 +43,7 @@ class Hooks {
     $variables['author_information'] = NewsContentTypeHelper::prepareAuthorInformation($node);
     $variables['main_image'] = NewsContentTypeHelper::prepareMainImage($node);
     $variables['news_tags'] = NewsContentTypeHelper::prepareNewsTaxonomy($node, 'field_utnews_news_tags', 'tags');
-    $variables['news_categories'] = NewsContentTypeHelper::prepareNewsTaxonomy($node, 'field_utnews_news_categories', 'categories');
+    $variables['news_categories'] = NewsContentTypeHelper::prepareNewsTaxonomy($node, 'field_utnews_news_categories', 'category');
     $variables['linked_title'] = NewsContentTypeHelper::prepareLinkedTitle($node);
     $body_field = $node->get('field_utnews_body')->getValue();
     $variables['body_summary'] = $body_field[0]['summary'] ?? '';
