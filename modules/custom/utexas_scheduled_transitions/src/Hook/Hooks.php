@@ -6,7 +6,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\node\NodeTypeInterface;
-use Drupal\scheduled_transitions\Form\Entity\ScheduledTransitionAddForm;
 use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
 
@@ -98,25 +97,6 @@ class Hooks {
         t('Scheduled transitions are only allowed at the top of the hour.') .
         '</div>';
 
-      // Only allow scheduling against the latest revision; picking an older
-      // one made the "Recreate pending revision" checkbox below confusing.
-      // #disabled forces #default_value server-side, so this holds even
-      // against a tampered request.
-      if (isset($form['scheduled_transitions']['revision'])) {
-        $form['scheduled_transitions']['revision']['#options'] = array_intersect_key(
-          $form['scheduled_transitions']['revision']['#options'],
-          [ScheduledTransitionAddForm::LATEST_REVISION => TRUE]
-        );
-        $form['scheduled_transitions']['revision']['#default_value'] = ScheduledTransitionAddForm::LATEST_REVISION;
-        $form['scheduled_transitions']['revision']['#disabled'] = TRUE;
-      }
-
-      // Only affects scheduling a non-latest revision (see
-      // ScheduledTransitionsRunner::transitionEntity()), so it's dead now.
-      if (isset($form['scheduled_transitions']['to_options']['recreate_non_default_head'])) {
-        $form['scheduled_transitions']['to_options']['recreate_non_default_head']['#access'] = FALSE;
-      }
-
       if (isset($form['scheduled_transitions']['new_meta']['on'])) {
         // Add form structure: help text before the date/time inputs.
         $form['scheduled_transitions']['new_meta']['on']['#suffix'] = $help_text;
@@ -132,8 +112,10 @@ class Hooks {
    * Custom validation handler for scheduled transitions form.
    */
   public function validateTime(&$form, FormStateInterface $form_state) {
-    // 'on' (add form) and 'date' (reschedule form) post top-level; the
-    // 'scheduled_transitions' wrapper isn't a #tree element.
+    // The add form posts 'on' and the reschedule form posts 'date', both
+    // top-level (the 'scheduled_transitions' wrapper isn't a #tree element).
+    // By the time this runs, element validation has converted the value to
+    // a DrupalDateTime.
     if (isset($form['scheduled_transitions']['new_meta']['on'])) {
       $date = $form_state->getValue('on');
       $error_element = $form['scheduled_transitions']['new_meta']['on'];
