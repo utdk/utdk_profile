@@ -1593,3 +1593,10 @@ function utexas_update_11011() {
     }
   }
 }
+
+/**
+ * Rebuild usage information for existing site media (#3357).
+ */
+function utexas_update_11011() {
+  \Drupal::service('entity_usage.batch_manager')->recreate();
+}

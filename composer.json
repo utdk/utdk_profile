@@ -32,7 +32,7 @@
     "drupal/diff": "2.1.1",
     "drupal/editor_advanced_link": "2.3.4",
     "drupal/entity_clone": "2.2.0-beta1",
-    "drupal/entity_usage": "2.3.0",
+    "drupal/entity_usage": "5.0.0",
     "drupal/facets": "3.0.7",
     "drupal/features": "3.17.0",
     "drupal/feed_block": "3.0.2",
