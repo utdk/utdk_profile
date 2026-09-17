@@ -8,13 +8,13 @@ When using the [Scheduled Transitions](https://www.drupal.org/project/scheduled_
 
 ## How It Works
 
-The module provides **three layers of validation**:
+The module provides **three layers of protection on Scheduled Transitions forms**:
 
 1. **Client-side normalization (JavaScript)** — When an editor selects a time, minutes and seconds are automatically set to 00:00.
 2. **HTML5 attribute** — The datetime input's `step` attribute is set to 3600 seconds (1 hour), which some browsers respect.
-3. **Server-side validation** — The form validation handler rejects any submission where minutes or seconds are not 00.
+3. **Server-side validation** — The form validation handler rejects any Scheduled Transitions form submission where minutes or seconds are not 00.
 
-This ensures that even if an editor somehow bypasses the client-side behavior (e.g., via browser dev tools or direct API calls), the server rejects invalid times.
+This ensures that even if an editor bypasses the client-side behavior on those forms (for example via browser dev tools), the submission is still rejected server-side.
 
 ## Installation
 
@@ -56,9 +56,6 @@ utexas_scheduled_transitions/
 ├── src/
     ├── Hook/
     │   └── Hooks.php                         # Form alteration & validation
-    └── Plugin/Validation/Constraint/
-        ├── HourOnlyTimeConstraint.php        # Constraint definition
-        └── HourOnlyTimeConstraintValidator.php # Constraint validator
 └── README.md                                     # This file
 ```
 
