@@ -18,6 +18,23 @@ class Hooks {
   use StringTranslationTrait;
 
   /**
+   * Sets site defaults for `simplified_ui` and `automation.messenger` settings.
+   */
+  public function applyScheduledTransitionsSettingsDefaults() {
+    $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
+    $config
+      ->set('simplified_ui.only_latest_revision', TRUE)
+      ->set('simplified_ui.restrict_transitions', FALSE)
+      ->set('simplified_ui.allowed_transitions', $config->get('simplified_ui.allowed_transitions') ?? [])
+      ->set('automation.cron_create_queue_items', FALSE)
+      ->set('automation.messenger', FALSE)
+      ->save();
+    // See the note in registerBundle() about why this direct config save
+    // requires an explicit cache tag invalidation.
+    \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
+  }
+
+  /**
    * Registers a node bundle with Scheduled Transitions and grants access.
    */
   public function registerBundle($bundle) {

@@ -12,11 +12,14 @@ use Drupal\utexas_scheduled_transitions\Hook\Hooks;
  * Implements hook_install().
  */
 function utexas_scheduled_transitions_install() {
+  $hooks = new Hooks();
+
   // Register every existing node bundle: the UT Drupal Kit defaults, plus
   // any site-specific content types already in place. Bundles managed by
   // their own modules are skipped inside the helper.
-  $hooks = new Hooks();
   foreach (array_keys(NodeType::loadMultiple()) as $bundle) {
     $hooks->registerBundle($bundle);
   }
+
+  $hooks->applyScheduledTransitionsSettingsDefaults();
 }
