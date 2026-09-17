@@ -6,6 +6,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\node\NodeTypeInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
 
@@ -14,12 +15,13 @@ use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
  */
 class Hooks {
 
+  use StringTranslationTrait;
+
   /**
    * Registers a node bundle with Scheduled Transitions and grants access.
    */
   public function registerBundle($bundle) {
     // Skip the featured add-ons. Their install hooks are handled separately.
-
     $entity_type = 'node';
 
     $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
@@ -59,7 +61,7 @@ class Hooks {
       }
       if ($granted) {
         $role->save();
-        \Drupal::messenger()->addMessage(t('Scheduled transitions permissions set for %role role on %bundle content.', [
+        \Drupal::messenger()->addMessage($this->t('Scheduled transitions permissions set for %role role on %bundle content.', [
           '%role' => $role->label(),
           '%bundle' => $bundle,
         ]));
@@ -94,7 +96,7 @@ class Hooks {
       // The add form has a 'scheduled_transitions' container.
       // The reschedule form may have a 'date' field at the top level.
       $help_text = '<div class="form-help-text">' .
-        t('Scheduled transitions are only allowed at the top of the hour.') .
+        $this->t('Scheduled transitions are only allowed at the top of the hour.') .
         '</div>';
 
       if (isset($form['scheduled_transitions']['new_meta']['on'])) {
@@ -138,7 +140,7 @@ class Hooks {
     if ($minutes !== 0 || $seconds !== 0) {
       $form_state->setError(
         $error_element,
-        t('Scheduled transitions must occur at the top of the hour (minutes and seconds must be 00:00).')
+        $this->t('Scheduled transitions must occur at the top of the hour (minutes and seconds must be 00:00).')
       );
     }
   }
