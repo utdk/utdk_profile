@@ -14,8 +14,11 @@ class TransitionsHelper {
 
   /**
    * Registers a node bundle with Scheduled Transitions and grants access.
+   *
+   * @param string $bundle
+   *   The node bundle machine name.
    */
-  public function registerBundle($bundle) {
+  public function registerBundle(string $bundle) {
     // Skip the featured add-ons. Their install hooks are handled separately.
     $entity_type = 'node';
 
@@ -63,4 +66,5 @@ class TransitionsHelper {
       }
     }
   }
+
 }
