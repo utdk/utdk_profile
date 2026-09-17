@@ -3,7 +3,7 @@
  * Client-side behavior to restrict datetime inputs to top-of-hour.
  */
 
-(function datetimeHourRestrictBehavior(Drupal) {
+(function datetimeHourRestrictBehavior(Drupal, once) {
   "use strict";
 
   Drupal.behaviors.datetimeHourRestrict = {
@@ -68,4 +68,4 @@
       });
     }
   };
-})(Drupal);
+})(Drupal, once);

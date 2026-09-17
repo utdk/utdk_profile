@@ -77,7 +77,7 @@ To test the module:
 
 ## Requirements
 
-- Drupal 10+ or 11+
+- Drupal 11+ or 12+
 - Scheduled Transitions module
 - No additional dependencies
 
