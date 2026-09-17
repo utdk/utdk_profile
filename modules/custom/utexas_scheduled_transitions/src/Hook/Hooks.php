@@ -9,6 +9,7 @@ use Drupal\node\NodeTypeInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
+use Drupal\user\Entity\Role;
 
 /**
  * Hook implementations.
@@ -32,6 +33,44 @@ class Hooks {
     // See the note in registerBundle() about why this direct config save
     // requires an explicit cache tag invalidation.
     \Drupal::service('cache_tags.invalidator')->invalidateTags([ScheduledTransitionsSettingsForm::SETTINGS_TAG]);
+  }
+
+  /**
+   * Grants the site-wide administer permission to the site manager role.
+   *
+   * The UT Drupal Kit's baked-in `utexas_site_manager` role is granted
+   * `administer scheduled transitions` (the global settings-form
+   * permission). Any other role that already has every permission the site
+   * manager role has is treated as a site-manager equivalent (e.g. a
+   * department-specific admin role cloned from it) and is granted the
+   * permission too.
+   */
+  public function grantAdministerPermission() {
+    $permission = 'administer scheduled transitions';
+    $available_permissions = \Drupal::service('user.permissions')->getPermissions();
+    if (!isset($available_permissions[$permission])) {
+      return;
+    }
+
+    $site_manager = Role::load('utexas_site_manager');
+    if (!$site_manager) {
+      return;
+    }
+    $site_manager_permissions = $site_manager->getPermissions();
+
+    $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+    /** @var \Drupal\user\Entity\Role $role */
+    foreach ($roles as $role) {
+      $is_site_manager = $role->id() === 'utexas_site_manager';
+      $is_equivalent = !$is_site_manager && !array_diff($site_manager_permissions, $role->getPermissions());
+      if (!$is_site_manager && !$is_equivalent) {
+        continue;
+      }
+      if (!$role->hasPermission($permission)) {
+        $role->grantPermission($permission);
+        $role->save();
+      }
+    }
   }
 
   /**

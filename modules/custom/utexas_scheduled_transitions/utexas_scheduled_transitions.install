@@ -22,4 +22,5 @@ function utexas_scheduled_transitions_install() {
   }
 
   $hooks->applyScheduledTransitionsSettingsDefaults();
+  $hooks->grantAdministerPermission();
 }
