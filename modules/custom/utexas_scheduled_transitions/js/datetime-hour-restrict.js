@@ -3,7 +3,7 @@
  * Client-side behavior to restrict datetime inputs to top-of-hour.
  */
 
-(function(Drupal) {
+(function datetimeHourRestrictBehavior(Drupal) {
   "use strict";
 
   Drupal.behaviors.datetimeHourRestrict = {
@@ -44,8 +44,10 @@
 
       // Look for the time inputs that should be restricted.
       // Match: on[time] (add form) and date[time] (reschedule form).
-      const timeInputs = context.querySelectorAll(
-        'input[name="on[time]"], input[name="date[time]"]'
+      const timeInputs = once(
+        "datetimeHourRestrict",
+        'input[name="on[time]"], input[name="date[time]"]',
+        context
       );
 
       timeInputs.forEach(input => {

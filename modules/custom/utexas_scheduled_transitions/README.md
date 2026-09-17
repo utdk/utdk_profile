@@ -38,22 +38,28 @@ Once enabled, the module automatically restricts the "Schedule transition" form 
 ## Customization
 
 To modify the error message, edit the message in:
-- `utexas_scheduled_transitions.module` (function: `_utexas_scheduled_transitions_validate_time`)
-- `src/Plugin/Validation/Constraint/HourOnlyTimeConstraint.php` (property: `public $message`)
+- `src/Hook/Hooks.php` (method: `validateTime()`)
+
+To modify the client-side normalization behavior, edit:
+- `js/datetime-hour-restrict.js`
 
 ## File Structure
 
 ```
 utexas_scheduled_transitions/
 ├── utexas_scheduled_transitions.info.yml     # Module metadata
-├── utexas_scheduled_transitions.module        # Form alteration & validation
 ├── utexas_scheduled_transitions.libraries.yml # JavaScript library definition
+├── utexas_scheduled_transitions.install       # Bundle registration on install
+├── utexas_scheduled_transitions.services.yml  # Hook discovery configuration
 ├── js/
-│   └── datetime-hour-restrict.js                     # Client-side behavior
-├── src/Plugin/Validation/Constraint/
-│   ├── HourOnlyTimeConstraint.php                    # Constraint definition
-│   └── HourOnlyTimeConstraintValidator.php           # Constraint validator
-└── README.md                                         # This file
+│   └── datetime-hour-restrict.js             # Client-side behavior
+├── src/
+    ├── Hook/
+    │   └── Hooks.php                         # Form alteration & validation
+    └── Plugin/Validation/Constraint/
+        ├── HourOnlyTimeConstraint.php        # Constraint definition
+        └── HourOnlyTimeConstraintValidator.php # Constraint validator
+└── README.md                                     # This file
 ```
 
 ## Testing
@@ -77,6 +83,5 @@ To test the module:
 
 ## Notes
 
-The form_id detection uses pattern matching to handle dynamically generated form IDs:
-- Matches any form with 'scheduled_transition' and 'add' in the form_id
-- This catches variations like `scheduled_transition_add_form`, `node_page_scheduled_transitions_add_form`, etc.
+The module attaches its behavior only to Scheduled Transitions forms that expose
+the expected datetime elements for adding or rescheduling a transition.
