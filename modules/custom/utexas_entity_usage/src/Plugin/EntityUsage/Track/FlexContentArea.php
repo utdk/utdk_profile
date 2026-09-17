@@ -4,17 +4,10 @@ namespace Drupal\utexas_entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\entity_usage\Attribute\EntityUsageTrack;
 
 /**
  * Tracks usage of entities referenced in a custom field type.
- *
- * @EntityUsageTrack(
- *   id = "utexas_flex_content_area",
- *   label = @Translation("UTexas Flex Content Area"),
- *   description = @Translation("Tracks relationships created with 'Flex Content Area' fields."),
- *   field_types = {"utexas_flex_content_area"},
- *   source_entity_class = "Drupal\Core\Entity\FieldableEntityInterface",
- * )
  */
 #[
   EntityUsageTrack(
