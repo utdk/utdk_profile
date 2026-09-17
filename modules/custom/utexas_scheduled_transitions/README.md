@@ -8,13 +8,13 @@ When using the [Scheduled Transitions](https://www.drupal.org/project/scheduled_
 
 ## How It Works
 
-The module provides **three layers of protection on Scheduled Transitions forms**:
+The module provides **three layers of validation**:
 
 1. **Client-side normalization (JavaScript)** — When an editor selects a time, minutes and seconds are automatically set to 00:00.
 2. **HTML5 attribute** — The datetime input's `step` attribute is set to 3600 seconds (1 hour), which some browsers respect.
-3. **Server-side validation** — The form validation handler rejects any Scheduled Transitions form submission where minutes or seconds are not 00.
+3. **Server-side validation** — The form validation handler rejects any submission where minutes or seconds are not 00.
 
-This ensures that even if an editor bypasses the client-side behavior on those forms (for example via browser dev tools), the submission is still rejected server-side.
+This ensures that even if an editor somehow bypasses the client-side behavior (e.g., via browser dev tools or direct API calls), the server rejects invalid times.
 
 ## Installation
 
@@ -38,25 +38,22 @@ Once enabled, the module automatically restricts the "Schedule transition" form 
 ## Customization
 
 To modify the error message, edit the message in:
-- `src/Hook/Hooks.php` (method: `validateTime()`)
-
-To modify the client-side normalization behavior, edit:
-- `js/datetime-hour-restrict.js`
+- `utexas_scheduled_transitions.module` (function: `_utexas_scheduled_transitions_validate_time`)
+- `src/Plugin/Validation/Constraint/HourOnlyTimeConstraint.php` (property: `public $message`)
 
 ## File Structure
 
 ```
 utexas_scheduled_transitions/
 ├── utexas_scheduled_transitions.info.yml     # Module metadata
+├── utexas_scheduled_transitions.module        # Form alteration & validation
 ├── utexas_scheduled_transitions.libraries.yml # JavaScript library definition
-├── utexas_scheduled_transitions.install       # Bundle registration on install
-├── utexas_scheduled_transitions.services.yml  # Hook discovery configuration
 ├── js/
-│   └── datetime-hour-restrict.js             # Client-side behavior
-├── src/
-    ├── Hook/
-    │   └── Hooks.php                         # Form alteration & validation
-└── README.md                                     # This file
+│   └── datetime-hour-restrict.js                     # Client-side behavior
+├── src/Plugin/Validation/Constraint/
+│   ├── HourOnlyTimeConstraint.php                    # Constraint definition
+│   └── HourOnlyTimeConstraintValidator.php           # Constraint validator
+└── README.md                                         # This file
 ```
 
 ## Testing
@@ -74,11 +71,12 @@ To test the module:
 
 ## Requirements
 
-- Drupal 11+ or 12+
+- Drupal 10+ or 11+
 - Scheduled Transitions module
 - No additional dependencies
 
 ## Notes
 
-The module attaches its behavior only to Scheduled Transitions forms that expose
-the expected datetime elements for adding or rescheduling a transition.
+The form_id detection uses pattern matching to handle dynamically generated form IDs:
+- Matches any form with 'scheduled_transition' and 'add' in the form_id
+- This catches variations like `scheduled_transition_add_form`, `node_page_scheduled_transitions_add_form`, etc.

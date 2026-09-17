@@ -125,31 +125,31 @@ class Hooks {
    */
   #[Hook('form_alter')]
   public function formAlter(&$form, FormStateInterface $form_state, $form_id) {
-    $is_add_form = isset($form['scheduled_transitions']['new_meta']['on']['time']);
-    $is_reschedule_form = strpos($form_id, 'scheduled_transition') !== FALSE && isset($form['date']['time']);
+    // The form_id for scheduled transitions forms includes the entity type.
+    // This pattern matching catches both add and reschedule variants.
+    if (strpos($form_id, 'scheduled_transition') !== FALSE &&
+        (strpos($form_id, 'add') !== FALSE || strpos($form_id, 'reschedule') !== FALSE)) {
+      // Attach the hour-restrict library for client-side behavior.
+      $form['#attached']['library'][] = 'utexas_scheduled_transitions/datetime_hour_restrict';
 
-    if (!$is_add_form && !$is_reschedule_form) {
-      return;
-    }
+      // Add custom validation handler.
+      $form['#validate'][] = [$this, 'validateTime'];
 
-    // Attach the hour-restrict library for client-side behavior.
-    $form['#attached']['library'][] = 'utexas_scheduled_transitions/datetime_hour_restrict';
+      // Add help text to the appropriate section.
+      // The add form has a 'scheduled_transitions' container.
+      // The reschedule form may have a 'date' field at the top level.
+      $help_text = '<div class="form-help-text">' .
+        $this->t('Scheduled transitions are only allowed at the top of the hour.') .
+        '</div>';
 
-    // Add custom validation handler.
-    $form['#validate'][] = [$this, 'validateTime'];
-
-    // Add help text to the appropriate section.
-    $help_text = '<div class="form-help-text">' .
-      $this->t('Scheduled transitions are only allowed at the top of the hour.') .
-      '</div>';
-
-    if ($is_add_form) {
-      // Add form structure: help text before the date/time inputs.
-      $form['scheduled_transitions']['new_meta']['on']['#suffix'] = $help_text;
-    }
-    else {
-      // Reschedule form structure.
-      $form['date']['#suffix'] = $help_text;
+      if (isset($form['scheduled_transitions']['new_meta']['on'])) {
+        // Add form structure: help text before the date/time inputs.
+        $form['scheduled_transitions']['new_meta']['on']['#suffix'] = $help_text;
+      }
+      elseif (isset($form['date'])) {
+        // Reschedule form structure.
+        $form['date']['#suffix'] = $help_text;
+      }
     }
   }
 
