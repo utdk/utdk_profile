@@ -9,7 +9,6 @@ use Drupal\node\NodeTypeInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\scheduled_transitions\Form\ScheduledTransitionsSettingsForm;
 use Drupal\scheduled_transitions\ScheduledTransitionsPermissions;
-use Drupal\user\Entity\Role;
 
 /**
  * Hook implementations.
@@ -36,40 +35,28 @@ class Hooks {
   }
 
   /**
-   * Grants the site-wide administer permission to the site manager role.
-   *
-   * The UT Drupal Kit's baked-in `utexas_site_manager` role is granted
-   * `administer scheduled transitions` (the global settings-form
-   * permission). Any other role that already has every permission the site
-   * manager role has is treated as a site-manager equivalent (e.g. a
-   * department-specific admin role cloned from it) and is granted the
-   * permission too.
+   * Grants administer scheduled transitions permission.
    */
   public function grantAdministerPermission() {
+    $indicator_permission = 'administer node published status';
     $permission = 'administer scheduled transitions';
     $available_permissions = \Drupal::service('user.permissions')->getPermissions();
     if (!isset($available_permissions[$permission])) {
       return;
     }
 
-    $site_manager = Role::load('utexas_site_manager');
-    if (!$site_manager) {
-      return;
-    }
-    $site_manager_permissions = $site_manager->getPermissions();
-
     $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
     /** @var \Drupal\user\Entity\Role $role */
     foreach ($roles as $role) {
-      $is_site_manager = $role->id() === 'utexas_site_manager';
-      $is_equivalent = !$is_site_manager && !array_diff($site_manager_permissions, $role->getPermissions());
-      if (!$is_site_manager && !$is_equivalent) {
+      if (!$role->hasPermission($indicator_permission) || $role->hasPermission($permission)) {
         continue;
       }
-      if (!$role->hasPermission($permission)) {
-        $role->grantPermission($permission);
-        $role->save();
-      }
+      $role->grantPermission($permission);
+      $role->save();
+      \Drupal::messenger()->addMessage($this->t('The %permission permission has been granted to the %role role.', [
+        '%role' => $role->label(),
+        '%permission' => $permission,
+      ]));
     }
   }
 
