@@ -15,12 +15,18 @@ function utexas_scheduled_transitions_install() {
   $hooks = new Hooks();
 
   // Register every existing node bundle: the UT Drupal Kit defaults, plus
-  // any site-specific content types already in place. Bundles managed by
-  // their own modules are skipped inside the helper.
+  // any site-specific content types already in place.
   foreach (array_keys(NodeType::loadMultiple()) as $bundle) {
-    $hooks->registerBundle($bundle);
+    if (method_exists($hooks, 'registerBundle')) {
+      $hooks->registerBundle($bundle);
+    }
   }
 
-  $hooks->applyScheduledTransitionsSettingsDefaults();
-  $hooks->grantAdministerPermission();
+  if (method_exists($hooks, 'applyScheduledTransitionsSettingsDefaults')) {
+    $hooks->applyScheduledTransitionsSettingsDefaults();
+  }
+
+  if (method_exists($hooks, 'grantAdministerPermission')) {
+    $hooks->grantAdministerPermission();
+  }
 }
