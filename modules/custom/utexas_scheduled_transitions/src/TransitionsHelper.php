@@ -19,7 +19,6 @@ class TransitionsHelper {
    *   The node bundle machine name.
    */
   public function registerBundle(string $bundle) {
-    // Skip the featured add-ons. Their install hooks are handled separately.
     $entity_type = 'node';
 
     $config = \Drupal::configFactory()->getEditable('scheduled_transitions.settings');
