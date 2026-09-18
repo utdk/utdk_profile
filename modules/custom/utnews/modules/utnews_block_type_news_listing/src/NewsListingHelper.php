@@ -85,15 +85,17 @@ class NewsListingHelper {
     $summary = 1;
     $image = 1;
     if (is_object($view)) {
-      $config = \Drupal::config('utnews_view_listing_page.config');
-      if ((int) $config->get('display_date') === 0) {
-        $date = 0;
+      if ($block_content->hasField('field_utnews_display_summaries')) {
+        $display = $block_content->get('field_utnews_display_summaries')->getValue()[0]['value'];
+        $summary = $display;
       }
-      if ((int) $config->get('display_summary') === 0) {
-        $summary = 0;
+      if ($block_content->hasField('field_utnews_display_dates')) {
+        $display = $block_content->get('field_utnews_display_dates')->getValue()[0]['value'];
+        $date = $display;
       }
-      if ((int) $config->get('display_thumbnail') === 0) {
-        $image = 0;
+      if ($block_content->hasField('field_utnews_display_thumbnails')) {
+        $display = $block_content->get('field_utnews_display_thumbnails')->getValue()[0]['value'];
+        $image = $display;
       }
       $matrix = (string) $date . (string) $summary . (string) $image;
       // 000 = no date, summary, or image (i.e., title only).
