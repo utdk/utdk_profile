@@ -80,22 +80,18 @@ class Hooks {
       // Attach the hour-restrict library for client-side behavior.
       $form['#attached']['library'][] = 'utexas_scheduled_transitions/datetime_hour_restrict';
 
-      // Add custom validation handler.
       $form['#validate'][] = [$this, 'validateTime'];
 
-      // Add help text to the appropriate section.
-      // The add form has a 'scheduled_transitions' container.
-      // The reschedule form may have a 'date' field at the top level.
       $help_text = '<div class="form-help-text">' .
         $this->t('Scheduled transitions are only allowed at the top of the hour.') .
         '</div>';
 
       if (isset($form['scheduled_transitions']['new_meta']['on'])) {
-        // Add form structure: help text before the date/time inputs.
+
         $form['scheduled_transitions']['new_meta']['on']['#suffix'] = $help_text;
       }
       elseif (isset($form['date'])) {
-        // Reschedule form structure.
+
         $form['date']['#suffix'] = $help_text;
       }
     }
