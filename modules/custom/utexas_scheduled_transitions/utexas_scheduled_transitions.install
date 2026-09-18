@@ -7,19 +7,19 @@
 
 use Drupal\node\Entity\NodeType;
 use Drupal\utexas_scheduled_transitions\Hook\Hooks;
+use Drupal\utexas_scheduled_transitions\TransitionsHelper;
 
 /**
  * Implements hook_install().
  */
 function utexas_scheduled_transitions_install() {
   $hooks = new Hooks();
+  $transitionsHelper = new TransitionsHelper();
 
   // Register every existing node bundle: the UT Drupal Kit defaults, plus
   // any site-specific content types already in place.
   foreach (array_keys(NodeType::loadMultiple()) as $bundle) {
-    if (method_exists($hooks, 'registerBundle')) {
-      $hooks->registerBundle($bundle);
-    }
+    $transitionsHelper->registerBundle($bundle);
   }
 
   if (method_exists($hooks, 'applyScheduledTransitionsSettingsDefaults')) {
