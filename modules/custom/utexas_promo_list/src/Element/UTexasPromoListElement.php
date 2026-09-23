@@ -3,14 +3,14 @@
 namespace Drupal\utexas_promo_list\Element;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Attribute\FormElement;
 use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Defines an element for a single link + title field.
- *
- * @FormElement("utexas_promo_list")
  */
+#[FormElement('utexas_promo_list')]
 class UTexasPromoListElement extends FormElementBase {
 
   /**

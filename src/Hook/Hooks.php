@@ -2,14 +2,14 @@
 
 namespace Drupal\utexas\Hook;
 
-use Drupal\block\Entity\Block;
-use Drupal\block_content\BlockContentInterface;
-use Drupal\ckeditor5\Plugin\CKEditor5PluginDefinition;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\block\Entity\Block;
+use Drupal\block_content\BlockContentInterface;
+use Drupal\ckeditor5\Plugin\CKEditor5PluginDefinition;
 use Drupal\node\NodeInterface;
 use Drupal\user\Entity\User;
 use Drupal\utexas\RenderHelper;
@@ -61,10 +61,6 @@ class Hooks {
    */
   #[Hook('form_alter')]
   public function formAlter(&$form, FormStateInterface $form_state, $form_id) {
-    if ($form_id === 'search_block_form') {
-      $form['#attributes']['class'][] = 'ut-search-form';
-    }
-
     // Prepopulate Google Tag containers with good defaults.
     if ($form_id === 'google_tag_container_form') {
       /** @var \Drupal\Core\Entity\ContentEntityFormInterface $form_object */
@@ -98,33 +94,6 @@ class Hooks {
     $user_1_name = 'site-admin';
     // Set default admin account name to site-admin for UI-based installs.
     $form['admin_account']['account']['name']['#default_value'] = $user_1_name;
-  }
-
-  /**
-   * Implements hook_form_FORM_ID_alter().
-   */
-  #[Hook('form_search_form_alter')]
-  public function formSearchFormAlter(&$form, $form_state, $form_id) {
-    // Put search tips into a collapsible fieldset (#1686).
-    if (!\Drupal::moduleHandler()->moduleExists('search')) {
-      return;
-    }
-    $search_page_repository = \Drupal::service('search.search_page_repository');
-    $default_search_page = $search_page_repository->getDefaultSearchPage();
-    if (!$default_search_page) {
-      return;
-    }
-    /** @var \Drupal\search\SearchPageInterface $search_entity */
-    $search_entity = \Drupal::entityTypeManager()->getStorage('search_page')->load($default_search_page);
-    $markup = $search_entity->getPlugin()->getHelp();
-    // Put search tips into a collapsible fieldset (#1686).
-    $form['help_link'] = [
-      '#title' => 'About searching',
-      '#type' => 'details',
-      '#collapsed' => TRUE,
-    ];
-    $form['basic']['keys']['#label_attributes']['class'][] = 'visually-hidden';
-    $form['help_link']['markup'] = $markup;
   }
 
   /**
@@ -314,7 +283,7 @@ class Hooks {
     /** @var \Drupal\Core\Routing\CurrentRouteMatch $current_route_match */
     $current_route_match = \Drupal::routeMatch();
     $route_name = $current_route_match->getRouteName();
-    if ($route_name === 'search.view_google_cse_search') {
+    if ($route_name === 'utexas_google_search.search') {
       // Omit the entire breadcrumb region from the page.
       unset($variables['page']['breadcrumb']);
     }

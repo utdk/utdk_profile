@@ -9,7 +9,7 @@ path: google
 weight: 0
 plugin: google_cse_search
 configuration:
-  cx: '000942273509853053164:aaajrnruaja'
+  cx: 'testonlyvalue'
   results_tab: ''
   results_width: ''
   cof_here: ''

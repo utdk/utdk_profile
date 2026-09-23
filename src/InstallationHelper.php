@@ -2,9 +2,9 @@
 
 namespace Drupal\utexas;
 
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\block\Entity\Block;
 use Drupal\block_content\Entity\BlockContent;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\Entity\File;
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 use Symfony\Component\Yaml\Yaml;
@@ -78,8 +78,7 @@ class InstallationHelper {
     }
     \Drupal::configFactory()
       ->getEditable('metatag.metatag_defaults.global')
-      ->set('tags', $tags)
-      ->save(TRUE);
+      ->set('tags', $tags)->save();
   }
 
   /**
@@ -381,7 +380,7 @@ class InstallationHelper {
     if (!empty($config_path)) {
       $data = Yaml::parse(file_get_contents($config_path));
       if (is_array($data)) {
-        $config->setData($data)->save(TRUE);
+        $config->setData($data)->save();
       }
     }
   }
@@ -391,29 +390,36 @@ class InstallationHelper {
    *
    * @param string $module
    *   The machine name of the module to check.
+   * @param string $check_configuration
+   *   Whether to check for configuration dependencies.
    *
    * @return bool
    *   Whether or not the module has an active dependency.
    */
-  public static function moduleHasNoActiveDependencies($module) {
-    $messenger = \Drupal::messenger();
+  public static function moduleHasNoActiveDependencies($module, $check_configuration = TRUE) {
+    $logger = \Drupal::logger('utexas');
     $t = \Drupal::service('string_translation');
     if (!\Drupal::moduleHandler()->moduleExists($module)) {
-      $messenger->addMessage($t->translate('@module is not installed.', ['@module' => $module]));
+      $logger->notice($t->translate('@module is not installed.', ['@module' => $module]));
       return FALSE;
     }
     if (self::moduleHasModuleDependencies($module)) {
-      $messenger->addMessage($t->translate('@module has active module dependencies.', ['@module' => $module]));
+      $logger->notice($t->translate('@module has active module dependencies.', ['@module' => $module]));
       return FALSE;
     }
-    // Check all configuration for module dependency.
-    $config_manager = \Drupal::service('config.manager');
-    $dependents = $config_manager->findConfigEntityDependencies('module', [$module]);
-    if (!empty($dependents)) {
-      $messenger->addMessage($t->translate('@module has active configuration dependencies.', ['@module' => $module]));
-      return FALSE;
+    if ($check_configuration) {
+      // Check all configuration for module dependency.
+      $config_manager = \Drupal::service('config.manager');
+      $dependents = $config_manager->findConfigEntityDependencies('module', [$module]);
+      if (!empty($dependents)) {
+        $logger->notice($t->translate('@module has active configuration dependencies: @dependents', [
+          '@module' => $module,
+          '@dependents' => serialize($dependents),
+        ]));
+        return FALSE;
+      }
     }
-    $messenger->addMessage($t->translate('@module has no active dependencies and can be uninstalled.', ['@module' => $module]));
+    $logger->notice($t->translate('@module has no active dependencies and can be uninstalled.', ['@module' => $module]));
     return TRUE;
   }
 

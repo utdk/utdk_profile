@@ -3,14 +3,14 @@
 namespace Drupal\utexas_promo_unit\Element;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Attribute\FormElement;
 use Drupal\Core\Render\Element\FormElementBase;
 use Drupal\utexas_media_types\MediaEntityImageHelper;
 
 /**
  * Defines an element with image, headline, copy and single link.
- *
- * @FormElement("utexas_promo_unit")
  */
+#[FormElement('utexas_promo_unit')]
 class UTexasPromoUnitElement extends FormElementBase {
 
   /**

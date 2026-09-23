@@ -11,6 +11,7 @@ use Drupal\pathauto\Entity\PathautoPattern;
 use Drupal\utnews\Permissions;
 use Drupal\utnews_content_type_news\Hook\Hooks;
 use Drupal\utnews_content_type_news\NewsContentTypeHelper;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Implements hook_install().
@@ -321,4 +322,16 @@ function utnews_content_type_news_update_8114() {
   \Drupal::service('features.manager')->import([
     'utnews_content_type_news',
   ], TRUE);
+}
+
+/**
+ * Update teaser view mode to render only title (#3300).
+ */
+function utnews_content_type_news_update_8115() {
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('utnews_content_type_news')->getPath();
+  $config = 'core.entity_view_display.node.utnews_news.teaser';
+  $config_path = $module_path . '/config/install/' . $config . '.yml';
+  $data = Yaml::parse(file_get_contents($config_path));
+  \Drupal::configFactory()->getEditable($config)->setData($data)->save();
 }

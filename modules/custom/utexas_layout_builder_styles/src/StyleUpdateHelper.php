@@ -201,7 +201,7 @@ class StyleUpdateHelper {
    */
   public static function saveNewConfigurationFromYml(Config $config, $config_name) {
     if (!empty($data = self::getConfigurationDataFromYml($config_name))) {
-      $config->setData($data)->save(TRUE);
+      $config->setData($data)->save();
     }
   }
 

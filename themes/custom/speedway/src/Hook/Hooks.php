@@ -4,7 +4,9 @@ namespace Drupal\speedway\Hook;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Link;
 use Drupal\Core\Template\Attribute;
+use Drupal\Core\Url;
 
 /**
  * Hook implementations.
@@ -16,12 +18,16 @@ class Hooks {
    */
   #[Hook('form_alter')]
   public function formAlter(&$form, FormStateInterface $form_state, $form_id) {
-    $exceptions = [
+    $search_forms = [
+      'utexas_search_form',
       'search_block_form',
     ];
-    if (!in_array($form_id, $exceptions)) {
+    if (!in_array($form_id, $search_forms)) {
       $form['actions']['submit']['#attributes']['class'][] = 'ut-btn';
       $form['actions']['reset']['#attributes']['class'][] = 'ut-btn--secondary';
+    }
+    if (in_array($form_id, $search_forms)) {
+      $form['#attributes']['class'][] = 'ut-search-form';
     }
   }
 
@@ -29,29 +35,39 @@ class Hooks {
    * Implements hook_preprocess_page().
    */
   #[Hook('preprocess_page')]
-  public function preprocessPage(&$variables) {
+  public function preprocessPage(array &$variables) {
     $current_route = \Drupal::routeMatch();
     $route_name = $current_route->getRouteName();
     $theme_settings = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
 
-    // Provide a {{ main_content_attributes }} object to page.html.twig.
+    // Provide a {{ main_content_attributes }} object to all pages.
     $variables['main_content_attributes'] = new Attribute();
     $variables['main_content_attributes']->setAttribute('role', 'main');
     // Default classes for page.html.twig.
     $variables['main_content_attributes']->addClass(['layout-content', 'col']);
-    // Modify classes for certain page routes.
-    if ($route_name === 'search.view_google_cse_search') {
-      $variables['main_content_attributes']->removeClass(['col']);
-      $variables['main_content_attributes']->addClass([
-        'search-results-page',
-      ]);
-    }
+
     // Logo height defaults to short unless otherwise specified.
     $logo_height = $theme_settings->getSetting('logo_height') ?? 'short_logo';
     $variables['logo_height'] = str_replace('_', '-', $logo_height);
     // Parent entity.
     $variables['parent_entity_title'] = $theme_settings->getSetting('parent_link_title');
     $variables['parent_entity_link'] = $theme_settings->getSetting('parent_link');
+    if (!empty($variables['parent_entity_title']) && !empty($variables['parent_entity_link'])) {
+      if ($url = Url::fromUri($theme_settings->getSetting('parent_link'))) {
+        $variables['parent_entity'] = [
+          'prefix' => ['#markup' => '<span class="ut-parent-entity">'],
+          'link' => Link::fromTextAndUrl($variables['parent_entity_title'], $url)->toRenderable(),
+          'suffix' => ['#markup' => '</span>'],
+        ];
+      }
+    }
+    // Modify classes for certain page routes.
+    if ($route_name === 'utexas_google_search.search') {
+      $variables['main_content_attributes']->removeClass(['col']);
+      $variables['main_content_attributes']->addClass([
+        'search-results-page',
+      ]);
+    }
   }
 
   /**

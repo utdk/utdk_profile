@@ -3,14 +3,14 @@
 namespace Drupal\Tests\utnews_readonly\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\RunTestsInSeparateProcesses;
 
 /**
- * Verifies feature specific Field UI pages are read-only.
- *
- * @group utexas
+ * Verifies add-on specific Field UI pages are read-only.
  */
 #[RunTestsInSeparateProcesses]
+#[Group('utexas')]
 class ReadOnlyTest extends BrowserTestBase {
 
   /**
@@ -25,7 +25,7 @@ class ReadOnlyTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $defaultTheme = 'forty_acres';
+  protected $defaultTheme = 'speedway';
 
   /**
    * Modules to enable.
@@ -72,7 +72,6 @@ class ReadOnlyTest extends BrowserTestBase {
       '/admin/structure/block-content/manage/basic/display',
       '/admin/structure/views/view/content',
       '/admin/structure/views/view/content/delete',
-      'admin/config/search/search-api/index/utnews',
     ];
     foreach ($twohundred as $path) {
       $this->isAccessible($path);
@@ -121,10 +120,9 @@ class ReadOnlyTest extends BrowserTestBase {
       '/admin/structure/taxonomy/manage/utnews_tags/overview/display',
       '/admin/structure/views/view/utnews_listing_page',
       '/admin/structure/views/view/utnews_listing_block',
-      '/admin/config/search/search-api/index/utnews/edit',
-      '/admin/config/search/search-api/index/utnews/delete',
-      '/admin/config/search/search-api/index/utnews/fields',
-      '/admin/config/search/search-api/index/utnews/processors',
+      '/admin/structure/taxonomy/manage/utnews_authors/overview',
+      '/admin/structure/taxonomy/manage/utnews_tags/overview',
+      '/admin/structure/taxonomy/manage/utnews_categories/overview',
     ];
     foreach ($read_only as $path) {
       $this->isReadOnly($path);

@@ -81,8 +81,10 @@ class NewsListingHelper {
   public static function buildContextualView(BlockContent $block_content) {
     $user_defined_filters = self::generateFilters($block_content);
     $view = Views::getView('utnews_listing_block');
+    $date = 1;
+    $summary = 1;
+    $image = 1;
     if (is_object($view)) {
-      // Get date, summary, & thumbnail displays from block fields.
       if ($block_content->hasField('field_utnews_display_summaries')) {
         $display = $block_content->get('field_utnews_display_summaries')->getValue()[0]['value'];
         $summary = $display;

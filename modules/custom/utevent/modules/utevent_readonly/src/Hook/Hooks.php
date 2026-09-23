@@ -33,6 +33,11 @@ class Hooks {
     if (!ReadOnlyHelper::matchesReadOnlyPattern($form_entity_id)) {
       return;
     }
+    // The taxonomy overview page should not be restricted so terms can be
+    // reordered (#3328).
+    if ($form_id === 'taxonomy_overview_terms') {
+      return;
+    }
     ReadOnlyHelper::warn();
     // Disable various form elements.
     $form['#validate'][] = [static::class, 'validateFailure'];

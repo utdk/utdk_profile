@@ -98,7 +98,7 @@ function _speedway_parent_link_validate($element, FormStateInterface &$form_stat
   $parent_title = $form_state->getValue('parent_link_title');
   $parent_link = $form_state->getValue('parent_link');
   if (!empty($parent_title) && empty($parent_link)) {
-    $form_state->setError($element, t('Enter a link for the Parent Entity website.  A link is required if you have entered a Parent Entity name.'));
+    $form_state->setError($element, t('Enter a link for the Parent Entity website. A link is required if you have entered a Parent Entity name.'));
   }
 }
 
