@@ -16,26 +16,6 @@ status-messages:
   css:
     theme:
       css/status-messages.css: {}
-bootstrap4:
-  css:
-    base:
-      css/Bootstrap4/alert.css: {}
-      css/Bootstrap4/collapse.css: {}
-      css/Bootstrap4/modal.css: {}
-      css/Bootstrap4/tab.css: {}
-      css/Bootstrap4/tooltip.css: {}
-  js:
-    js/Bootstrap4/util.js: {}
-    js/Bootstrap4/tooltip-initialize.js: {}
-    # Note: util.js and tooltip-initialize.js must precede the other libraries.
-    js/Bootstrap4/alert.js: {}
-    js/Bootstrap4/collapse.js: {}
-    js/Bootstrap4/modal.js: {}
-    js/Bootstrap4/popper.js: {}
-    js/Bootstrap4/tab.js: {}
-    js/Bootstrap4/tooltip.js: {}
-  dependencies:
-    - core/jquery
 bootstrap5-base:
   css:
     base:
