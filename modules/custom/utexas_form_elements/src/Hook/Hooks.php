@@ -195,7 +195,7 @@ class Hooks {
       $theme = \Drupal::configFactory()->getEditable('system.theme')->get('default');
       $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
       $basetheme = $themeinfo['base theme'] ?? '';
-      $eligible_themes = ['forty_acres', 'speedway'];
+      $eligible_themes = ['speedway'];
       $is_eligible_theme = in_array($theme, $eligible_themes) || in_array($basetheme, $eligible_themes);
       // Add paths to stylesheets specified by a modules's ckeditor5-stylesheets
       // config property.

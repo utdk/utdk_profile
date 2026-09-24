@@ -25,7 +25,7 @@ class LinkOptions extends CKEditor5PluginDefault {
     $themeinfo = \Drupal::service('extension.list.theme')->getExtensionInfo($theme);
     $basetheme = $themeinfo['base theme'] ?? '';
     $config = [];
-    $eligible_themes = ['forty_acres', 'speedway'];
+    $eligible_themes = ['speedway'];
     $is_eligible_theme = in_array($theme, $eligible_themes) || in_array($basetheme, $eligible_themes);
 
     if ($is_eligible_theme) {

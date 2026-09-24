@@ -4,9 +4,9 @@ dependencies:
   module:
     - updated
   theme:
-    - forty_acres
+    - speedway
 id: lastupdateddateblock
-theme: forty_acres
+theme: speedway
 region: content
 weight: -8
 provider: null
