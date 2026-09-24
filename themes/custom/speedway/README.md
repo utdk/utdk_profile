@@ -9,7 +9,6 @@ Full documentation can be found at https://utexas.sharepoint.com/sites/UTDK/Site
 Important elements of local development for introducing changes in the Speedway theme:
 
 - Need the latest development snapshot of `utdk_profile` to make sure that preprocess functions, templates, etc., provided by `utdk_profile` are present in your codebase for use with `speedway`
-- Need the latest development snapshot of `forty_acres` to be able to visually compare it as a baseline to changes in `speedway`
 - Need realistic demo content for testing.
 
 The easiest setup that provides the above is to develop from the `speedway-nightly` site, which pulls in the latest development snapshots nightly, and sets the active theme to `speedway` for you.

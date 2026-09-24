@@ -25,7 +25,7 @@ class ReadOnlyTest extends BrowserTestBase {
    *
    * @var string
    */
-  protected $defaultTheme = 'forty_acres';
+  protected $defaultTheme = 'speedway';
 
   /**
    * Modules to enable.
