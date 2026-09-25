@@ -39,24 +39,29 @@ class Hooks {
    */
   public function grantAdministerPermission() {
     $indicator_permission = 'administer node published status';
-    $permission = 'administer scheduled transitions';
+    $permissions = [
+      'administer scheduled transitions',
+      'view all scheduled transitions',
+    ];
     $available_permissions = \Drupal::service('user.permissions')->getPermissions();
-    if (!isset($available_permissions[$permission])) {
-      return;
-    }
 
     $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
     /** @var \Drupal\user\Entity\Role $role */
     foreach ($roles as $role) {
-      if (!$role->hasPermission($indicator_permission) || $role->hasPermission($permission)) {
+      if (!$role->hasPermission($indicator_permission)) {
         continue;
       }
-      $role->grantPermission($permission);
-      $role->save();
-      \Drupal::messenger()->addMessage($this->t('The %permission permission has been granted to the %role role.', [
-        '%role' => $role->label(),
-        '%permission' => $permission,
-      ]));
+      foreach ($permissions as $permission) {
+        if (!isset($available_permissions[$permission]) || $role->hasPermission($permission)) {
+          continue;
+        }
+        $role->grantPermission($permission);
+        $role->save();
+        \Drupal::messenger()->addMessage($this->t('The %permission permission has been granted to the %role role.', [
+          '%role' => $role->label(),
+          '%permission' => $permission,
+        ]));
+      }
     }
   }
 
