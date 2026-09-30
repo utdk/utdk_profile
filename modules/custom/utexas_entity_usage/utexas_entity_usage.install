@@ -29,3 +29,10 @@ function utexas_entity_usage_install() {
   ]);
   $config->save();
 }
+
+/**
+ * Rebuild usage information for existing site media (#3357).
+ */
+function utexas_entity_usage_update_11000() {
+  \Drupal::service('entity_usage.batch_manager')->recreate();
+}

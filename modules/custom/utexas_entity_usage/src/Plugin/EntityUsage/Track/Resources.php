@@ -4,17 +4,10 @@ namespace Drupal\utexas_entity_usage\Plugin\EntityUsage\Track;
 
 use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\entity_usage\Attribute\EntityUsageTrack;
 
 /**
  * Tracks usage of entities referenced in a custom field type.
- *
- * @EntityUsageTrack(
- *   id = "utexas_resources",
- *   label = @Translation("UTexas Resources"),
- *   description = @Translation("Tracks relationships created with 'Resources' fields."),
- *   field_types = {"utexas_resources"},
- *   source_entity_class = "Drupal\Core\Entity\FieldableEntityInterface",
- * )
  */
 #[
   EntityUsageTrack(
